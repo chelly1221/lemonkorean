@@ -1,0 +1,7 @@
+# This file will be generated automatically when you run:
+# go mod download
+# or when building the Docker container
+
+# To generate this file locally:
+# cd services/media
+# go mod download

@@ -1,0 +1,77 @@
+# ================================================================
+# Docker Compose - Nginx API Gateway Example
+# ================================================================
+# Add this to your main docker-compose.yml
+# ================================================================
+
+version: '3.8'
+
+services:
+  # ================================================================
+  # NGINX API GATEWAY
+  # ================================================================
+  nginx:
+    build: ./nginx
+    container_name: lemon-nginx
+    ports:
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+    volumes:
+      # Configuration
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # SSL certificates
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      # Let's Encrypt webroot
+      - ./nginx/certbot:/var/www/certbot:ro
+      # Cache (named volume for persistence)
+      - nginx_cache:/var/cache/nginx
+      # Logs (named volume for persistence)
+      - nginx_logs:/var/log/nginx
+    environment:
+      - TZ=Asia/Seoul
+    depends_on:
+      - auth-service
+      - content-service
+      - progress-service
+      - media-service
+      - analytics-service
+      - admin-service
+    networks:
+      - lemon-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ================================================================
+  # CERTBOT (Optional - for Let's Encrypt)
+  # ================================================================
+  certbot:
+    image: certbot/certbot:latest
+    container_name: lemon-certbot
+    volumes:
+      - ./nginx/certbot:/var/www/certbot:rw
+      - ./nginx/ssl:/etc/letsencrypt:rw
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - lemon-network
+    restart: unless-stopped
+
+# ================================================================
+# VOLUMES
+# ================================================================
+volumes:
+  nginx_cache:
+    driver: local
+  nginx_logs:
+    driver: local
+
+# ================================================================
+# NETWORKS
+# ================================================================
+networks:
+  lemon-network:
+    driver: bridge

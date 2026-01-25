@@ -1,0 +1,24 @@
+# SSL Certificates (don't commit private keys)
+ssl/*.pem
+ssl/*.key
+ssl/*.crt
+ssl/*.csr
+
+# Cache directories
+cache/*
+!cache/.gitkeep
+
+# Log files
+logs/*.log
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# macOS
+.DS_Store
+
+# Keep empty directories
+!.gitkeep

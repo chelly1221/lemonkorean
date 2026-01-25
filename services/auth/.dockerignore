@@ -1,0 +1,86 @@
+# ==================== Dependencies ====================
+node_modules
+npm-debug.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==================== Environment Files ====================
+.env
+.env.*
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# ==================== Git ====================
+.git
+.gitignore
+.gitattributes
+
+# ==================== IDE ====================
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ==================== Testing ====================
+coverage
+.nyc_output
+test
+tests
+__tests__
+*.test.js
+*.spec.js
+
+# ==================== Documentation ====================
+README.md
+CHANGELOG.md
+LICENSE
+*.md
+docs
+
+# ==================== CI/CD ====================
+.github
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# ==================== Docker ====================
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# ==================== Build Output ====================
+dist
+build
+out
+.next
+.nuxt
+
+# ==================== Logs ====================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==================== OS ====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==================== Temporary ====================
+tmp
+temp
+*.tmp
+*.cache
+
+# ==================== Other ====================
+.prettierrc
+.eslintrc*
+.editorconfig
+tsconfig.json

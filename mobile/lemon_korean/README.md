@@ -1,0 +1,409 @@
+# Lemon Korean Mobile App (柠檬韩语)
+
+중국어 화자를 위한 한국어 학습 앱 - Flutter 모바일 애플리케이션
+
+## 프로젝트 개요
+
+**핵심 특징:**
+- 📱 오프라인 우선 (Offline-First) 아키텍처
+- 🔄 자동 동기화 시스템
+- 📦 레슨 다운로드 및 오프라인 학습
+- 🎯 7단계 몰입형 학습 경험
+- 🧠 SRS (Spaced Repetition System) 복습
+- 🎨 Material Design 3
+
+---
+
+## 기술 스택
+
+### 프레임워크
+- **Flutter**: 3.0+
+- **Dart**: 3.0+
+
+### 주요 패키지
+- `dio`: HTTP 클라이언트
+- `hive_flutter`: 로컬 NoSQL 데이터베이스
+- `sqflite`: SQLite 데이터베이스 (미디어 메타데이터)
+- `flutter_secure_storage`: 보안 저장소 (토큰)
+- `provider`: 상태 관리
+- `connectivity_plus`: 네트워크 상태 감지
+- `audioplayers`: 오디오 재생
+- `cached_network_image`: 이미지 캐싱
+
+---
+
+## 프로젝트 구조
+
+```
+lib/
+├── core/
+│   ├── constants/
+│   │   └── app_constants.dart      # 앱 전역 상수
+│   ├── storage/
+│   │   ├── local_storage.dart      # Hive 로컬 저장소
+│   │   └── database_helper.dart    # SQLite 헬퍼
+│   ├── network/
+│   │   └── api_client.dart         # Dio API 클라이언트
+│   └── utils/
+│       ├── download_manager.dart   # 다운로드 관리
+│       └── sync_manager.dart       # 동기화 관리
+├── data/
+│   ├── models/                     # 데이터 모델
+│   └── repositories/               # 레포지토리 패턴
+├── presentation/
+│   ├── screens/
+│   │   ├── auth/                   # 인증 화면
+│   │   ├── home/                   # 홈 화면
+│   │   ├── lesson/                 # 레슨 화면
+│   │   ├── download/               # 다운로드 관리
+│   │   └── profile/                # 프로필
+│   ├── providers/                  # 상태 관리 Providers
+│   └── widgets/                    # 재사용 위젯
+└── main.dart                       # 앱 진입점
+```
+
+---
+
+## 시작하기
+
+### 1. 환경 설정
+
+```bash
+# Flutter SDK 설치 확인
+flutter --version
+
+# 의존성 설치
+cd mobile/lemon_korean
+flutter pub get
+```
+
+### 2. API 엔드포인트 설정
+
+`lib/core/constants/app_constants.dart` 파일에서 API URL 설정:
+
+```dart
+static const String baseUrl = 'http://your-api-url';
+```
+
+### 3. 앱 실행
+
+```bash
+# 연결된 기기 확인
+flutter devices
+
+# Android 실행
+flutter run
+
+# iOS 실행 (macOS only)
+flutter run -d ios
+
+# 웹 실행
+flutter run -d chrome
+```
+
+---
+
+## 핵심 기능
+
+### 1. 오프라인 우선 아키텍처
+
+```dart
+// 데이터 조회 패턴
+Future<Lesson> getLesson(int id) async {
+  // 1. 로컬에서 먼저 찾기
+  final localLesson = LocalStorage.getLesson(id);
+  if (localLesson != null) return localLesson;
+
+  // 2. 네트워크에서 가져오기
+  final networkLesson = await apiClient.getLesson(id);
+
+  // 3. 로컬에 저장
+  await LocalStorage.saveLesson(networkLesson);
+
+  return networkLesson;
+}
+```
+
+### 2. 자동 동기화
+
+```dart
+// 사용자 동작 → 로컬 저장 → 동기화 큐
+await LocalStorage.saveProgress(progress);
+await LocalStorage.addToSyncQueue({
+  'type': 'lesson_complete',
+  'data': progress,
+});
+
+// 네트워크 복구 시 자동 동기화
+SyncProvider.sync();
+```
+
+### 3. 레슨 다운로드
+
+```dart
+// 레슨 패키지 다운로드
+final package = await apiClient.downloadLessonPackage(lessonId);
+
+// 미디어 파일 다운로드
+for (final media in package['media_urls']) {
+  await DownloadManager.downloadMedia(media);
+}
+```
+
+---
+
+## 상태 관리 (Provider)
+
+### AuthProvider
+- 로그인/로그아웃
+- JWT 토큰 관리
+- 사용자 정보
+
+### LessonProvider
+- 레슨 목록 조회
+- 레슨 상세 정보
+- 레슨 다운로드
+
+### ProgressProvider
+- 학습 진도 관리
+- 레슨 완료 처리
+- 복습 스케줄
+
+### SyncProvider
+- 오프라인 데이터 동기화
+- 네트워크 상태 감지
+- 동기화 큐 관리
+
+---
+
+## 로컬 저장소
+
+### Hive (NoSQL)
+```dart
+// 레슨 데이터
+LocalStorage.saveLesson(lesson);
+LocalStorage.getLesson(lessonId);
+
+// 진도 데이터
+LocalStorage.saveProgress(progress);
+LocalStorage.getProgress(lessonId);
+
+// 동기화 큐
+LocalStorage.addToSyncQueue(syncItem);
+LocalStorage.getSyncQueue();
+```
+
+### SQLite (미디어 메타데이터)
+```dart
+// 미디어 파일 매핑
+DatabaseHelper.insertMediaFile({
+  'remote_key': 'images/lesson1.jpg',
+  'local_path': '/storage/lesson1.jpg',
+  'file_size': 1024000,
+});
+
+// 로컬 경로 조회
+final localPath = await DatabaseHelper.getLocalPath('images/lesson1.jpg');
+```
+
+---
+
+## API 통신
+
+### Dio 인터셉터
+
+```dart
+// 1. Auth Interceptor - JWT 자동 추가
+dio.interceptors.add(AuthInterceptor());
+
+// 2. Logging Interceptor - 디버그 로깅
+dio.interceptors.add(LoggingInterceptor());
+
+// 3. Error Interceptor - 에러 처리
+dio.interceptors.add(ErrorInterceptor());
+```
+
+### API 예제
+
+```dart
+// 로그인
+final response = await apiClient.login(
+  email: 'user@example.com',
+  password: 'password123',
+);
+
+// 레슨 목록
+final lessons = await apiClient.getLessons(level: 1);
+
+// 진도 동기화
+await apiClient.syncProgress(progressData);
+```
+
+---
+
+## 빌드 및 배포
+
+### Android 빌드
+
+```bash
+# Debug APK
+flutter build apk --debug
+
+# Release APK
+flutter build apk --release
+
+# App Bundle (Play Store)
+flutter build appbundle --release
+```
+
+### iOS 빌드
+
+```bash
+# Release IPA
+flutter build ios --release
+
+# Archive
+flutter build ipa
+```
+
+---
+
+## 환경 변수
+
+개발/프로덕션 환경별 설정:
+
+```dart
+// lib/core/constants/app_constants.dart
+
+// Development
+static const String baseUrl = 'http://localhost';
+
+// Production
+static const String baseUrl = 'https://api.lemonkorean.com';
+```
+
+---
+
+## 디버깅
+
+### 로그 출력
+
+```bash
+# 실시간 로그
+flutter logs
+
+# 특정 레벨
+flutter logs --verbose
+```
+
+### DevTools
+
+```bash
+# DevTools 실행
+flutter pub global activate devtools
+flutter pub global run devtools
+```
+
+---
+
+## 테스트
+
+### Unit Tests
+
+```bash
+flutter test
+```
+
+### Widget Tests
+
+```dart
+testWidgets('Login button test', (WidgetTester tester) async {
+  await tester.pumpWidget(LoginScreen());
+  expect(find.text('登录'), findsOneWidget);
+});
+```
+
+---
+
+## 성능 최적화
+
+### 1. 이미지 캐싱
+```dart
+CachedNetworkImage(
+  imageUrl: imageUrl,
+  cacheManager: CacheManager(
+    Config('customCacheKey', maxNrOfCacheObjects: 100),
+  ),
+)
+```
+
+### 2. Lazy Loading
+```dart
+ListView.builder(
+  itemCount: lessons.length,
+  itemBuilder: (context, index) => LessonCard(lessons[index]),
+)
+```
+
+### 3. 메모리 관리
+```dart
+@override
+void dispose() {
+  controller.dispose();
+  subscription.cancel();
+  super.dispose();
+}
+```
+
+---
+
+## 문제 해결
+
+### Q: Pod install 실패 (iOS)
+```bash
+cd ios
+pod deintegrate
+pod install
+cd ..
+flutter clean
+flutter pub get
+```
+
+### Q: Gradle 빌드 실패 (Android)
+```bash
+cd android
+./gradlew clean
+cd ..
+flutter clean
+flutter pub get
+```
+
+### Q: 네트워크 권한 에러 (Android)
+`android/app/src/main/AndroidManifest.xml`에 추가:
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+
+---
+
+## 라이센스
+
+MIT License
+
+---
+
+## 기여
+
+Pull Request 환영합니다!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 연락처
+
+프로젝트 링크: [https://github.com/your-repo/lemon-korean](https://github.com/your-repo/lemon-korean)

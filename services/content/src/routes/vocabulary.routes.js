@@ -1,0 +1,50 @@
+const express = require('express');
+const router = express.Router();
+const vocabularyController = require('../controllers/vocabulary.controller');
+
+/**
+ * @route   GET /api/content/vocabulary
+ * @desc    Get all vocabulary
+ * @access  Public
+ * @query   level, part_of_speech, limit, offset, search
+ */
+router.get('/', vocabularyController.getVocabulary);
+
+/**
+ * @route   GET /api/content/vocabulary/search
+ * @desc    Search vocabulary
+ * @access  Public
+ * @query   q (search query), limit
+ */
+router.get('/search', vocabularyController.searchVocabulary);
+
+/**
+ * @route   GET /api/content/vocabulary/stats
+ * @desc    Get vocabulary statistics
+ * @access  Public
+ */
+router.get('/stats', vocabularyController.getVocabularyStats);
+
+/**
+ * @route   GET /api/content/vocabulary/high-similarity
+ * @desc    Get vocabulary with high Hanja similarity
+ * @access  Public
+ * @query   min_similarity, limit
+ */
+router.get('/high-similarity', vocabularyController.getHighSimilarityVocabulary);
+
+/**
+ * @route   GET /api/content/vocabulary/level/:level
+ * @desc    Get vocabulary by TOPIK level
+ * @access  Public
+ */
+router.get('/level/:level', vocabularyController.getVocabularyByLevel);
+
+/**
+ * @route   GET /api/content/vocabulary/:id
+ * @desc    Get vocabulary by ID
+ * @access  Public
+ */
+router.get('/:id', vocabularyController.getVocabularyById);
+
+module.exports = router;
