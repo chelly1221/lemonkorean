@@ -1,4 +1,4 @@
-# Nginx Configuration Details
+# Nginx 설정 상세
 
 ## 설정 파라미터 상세
 

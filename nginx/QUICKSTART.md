@@ -1,4 +1,4 @@
-# Nginx API Gateway - Quick Start
+# Nginx API Gateway - 빠른 시작 가이드
 
 ## 빠른 시작 (5분)
 

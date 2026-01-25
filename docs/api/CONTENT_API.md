@@ -1,4 +1,4 @@
-# Content Service API Documentation
+# Content Service API 문서
 
 **Base URL**: `http://localhost:3002/api/content`
 
@@ -6,26 +6,26 @@
 
 ---
 
-## Table of Contents
+## 목차
 
-- [Authentication](#authentication)
-- [Endpoints](#endpoints)
-  - [Get Lessons](#get-lessons)
-  - [Get Lesson Detail](#get-lesson-detail)
-  - [Download Lesson Package](#download-lesson-package)
-  - [Check Updates](#check-updates)
-  - [Get Vocabulary](#get-vocabulary)
-  - [Get Grammar Points](#get-grammar-points)
-  - [Search Content](#search-content)
-  - [Health Check](#health-check)
-- [Error Codes](#error-codes)
-- [Data Models](#data-models)
+- [인증](#인증)
+- [엔드포인트](#엔드포인트)
+  - [레슨 목록 조회](#레슨-목록-조회)
+  - [레슨 상세 조회](#레슨-상세-조회)
+  - [레슨 패키지 다운로드](#레슨-패키지-다운로드)
+  - [업데이트 확인](#업데이트-확인)
+  - [단어 조회](#단어-조회)
+  - [문법 포인트 조회](#문법-포인트-조회)
+  - [콘텐츠 검색](#콘텐츠-검색)
+  - [헬스 체크](#헬스-체크)
+- [오류 코드](#오류-코드)
+- [데이터 모델](#데이터-모델)
 
 ---
 
-## Authentication
+## 인증
 
-All endpoints except `/health` require JWT authentication:
+`/health`를 제외한 모든 엔드포인트는 JWT 인증이 필요합니다:
 
 ```
 Authorization: Bearer <jwt_token>
@@ -33,29 +33,29 @@ Authorization: Bearer <jwt_token>
 
 ---
 
-## Endpoints
+## 엔드포인트
 
-### Get Lessons
+### 레슨 목록 조회
 
-Retrieve paginated list of lessons with filtering.
+필터링과 함께 페이지네이션된 레슨 목록을 조회합니다.
 
-**Endpoint**: `GET /api/content/lessons`
+**엔드포인트**: `GET /api/content/lessons`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `page` | integer | No | 1 | Page number |
-| `limit` | integer | No | 20 | Items per page (max: 100) |
-| `level` | string | No | - | Filter by level (beginner, intermediate, advanced) |
-| `status` | string | No | published | Filter by status (published, draft) |
-| `search` | string | No | - | Search in title (Korean/Chinese) |
+| `page` | integer | 아니오 | 1 | 페이지 번호 |
+| `limit` | integer | 아니오 | 20 | 페이지당 항목 수 (최대: 100) |
+| `level` | string | 아니오 | - | 레벨별 필터 (beginner, intermediate, advanced) |
+| `status` | string | 아니오 | published | 상태별 필터 (published, draft) |
+| `search` | string | 아니오 | - | 제목 검색 (한국어/중국어) |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -89,16 +89,16 @@ Retrieve paginated list of lessons with filtering.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3002/api/content/lessons?page=1&limit=10&level=beginner" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `400 Bad Request`
+**상태**: `400 Bad Request`
 
 ```json
 {
@@ -118,23 +118,23 @@ curl -X GET "http://localhost:3002/api/content/lessons?page=1&limit=10&level=beg
 
 ---
 
-### Get Lesson Detail
+### 레슨 상세 조회
 
-Get detailed lesson content including all stages.
+모든 스테이지를 포함한 상세한 레슨 콘텐츠를 조회합니다.
 
-**Endpoint**: `GET /api/content/lessons/:id`
+**엔드포인트**: `GET /api/content/lessons/:id`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `id` | integer | Yes | Lesson ID |
+| `id` | integer | 예 | 레슨 ID |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -279,16 +279,16 @@ Get detailed lesson content including all stages.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3002/api/content/lessons/1 \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `404 Not Found`
+**상태**: `404 Not Found`
 
 ```json
 {
@@ -302,29 +302,29 @@ curl -X GET http://localhost:3002/api/content/lessons/1 \
 
 ---
 
-### Download Lesson Package
+### 레슨 패키지 다운로드
 
-Download complete lesson package for offline use.
+오프라인 사용을 위한 완전한 레슨 패키지를 다운로드합니다.
 
-**Endpoint**: `GET /api/content/lessons/:id/download`
+**엔드포인트**: `GET /api/content/lessons/:id/download`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `id` | integer | Yes | Lesson ID |
+| `id` | integer | 예 | 레슨 ID |
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `include_media` | boolean | No | true | Include media files in package |
+| `include_media` | boolean | 아니오 | true | 패키지에 미디어 파일 포함 |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 **Content-Type**: `application/json`
 
@@ -360,16 +360,16 @@ Download complete lesson package for offline use.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3002/api/content/lessons/1/download?include_media=true" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `403 Forbidden`
+**상태**: `403 Forbidden`
 
 ```json
 {
@@ -384,15 +384,15 @@ curl -X GET "http://localhost:3002/api/content/lessons/1/download?include_media=
 
 ---
 
-### Check Updates
+### 업데이트 확인
 
-Check for lesson content updates.
+레슨 콘텐츠 업데이트를 확인합니다.
 
-**Endpoint**: `POST /api/content/check-updates`
+**엔드포인트**: `POST /api/content/check-updates`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -409,9 +409,9 @@ Check for lesson content updates.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -435,7 +435,7 @@ Check for lesson content updates.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3002/api/content/check-updates \
@@ -451,27 +451,27 @@ curl -X POST http://localhost:3002/api/content/check-updates \
 
 ---
 
-### Get Vocabulary
+### 단어 조회
 
-Get vocabulary list with filtering.
+필터링과 함께 단어 목록을 조회합니다.
 
-**Endpoint**: `GET /api/content/vocabulary`
+**엔드포인트**: `GET /api/content/vocabulary`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `page` | integer | No | 1 | Page number |
-| `limit` | integer | No | 50 | Items per page (max: 200) |
-| `lesson_id` | integer | No | - | Filter by lesson |
-| `level` | string | No | - | Filter by level |
-| `search` | string | No | - | Search in Korean/Chinese |
+| `page` | integer | 아니오 | 1 | 페이지 번호 |
+| `limit` | integer | 아니오 | 50 | 페이지당 항목 수 (최대: 200) |
+| `lesson_id` | integer | 아니오 | - | 레슨별 필터 |
+| `level` | string | 아니오 | - | 레벨별 필터 |
+| `search` | string | 아니오 | - | 한국어/중국어 검색 |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -503,7 +503,7 @@ Get vocabulary list with filtering.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3002/api/content/vocabulary?lesson_id=1&limit=10" \
@@ -512,26 +512,26 @@ curl -X GET "http://localhost:3002/api/content/vocabulary?lesson_id=1&limit=10" 
 
 ---
 
-### Get Grammar Points
+### 문법 포인트 조회
 
-Get grammar points list with filtering.
+필터링과 함께 문법 포인트 목록을 조회합니다.
 
-**Endpoint**: `GET /api/content/grammar`
+**엔드포인트**: `GET /api/content/grammar`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `page` | integer | No | 1 | Page number |
-| `limit` | integer | No | 20 | Items per page |
-| `lesson_id` | integer | No | - | Filter by lesson |
-| `level` | string | No | - | Filter by level |
+| `page` | integer | 아니오 | 1 | 페이지 번호 |
+| `limit` | integer | 아니오 | 20 | 페이지당 항목 수 |
+| `lesson_id` | integer | 아니오 | - | 레슨별 필터 |
+| `level` | string | 아니오 | - | 레벨별 필터 |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -564,7 +564,7 @@ Get grammar points list with filtering.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3002/api/content/grammar?level=beginner" \
@@ -573,25 +573,25 @@ curl -X GET "http://localhost:3002/api/content/grammar?level=beginner" \
 
 ---
 
-### Search Content
+### 콘텐츠 검색
 
-Search across lessons, vocabulary, and grammar.
+레슨, 단어 및 문법을 통합 검색합니다.
 
-**Endpoint**: `GET /api/content/search`
+**엔드포인트**: `GET /api/content/search`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `q` | string | Yes | - | Search query |
-| `type` | string | No | all | Search type (all, lessons, vocabulary, grammar) |
-| `limit` | integer | No | 20 | Items per page |
+| `q` | string | 예 | - | 검색 쿼리 |
+| `type` | string | 아니오 | all | 검색 타입 (all, lessons, vocabulary, grammar) |
+| `limit` | integer | 아니오 | 20 | 페이지당 항목 수 |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -619,7 +619,7 @@ Search across lessons, vocabulary, and grammar.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3002/api/content/search?q=안녕&type=all" \
@@ -628,17 +628,17 @@ curl -X GET "http://localhost:3002/api/content/search?q=안녕&type=all" \
 
 ---
 
-### Health Check
+### 헬스 체크
 
-Check if Content Service is healthy.
+Content Service가 정상인지 확인합니다.
 
-**Endpoint**: `GET /api/content/health`
+**엔드포인트**: `GET /api/content/health`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -664,7 +664,7 @@ Check if Content Service is healthy.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3002/api/content/health
@@ -672,23 +672,23 @@ curl -X GET http://localhost:3002/api/content/health
 
 ---
 
-## Error Codes
+## 오류 코드
 
-| Code | HTTP Status | Description |
+| 코드 | HTTP 상태 | 설명 |
 |------|-------------|-------------|
-| `INVALID_QUERY_PARAMS` | 400 | Invalid query parameters |
-| `LESSON_NOT_FOUND` | 404 | Lesson not found |
-| `VOCABULARY_NOT_FOUND` | 404 | Vocabulary not found |
-| `GRAMMAR_NOT_FOUND` | 404 | Grammar point not found |
-| `SUBSCRIPTION_REQUIRED` | 403 | Premium subscription required |
-| `INVALID_VERSION` | 400 | Invalid version format |
-| `UNAUTHORIZED` | 401 | Authentication required |
-| `INTERNAL_SERVER_ERROR` | 500 | Server error occurred |
-| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable |
+| `INVALID_QUERY_PARAMS` | 400 | 잘못된 쿼리 파라미터 |
+| `LESSON_NOT_FOUND` | 404 | 레슨을 찾을 수 없음 |
+| `VOCABULARY_NOT_FOUND` | 404 | 단어를 찾을 수 없음 |
+| `GRAMMAR_NOT_FOUND` | 404 | 문법 포인트를 찾을 수 없음 |
+| `SUBSCRIPTION_REQUIRED` | 403 | 프리미엄 구독 필요 |
+| `INVALID_VERSION` | 400 | 잘못된 버전 형식 |
+| `UNAUTHORIZED` | 401 | 인증 필요 |
+| `INTERNAL_SERVER_ERROR` | 500 | 서버 오류 발생 |
+| `SERVICE_UNAVAILABLE` | 503 | 서비스가 일시적으로 사용 불가 |
 
 ---
 
-## Data Models
+## 데이터 모델
 
 ### Lesson (Summary)
 
@@ -766,7 +766,7 @@ curl -X GET http://localhost:3002/api/content/health
 
 ---
 
-## OpenAPI 3.0 Specification
+## OpenAPI 3.0 스펙
 
 ```yaml
 openapi: 3.0.3

@@ -1,8 +1,8 @@
-# Data Layer
+# 데이터 레이어
 
-The data layer implements the offline-first architecture for Lemon Korean, providing models and repositories for managing lessons, vocabulary, user progress, and synchronization.
+데이터 레이어는 Lemon Korean의 오프라인 우선 아키텍처를 구현하며, 레슨, 단어, 사용자 진도, 동기화를 관리하는 모델과 레포지토리를 제공합니다.
 
-## Architecture
+## 아키텍처
 
 ```
 Presentation Layer (Screens/Widgets)
@@ -16,21 +16,21 @@ Presentation Layer (Screens/Widgets)
 Local Storage (Hive + SQLite)
 ```
 
-## Directory Structure
+## 디렉토리 구조
 
 ```
 lib/data/
-├── models/                          # Data models with Hive adapters
-│   ├── user_model.dart             # User authentication & profile
-│   ├── lesson_model.dart           # Lesson content & metadata
-│   ├── vocabulary_model.dart       # Korean-Chinese vocabulary
-│   └── progress_model.dart         # Progress & SRS reviews
+├── models/                          # Hive 어댑터를 가진 데이터 모델
+│   ├── user_model.dart             # 사용자 인증 및 프로필
+│   ├── lesson_model.dart           # 레슨 콘텐츠 및 메타데이터
+│   ├── vocabulary_model.dart       # 한중 단어
+│   └── progress_model.dart         # 진도 및 SRS 복습
 │
-└── repositories/                    # Data access layer
-    ├── auth_repository.dart        # Authentication
-    ├── content_repository.dart     # Lessons & vocabulary
-    ├── progress_repository.dart    # Progress tracking & SRS
-    └── offline_repository.dart     # Offline data management
+└── repositories/                    # 데이터 접근 레이어
+    ├── auth_repository.dart        # 인증
+    ├── content_repository.dart     # 레슨 및 단어
+    ├── progress_repository.dart    # 진도 추적 및 SRS
+    └── offline_repository.dart     # 오프라인 데이터 관리
 ```
 
 ---

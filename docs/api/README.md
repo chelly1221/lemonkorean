@@ -1,27 +1,27 @@
-# Lemon Korean API Documentation
+# Lemon Korean API 문서
 
 **柠檬韩语 API 文档 | 레몬 코리안 API 문서**
 
-Welcome to the Lemon Korean API documentation. This directory contains comprehensive API documentation for all microservices in the Lemon Korean platform.
+Lemon Korean API 문서에 오신 것을 환영합니다. 이 디렉토리는 Lemon Korean 플랫폼의 모든 마이크로서비스에 대한 포괄적인 API 문서를 포함하고 있습니다.
 
 ---
 
-## 📚 API Services
+## 📚 API 서비스
 
-| Service | Port | Documentation | Description |
+| 서비스 | 포트 | 문서 | 설명 |
 |---------|------|---------------|-------------|
-| **Auth Service** | 3001 | [AUTH_API.md](./AUTH_API.md) | User authentication and management |
-| **Content Service** | 3002 | [CONTENT_API.md](./CONTENT_API.md) | Lessons, vocabulary, and grammar content |
-| **Progress Service** | 3003 | [PROGRESS_API.md](./PROGRESS_API.md) | Learning progress and SRS reviews |
-| **Media Service** | 3004 | [MEDIA_API.md](./MEDIA_API.md) | Image and audio file serving |
+| **Auth Service** | 3001 | [AUTH_API.md](./AUTH_API.md) | 사용자 인증 및 관리 |
+| **Content Service** | 3002 | [CONTENT_API.md](./CONTENT_API.md) | 레슨, 단어, 문법 콘텐츠 |
+| **Progress Service** | 3003 | [PROGRESS_API.md](./PROGRESS_API.md) | 학습 진도 및 SRS 복습 |
+| **Media Service** | 3004 | [MEDIA_API.md](./MEDIA_API.md) | 이미지 및 오디오 파일 서빙 |
 
 ---
 
-## 🚀 Quick Start
+## 🚀 빠른 시작
 
-### Base URLs
+### Base URL
 
-**Development**:
+**개발 환경**:
 ```
 Auth Service:     http://localhost:3001/api/auth
 Content Service:  http://localhost:3002/api/content
@@ -29,7 +29,7 @@ Progress Service: http://localhost:3003/api/progress
 Media Service:    http://localhost:3004
 ```
 
-**Production**:
+**프로덕션 환경**:
 ```
 Auth Service:     https://api.lemonkorean.com/auth
 Content Service:  https://api.lemonkorean.com/content
@@ -37,17 +37,17 @@ Progress Service: https://api.lemonkorean.com/progress
 Media Service:    https://media.lemonkorean.com
 ```
 
-### Authentication
+### 인증
 
-Most endpoints require JWT authentication. Include the token in the `Authorization` header:
+대부분의 엔드포인트는 JWT 인증이 필요합니다. `Authorization` 헤더에 토큰을 포함하세요:
 
 ```bash
 Authorization: Bearer <your_jwt_token>
 ```
 
-### Getting Started
+### 시작하기
 
-1. **Register a new user**:
+1. **새 사용자 등록**:
 ```bash
 curl -X POST http://localhost:3001/api/auth/register \
   -H "Content-Type: application/json" \
@@ -59,7 +59,7 @@ curl -X POST http://localhost:3001/api/auth/register \
   }'
 ```
 
-2. **Login to get token**:
+2. **로그인하여 토큰 받기**:
 ```bash
 curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
@@ -69,7 +69,7 @@ curl -X POST http://localhost:3001/api/auth/login \
   }'
 ```
 
-3. **Use token for authenticated requests**:
+3. **인증된 요청에 토큰 사용**:
 ```bash
 curl -X GET http://localhost:3002/api/content/lessons \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -77,78 +77,78 @@ curl -X GET http://localhost:3002/api/content/lessons \
 
 ---
 
-## 📖 API Overview
+## 📖 API 개요
 
 ### Auth Service
 
-**Purpose**: User authentication, registration, and profile management
+**목적**: 사용자 인증, 등록 및 프로필 관리
 
-**Key Endpoints**:
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Authenticate user
-- `POST /api/auth/refresh` - Refresh access token
-- `GET /api/auth/profile` - Get user profile
-- `PUT /api/auth/profile` - Update profile
-- `POST /api/auth/change-password` - Change password
+**주요 엔드포인트**:
+- `POST /api/auth/register` - 새 사용자 등록
+- `POST /api/auth/login` - 사용자 인증
+- `POST /api/auth/refresh` - 액세스 토큰 갱신
+- `GET /api/auth/profile` - 사용자 프로필 조회
+- `PUT /api/auth/profile` - 프로필 업데이트
+- `POST /api/auth/change-password` - 비밀번호 변경
 
-**Documentation**: [AUTH_API.md](./AUTH_API.md)
+**문서**: [AUTH_API.md](./AUTH_API.md)
 
 ---
 
 ### Content Service
 
-**Purpose**: Lesson content, vocabulary, and grammar management
+**목적**: 레슨 콘텐츠, 단어 및 문법 관리
 
-**Key Endpoints**:
-- `GET /api/content/lessons` - Get lessons list
-- `GET /api/content/lessons/:id` - Get lesson detail
-- `GET /api/content/lessons/:id/download` - Download lesson package
-- `POST /api/content/check-updates` - Check for updates
-- `GET /api/content/vocabulary` - Get vocabulary list
-- `GET /api/content/grammar` - Get grammar points
-- `GET /api/content/search` - Search content
+**주요 엔드포인트**:
+- `GET /api/content/lessons` - 레슨 목록 조회
+- `GET /api/content/lessons/:id` - 레슨 상세 조회
+- `GET /api/content/lessons/:id/download` - 레슨 패키지 다운로드
+- `POST /api/content/check-updates` - 업데이트 확인
+- `GET /api/content/vocabulary` - 단어 목록 조회
+- `GET /api/content/grammar` - 문법 포인트 조회
+- `GET /api/content/search` - 콘텐츠 검색
 
-**Documentation**: [CONTENT_API.md](./CONTENT_API.md)
+**문서**: [CONTENT_API.md](./CONTENT_API.md)
 
 ---
 
 ### Progress Service
 
-**Purpose**: Learning progress tracking and spaced repetition system (SRS)
+**목적**: 학습 진도 추적 및 간격 반복 시스템 (SRS)
 
-**Key Endpoints**:
-- `GET /api/progress/user/:userId` - Get user progress
-- `POST /api/progress/complete` - Complete lesson
-- `PUT /api/progress/lesson/:lessonId` - Update lesson progress
-- `POST /api/progress/sync` - Sync offline progress
-- `GET /api/progress/review-schedule` - Get SRS review schedule
-- `POST /api/progress/review` - Submit review result
-- `GET /api/progress/statistics` - Get learning statistics
-- `GET /api/progress/streak` - Get learning streak
+**주요 엔드포인트**:
+- `GET /api/progress/user/:userId` - 사용자 진도 조회
+- `POST /api/progress/complete` - 레슨 완료
+- `PUT /api/progress/lesson/:lessonId` - 레슨 진도 업데이트
+- `POST /api/progress/sync` - 오프라인 진도 동기화
+- `GET /api/progress/review-schedule` - SRS 복습 일정 조회
+- `POST /api/progress/review` - 복습 결과 제출
+- `GET /api/progress/statistics` - 학습 통계 조회
+- `GET /api/progress/streak` - 학습 연속 기록 조회
 
-**Documentation**: [PROGRESS_API.md](./PROGRESS_API.md)
+**문서**: [PROGRESS_API.md](./PROGRESS_API.md)
 
 ---
 
 ### Media Service
 
-**Purpose**: Image and audio file serving with on-the-fly processing
+**목적**: 실시간 처리를 통한 이미지 및 오디오 파일 서빙
 
-**Key Endpoints**:
-- `GET /media/images/:key` - Get image (with resize/format options)
-- `GET /media/audio/:key` - Get audio (with transcode options)
-- `POST /media/upload` - Upload media file (admin)
-- `DELETE /media/:type/:key` - Delete media file (admin)
-- `GET /media/info/:type/:key` - Get media metadata
-- `POST /media/batch-download` - Batch download URLs
+**주요 엔드포인트**:
+- `GET /media/images/:key` - 이미지 조회 (리사이즈/포맷 옵션 포함)
+- `GET /media/audio/:key` - 오디오 조회 (트랜스코드 옵션 포함)
+- `POST /media/upload` - 미디어 파일 업로드 (관리자)
+- `DELETE /media/:type/:key` - 미디어 파일 삭제 (관리자)
+- `GET /media/info/:type/:key` - 미디어 메타데이터 조회
+- `POST /media/batch-download` - 배치 다운로드 URL
 
-**Documentation**: [MEDIA_API.md](./MEDIA_API.md)
+**문서**: [MEDIA_API.md](./MEDIA_API.md)
 
 ---
 
-## 🔒 Authentication & Authorization
+## 🔒 인증 및 권한
 
-### JWT Token Structure
+### JWT 토큰 구조
 
 ```json
 {
@@ -160,25 +160,25 @@ curl -X GET http://localhost:3002/api/content/lessons \
 }
 ```
 
-### Token Lifecycle
+### 토큰 수명 주기
 
-1. **Access Token**: Valid for 7 days
-2. **Refresh Token**: Valid for 30 days
-3. **Token Refresh**: Use `/api/auth/refresh` endpoint before access token expires
+1. **액세스 토큰**: 7일 유효
+2. **리프레시 토큰**: 30일 유효
+3. **토큰 갱신**: 액세스 토큰 만료 전에 `/api/auth/refresh` 엔드포인트 사용
 
-### Authorization Levels
+### 권한 레벨
 
-| Level | Description | Required For |
+| 레벨 | 설명 | 필요한 경우 |
 |-------|-------------|--------------|
-| **Public** | No authentication | Health checks, media retrieval |
-| **User** | JWT required | Content access, progress tracking |
-| **Admin** | JWT with admin role | Media upload/delete, content management |
+| **Public** | 인증 불필요 | 헬스 체크, 미디어 조회 |
+| **User** | JWT 필요 | 콘텐츠 접근, 진도 추적 |
+| **Admin** | 관리자 역할의 JWT | 미디어 업로드/삭제, 콘텐츠 관리 |
 
 ---
 
-## 📊 Response Format
+## 📊 응답 형식
 
-### Success Response
+### 성공 응답
 
 ```json
 {
@@ -189,7 +189,7 @@ curl -X GET http://localhost:3002/api/content/lessons \
 }
 ```
 
-### Error Response
+### 오류 응답
 
 ```json
 {
@@ -202,7 +202,7 @@ curl -X GET http://localhost:3002/api/content/lessons \
 }
 ```
 
-### Pagination
+### 페이지네이션
 
 ```json
 {
@@ -221,69 +221,69 @@ curl -X GET http://localhost:3002/api/content/lessons \
 
 ---
 
-## ⚠️ Common Error Codes
+## ⚠️ 공통 오류 코드
 
-### HTTP Status Codes
+### HTTP 상태 코드
 
-| Code | Name | Description |
+| 코드 | 이름 | 설명 |
 |------|------|-------------|
-| `200` | OK | Request succeeded |
-| `201` | Created | Resource created successfully |
-| `204` | No Content | Request succeeded, no content to return |
-| `206` | Partial Content | Partial data (range requests) |
-| `400` | Bad Request | Invalid request data |
-| `401` | Unauthorized | Authentication required or failed |
-| `403` | Forbidden | Insufficient permissions |
-| `404` | Not Found | Resource not found |
-| `409` | Conflict | Resource conflict (e.g., duplicate) |
-| `413` | Payload Too Large | Request body too large |
-| `416` | Range Not Satisfiable | Invalid byte range |
-| `422` | Unprocessable Entity | Validation error |
-| `423` | Locked | Resource locked (e.g., account) |
-| `429` | Too Many Requests | Rate limit exceeded |
-| `500` | Internal Server Error | Server error |
-| `503` | Service Unavailable | Service temporarily unavailable |
+| `200` | OK | 요청 성공 |
+| `201` | Created | 리소스 생성 성공 |
+| `204` | No Content | 요청 성공, 반환할 콘텐츠 없음 |
+| `206` | Partial Content | 부분 데이터 (범위 요청) |
+| `400` | Bad Request | 잘못된 요청 데이터 |
+| `401` | Unauthorized | 인증 필요 또는 실패 |
+| `403` | Forbidden | 권한 부족 |
+| `404` | Not Found | 리소스를 찾을 수 없음 |
+| `409` | Conflict | 리소스 충돌 (예: 중복) |
+| `413` | Payload Too Large | 요청 본문이 너무 큼 |
+| `416` | Range Not Satisfiable | 잘못된 바이트 범위 |
+| `422` | Unprocessable Entity | 유효성 검증 오류 |
+| `423` | Locked | 리소스 잠김 (예: 계정) |
+| `429` | Too Many Requests | 속도 제한 초과 |
+| `500` | Internal Server Error | 서버 오류 |
+| `503` | Service Unavailable | 서비스 일시적으로 사용 불가 |
 
-### Application Error Codes
+### 애플리케이션 오류 코드
 
-| Code | Service | Description |
+| 코드 | 서비스 | 설명 |
 |------|---------|-------------|
-| `VALIDATION_ERROR` | All | Invalid input data |
-| `UNAUTHORIZED` | All | Authentication required |
-| `FORBIDDEN` | All | Insufficient permissions |
-| `INTERNAL_SERVER_ERROR` | All | Server error |
-| `SERVICE_UNAVAILABLE` | All | Service down |
-| `INVALID_CREDENTIALS` | Auth | Wrong email/password |
-| `EMAIL_ALREADY_EXISTS` | Auth | Email already registered |
-| `ACCOUNT_LOCKED` | Auth | Account temporarily locked |
-| `LESSON_NOT_FOUND` | Content | Lesson not found |
-| `SUBSCRIPTION_REQUIRED` | Content | Premium subscription required |
-| `PROGRESS_NOT_FOUND` | Progress | Progress record not found |
-| `SYNC_CONFLICT` | Progress | Data conflict during sync |
-| `IMAGE_NOT_FOUND` | Media | Image file not found |
-| `AUDIO_NOT_FOUND` | Media | Audio file not found |
-| `FILE_TOO_LARGE` | Media | File exceeds size limit |
-| `RATE_LIMIT_EXCEEDED` | Media | Rate limit exceeded |
+| `VALIDATION_ERROR` | All | 잘못된 입력 데이터 |
+| `UNAUTHORIZED` | All | 인증 필요 |
+| `FORBIDDEN` | All | 권한 부족 |
+| `INTERNAL_SERVER_ERROR` | All | 서버 오류 |
+| `SERVICE_UNAVAILABLE` | All | 서비스 다운 |
+| `INVALID_CREDENTIALS` | Auth | 잘못된 이메일/비밀번호 |
+| `EMAIL_ALREADY_EXISTS` | Auth | 이메일이 이미 등록됨 |
+| `ACCOUNT_LOCKED` | Auth | 계정이 일시적으로 잠김 |
+| `LESSON_NOT_FOUND` | Content | 레슨을 찾을 수 없음 |
+| `SUBSCRIPTION_REQUIRED` | Content | 프리미엄 구독 필요 |
+| `PROGRESS_NOT_FOUND` | Progress | 진도 레코드를 찾을 수 없음 |
+| `SYNC_CONFLICT` | Progress | 동기화 중 데이터 충돌 |
+| `IMAGE_NOT_FOUND` | Media | 이미지 파일을 찾을 수 없음 |
+| `AUDIO_NOT_FOUND` | Media | 오디오 파일을 찾을 수 없음 |
+| `FILE_TOO_LARGE` | Media | 파일이 크기 제한 초과 |
+| `RATE_LIMIT_EXCEEDED` | Media | 속도 제한 초과 |
 
 ---
 
-## 🔄 Rate Limiting
+## 🔄 속도 제한
 
-### Limits by Service
+### 서비스별 제한
 
-| Service | Endpoint Type | Limit | Window |
+| 서비스 | 엔드포인트 타입 | 제한 | 기간 |
 |---------|---------------|-------|--------|
-| Auth | Login | 5 requests | 15 minutes |
-| Auth | Register | 3 requests | 1 hour |
-| Auth | Other | 100 requests | 1 minute |
-| Content | All | 1000 requests | 1 minute |
-| Progress | All | 500 requests | 1 minute |
-| Media | GET | 1000 requests | 1 minute |
-| Media | POST/DELETE | 100 requests | 1 hour |
+| Auth | Login | 5 요청 | 15분 |
+| Auth | Register | 3 요청 | 1시간 |
+| Auth | Other | 100 요청 | 1분 |
+| Content | All | 1000 요청 | 1분 |
+| Progress | All | 500 요청 | 1분 |
+| Media | GET | 1000 요청 | 1분 |
+| Media | POST/DELETE | 100 요청 | 1시간 |
 
-### Rate Limit Headers
+### 속도 제한 헤더
 
-When rate limit is exceeded, the response includes:
+속도 제한을 초과하면 응답에 다음이 포함됩니다:
 
 ```
 HTTP/1.1 429 Too Many Requests
@@ -295,17 +295,17 @@ Retry-After: 60
 
 ---
 
-## 🧪 Testing APIs
+## 🧪 API 테스트
 
-### Using cURL
+### cURL 사용
 
-**Basic GET request**:
+**기본 GET 요청**:
 ```bash
 curl -X GET http://localhost:3002/api/content/lessons \
   -H "Authorization: Bearer <token>"
 ```
 
-**POST with JSON body**:
+**JSON 본문을 포함한 POST**:
 ```bash
 curl -X POST http://localhost:3003/api/progress/complete \
   -H "Authorization: Bearer <token>" \
@@ -317,7 +317,7 @@ curl -X POST http://localhost:3003/api/progress/complete \
   }'
 ```
 
-**File upload**:
+**파일 업로드**:
 ```bash
 curl -X POST http://localhost:3004/media/upload \
   -H "Authorization: Bearer <token>" \
@@ -326,23 +326,23 @@ curl -X POST http://localhost:3004/media/upload \
   -F "category=lessons"
 ```
 
-### Using Postman
+### Postman 사용
 
-1. Import the OpenAPI 3.0 specifications from each API documentation
-2. Set environment variables:
+1. 각 API 문서에서 OpenAPI 3.0 스펙 가져오기
+2. 환경 변수 설정:
    - `base_url`: `http://localhost`
-   - `auth_token`: Your JWT token
-3. Use `{{base_url}}` and `{{auth_token}}` in requests
+   - `auth_token`: 사용자의 JWT 토큰
+3. 요청에서 `{{base_url}}` 및 `{{auth_token}}` 사용
 
-### Using HTTPie
+### HTTPie 사용
 
-**GET request**:
+**GET 요청**:
 ```bash
 http GET localhost:3002/api/content/lessons \
   Authorization:"Bearer <token>"
 ```
 
-**POST request**:
+**POST 요청**:
 ```bash
 http POST localhost:3003/api/progress/complete \
   Authorization:"Bearer <token>" \
@@ -353,32 +353,32 @@ http POST localhost:3003/api/progress/complete \
 
 ---
 
-## 📝 API Changelog
+## 📝 API 변경 이력
 
 ### Version 1.0.0 (2024-01-26)
 
-**Initial Release**
+**초기 릴리스**
 
-- ✅ Auth Service: User registration, login, profile management
-- ✅ Content Service: Lesson content, vocabulary, grammar
-- ✅ Progress Service: Progress tracking, SRS reviews, statistics
-- ✅ Media Service: Image/audio serving with processing
-
----
-
-## 🔗 Related Documentation
-
-- **[Project Guide](../../CLAUDE.md)** - Complete development guide
-- **[README](../../README.md)** - Project overview and setup
-- **[Deployment Scripts](../../scripts/README.md)** - Deployment and operations
+- ✅ Auth Service: 사용자 등록, 로그인, 프로필 관리
+- ✅ Content Service: 레슨 콘텐츠, 단어, 문법
+- ✅ Progress Service: 진도 추적, SRS 복습, 통계
+- ✅ Media Service: 이미지/오디오 서빙 및 처리
 
 ---
 
-## 💡 Best Practices
+## 🔗 관련 문서
 
-### 1. Error Handling
+- **[프로젝트 가이드](../../CLAUDE.md)** - 완전한 개발 가이드
+- **[README](../../README.md)** - 프로젝트 개요 및 설정
+- **[배포 스크립트](../../scripts/README.md)** - 배포 및 운영
 
-Always handle errors gracefully:
+---
+
+## 💡 모범 사례
+
+### 1. 오류 처리
+
+항상 오류를 우아하게 처리하세요:
 
 ```javascript
 try {
@@ -401,9 +401,9 @@ try {
 }
 ```
 
-### 2. Token Management
+### 2. 토큰 관리
 
-Store tokens securely and refresh before expiration:
+토큰을 안전하게 저장하고 만료 전에 갱신하세요:
 
 ```javascript
 // Check if token is about to expire
@@ -420,9 +420,9 @@ if (isTokenExpiring(accessToken)) {
 }
 ```
 
-### 3. Pagination
+### 3. 페이지네이션
 
-Always implement pagination for list endpoints:
+리스트 엔드포인트에는 항상 페이지네이션을 구현하세요:
 
 ```javascript
 async function fetchAllLessons() {
@@ -447,9 +447,9 @@ async function fetchAllLessons() {
 }
 ```
 
-### 4. Caching
+### 4. 캐싱
 
-Implement client-side caching for media files:
+미디어 파일에 대한 클라이언트 측 캐싱을 구현하세요:
 
 ```javascript
 // Use ETags for conditional requests
@@ -478,9 +478,9 @@ async function fetchImage(url, cachedETag) {
 }
 ```
 
-### 5. Offline Sync
+### 5. 오프라인 동기화
 
-Implement robust offline sync with conflict resolution:
+충돌 해결 기능을 포함한 강력한 오프라인 동기화를 구현하세요:
 
 ```javascript
 async function syncProgress() {
@@ -517,25 +517,25 @@ async function syncProgress() {
 
 ---
 
-## 🆘 Support
+## 🆘 지원
 
-For API issues or questions:
+API 문제나 질문이 있는 경우:
 
-1. Check the specific service documentation
-2. Review common error codes above
-3. Check service health: `GET /health` or `GET /api/<service>/health`
-4. Review logs: `./scripts/logs.sh <service-name>`
-5. Create an issue on GitHub
-
----
-
-## 📜 License
-
-This API documentation is part of the Lemon Korean project.
+1. 특정 서비스 문서 확인
+2. 위의 공통 오류 코드 검토
+3. 서비스 헬스 체크: `GET /health` 또는 `GET /api/<service>/health`
+4. 로그 검토: `./scripts/logs.sh <service-name>`
+5. GitHub에 이슈 생성
 
 ---
 
-**Last Updated**: 2024-01-26
-**API Version**: 1.0.0
+## 📜 라이선스
 
-**Made with ❤️ for Chinese-speaking Korean learners**
+이 API 문서는 Lemon Korean 프로젝트의 일부입니다.
+
+---
+
+**마지막 업데이트**: 2024-01-26
+**API 버전**: 1.0.0
+
+**중국어권 한국어 학습자를 위해 만들어졌습니다**

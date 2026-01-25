@@ -1,27 +1,27 @@
 # Lemon Korean - Content Service
 
-Content management service for Lemon Korean platform - handles lessons, vocabulary, and grammar.
+Lemon Korean 플랫폼의 콘텐츠 관리 서비스 - 레슨, 단어, 문법을 처리합니다.
 
-## Features
+## 기능
 
-- **Lessons Management**: CRUD operations for lessons with metadata and full content
-- **Vocabulary Management**: Korean-Chinese word mappings with Hanja support
-- **Grammar Rules**: Grammar patterns with Chinese comparisons
-- **Lesson Packager**: Create downloadable lesson packages (ZIP)
-- **Multi-Database**: PostgreSQL for metadata, MongoDB for content, Redis for caching
-- **Offline Support**: Check for updates, download lesson packages
+- **레슨 관리**: 메타데이터 및 전체 콘텐츠를 포함한 레슨 CRUD 작업
+- **단어 관리**: 한자 지원을 포함한 한국어-중국어 단어 매핑
+- **문법 규칙**: 중국어 비교를 포함한 문법 패턴
+- **레슨 패키저**: 다운로드 가능한 레슨 패키지 생성 (ZIP)
+- **멀티 데이터베이스**: 메타데이터는 PostgreSQL, 콘텐츠는 MongoDB, 캐싱은 Redis
+- **오프라인 지원**: 업데이트 확인, 레슨 패키지 다운로드
 
-## Tech Stack
+## 기술 스택
 
-- **Runtime**: Node.js 20
-- **Framework**: Express.js
-- **Databases**:
-  - PostgreSQL: Lesson metadata, vocabulary, grammar
-  - MongoDB: Lesson content (large JSON)
-  - Redis: Caching
-- **Additional**: archiver (ZIP creation)
+- **런타임**: Node.js 20
+- **프레임워크**: Express.js
+- **데이터베이스**:
+  - PostgreSQL: 레슨 메타데이터, 단어, 문법
+  - MongoDB: 레슨 콘텐츠 (대용량 JSON)
+  - Redis: 캐싱
+- **추가**: archiver (ZIP 생성)
 
-## Environment Variables
+## 환경 변수
 
 ```env
 NODE_ENV=production
@@ -37,52 +37,52 @@ MONGO_URL=mongodb://admin:password@mongo:27017/lemon_korean?authSource=admin
 REDIS_URL=redis://:password@redis:6379
 ```
 
-## Installation
+## 설치
 
 ```bash
-# Install dependencies
+# 의존성 설치
 npm install
 
-# Development mode
+# 개발 모드
 npm run dev
 
-# Production mode
+# 프로덕션 모드
 npm start
 ```
 
-## API Endpoints
+## API 엔드포인트
 
-### Lessons
+### 레슨
 
-- `GET /api/content/lessons` - Get all lessons
-- `GET /api/content/lessons/:id` - Get lesson metadata
-- `GET /api/content/lessons/:id/full` - Get full lesson (metadata + content)
-- `GET /api/content/lessons/:id/download` - Download lesson package (ZIP)
-- `GET /api/content/lessons/level/:level` - Get lessons by level
-- `POST /api/content/lessons/check-updates` - Check for lesson updates
+- `GET /api/content/lessons` - 모든 레슨 조회
+- `GET /api/content/lessons/:id` - 레슨 메타데이터 조회
+- `GET /api/content/lessons/:id/full` - 전체 레슨 조회 (메타데이터 + 콘텐츠)
+- `GET /api/content/lessons/:id/download` - 레슨 패키지 다운로드 (ZIP)
+- `GET /api/content/lessons/level/:level` - 레벨별 레슨 조회
+- `POST /api/content/lessons/check-updates` - 레슨 업데이트 확인
 
-### Vocabulary
+### 단어
 
-- `GET /api/content/vocabulary` - Get all vocabulary
-- `GET /api/content/vocabulary/:id` - Get vocabulary by ID
-- `GET /api/content/vocabulary/search?q=term` - Search vocabulary
-- `GET /api/content/vocabulary/stats` - Get vocabulary statistics
+- `GET /api/content/vocabulary` - 모든 단어 조회
+- `GET /api/content/vocabulary/:id` - ID로 단어 조회
+- `GET /api/content/vocabulary/search?q=term` - 단어 검색
+- `GET /api/content/vocabulary/stats` - 단어 통계 조회
 
-### Grammar
+### 문법
 
-- `GET /api/content/grammar` - Get all grammar rules
-- `GET /api/content/grammar/:id` - Get grammar rule by ID
-- `GET /api/content/grammar/categories` - Get grammar categories
+- `GET /api/content/grammar` - 모든 문법 규칙 조회
+- `GET /api/content/grammar/:id` - ID로 문법 규칙 조회
+- `GET /api/content/grammar/categories` - 문법 카테고리 조회
 
 ## Docker
 
-### Build
+### 빌드
 
 ```bash
 docker build -t lemon-content-service:latest .
 ```
 
-### Run
+### 실행
 
 ```bash
 docker run -d \
@@ -92,13 +92,13 @@ docker run -d \
   lemon-content-service:latest
 ```
 
-### With Docker Compose
+### Docker Compose 사용
 
 ```bash
 docker-compose up content-service
 ```
 
-## Project Structure
+## 프로젝트 구조
 
 ```
 content/
@@ -126,6 +126,6 @@ content/
 └── README.md
 ```
 
-## License
+## 라이선스
 
 MIT

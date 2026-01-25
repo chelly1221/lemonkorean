@@ -1,4 +1,4 @@
-# Progress Service API Documentation
+# Progress Service API 문서
 
 **Base URL**: `http://localhost:3003/api/progress`
 
@@ -6,27 +6,27 @@
 
 ---
 
-## Table of Contents
+## 목차
 
-- [Authentication](#authentication)
-- [Endpoints](#endpoints)
-  - [Get User Progress](#get-user-progress)
-  - [Complete Lesson](#complete-lesson)
-  - [Update Lesson Progress](#update-lesson-progress)
-  - [Sync Offline Progress](#sync-offline-progress)
-  - [Get Review Schedule](#get-review-schedule)
-  - [Submit Review Result](#submit-review-result)
-  - [Get Statistics](#get-statistics)
-  - [Get Streak](#get-streak)
-  - [Health Check](#health-check)
-- [Error Codes](#error-codes)
-- [Data Models](#data-models)
+- [인증](#인증)
+- [엔드포인트](#엔드포인트)
+  - [사용자 진도 조회](#사용자-진도-조회)
+  - [레슨 완료](#레슨-완료)
+  - [레슨 진도 업데이트](#레슨-진도-업데이트)
+  - [오프라인 진도 동기화](#오프라인-진도-동기화)
+  - [복습 일정 조회](#복습-일정-조회)
+  - [복습 결과 제출](#복습-결과-제출)
+  - [통계 조회](#통계-조회)
+  - [연속 기록 조회](#연속-기록-조회)
+  - [헬스 체크](#헬스-체크)
+- [오류 코드](#오류-코드)
+- [데이터 모델](#데이터-모델)
 
 ---
 
-## Authentication
+## 인증
 
-All endpoints except `/health` require JWT authentication:
+`/health`를 제외한 모든 엔드포인트는 JWT 인증이 필요합니다:
 
 ```
 Authorization: Bearer <jwt_token>
@@ -34,32 +34,32 @@ Authorization: Bearer <jwt_token>
 
 ---
 
-## Endpoints
+## 엔드포인트
 
-### Get User Progress
+### 사용자 진도 조회
 
-Get user's learning progress for all lessons.
+모든 레슨에 대한 사용자의 학습 진도를 조회합니다.
 
-**Endpoint**: `GET /api/progress/user/:userId`
+**엔드포인트**: `GET /api/progress/user/:userId`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `userId` | integer | Yes | User ID (must match authenticated user) |
+| `userId` | integer | 예 | 사용자 ID (인증된 사용자와 일치해야 함) |
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `status` | string | No | - | Filter by status (not_started, in_progress, completed) |
-| `level` | string | No | - | Filter by lesson level |
+| `status` | string | 아니오 | - | 상태별 필터 (not_started, in_progress, completed) |
+| `level` | string | 아니오 | - | 레슨 레벨별 필터 |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -113,16 +113,16 @@ Get user's learning progress for all lessons.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3003/api/progress/user/1 \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `403 Forbidden`
+**상태**: `403 Forbidden`
 
 ```json
 {
@@ -136,15 +136,15 @@ curl -X GET http://localhost:3003/api/progress/user/1 \
 
 ---
 
-### Complete Lesson
+### 레슨 완료
 
-Mark a lesson as completed.
+레슨을 완료로 표시합니다.
 
-**Endpoint**: `POST /api/progress/complete`
+**엔드포인트**: `POST /api/progress/complete`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -156,9 +156,9 @@ Mark a lesson as completed.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -191,7 +191,7 @@ Mark a lesson as completed.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3003/api/progress/complete \
@@ -206,9 +206,9 @@ curl -X POST http://localhost:3003/api/progress/complete \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `400 Bad Request`
+**상태**: `400 Bad Request`
 
 ```json
 {
@@ -222,21 +222,21 @@ curl -X POST http://localhost:3003/api/progress/complete \
 
 ---
 
-### Update Lesson Progress
+### 레슨 진도 업데이트
 
-Update progress for a specific stage of a lesson.
+레슨의 특정 스테이지에 대한 진도를 업데이트합니다.
 
-**Endpoint**: `PUT /api/progress/lesson/:lessonId`
+**엔드포인트**: `PUT /api/progress/lesson/:lessonId`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `lessonId` | integer | Yes | Lesson ID |
+| `lessonId` | integer | 예 | 레슨 ID |
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -251,9 +251,9 @@ Update progress for a specific stage of a lesson.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -271,7 +271,7 @@ Update progress for a specific stage of a lesson.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X PUT http://localhost:3003/api/progress/lesson/2 \
@@ -286,15 +286,15 @@ curl -X PUT http://localhost:3003/api/progress/lesson/2 \
 
 ---
 
-### Sync Offline Progress
+### 오프라인 진도 동기화
 
-Sync progress data collected while offline.
+오프라인 상태에서 수집된 진도 데이터를 동기화합니다.
 
-**Endpoint**: `POST /api/progress/sync`
+**엔드포인트**: `POST /api/progress/sync`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -326,9 +326,9 @@ Sync progress data collected while offline.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -365,7 +365,7 @@ Sync progress data collected while offline.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3003/api/progress/sync \
@@ -385,9 +385,9 @@ curl -X POST http://localhost:3003/api/progress/sync \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `207 Multi-Status`
+**상태**: `207 Multi-Status`
 
 ```json
 {
@@ -427,25 +427,25 @@ curl -X POST http://localhost:3003/api/progress/sync \
 
 ---
 
-### Get Review Schedule
+### 복습 일정 조회
 
-Get SRS (Spaced Repetition System) review schedule.
+SRS (간격 반복 시스템) 복습 일정을 조회합니다.
 
-**Endpoint**: `GET /api/progress/review-schedule`
+**엔드포인트**: `GET /api/progress/review-schedule`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `user_id` | integer | Yes | - | User ID |
-| `date` | string | No | today | Date (YYYY-MM-DD) |
-| `days` | integer | No | 7 | Number of days to fetch |
+| `user_id` | integer | 예 | - | 사용자 ID |
+| `date` | string | 아니오 | today | 날짜 (YYYY-MM-DD) |
+| `days` | integer | 아니오 | 7 | 조회할 일수 |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -509,7 +509,7 @@ Get SRS (Spaced Repetition System) review schedule.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3003/api/progress/review-schedule?user_id=1&days=7" \
@@ -518,15 +518,15 @@ curl -X GET "http://localhost:3003/api/progress/review-schedule?user_id=1&days=7
 
 ---
 
-### Submit Review Result
+### 복습 결과 제출
 
-Submit SRS review result.
+SRS 복습 결과를 제출합니다.
 
-**Endpoint**: `POST /api/progress/review`
+**엔드포인트**: `POST /api/progress/review`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -537,17 +537,17 @@ Submit SRS review result.
 }
 ```
 
-**Quality Scale**:
-- `0`: Complete blackout
-- `1`: Incorrect response, but correct answer seemed familiar
-- `2`: Incorrect response, but correct answer remembered
-- `3`: Correct response, but with difficulty
-- `4`: Correct response, with hesitation
-- `5`: Perfect response
+**품질 척도**:
+- `0`: 완전히 기억나지 않음
+- `1`: 틀린 응답이지만 정답이 익숙함
+- `2`: 틀린 응답이지만 정답을 기억함
+- `3`: 맞는 응답이지만 어려움
+- `4`: 맞는 응답이지만 망설임
+- `5`: 완벽한 응답
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -564,7 +564,7 @@ Submit SRS review result.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3003/api/progress/review \
@@ -578,9 +578,9 @@ curl -X POST http://localhost:3003/api/progress/review \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `400 Bad Request`
+**상태**: `400 Bad Request`
 
 ```json
 {
@@ -594,24 +594,24 @@ curl -X POST http://localhost:3003/api/progress/review \
 
 ---
 
-### Get Statistics
+### 통계 조회
 
-Get user learning statistics.
+사용자 학습 통계를 조회합니다.
 
-**Endpoint**: `GET /api/progress/statistics`
+**엔드포인트**: `GET /api/progress/statistics`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `user_id` | integer | Yes | - | User ID |
-| `period` | string | No | all | Period (all, week, month, year) |
+| `user_id` | integer | 예 | - | 사용자 ID |
+| `period` | string | 아니오 | all | 기간 (all, week, month, year) |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -679,7 +679,7 @@ Get user learning statistics.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3003/api/progress/statistics?user_id=1&period=month" \
@@ -688,23 +688,23 @@ curl -X GET "http://localhost:3003/api/progress/statistics?user_id=1&period=mont
 
 ---
 
-### Get Streak
+### 연속 기록 조회
 
-Get user's learning streak information.
+사용자의 학습 연속 기록 정보를 조회합니다.
 
-**Endpoint**: `GET /api/progress/streak`
+**엔드포인트**: `GET /api/progress/streak`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `user_id` | integer | Yes | - | User ID |
+| `user_id` | integer | 예 | - | 사용자 ID |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -746,7 +746,7 @@ Get user's learning streak information.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET "http://localhost:3003/api/progress/streak?user_id=1" \
@@ -755,17 +755,17 @@ curl -X GET "http://localhost:3003/api/progress/streak?user_id=1" \
 
 ---
 
-### Health Check
+### 헬스 체크
 
-Check if Progress Service is healthy.
+Progress Service가 정상인지 확인합니다.
 
-**Endpoint**: `GET /api/progress/health`
+**엔드포인트**: `GET /api/progress/health`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -788,7 +788,7 @@ Check if Progress Service is healthy.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3003/api/progress/health
@@ -796,23 +796,23 @@ curl -X GET http://localhost:3003/api/progress/health
 
 ---
 
-## Error Codes
+## 오류 코드
 
-| Code | HTTP Status | Description |
+| 코드 | HTTP 상태 | 설명 |
 |------|-------------|-------------|
-| `FORBIDDEN` | 403 | User can only access own data |
-| `INVALID_QUIZ_SCORE` | 400 | Quiz score out of range |
-| `INVALID_QUALITY` | 400 | Review quality out of range |
-| `LESSON_NOT_FOUND` | 404 | Lesson not found |
-| `PROGRESS_NOT_FOUND` | 404 | Progress record not found |
-| `SYNC_CONFLICT` | 409 | Data conflict during sync |
-| `UNAUTHORIZED` | 401 | Authentication required |
-| `INTERNAL_SERVER_ERROR` | 500 | Server error occurred |
-| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable |
+| `FORBIDDEN` | 403 | 사용자는 본인 데이터만 접근 가능 |
+| `INVALID_QUIZ_SCORE` | 400 | 퀴즈 점수 범위 초과 |
+| `INVALID_QUALITY` | 400 | 복습 품질 범위 초과 |
+| `LESSON_NOT_FOUND` | 404 | 레슨을 찾을 수 없음 |
+| `PROGRESS_NOT_FOUND` | 404 | 진도 레코드를 찾을 수 없음 |
+| `SYNC_CONFLICT` | 409 | 동기화 중 데이터 충돌 |
+| `UNAUTHORIZED` | 401 | 인증 필요 |
+| `INTERNAL_SERVER_ERROR` | 500 | 서버 오류 발생 |
+| `SERVICE_UNAVAILABLE` | 503 | 서비스가 일시적으로 사용 불가 |
 
 ---
 
-## Data Models
+## 데이터 모델
 
 ### Progress
 
@@ -868,7 +868,7 @@ curl -X GET http://localhost:3003/api/progress/health
 
 ---
 
-## OpenAPI 3.0 Specification
+## OpenAPI 3.0 스펙
 
 ```yaml
 openapi: 3.0.3

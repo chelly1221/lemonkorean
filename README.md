@@ -1,49 +1,45 @@
 # 柠檬韩语 (Lemon Korean)
 
-> 专为中文母语者打造的韩语学习平台 | 중국어 화자를 위한 한국어 학습 플랫폼
-
-[English](#english) | [中文](#中文) | [한국어](#한국어)
+> 중국어 화자를 위한 한국어 학습 플랫폼
 
 ---
 
-<a name="中文"></a>
+## 📖 프로젝트 소개
 
-## 📖 项目简介
+**柠檬韩语 (Lemon Korean)** 는 중국어 화자를 위해 특별히 설계된 한국어 학습 애플리케이션으로, 오프라인 우선 아키텍처를 채택하여 레슨 다운로드 후 네트워크 없이 학습하고, 네트워크 복구 시 자동으로 진도를 동기화합니다.
 
-**柠檬韩语 (Lemon Korean)** 是一个专为中文母语者设计的韩语学习应用，采用离线优先架构，支持课程下载后无网络学习，并在网络恢复时自动同步学习进度。
+### ✨ 핵심 특징
 
-### ✨ 核心特性
-
-- **🔌 离线优先学习**: 下载课程后无需联网即可学习
-- **🔄 自动同步**: 网络恢复时自动备份学习进度
-- **🇨🇳 中文定制设计**: 汉字关联、发音相似度对比
-- **📱 沉浸式体验**: 全屏学习模式，专注学习
-- **🏗️ 微服务架构**: 可扩展的后端系统
-- **🎯 7阶段课程**: 词汇→语法→练习→对话→测验→复习→总结
-- **🎨 现代UI设计**: Material Design 3, 流畅动画
-- **📊 SRS复习系统**: 智能复习提醒
+- **🔌 오프라인 우선 학습**: 레슨 다운로드 후 인터넷 없이 학습 가능
+- **🔄 자동 동기화**: 네트워크 복구 시 학습 진도 자동 백업
+- **🇨🇳 중국어 맞춤 설계**: 한자 연결, 발음 유사도 비교
+- **📱 몰입형 경험**: 풀스크린 학습 모드, 집중 학습
+- **🏗️ 마이크로서비스 아키텍처**: 확장 가능한 백엔드 시스템
+- **🎯 7단계 레슨**: 어휘→문법→연습→대화→퀴즈→복습→요약
+- **🎨 현대적 UI 디자인**: Material Design 3, 부드러운 애니메이션
+- **📊 SRS 복습 시스템**: 지능형 복습 알림
 
 ---
 
-## 🏗️ 架构设计
+## 🏗️ 아키텍처 설계
 
-### 系统架构图
+### 시스템 아키텍처
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    Flutter App                           │
-│                (离线优先 + 自动同步)                      │
+│                (오프라인 우선 + 자동 동기화)              │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐              │
 │  │  Hive    │  │ SQLite   │  │   Dio    │              │
 │  │ (Lessons)│  │ (Media)  │  │  (HTTP)  │              │
 │  └──────────┘  └──────────┘  └──────────┘              │
 └─────────────────────────────────────────────────────────┘
                           ↕
-                  (仅在需要时同步)
+                  (필요시에만 동기화)
                           ↕
 ┌─────────────────────────────────────────────────────────┐
 │                  Nginx API Gateway                       │
-│              (端口80, 负载均衡 + 缓存)                   │
+│              (포트 80, 로드 밸런싱 + 캐싱)               │
 └─────────────────────────────────────────────────────────┘
                           ↓
         ┌─────────────────┼─────────────────┐
@@ -61,708 +57,77 @@
 └──────────────┘  └──────────────┘  └──────────────┘
         ↓                 ↓                 ↓
 ┌─────────────────────────────────────────────────────────┐
-│                   数据层                                 │
+│                   데이터 레이어                           │
 │  ┌──────────┐  ┌──────────┐  ┌────────┐  ┌──────────┐ │
 │  │PostgreSQL│  │ MongoDB  │  │ Redis  │  │  MinIO   │ │
 │  │  :5432   │  │  :27017  │  │ :6379  │  │:9000/9001│ │
 │  └──────────┘  └──────────┘  └────────┘  └──────────┘ │
 │  ┌──────────┐                                          │
-│  │ RabbitMQ │  (消息队列)                               │
+│  │ RabbitMQ │  (메시지 큐)                              │
 │  │  :5672   │                                          │
 │  └──────────┘                                          │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### 数据流
+### 데이터 흐름
 
 ```
-用户操作 → 本地存储 (Hive/SQLite)
+사용자 동작 → 로컬 저장 (Hive/SQLite)
                 ↓
-        添加到同步队列 (sync_queue)
+        동기화 큐에 추가 (sync_queue)
                 ↓
-        网络可用? ──No→ 保持队列
+        네트워크 가능? ──No→ 큐 유지
                 │
                Yes
                 ↓
-        后台自动同步 → API Gateway (Nginx)
+        백그라운드 자동 동기화 → API Gateway (Nginx)
                 ↓
-        微服务处理 → 数据库持久化
+        마이크로서비스 처리 → 데이터베이스 영속화
                 ↓
-        返回确认 → 清除队列项
+        확인 응답 → 큐 항목 제거
 ```
 
 ---
 
-## 🔧 技术栈
+## 🔧 기술 스택
 
-### 后端服务
+### 백엔드 서비스
 
-| 服务 | 技术栈 | 端口 | 功能 |
+| 서비스 | 기술 스택 | 포트 | 기능 |
 |------|--------|------|------|
-| **Auth Service** | Node.js + Express | 3001 | JWT认证、用户管理 |
-| **Content Service** | Node.js + Express | 3002 | 课程内容、词汇、语法 |
-| **Progress Service** | Go + Gin | 3003 | 学习进度、SRS算法 |
-| **Media Service** | Go + Gin | 3004 | 图片/音频服务 |
-| **Analytics Service** | Python + FastAPI | 3005 | 日志分析、统计 |
-| **Admin Service** | Node.js + Express | 3006 | 管理员面板 |
+| **Auth Service** | Node.js + Express | 3001 | JWT 인증, 사용자 관리 |
+| **Content Service** | Node.js + Express | 3002 | 레슨 콘텐츠, 어휘, 문법 |
+| **Progress Service** | Go + Gin | 3003 | 학습 진도, SRS 알고리즘 |
+| **Media Service** | Go + Gin | 3004 | 이미지/오디오 서빙 |
+| **Analytics Service** | Python + FastAPI | 3005 | 로그 분석, 통계 |
+| **Admin Service** | Node.js + Express | 3006 | 관리자 대시보드 |
 
-### 数据库与存储
+### 데이터베이스 및 스토리지
 
-| 组件 | 端口 | 用途 |
+| 구성 요소 | 포트 | 용도 |
 |------|------|------|
-| **PostgreSQL** | 5432 | 结构化数据 (users, lessons, progress) |
-| **MongoDB** | 27017 | 文档存储 (lesson content, logs) |
-| **Redis** | 6379 | 缓存、会话、实时数据 |
-| **MinIO** | 9000/9001 | 媒体文件 (S3兼容) |
-| **RabbitMQ** | 5672/15672 | 消息队列、异步任务 |
+| **PostgreSQL** | 5432 | 구조화된 데이터 (users, lessons, progress) |
+| **MongoDB** | 27017 | 문서 저장소 (lesson content, logs) |
+| **Redis** | 6379 | 캐시, 세션, 실시간 데이터 |
+| **MinIO** | 9000/9001 | 미디어 파일 (S3 호환) |
+| **RabbitMQ** | 5672/15672 | 메시지 큐, 비동기 작업 |
 
-### 移动端
+### 모바일
 
-- **Flutter 3.x** - iOS/Android跨平台
-- **Hive** - 本地NoSQL数据库 (课程、进度)
-- **SQLite** - 媒体文件映射
-- **Dio** - HTTP客户端
-- **flutter_animate** - 动画库
-- **audioplayers** - 音频播放
+- **Flutter 3.x** - iOS/Android 크로스 플랫폼
+- **Hive** - 로컬 NoSQL 데이터베이스 (레슨, 진도)
+- **SQLite** - 미디어 파일 매핑
+- **Dio** - HTTP 클라이언트
+- **flutter_animate** - 애니메이션 라이브러리
+- **audioplayers** - 오디오 재생
 
-### 基础设施
+### 인프라
 
-- **Docker & Docker Compose** - 容器化部署
-- **Nginx** - API网关、负载均衡、缓存
-- **RabbitMQ** - 消息队列
-
----
-
-## 🚀 快速开始
-
-### 前置要求
-
-- **Docker** 20.x+ & **Docker Compose** 2.x+
-- **Node.js** 18+ (开发用)
-- **Go** 1.21+ (开发用)
-- **Python** 3.11+ (开发用)
-- **Flutter** 3.x (移动端开发)
-
-### 安装步骤
-
-#### 1️⃣ 克隆仓库
-
-```bash
-git clone <repository-url>
-cd lemonkorean
-```
-
-#### 2️⃣ 环境变量配置
-
-```bash
-cp .env.example .env
-```
-
-编辑 `.env` 文件，设置必要的环境变量:
-
-```env
-# 数据库
-DB_PASSWORD=your_secure_password
-POSTGRES_DB=lemon_korean
-POSTGRES_USER=lemon_user
-
-# JWT
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRES_IN=7d
-
-# MinIO
-MINIO_ACCESS_KEY=admin
-MINIO_SECRET_KEY=your_secure_key
-```
-
-#### 3️⃣ 启动服务
-
-**方法1: 使用部署脚本 (推荐)**
-
-```bash
-./scripts/deploy.sh
-```
-
-此脚本会自动执行:
-- ✅ 环境变量验证
-- ✅ Docker镜像构建
-- ✅ 数据库迁移
-- ✅ 服务启动
-- ✅ 健康检查
-
-**方法2: 手动启动**
-
-```bash
-# 构建并启动所有服务
-docker-compose up -d
-
-# 查看服务状态
-docker-compose ps
-
-# 查看日志
-./scripts/logs.sh
-# 或
-docker-compose logs -f
-```
-
-#### 4️⃣ 验证服务
-
-访问以下地址确认服务正常运行:
-
-- **API网关**: http://localhost
-- **MinIO控制台**: http://localhost:9001
-- **RabbitMQ管理界面**: http://localhost:15672 (用户名: guest, 密码: guest)
-
-健康检查端点:
-```bash
-# Auth Service
-curl http://localhost:3001/api/auth/health
-
-# Content Service
-curl http://localhost:3002/api/content/health
-
-# Progress Service
-curl http://localhost:3003/api/progress/health
-```
-
-#### 5️⃣ 运行Flutter应用
-
-```bash
-cd mobile/lemon_korean
-flutter pub get
-flutter run
-```
+- **Docker & Docker Compose** - 컨테이너화 배포
+- **Nginx** - API 게이트웨이, 로드 밸런싱, 캐싱
+- **RabbitMQ** - 메시지 큐
 
 ---
-
-## 📁 项目结构
-
-```
-lemonkorean/
-├── services/                    # 微服务
-│   ├── auth/                   # 认证服务 (Node.js)
-│   │   ├── src/
-│   │   │   ├── controllers/   # 请求处理
-│   │   │   ├── services/      # 业务逻辑
-│   │   │   ├── models/        # 数据模型
-│   │   │   └── routes/        # 路由定义
-│   │   ├── package.json
-│   │   └── Dockerfile
-│   ├── content/               # 内容服务 (Node.js)
-│   ├── progress/              # 进度管理 (Go)
-│   ├── media/                 # 媒体服务 (Go)
-│   ├── analytics/             # 分析服务 (Python)
-│   └── admin/                 # 管理面板 (Node.js)
-│
-├── mobile/                     # Flutter应用
-│   └── lemon_korean/
-│       ├── lib/
-│       │   ├── core/          # 核心功能
-│       │   │   ├── storage/   # Hive + SQLite
-│       │   │   ├── network/   # Dio + API
-│       │   │   └── utils/     # 工具函数
-│       │   ├── data/          # 数据层
-│       │   │   ├── models/    # 数据模型
-│       │   │   └── repositories/
-│       │   └── presentation/  # 展示层
-│       │       ├── screens/   # 页面
-│       │       ├── widgets/   # 组件
-│       │       └── providers/ # 状态管理
-│       ├── pubspec.yaml
-│       └── README.md
-│
-├── init/                       # 数据库初始化
-│   ├── postgres/              # PostgreSQL模式
-│   │   └── 01_schema.sql
-│   └── mongo/                 # MongoDB初始数据
-│
-├── nginx/                      # Nginx配置
-│   └── nginx.conf
-│
-├── scripts/                    # 运维脚本
-│   ├── deploy.sh              # 部署脚本
-│   ├── backup.sh              # 备份脚本
-│   ├── restore.sh             # 恢复脚本
-│   ├── logs.sh                # 日志查看
-│   └── README.md
-│
-├── docs/                       # 文档
-│   └── api/                   # API文档
-│
-├── docker-compose.yml          # Docker编排
-├── .env.example               # 环境变量示例
-├── CLAUDE.md                  # 开发指南
-└── README.md                  # 本文件
-```
-
----
-
-## 📚 开发指南
-
-### 本地开发
-
-#### 后端服务开发
-
-每个服务可以独立运行:
-
-```bash
-# Auth Service (Node.js)
-cd services/auth
-npm install
-npm run dev
-
-# Progress Service (Go)
-cd services/progress
-go mod download
-go run main.go
-
-# Analytics Service (Python)
-cd services/analytics
-pip install -r requirements.txt
-uvicorn main:app --reload --port 3005
-```
-
-#### Flutter应用开发
-
-```bash
-cd mobile/lemon_korean
-flutter pub get
-
-# iOS模拟器
-flutter run
-
-# Android模拟器
-flutter run
-
-# 生产构建
-flutter build apk --release
-flutter build ios --release
-```
-
-### 数据库操作
-
-```bash
-# 连接PostgreSQL
-docker-compose exec postgres psql -U lemon_user -d lemon_korean
-
-# 连接MongoDB
-docker-compose exec mongo mongosh
-
-# 连接Redis
-docker-compose exec redis redis-cli
-
-# 执行数据库迁移
-docker-compose exec postgres psql -U lemon_user -d lemon_korean -f /init/postgres/01_schema.sql
-```
-
-### 代码规范
-
-#### Flutter
-- `*_screen.dart` - 页面
-- `*_provider.dart` - 状态管理
-- `*_model.dart` - 数据模型
-- `*_repository.dart` - 数据访问
-- `*_widget.dart` - 可复用组件
-
-#### Backend
-- `*.controller.js/go` - 请求处理
-- `*.service.js/go` - 业务逻辑
-- `*.model.js/go` - 数据模型
-- `*.routes.js/go` - 路由定义
-
----
-
-## 🔍 API文档
-
-### 主要端点
-
-#### Auth Service (`:3001`)
-
-| 方法 | 端点 | 描述 |
-|------|------|------|
-| POST | `/api/auth/register` | 用户注册 |
-| POST | `/api/auth/login` | 用户登录 |
-| POST | `/api/auth/refresh` | 刷新token |
-| GET | `/api/auth/profile` | 获取用户信息 |
-
-#### Content Service (`:3002`)
-
-| 方法 | 端点 | 描述 |
-|------|------|------|
-| GET | `/api/content/lessons` | 获取课程列表 |
-| GET | `/api/content/lessons/:id` | 获取课程详情 |
-| GET | `/api/content/lessons/:id/download` | 下载课程包 |
-| POST | `/api/content/check-updates` | 检查课程更新 |
-
-#### Progress Service (`:3003`)
-
-| 方法 | 端点 | 描述 |
-|------|------|------|
-| GET | `/api/progress/user/:userId` | 获取用户进度 |
-| POST | `/api/progress/complete` | 完成课程 |
-| POST | `/api/progress/sync` | 同步离线进度 |
-| GET | `/api/progress/review-schedule` | SRS复习计划 |
-
-#### Media Service (`:3004`)
-
-| 方法 | 端点 | 描述 |
-|------|------|------|
-| GET | `/media/images/:key` | 获取图片 |
-| GET | `/media/audio/:key` | 获取音频 |
-
-详细API文档: [API Documentation](./docs/api/README.md)
-
----
-
-## 🧪 测试
-
-### 后端测试
-
-```bash
-# Auth Service
-docker-compose exec auth npm test
-
-# Progress Service
-cd services/progress
-go test ./...
-
-# Analytics Service
-cd services/analytics
-pytest
-```
-
-### Flutter测试
-
-```bash
-cd mobile/lemon_korean
-
-# 单元测试
-flutter test
-
-# 集成测试
-flutter test integration_test/
-
-# 测试覆盖率
-flutter test --coverage
-genhtml coverage/lcov.info -o coverage/html
-```
-
----
-
-## 🛠️ 运维工具
-
-### 备份与恢复
-
-```bash
-# 创建备份
-./scripts/backup.sh
-
-# 查看可用备份
-./scripts/restore.sh
-
-# 从备份恢复
-./scripts/restore.sh 20240125_020000
-```
-
-备份内容:
-- ✅ PostgreSQL数据库
-- ✅ MongoDB数据库
-- ✅ MinIO对象存储
-- ✅ 自动删除30天以上旧备份
-
-### 日志查看
-
-```bash
-# 查看所有服务日志
-./scripts/logs.sh
-
-# 实时跟踪日志
-./scripts/logs.sh -f
-
-# 查看特定服务
-./scripts/logs.sh auth
-
-# 过去1小时日志
-./scripts/logs.sh --since 1h content
-```
-
-### 服务管理
-
-```bash
-# 重启特定服务
-docker-compose restart auth
-
-# 停止所有服务
-docker-compose down
-
-# 完全清理 (包括数据卷)
-docker-compose down -v
-
-# 查看服务状态
-docker-compose ps
-```
-
----
-
-## ⚠️ 故障排除
-
-### 常见问题
-
-#### 1. 端口冲突
-
-**症状**: `Error: bind: address already in use`
-
-**解决方案**:
-```bash
-# 检查端口占用
-sudo lsof -i :5432  # PostgreSQL
-sudo lsof -i :3001  # Auth Service
-
-# 停止冲突进程或修改docker-compose.yml中的端口映射
-docker-compose down
-# 修改端口后重新启动
-docker-compose up -d
-```
-
-#### 2. Docker构建失败
-
-**症状**: `ERROR [internal] load metadata for docker.io/library/...`
-
-**解决方案**:
-```bash
-# 清理Docker缓存
-docker system prune -a
-
-# 重新构建
-docker-compose build --no-cache
-docker-compose up -d
-```
-
-#### 3. 数据库连接失败
-
-**症状**: `Error: connect ECONNREFUSED`
-
-**解决方案**:
-```bash
-# 检查数据库容器状态
-docker-compose ps postgres
-
-# 查看数据库日志
-docker-compose logs postgres
-
-# 重启数据库
-docker-compose restart postgres
-
-# 等待PostgreSQL就绪
-docker-compose exec postgres pg_isready -U lemon_user
-```
-
-#### 4. Flutter构建错误
-
-**症状**: `Could not resolve all dependencies`
-
-**解决方案**:
-```bash
-cd mobile/lemon_korean
-
-# 清理缓存
-flutter clean
-
-# 重新获取依赖
-flutter pub get
-
-# 升级依赖
-flutter pub upgrade
-
-# 重新运行
-flutter run
-```
-
-#### 5. 健康检查失败
-
-**症状**: 某些服务健康检查失败
-
-**解决方案**:
-```bash
-# 查看失败服务日志
-./scripts/logs.sh <service-name>
-
-# 检查环境变量
-cat .env
-
-# 重新部署
-./scripts/deploy.sh
-```
-
-#### 6. MinIO访问问题
-
-**症状**: 无法访问MinIO控制台或上传文件失败
-
-**解决方案**:
-```bash
-# 检查MinIO状态
-curl http://localhost:9000/minio/health/live
-
-# 查看MinIO日志
-docker-compose logs minio
-
-# 重新配置凭证 (在.env中)
-MINIO_ACCESS_KEY=admin
-MINIO_SECRET_KEY=your_secure_key
-
-# 重启MinIO
-docker-compose restart minio
-```
-
-#### 7. 备份失败
-
-**症状**: `backup.sh` 执行失败
-
-**解决方案**:
-```bash
-# 检查磁盘空间
-df -h
-
-# 检查容器运行状态
-docker-compose ps
-
-# 查看备份目录权限
-ls -la backups/
-
-# 手动创建备份目录
-mkdir -p backups/{postgres,mongo,minio}
-```
-
-### 日志位置
-
-```bash
-# 应用日志
-docker-compose logs <service-name>
-
-# 备份日志
-/var/log/lemon_korean_backup.log
-
-# Nginx日志
-docker-compose logs nginx
-
-# 系统日志
-journalctl -u docker
-```
-
-### 性能优化
-
-#### 数据库优化
-
-```sql
--- PostgreSQL索引优化
-CREATE INDEX idx_user_progress_user_id ON user_progress(user_id);
-CREATE INDEX idx_lessons_level ON lessons(level);
-
--- 查看慢查询
-SELECT * FROM pg_stat_statements ORDER BY mean_exec_time DESC LIMIT 10;
-```
-
-#### Redis缓存
-
-```bash
-# 查看缓存命中率
-docker-compose exec redis redis-cli INFO stats | grep hit
-
-# 清空缓存
-docker-compose exec redis redis-cli FLUSHALL
-```
-
-#### Nginx缓存
-
-```bash
-# 清空Nginx缓存
-docker-compose exec nginx rm -rf /var/cache/nginx/*
-
-# 重载配置
-docker-compose exec nginx nginx -s reload
-```
-
----
-
-## 🔐 安全建议
-
-1. **生产环境配置**:
-   - 使用强密码 (最少16位字符)
-   - 定期更换JWT_SECRET
-   - 启用HTTPS (使用Let's Encrypt)
-   - 配置防火墙规则
-
-2. **数据备份**:
-   - 设置定时备份 (cron)
-   - 异地备份至云存储
-   - 定期测试恢复流程
-
-3. **监控告警**:
-   - 配置服务健康监控
-   - 磁盘空间告警
-   - CPU/内存使用率监控
-
----
-
-## 📖 详细文档
-
-- **[CLAUDE.md](./CLAUDE.md)** - 详细开发指南
-- **[scripts/README.md](./scripts/README.md)** - 运维脚本文档
-- **[mobile/lemon_korean/README.md](./mobile/lemon_korean/README.md)** - Flutter应用文档
-
----
-
-## 🗺️ 开发路线图
-
-- [x] **Phase 1**: 认证服务 + 内容服务
-- [x] **Phase 2**: 进度服务 + 同步机制
-- [x] **Phase 3**: Flutter基础页面 (登录、注册、首页)
-- [x] **Phase 4**: 课程7阶段实现
-- [ ] **Phase 5**: 管理员面板
-- [ ] **Phase 6**: 数据分析服务
-- [ ] **Phase 7**: 生产部署 + CI/CD
-
----
-
-## 📄 许可证
-
-此项目为个人项目。
-
----
-
-## 🤝 贡献
-
-欢迎提交Issue和Pull Request。
-
----
-
-## 📞 联系方式
-
-如有问题或建议，请提交Issue。
-
----
-
-**Made with ❤️ for Chinese-speaking Korean learners**
-
----
----
-
-<a name="한국어"></a>
-
-# 📖 프로젝트 소개 (한국어)
-
-**柠檬韩语 (Lemon Korean)** 는 중국어 화자를 위한 한국어 학습 애플리케이션으로, 오프라인 우선 아키텍처를 채택하여 레슨 다운로드 후 네트워크 없이 학습하고, 네트워크 복구 시 자동으로 진도를 동기화합니다.
-
-## ✨ 핵심 기능
-
-- **🔌 오프라인 우선 학습**: 레슨 다운로드 후 인터넷 없이 학습 가능
-- **🔄 자동 동기화**: 네트워크 복구 시 학습 진도 자동 백업
-- **🇨🇳 중국어 맞춤 설계**: 한자 연결, 발음 유사도 비교
-- **📱 몰입형 경험**: 풀스크린 학습 모드
-- **🏗️ 마이크로서비스 아키텍처**: 확장 가능한 백엔드
-- **🎯 7단계 레슨**: 어휘→문법→연습→대화→퀴즈→복습→요약
-- **🎨 현대적 UI**: Material Design 3, 부드러운 애니메이션
-- **📊 SRS 복습 시스템**: 지능형 복습 알림
 
 ## 🚀 빠른 시작
 
@@ -774,12 +139,12 @@ docker-compose exec nginx nginx -s reload
 - **Python** 3.11+ (개발용)
 - **Flutter** 3.x (모바일 앱 개발)
 
-### 설치 방법
+### 설치 단계
 
 #### 1️⃣ 저장소 클론
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/chelly1221/lemonkorean.git
 cd lemonkorean
 ```
 
@@ -808,20 +173,20 @@ MINIO_SECRET_KEY=your_secure_key
 
 #### 3️⃣ 서비스 시작
 
-**방법1: 배포 스크립트 사용 (권장)**
+**방법 1: 배포 스크립트 사용 (권장)**
 
 ```bash
 ./scripts/deploy.sh
 ```
 
-이 스크립트는 자동으로 다음을 수행합니다:
+이 스크립트는 다음을 자동으로 수행합니다:
 - ✅ 환경 변수 검증
 - ✅ Docker 이미지 빌드
 - ✅ 데이터베이스 마이그레이션
 - ✅ 서비스 시작
 - ✅ 헬스 체크
 
-**방법2: 수동 시작**
+**방법 2: 수동 시작**
 
 ```bash
 # 모든 서비스 빌드 및 시작
@@ -842,7 +207,7 @@ docker-compose logs -f
 
 - **API 게이트웨이**: http://localhost
 - **MinIO 콘솔**: http://localhost:9001
-- **RabbitMQ 관리 UI**: http://localhost:15672 (계정: guest / guest)
+- **RabbitMQ 관리 UI**: http://localhost:15672 (계정: guest, 비밀번호: guest)
 
 헬스 체크 엔드포인트:
 ```bash
@@ -864,13 +229,81 @@ flutter pub get
 flutter run
 ```
 
-## 📚 개발 가이드
+---
 
-상세한 개발 가이드는 **[CLAUDE.md](./CLAUDE.md)** 를 참고하세요.
+## 📁 프로젝트 구조
+
+```
+lemonkorean/
+├── services/                    # 마이크로서비스
+│   ├── auth/                   # 인증 서비스 (Node.js)
+│   │   ├── src/
+│   │   │   ├── controllers/   # 요청 처리
+│   │   │   ├── services/      # 비즈니스 로직
+│   │   │   ├── models/        # 데이터 모델
+│   │   │   └── routes/        # 라우팅 정의
+│   │   ├── package.json
+│   │   └── Dockerfile
+│   ├── content/               # 콘텐츠 서비스 (Node.js)
+│   ├── progress/              # 진도 관리 (Go)
+│   ├── media/                 # 미디어 서비스 (Go)
+│   ├── analytics/             # 분석 서비스 (Python)
+│   └── admin/                 # 관리 대시보드 (Node.js)
+│
+├── mobile/                     # Flutter 애플리케이션
+│   └── lemon_korean/
+│       ├── lib/
+│       │   ├── core/          # 핵심 기능
+│       │   │   ├── storage/   # Hive + SQLite
+│       │   │   ├── network/   # Dio + API
+│       │   │   └── utils/     # 유틸리티 함수
+│       │   ├── data/          # 데이터 레이어
+│       │   │   ├── models/    # 데이터 모델
+│       │   │   └── repositories/
+│       │   └── presentation/  # 프레젠테이션 레이어
+│       │       ├── screens/   # 화면
+│       │       ├── widgets/   # 위젯
+│       │       └── providers/ # 상태 관리
+│       ├── pubspec.yaml
+│       └── README.md
+│
+├── database/                   # 데이터베이스 초기화
+│   ├── postgres/              # PostgreSQL 스키마
+│   │   └── init/
+│   │       ├── 01_schema.sql
+│   │       └── 02_seed.sql
+│   └── mongo/                 # MongoDB 초기 데이터
+│       └── init/
+│
+├── nginx/                      # Nginx 설정
+│   ├── nginx.conf
+│   └── nginx.dev.conf
+│
+├── scripts/                    # 운영 스크립트
+│   ├── deploy.sh              # 배포 스크립트
+│   ├── backup.sh              # 백업 스크립트
+│   ├── restore.sh             # 복구 스크립트
+│   ├── logs.sh                # 로그 조회
+│   └── README.md
+│
+├── docs/                       # 문서
+│   └── api/                   # API 문서
+│
+├── docker-compose.yml          # Docker 오케스트레이션
+├── .env.example               # 환경 변수 예제
+├── CLAUDE.md                  # 개발 가이드
+└── README.md                  # 본 문서
+```
+
+---
+
+## 📚 개발 가이드
 
 ### 로컬 개발
 
 #### 백엔드 서비스 개발
+
+각 서비스는 독립적으로 실행 가능:
 
 ```bash
 # Auth Service (Node.js)
@@ -889,7 +322,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 3005
 ```
 
-#### Flutter 앱 개발
+#### Flutter 애플리케이션 개발
 
 ```bash
 cd mobile/lemon_korean
@@ -906,24 +339,196 @@ flutter build apk --release
 flutter build ios --release
 ```
 
+### 데이터베이스 작업
+
+```bash
+# PostgreSQL 접속
+docker-compose exec postgres psql -U lemon_user -d lemon_korean
+
+# MongoDB 접속
+docker-compose exec mongo mongosh
+
+# Redis 접속
+docker-compose exec redis redis-cli
+
+# 데이터베이스 마이그레이션 실행
+docker-compose exec postgres psql -U lemon_user -d lemon_korean -f /init/01_schema.sql
+```
+
+### 코드 규칙
+
+#### Flutter
+- `*_screen.dart` - 화면
+- `*_provider.dart` - 상태 관리
+- `*_model.dart` - 데이터 모델
+- `*_repository.dart` - 데이터 접근
+- `*_widget.dart` - 재사용 가능한 위젯
+
+#### Backend
+- `*.controller.js/go` - 요청 처리
+- `*.service.js/go` - 비즈니스 로직
+- `*.model.js/go` - 데이터 모델
+- `*.routes.js/go` - 라우팅 정의
+
+---
+
+## 🔍 API 문서
+
+### 주요 엔드포인트
+
+#### Auth Service (`:3001`)
+
+| 메서드 | 엔드포인트 | 설명 |
+|------|------|------|
+| POST | `/api/auth/register` | 사용자 등록 |
+| POST | `/api/auth/login` | 사용자 로그인 |
+| POST | `/api/auth/refresh` | 토큰 갱신 |
+| GET | `/api/auth/profile` | 사용자 정보 조회 |
+
+#### Content Service (`:3002`)
+
+| 메서드 | 엔드포인트 | 설명 |
+|------|------|------|
+| GET | `/api/content/lessons` | 레슨 목록 조회 |
+| GET | `/api/content/lessons/:id` | 레슨 상세 조회 |
+| GET | `/api/content/lessons/:id/download` | 레슨 패키지 다운로드 |
+| POST | `/api/content/check-updates` | 레슨 업데이트 확인 |
+
+#### Progress Service (`:3003`)
+
+| 메서드 | 엔드포인트 | 설명 |
+|------|------|------|
+| GET | `/api/progress/user/:userId` | 사용자 진도 조회 |
+| POST | `/api/progress/complete` | 레슨 완료 |
+| POST | `/api/progress/sync` | 오프라인 진도 동기화 |
+| GET | `/api/progress/review-schedule` | SRS 복습 일정 |
+
+#### Media Service (`:3004`)
+
+| 메서드 | 엔드포인트 | 설명 |
+|------|------|------|
+| GET | `/media/images/:key` | 이미지 조회 |
+| GET | `/media/audio/:key` | 오디오 조회 |
+
+상세 API 문서: [API 문서](./docs/api/README.md)
+
+---
+
+## 🧪 테스트
+
+### 백엔드 테스트
+
+```bash
+# Auth Service
+docker-compose exec auth npm test
+
+# Progress Service
+cd services/progress
+go test ./...
+
+# Analytics Service
+cd services/analytics
+pytest
+```
+
+### Flutter 테스트
+
+```bash
+cd mobile/lemon_korean
+
+# 단위 테스트
+flutter test
+
+# 통합 테스트
+flutter test integration_test/
+
+# 테스트 커버리지
+flutter test --coverage
+genhtml coverage/lcov.info -o coverage/html
+```
+
+---
+
+## 🛠️ 운영 도구
+
+### 백업 및 복구
+
+```bash
+# 백업 생성
+./scripts/backup.sh
+
+# 사용 가능한 백업 조회
+./scripts/restore.sh
+
+# 백업에서 복구
+./scripts/restore.sh 20240125_020000
+```
+
+백업 내용:
+- ✅ PostgreSQL 데이터베이스
+- ✅ MongoDB 데이터베이스
+- ✅ MinIO 객체 스토리지
+- ✅ 30일 이상 오래된 백업 자동 삭제
+
+### 로그 조회
+
+```bash
+# 모든 서비스 로그 조회
+./scripts/logs.sh
+
+# 실시간 로그 추적
+./scripts/logs.sh -f
+
+# 특정 서비스
+./scripts/logs.sh auth
+
+# 지난 1시간 로그
+./scripts/logs.sh --since 1h content
+```
+
+### 서비스 관리
+
+```bash
+# 특정 서비스 재시작
+docker-compose restart auth
+
+# 모든 서비스 중지
+docker-compose down
+
+# 완전 정리 (데이터 볼륨 포함)
+docker-compose down -v
+
+# 서비스 상태 확인
+docker-compose ps
+```
+
+---
+
 ## ⚠️ 트러블슈팅
 
 ### 일반적인 문제
 
 #### 1. 포트 충돌
 
+**증상**: `Error: bind: address already in use`
+
+**해결 방법**:
 ```bash
 # 포트 사용 확인
 sudo lsof -i :5432  # PostgreSQL
 sudo lsof -i :3001  # Auth Service
 
-# 서비스 중지 후 재시작
+# 충돌하는 프로세스 중지 또는 docker-compose.yml에서 포트 매핑 수정
 docker-compose down
+# 포트 수정 후 재시작
 docker-compose up -d
 ```
 
 #### 2. Docker 빌드 실패
 
+**증상**: `ERROR [internal] load metadata for docker.io/library/...`
+
+**해결 방법**:
 ```bash
 # Docker 캐시 정리
 docker system prune -a
@@ -935,232 +540,206 @@ docker-compose up -d
 
 #### 3. 데이터베이스 연결 실패
 
+**증상**: `Error: connect ECONNREFUSED`
+
+**해결 방법**:
 ```bash
-# 컨테이너 상태 확인
+# 데이터베이스 컨테이너 상태 확인
 docker-compose ps postgres
 
-# 로그 확인
+# 데이터베이스 로그 확인
 docker-compose logs postgres
 
-# 재시작
+# 데이터베이스 재시작
 docker-compose restart postgres
+
+# PostgreSQL 준비 대기
+docker-compose exec postgres pg_isready -U lemon_user
 ```
 
 #### 4. Flutter 빌드 오류
 
+**증상**: `Could not resolve all dependencies`
+
+**해결 방법**:
 ```bash
 cd mobile/lemon_korean
+
+# 캐시 정리
 flutter clean
+
+# 의존성 재설치
 flutter pub get
+
+# 의존성 업그레이드
 flutter pub upgrade
+
+# 재실행
 flutter run
 ```
 
-## 📖 추가 문서
+#### 5. 헬스 체크 실패
+
+**증상**: 일부 서비스의 헬스 체크 실패
+
+**해결 방법**:
+```bash
+# 실패한 서비스 로그 확인
+./scripts/logs.sh <service-name>
+
+# 환경 변수 확인
+cat .env
+
+# 재배포
+./scripts/deploy.sh
+```
+
+#### 6. MinIO 접근 문제
+
+**증상**: MinIO 콘솔 접근 불가 또는 파일 업로드 실패
+
+**해결 방법**:
+```bash
+# MinIO 상태 확인
+curl http://localhost:9000/minio/health/live
+
+# MinIO 로그 확인
+docker-compose logs minio
+
+# 인증 정보 재설정 (.env에서)
+MINIO_ACCESS_KEY=admin
+MINIO_SECRET_KEY=your_secure_key
+
+# MinIO 재시작
+docker-compose restart minio
+```
+
+#### 7. 백업 실패
+
+**증상**: `backup.sh` 실행 실패
+
+**해결 방법**:
+```bash
+# 디스크 공간 확인
+df -h
+
+# 컨테이너 실행 상태 확인
+docker-compose ps
+
+# 백업 디렉토리 권한 확인
+ls -la backups/
+
+# 백업 디렉토리 수동 생성
+mkdir -p backups/{postgres,mongo,minio}
+```
+
+### 로그 위치
+
+```bash
+# 애플리케이션 로그
+docker-compose logs <service-name>
+
+# 백업 로그
+/var/log/lemon_korean_backup.log
+
+# Nginx 로그
+docker-compose logs nginx
+
+# 시스템 로그
+journalctl -u docker
+```
+
+### 성능 최적화
+
+#### 데이터베이스 최적화
+
+```sql
+-- PostgreSQL 인덱스 최적화
+CREATE INDEX idx_user_progress_user_id ON user_progress(user_id);
+CREATE INDEX idx_lessons_level ON lessons(level);
+
+-- 느린 쿼리 확인
+SELECT * FROM pg_stat_statements ORDER BY mean_exec_time DESC LIMIT 10;
+```
+
+#### Redis 캐시
+
+```bash
+# 캐시 적중률 확인
+docker-compose exec redis redis-cli INFO stats | grep hit
+
+# 캐시 비우기
+docker-compose exec redis redis-cli FLUSHALL
+```
+
+#### Nginx 캐시
+
+```bash
+# Nginx 캐시 비우기
+docker-compose exec nginx rm -rf /var/cache/nginx/*
+
+# 설정 다시 로드
+docker-compose exec nginx nginx -s reload
+```
+
+---
+
+## 🔐 보안 권장사항
+
+1. **프로덕션 환경 설정**:
+   - 강력한 비밀번호 사용 (최소 16자)
+   - JWT_SECRET 정기적으로 변경
+   - HTTPS 활성화 (Let's Encrypt 사용)
+   - 방화벽 규칙 설정
+
+2. **데이터 백업**:
+   - 정기 백업 설정 (cron)
+   - 클라우드 스토리지로 원격 백업
+   - 복구 절차 정기적으로 테스트
+
+3. **모니터링 및 알림**:
+   - 서비스 헬스 모니터링 설정
+   - 디스크 공간 알림
+   - CPU/메모리 사용률 모니터링
+
+---
+
+## 📖 상세 문서
 
 - **[CLAUDE.md](./CLAUDE.md)** - 상세 개발 가이드
 - **[scripts/README.md](./scripts/README.md)** - 운영 스크립트 문서
 - **[mobile/lemon_korean/README.md](./mobile/lemon_korean/README.md)** - Flutter 앱 문서
+- **[docs/api/README.md](./docs/api/README.md)** - API 문서
+
+---
+
+## 🗺️ 개발 로드맵
+
+- [x] **Phase 1**: 인증 서비스 + 콘텐츠 서비스
+- [x] **Phase 2**: 진도 서비스 + 동기화 메커니즘
+- [x] **Phase 3**: Flutter 기본 화면 (로그인, 회원가입, 홈)
+- [x] **Phase 4**: 레슨 7단계 구현
+- [ ] **Phase 5**: 관리자 대시보드
+- [ ] **Phase 6**: 데이터 분석 서비스
+- [ ] **Phase 7**: 프로덕션 배포 + CI/CD
+
+---
 
 ## 📄 라이선스
 
 이 프로젝트는 개인 프로젝트입니다.
 
+---
+
+## 🤝 기여
+
+이슈 및 풀 리퀘스트 환영합니다.
+
+---
+
 ## 📞 문의
 
-문제나 제안사항은 Issue를 등록해주세요.
-
----
-
-**Made with ❤️ for Chinese-speaking Korean learners**
-
----
----
-
-<a name="english"></a>
-
-# 📖 Project Overview (English)
-
-**Lemon Korean (柠檬韩语)** is a Korean language learning application designed for Chinese speakers, featuring an offline-first architecture that allows learning downloaded lessons without network connectivity and automatically syncs progress when network is restored.
-
-## ✨ Key Features
-
-- **🔌 Offline-First Learning**: Study downloaded lessons without internet
-- **🔄 Auto Sync**: Automatically backup learning progress when network is restored
-- **🇨🇳 Chinese-Tailored Design**: Hanja connections, pronunciation similarity comparison
-- **📱 Immersive Experience**: Full-screen learning mode
-- **🏗️ Microservices Architecture**: Scalable backend system
-- **🎯 7-Stage Lessons**: Vocabulary→Grammar→Practice→Dialogue→Quiz→Review→Summary
-- **🎨 Modern UI**: Material Design 3, smooth animations
-- **📊 SRS Review System**: Intelligent review reminders
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Docker** 20.x+ & **Docker Compose** 2.x+
-- **Node.js** 18+ (for development)
-- **Go** 1.21+ (for development)
-- **Python** 3.11+ (for development)
-- **Flutter** 3.x (for mobile app development)
-
-### Installation
-
-#### 1️⃣ Clone Repository
-
-```bash
-git clone <repository-url>
-cd lemonkorean
-```
-
-#### 2️⃣ Environment Configuration
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` file with necessary environment variables:
-
-```env
-# Database
-DB_PASSWORD=your_secure_password
-POSTGRES_DB=lemon_korean
-POSTGRES_USER=lemon_user
-
-# JWT
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRES_IN=7d
-
-# MinIO
-MINIO_ACCESS_KEY=admin
-MINIO_SECRET_KEY=your_secure_key
-```
-
-#### 3️⃣ Start Services
-
-**Method 1: Using Deployment Script (Recommended)**
-
-```bash
-./scripts/deploy.sh
-```
-
-This script automatically:
-- ✅ Validates environment variables
-- ✅ Builds Docker images
-- ✅ Runs database migrations
-- ✅ Starts services
-- ✅ Performs health checks
-
-**Method 2: Manual Start**
-
-```bash
-# Build and start all services
-docker-compose up -d
-
-# Check service status
-docker-compose ps
-
-# View logs
-./scripts/logs.sh
-# or
-docker-compose logs -f
-```
-
-#### 4️⃣ Verify Services
-
-Access these URLs to confirm services are running:
-
-- **API Gateway**: http://localhost
-- **MinIO Console**: http://localhost:9001
-- **RabbitMQ Management**: http://localhost:15672 (guest/guest)
-
-Health check endpoints:
-```bash
-# Auth Service
-curl http://localhost:3001/api/auth/health
-
-# Content Service
-curl http://localhost:3002/api/content/health
-
-# Progress Service
-curl http://localhost:3003/api/progress/health
-```
-
-#### 5️⃣ Run Flutter App
-
-```bash
-cd mobile/lemon_korean
-flutter pub get
-flutter run
-```
-
-## 📚 Development Guide
-
-For detailed development guide, see **[CLAUDE.md](./CLAUDE.md)**.
-
-## ⚠️ Troubleshooting
-
-### Common Issues
-
-#### 1. Port Conflict
-
-```bash
-# Check port usage
-sudo lsof -i :5432  # PostgreSQL
-sudo lsof -i :3001  # Auth Service
-
-# Stop and restart
-docker-compose down
-docker-compose up -d
-```
-
-#### 2. Docker Build Failure
-
-```bash
-# Clean Docker cache
-docker system prune -a
-
-# Rebuild
-docker-compose build --no-cache
-docker-compose up -d
-```
-
-#### 3. Database Connection Failure
-
-```bash
-# Check container status
-docker-compose ps postgres
-
-# View logs
-docker-compose logs postgres
-
-# Restart
-docker-compose restart postgres
-```
-
-#### 4. Flutter Build Error
-
-```bash
-cd mobile/lemon_korean
-flutter clean
-flutter pub get
-flutter pub upgrade
-flutter run
-```
-
-## 📖 Additional Documentation
-
-- **[CLAUDE.md](./CLAUDE.md)** - Detailed development guide
-- **[scripts/README.md](./scripts/README.md)** - Operations script documentation
-- **[mobile/lemon_korean/README.md](./mobile/lemon_korean/README.md)** - Flutter app documentation
-
-## 📄 License
-
-This is a personal project.
-
-## 📞 Contact
-
-For issues or suggestions, please create an Issue.
+질문이나 제안사항이 있으시면 이슈를 등록해주세요.
 
 ---
 

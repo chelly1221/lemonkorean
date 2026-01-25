@@ -1,4 +1,4 @@
-# Auth Service API Documentation
+# Auth Service API 문서
 
 **Base URL**: `http://localhost:3001/api/auth`
 
@@ -6,25 +6,25 @@
 
 ---
 
-## Table of Contents
+## 목차
 
-- [Authentication](#authentication)
-- [Endpoints](#endpoints)
-  - [Register User](#register-user)
-  - [Login](#login)
-  - [Refresh Token](#refresh-token)
-  - [Get Profile](#get-profile)
-  - [Update Profile](#update-profile)
-  - [Change Password](#change-password)
-  - [Health Check](#health-check)
-- [Error Codes](#error-codes)
-- [Data Models](#data-models)
+- [인증](#인증)
+- [엔드포인트](#엔드포인트)
+  - [사용자 등록](#사용자-등록)
+  - [로그인](#로그인)
+  - [토큰 갱신](#토큰-갱신)
+  - [프로필 조회](#프로필-조회)
+  - [프로필 업데이트](#프로필-업데이트)
+  - [비밀번호 변경](#비밀번호-변경)
+  - [헬스 체크](#헬스-체크)
+- [오류 코드](#오류-코드)
+- [데이터 모델](#데이터-모델)
 
 ---
 
-## Authentication
+## 인증
 
-Most endpoints require JWT authentication. Include the token in the `Authorization` header:
+대부분의 엔드포인트는 JWT 인증이 필요합니다. `Authorization` 헤더에 토큰을 포함하세요:
 
 ```
 Authorization: Bearer <jwt_token>
@@ -32,17 +32,17 @@ Authorization: Bearer <jwt_token>
 
 ---
 
-## Endpoints
+## 엔드포인트
 
-### Register User
+### 사용자 등록
 
-Create a new user account.
+새 사용자 계정을 생성합니다.
 
-**Endpoint**: `POST /api/auth/register`
+**엔드포인트**: `POST /api/auth/register`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -53,9 +53,9 @@ Create a new user account.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `201 Created`
+**상태**: `201 Created`
 
 ```json
 {
@@ -78,7 +78,7 @@ Create a new user account.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3001/api/auth/register \
@@ -91,9 +91,9 @@ curl -X POST http://localhost:3001/api/auth/register \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `400 Bad Request`
+**상태**: `400 Bad Request`
 
 ```json
 {
@@ -125,15 +125,15 @@ curl -X POST http://localhost:3001/api/auth/register \
 
 ---
 
-### Login
+### 로그인
 
-Authenticate user and receive JWT tokens.
+사용자를 인증하고 JWT 토큰을 받습니다.
 
-**Endpoint**: `POST /api/auth/login`
+**엔드포인트**: `POST /api/auth/login`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -142,9 +142,9 @@ Authenticate user and receive JWT tokens.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -168,7 +168,7 @@ Authenticate user and receive JWT tokens.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3001/api/auth/login \
@@ -179,9 +179,9 @@ curl -X POST http://localhost:3001/api/auth/login \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `401 Unauthorized`
+**상태**: `401 Unauthorized`
 
 ```json
 {
@@ -208,15 +208,15 @@ curl -X POST http://localhost:3001/api/auth/login \
 
 ---
 
-### Refresh Token
+### 토큰 갱신
 
-Refresh access token using refresh token.
+리프레시 토큰을 사용하여 액세스 토큰을 갱신합니다.
 
-**Endpoint**: `POST /api/auth/refresh`
+**엔드포인트**: `POST /api/auth/refresh`
 
-**Authentication**: Not required (uses refresh token)
+**인증**: 불필요 (리프레시 토큰 사용)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -224,9 +224,9 @@ Refresh access token using refresh token.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -241,7 +241,7 @@ Refresh access token using refresh token.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3001/api/auth/refresh \
@@ -251,9 +251,9 @@ curl -X POST http://localhost:3001/api/auth/refresh \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `401 Unauthorized`
+**상태**: `401 Unauthorized`
 
 ```json
 {
@@ -267,17 +267,17 @@ curl -X POST http://localhost:3001/api/auth/refresh \
 
 ---
 
-### Get Profile
+### 프로필 조회
 
-Get current user profile.
+현재 사용자 프로필을 조회합니다.
 
-**Endpoint**: `GET /api/auth/profile`
+**엔드포인트**: `GET /api/auth/profile`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -297,16 +297,16 @@ Get current user profile.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3001/api/auth/profile \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `401 Unauthorized`
+**상태**: `401 Unauthorized`
 
 ```json
 {
@@ -320,15 +320,15 @@ curl -X GET http://localhost:3001/api/auth/profile \
 
 ---
 
-### Update Profile
+### 프로필 업데이트
 
-Update user profile information.
+사용자 프로필 정보를 업데이트합니다.
 
-**Endpoint**: `PUT /api/auth/profile`
+**엔드포인트**: `PUT /api/auth/profile`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -338,9 +338,9 @@ Update user profile information.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -356,7 +356,7 @@ Update user profile information.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X PUT http://localhost:3001/api/auth/profile \
@@ -368,9 +368,9 @@ curl -X PUT http://localhost:3001/api/auth/profile \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `409 Conflict`
+**상태**: `409 Conflict`
 
 ```json
 {
@@ -384,15 +384,15 @@ curl -X PUT http://localhost:3001/api/auth/profile \
 
 ---
 
-### Change Password
+### 비밀번호 변경
 
-Change user password.
+사용자 비밀번호를 변경합니다.
 
-**Endpoint**: `POST /api/auth/change-password`
+**엔드포인트**: `POST /api/auth/change-password`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -401,9 +401,9 @@ Change user password.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -412,7 +412,7 @@ Change user password.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3001/api/auth/change-password \
@@ -424,9 +424,9 @@ curl -X POST http://localhost:3001/api/auth/change-password \
   }'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `401 Unauthorized`
+**상태**: `401 Unauthorized`
 
 ```json
 {
@@ -452,17 +452,17 @@ curl -X POST http://localhost:3001/api/auth/change-password \
 
 ---
 
-### Health Check
+### 헬스 체크
 
-Check if Auth Service is healthy.
+Auth Service가 정상인지 확인합니다.
 
-**Endpoint**: `GET /api/auth/health`
+**엔드포인트**: `GET /api/auth/health`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -477,7 +477,7 @@ Check if Auth Service is healthy.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3001/api/auth/health
@@ -485,26 +485,26 @@ curl -X GET http://localhost:3001/api/auth/health
 
 ---
 
-## Error Codes
+## 오류 코드
 
-| Code | HTTP Status | Description |
+| 코드 | HTTP 상태 | 설명 |
 |------|-------------|-------------|
-| `VALIDATION_ERROR` | 400 | Invalid input data |
-| `INVALID_EMAIL` | 422 | Email format is invalid |
-| `INVALID_CREDENTIALS` | 401 | Email or password is incorrect |
-| `ACCOUNT_LOCKED` | 423 | Account temporarily locked |
-| `INVALID_REFRESH_TOKEN` | 401 | Refresh token is invalid or expired |
-| `UNAUTHORIZED` | 401 | Authentication required |
-| `EMAIL_ALREADY_EXISTS` | 409 | Email already registered |
-| `USERNAME_ALREADY_EXISTS` | 409 | Username already taken |
-| `INVALID_PASSWORD` | 401 | Current password is incorrect |
-| `WEAK_PASSWORD` | 400 | Password doesn't meet requirements |
-| `INTERNAL_SERVER_ERROR` | 500 | Server error occurred |
-| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable |
+| `VALIDATION_ERROR` | 400 | 잘못된 입력 데이터 |
+| `INVALID_EMAIL` | 422 | 이메일 형식이 잘못됨 |
+| `INVALID_CREDENTIALS` | 401 | 이메일 또는 비밀번호가 올바르지 않음 |
+| `ACCOUNT_LOCKED` | 423 | 계정이 일시적으로 잠김 |
+| `INVALID_REFRESH_TOKEN` | 401 | 리프레시 토큰이 유효하지 않거나 만료됨 |
+| `UNAUTHORIZED` | 401 | 인증 필요 |
+| `EMAIL_ALREADY_EXISTS` | 409 | 이메일이 이미 등록됨 |
+| `USERNAME_ALREADY_EXISTS` | 409 | 사용자 이름이 이미 사용 중 |
+| `INVALID_PASSWORD` | 401 | 현재 비밀번호가 올바르지 않음 |
+| `WEAK_PASSWORD` | 400 | 비밀번호가 요구 사항을 충족하지 않음 |
+| `INTERNAL_SERVER_ERROR` | 500 | 서버 오류 발생 |
+| `SERVICE_UNAVAILABLE` | 503 | 서비스가 일시적으로 사용 불가 |
 
 ---
 
-## Data Models
+## 데이터 모델
 
 ### User
 
@@ -549,7 +549,7 @@ curl -X GET http://localhost:3001/api/auth/health
 
 ---
 
-## OpenAPI 3.0 Specification
+## OpenAPI 3.0 스펙
 
 ```yaml
 openapi: 3.0.3

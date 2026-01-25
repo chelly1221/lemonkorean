@@ -1,4 +1,4 @@
-# Media Service API Documentation
+# Media Service API 문서
 
 **Base URL**: `http://localhost:3004`
 
@@ -6,27 +6,27 @@
 
 ---
 
-## Table of Contents
+## 목차
 
-- [Authentication](#authentication)
-- [Endpoints](#endpoints)
-  - [Get Image](#get-image)
-  - [Get Audio](#get-audio)
-  - [Upload Media](#upload-media)
-  - [Delete Media](#delete-media)
-  - [Get Media Info](#get-media-info)
-  - [Batch Download](#batch-download)
-  - [Health Check](#health-check)
-- [Error Codes](#error-codes)
-- [Data Models](#data-models)
+- [인증](#인증)
+- [엔드포인트](#엔드포인트)
+  - [이미지 조회](#이미지-조회)
+  - [오디오 조회](#오디오-조회)
+  - [미디어 업로드](#미디어-업로드)
+  - [미디어 삭제](#미디어-삭제)
+  - [미디어 정보 조회](#미디어-정보-조회)
+  - [배치 다운로드](#배치-다운로드)
+  - [헬스 체크](#헬스-체크)
+- [오류 코드](#오류-코드)
+- [데이터 모델](#데이터-모델)
 
 ---
 
-## Authentication
+## 인증
 
-Media retrieval endpoints (`GET /media/images/:key`, `GET /media/audio/:key`) do NOT require authentication for public content.
+미디어 조회 엔드포인트 (`GET /media/images/:key`, `GET /media/audio/:key`)는 공개 콘텐츠에 대해 인증이 필요하지 않습니다.
 
-Upload and delete operations require JWT authentication:
+업로드 및 삭제 작업은 JWT 인증이 필요합니다:
 
 ```
 Authorization: Bearer <jwt_token>
@@ -34,40 +34,40 @@ Authorization: Bearer <jwt_token>
 
 ---
 
-## Endpoints
+## 엔드포인트
 
-### Get Image
+### 이미지 조회
 
-Retrieve an image file.
+이미지 파일을 조회합니다.
 
-**Endpoint**: `GET /media/images/:key`
+**엔드포인트**: `GET /media/images/:key`
 
-**Authentication**: Not required for public content
+**인증**: 공개 콘텐츠의 경우 불필요
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `key` | string | Yes | Image key (URL-encoded path) |
+| `key` | string | 예 | 이미지 키 (URL 인코딩된 경로) |
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `w` | integer | No | - | Resize width (px) |
-| `h` | integer | No | - | Resize height (px) |
-| `q` | integer | No | 85 | Quality (1-100) |
-| `format` | string | No | original | Output format (webp, jpg, png) |
+| `w` | integer | 아니오 | - | 리사이즈 너비 (px) |
+| `h` | integer | 아니오 | - | 리사이즈 높이 (px) |
+| `q` | integer | 아니오 | 85 | 품질 (1-100) |
+| `format` | string | 아니오 | original | 출력 형식 (webp, jpg, png) |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 **Content-Type**: `image/jpeg`, `image/png`, `image/webp`, etc.
 
 Binary image data
 
-#### Headers
+#### 헤더
 
 ```
 Cache-Control: public, max-age=604800
@@ -76,7 +76,7 @@ Content-Length: 102400
 Last-Modified: Wed, 25 Jan 2024 10:30:00 GMT
 ```
 
-#### Example
+#### 예시
 
 ```bash
 # Get original image
@@ -89,9 +89,9 @@ curl -X GET "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?w=300&h=
 curl -X GET "http://localhost:3004/media/images/vocab/1/image.jpg?w=100&h=100"
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `404 Not Found`
+**상태**: `404 Not Found`
 
 ```json
 {
@@ -103,7 +103,7 @@ curl -X GET "http://localhost:3004/media/images/vocab/1/image.jpg?w=100&h=100"
 }
 ```
 
-**Status**: `400 Bad Request`
+**상태**: `400 Bad Request`
 
 ```json
 {
@@ -117,30 +117,30 @@ curl -X GET "http://localhost:3004/media/images/vocab/1/image.jpg?w=100&h=100"
 
 ---
 
-### Get Audio
+### 오디오 조회
 
-Retrieve an audio file.
+오디오 파일을 조회합니다.
 
-**Endpoint**: `GET /media/audio/:key`
+**엔드포인트**: `GET /media/audio/:key`
 
-**Authentication**: Not required for public content
+**인증**: 공개 콘텐츠의 경우 불필요
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `key` | string | Yes | Audio key (URL-encoded path) |
+| `key` | string | 예 | 오디오 키 (URL 인코딩된 경로) |
 
-#### Query Parameters
+#### 쿼리 파라미터
 
-| Parameter | Type | Required | Default | Description |
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `format` | string | No | original | Output format (mp3, ogg, wav) |
-| `bitrate` | integer | No | 128 | Bitrate (kbps) for transcoding |
+| `format` | string | 아니오 | original | 출력 형식 (mp3, ogg, wav) |
+| `bitrate` | integer | 아니오 | 128 | 트랜스코딩 비트레이트 (kbps) |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 **Content-Type**: `audio/mpeg`, `audio/ogg`, `audio/wav`, etc.
 
@@ -157,7 +157,7 @@ ETag: "x1y2z3w4v5u6"
 Last-Modified: Wed, 25 Jan 2024 10:30:00 GMT
 ```
 
-#### Example
+#### 예시
 
 ```bash
 # Get original audio
@@ -171,9 +171,9 @@ curl -X GET http://localhost:3004/media/audio/lessons/1/dialogue.mp3 \
   -H "Range: bytes=0-1048575"
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `404 Not Found`
+**상태**: `404 Not Found`
 
 ```json
 {
@@ -185,7 +185,7 @@ curl -X GET http://localhost:3004/media/audio/lessons/1/dialogue.mp3 \
 }
 ```
 
-**Status**: `416 Range Not Satisfiable`
+**상태**: `416 Range Not Satisfiable`
 
 ```json
 {
@@ -199,29 +199,29 @@ curl -X GET http://localhost:3004/media/audio/lessons/1/dialogue.mp3 \
 
 ---
 
-### Upload Media
+### 미디어 업로드
 
-Upload a media file (admin only).
+미디어 파일을 업로드합니다 (관리자 전용).
 
-**Endpoint**: `POST /media/upload`
+**엔드포인트**: `POST /media/upload`
 
-**Authentication**: Required (JWT with admin role)
+**인증**: 필요 (관리자 역할의 JWT)
 
-#### Request
+#### 요청
 
 **Content-Type**: `multipart/form-data`
 
-| Field | Type | Required | Description |
+| 필드 | 타입 | 필수 | 설명 |
 |-------|------|----------|-------------|
-| `file` | file | Yes | Media file |
-| `type` | string | Yes | Media type (image, audio) |
-| `category` | string | Yes | Category (lessons, vocab, grammar, etc.) |
-| `lesson_id` | integer | No | Associated lesson ID |
-| `metadata` | string | No | JSON metadata |
+| `file` | file | 예 | 미디어 파일 |
+| `type` | string | 예 | 미디어 타입 (image, audio) |
+| `category` | string | 예 | 카테고리 (lessons, vocab, grammar 등) |
+| `lesson_id` | integer | 아니오 | 연결된 레슨 ID |
+| `metadata` | string | 아니오 | JSON 메타데이터 |
 
-#### Response
+#### 응답
 
-**Status**: `201 Created`
+**상태**: `201 Created`
 
 ```json
 {
@@ -242,7 +242,7 @@ Upload a media file (admin only).
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3004/media/upload \
@@ -254,9 +254,9 @@ curl -X POST http://localhost:3004/media/upload \
   -F 'metadata={"alt_text":"Lesson 1 thumbnail"}'
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `400 Bad Request`
+**상태**: `400 Bad Request`
 
 ```json
 {
@@ -268,7 +268,7 @@ curl -X POST http://localhost:3004/media/upload \
 }
 ```
 
-**Status**: `413 Payload Too Large`
+**상태**: `413 Payload Too Large`
 
 ```json
 {
@@ -280,7 +280,7 @@ curl -X POST http://localhost:3004/media/upload \
 }
 ```
 
-**Status**: `403 Forbidden`
+**상태**: `403 Forbidden`
 
 ```json
 {
@@ -294,24 +294,24 @@ curl -X POST http://localhost:3004/media/upload \
 
 ---
 
-### Delete Media
+### 미디어 삭제
 
-Delete a media file (admin only).
+미디어 파일을 삭제합니다 (관리자 전용).
 
-**Endpoint**: `DELETE /media/:type/:key`
+**엔드포인트**: `DELETE /media/:type/:key`
 
-**Authentication**: Required (JWT with admin role)
+**인증**: 필요 (관리자 역할의 JWT)
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `type` | string | Yes | Media type (images, audio) |
-| `key` | string | Yes | Media key (URL-encoded path) |
+| `type` | string | 예 | 미디어 타입 (images, audio) |
+| `key` | string | 예 | 미디어 키 (URL 인코딩된 경로) |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -324,16 +324,16 @@ Delete a media file (admin only).
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X DELETE http://localhost:3004/media/images/lessons/1/old-thumbnail.jpg \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Error Responses
+#### 오류 응답
 
-**Status**: `404 Not Found`
+**상태**: `404 Not Found`
 
 ```json
 {
@@ -345,7 +345,7 @@ curl -X DELETE http://localhost:3004/media/images/lessons/1/old-thumbnail.jpg \
 }
 ```
 
-**Status**: `409 Conflict`
+**상태**: `409 Conflict`
 
 ```json
 {
@@ -359,24 +359,24 @@ curl -X DELETE http://localhost:3004/media/images/lessons/1/old-thumbnail.jpg \
 
 ---
 
-### Get Media Info
+### 미디어 정보 조회
 
-Get metadata about a media file.
+미디어 파일에 대한 메타데이터를 조회합니다.
 
-**Endpoint**: `GET /media/info/:type/:key`
+**엔드포인트**: `GET /media/info/:type/:key`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Path Parameters
+#### 경로 파라미터
 
-| Parameter | Type | Required | Description |
+| 파라미터 | 타입 | 필수 | 설명 |
 |-----------|------|----------|-------------|
-| `type` | string | Yes | Media type (images, audio) |
-| `key` | string | Yes | Media key (URL-encoded path) |
+| `type` | string | 예 | 미디어 타입 (images, audio) |
+| `key` | string | 예 | 미디어 키 (URL 인코딩된 경로) |
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -414,7 +414,7 @@ Get metadata about a media file.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3004/media/info/images/lessons/1/thumbnail.jpg
@@ -422,15 +422,15 @@ curl -X GET http://localhost:3004/media/info/images/lessons/1/thumbnail.jpg
 
 ---
 
-### Batch Download
+### 배치 다운로드
 
-Get download URLs for multiple media files.
+여러 미디어 파일에 대한 다운로드 URL을 조회합니다.
 
-**Endpoint**: `POST /media/batch-download`
+**엔드포인트**: `POST /media/batch-download`
 
-**Authentication**: Required (JWT)
+**인증**: 필요 (JWT)
 
-#### Request Body
+#### 요청 본문
 
 ```json
 {
@@ -451,9 +451,9 @@ Get download URLs for multiple media files.
 }
 ```
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -491,7 +491,7 @@ Get download URLs for multiple media files.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X POST http://localhost:3004/media/batch-download \
@@ -507,17 +507,17 @@ curl -X POST http://localhost:3004/media/batch-download \
 
 ---
 
-### Health Check
+### 헬스 체크
 
-Check if Media Service is healthy.
+Media Service가 정상인지 확인합니다.
 
-**Endpoint**: `GET /health`
+**엔드포인트**: `GET /health`
 
-**Authentication**: Not required
+**인증**: 불필요
 
-#### Response
+#### 응답
 
-**Status**: `200 OK`
+**상태**: `200 OK`
 
 ```json
 {
@@ -541,7 +541,7 @@ Check if Media Service is healthy.
 }
 ```
 
-#### Example
+#### 예시
 
 ```bash
 curl -X GET http://localhost:3004/health
@@ -549,27 +549,27 @@ curl -X GET http://localhost:3004/health
 
 ---
 
-## Error Codes
+## 오류 코드
 
-| Code | HTTP Status | Description |
+| 코드 | HTTP 상태 | 설명 |
 |------|-------------|-------------|
-| `IMAGE_NOT_FOUND` | 404 | Image file not found |
-| `AUDIO_NOT_FOUND` | 404 | Audio file not found |
-| `MEDIA_NOT_FOUND` | 404 | Media file not found |
-| `INVALID_DIMENSIONS` | 400 | Invalid width or height |
-| `INVALID_RANGE` | 416 | Invalid byte range |
-| `INVALID_FILE_TYPE` | 400 | File type not allowed |
-| `FILE_TOO_LARGE` | 413 | File exceeds size limit |
-| `ADMIN_ONLY` | 403 | Admin privileges required |
-| `MEDIA_IN_USE` | 409 | Media file is still referenced |
-| `UPLOAD_FAILED` | 500 | Failed to upload file |
-| `UNAUTHORIZED` | 401 | Authentication required |
-| `INTERNAL_SERVER_ERROR` | 500 | Server error occurred |
-| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable |
+| `IMAGE_NOT_FOUND` | 404 | 이미지 파일을 찾을 수 없음 |
+| `AUDIO_NOT_FOUND` | 404 | 오디오 파일을 찾을 수 없음 |
+| `MEDIA_NOT_FOUND` | 404 | 미디어 파일을 찾을 수 없음 |
+| `INVALID_DIMENSIONS` | 400 | 잘못된 너비 또는 높이 |
+| `INVALID_RANGE` | 416 | 잘못된 바이트 범위 |
+| `INVALID_FILE_TYPE` | 400 | 허용되지 않는 파일 타입 |
+| `FILE_TOO_LARGE` | 413 | 파일이 크기 제한 초과 |
+| `ADMIN_ONLY` | 403 | 관리자 권한 필요 |
+| `MEDIA_IN_USE` | 409 | 미디어 파일이 여전히 참조됨 |
+| `UPLOAD_FAILED` | 500 | 파일 업로드 실패 |
+| `UNAUTHORIZED` | 401 | 인증 필요 |
+| `INTERNAL_SERVER_ERROR` | 500 | 서버 오류 발생 |
+| `SERVICE_UNAVAILABLE` | 503 | 서비스가 일시적으로 사용 불가 |
 
 ---
 
-## Data Models
+## 데이터 모델
 
 ### Media File Info
 
@@ -626,20 +626,20 @@ curl -X GET http://localhost:3004/health
 
 ---
 
-## Rate Limiting
+## 속도 제한
 
-Media endpoints have rate limiting:
+미디어 엔드포인트에는 속도 제한이 있습니다:
 
-| Endpoint | Limit | Window |
+| 엔드포인트 | 제한 | 기간 |
 |----------|-------|--------|
-| `GET /media/images/:key` | 1000 requests | 1 minute |
-| `GET /media/audio/:key` | 500 requests | 1 minute |
-| `POST /media/upload` | 100 requests | 1 hour |
-| `DELETE /media/:type/:key` | 50 requests | 1 hour |
+| `GET /media/images/:key` | 1000 요청 | 1분 |
+| `GET /media/audio/:key` | 500 요청 | 1분 |
+| `POST /media/upload` | 100 요청 | 1시간 |
+| `DELETE /media/:type/:key` | 50 요청 | 1시간 |
 
-When rate limit is exceeded:
+속도 제한을 초과하면:
 
-**Status**: `429 Too Many Requests`
+**상태**: `429 Too Many Requests`
 
 ```json
 {
@@ -652,7 +652,7 @@ When rate limit is exceeded:
 }
 ```
 
-Headers:
+헤더:
 ```
 X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 0
@@ -662,11 +662,11 @@ Retry-After: 60
 
 ---
 
-## Caching
+## 캐싱
 
-### Client-Side Caching
+### 클라이언트 측 캐싱
 
-All media files include cache headers:
+모든 미디어 파일에는 캐시 헤더가 포함됩니다:
 
 ```
 Cache-Control: public, max-age=604800
@@ -674,7 +674,7 @@ ETag: "a1b2c3d4e5f6"
 Last-Modified: Wed, 25 Jan 2024 10:30:00 GMT
 ```
 
-Use conditional requests to save bandwidth:
+대역폭을 절약하기 위해 조건부 요청을 사용하세요:
 
 ```bash
 # First request
@@ -688,31 +688,31 @@ curl -X GET http://localhost:3004/media/images/lessons/1/thumbnail.jpg \
 # Response: 304 Not Modified (if unchanged)
 ```
 
-### Server-Side Caching
+### 서버 측 캐싱
 
-The media service implements:
-- **Memory cache** (frequently accessed files)
-- **CDN integration** (production)
-- **Image processing cache** (resized/transcoded variants)
+미디어 서비스는 다음을 구현합니다:
+- **메모리 캐시** (자주 접근하는 파일)
+- **CDN 통합** (프로덕션)
+- **이미지 처리 캐시** (리사이즈/트랜스코드된 변형)
 
 ---
 
-## Image Processing
+## 이미지 처리
 
-### Supported Formats
+### 지원되는 형식
 
-**Input**: JPEG, PNG, WebP, GIF
-**Output**: JPEG, PNG, WebP
+**입력**: JPEG, PNG, WebP, GIF
+**출력**: JPEG, PNG, WebP
 
-### Resize Modes
+### 리사이즈 모드
 
-**Query Parameter**: `mode`
+**쿼리 파라미터**: `mode`
 
-- `fit` (default): Fit within dimensions, maintain aspect ratio
-- `fill`: Fill dimensions, crop if needed
-- `stretch`: Stretch to exact dimensions
+- `fit` (기본값): 크기 내에 맞추고 종횡비 유지
+- `fill`: 크기 채우기, 필요시 자르기
+- `stretch`: 정확한 크기로 늘리기
 
-Example:
+예시:
 ```bash
 # Fit mode (default)
 curl "http://localhost:3004/media/images/lessons/1/banner.jpg?w=800&h=400&mode=fit"
@@ -721,9 +721,9 @@ curl "http://localhost:3004/media/images/lessons/1/banner.jpg?w=800&h=400&mode=f
 curl "http://localhost:3004/media/images/lessons/1/banner.jpg?w=800&h=400&mode=fill"
 ```
 
-### Quality
+### 품질
 
-**Query Parameter**: `q` (1-100, default: 85)
+**쿼리 파라미터**: `q` (1-100, 기본값: 85)
 
 ```bash
 # High quality (larger file)
@@ -735,11 +735,11 @@ curl "http://localhost:3004/media/images/lessons/1/photo.jpg?q=60"
 
 ---
 
-## Audio Streaming
+## 오디오 스트리밍
 
-### Range Requests
+### 범위 요청
 
-Audio files support HTTP range requests for streaming:
+오디오 파일은 스트리밍을 위한 HTTP 범위 요청을 지원합니다:
 
 ```bash
 # Request first 1MB
@@ -754,10 +754,10 @@ curl -X GET http://localhost:3004/media/audio/lessons/1/dialogue.mp3 \
 # Accept-Ranges: bytes
 ```
 
-### Transcoding
+### 트랜스코딩
 
-**Query Parameter**: `format` (mp3, ogg, wav)
-**Query Parameter**: `bitrate` (kbps)
+**쿼리 파라미터**: `format` (mp3, ogg, wav)
+**쿼리 파라미터**: `bitrate` (kbps)
 
 ```bash
 # Convert to OGG, 64kbps
@@ -766,7 +766,7 @@ curl "http://localhost:3004/media/audio/vocab/1/audio.mp3?format=ogg&bitrate=64"
 
 ---
 
-## OpenAPI 3.0 Specification
+## OpenAPI 3.0 스펙
 
 ```yaml
 openapi: 3.0.3

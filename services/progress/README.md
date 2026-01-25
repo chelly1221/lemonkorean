@@ -2,7 +2,7 @@
 
 학습 진도 관리 및 SRS(Spaced Repetition System) 서비스 - Go로 구현
 
-## Features
+## 기능
 
 - **진도 관리**: 레슨별 학습 진도 추적
 - **SRS 알고리즘**: SM-2 기반 복습 스케줄링
@@ -10,15 +10,15 @@
 - **학습 세션**: 학습 시간 및 통계 추적
 - **단어 복습**: 단어별 숙달도 관리
 
-## Tech Stack
+## 기술 스택
 
-- **Runtime**: Go 1.20
-- **Framework**: Gin (웹 프레임워크)
-- **Database**: PostgreSQL (진도 데이터)
-- **Cache**: Redis (캐싱)
-- **Auth**: JWT 인증
+- **런타임**: Go 1.20
+- **프레임워크**: Gin (웹 프레임워크)
+- **데이터베이스**: PostgreSQL (진도 데이터)
+- **캐시**: Redis (캐싱)
+- **인증**: JWT 인증
 
-## Environment Variables
+## 환경 변수
 
 ```env
 NODE_ENV=production
@@ -34,22 +34,22 @@ REDIS_URL=redis://:password@redis:6379
 JWT_SECRET=your_jwt_secret
 ```
 
-## Installation
+## 설치
 
 ```bash
-# Install dependencies
+# 의존성 설치
 go mod download
 
-# Run development server
+# 개발 서버 실행
 go run main.go
 
-# Build for production
+# 프로덕션 빌드
 go build -o progress-service main.go
 ```
 
-## API Endpoints
+## API 엔드포인트
 
-### Progress
+### 진도
 
 - `GET /api/progress/user/:userId` - 사용자 전체 진도
 - `GET /api/progress/lesson/:lessonId` - 레슨별 진도
@@ -57,39 +57,39 @@ go build -o progress-service main.go
 - `POST /api/progress/update` - 진도 업데이트
 - `DELETE /api/progress/reset/:lessonId` - 진도 초기화
 
-### Vocabulary
+### 단어
 
 - `GET /api/progress/vocabulary/:userId` - 단어 학습 진도
 - `POST /api/progress/vocabulary/practice` - 단어 연습 기록
 - `GET /api/progress/review-schedule/:userId` - 복습 스케줄
 - `POST /api/progress/review/complete` - 복습 완료
 
-### Sessions
+### 세션
 
 - `POST /api/progress/session/start` - 학습 세션 시작
 - `POST /api/progress/session/end` - 학습 세션 종료
 - `GET /api/progress/session/stats/:userId` - 세션 통계
 
-### Sync
+### 동기화
 
 - `POST /api/progress/sync` - 오프라인 데이터 동기화
 - `POST /api/progress/sync/batch` - 배치 동기화
 - `GET /api/progress/sync/status/:userId` - 동기화 상태
 
-### Statistics
+### 통계
 
 - `GET /api/progress/stats/:userId` - 사용자 통계
 - `GET /api/progress/stats/weekly/:userId` - 주간 통계
 
 ## Docker
 
-### Build
+### 빌드
 
 ```bash
 docker build -t lemon-progress-service:latest .
 ```
 
-### Run
+### 실행
 
 ```bash
 docker run -d \
@@ -99,7 +99,7 @@ docker run -d \
   lemon-progress-service:latest
 ```
 
-## Project Structure
+## 프로젝트 구조
 
 ```
 progress/
@@ -121,7 +121,7 @@ progress/
     └── srs.go              # SRS 알고리즘 (SM-2)
 ```
 
-## SRS Algorithm
+## SRS 알고리즘
 
 SuperMemo 2 (SM-2) 알고리즘 기반:
 
@@ -130,7 +130,7 @@ SuperMemo 2 (SM-2) 알고리즘 기반:
 - **Interval**: 1일 → 6일 → EF * 이전 간격
 - **Mastery Levels**: New → Learning → Reviewing → Mastered
 
-### Quality Score
+### 품질 점수
 
 - 0: Complete blackout (전혀 모름)
 - 1: Incorrect, but familiar (틀렸지만 익숙함)
@@ -139,6 +139,6 @@ SuperMemo 2 (SM-2) 알고리즘 기반:
 - 4: Correct with hesitation (약간 망설였지만 맞춤)
 - 5: Perfect recall (완벽하게 기억)
 
-## License
+## 라이선스
 
 MIT

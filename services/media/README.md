@@ -4,17 +4,17 @@ MinIO 기반 미디어 파일 관리 서비스 (이미지, 오디오, 비디오)
 
 ## 주요 기능
 
-- ✅ 이미지 서빙 (자동 리사이징, WebP 변환)
-- ✅ 오디오 스트리밍 (Range 요청 지원)
-- ✅ 썸네일 자동 생성
-- ✅ 미디어 업로드 (이미지 자동 최적화)
-- ✅ 미디어 삭제
-- ✅ HTTP 캐싱 (ETag, Cache-Control, Last-Modified)
-- ✅ MinIO 객체 스토리지 통합
+- 이미지 서빙 (자동 리사이징, WebP 변환)
+- 오디오 스트리밍 (Range 요청 지원)
+- 썸네일 자동 생성
+- 미디어 업로드 (이미지 자동 최적화)
+- 미디어 삭제
+- HTTP 캐싱 (ETag, Cache-Control, Last-Modified)
+- MinIO 객체 스토리지 통합
 
 ## API 엔드포인트
 
-### 1. ServeImage - 이미지 서빙
+### 1. 이미지 서빙
 ```http
 GET /media/images/:key?width=800&height=600&format=webp&quality=85
 ```
@@ -44,7 +44,7 @@ curl http://localhost:3004/media/images/1234567890_photo.jpg?width=1200&format=w
 
 ---
 
-### 2. ServeAudio - 오디오 스트리밍
+### 2. 오디오 스트리밍
 ```http
 GET /media/audio/:key
 ```
@@ -69,7 +69,7 @@ curl -H "Range: bytes=0-1023" http://localhost:3004/media/audio/1234567890_lesso
 
 ---
 
-### 3. ServeThumbnail - 썸네일 생성/서빙
+### 3. 썸네일 생성/서빙
 ```http
 GET /media/thumbnails/:key?size=200
 ```
@@ -93,7 +93,7 @@ curl http://localhost:3004/media/thumbnails/1234567890_photo.jpg?size=400
 
 ---
 
-### 4. UploadMedia - 미디어 업로드 (관리자용)
+### 4. 미디어 업로드 (관리자용)
 ```http
 POST /media/upload?type=images|audio|video
 Content-Type: multipart/form-data
@@ -145,7 +145,7 @@ curl -X POST http://localhost:3004/media/upload?type=video \
 
 ---
 
-### 5. DeleteMedia - 미디어 삭제 (관리자용)
+### 5. 미디어 삭제 (관리자용)
 ```http
 DELETE /media/:type/:key
 ```
@@ -245,7 +245,7 @@ media-service:
 
 ## 캐싱 전략
 
-### Browser Caching
+### 브라우저 캐싱
 - 이미지/오디오: 7일 (604800초)
 - 비디오: 1일 (86400초)
 
@@ -273,7 +273,7 @@ location /media/ {
 
 ## 이미지 최적화 상세
 
-### OptimizeImage 설정
+### 이미지 최적화 설정
 ```go
 config := utils.OptimizationConfig{
     MaxWidth:      1920,
@@ -325,7 +325,7 @@ router.MaxMultipartMemory = 50 << 20 // 50 MB
 
 ## 테스트
 
-### Health Check
+### 헬스체크
 ```bash
 curl http://localhost:3004/health
 ```
