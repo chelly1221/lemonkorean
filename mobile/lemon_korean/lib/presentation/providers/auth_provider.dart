@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../core/constants/app_constants.dart';
+import '../../core/network/api_client.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 
@@ -10,6 +11,7 @@ import '../../data/repositories/auth_repository.dart';
 class AuthProvider extends ChangeNotifier {
   final AuthRepository _authRepository = AuthRepository();
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+  final _apiClient = ApiClient.instance;
 
   // ================================================================
   // STATE
