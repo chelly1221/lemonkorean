@@ -1,0 +1,14 @@
+# Android Signing Configuration
+# Copy this file to key.properties and fill in your actual values
+# IMPORTANT: Never commit key.properties to version control
+
+storePassword=<your-keystore-password>
+keyPassword=<your-key-password>
+keyAlias=lemon-korean
+storeFile=<path-to-keystore-file>
+
+# Example:
+# storePassword=my_secure_password
+# keyPassword=my_key_password
+# keyAlias=lemon-korean
+# storeFile=/path/to/lemon-korean-release.keystore

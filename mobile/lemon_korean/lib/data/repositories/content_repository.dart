@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
 import '../../core/network/api_client.dart';
 import '../../core/storage/local_storage.dart';
 import '../models/lesson_model.dart';
@@ -298,6 +302,40 @@ class ContentRepository {
   }
 
   // ================================================================
+  // REVIEW SCHEDULE
+  // ================================================================
+
+  /// Get review schedule (vocabulary items due for review)
+  Future<List<VocabularyModel>> getReviewSchedule(int userId, {int limit = 20}) async {
+    try {
+      final response = await _apiClient.getReviewSchedule(userId, limit: limit);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> items = response.data['items'] ?? [];
+        return items.map((json) => VocabularyModel.fromJson(json)).toList();
+      }
+
+      // Fallback: return empty list
+      return [];
+    } catch (e) {
+      print('[ContentRepository] getReviewSchedule error: $e');
+      // Return empty list on error
+      return [];
+    }
+  }
+
+  /// Mark review as complete
+  Future<bool> markReviewDone(Map<String, dynamic> data) async {
+    try {
+      final response = await _apiClient.markReviewDone(data);
+      return response.statusCode == 200;
+    } catch (e) {
+      print('[ContentRepository] markReviewDone error: $e');
+      return false;
+    }
+  }
+
+  // ================================================================
   // CACHE MANAGEMENT
   // ================================================================
 
@@ -314,11 +352,40 @@ class ContentRepository {
     final downloadedLessons =
         lessons.where((l) => l['isDownloaded'] == true).toList();
 
+    // Calculate actual cache size
+    double cacheSizeMB = 0.0;
+
+    try {
+      // Get app directory
+      final Directory appDir = await getApplicationDocumentsDirectory();
+
+      // Calculate size of all files in app directory
+      // This includes Hive database files
+      if (await appDir.exists()) {
+        await for (final FileSystemEntity entity
+            in appDir.list(recursive: true)) {
+          if (entity is File) {
+            try {
+              final fileStat = await entity.stat();
+              cacheSizeMB += fileStat.size / (1024 * 1024); // Convert to MB
+            } catch (e) {
+              // Skip files we can't read
+              continue;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      print('[ContentRepository] Error calculating cache size: $e');
+      // Return 0 if calculation fails
+      cacheSizeMB = 0.0;
+    }
+
     return {
       'total_lessons': lessons.length,
       'downloaded_lessons': downloadedLessons.length,
       'total_vocabulary': vocabulary.length,
-      'cache_size_mb': 0, // TODO: Calculate actual size
+      'cache_size_mb': cacheSizeMB.toStringAsFixed(2),
     };
   }
 }

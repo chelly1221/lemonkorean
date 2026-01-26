@@ -296,6 +296,30 @@ flutter pub get
 flutter run
 ```
 
+### 물리 기기 테스트 (Wireless Debugging)
+프로젝트는 무선 디버깅을 통한 물리 기기 테스트를 사용합니다.
+
+**Android 무선 디버깅 설정:**
+```bash
+# 1. 기기에서 무선 디버깅 활성화
+#    설정 → 개발자 옵션 → 무선 디버깅
+
+# 2. ADB 연결 확인
+adb devices
+
+# 3. Flutter 앱 실행
+cd mobile/lemon_korean
+flutter run
+
+# 4. APK 빌드 (릴리스)
+flutter build apk --release
+```
+
+**참고:**
+- 기기와 개발 PC가 같은 Wi-Fi 네트워크에 있어야 함
+- API 서버 접근을 위해 로컬 IP 주소 사용 (예: `http://192.168.x.x`)
+- `AndroidManifest.xml`에 `android:usesCleartextTraffic="true"` 설정 필요 (개발용)
+
 ---
 
 ## 파일 명명 규칙

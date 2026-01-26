@@ -26,6 +26,11 @@ func NewProgressRepository(db *sql.DB, redisClient *redis.Client) *ProgressRepos
 	}
 }
 
+// GetRedis returns the Redis client
+func (r *ProgressRepository) GetRedis() *redis.Client {
+	return r.redis
+}
+
 // ================================================================
 // USER PROGRESS
 // ================================================================
@@ -229,6 +234,35 @@ func (r *ProgressRepository) GetVocabularyProgress(ctx context.Context, userID i
 	}
 
 	return progressList, nil
+}
+
+// GetVocabularyProgressByID retrieves vocabulary progress for a specific word
+func (r *ProgressRepository) GetVocabularyProgressByID(ctx context.Context, userID, vocabularyID int64) (*models.VocabularyProgress, error) {
+	query := `
+		SELECT id, user_id, vocabulary_id, mastery_level, correct_count,
+		       incorrect_count, last_reviewed_at, next_review_at,
+		       easiness_factor, repetition_count, interval_days,
+		       created_at, updated_at
+		FROM vocabulary_progress
+		WHERE user_id = $1 AND vocabulary_id = $2
+	`
+
+	var vp models.VocabularyProgress
+	err := r.db.QueryRowContext(ctx, query, userID, vocabularyID).Scan(
+		&vp.ID, &vp.UserID, &vp.VocabularyID, &vp.MasteryLevel,
+		&vp.CorrectCount, &vp.IncorrectCount, &vp.LastReviewedAt,
+		&vp.NextReviewAt, &vp.EasinessFactor, &vp.RepetitionCount,
+		&vp.IntervalDays, &vp.CreatedAt, &vp.UpdatedAt,
+	)
+
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, fmt.Errorf("failed to get vocabulary progress by ID: %w", err)
+	}
+
+	return &vp, nil
 }
 
 // RecordVocabularyPractice records a vocabulary practice result
@@ -635,6 +669,28 @@ func (r *ProgressRepository) calculateLongestStreak(ctx context.Context, userID 
 // ================================================================
 // SYNC OPERATIONS
 // ================================================================
+
+// GetLastSyncTime retrieves the last sync time for a user
+func (r *ProgressRepository) GetLastSyncTime(ctx context.Context, userID int64) (time.Time, error) {
+	query := `
+		SELECT MAX(updated_at) as last_sync
+		FROM user_progress
+		WHERE user_id = $1
+	`
+
+	var lastSync sql.NullTime
+	err := r.db.QueryRowContext(ctx, query, userID).Scan(&lastSync)
+
+	if err != nil {
+		return time.Time{}, fmt.Errorf("failed to get last sync time: %w", err)
+	}
+
+	if lastSync.Valid {
+		return lastSync.Time, nil
+	}
+
+	return time.Time{}, nil
+}
 
 // SyncOfflineData processes offline sync data
 func (r *ProgressRepository) SyncOfflineData(ctx context.Context, req *models.SyncProgressRequest) (int, int, error) {

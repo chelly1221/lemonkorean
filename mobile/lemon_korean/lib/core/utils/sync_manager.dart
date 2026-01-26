@@ -231,16 +231,20 @@ class SyncManager {
     for (final item in items) {
       try {
         // Call review API endpoint
-        // final response = await _apiClient.markReviewDone(item['data']);
+        final response = await _apiClient.markReviewDone(item['data']);
 
-        // For now, just remove from queue
-        // TODO: Implement actual review sync when API is ready
-
-        final queue = LocalStorage.getSyncQueue();
-        final index = queue.indexOf(item);
-        if (index != -1) {
-          await LocalStorage.removeFromSyncQueue(index);
-          syncedCount++;
+        if (response.statusCode == 200) {
+          // Successfully synced - remove from queue
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+        } else {
+          // API call failed
+          print('[SyncManager] Review sync failed: ${response.statusCode}');
+          failedCount++;
         }
       } catch (e) {
         print('[SyncManager] Error syncing review: $e');

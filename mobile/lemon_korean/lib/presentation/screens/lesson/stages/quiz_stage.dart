@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/utils/media_loader.dart';
 import '../../../../data/models/lesson_model.dart';
 
 /// Quiz Stage with Multiple Question Types
@@ -551,7 +553,7 @@ class _QuizStageState extends State<QuizStage> {
 // ============================================================================
 
 /// Listening Question Widget
-class ListeningQuestion extends StatelessWidget {
+class ListeningQuestion extends StatefulWidget {
   final Map<String, dynamic> question;
   final Function(String) onAnswer;
   final String? userAnswer;
@@ -564,8 +566,70 @@ class ListeningQuestion extends StatelessWidget {
   });
 
   @override
+  State<ListeningQuestion> createState() => _ListeningQuestionState();
+}
+
+class _ListeningQuestionState extends State<ListeningQuestion> {
+  late AudioPlayer _audioPlayer;
+  bool _isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer = AudioPlayer();
+
+    // Listen to player state
+    _audioPlayer.onPlayerStateChanged.listen((state) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = state == PlayerState.playing;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future<void> _playAudio() async {
+    final audioPath = widget.question['audio'] as String?;
+
+    if (audioPath != null) {
+      try {
+        // Stop if already playing
+        if (_isPlaying) {
+          await _audioPlayer.stop();
+          return;
+        }
+
+        // Get audio path (local or remote)
+        final localPath = await MediaLoader.getAudioPath(audioPath);
+
+        // Play audio
+        if (localPath.startsWith('http')) {
+          await _audioPlayer.play(UrlSource(localPath));
+        } else {
+          await _audioPlayer.play(DeviceFileSource(localPath));
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('音频播放失败: $e'),
+              backgroundColor: AppConstants.errorColor,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final hasAnswered = userAnswer != null;
+    final hasAnswered = widget.userAnswer != null;
 
     return Column(
       children: [
@@ -576,7 +640,7 @@ class ListeningQuestion extends StatelessWidget {
 
         // Question text
         Text(
-          question['question'],
+          widget.question['question'],
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 20,
@@ -609,17 +673,9 @@ class ListeningQuestion extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ElevatedButton.icon(
-                onPressed: () {
-                  // TODO: Play audio
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('播放: ${question['audio']}'),
-                      duration: const Duration(seconds: 1),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.play_arrow),
-                label: const Text('播放音频'),
+                onPressed: _playAudio,
+                icon: Icon(_isPlaying ? Icons.stop : Icons.play_arrow),
+                label: Text(_isPlaying ? '停止' : '播放音频'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade700,
                   foregroundColor: Colors.white,
@@ -637,22 +693,22 @@ class ListeningQuestion extends StatelessWidget {
 
         // Options
         ...List.generate(
-          (question['options'] as List).length,
+          (widget.question['options'] as List).length,
           (index) => _buildOption(
-            question['options'][index],
-            question['correct'],
+            widget.question['options'][index],
+            widget.question['correct'],
             hasAnswered,
           ),
         ),
 
         // Feedback
-        if (hasAnswered) _buildFeedback(question['correct']),
+        if (hasAnswered) _buildFeedback(widget.question['correct']),
       ],
     );
   }
 
   Widget _buildOption(String option, String correct, bool hasAnswered) {
-    final isSelected = userAnswer == option;
+    final isSelected = widget.userAnswer == option;
     final isCorrectOption = option == correct;
 
     Color? backgroundColor;
@@ -672,7 +728,7 @@ class ListeningQuestion extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: hasAnswered ? null : () => onAnswer(option),
+      onTap: hasAnswered ? null : () => widget.onAnswer(option),
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -710,7 +766,7 @@ class ListeningQuestion extends StatelessWidget {
       margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(AppConstants.paddingMedium),
       decoration: BoxDecoration(
-        color: (isCorrect ?? false)
+        color: (widget.isCorrect ?? false)
             ? AppConstants.successColor.withOpacity(0.1)
             : AppConstants.errorColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
@@ -718,19 +774,19 @@ class ListeningQuestion extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            (isCorrect ?? false) ? Icons.celebration : Icons.info_outline,
-            color: (isCorrect ?? false)
+            (widget.isCorrect ?? false) ? Icons.celebration : Icons.info_outline,
+            color: (widget.isCorrect ?? false)
                 ? AppConstants.successColor
                 : AppConstants.errorColor,
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              (isCorrect ?? false) ? '太棒了！' : '正确答案是: $correct',
+              (widget.isCorrect ?? false) ? '太棒了！' : '正确答案是: $correct',
               style: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 fontWeight: FontWeight.bold,
-                color: (isCorrect ?? false)
+                color: (widget.isCorrect ?? false)
                     ? AppConstants.successColor
                     : AppConstants.errorColor,
               ),

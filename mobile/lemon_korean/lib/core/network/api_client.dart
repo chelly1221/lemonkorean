@@ -74,6 +74,10 @@ class ApiClient {
     );
   }
 
+  Future<Response> getUserProfile(int userId) async {
+    return await _dio.get('/auth/profile/$userId');
+  }
+
   Future<void> logout() async {
     await _secureStorage.delete(key: AppConstants.tokenKey);
     await _secureStorage.delete(key: AppConstants.refreshTokenKey);
@@ -174,8 +178,18 @@ class ApiClient {
     );
   }
 
-  Future<Response> getReviewSchedule() async {
-    return await _dio.get('/progress/review-schedule');
+  Future<Response> getReviewSchedule(int userId, {int limit = 20}) async {
+    return await _dio.get(
+      '/progress/review-schedule/$userId',
+      queryParameters: {'limit': limit},
+    );
+  }
+
+  Future<Response> markReviewDone(Map<String, dynamic> data) async {
+    return await _dio.post(
+      '/progress/review/complete',
+      data: data,
+    );
   }
 
   // ================================================================

@@ -420,14 +420,35 @@ func (h *ProgressHandler) MarkReviewDone(c *gin.Context) {
 	// Calculate quality from response time and correctness
 	quality := utils.CalculateQualityFromResponseTime(req.IsCorrect, req.ResponseTime)
 
-	// TODO: Get current vocabulary progress to use existing SRS data
-	// For now, use new item defaults
+	// Get current vocabulary progress to use existing SRS data
+	currentProgress, err := h.repo.GetVocabularyProgressByID(c.Request.Context(), req.UserID, req.VocabularyID)
+
+	// Initialize SRS values from existing progress or use defaults
+	var currentEasiness float64 = utils.InitialEasinessFactor
+	var currentInterval int = 0
+	var currentRepetitions int = 0
+	var currentMastery int = utils.MasteryLevelNew
+
+	if err == nil && currentProgress != nil {
+		// Extract SRS data from existing progress
+		currentEasiness = currentProgress.EasinessFactor
+		currentInterval = currentProgress.IntervalDays
+		currentRepetitions = currentProgress.RepetitionCount
+		currentMastery = currentProgress.MasteryLevel
+
+		log.Printf("[REVIEW] Found existing progress: EF=%.2f, interval=%d days, reps=%d, mastery=%s",
+			currentEasiness, currentInterval, currentRepetitions, utils.GetMasteryDescription(currentMastery))
+	} else {
+		log.Printf("[REVIEW] No existing progress found, using defaults")
+	}
+
+	// Calculate next review using SM-2 algorithm
 	srsResult := utils.CalculateNextReview(
 		quality,
-		utils.InitialEasinessFactor,
-		0,
-		0,
-		utils.MasteryLevelNew,
+		currentEasiness,
+		currentInterval,
+		currentRepetitions,
+		currentMastery,
 	)
 
 	srsData := map[string]interface{}{

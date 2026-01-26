@@ -8,8 +8,15 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-# TODO: Use npm ci with package-lock.json for production
-RUN npm install --omit=dev && \
+# Use npm ci for reproducible builds when package-lock.json exists
+# Fall back to npm install if package-lock.json is not present
+RUN if [ -f package-lock.json ]; then \
+        echo "Using npm ci for reproducible build"; \
+        npm ci --omit=dev; \
+    else \
+        echo "Warning: package-lock.json not found, using npm install"; \
+        npm install --omit=dev; \
+    fi && \
     npm cache clean --force
 
 # ==================== Production Stage ====================

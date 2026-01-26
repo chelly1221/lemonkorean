@@ -11,6 +11,7 @@ import (
 
 	"lemonkorean/media/config"
 	"lemonkorean/media/handlers"
+	"lemonkorean/media/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -57,15 +58,14 @@ func main() {
 	// Media routes
 	media := router.Group("/media")
 	{
-		// Public endpoints - Serve media files with caching
+		// Public endpoints - Serve media files with caching (no auth needed)
 		media.GET("/images/:key", mediaHandler.ServeImage)    // Supports ?width=X&height=Y&format=webp
 		media.GET("/audio/:key", mediaHandler.ServeAudio)     // Supports range requests for streaming
 		media.GET("/thumbnails/:key", mediaHandler.ServeThumbnail) // Supports ?size=X
 
-		// Admin endpoints - Upload and delete (add auth middleware in production)
-		// TODO: Add authentication middleware for these routes
-		media.POST("/upload", mediaHandler.UploadMedia)       // ?type=images|audio|video
-		media.DELETE("/:type/:key", mediaHandler.DeleteMedia) // DELETE /media/images/abc.jpg
+		// Admin endpoints - Upload and delete (require authentication)
+		media.POST("/upload", middleware.AuthMiddleware(), mediaHandler.UploadMedia)       // ?type=images|audio|video
+		media.DELETE("/:type/:key", middleware.AuthMiddleware(), mediaHandler.DeleteMedia) // DELETE /media/images/abc.jpg
 	}
 
 	// Start server

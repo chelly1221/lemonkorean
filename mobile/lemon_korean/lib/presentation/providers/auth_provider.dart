@@ -40,12 +40,26 @@ class AuthProvider extends ChangeNotifier {
         final userId = _authRepository.getCurrentUserId();
 
         if (userId != null) {
-          // TODO: Fetch user details from API or local storage
-          // For now, create a minimal user object
+          try {
+            // Fetch user details from API
+            final response = await _apiClient.getUserProfile(userId);
+
+            if (response.statusCode == 200) {
+              _currentUser = UserModel.fromJson(response.data['user']);
+              _setLoading(false);
+              return;
+            } else {
+              print('[AuthProvider] Failed to fetch user profile: ${response.statusCode}');
+            }
+          } catch (e) {
+            print('[AuthProvider] Error fetching user details: $e');
+          }
+
+          // Fallback: create minimal user object from stored ID
           _currentUser = UserModel(
             id: userId,
             email: '',
-            username: '',
+            username: 'User $userId',
             createdAt: DateTime.now(),
           );
 

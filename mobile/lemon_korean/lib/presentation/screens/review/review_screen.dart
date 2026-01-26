@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/storage/local_storage.dart';
 import '../../../data/models/vocabulary_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../providers/auth_provider.dart';
@@ -42,12 +43,26 @@ class _ReviewScreenState extends State<ReviewScreen> {
       if (widget.vocabularyList != null) {
         _reviewItems = widget.vocabularyList!;
       } else {
-        // Load vocabulary items due for review
-        // TODO: Get from review schedule based on SRS algorithm
+        // Load vocabulary items due for review using SRS algorithm
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
         if (authProvider.currentUser != null) {
-          // For now, load all vocabulary
-          _reviewItems = await _contentRepository.getVocabularyByLevel(1);
+          try {
+            // Fetch review schedule from API
+            _reviewItems = await _contentRepository.getReviewSchedule(
+              authProvider.currentUser!.id,
+              limit: 20,
+            );
+
+            // If no items due for review, fallback to loading vocabulary by level
+            if (_reviewItems.isEmpty) {
+              print('[ReviewScreen] No items due for review, loading by level');
+              _reviewItems = await _contentRepository.getVocabularyByLevel(1);
+            }
+          } catch (e) {
+            print('[ReviewScreen] Error fetching review schedule: $e');
+            // Fallback: load vocabulary by level
+            _reviewItems = await _contentRepository.getVocabularyByLevel(1);
+          }
         }
       }
 
@@ -62,12 +77,56 @@ class _ReviewScreenState extends State<ReviewScreen> {
     }
   }
 
-  void _handleReview(ReviewRating rating) {
+  void _handleReview(ReviewRating rating) async {
     // Calculate next review date using SM-2 algorithm
     final currentItem = _reviewItems[_currentIndex];
 
-    // TODO: Save review result and update next review date
-    // This would call a review repository to save the result
+    // Convert rating to quality score for SM-2 algorithm
+    int quality;
+    switch (rating) {
+      case ReviewRating.forgot:
+        quality = 0;
+        break;
+      case ReviewRating.hard:
+        quality = 3;
+        break;
+      case ReviewRating.good:
+        quality = 4;
+        break;
+      case ReviewRating.easy:
+        quality = 5;
+        break;
+    }
+
+    try {
+      // Save review result to server
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      if (authProvider.currentUser != null) {
+        final reviewData = {
+          'user_id': authProvider.currentUser!.id,
+          'vocabulary_id': currentItem.id,
+          'quality': quality,
+          'is_correct': quality >= 3,
+          'response_time': 0, // Could track actual response time if needed
+        };
+
+        // Try to save to server
+        final success = await _contentRepository.markReviewDone(reviewData);
+
+        if (!success) {
+          // If server save fails, add to sync queue for offline support
+          print('[ReviewScreen] Server save failed, adding to sync queue');
+          await LocalStorage.addToSyncQueue({
+            'type': 'review_complete',
+            'data': reviewData,
+            'timestamp': DateTime.now().toIso8601String(),
+          });
+        }
+      }
+    } catch (e) {
+      print('[ReviewScreen] Error saving review: $e');
+      // Continue even if save fails (will sync later or we'd add to queue)
+    }
 
     // Move to next item
     if (_currentIndex < _reviewItems.length - 1) {

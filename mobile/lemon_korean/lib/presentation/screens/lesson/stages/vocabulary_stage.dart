@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
@@ -24,6 +25,7 @@ class VocabularyStage extends StatefulWidget {
 
 class _VocabularyStageState extends State<VocabularyStage>
     with SingleTickerProviderStateMixin {
+  late AudioPlayer _audioPlayer;
   int _currentCardIndex = 0;
   late AnimationController _flipController;
   late Animation<double> _flipAnimation;
@@ -116,6 +118,7 @@ class _VocabularyStageState extends State<VocabularyStage>
   @override
   void initState() {
     super.initState();
+    _audioPlayer = AudioPlayer();
     _flipController = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
@@ -140,6 +143,7 @@ class _VocabularyStageState extends State<VocabularyStage>
 
   @override
   void dispose() {
+    _audioPlayer.dispose();
     _flipController.dispose();
     super.dispose();
   }
@@ -175,21 +179,38 @@ class _VocabularyStageState extends State<VocabularyStage>
     final audioPath = word['audio'] as String?;
 
     if (audioPath != null) {
-      // Try to get local audio path first
-      final localPath = await MediaLoader.getAudioPath(audioPath);
+      try {
+        // Try to get local audio path first
+        final localPath = await MediaLoader.getAudioPath(audioPath);
 
-      // TODO: Play audio using audioplayers package
-      // final player = AudioPlayer();
-      // await player.play(DeviceFileSource(localPath));
+        // Stop any currently playing audio
+        await _audioPlayer.stop();
 
-      // Show feedback
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('播放: $localPath'),
-            duration: const Duration(seconds: 1),
-          ),
-        );
+        // Check if it's a local file or remote URL
+        if (localPath.startsWith('http')) {
+          await _audioPlayer.play(UrlSource(localPath));
+        } else {
+          await _audioPlayer.play(DeviceFileSource(localPath));
+        }
+
+        // Show feedback
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('播放音频...'),
+              duration: Duration(seconds: 1),
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('音频播放失败: $e'),
+              backgroundColor: AppConstants.errorColor,
+            ),
+          );
+        }
       }
     }
   }

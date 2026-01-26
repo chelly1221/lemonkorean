@@ -107,6 +107,70 @@ class _HomeTabState extends State<_HomeTab> {
     _loadData();
   }
 
+  /// Calculate streak days from progress data
+  int _calculateStreakDays(List<Map<String, dynamic>> progressList) {
+    if (progressList.isEmpty) return 0;
+
+    // Filter and sort completed lessons by completion date
+    final completedProgress = progressList
+        .where((p) => p['status'] == 'completed' && p['completed_at'] != null)
+        .toList();
+
+    if (completedProgress.isEmpty) return 0;
+
+    // Sort by completion date (most recent first)
+    completedProgress.sort((a, b) {
+      final dateA = DateTime.parse(a['completed_at']);
+      final dateB = DateTime.parse(b['completed_at']);
+      return dateB.compareTo(dateA);
+    });
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    // Check if there's activity today or yesterday
+    final mostRecent = DateTime.parse(completedProgress[0]['completed_at']);
+    final mostRecentDate = DateTime(mostRecent.year, mostRecent.month, mostRecent.day);
+
+    final daysSinceLastActivity = today.difference(mostRecentDate).inDays;
+
+    if (daysSinceLastActivity > 1) {
+      // No activity today or yesterday - streak is broken
+      return 0;
+    }
+
+    // Count consecutive days
+    int streakDays = 1;
+    DateTime previousDate = mostRecentDate;
+
+    // Get unique completion dates
+    final uniqueDates = <DateTime>{};
+    for (final p in completedProgress) {
+      final date = DateTime.parse(p['completed_at']);
+      final dayDate = DateTime(date.year, date.month, date.day);
+      uniqueDates.add(dayDate);
+    }
+
+    final sortedDates = uniqueDates.toList()
+      ..sort((a, b) => b.compareTo(a));
+
+    // Count consecutive days
+    for (int i = 1; i < sortedDates.length; i++) {
+      final currentDay = sortedDates[i];
+      final previousDay = sortedDates[i - 1];
+
+      // Check if this is the previous day
+      if (previousDay.difference(currentDay).inDays == 1) {
+        streakDays++;
+      } else {
+        // Gap in streak - stop counting
+        break;
+      }
+    }
+
+    return streakDays;
+  }
+
   Future<void> _loadData() async {
     final lessonProvider = Provider.of<LessonProvider>(context, listen: false);
     final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
@@ -152,8 +216,7 @@ class _HomeTabState extends State<_HomeTab> {
         _completedToday = todayProgress;
         _todayProgress = todayProgress / _targetLessons;
         _lessonProgress = lessonProgressMap;
-        // TODO: Calculate actual streak days from progress data
-        _streakDays = 7;
+        _streakDays = _calculateStreakDays(progressList);
       });
     }
 

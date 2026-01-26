@@ -1,14 +1,19 @@
 package handlers
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"lemonkorean/progress/middleware"
 	"lemonkorean/progress/models"
 	"lemonkorean/progress/repository"
+	"lemonkorean/progress/utils"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
 )
 
 // SyncHandler handles synchronization-related requests
@@ -111,10 +116,51 @@ func (h *SyncHandler) BatchSync(c *gin.Context) {
 		}
 	}
 
-	// TODO: Implement batch sync logic
-	c.JSON(http.StatusNotImplemented, gin.H{
-		"error":   "Not Implemented",
-		"message": "Batch sync not yet implemented",
+	// Process all requests
+	results := make([]gin.H, len(requests))
+	totalSynced := 0
+	totalFailed := 0
+
+	for i, req := range requests {
+		successCount := 0
+		failedCount := 0
+		errors := []string{}
+
+		// Process each sync item in this request
+		for _, item := range req.SyncItems {
+			err := h.processSyncItem(c, &item, req.UserID)
+			if err != nil {
+				failedCount++
+				errors = append(errors, err.Error())
+			} else {
+				successCount++
+			}
+		}
+
+		// Build result for this request
+		results[i] = gin.H{
+			"device_id":  req.DeviceID,
+			"synced":     successCount,
+			"failed":     failedCount,
+			"total":      len(req.SyncItems),
+			"synced_at":  req.LastSyncedAt,
+		}
+
+		if len(errors) > 0 {
+			results[i]["errors"] = errors
+		}
+
+		totalSynced += successCount
+		totalFailed += failedCount
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success":      true,
+		"total_synced": totalSynced,
+		"total_failed": totalFailed,
+		"total_items":  totalSynced + totalFailed,
+		"batch_count":  len(requests),
+		"results":      results,
 	})
 }
 
@@ -141,14 +187,67 @@ func (h *SyncHandler) GetSyncStatus(c *gin.Context) {
 		return
 	}
 
-	// TODO: Implement sync status retrieval from database/cache
+	// Get sync status from Redis cache
+	ctx := c.Request.Context()
+
+	// Key pattern: sync:status:{user_id}
+	cacheKey := fmt.Sprintf("sync:status:%d", userID)
+
+	type SyncStatus struct {
+		LastSyncedAt  *time.Time `json:"last_synced_at"`
+		PendingItems  int        `json:"pending_items"`
+		SyncQueueSize int        `json:"sync_queue_size"`
+		LastDeviceID  string     `json:"last_device_id"`
+	}
+
+	var syncStatus SyncStatus
+
+	// Try to get from Redis
+	val, err := h.repo.GetRedis().Get(ctx, cacheKey).Result()
+	if err == nil {
+		// Parse cached status
+		if jsonErr := json.Unmarshal([]byte(val), &syncStatus); jsonErr == nil {
+			// Return cached data
+			c.JSON(http.StatusOK, gin.H{
+				"success":         true,
+				"user_id":         userID,
+				"last_synced_at":  syncStatus.LastSyncedAt,
+				"pending_items":   syncStatus.PendingItems,
+				"sync_queue_size": syncStatus.SyncQueueSize,
+				"last_device_id":  syncStatus.LastDeviceID,
+				"cached":          true,
+			})
+			return
+		}
+	} else if err != redis.Nil {
+		// Redis error (not just missing key) - log it but continue
+		fmt.Printf("[SYNC] Redis error getting sync status: %v\n", err)
+	}
+
+	// Get from database if not in cache
+	lastSync, err := h.repo.GetLastSyncTime(ctx, userID)
+	if err == nil && !lastSync.IsZero() {
+		syncStatus.LastSyncedAt = &lastSync
+	}
+
+	// Note: pending_items and sync_queue_size would require additional queries
+	// For now, we'll set them to 0 as placeholders
+	syncStatus.PendingItems = 0
+	syncStatus.SyncQueueSize = 0
+	syncStatus.LastDeviceID = ""
+
+	// Cache for 5 minutes
+	statusJSON, _ := json.Marshal(syncStatus)
+	h.repo.GetRedis().Set(ctx, cacheKey, statusJSON, 5*time.Minute)
+
 	c.JSON(http.StatusOK, gin.H{
 		"success":         true,
 		"user_id":         userID,
-		"last_synced_at":  nil,
-		"pending_items":   0,
-		"sync_queue_size": 0,
-		"message":         "Sync status retrieved (placeholder)",
+		"last_synced_at":  syncStatus.LastSyncedAt,
+		"pending_items":   syncStatus.PendingItems,
+		"sync_queue_size": syncStatus.SyncQueueSize,
+		"last_device_id":  syncStatus.LastDeviceID,
+		"cached":          false,
 	})
 }
 
@@ -232,12 +331,41 @@ func (h *SyncHandler) syncVocabularyPractice(c *gin.Context, item *models.SyncIt
 		ResponseTime: int(responseTime),
 	}
 
-	// TODO: Get current progress and calculate SRS
+	// Get current vocabulary progress from repository
+	currentProgress, err := h.repo.GetVocabularyProgressByID(c.Request.Context(), userID, int64(vocabID))
+
+	// Initialize SRS values from existing progress or use defaults
+	var currentEasiness float64 = utils.InitialEasinessFactor
+	var currentInterval int = 0
+	var currentRepetitions int = 0
+	var currentMastery int = utils.MasteryLevelNew
+
+	if err == nil && currentProgress != nil {
+		// Extract SRS data from existing progress
+		currentEasiness = currentProgress.EasinessFactor
+		currentInterval = currentProgress.IntervalDays
+		currentRepetitions = currentProgress.RepetitionCount
+		currentMastery = currentProgress.MasteryLevel
+	}
+
+	// Calculate quality from response time and correctness
+	quality := utils.CalculateQualityFromResponseTime(isCorrect, int(responseTime))
+
+	// Calculate next review using SM-2 algorithm
+	srsResult := utils.CalculateNextReview(
+		quality,
+		currentEasiness,
+		currentInterval,
+		currentRepetitions,
+		currentMastery,
+	)
+
 	srsData := map[string]interface{}{
-		"mastery_level":    float64(0),
-		"easiness_factor":  2.5,
-		"interval_days":    float64(1),
-		"repetition_count": float64(0),
+		"mastery_level":    float64(srsResult.MasteryLevel),
+		"easiness_factor":  srsResult.EasinessFactor,
+		"interval_days":    float64(srsResult.IntervalDays),
+		"repetition_count": float64(srsResult.RepetitionCount),
+		"next_review_at":   srsResult.NextReviewAt,
 	}
 
 	return h.repo.RecordVocabularyPractice(c.Request.Context(), req, srsData)
