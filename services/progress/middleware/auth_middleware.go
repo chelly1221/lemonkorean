@@ -62,14 +62,16 @@ func (am *AuthMiddleware) RequireAuth() gin.HandlerFunc {
 		// Extract token
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
-		// Parse and validate token
+		// Parse and validate token with issuer and audience validation
 		token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 			// Validate signing method
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return am.jwtSecret, nil
-		})
+		}, jwt.WithValidMethods([]string{"HS256"}),
+			jwt.WithIssuer("lemon-korean-auth"),
+			jwt.WithAudience("lemon-korean-api"))
 
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{

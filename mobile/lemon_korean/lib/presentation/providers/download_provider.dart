@@ -9,7 +9,7 @@ import '../../data/repositories/offline_repository.dart';
 /// Download Provider
 /// Manages lesson downloads and storage
 class DownloadProvider extends ChangeNotifier {
-  final DownloadManager _downloadManager = DownloadManager();
+  final DownloadManager _downloadManager = DownloadManager.instance;
   final ContentRepository _contentRepository = ContentRepository();
   final OfflineRepository _offlineRepository = OfflineRepository();
 
@@ -85,15 +85,19 @@ class DownloadProvider extends ChangeNotifier {
   /// Download a lesson
   Future<void> downloadLesson(LessonModel lesson) async {
     try {
-      final success = await _downloadManager.downloadLesson(
-        lesson.id,
-        onProgress: (lessonId, progress) {
-          _updateDownloadProgress(lessonId, progress);
-        },
-        onComplete: (lessonId) {
-          _onDownloadComplete(lessonId);
-        },
-      );
+      // Set callbacks
+      _downloadManager.onProgress = (lessonId, progress) {
+        // Get the full progress from download manager
+        final fullProgress = _downloadManager.getProgress(lessonId);
+        if (fullProgress != null) {
+          _updateDownloadProgress(lessonId, fullProgress);
+        }
+      };
+      _downloadManager.onComplete = (lessonId) {
+        _onDownloadComplete(lessonId);
+      };
+
+      final success = await _downloadManager.downloadLesson(lesson.id);
 
       if (!success) {
         _setError('下载失败: ${lesson.titleZh}');
@@ -182,7 +186,7 @@ class DownloadProvider extends ChangeNotifier {
 
     for (final key in map1.keys) {
       if (!map2.containsKey(key)) return false;
-      if (map1[key]?.percentage != map2[key]?.percentage) return false;
+      if (map1[key]?.progress != map2[key]?.progress) return false;
     }
 
     return true;

@@ -11,10 +11,8 @@ class LessonGridItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const LessonGridItem({
-    super.key,
-    required this.lesson,
+    required this.lesson, required this.onTap, super.key,
     this.progress,
-    required this.onTap,
   });
 
   @override

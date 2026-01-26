@@ -227,7 +227,15 @@ class DownloadManager {
   /// Recursively extract media from stage data
   void _extractMediaFromStage(Map<dynamic, dynamic> data, Map<String, String> mediaUrls) {
     data.forEach((key, value) {
-      if (key == 'image_url' || key == 'audio_url' || key == 'thumbnail_url') {
+      // Check for media URL keys (image, audio, video, avatar, thumbnail)
+      if (key == 'image_url' ||
+          key == 'imageUrl' ||
+          key == 'audio_url' ||
+          key == 'audioUrl' ||
+          key == 'thumbnail_url' ||
+          key == 'thumbnailUrl' ||
+          key == 'avatar_url' ||
+          key == 'avatarUrl') {
         if (value is String && !mediaUrls.containsKey(value)) {
           // Generate full URL if needed
           final fullUrl = value.startsWith('http')
@@ -236,11 +244,11 @@ class DownloadManager {
           mediaUrls[value] = fullUrl;
         }
       } else if (value is Map) {
-        _extractMediaFromStage(value as Map<dynamic, dynamic>, mediaUrls);
+        _extractMediaFromStage(value, mediaUrls);
       } else if (value is List) {
         for (final item in value) {
           if (item is Map) {
-            _extractMediaFromStage(item as Map<dynamic, dynamic>, mediaUrls);
+            _extractMediaFromStage(item, mediaUrls);
           }
         }
       }
@@ -278,6 +286,11 @@ class DownloadManager {
   /// Get download progress
   DownloadProgress? getProgress(int lessonId) {
     return _progressMap[lessonId];
+  }
+
+  /// Get all download progress
+  Map<int, DownloadProgress> getAllProgress() {
+    return Map.from(_progressMap);
   }
 
   /// Check if download is in progress
@@ -422,8 +435,7 @@ class DownloadProgress {
     required this.downloadedFiles,
     required this.totalBytes,
     required this.downloadedBytes,
-    this.progress = 0.0,
-    required this.status,
+    required this.status, this.progress = 0.0,
     this.message,
     this.errorMessage,
   });

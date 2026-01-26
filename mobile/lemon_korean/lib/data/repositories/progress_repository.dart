@@ -62,10 +62,11 @@ class ProgressRepository {
       }
 
       // Return local data
-      return localProgress;
+      return localProgress != null ? ProgressModel.fromJson(localProgress) : null;
     } catch (e) {
       print('[ProgressRepository] getLessonProgress error: $e');
-      return LocalStorage.getLessonProgress(userId, lessonId);
+      final local = await LocalStorage.getLessonProgress(userId, lessonId);
+      return local != null ? ProgressModel.fromJson(local) : null;
     }
   }
 
@@ -130,9 +131,12 @@ class ProgressRepository {
     final now = DateTime.now();
 
     // Get existing progress or create new
-    var progress = await LocalStorage.getLessonProgress(userId, lessonId);
+    final progressJson = await LocalStorage.getLessonProgress(userId, lessonId);
+    var progressModel = progressJson != null
+        ? ProgressModel.fromJson(progressJson)
+        : null;
 
-    progress = (progress ?? ProgressModel(
+    progressModel = (progressModel ?? ProgressModel(
       id: 0,
       userId: userId,
       lessonId: lessonId,
@@ -145,29 +149,27 @@ class ProgressRepository {
       timeSpent: timeSpent,
       completedAt: now,
       stageProgress: stageProgress,
-      attempts: (progress?.attempts ?? 0) + 1,
+      attempts: (progressModel?.attempts ?? 0) + 1,
       isSynced: false,
       updatedAt: now,
     );
 
     // Save locally
-    await LocalStorage.saveProgress(progress.toJson());
+    await LocalStorage.saveProgress(progressModel.toJson());
 
     // Add to sync queue
     await LocalStorage.addToSyncQueue({
       'type': 'lesson_complete',
-      'data': progress.toJson(),
+      'data': progressModel.toJson(),
       'created_at': now.toIso8601String(),
     });
 
     // Try to sync immediately
     try {
       final response = await _apiClient.completeLesson(
-        userId,
-        lessonId,
+        lessonId: lessonId,
         quizScore: quizScore,
         timeSpent: timeSpent,
-        stageProgress: stageProgress,
       );
 
       if (response.statusCode == 200) {
@@ -186,7 +188,7 @@ class ProgressRepository {
       print('[ProgressRepository] completeLesson sync error: $e');
     }
 
-    return progress;
+    return progressModel;
   }
 
   /// Update stage progress
@@ -196,15 +198,16 @@ class ProgressRepository {
     String stageName,
     dynamic stageData,
   ) async {
-    final progress = await LocalStorage.getLessonProgress(userId, lessonId);
+    final progressJson = await LocalStorage.getLessonProgress(userId, lessonId);
 
-    if (progress != null) {
+    if (progressJson != null) {
+      final progress = ProgressModel.fromJson(progressJson);
       final currentStageProgress = progress.stageProgress ?? {};
       currentStageProgress[stageName] = stageData;
 
       final updatedProgress = progress.copyWith(
         stageProgress: currentStageProgress,
-        timeSpent: progress.timeSpent + 1, // Increment time
+        timeSpent: (progress.timeSpent ?? 0) + 1, // Increment time
         updatedAt: DateTime.now(),
         isSynced: false,
       );
@@ -227,7 +230,7 @@ class ProgressRepository {
   /// Get review schedule for user
   Future<List<ReviewModel>> getReviewSchedule(int userId) async {
     try {
-      final response = await _apiClient.getReviewSchedule(userId);
+      final response = await _apiClient.getReviewSchedule();
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['reviews'];
@@ -264,17 +267,18 @@ class ProgressRepository {
     final now = DateTime.now();
 
     // Get existing review or create new
-    var review = await LocalStorage.getVocabularyReview(userId, vocabularyId);
+    final reviewJson = await LocalStorage.getVocabularyReview(userId, vocabularyId);
+    var reviewModel = reviewJson != null ? ReviewModel.fromJson(reviewJson) : null;
 
     // Calculate next review using SM-2 algorithm
     final sm2Result = _calculateSM2(
       quality: quality,
-      repetitions: review?.repetitions ?? 0,
-      easeFactor: review?.easeFactor ?? 2.5,
-      interval: review?.interval ?? 1,
+      repetitions: reviewModel?.repetitions ?? 0,
+      easeFactor: reviewModel?.easeFactor ?? 2.5,
+      interval: reviewModel?.interval ?? 1,
     );
 
-    review = (review ?? ReviewModel(
+    reviewModel = (reviewModel ?? ReviewModel(
       id: 0,
       userId: userId,
       vocabularyId: vocabularyId,
@@ -292,12 +296,12 @@ class ProgressRepository {
     );
 
     // Save locally
-    await LocalStorage.saveReview(review.toJson());
+    await LocalStorage.saveReview(reviewModel.toJson());
 
     // Add to sync queue
     await LocalStorage.addToSyncQueue({
       'type': 'review_submit',
-      'data': review.toJson(),
+      'data': reviewModel.toJson(),
       'created_at': now.toIso8601String(),
     });
 
@@ -322,7 +326,7 @@ class ProgressRepository {
       print('[ProgressRepository] submitReview sync error: $e');
     }
 
-    return review;
+    return reviewModel;
   }
 
   // ================================================================
@@ -432,13 +436,19 @@ class ProgressRepository {
   // ================================================================
 
   Future<List<ProgressModel>> _getLocalProgress(int userId) async {
-    return LocalStorage.getAllProgress()
-        .then((list) => list.where((p) => p.userId == userId).toList());
+    final allProgress = LocalStorage.getAllProgress();
+    return allProgress
+        .where((p) => p['userId'] == userId)
+        .map((json) => ProgressModel.fromJson(json))
+        .toList();
   }
 
   Future<List<ReviewModel>> _getLocalReviews(int userId) async {
-    return LocalStorage.getAllReviews()
-        .then((list) => list.where((r) => r.userId == userId).toList());
+    final allReviews = await LocalStorage.getAllReviews();
+    return allReviews
+        .where((r) => r['userId'] == userId)
+        .map((json) => ReviewModel.fromJson(json))
+        .toList();
   }
 
   Future<void> _removeFromSyncQueue(String type, int id) async {

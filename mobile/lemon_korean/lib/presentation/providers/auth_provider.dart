@@ -63,6 +63,12 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  /// Check if user is authenticated
+  Future<bool> checkAuth() async {
+    await loadUser();
+    return isLoggedIn;
+  }
+
   // ================================================================
   // LOGIN
   // ================================================================
@@ -84,11 +90,17 @@ class AuthProvider extends ChangeNotifier {
       if (result.success && result.user != null) {
         _currentUser = result.user;
 
-        // Save token to secure storage
+        // Save tokens to secure storage
         if (result.token != null) {
           await _secureStorage.write(
             key: AppConstants.tokenKey,
             value: result.token,
+          );
+        }
+        if (result.refreshToken != null) {
+          await _secureStorage.write(
+            key: AppConstants.refreshTokenKey,
+            value: result.refreshToken,
           );
         }
 
@@ -129,11 +141,17 @@ class AuthProvider extends ChangeNotifier {
       if (result.success && result.user != null) {
         _currentUser = result.user;
 
-        // Save token to secure storage
+        // Save tokens to secure storage
         if (result.token != null) {
           await _secureStorage.write(
             key: AppConstants.tokenKey,
             value: result.token,
+          );
+        }
+        if (result.refreshToken != null) {
+          await _secureStorage.write(
+            key: AppConstants.refreshTokenKey,
+            value: result.refreshToken,
           );
         }
 

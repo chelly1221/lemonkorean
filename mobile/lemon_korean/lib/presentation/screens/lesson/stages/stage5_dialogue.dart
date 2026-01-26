@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/bilingual_text.dart';
 
 /// Stage 5: Dialogue
 /// Practice conversations with audio playback
@@ -11,10 +13,7 @@ class Stage5Dialogue extends StatefulWidget {
   final VoidCallback onPrevious;
 
   const Stage5Dialogue({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
   });
 
   @override
@@ -29,45 +28,47 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     {
       'title': '初次见面',
       'titleZh': '第一次见面',
+      'speakerA': {
+        'name': '小明',
+        'avatarUrl': null, // Will show placeholder
+      },
+      'speakerB': {
+        'name': '小红',
+        'avatarUrl': null, // Will show placeholder
+      },
       'lines': [
         {
           'speaker': 'A',
-          'speakerName': '小明',
           'korean': '안녕하세요',
           'chinese': '你好',
           'pinyin': 'nǐ hǎo',
         },
         {
           'speaker': 'B',
-          'speakerName': '小红',
           'korean': '안녕하세요',
           'chinese': '你好',
           'pinyin': 'nǐ hǎo',
         },
         {
           'speaker': 'A',
-          'speakerName': '小明',
           'korean': '저는 민호입니다',
           'chinese': '我叫民浩',
           'pinyin': 'wǒ jiào mín hào',
         },
         {
           'speaker': 'B',
-          'speakerName': '小红',
           'korean': '저는 수연이에요',
           'chinese': '我是秀妍',
           'pinyin': 'wǒ shì xiù yán',
         },
         {
           'speaker': 'A',
-          'speakerName': '小明',
           'korean': '반갑습니다',
           'chinese': '很高兴认识你',
           'pinyin': 'hěn gāo xìng rèn shi nǐ',
         },
         {
           'speaker': 'B',
-          'speakerName': '小红',
           'korean': '반갑습니다',
           'chinese': '很高兴认识你',
           'pinyin': 'hěn gāo xìng rèn shi nǐ',
@@ -77,31 +78,35 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     {
       'title': '자기소개',
       'titleZh': '自我介绍',
+      'speakerA': {
+        'name': '老师',
+        'avatarUrl': null, // Will show placeholder
+      },
+      'speakerB': {
+        'name': '学生',
+        'avatarUrl': null, // Will show placeholder
+      },
       'lines': [
         {
           'speaker': 'A',
-          'speakerName': '老师',
           'korean': '이름이 뭐예요?',
           'chinese': '你叫什么名字？',
           'pinyin': 'nǐ jiào shén me míng zi?',
         },
         {
           'speaker': 'B',
-          'speakerName': '学生',
           'korean': '저는 민수예요',
           'chinese': '我叫民秀',
           'pinyin': 'wǒ jiào mín xiù',
         },
         {
           'speaker': 'A',
-          'speakerName': '老师',
           'korean': '학생이에요?',
           'chinese': '你是学生吗？',
           'pinyin': 'nǐ shì xué shēng ma?',
         },
         {
           'speaker': 'B',
-          'speakerName': '学生',
           'korean': '네, 학생이에요',
           'chinese': '是的，我是学生',
           'pinyin': 'shì de, wǒ shì xué shēng',
@@ -169,6 +174,22 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     });
   }
 
+  String _getSpeakerName(Map<String, dynamic> dialogue, String speaker) {
+    if (speaker == 'A') {
+      return dialogue['speakerA']['name'];
+    } else {
+      return dialogue['speakerB']['name'];
+    }
+  }
+
+  String? _getSpeakerAvatarUrl(Map<String, dynamic> dialogue, String speaker) {
+    if (speaker == 'A') {
+      return dialogue['speakerA']['avatarUrl'];
+    } else {
+      return dialogue['speakerB']['avatarUrl'];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final dialogue = _mockDialogues[_currentDialogueIndex];
@@ -179,9 +200,10 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '对话练习',
-            style: TextStyle(
+          const BilingualText(
+            chinese: '对话练习',
+            korean: '대화 연습',
+            chineseStyle: TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -268,7 +290,11 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                     children: [
                       // Speaker A (left)
                       if (isLeft) ...[
-                        _buildSpeakerAvatar(line['speaker'], isLeft),
+                        _buildSpeakerAvatar(
+                          dialogue,
+                          line['speaker'],
+                          isLeft,
+                        ),
                         const SizedBox(width: 12),
                       ],
 
@@ -302,7 +328,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                               children: [
                                 // Speaker Name
                                 Text(
-                                  line['speakerName'],
+                                  _getSpeakerName(dialogue, line['speaker']),
                                   style: const TextStyle(
                                     fontSize: AppConstants.fontSizeSmall,
                                     color: AppConstants.textSecondary,
@@ -367,7 +393,11 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                       // Speaker B (right)
                       if (!isLeft) ...[
                         const SizedBox(width: 12),
-                        _buildSpeakerAvatar(line['speaker'], isLeft),
+                        _buildSpeakerAvatar(
+                          dialogue,
+                          line['speaker'],
+                          isLeft,
+                        ),
                       ],
                     ],
                   ),
@@ -409,10 +439,13 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: Text(
-                    _currentDialogueIndex < _mockDialogues.length - 1
+                  child: InlineBilingualText(
+                    chinese: _currentDialogueIndex < _mockDialogues.length - 1
                         ? '下一个'
                         : '继续',
+                    korean: _currentDialogueIndex < _mockDialogues.length - 1
+                        ? '다음'
+                        : '계속',
                   ),
                 ),
               ),
@@ -423,24 +456,53 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     );
   }
 
-  Widget _buildSpeakerAvatar(String speaker, bool isLeft) {
+  Widget _buildSpeakerAvatar(
+    Map<String, dynamic> dialogue,
+    String speaker,
+    bool isLeft,
+  ) {
+    final avatarUrl = _getSpeakerAvatarUrl(dialogue, speaker);
+
     return Container(
-      width: 48,
-      height: 48,
+      width: 56,
+      height: 56,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: isLeft
             ? Colors.blue.shade100
             : AppConstants.primaryColor.withOpacity(0.3),
+        border: Border.all(
+          color: isLeft
+              ? Colors.blue.shade300
+              : AppConstants.primaryColor.withOpacity(0.5),
+          width: 2,
+        ),
       ),
+      child: ClipOval(
+        child: avatarUrl != null
+            ? MediaHelper.buildImage(
+                avatarUrl,
+                width: 56,
+                height: 56,
+                fit: BoxFit.cover,
+                placeholder: _buildAvatarPlaceholder(speaker, isLeft),
+                errorWidget: _buildAvatarPlaceholder(speaker, isLeft),
+              )
+            : _buildAvatarPlaceholder(speaker, isLeft),
+      ),
+    );
+  }
+
+  Widget _buildAvatarPlaceholder(String speaker, bool isLeft) {
+    return Container(
+      color: isLeft
+          ? Colors.blue.shade50
+          : AppConstants.primaryColor.withOpacity(0.1),
       child: Center(
-        child: Text(
-          speaker,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: isLeft ? Colors.blue.shade700 : Colors.black87,
-          ),
+        child: Icon(
+          speaker == 'A' ? Icons.person : Icons.person_outline,
+          size: 28,
+          color: isLeft ? Colors.blue.shade700 : Colors.black87,
         ),
       ),
     );

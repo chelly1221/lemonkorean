@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/bilingual_text.dart';
 
 /// Stage 4: Practice
 /// Interactive exercises to practice vocabulary and grammar
@@ -11,10 +12,7 @@ class Stage4Practice extends StatefulWidget {
   final VoidCallback onPrevious;
 
   const Stage4Practice({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
   });
 
   @override
@@ -104,9 +102,10 @@ class _Stage4PracticeState extends State<Stage4Practice> {
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '练习',
-            style: TextStyle(
+          const BilingualText(
+            chinese: '练习',
+            korean: '연습',
+            chineseStyle: TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -340,7 +339,10 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一题'),
+                    child: const InlineBilingualText(
+                      chinese: '上一题',
+                      korean: '이전',
+                    ),
                   ),
                 ),
 
@@ -358,12 +360,17 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: Text(
-                    _showResult
+                  child: InlineBilingualText(
+                    chinese: _showResult
                         ? (_currentQuestionIndex < _mockQuestions.length - 1
                             ? '下一题'
                             : '继续')
                         : '检查答案',
+                    korean: _showResult
+                        ? (_currentQuestionIndex < _mockQuestions.length - 1
+                            ? '다음'
+                            : '계속')
+                        : '답안 확인',
                   ),
                 ),
               ),

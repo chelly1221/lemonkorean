@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// SQLite Database Helper
@@ -301,6 +300,29 @@ class DatabaseHelper {
       ['pending'],
     );
     return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  /// Get all media files
+  Future<List<Map<String, dynamic>>> getAllMediaFiles() async {
+    final db = await database;
+    return await db.query('media_files');
+  }
+
+  /// Get storage statistics
+  Future<Map<String, dynamic>> getStorageStats() async {
+    final db = await database;
+
+    final totalSize = await getTotalStorageUsed();
+    final mediaCount = await db.rawQuery(
+      'SELECT COUNT(*) as count FROM media_files',
+    );
+    final queueSize = await getDownloadQueueSize();
+
+    return {
+      'total_size_bytes': totalSize,
+      'media_files_count': Sqflite.firstIntValue(mediaCount) ?? 0,
+      'pending_downloads': queueSize,
+    };
   }
 
   // ================================================================

@@ -12,10 +12,7 @@ class GrammarStage extends StatefulWidget {
   final VoidCallback onPrevious;
 
   const GrammarStage({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
   });
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/bilingual_text.dart';
 
 /// Stage 7: Summary
 /// Lesson completion summary with achievements and next steps
@@ -12,19 +13,17 @@ class Stage7Summary extends StatelessWidget {
   final VoidCallback onPrevious;
 
   const Stage7Summary({
-    super.key,
-    required this.lesson,
-    required this.onComplete,
-    required this.onPrevious,
+    required this.lesson, required this.onComplete, required this.onPrevious, super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        children: [
-          const Spacer(),
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(AppConstants.paddingLarge),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
 
           // Completion Icon
           Container(
@@ -66,9 +65,10 @@ class Stage7Summary extends StatelessWidget {
           const SizedBox(height: 40),
 
           // Completion Title
-          const Text(
-            '课程完成！',
-            style: TextStyle(
+          const BilingualText(
+            chinese: '课程完成！',
+            korean: '수업 완료!',
+            chineseStyle: TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.bold,
             ),
@@ -91,8 +91,10 @@ class Stage7Summary extends StatelessWidget {
           // Achievement Cards
           _buildAchievementCard(
             icon: Icons.check_circle,
-            title: '学习完成',
-            subtitle: '7个阶段全部通过',
+            titleChinese: '学习完成',
+            titleKorean: '학습 완료',
+            subtitleChinese: '7个阶段全部通过',
+            subtitleKorean: '7단계 모두 통과',
             color: AppConstants.successColor,
           )
               .animate()
@@ -103,8 +105,10 @@ class Stage7Summary extends StatelessWidget {
 
           _buildAchievementCard(
             icon: Icons.military_tech,
-            title: '经验值 +${lesson.level * 10}',
-            subtitle: '继续保持学习热情',
+            titleChinese: '经验值 +${lesson.level * 10}',
+            titleKorean: '경험치 +${lesson.level * 10}',
+            subtitleChinese: '继续保持学习热情',
+            subtitleKorean: '학습 열정을 유지하세요',
             color: AppConstants.primaryColor,
           )
               .animate()
@@ -115,15 +119,17 @@ class Stage7Summary extends StatelessWidget {
 
           _buildAchievementCard(
             icon: Icons.local_fire_department,
-            title: '学习连续天数 +1',
-            subtitle: '已连续学习 7 天',
+            titleChinese: '学习连续天数 +1',
+            titleKorean: '연속 학습일 +1',
+            subtitleChinese: '已连续学习 7 天',
+            subtitleKorean: '7일 연속 학습 중',
             color: Colors.orange,
           )
               .animate()
               .fadeIn(delay: 1200.ms, duration: 600.ms)
               .slideX(begin: -0.2, end: 0, delay: 1200.ms),
 
-          const Spacer(),
+          const SizedBox(height: 40),
 
           // Review Stats
           Container(
@@ -134,9 +140,10 @@ class Stage7Summary extends StatelessWidget {
             ),
             child: Column(
               children: [
-                const Text(
-                  '本课学习内容',
-                  style: TextStyle(
+                const BilingualText(
+                  chinese: '本课学习内容',
+                  korean: '이번 수업 내용',
+                  chineseStyle: TextStyle(
                     fontSize: AppConstants.fontSizeLarge,
                     fontWeight: FontWeight.bold,
                   ),
@@ -147,17 +154,20 @@ class Stage7Summary extends StatelessWidget {
                   children: [
                     _buildStatItem(
                       icon: Icons.translate,
-                      label: '单词',
+                      labelChinese: '单词',
+                      labelKorean: '단어',
                       value: '${lesson.vocabularyCount}',
                     ),
                     _buildStatItem(
                       icon: Icons.menu_book,
-                      label: '语法点',
+                      labelChinese: '语法点',
+                      labelKorean: '문법',
                       value: '3',
                     ),
                     _buildStatItem(
                       icon: Icons.chat_bubble_outline,
-                      label: '对话',
+                      labelChinese: '对话',
+                      labelKorean: '대화',
                       value: '2',
                     ),
                   ],
@@ -203,16 +213,18 @@ class Stage7Summary extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '下一课',
+                      InlineBilingualText(
+                        chinese: '下一课',
+                        korean: '다음 수업',
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeSmall,
                           color: AppConstants.textSecondary,
                         ),
                       ),
                       SizedBox(height: 4),
-                      Text(
-                        '继续学习更多内容',
+                      InlineBilingualText(
+                        chinese: '继续学习更多内容',
+                        korean: '더 많은 내용 학습',
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,
@@ -249,8 +261,9 @@ class Stage7Summary extends StatelessWidget {
                 ),
                 elevation: 0,
               ),
-              child: const Text(
-                '完成',
+              child: const InlineBilingualText(
+                chinese: '完成',
+                korean: '완료',
                 style: TextStyle(
                   fontSize: AppConstants.fontSizeXLarge,
                   fontWeight: FontWeight.bold,
@@ -267,13 +280,16 @@ class Stage7Summary extends StatelessWidget {
           const SizedBox(height: 16),
         ],
       ),
+      ),
     );
   }
 
   Widget _buildAchievementCard({
     required IconData icon,
-    required String title,
-    required String subtitle,
+    required String titleChinese,
+    required String titleKorean,
+    required String subtitleChinese,
+    required String subtitleKorean,
     required Color color,
   }) {
     return Container(
@@ -303,16 +319,18 @@ class Stage7Summary extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
+                InlineBilingualText(
+                  chinese: titleChinese,
+                  korean: titleKorean,
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeLarge,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
+                InlineBilingualText(
+                  chinese: subtitleChinese,
+                  korean: subtitleKorean,
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.textSecondary,
@@ -328,7 +346,8 @@ class Stage7Summary extends StatelessWidget {
 
   Widget _buildStatItem({
     required IconData icon,
-    required String label,
+    required String labelChinese,
+    required String labelKorean,
     required String value,
   }) {
     return Column(
@@ -347,8 +366,9 @@ class Stage7Summary extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          label,
+        InlineBilingualText(
+          chinese: labelChinese,
+          korean: labelKorean,
           style: const TextStyle(
             fontSize: AppConstants.fontSizeSmall,
             color: AppConstants.textSecondary,

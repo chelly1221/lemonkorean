@@ -43,7 +43,7 @@ class ContentRepository {
   Future<LessonModel?> getLesson(int id) async {
     try {
       // Check local first for better UX
-      final localLesson = await LocalStorage.getLesson(id);
+      final localLesson = LocalStorage.getLesson(id);
 
       // Try to fetch fresh data in background
       final response = await _apiClient.getLesson(id);
@@ -58,11 +58,12 @@ class ContentRepository {
       }
 
       // If remote fails, return local
-      return localLesson;
+      return localLesson != null ? LessonModel.fromJson(localLesson) : null;
     } catch (e) {
       print('[ContentRepository] getLesson error: $e');
       // Return local data
-      return LocalStorage.getLesson(id);
+      final local = LocalStorage.getLesson(id);
+      return local != null ? LessonModel.fromJson(local) : null;
     }
   }
 
@@ -119,8 +120,9 @@ class ContentRepository {
 
   /// Delete downloaded lesson
   Future<void> deleteDownloadedLesson(int id) async {
-    final lesson = await LocalStorage.getLesson(id);
-    if (lesson != null) {
+    final lessonJson = LocalStorage.getLesson(id);
+    if (lessonJson != null) {
+      final lesson = LessonModel.fromJson(lessonJson);
       final updatedLesson = lesson.copyWith(
         isDownloaded: false,
         downloadedAt: null,
@@ -221,13 +223,13 @@ class ContentRepository {
 
   /// Get similar vocabulary (by similarity score)
   Future<List<VocabularyModel>> getSimilarVocabulary(
-    int vocabularyId, {
-    int limit = 10,
+    String korean, {
+    double minScore = 0.7,
   }) async {
     try {
       final response = await _apiClient.getSimilarVocabulary(
-        vocabularyId,
-        limit: limit,
+        korean,
+        minScore: minScore,
       );
 
       if (response.statusCode == 200) {
@@ -247,7 +249,9 @@ class ContentRepository {
   // ================================================================
 
   Future<List<LessonModel>> _getLocalLessons({int? level}) async {
-    final allLessons = await LocalStorage.getAllLessons();
+    final allLessons = LocalStorage.getAllLessons()
+        .map((json) => LessonModel.fromJson(json))
+        .toList();
 
     if (level != null) {
       return allLessons.where((lesson) => lesson.level == level).toList();
@@ -260,7 +264,9 @@ class ContentRepository {
     int? lessonId,
     int? level,
   }) async {
-    final allVocabulary = await LocalStorage.getAllVocabulary();
+    final allVocabulary = LocalStorage.getAllVocabulary()
+        .map((json) => VocabularyModel.fromJson(json))
+        .toList();
 
     if (lessonId != null) {
       // Note: VocabularyModel doesn't have lessonId field
@@ -282,9 +288,9 @@ class ContentRepository {
     final results = <VocabularyModel>[];
 
     for (final id in ids) {
-      final word = await LocalStorage.getVocabulary(id);
+      final word = LocalStorage.getVocabulary(id);
       if (word != null) {
-        results.add(word);
+        results.add(VocabularyModel.fromJson(word));
       }
     }
 
@@ -303,10 +309,10 @@ class ContentRepository {
 
   /// Get cache statistics
   Future<Map<String, dynamic>> getCacheStats() async {
-    final lessons = await LocalStorage.getAllLessons();
-    final vocabulary = await LocalStorage.getAllVocabulary();
+    final lessons = LocalStorage.getAllLessons();
+    final vocabulary = LocalStorage.getAllVocabulary();
     final downloadedLessons =
-        lessons.where((l) => l.isDownloaded).toList();
+        lessons.where((l) => l['isDownloaded'] == true).toList();
 
     return {
       'total_lessons': lessons.length,

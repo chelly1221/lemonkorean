@@ -11,9 +11,7 @@ class Stage1Intro extends StatelessWidget {
   final VoidCallback onNext;
 
   const Stage1Intro({
-    super.key,
-    required this.lesson,
-    required this.onNext,
+    required this.lesson, required this.onNext, super.key,
   });
 
   @override

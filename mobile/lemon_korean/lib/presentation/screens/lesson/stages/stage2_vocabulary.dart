@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/bilingual_text.dart';
 
 /// Stage 2: Vocabulary
 /// Learn new words with flashcards and examples
@@ -11,10 +13,7 @@ class Stage2Vocabulary extends StatefulWidget {
   final VoidCallback onPrevious;
 
   const Stage2Vocabulary({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
   });
 
   @override
@@ -23,10 +22,25 @@ class Stage2Vocabulary extends StatefulWidget {
 
 class _Stage2VocabularyState extends State<Stage2Vocabulary> {
   int _currentWordIndex = 0;
-  final List<Map<String, String>> _mockWords = [
-    {'korean': '안녕하세요', 'chinese': '您好', 'pinyin': 'nín hǎo'},
-    {'korean': '감사합니다', 'chinese': '谢谢', 'pinyin': 'xiè xie'},
-    {'korean': '죄송합니다', 'chinese': '对不起', 'pinyin': 'duì bu qǐ'},
+  final List<Map<String, String?>> _mockWords = [
+    {
+      'korean': '안녕하세요',
+      'chinese': '您好',
+      'pinyin': 'nín hǎo',
+      'imageUrl': null, // Will show placeholder
+    },
+    {
+      'korean': '감사합니다',
+      'chinese': '谢谢',
+      'pinyin': 'xiè xie',
+      'imageUrl': null, // Will show placeholder
+    },
+    {
+      'korean': '죄송합니다',
+      'chinese': '对不起',
+      'pinyin': 'duì bu qǐ',
+      'imageUrl': null, // Will show placeholder
+    },
   ];
 
   void _nextWord() {
@@ -47,6 +61,32 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
     }
   }
 
+  Widget _buildImagePlaceholder() {
+    return Container(
+      color: AppConstants.primaryColor.withOpacity(0.05),
+      child: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.image_outlined,
+              size: 80,
+              color: AppConstants.textHint,
+            ),
+            SizedBox(height: 8),
+            Text(
+              '暂无图片',
+              style: TextStyle(
+                fontSize: AppConstants.fontSizeSmall,
+                color: AppConstants.textHint,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final word = _mockWords[_currentWordIndex];
@@ -56,9 +96,10 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '词汇学习',
-            style: TextStyle(
+          const BilingualText(
+            chinese: '词汇学习',
+            korean: '단어 학습',
+            chineseStyle: TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -94,6 +135,35 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
             ),
             child: Column(
               children: [
+                // Image or Placeholder
+                Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: AppConstants.primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                    border: Border.all(
+                      color: AppConstants.primaryColor.withOpacity(0.3),
+                      width: 2,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                    child: word['imageUrl'] != null
+                        ? MediaHelper.buildImage(
+                            word['imageUrl']!,
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                            placeholder: _buildImagePlaceholder(),
+                            errorWidget: _buildImagePlaceholder(),
+                          )
+                        : _buildImagePlaceholder(),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
                 // Korean
                 Text(
                   word['korean']!,
@@ -144,7 +214,10 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一个'),
+                    child: const InlineBilingualText(
+                      chinese: '上一个',
+                      korean: '이전',
+                    ),
                   ),
                 ),
 
@@ -162,10 +235,13 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: Text(
-                    _currentWordIndex < _mockWords.length - 1
+                  child: InlineBilingualText(
+                    chinese: _currentWordIndex < _mockWords.length - 1
                         ? '下一个'
                         : '继续',
+                    korean: _currentWordIndex < _mockWords.length - 1
+                        ? '다음'
+                        : '계속',
                   ),
                 ),
               ),

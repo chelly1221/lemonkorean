@@ -11,7 +11,6 @@ import (
 
 	"lemonkorean/media/config"
 	"lemonkorean/media/handlers"
-	"lemonkorean/media/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

@@ -47,7 +47,7 @@ class ProgressModel {
     required this.id,
     required this.userId,
     required this.lessonId,
-    this.status = 'not_started',
+    required this.createdAt, required this.updatedAt, this.status = 'not_started',
     this.quizScore,
     this.timeSpent = 0,
     this.startedAt,
@@ -55,8 +55,6 @@ class ProgressModel {
     this.stageProgress,
     this.attempts = 0,
     this.isSynced = false,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   // From JSON
@@ -151,7 +149,7 @@ class ProgressModel {
 
     // Calculate based on stage progress
     if (stageProgress != null && stageProgress!.isNotEmpty) {
-      final totalStages = 7; // 7 stages
+      const totalStages = 7; // 7 stages
       final completedStages = stageProgress!.values
           .where((value) => value == true || value == 'completed')
           .length;
@@ -168,9 +166,9 @@ class ProgressModel {
     final seconds = timeSpent % 60;
 
     if (hours > 0) {
-      return '$hours时${minutes}分${seconds}秒';
+      return '$hours时$minutes分$seconds秒';
     } else if (minutes > 0) {
-      return '$minutes分${seconds}秒';
+      return '$minutes分$seconds秒';
     } else {
       return '$seconds秒';
     }
@@ -264,13 +262,11 @@ class ReviewModel {
     required this.userId,
     required this.vocabularyId,
     required this.nextReview,
-    this.interval = 1,
+    required this.createdAt, required this.updatedAt, this.interval = 1,
     this.easeFactor = 2.5,
     this.repetitions = 0,
     this.lastReviewedAt,
     this.lastQuality,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
+import '../../providers/progress_provider.dart';
 import 'stages/stage1_intro.dart';
 import 'stages/stage2_vocabulary.dart';
 import 'stages/stage3_grammar.dart';
@@ -17,8 +19,7 @@ class LessonScreen extends StatefulWidget {
   final LessonModel lesson;
 
   const LessonScreen({
-    super.key,
-    required this.lesson,
+    required this.lesson, super.key,
   });
 
   @override
@@ -30,9 +31,14 @@ class _LessonScreenState extends State<LessonScreen> {
   final int _totalStages = 7;
   final PageController _pageController = PageController();
 
+  // Track lesson progress
+  int _quizScore = 0;
+  DateTime? _startTime;
+
   @override
   void initState() {
     super.initState();
+    _startTime = DateTime.now();
     _enterImmersiveMode();
   }
 
@@ -120,14 +126,45 @@ class _LessonScreenState extends State<LessonScreen> {
 
   /// Save progress and exit
   void _saveProgressAndExit() {
-    // TODO: Save progress via ProgressProvider
+    // Progress is auto-saved during the lesson
     Navigator.pop(context);
   }
 
   /// Complete lesson and exit
-  void _completeLessonAndExit() {
-    // TODO: Mark lesson as completed via ProgressProvider
-    Navigator.pop(context);
+  Future<void> _completeLessonAndExit() async {
+    if (!mounted) return;
+
+    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final timeSpent = _startTime != null
+        ? DateTime.now().difference(_startTime!).inSeconds
+        : 0;
+
+    // Save lesson completion
+    await progressProvider.completeLesson(
+      lessonId: widget.lesson.id,
+      quizScore: _quizScore,
+      timeSpent: timeSpent,
+    );
+
+    if (mounted) {
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('课程完成！进度已保存'),
+          backgroundColor: AppConstants.successColor,
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Navigator.pop(context);
+    }
+  }
+
+  /// Update quiz score (called by quiz stage)
+  void _updateQuizScore(int score) {
+    setState(() {
+      _quizScore = score;
+    });
   }
 
   @override
@@ -184,6 +221,7 @@ class _LessonScreenState extends State<LessonScreen> {
                       lesson: widget.lesson,
                       onNext: _nextStage,
                       onPrevious: _previousStage,
+                      onScoreUpdate: _updateQuizScore,
                     ),
                     Stage7Summary(
                       lesson: widget.lesson,
@@ -226,7 +264,7 @@ class _LessonScreenState extends State<LessonScreen> {
               children: [
                 // Stage indicator
                 Text(
-                  '第 ${_currentStage + 1} 阶段 / ${ _totalStages}',
+                  '第 ${_currentStage + 1} 阶段 / $_totalStages',
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.textSecondary,

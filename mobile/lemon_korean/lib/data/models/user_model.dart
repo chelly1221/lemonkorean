@@ -29,9 +29,8 @@ class UserModel {
     required this.id,
     required this.email,
     required this.username,
-    this.avatar,
+    required this.createdAt, this.avatar,
     this.subscriptionType = 'free',
-    required this.createdAt,
     this.lastLoginAt,
   });
 
@@ -40,14 +39,14 @@ class UserModel {
     return UserModel(
       id: json['id'] as int,
       email: json['email'] as String,
-      username: json['username'] as String,
+      username: (json['username'] ?? json['name']) as String,
       avatar: json['avatar'] as String?,
       subscriptionType: json['subscription_type'] as String? ?? 'free',
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'] as String)
           : DateTime.now(),
-      lastLoginAt: json['last_login_at'] != null
-          ? DateTime.parse(json['last_login_at'] as String)
+      lastLoginAt: json['last_login'] != null || json['last_login_at'] != null
+          ? DateTime.parse((json['last_login'] ?? json['last_login_at']) as String)
           : null,
     );
   }

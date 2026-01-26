@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/bilingual_text.dart';
 
 /// Stage 3: Grammar
 /// Grammar explanations with examples
@@ -11,10 +12,7 @@ class Stage3Grammar extends StatefulWidget {
   final VoidCallback onPrevious;
 
   const Stage3Grammar({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
   });
 
   @override
@@ -80,9 +78,10 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '语法讲解',
-            style: TextStyle(
+          const BilingualText(
+            chinese: '语法讲解',
+            korean: '문법 설명',
+            chineseStyle: TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -173,9 +172,10 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                     const SizedBox(height: 24),
 
                     // Examples Label
-                    const Text(
-                      '例句',
-                      style: TextStyle(
+                    const BilingualText(
+                      chinese: '例句',
+                      korean: '예문',
+                      chineseStyle: TextStyle(
                         fontSize: AppConstants.fontSizeLarge,
                         fontWeight: FontWeight.bold,
                       ),
@@ -216,7 +216,10 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一个'),
+                    child: const InlineBilingualText(
+                      chinese: '上一个',
+                      korean: '이전',
+                    ),
                   ),
                 ),
 
@@ -234,10 +237,13 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: Text(
-                    _currentPointIndex < _mockGrammarPoints.length - 1
+                  child: InlineBilingualText(
+                    chinese: _currentPointIndex < _mockGrammarPoints.length - 1
                         ? '下一个'
                         : '继续',
+                    korean: _currentPointIndex < _mockGrammarPoints.length - 1
+                        ? '다음'
+                        : '계속',
                   ),
                 ),
               ),

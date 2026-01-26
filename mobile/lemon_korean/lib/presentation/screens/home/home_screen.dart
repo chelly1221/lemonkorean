@@ -7,6 +7,13 @@ import '../../../data/models/lesson_model.dart';
 import '../../../data/models/progress_model.dart';
 import '../../../data/models/user_model.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/lesson_provider.dart';
+import '../../providers/progress_provider.dart';
+import '../../widgets/bilingual_text.dart';
+import '../auth/login_screen.dart';
+import '../download/download_manager_screen.dart';
+import '../lesson/lesson_screen.dart';
+import '../review/review_screen.dart';
 import 'widgets/user_header.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
@@ -43,26 +50,30 @@ class _HomeScreenState extends State<HomeScreen> {
             _selectedIndex = index;
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
+            icon: const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home),
             label: '首页',
+            tooltip: '홈',
           ),
           NavigationDestination(
-            icon: Icon(Icons.download_outlined),
-            selectedIcon: Icon(Icons.download),
+            icon: const Icon(Icons.download_outlined),
+            selectedIcon: const Icon(Icons.download),
             label: '下载',
+            tooltip: '다운로드',
           ),
           NavigationDestination(
-            icon: Icon(Icons.replay_outlined),
-            selectedIcon: Icon(Icons.replay),
+            icon: const Icon(Icons.replay_outlined),
+            selectedIcon: const Icon(Icons.replay),
             label: '复习',
+            tooltip: '복습',
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_outlined),
-            selectedIcon: Icon(Icons.person),
+            icon: const Icon(Icons.person_outlined),
+            selectedIcon: const Icon(Icons.person),
             label: '我的',
+            tooltip: '내 정보',
           ),
         ],
       ),
@@ -82,39 +93,96 @@ class _HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<_HomeTab> {
-  // Mock data - TODO: Replace with real data from providers
-  final List<LessonModel> _lessons = [];
+  List<LessonModel> _lessons = [];
   ProgressModel? _currentProgress;
-  int _streakDays = 7;
-  double _todayProgress = 0.65;
+  Map<int, double> _lessonProgress = {}; // lesson_id -> progress (0.0-1.0)
+  int _streakDays = 0;
+  double _todayProgress = 0.0;
+  int _completedToday = 0;
+  int _targetLessons = 3;
 
   @override
   void initState() {
     super.initState();
-    _loadMockData();
+    _loadData();
   }
 
-  void _loadMockData() {
-    // TODO: Load real data
+  Future<void> _loadData() async {
+    final lessonProvider = Provider.of<LessonProvider>(context, listen: false);
+    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    // Fetch lessons
+    await lessonProvider.fetchLessons();
+
+    // Fetch progress if user is logged in
+    if (authProvider.currentUser != null) {
+      await progressProvider.fetchProgress(authProvider.currentUser!.id);
+
+      // Calculate stats
+      final progressList = progressProvider.progressList;
+      final today = DateTime.now();
+      final todayProgress = progressList.where((p) {
+        final completedAt = DateTime.parse(p['completed_at'] ?? '');
+        return completedAt.year == today.year &&
+               completedAt.month == today.month &&
+               completedAt.day == today.day;
+      }).length;
+
+      // Build lesson progress map
+      final lessonProgressMap = <int, double>{};
+      for (final progress in progressList) {
+        final lessonId = progress['lesson_id'] as int;
+        final status = progress['status'] as String?;
+        final quizScore = progress['quiz_score'] as int?;
+
+        if (status == 'completed') {
+          lessonProgressMap[lessonId] = 1.0;
+        } else if (status == 'in_progress') {
+          // If quiz score exists, use it as progress indicator (0-100 -> 0.0-1.0)
+          if (quizScore != null) {
+            lessonProgressMap[lessonId] = (quizScore / 100).clamp(0.0, 0.99);
+          } else {
+            lessonProgressMap[lessonId] = 0.5; // Default for in-progress
+          }
+        }
+      }
+
+      setState(() {
+        _completedToday = todayProgress;
+        _todayProgress = todayProgress / _targetLessons;
+        _lessonProgress = lessonProgressMap;
+        // TODO: Calculate actual streak days from progress data
+        _streakDays = 7;
+      });
+    }
+
+    // Get lessons from provider
     setState(() {
-      // Create mock lessons
-      for (int i = 1; i <= 12; i++) {
-        _lessons.add(
-          LessonModel(
-            id: i,
-            level: (i - 1) ~/ 4 + 1,
-            titleKo: '한국어 레슨 $i',
-            titleZh: '韩语课程 $i',
-            description: '这是第 $i 课的描述',
-            version: '1.0.0',
-            status: 'published',
-            estimatedMinutes: 30 + (i * 5),
-            vocabularyCount: 10 + (i * 2),
-            isDownloaded: i <= 3,
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-          ),
-        );
+      _lessons = lessonProvider.lessons
+          .map((json) => LessonModel.fromJson(json))
+          .toList();
+
+      // If no lessons from API, create mock data
+      if (_lessons.isEmpty) {
+        for (int i = 1; i <= 12; i++) {
+          _lessons.add(
+            LessonModel(
+              id: i,
+              level: (i - 1) ~/ 4 + 1,
+              titleKo: '한국어 레슨 $i',
+              titleZh: '韩语课程 $i',
+              description: '这是第 $i 课的描述',
+              version: '1.0.0',
+              status: 'published',
+              estimatedMinutes: 30 + (i * 5),
+              vocabularyCount: 10 + (i * 2),
+              isDownloaded: i <= 3,
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+            ),
+          );
+        }
       }
     });
   }
@@ -148,8 +216,8 @@ class _HomeTabState extends State<_HomeTab> {
             ),
             child: DailyGoalCard(
               progress: _todayProgress,
-              completedLessons: 2,
-              targetLessons: 3,
+              completedLessons: _completedToday,
+              targetLessons: _targetLessons,
             ).animate().fadeIn(delay: 100.ms, duration: 400.ms).slideY(
                   begin: 0.2,
                   end: 0,
@@ -167,19 +235,26 @@ class _HomeTabState extends State<_HomeTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '继续学习',
-                    style: TextStyle(
+                  const BilingualText(
+                    chinese: '继续学习',
+                    korean: '계속 학습하기',
+                    chineseStyle: TextStyle(
                       fontSize: AppConstants.fontSizeLarge,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.left,
                   ),
                   const SizedBox(height: AppConstants.paddingSmall),
                   ContinueLessonCard(
                     lesson: _lessons.first,
                     progress: _currentProgress!,
                     onTap: () {
-                      // Navigate to lesson
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LessonScreen(lesson: _lessons.first),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -199,19 +274,24 @@ class _HomeTabState extends State<_HomeTab> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  '所有课程',
-                  style: TextStyle(
+                const BilingualText(
+                  chinese: '所有课程',
+                  korean: '모든 수업',
+                  chineseStyle: TextStyle(
                     fontSize: AppConstants.fontSizeLarge,
                     fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.left,
                 ),
                 TextButton.icon(
                   onPressed: () {
                     // Show filter
                   },
                   icon: const Icon(Icons.filter_list, size: 20),
-                  label: const Text('筛选'),
+                  label: const InlineBilingualText(
+                    chinese: '筛选',
+                    korean: '필터',
+                  ),
                 ),
               ],
             ),
@@ -233,11 +313,17 @@ class _HomeTabState extends State<_HomeTab> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final lesson = _lessons[index];
+                final progress = _lessonProgress[lesson.id];
                 return LessonGridItem(
                   lesson: lesson,
-                  progress: index < 3 ? 0.3 * (index + 1) : null,
+                  progress: progress,
                   onTap: () {
-                    // Navigate to lesson detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LessonScreen(lesson: lesson),
+                      ),
+                    );
                   },
                 )
                     .animate(delay: Duration(milliseconds: 400 + index * 50))
@@ -276,9 +362,10 @@ class _DownloadsTab extends StatelessWidget {
       slivers: [
         SliverAppBar(
           pinned: true,
-          title: const Text(
-            '已下载课程',
-            style: TextStyle(
+          title: const BilingualText(
+            chinese: '已下载课程',
+            korean: '다운로드한 수업',
+            chineseStyle: TextStyle(
               fontSize: AppConstants.fontSizeLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -287,7 +374,12 @@ class _DownloadsTab extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.storage_outlined),
               onPressed: () {
-                // Show storage info
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DownloadManagerScreen(),
+                  ),
+                );
               },
             ),
           ],
@@ -313,14 +405,57 @@ class _DownloadsTab extends StatelessWidget {
                       ),
                       child: const Icon(Icons.download_done),
                     ),
-                    title: Text('韩语课程 ${index + 1}'),
-                    subtitle: Text('已下载 • 45 MB'),
+                    title: BilingualText(
+                      chinese: '韩语课程 ${index + 1}',
+                      korean: '한국어 수업 ${index + 1}',
+                      textAlign: TextAlign.left,
+                    ),
+                    subtitle: const BilingualText(
+                      chinese: '已下载 • 45 MB',
+                      korean: '다운로드 완료',
+                      textAlign: TextAlign.left,
+                    ),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete_outline),
                       onPressed: () {
-                        // Delete download
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('删除下载'),
+                            content: Text('确定要删除课程 ${index + 1} 吗？'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('取消'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('删除功能开发中'),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: AppConstants.errorColor,
+                                ),
+                                child: const Text('删除'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('从下载中打开课程功能开发中'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
                   ),
                 );
               },
@@ -367,11 +502,12 @@ class _ReviewTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverAppBar(
+        const SliverAppBar(
           pinned: true,
-          title: const Text(
-            '复习计划',
-            style: TextStyle(
+          title: BilingualText(
+            chinese: '复习计划',
+            korean: '복습 계획',
+            chineseStyle: TextStyle(
               fontSize: AppConstants.fontSizeLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -392,17 +528,19 @@ class _ReviewTab extends StatelessWidget {
                       color: AppConstants.primaryColor,
                     ),
                     const SizedBox(height: AppConstants.paddingMedium),
-                    const Text(
-                      '今日复习',
-                      style: TextStyle(
+                    const BilingualText(
+                      chinese: '今日复习',
+                      korean: '오늘의 복습',
+                      chineseStyle: TextStyle(
                         fontSize: AppConstants.fontSizeLarge,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: AppConstants.paddingSmall),
-                    const Text(
-                      '15个单词等待复习',
-                      style: TextStyle(
+                    const BilingualText(
+                      chinese: '15个单词等待复习',
+                      korean: '15개 단어 복습 대기중',
+                      chineseStyle: TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: AppConstants.textSecondary,
                       ),
@@ -410,7 +548,12 @@ class _ReviewTab extends StatelessWidget {
                     const SizedBox(height: AppConstants.paddingMedium),
                     ElevatedButton(
                       onPressed: () {
-                        // Start review
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ReviewScreen(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConstants.primaryColor,
@@ -420,7 +563,10 @@ class _ReviewTab extends StatelessWidget {
                           vertical: AppConstants.paddingMedium,
                         ),
                       ),
-                      child: const Text('开始复习'),
+                      child: const InlineBilingualText(
+                        chinese: '开始复习',
+                        korean: '복습 시작',
+                      ),
                     ),
                   ],
                 ),
@@ -537,13 +683,15 @@ class _ProfileTab extends StatelessWidget {
                         : Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text(
-                    user?.isPremium == true ? '高级会员' : '免费用户',
+                  child: InlineBilingualText(
+                    chinese: user?.isPremium == true ? '高级会员' : '免费用户',
+                    korean: user?.isPremium == true ? '프리미엄 회원' : '무료 사용자',
                     style: TextStyle(
                       color: user?.isPremium == true
                           ? Colors.black87
                           : Colors.grey.shade700,
                       fontWeight: FontWeight.bold,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -555,37 +703,49 @@ class _ProfileTab extends StatelessWidget {
           padding: const EdgeInsets.all(AppConstants.paddingMedium),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              _buildSection('学习统计'),
-              _buildStatCard('已完成课程', '12', Icons.check_circle_outline),
-              _buildStatCard('学习天数', '45', Icons.calendar_today_outlined),
-              _buildStatCard('掌握单词', '230', Icons.translate),
+              _buildSection('学习统计', '학습 통계'),
+              _buildStatCard('已完成课程', '완료한 수업', '12', Icons.check_circle_outline),
+              _buildStatCard('学习天数', '학습 일수', '45', Icons.calendar_today_outlined),
+              _buildStatCard('掌握单词', '습득 단어', '230', Icons.translate),
               const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection('设置'),
+              _buildSection('设置', '설정'),
               _buildMenuItem(
                 icon: Icons.notifications_outlined,
-                title: '通知设置',
+                chinese: '通知设置',
+                korean: '알림 설정',
                 onTap: () {},
               ),
               _buildMenuItem(
                 icon: Icons.language,
-                title: '语言设置',
+                chinese: '语言设置',
+                korean: '언어 설정',
                 onTap: () {},
               ),
               _buildMenuItem(
                 icon: Icons.storage_outlined,
-                title: '存储管理',
-                onTap: () {},
+                chinese: '存储管理',
+                korean: '저장공간 관리',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DownloadManagerScreen(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection('关于'),
+              _buildSection('关于', '정보'),
               _buildMenuItem(
                 icon: Icons.help_outline,
-                title: '帮助中心',
+                chinese: '帮助中心',
+                korean: '도움말 센터',
                 onTap: () {},
               ),
               _buildMenuItem(
                 icon: Icons.info_outline,
-                title: '关于应用',
+                chinese: '关于应用',
+                korean: '앱 정보',
                 onTap: () {},
               ),
               const SizedBox(height: AppConstants.paddingMedium),
@@ -596,12 +756,14 @@ class _ProfileTab extends StatelessWidget {
                     Icons.logout,
                     color: AppConstants.errorColor,
                   ),
-                  title: const Text(
-                    '退出登录',
-                    style: TextStyle(
+                  title: const BilingualText(
+                    chinese: '退出登录',
+                    korean: '로그아웃',
+                    chineseStyle: TextStyle(
                       color: AppConstants.errorColor,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.left,
                   ),
                   onTap: () async {
                     final confirm = await showDialog<bool>(
@@ -627,7 +789,14 @@ class _ProfileTab extends StatelessWidget {
 
                     if (confirm == true && context.mounted) {
                       await authProvider.logout();
-                      // Navigate to login
+                      if (context.mounted) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      }
                     }
                   },
                 ),
@@ -639,24 +808,26 @@ class _ProfileTab extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(String title) {
+  Widget _buildSection(String chinese, String korean) {
     return Padding(
       padding: const EdgeInsets.only(
         top: AppConstants.paddingMedium,
         bottom: AppConstants.paddingSmall,
       ),
-      child: Text(
-        title,
-        style: const TextStyle(
+      child: BilingualText(
+        chinese: chinese,
+        korean: korean,
+        chineseStyle: const TextStyle(
           fontSize: AppConstants.fontSizeMedium,
           fontWeight: FontWeight.bold,
           color: AppConstants.textSecondary,
         ),
+        textAlign: TextAlign.left,
       ),
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon) {
+  Widget _buildStatCard(String chinese, String korean, String value, IconData icon) {
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
       child: Padding(
@@ -673,11 +844,13 @@ class _ProfileTab extends StatelessWidget {
             ),
             const SizedBox(width: AppConstants.paddingMedium),
             Expanded(
-              child: Text(
-                label,
-                style: const TextStyle(
+              child: BilingualText(
+                chinese: chinese,
+                korean: korean,
+                chineseStyle: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                 ),
+                textAlign: TextAlign.left,
               ),
             ),
             Text(
@@ -695,14 +868,19 @@ class _ProfileTab extends StatelessWidget {
 
   Widget _buildMenuItem({
     required IconData icon,
-    required String title,
+    required String chinese,
+    required String korean,
     required VoidCallback onTap,
   }) {
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
       child: ListTile(
         leading: Icon(icon),
-        title: Text(title),
+        title: BilingualText(
+          chinese: chinese,
+          korean: korean,
+          textAlign: TextAlign.left,
+        ),
         trailing: const Icon(Icons.chevron_right, size: 20),
         onTap: onTap,
       ),

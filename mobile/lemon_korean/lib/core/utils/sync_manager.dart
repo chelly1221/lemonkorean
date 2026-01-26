@@ -192,7 +192,9 @@ class SyncManager {
 
     try {
       // Batch sync progress
-      final progressData = items.map((item) => item['data']).toList();
+      final progressData = items
+          .map((item) => item['data'] as Map<String, dynamic>)
+          .toList();
 
       final response = await _apiClient.syncProgress(progressData);
 
@@ -228,10 +230,8 @@ class SyncManager {
     // Sync reviews individually
     for (final item in items) {
       try {
-        final reviewData = item['data'];
-
         // Call review API endpoint
-        // final response = await _apiClient.markReviewDone(reviewData);
+        // final response = await _apiClient.markReviewDone(item['data']);
 
         // For now, just remove from queue
         // TODO: Implement actual review sync when API is ready
@@ -414,8 +414,7 @@ class SyncStatus {
   SyncStatus({
     required this.isSyncing,
     required this.isOnline,
-    this.lastSyncTime,
-    required this.queueSize,
+    required this.queueSize, this.lastSyncTime,
   });
 
   String get statusMessage {

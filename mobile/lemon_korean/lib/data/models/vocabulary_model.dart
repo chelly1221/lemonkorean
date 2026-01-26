@@ -49,8 +49,7 @@ class VocabularyModel {
   VocabularyModel({
     required this.id,
     required this.korean,
-    this.hanja,
-    required this.chinese,
+    required this.chinese, required this.createdAt, this.hanja,
     this.pinyin,
     this.pronunciation,
     this.partOfSpeech = 'noun',
@@ -60,7 +59,6 @@ class VocabularyModel {
     this.imageUrl,
     this.exampleSentences,
     this.tags,
-    required this.createdAt,
   });
 
   // From JSON

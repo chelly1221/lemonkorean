@@ -8,7 +8,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --omit=dev && \
+# TODO: Use npm ci with package-lock.json for production
+RUN npm install --omit=dev && \
     npm cache clean --force
 
 # ==================== Production Stage ====================

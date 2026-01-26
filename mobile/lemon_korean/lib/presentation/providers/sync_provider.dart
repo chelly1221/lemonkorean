@@ -122,7 +122,9 @@ class SyncProvider with ChangeNotifier {
 
   /// Sync progress data
   Future<void> _syncProgress(List<Map<String, dynamic>> items) async {
-    final progressData = items.map((item) => item['data']).toList();
+    final progressData = items
+        .map((item) => item['data'] as Map<String, dynamic>)
+        .toList();
 
     try {
       final response = await _apiClient.syncProgress(progressData);

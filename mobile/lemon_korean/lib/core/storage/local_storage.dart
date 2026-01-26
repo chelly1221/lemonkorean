@@ -9,6 +9,7 @@ class LocalStorage {
   static late Box _progressBox;
   static late Box _syncQueueBox;
   static late Box _settingsBox;
+  static late Box _reviewsBox;
 
   /// Initialize all Hive boxes
   static Future<void> init() async {
@@ -20,6 +21,7 @@ class LocalStorage {
     _progressBox = await Hive.openBox(AppConstants.progressBox);
     _syncQueueBox = await Hive.openBox(AppConstants.syncQueueBox);
     _settingsBox = await Hive.openBox(AppConstants.settingsBox);
+    _reviewsBox = await Hive.openBox('reviews');
   }
 
   // ================================================================
@@ -83,6 +85,11 @@ class LocalStorage {
         .toList();
   }
 
+  /// Clear all vocabulary
+  static Future<void> clearVocabulary() async {
+    await _vocabularyBox.clear();
+  }
+
   // ================================================================
   // PROGRESS
   // ================================================================
@@ -114,6 +121,46 @@ class LocalStorage {
     final existing = getProgress(lessonId) ?? {};
     final updated = {...existing, ...updates};
     await saveProgress(updated);
+  }
+
+  /// Get lesson progress (for compatibility with userId parameter)
+  static Future<Map<String, dynamic>?> getLessonProgress(
+    int userId,
+    int lessonId,
+  ) async {
+    return getProgress(lessonId);
+  }
+
+  // ================================================================
+  // REVIEWS
+  // ================================================================
+
+  /// Save vocabulary review
+  static Future<void> saveReview(Map<String, dynamic> review) async {
+    final reviewId = review['id'] ?? '${review['user_id']}_${review['vocabulary_id']}';
+    await _reviewsBox.put('review_$reviewId', review);
+  }
+
+  /// Get vocabulary review
+  static Future<Map<String, dynamic>?> getVocabularyReview(
+    int userId,
+    int vocabularyId,
+  ) async {
+    final reviewId = '${userId}_${vocabularyId}';
+    final data = _reviewsBox.get('review_$reviewId');
+    return data != null ? Map<String, dynamic>.from(data) : null;
+  }
+
+  /// Get all reviews
+  static Future<List<Map<String, dynamic>>> getAllReviews() async {
+    return _reviewsBox.values
+        .map((e) => Map<String, dynamic>.from(e as Map))
+        .toList();
+  }
+
+  /// Clear all reviews
+  static Future<void> clearReviews() async {
+    await _reviewsBox.clear();
   }
 
   // ================================================================
@@ -222,6 +269,7 @@ class LocalStorage {
       _progressBox.clear(),
       clearSyncQueue(),
       clearSettings(),
+      clearReviews(),
     ]);
   }
 
@@ -233,6 +281,7 @@ class LocalStorage {
       _progressBox.close(),
       _syncQueueBox.close(),
       _settingsBox.close(),
+      _reviewsBox.close(),
     ]);
   }
 }

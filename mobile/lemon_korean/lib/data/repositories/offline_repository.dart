@@ -12,9 +12,9 @@ import '../models/vocabulary_model.dart';
 /// Offline Repository
 /// Unified interface for offline data management
 class OfflineRepository {
-  final _downloadManager = DownloadManager();
-  final _syncManager = SyncManager();
-  final _dbHelper = DatabaseHelper();
+  final _downloadManager = DownloadManager.instance;
+  final _syncManager = SyncManager.instance;
+  final _dbHelper = DatabaseHelper.instance;
 
   // ================================================================
   // INITIALIZATION
@@ -23,7 +23,6 @@ class OfflineRepository {
   /// Initialize offline functionality
   Future<void> init() async {
     await LocalStorage.init();
-    await _dbHelper.init();
     await _syncManager.init();
   }
 
@@ -34,14 +33,16 @@ class OfflineRepository {
   /// Download lesson with all media files
   Future<bool> downloadLesson(
     int lessonId, {
-    Function(int, DownloadProgress)? onProgress,
+    Function(int, double)? onProgress,
     Function(int)? onComplete,
   }) async {
-    return _downloadManager.downloadLesson(
-      lessonId,
-      onProgress: onProgress,
-      onComplete: onComplete,
-    );
+    if (onProgress != null) {
+      _downloadManager.onProgress = onProgress;
+    }
+    if (onComplete != null) {
+      _downloadManager.onComplete = onComplete;
+    }
+    return _downloadManager.downloadLesson(lessonId);
   }
 
   /// Cancel lesson download
@@ -70,14 +71,15 @@ class OfflineRepository {
 
   /// Check if lesson is available offline
   Future<bool> isLessonAvailableOffline(int lessonId) async {
-    final lesson = await LocalStorage.getLesson(lessonId);
-    if (lesson == null || !lesson.isDownloaded) {
+    final lessonJson = LocalStorage.getLesson(lessonId);
+    if (lessonJson == null || lessonJson['isDownloaded'] != true) {
       return false;
     }
 
     // Check if media files are downloaded
-    if (lesson.mediaUrls != null && lesson.mediaUrls!.isNotEmpty) {
-      for (final remoteKey in lesson.mediaUrls!.keys) {
+    final mediaUrls = lessonJson['mediaUrls'] as Map<String, dynamic>?;
+    if (mediaUrls != null && mediaUrls.isNotEmpty) {
+      for (final remoteKey in mediaUrls.keys) {
         final localPath = await _dbHelper.getLocalPath(remoteKey);
         if (localPath == null || !await File(localPath).exists()) {
           return false;
@@ -90,12 +92,13 @@ class OfflineRepository {
 
   /// Get all lessons available offline
   Future<List<LessonModel>> getOfflineLessons() async {
-    final allLessons = await LocalStorage.getAllLessons();
+    final allLessons = LocalStorage.getAllLessons();
     final offlineLessons = <LessonModel>[];
 
-    for (final lesson in allLessons) {
-      if (await isLessonAvailableOffline(lesson.id)) {
-        offlineLessons.add(lesson);
+    for (final lessonJson in allLessons) {
+      final lessonId = lessonJson['id'] as int;
+      if (await isLessonAvailableOffline(lessonId)) {
+        offlineLessons.add(LessonModel.fromJson(lessonJson));
       }
     }
 
@@ -104,13 +107,18 @@ class OfflineRepository {
 
   /// Get offline vocabulary
   Future<List<VocabularyModel>> getOfflineVocabulary() async {
-    return LocalStorage.getAllVocabulary();
+    return LocalStorage.getAllVocabulary()
+        .map((json) => VocabularyModel.fromJson(json))
+        .toList();
   }
 
   /// Get offline progress
   Future<List<ProgressModel>> getOfflineProgress(int userId) async {
-    final allProgress = await LocalStorage.getAllProgress();
-    return allProgress.where((p) => p.userId == userId).toList();
+    final allProgress = LocalStorage.getAllProgress();
+    return allProgress
+        .where((p) => p['userId'] == userId)
+        .map((json) => ProgressModel.fromJson(json))
+        .toList();
   }
 
   // ================================================================
@@ -119,7 +127,14 @@ class OfflineRepository {
 
   /// Sync all offline data
   Future<SyncResult> syncAll() async {
-    return _syncManager.sync();
+    final result = await _syncManager.sync();
+    // Convert from sync_manager.SyncResult to repository SyncResult
+    return SyncResult(
+      success: result.success,
+      syncedCount: result.syncedItems,
+      failedCount: result.failedItems,
+      errors: result.error != null ? [result.error!] : [],
+    );
   }
 
   /// Check if network is available
@@ -148,12 +163,12 @@ class OfflineRepository {
 
   /// Get storage statistics
   Future<OfflineStorageStats> getStorageStats() async {
-    final lessons = await LocalStorage.getAllLessons();
-    final vocabulary = await LocalStorage.getAllVocabulary();
-    final progress = await LocalStorage.getAllProgress();
+    final lessons = LocalStorage.getAllLessons();
+    final vocabulary = LocalStorage.getAllVocabulary();
+    final progress = LocalStorage.getAllProgress();
     final reviews = await LocalStorage.getAllReviews();
 
-    final downloadedLessons = lessons.where((l) => l.isDownloaded).length;
+    final downloadedLessons = lessons.where((l) => l['isDownloaded'] == true).length;
 
     // Calculate media storage
     final mediaStats = await _dbHelper.getStorageStats();
@@ -182,17 +197,19 @@ class OfflineRepository {
 
   /// Delete lesson and associated media
   Future<void> deleteLesson(int lessonId) async {
-    final lesson = await LocalStorage.getLesson(lessonId);
-    if (lesson == null) return;
+    final lessonJson = LocalStorage.getLesson(lessonId);
+    if (lessonJson == null) return;
 
     // Delete media files
-    if (lesson.mediaUrls != null) {
-      for (final remoteKey in lesson.mediaUrls!.keys) {
+    final mediaUrls = lessonJson['mediaUrls'] as Map<String, dynamic>?;
+    if (mediaUrls != null) {
+      for (final remoteKey in mediaUrls.keys) {
         await _dbHelper.deleteMediaFile(remoteKey);
       }
     }
 
     // Update lesson (mark as not downloaded)
+    final lesson = LessonModel.fromJson(lessonJson);
     final updatedLesson = lesson.copyWith(
       isDownloaded: false,
       downloadedAt: null,
@@ -204,11 +221,11 @@ class OfflineRepository {
 
   /// Delete all downloaded content
   Future<void> deleteAllDownloads() async {
-    final lessons = await LocalStorage.getAllLessons();
+    final lessons = LocalStorage.getAllLessons();
 
-    for (final lesson in lessons) {
-      if (lesson.isDownloaded) {
-        await deleteLesson(lesson.id);
+    for (final lessonJson in lessons) {
+      if (lessonJson['isDownloaded'] == true) {
+        await deleteLesson(lessonJson['id'] as int);
       }
     }
   }
@@ -255,13 +272,13 @@ class OfflineRepository {
   Future<Map<String, dynamic>> exportUserData(int userId) async {
     final progress = await getOfflineProgress(userId);
     final reviews = await LocalStorage.getAllReviews();
-    final userReviews = reviews.where((r) => r.userId == userId).toList();
+    final userReviews = reviews.where((r) => r['userId'] == userId).toList();
 
     return {
       'user_id': userId,
       'exported_at': DateTime.now().toIso8601String(),
       'progress': progress.map((p) => p.toJson()).toList(),
-      'reviews': userReviews.map((r) => r.toJson()).toList(),
+      'reviews': userReviews,
     };
   }
 
@@ -332,15 +349,18 @@ class OfflineRepository {
     final issues = <String>[];
 
     // Check for downloaded lessons with missing media
-    final lessons = await LocalStorage.getAllLessons();
-    for (final lesson in lessons) {
-      if (lesson.isDownloaded && lesson.mediaUrls != null) {
-        for (final entry in lesson.mediaUrls!.entries) {
-          final localPath = await _dbHelper.getLocalPath(entry.key);
-          if (localPath == null || !await File(localPath).exists()) {
-            issues.add(
-              'Lesson ${lesson.id}: Missing media file ${entry.key}',
-            );
+    final lessons = LocalStorage.getAllLessons();
+    for (final lessonJson in lessons) {
+      if (lessonJson['isDownloaded'] == true) {
+        final mediaUrls = lessonJson['mediaUrls'] as Map<String, dynamic>?;
+        if (mediaUrls != null) {
+          for (final entry in mediaUrls.entries) {
+            final localPath = await _dbHelper.getLocalPath(entry.key);
+            if (localPath == null || !await File(localPath).exists()) {
+              issues.add(
+                'Lesson ${lessonJson['id']}: Missing media file ${entry.key}',
+              );
+            }
           }
         }
       }
@@ -357,10 +377,14 @@ class OfflineRepository {
     }
 
     // Check for unsynced progress older than 30 days
-    final allProgress = await LocalStorage.getAllProgress();
-    final oldUnsynced = allProgress.where((p) =>
-        !p.isSynced &&
-        DateTime.now().difference(p.updatedAt).inDays > 30);
+    final allProgress = LocalStorage.getAllProgress();
+    final oldUnsynced = allProgress.where((p) {
+      if (p['isSynced'] == true) return false;
+      final updatedAt = p['updatedAt'] != null
+          ? DateTime.parse(p['updatedAt'] as String)
+          : DateTime.now();
+      return DateTime.now().difference(updatedAt).inDays > 30;
+    });
 
     if (oldUnsynced.isNotEmpty) {
       issues.add(

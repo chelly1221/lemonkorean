@@ -10,10 +10,7 @@ class DailyGoalCard extends StatelessWidget {
   final int targetLessons;
 
   const DailyGoalCard({
-    super.key,
-    required this.progress,
-    required this.completedLessons,
-    required this.targetLessons,
+    required this.progress, required this.completedLessons, required this.targetLessons, super.key,
   });
 
   @override
@@ -106,8 +103,8 @@ class DailyGoalCard extends StatelessWidget {
 
             if (isCompleted) ...[
               const SizedBox(height: AppConstants.paddingSmall),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(
                     Icons.celebration,
                     size: 16,

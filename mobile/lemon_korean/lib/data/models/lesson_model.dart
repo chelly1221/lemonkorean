@@ -57,7 +57,7 @@ class LessonModel {
     required this.level,
     required this.titleKo,
     required this.titleZh,
-    this.description,
+    required this.createdAt, required this.updatedAt, this.description,
     this.thumbnailUrl,
     this.version = '1.0.0',
     this.status = 'published',
@@ -67,8 +67,6 @@ class LessonModel {
     this.vocabularyCount,
     this.isDownloaded = false,
     this.downloadedAt,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   // From JSON

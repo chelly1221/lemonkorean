@@ -36,7 +36,8 @@ class AuthRepository {
         return AuthResult(
           success: true,
           user: user,
-          token: data['token'] as String?,
+          token: data['accessToken'] as String?,
+          refreshToken: data['refreshToken'] as String?,
           message: '注册成功',
         );
       }
@@ -80,7 +81,8 @@ class AuthRepository {
         return AuthResult(
           success: true,
           user: user,
-          token: data['token'] as String?,
+          token: data['accessToken'] as String?,
+          refreshToken: data['refreshToken'] as String?,
           message: '登录成功',
         );
       }
@@ -177,12 +179,14 @@ class AuthResult {
   final bool success;
   final UserModel? user;
   final String? token;
+  final String? refreshToken;
   final String? message;
 
   AuthResult({
     required this.success,
     this.user,
     this.token,
+    this.refreshToken,
     this.message,
   });
 

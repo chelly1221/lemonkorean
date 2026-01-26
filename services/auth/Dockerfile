@@ -10,9 +10,10 @@ RUN apk add --no-cache python3 make g++
 # Copy package files for dependency installation
 COPY package*.json ./
 
-# Install dependencies with clean install for reproducibility
+# Install dependencies
 # Use --omit=dev to exclude devDependencies
-RUN npm ci --omit=dev && \
+# TODO: Use npm ci with package-lock.json for production
+RUN npm install --omit=dev && \
     npm cache clean --force
 
 # ==================== Production Stage ====================

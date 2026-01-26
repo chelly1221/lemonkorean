@@ -113,6 +113,37 @@ class ApiClient {
     );
   }
 
+  Future<Response> checkLessonUpdates(
+      Map<int, String> localVersions) async {
+    return await _dio.post(
+      '/content/check-updates',
+      data: {'lessons': localVersions},
+    );
+  }
+
+  Future<Response> getVocabularyByLesson(int lessonId) async {
+    return await _dio.get('/content/vocabulary?lesson_id=$lessonId');
+  }
+
+  Future<Response> getVocabularyByLevel(int level) async {
+    return await _dio.get('/content/vocabulary?level=$level');
+  }
+
+  Future<Response> getVocabularyByIds(List<int> ids) async {
+    return await _dio.post(
+      '/content/vocabulary/batch',
+      data: {'ids': ids},
+    );
+  }
+
+  Future<Response> getSimilarVocabulary(
+      String korean, {double minScore = 0.7}) async {
+    return await _dio.get(
+      '/content/vocabulary/similar',
+      queryParameters: {'korean': korean, 'min_score': minScore},
+    );
+  }
+
   // ================================================================
   // PROGRESS
   // ================================================================

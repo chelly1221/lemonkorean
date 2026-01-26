@@ -15,10 +15,7 @@ class VocabularyStage extends StatefulWidget {
   final VoidCallback onPrevious;
 
   const VocabularyStage({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
   });
 
   @override
@@ -239,8 +236,8 @@ class _VocabularyStageState extends State<VocabularyStage>
                     color: AppConstants.primaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(
                         Icons.touch_app,
                         size: 16,
@@ -582,9 +579,9 @@ class _VocabularyStageState extends State<VocabularyStage>
               color: AppConstants.textHint.withOpacity(0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Icon(
                   Icons.touch_app,
                   size: 16,

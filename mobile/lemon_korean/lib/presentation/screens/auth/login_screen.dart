@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/bilingual_text.dart';
 import '../home/home_screen.dart';
 import 'register_screen.dart';
 
@@ -119,7 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: '邮箱',
+                    label: const InlineBilingualText(
+                      chinese: '邮箱',
+                      korean: '이메일',
+                    ),
                     hintText: '请输入邮箱地址',
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
@@ -150,7 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
-                    labelText: '密码',
+                    label: const InlineBilingualText(
+                      chinese: '密码',
+                      korean: '비밀번호',
+                    ),
                     hintText: '请输入密码',
                     prefixIcon: const Icon(Icons.lock_outlined),
                     suffixIcon: IconButton(
@@ -254,8 +261,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             )
-                          : const Text(
-                              '登录',
+                          : const InlineBilingualText(
+                              chinese: '登录',
+                              korean: '로그인',
                               style: TextStyle(
                                 fontSize: AppConstants.fontSizeLarge,
                                 fontWeight: FontWeight.bold,
@@ -271,8 +279,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      '没有账号？',
+                    const InlineBilingualText(
+                      chinese: '没有账号？',
+                      korean: '계정이 없으신가요?',
                       style: TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: AppConstants.textSecondary,
@@ -286,8 +295,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: const Text(
-                        '立即注册',
+                      child: const InlineBilingualText(
+                        chinese: '立即注册',
+                        korean: '회원가입',
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,

@@ -15,10 +15,7 @@ class QuizStage extends StatefulWidget {
   final bool enableTimer;
 
   const QuizStage({
-    super.key,
-    required this.lesson,
-    required this.onNext,
-    required this.onPrevious,
+    required this.lesson, required this.onNext, required this.onPrevious, super.key,
     this.enableTimer = false,
   });
 
@@ -561,9 +558,7 @@ class ListeningQuestion extends StatelessWidget {
   final bool? isCorrect;
 
   const ListeningQuestion({
-    super.key,
-    required this.question,
-    required this.onAnswer,
+    required this.question, required this.onAnswer, super.key,
     this.userAnswer,
     this.isCorrect,
   });
@@ -784,9 +779,7 @@ class FillInBlankQuestion extends StatelessWidget {
   final bool? isCorrect;
 
   const FillInBlankQuestion({
-    super.key,
-    required this.question,
-    required this.onAnswer,
+    required this.question, required this.onAnswer, super.key,
     this.userAnswer,
     this.isCorrect,
   });
@@ -1019,9 +1012,7 @@ class TranslationQuestion extends StatelessWidget {
   final bool? isCorrect;
 
   const TranslationQuestion({
-    super.key,
-    required this.question,
-    required this.onAnswer,
+    required this.question, required this.onAnswer, super.key,
     this.userAnswer,
     this.isCorrect,
   });
@@ -1215,9 +1206,7 @@ class WordOrderQuestion extends StatefulWidget {
   final bool? isCorrect;
 
   const WordOrderQuestion({
-    super.key,
-    required this.question,
-    required this.onAnswer,
+    required this.question, required this.onAnswer, super.key,
     this.userAnswer,
     this.isCorrect,
   });
@@ -1303,7 +1292,7 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
         // Ordered words area
         Container(
           width: double.infinity,
-          minHeight: 100,
+          constraints: const BoxConstraints(minHeight: 100),
           padding: const EdgeInsets.all(AppConstants.paddingMedium),
           decoration: BoxDecoration(
             color: hasAnswered
@@ -1436,7 +1425,7 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
             const SizedBox(height: 8),
             Text(
               (widget.question['correct'] as List).join(' '),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: AppConstants.fontSizeLarge,
                 fontWeight: FontWeight.bold,
                 color: AppConstants.errorColor,
@@ -1486,9 +1475,7 @@ class PronunciationQuestion extends StatelessWidget {
   final bool? isCorrect;
 
   const PronunciationQuestion({
-    super.key,
-    required this.question,
-    required this.onAnswer,
+    required this.question, required this.onAnswer, super.key,
     this.userAnswer,
     this.isCorrect,
   });

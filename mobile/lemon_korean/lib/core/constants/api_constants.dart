@@ -1,7 +1,7 @@
 /// API Configuration Constants
 class ApiConstants {
   // Base URLs
-  static const String baseUrl = 'http://localhost';
+  static const String baseUrl = 'http://3chan.kr';
   static const String apiVersion = 'v1';
 
   // Service Ports
@@ -70,5 +70,5 @@ class ApiConstants {
   // Cache
   static const Duration cacheExpiration = Duration(hours: 24);
 
-  private ApiConstants();
+  ApiConstants._();
 }

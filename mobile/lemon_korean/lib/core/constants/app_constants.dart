@@ -7,9 +7,9 @@ class AppConstants {
   static const String version = '1.0.0';
 
   // API Endpoints
-  static const String baseUrl = 'http://localhost'; // Change in production
+  static const String baseUrl = 'http://3chan.kr:3001'; // Auth service
   static const String apiUrl = '$baseUrl/api';
-  static const String mediaUrl = '$baseUrl/media';
+  static const String mediaUrl = 'http://3chan.kr:3004/media';
 
   // Endpoints
   static const String authEndpoint = '$apiUrl/auth';

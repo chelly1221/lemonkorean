@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../providers/download_provider.dart';
+import '../../widgets/bilingual_text.dart';
 
 class DownloadManagerScreen extends StatefulWidget {
   const DownloadManagerScreen({super.key});
@@ -38,8 +39,9 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '下载管理',
+        title: const InlineBilingualText(
+          chinese: '下载管理',
+          korean: '다운로드 관리',
           style: TextStyle(
             fontSize: AppConstants.fontSizeLarge,
             fontWeight: FontWeight.bold,
@@ -49,19 +51,25 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
           IconButton(
             icon: const Icon(Icons.storage_outlined),
             onPressed: _showStorageInfo,
-            tooltip: '存储信息',
+            tooltip: '存储信息 / 저장공간',
           ),
           IconButton(
             icon: const Icon(Icons.delete_sweep_outlined),
             onPressed: _showDeleteAllDialog,
-            tooltip: '清空下载',
+            tooltip: '清空下载 / 전체 삭제',
           ),
         ],
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(text: '已下载', icon: Icon(Icons.download_done)),
-            Tab(text: '可下载', icon: Icon(Icons.cloud_download_outlined)),
+            Tab(
+              text: '已下载\n다운로드 완료',
+              icon: Icon(Icons.download_done),
+            ),
+            Tab(
+              text: '可下载\n다운로드 가능',
+              icon: Icon(Icons.cloud_download_outlined),
+            ),
           ],
         ),
       ),
@@ -113,23 +121,26 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('存储信息'),
+        title: const InlineBilingualText(
+          chinese: '存储信息',
+          korean: '저장공간',
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow('已下载课程', '${stats?.downloadedLessons ?? 0}'),
-            _buildInfoRow('媒体文件数', '${stats?.mediaFileCount ?? 0}'),
+            _buildInfoRow('已下载课程 / 다운로드 수업', '${stats?.downloadedLessons ?? 0}'),
+            _buildInfoRow('媒体文件数 / 미디어 파일', '${stats?.mediaFileCount ?? 0}'),
             _buildInfoRow(
-              '使用空间',
+              '使用空间 / 사용공간',
               '${stats?.mediaStorageMB.toStringAsFixed(1) ?? 0} MB',
             ),
             _buildInfoRow(
-              '缓存空间',
+              '缓存空间 / 캐시',
               '${stats?.cacheStorageMB.toStringAsFixed(1) ?? 0} MB',
             ),
             _buildInfoRow(
-              '总计',
+              '总计 / 총계',
               '${stats?.totalStorageMB.toStringAsFixed(1) ?? 0} MB',
             ),
           ],
@@ -137,7 +148,10 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('确定'),
+            child: const InlineBilingualText(
+              chinese: '确定',
+              korean: '확인',
+            ),
           ),
         ],
       ),
@@ -173,12 +187,21 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('清空下载'),
-        content: Text('确定要删除所有 ${provider.downloadedLessons.length} 个已下载课程吗？'),
+        title: const InlineBilingualText(
+          chinese: '清空下载',
+          korean: '전체 삭제',
+        ),
+        content: BilingualText(
+          chinese: '确定要删除所有 ${provider.downloadedLessons.length} 个已下载课程吗？',
+          korean: '${provider.downloadedLessons.length}개의 다운로드를 삭제하시겠습니까?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('取消'),
+            child: const InlineBilingualText(
+              chinese: '取消',
+              korean: '취소',
+            ),
           ),
           TextButton(
             onPressed: () async {
@@ -186,14 +209,19 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
               await provider.deleteAllDownloads();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('已清空所有下载')),
+                  const SnackBar(
+                    content: Text('已清空所有下载 / 전체 삭제 완료'),
+                  ),
                 );
               }
             },
             style: TextButton.styleFrom(
               foregroundColor: AppConstants.errorColor,
             ),
-            child: const Text('确定'),
+            child: const InlineBilingualText(
+              chinese: '确定',
+              korean: '확인',
+            ),
           ),
         ],
       ),
@@ -232,7 +260,7 @@ class _ActiveDownloadsSection extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '下载中 (${activeDownloads.length})',
+                  '下载中 다운로드 중 (${activeDownloads.length})',
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeMedium,
                     fontWeight: FontWeight.bold,
@@ -250,7 +278,7 @@ class _ActiveDownloadsSection extends StatelessWidget {
               progress: progress,
               onCancel: () => onCancel(lessonId),
             );
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -346,7 +374,7 @@ class _StorageInfoBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final usedMB = stats?.mediaStorageMB ?? 0.0;
-    final totalMB = 500.0; // Max storage
+    const totalMB = 500.0; // Max storage
     final percentage = (usedMB / totalMB).clamp(0.0, 1.0);
 
     return Container(
@@ -364,7 +392,7 @@ class _StorageInfoBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                '存储空间',
+                '存储空间 / 저장공간',
                 style: TextStyle(
                   fontSize: AppConstants.fontSizeSmall,
                   color: AppConstants.textSecondary,
@@ -423,17 +451,19 @@ class _DownloadedTab extends StatelessWidget {
               color: Colors.grey.shade400,
             ),
             const SizedBox(height: AppConstants.paddingMedium),
-            Text(
-              '暂无已下载课程',
-              style: TextStyle(
+            BilingualText(
+              chinese: '暂无已下载课程',
+              korean: '다운로드한 수업이 없습니다',
+              chineseStyle: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 color: Colors.grey.shade600,
               ),
             ),
             const SizedBox(height: AppConstants.paddingSmall),
-            Text(
-              '切换到"可下载"标签开始下载',
-              style: TextStyle(
+            BilingualText(
+              chinese: '切换到"可下载"标签开始下载',
+              korean: '"다운로드 가능" 탭에서 시작하세요',
+              chineseStyle: TextStyle(
                 fontSize: AppConstants.fontSizeSmall,
                 color: Colors.grey.shade500,
               ),
@@ -469,12 +499,21 @@ class _DownloadedTab extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('删除下载'),
-        content: Text('确定要删除"${lesson.titleZh}"吗？'),
+        title: const InlineBilingualText(
+          chinese: '删除下载',
+          korean: '다운로드 삭제',
+        ),
+        content: BilingualText(
+          chinese: '确定要删除"${lesson.titleZh}"吗？',
+          korean: '"${lesson.titleZh}"을(를) 삭제하시겠습니까?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('取消'),
+            child: const InlineBilingualText(
+              chinese: '取消',
+              korean: '취소',
+            ),
           ),
           TextButton(
             onPressed: () {
@@ -484,7 +523,10 @@ class _DownloadedTab extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: AppConstants.errorColor,
             ),
-            child: const Text('删除'),
+            child: const InlineBilingualText(
+              chinese: '删除',
+              korean: '삭제',
+            ),
           ),
         ],
       ),
@@ -535,7 +577,7 @@ class _DownloadedLessonCard extends StatelessWidget {
           children: [
             const Icon(Icons.check_circle, size: 14, color: Colors.green),
             const SizedBox(width: 4),
-            const Text('已下载'),
+            const Text('已下载 / 다운로드 완료'),
             const SizedBox(width: 16),
             const Icon(Icons.access_time, size: 14),
             const SizedBox(width: 4),
@@ -583,9 +625,10 @@ class _AvailableTab extends StatelessWidget {
               color: Colors.grey.shade400,
             ),
             const SizedBox(height: AppConstants.paddingMedium),
-            Text(
-              '所有课程已下载',
-              style: TextStyle(
+            BilingualText(
+              chinese: '所有课程已下载',
+              korean: '모든 수업이 다운로드되었습니다',
+              chineseStyle: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 color: Colors.grey.shade600,
               ),
@@ -671,7 +714,11 @@ class _AvailableLessonCard extends StatelessWidget {
         trailing: ElevatedButton.icon(
           onPressed: onDownload,
           icon: const Icon(Icons.download, size: 18),
-          label: const Text('下载'),
+          label: const InlineBilingualText(
+            chinese: '下载',
+            korean: '다운로드',
+            style: TextStyle(fontSize: 12),
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: AppConstants.primaryColor,
             foregroundColor: Colors.black87,

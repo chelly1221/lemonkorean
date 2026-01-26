@@ -10,11 +10,11 @@ WORKDIR /app
 # Copy go module files
 COPY go.mod go.sum ./
 
-# Download dependencies
-RUN go mod download
-
-# Copy source code
+# Copy source code first (needed for go mod tidy)
 COPY . .
+
+# Tidy dependencies and download
+RUN go mod tidy && go mod download
 
 # Build the application
 RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build \

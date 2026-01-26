@@ -12,10 +12,7 @@ class ContinueLessonCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const ContinueLessonCard({
-    super.key,
-    required this.lesson,
-    required this.progress,
-    required this.onTap,
+    required this.lesson, required this.progress, required this.onTap, super.key,
   });
 
   @override

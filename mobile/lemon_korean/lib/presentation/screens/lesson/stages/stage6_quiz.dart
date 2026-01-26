@@ -9,12 +9,14 @@ class Stage6Quiz extends StatefulWidget {
   final LessonModel lesson;
   final VoidCallback onNext;
   final VoidCallback onPrevious;
+  final Function(int)? onScoreUpdate;
 
   const Stage6Quiz({
-    super.key,
     required this.lesson,
     required this.onNext,
     required this.onPrevious,
+    this.onScoreUpdate,
+    super.key,
   });
 
   @override
@@ -120,6 +122,11 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     setState(() {
       _quizCompleted = true;
     });
+
+    // Update quiz score
+    final score = _calculateScore();
+    final percentage = _calculatePercentage();
+    widget.onScoreUpdate?.call(percentage.toInt());
   }
 
   int _calculateScore() {

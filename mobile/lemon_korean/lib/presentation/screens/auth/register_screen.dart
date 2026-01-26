@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/bilingual_text.dart';
 import '../home/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -90,22 +91,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Title
-                const Text(
-                  '创建账号',
-                  style: TextStyle(
+                const BilingualText(
+                  chinese: '创建账号',
+                  korean: '계정 만들기',
+                  chineseStyle: TextStyle(
                     fontSize: AppConstants.fontSizeXXLarge,
                     fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.left,
                 ),
 
                 const SizedBox(height: AppConstants.paddingSmall),
 
-                const Text(
-                  '开始你的韩语学习之旅',
-                  style: TextStyle(
+                const BilingualText(
+                  chinese: '开始你的韩语学习之旅',
+                  korean: '한국어 학습 여정을 시작하세요',
+                  chineseStyle: TextStyle(
                     fontSize: AppConstants.fontSizeMedium,
                     color: AppConstants.textSecondary,
                   ),
+                  textAlign: TextAlign.left,
                 ),
 
                 const SizedBox(height: 40),
@@ -114,7 +119,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   controller: _usernameController,
                   decoration: InputDecoration(
-                    labelText: '用户名',
+                    label: const InlineBilingualText(
+                      chinese: '用户名',
+                      korean: '사용자 이름',
+                    ),
                     hintText: '请输入用户名',
                     prefixIcon: const Icon(Icons.person_outline),
                     border: OutlineInputBorder(
@@ -145,7 +153,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: '邮箱',
+                    label: const InlineBilingualText(
+                      chinese: '邮箱',
+                      korean: '이메일',
+                    ),
                     hintText: '请输入邮箱地址',
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
@@ -177,7 +188,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
-                    labelText: '密码',
+                    label: const InlineBilingualText(
+                      chinese: '密码',
+                      korean: '비밀번호',
+                    ),
                     hintText: '请输入密码',
                     prefixIcon: const Icon(Icons.lock_outlined),
                     suffixIcon: IconButton(
@@ -222,7 +236,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _confirmPasswordController,
                   obscureText: !_isConfirmPasswordVisible,
                   decoration: InputDecoration(
-                    labelText: '确认密码',
+                    label: const InlineBilingualText(
+                      chinese: '确认密码',
+                      korean: '비밀번호 확인',
+                    ),
                     hintText: '请再次输入密码',
                     prefixIcon: const Icon(Icons.lock_outlined),
                     suffixIcon: IconButton(
@@ -274,8 +291,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       const Icon(Icons.language, color: Colors.grey),
                       const SizedBox(width: AppConstants.paddingMedium),
-                      const Text(
-                        '界面语言',
+                      const InlineBilingualText(
+                        chinese: '界面语言',
+                        korean: '인터페이스 언어',
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           color: Colors.black87,
@@ -320,13 +338,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Icon(Icons.info_outline,
                               size: 16, color: AppConstants.textSecondary),
                           SizedBox(width: 8),
-                          Text(
-                            '密码要求',
+                          InlineBilingualText(
+                            chinese: '密码要求',
+                            korean: '비밀번호 요구사항',
                             style: TextStyle(
                               fontSize: AppConstants.fontSizeSmall,
                               fontWeight: FontWeight.bold,
@@ -417,8 +436,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             )
-                          : const Text(
-                              '注册',
+                          : const InlineBilingualText(
+                              chinese: '注册',
+                              korean: '회원가입',
                               style: TextStyle(
                                 fontSize: AppConstants.fontSizeLarge,
                                 fontWeight: FontWeight.bold,
@@ -434,8 +454,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      '已有账号？',
+                    const InlineBilingualText(
+                      chinese: '已有账号？',
+                      korean: '이미 계정이 있으신가요?',
                       style: TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: AppConstants.textSecondary,
@@ -443,8 +464,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text(
-                        '立即登录',
+                      child: const InlineBilingualText(
+                        chinese: '立即登录',
+                        korean: '로그인',
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,

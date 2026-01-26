@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -97,7 +96,7 @@ func main() {
 
 		// SRS (Spaced Repetition System)
 		api.GET("/review-schedule/:userId", progressHandler.GetReviewSchedule)
-		api.POST("/review/complete", progressHandler.CompleteReview)
+		api.POST("/review/complete", progressHandler.MarkReviewDone)
 
 		// Learning sessions
 		api.POST("/session/start", progressHandler.StartLearningSession)
