@@ -390,6 +390,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.2.0"
+  flutter_open_chinese_convert:
+    dependency: "direct main"
+    description:
+      name: flutter_open_chinese_convert
+      sha256: f326642ca17f9ce78b1ecdb0f9798f3b258226dc901673670251a6e82d28b2b5
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:

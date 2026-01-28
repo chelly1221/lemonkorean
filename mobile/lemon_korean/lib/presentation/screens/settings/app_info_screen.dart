@@ -6,23 +6,53 @@ import '../../../core/utils/chinese_converter.dart';
 import '../../providers/settings_provider.dart';
 import '../../widgets/bilingual_text.dart';
 
-class AppInfoScreen extends StatelessWidget {
+class AppInfoScreen extends StatefulWidget {
   const AppInfoScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final settings = context.watch<SettingsProvider>();
+  State<AppInfoScreen> createState() => _AppInfoScreenState();
+}
 
-    // Helper function to convert Chinese text
-    String convertChinese(String text) {
-      return settings.chineseVariant == ChineseVariant.traditional
-          ? ChineseConverter.toTraditional(text)
-          : text;
+class _AppInfoScreenState extends State<AppInfoScreen> {
+  String _title = '关于应用';
+  String _appName = '柠檬韩语';
+  String _moreInfo = '更多信息';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateTexts();
+  }
+
+  Future<void> _updateTexts() async {
+    final settings = context.read<SettingsProvider>();
+    if (settings.chineseVariant == ChineseVariant.traditional) {
+      final title = await ChineseConverter.toTraditional('关于应用');
+      final name = await ChineseConverter.toTraditional('柠檬韩语');
+      final info = await ChineseConverter.toTraditional('更多信息');
+      if (mounted) {
+        setState(() {
+          _title = title;
+          _appName = name;
+          _moreInfo = info;
+        });
+      }
+    } else {
+      if (mounted) {
+        setState(() {
+          _title = '关于应用';
+          _appName = '柠檬韩语';
+          _moreInfo = '更多信息';
+        });
+      }
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(convertChinese('关于应用') + ' / 앱 정보'),
+        title: Text('$_title / 앱 정보'),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -63,7 +93,7 @@ class AppInfoScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  convertChinese('柠檬韩语'),
+                  _appName,
                   style: const TextStyle(
                     fontSize: 18,
                     color: AppConstants.textSecondary,
@@ -108,7 +138,7 @@ class AppInfoScreen extends StatelessWidget {
 
           // 링크 섹션 헤더
           Text(
-            convertChinese('更多信息') + ' / 추가 정보',
+            '$_moreInfo / 추가 정보',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -124,11 +154,13 @@ class AppInfoScreen extends StatelessWidget {
             icon: Icons.article,
             chinese: '服务条款',
             korean: '이용약관',
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(convertChinese('服务条款页面开发中...') + ' / 이용약관 페이지 개발 중...')),
-              );
+            onTap: () async {
+              final msg = await _convertText('服务条款页面开发中...');
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('$msg / 이용약관 페이지 개발 중...')),
+                );
+              }
             },
           ),
 
@@ -138,11 +170,13 @@ class AppInfoScreen extends StatelessWidget {
             icon: Icons.privacy_tip,
             chinese: '隐私政策',
             korean: '개인정보처리방침',
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(convertChinese('隐私政策页面开发中...') + ' / 개인정보처리방침 페이지 개발 중...')),
-              );
+            onTap: () async {
+              final msg = await _convertText('隐私政策页面开发中...');
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('$msg / 개인정보처리방침 페이지 개발 중...')),
+                );
+              }
             },
           ),
 
@@ -196,14 +230,6 @@ class AppInfoScreen extends StatelessWidget {
     required String title,
     required String content,
   }) {
-    final settings = context.watch<SettingsProvider>();
-    final convertedTitle = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(title)
-        : title;
-    final convertedContent = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(content)
-        : content;
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -216,21 +242,33 @@ class AppInfoScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    convertedTitle,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: AppConstants.textSecondary,
-                    ),
+                  FutureBuilder<String>(
+                    future: _convertText(title),
+                    initialData: title,
+                    builder: (context, snapshot) {
+                      return Text(
+                        snapshot.data ?? title,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: AppConstants.textSecondary,
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    convertedContent,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      height: 1.5,
-                    ),
+                  FutureBuilder<String>(
+                    future: _convertText(content),
+                    initialData: content,
+                    builder: (context, snapshot) {
+                      return Text(
+                        snapshot.data ?? content,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          height: 1.5,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -261,5 +299,13 @@ class AppInfoScreen extends StatelessWidget {
         onTap: onTap,
       ),
     );
+  }
+
+  Future<String> _convertText(String text) async {
+    final settings = context.read<SettingsProvider>();
+    if (settings.chineseVariant == ChineseVariant.traditional) {
+      return await ChineseConverter.toTraditional(text);
+    }
+    return text;
   }
 }

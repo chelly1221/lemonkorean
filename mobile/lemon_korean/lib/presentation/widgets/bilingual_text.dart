@@ -7,7 +7,7 @@ import '../providers/settings_provider.dart';
 /// Bilingual Text Widget
 /// Displays Chinese text with Korean translation underneath in smaller font
 /// Automatically converts Chinese text based on user's language preference (Simplified/Traditional)
-class BilingualText extends StatelessWidget {
+class BilingualText extends StatefulWidget {
   final String chinese;
   final String korean;
   final TextStyle? chineseStyle;
@@ -26,20 +26,61 @@ class BilingualText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  State<BilingualText> createState() => _BilingualTextState();
+}
+
+class _BilingualTextState extends State<BilingualText> {
+  String _displayChinese = '';
+  bool _isConverting = false;
+  ChineseVariant? _lastVariant;
+
+  @override
+  void initState() {
+    super.initState();
+    _displayChinese = widget.chinese;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final settings = context.watch<SettingsProvider>();
 
-    // Convert Chinese text based on user preference
-    final convertedChinese = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(chinese)
-        : chinese;
+    // Only convert if variant changed
+    if (_lastVariant != settings.chineseVariant && !_isConverting) {
+      _convertText(settings.chineseVariant);
+    }
+  }
 
-    final defaultChineseStyle = chineseStyle ??
+  Future<void> _convertText(ChineseVariant variant) async {
+    _isConverting = true;
+    _lastVariant = variant;
+
+    if (variant == ChineseVariant.traditional) {
+      final converted = await ChineseConverter.toTraditional(widget.chinese);
+      if (mounted) {
+        setState(() {
+          _displayChinese = converted;
+          _isConverting = false;
+        });
+      }
+    } else {
+      if (mounted) {
+        setState(() {
+          _displayChinese = widget.chinese;
+          _isConverting = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final defaultChineseStyle = widget.chineseStyle ??
         Theme.of(context).textTheme.bodyMedium;
 
-    final defaultKoreanStyle = koreanStyle ??
+    final defaultKoreanStyle = widget.koreanStyle ??
         TextStyle(
-          fontSize: (defaultChineseStyle?.fontSize ?? 14) * koreanFontSizeRatio,
+          fontSize: (defaultChineseStyle?.fontSize ?? 14) * widget.koreanFontSizeRatio,
           color: (defaultChineseStyle?.color ?? Colors.black).withOpacity(0.6),
         );
 
@@ -47,14 +88,14 @@ class BilingualText extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          convertedChinese,
+          _displayChinese,
           style: defaultChineseStyle,
-          textAlign: textAlign,
+          textAlign: widget.textAlign,
         ),
         Text(
-          korean,
+          widget.korean,
           style: defaultKoreanStyle,
-          textAlign: textAlign,
+          textAlign: widget.textAlign,
         ),
       ],
     );
@@ -63,7 +104,7 @@ class BilingualText extends StatelessWidget {
 
 /// Inline Bilingual Text - for buttons and small UI elements
 /// Automatically converts Chinese text based on user's language preference
-class InlineBilingualText extends StatelessWidget {
+class InlineBilingualText extends StatefulWidget {
   final String chinese;
   final String korean;
   final TextStyle? style;
@@ -78,15 +119,56 @@ class InlineBilingualText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  State<InlineBilingualText> createState() => _InlineBilingualTextState();
+}
+
+class _InlineBilingualTextState extends State<InlineBilingualText> {
+  String _displayChinese = '';
+  bool _isConverting = false;
+  ChineseVariant? _lastVariant;
+
+  @override
+  void initState() {
+    super.initState();
+    _displayChinese = widget.chinese;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final settings = context.watch<SettingsProvider>();
 
-    // Convert Chinese text based on user preference
-    final convertedChinese = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(chinese)
-        : chinese;
+    // Only convert if variant changed
+    if (_lastVariant != settings.chineseVariant && !_isConverting) {
+      _convertText(settings.chineseVariant);
+    }
+  }
 
-    final baseStyle = style ?? Theme.of(context).textTheme.bodyMedium;
+  Future<void> _convertText(ChineseVariant variant) async {
+    _isConverting = true;
+    _lastVariant = variant;
+
+    if (variant == ChineseVariant.traditional) {
+      final converted = await ChineseConverter.toTraditional(widget.chinese);
+      if (mounted) {
+        setState(() {
+          _displayChinese = converted;
+          _isConverting = false;
+        });
+      }
+    } else {
+      if (mounted) {
+        setState(() {
+          _displayChinese = widget.chinese;
+          _isConverting = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final baseStyle = widget.style ?? Theme.of(context).textTheme.bodyMedium;
     final baseFontSize = baseStyle?.fontSize ?? 14;
 
     return RichText(
@@ -94,13 +176,13 @@ class InlineBilingualText extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: convertedChinese,
+            text: _displayChinese,
             style: baseStyle,
           ),
           TextSpan(
-            text: '\n$korean',
+            text: '\n${widget.korean}',
             style: TextStyle(
-              fontSize: baseFontSize * koreanFontSizeRatio,
+              fontSize: baseFontSize * widget.koreanFontSizeRatio,
               color: (baseStyle?.color ?? Colors.black).withOpacity(0.6),
               height: 1.2,
             ),

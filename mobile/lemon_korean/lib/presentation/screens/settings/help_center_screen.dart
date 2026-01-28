@@ -5,23 +5,45 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/chinese_converter.dart';
 import '../../providers/settings_provider.dart';
 
-class HelpCenterScreen extends StatelessWidget {
+class HelpCenterScreen extends StatefulWidget {
   const HelpCenterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final settings = context.watch<SettingsProvider>();
+  State<HelpCenterScreen> createState() => _HelpCenterScreenState();
+}
 
-    // Helper function to convert Chinese text based on settings
-    String convertChinese(String text) {
-      return settings.chineseVariant == ChineseVariant.traditional
-          ? ChineseConverter.toTraditional(text)
-          : text;
+class _HelpCenterScreenState extends State<HelpCenterScreen> {
+  String _title = '帮助中心';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateTexts();
+  }
+
+  Future<void> _updateTexts() async {
+    final settings = context.read<SettingsProvider>();
+    if (settings.chineseVariant == ChineseVariant.traditional) {
+      final converted = await ChineseConverter.toTraditional('帮助中心');
+      if (mounted) {
+        setState(() {
+          _title = converted;
+        });
+      }
+    } else {
+      if (mounted) {
+        setState(() {
+          _title = '帮助中心';
+        });
+      }
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(convertChinese('帮助中心') + ' / 도움말 센터'),
+        title: Text('$_title / 도움말 센터'),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -110,21 +132,22 @@ class HelpCenterScreen extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(BuildContext context, String text) {
-    final settings = context.watch<SettingsProvider>();
-    final convertedText = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(text)
-        : text;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Text(
-        convertedText,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: AppConstants.primaryColor,
-        ),
-      ),
+    return FutureBuilder<String>(
+      future: _convertText(text),
+      initialData: text,
+      builder: (context, snapshot) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Text(
+            snapshot.data ?? text,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppConstants.primaryColor,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -133,38 +156,50 @@ class HelpCenterScreen extends StatelessWidget {
     required String question,
     required String answer,
   }) {
-    final settings = context.watch<SettingsProvider>();
-    final convertedQuestion = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(question)
-        : question;
-    final convertedAnswer = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(answer)
-        : answer;
-
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ExpansionTile(
-        title: Text(
-          convertedQuestion,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
+        title: FutureBuilder<String>(
+          future: _convertText(question),
+          initialData: question,
+          builder: (context, snapshot) {
+            return Text(
+              snapshot.data ?? question,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            );
+          },
         ),
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              convertedAnswer,
-              style: TextStyle(
-                fontSize: 13,
-                height: 1.6,
-                color: Colors.grey[700],
-              ),
-            ),
+          FutureBuilder<String>(
+            future: _convertText(answer),
+            initialData: answer,
+            builder: (context, snapshot) {
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  snapshot.data ?? answer,
+                  style: TextStyle(
+                    fontSize: 13,
+                    height: 1.6,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
+  }
+
+  Future<String> _convertText(String text) async {
+    final settings = context.read<SettingsProvider>();
+    if (settings.chineseVariant == ChineseVariant.traditional) {
+      return await ChineseConverter.toTraditional(text);
+    }
+    return text;
   }
 }

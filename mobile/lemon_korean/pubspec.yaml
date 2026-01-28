@@ -53,6 +53,7 @@ dependencies:
   uuid: ^4.3.3
   crypto: ^3.0.3
   shared_preferences: ^2.2.2
+  flutter_open_chinese_convert: ^0.7.0
 
 dev_dependencies:
   flutter_test:
