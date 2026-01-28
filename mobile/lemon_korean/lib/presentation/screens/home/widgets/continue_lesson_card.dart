@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../../data/models/progress_model.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Continue Lesson Card Widget
 /// Shows current lesson with progress
@@ -71,7 +72,7 @@ class ContinueLessonCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
-                        Text(
+                        ConvertibleText(
                           lesson.titleZh,
                           style: const TextStyle(
                             fontSize: AppConstants.fontSizeMedium,
@@ -154,7 +155,7 @@ class ContinueLessonCard extends StatelessWidget {
                     color: AppConstants.textSecondary,
                   ),
                   const SizedBox(width: 4),
-                  Text(
+                  ConvertibleText(
                     '已学习 ${progress.timeSpentFormatted}',
                     style: const TextStyle(
                       fontSize: AppConstants.fontSizeSmall,

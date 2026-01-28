@@ -266,9 +266,9 @@ class _VocabularyStageState extends State<VocabularyStage>
                         color: AppConstants.primaryColor,
                       ),
                       SizedBox(width: 4),
-                      Text(
+                      ConvertibleText(
                         '点击翻转',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: AppConstants.fontSizeSmall,
                           color: AppConstants.primaryColor,
                         ),
@@ -481,7 +481,7 @@ class _VocabularyStageState extends State<VocabularyStage>
                 ElevatedButton.icon(
                   onPressed: _playAudio,
                   icon: const Icon(Icons.volume_up),
-                  label: const Text('发音'),
+                  label: const ConvertibleText('发音'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppConstants.primaryColor,
                     foregroundColor: Colors.black87,
@@ -526,7 +526,7 @@ class _VocabularyStageState extends State<VocabularyStage>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Chinese Translation
-          Text(
+          ConvertibleText(
             word['chinese'],
             textAlign: TextAlign.center,
             style: const TextStyle(

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../providers/progress_provider.dart';
+import '../../widgets/convertible_text.dart';
 import 'stages/stage1_intro.dart';
 import 'stages/stage2_vocabulary.dart';
 import 'stages/stage3_grammar.dart';
@@ -101,19 +102,19 @@ class _LessonScreenState extends State<LessonScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('退出学习'),
-        content: const Text('确定要退出当前课程吗？进度将会保存。'),
+        title: const ConvertibleText('退出学习'),
+        content: const ConvertibleText('确定要退出当前课程吗？进度将会保存。'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('继续学习'),
+            child: const ConvertibleText('继续学习'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(
               foregroundColor: AppConstants.errorColor,
             ),
-            child: const Text('退出'),
+            child: const ConvertibleText('退出'),
           ),
         ],
       ),
@@ -150,7 +151,7 @@ class _LessonScreenState extends State<LessonScreen> {
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('课程完成！进度已保存'),
+          content: ConvertibleText('课程完成！进度已保存'),
           backgroundColor: AppConstants.successColor,
           duration: Duration(seconds: 2),
         ),
