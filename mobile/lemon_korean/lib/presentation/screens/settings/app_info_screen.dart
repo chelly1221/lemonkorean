@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/chinese_converter.dart';
+import '../../providers/settings_provider.dart';
 import '../../widgets/bilingual_text.dart';
 
 class AppInfoScreen extends StatelessWidget {
@@ -7,9 +11,18 @@ class AppInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.watch<SettingsProvider>();
+
+    // Helper function to convert Chinese text
+    String convertChinese(String text) {
+      return settings.chineseVariant == ChineseVariant.traditional
+          ? ChineseConverter.toTraditional(text)
+          : text;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('关于应用 / 앱 정보'),
+        title: Text(convertChinese('关于应用') + ' / 앱 정보'),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -49,9 +62,9 @@ class AppInfoScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Text(
-                  '柠檬韩语',
-                  style: TextStyle(
+                Text(
+                  convertChinese('柠檬韩语'),
+                  style: const TextStyle(
                     fontSize: 18,
                     color: AppConstants.textSecondary,
                   ),
@@ -64,6 +77,7 @@ class AppInfoScreen extends StatelessWidget {
 
           // 버전 정보
           _buildInfoCard(
+            context,
             icon: Icons.info_outline,
             title: '版本信息 / 버전 정보',
             content: 'Version 1.0.0',
@@ -73,6 +87,7 @@ class AppInfoScreen extends StatelessWidget {
 
           // 개발자 정보
           _buildInfoCard(
+            context,
             icon: Icons.code,
             title: '开发者 / 개발자',
             content: 'Lemon Korean Team',
@@ -82,6 +97,7 @@ class AppInfoScreen extends StatelessWidget {
 
           // 앱 설명
           _buildInfoCard(
+            context,
             icon: Icons.description,
             title: '应用介绍 / 앱 소개',
             content:
@@ -91,9 +107,9 @@ class AppInfoScreen extends StatelessWidget {
           const SizedBox(height: 32),
 
           // 링크 섹션 헤더
-          const Text(
-            '更多信息 / 추가 정보',
-            style: TextStyle(
+          Text(
+            convertChinese('更多信息') + ' / 추가 정보',
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: AppConstants.textSecondary,
@@ -104,32 +120,35 @@ class AppInfoScreen extends StatelessWidget {
 
           // 서비스 약관
           _buildLinkItem(
+            context,
             icon: Icons.article,
             chinese: '服务条款',
             korean: '이용약관',
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('服务条款页面开发中... / 이용약관 페이지 개발 중...')),
+                SnackBar(
+                    content: Text(convertChinese('服务条款页面开发中...') + ' / 이용약관 페이지 개발 중...')),
               );
             },
           ),
 
           // 개인정보처리방침
           _buildLinkItem(
+            context,
             icon: Icons.privacy_tip,
             chinese: '隐私政策',
             korean: '개인정보처리방침',
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('隐私政策页面开发中... / 개인정보처리방침 페이지 개발 중...')),
+                SnackBar(
+                    content: Text(convertChinese('隐私政策页面开发中...') + ' / 개인정보처리방침 페이지 개발 중...')),
               );
             },
           ),
 
           // 오픈소스 라이센스
           _buildLinkItem(
+            context,
             icon: Icons.lightbulb_outline,
             chinese: '开源许可',
             korean: '오픈소스 라이센스',
@@ -171,11 +190,20 @@ class AppInfoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard({
+  Widget _buildInfoCard(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required String content,
   }) {
+    final settings = context.watch<SettingsProvider>();
+    final convertedTitle = settings.chineseVariant == ChineseVariant.traditional
+        ? ChineseConverter.toTraditional(title)
+        : title;
+    final convertedContent = settings.chineseVariant == ChineseVariant.traditional
+        ? ChineseConverter.toTraditional(content)
+        : content;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -189,7 +217,7 @@ class AppInfoScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    convertedTitle,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -198,7 +226,7 @@ class AppInfoScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    content,
+                    convertedContent,
                     style: const TextStyle(
                       fontSize: 13,
                       height: 1.5,
@@ -213,7 +241,8 @@ class AppInfoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLinkItem({
+  Widget _buildLinkItem(
+    BuildContext context, {
     required IconData icon,
     required String chinese,
     required String korean,

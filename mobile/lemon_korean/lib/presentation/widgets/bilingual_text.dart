@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/utils/chinese_converter.dart';
+import '../providers/settings_provider.dart';
 
 /// Bilingual Text Widget
 /// Displays Chinese text with Korean translation underneath in smaller font
+/// Automatically converts Chinese text based on user's language preference (Simplified/Traditional)
 class BilingualText extends StatelessWidget {
   final String chinese;
   final String korean;
@@ -22,6 +27,13 @@ class BilingualText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.watch<SettingsProvider>();
+
+    // Convert Chinese text based on user preference
+    final convertedChinese = settings.chineseVariant == ChineseVariant.traditional
+        ? ChineseConverter.toTraditional(chinese)
+        : chinese;
+
     final defaultChineseStyle = chineseStyle ??
         Theme.of(context).textTheme.bodyMedium;
 
@@ -35,7 +47,7 @@ class BilingualText extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          chinese,
+          convertedChinese,
           style: defaultChineseStyle,
           textAlign: textAlign,
         ),
@@ -50,6 +62,7 @@ class BilingualText extends StatelessWidget {
 }
 
 /// Inline Bilingual Text - for buttons and small UI elements
+/// Automatically converts Chinese text based on user's language preference
 class InlineBilingualText extends StatelessWidget {
   final String chinese;
   final String korean;
@@ -66,6 +79,13 @@ class InlineBilingualText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.watch<SettingsProvider>();
+
+    // Convert Chinese text based on user preference
+    final convertedChinese = settings.chineseVariant == ChineseVariant.traditional
+        ? ChineseConverter.toTraditional(chinese)
+        : chinese;
+
     final baseStyle = style ?? Theme.of(context).textTheme.bodyMedium;
     final baseFontSize = baseStyle?.fontSize ?? 14;
 
@@ -74,7 +94,7 @@ class InlineBilingualText extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: chinese,
+            text: convertedChinese,
             style: baseStyle,
           ),
           TextSpan(
