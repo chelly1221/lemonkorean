@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Grammar Stage with Interactive Exercises
 /// Animated grammar explanations with Chinese comparisons and practice
@@ -306,7 +307,7 @@ class _GrammarStageState extends State<GrammarStage> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一个'),
+                    child: const ConvertibleText('上一个'),
                   ),
                 ),
 

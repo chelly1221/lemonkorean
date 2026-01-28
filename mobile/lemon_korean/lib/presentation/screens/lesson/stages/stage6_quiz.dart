@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Stage 6: Quiz
 /// Comprehensive quiz to test lesson understanding
@@ -354,7 +355,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一题'),
+                    child: const ConvertibleText('上一题'),
                   ),
                 ),
 

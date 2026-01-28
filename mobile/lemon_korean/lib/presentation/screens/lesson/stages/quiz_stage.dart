@@ -7,6 +7,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_loader.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Quiz Stage with Multiple Question Types
 /// Comprehensive quiz with listening, fill-in-blank, translation, word order, and pronunciation questions
@@ -195,7 +196,7 @@ class _QuizStageState extends State<QuizStage> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一题'),
+                    child: const ConvertibleText('上一题'),
                   ),
                 ),
               if (_currentQuestionIndex > 0) const SizedBox(width: 16),
@@ -618,7 +619,7 @@ class _ListeningQuestionState extends State<ListeningQuestion> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('音频播放失败: $e'),
+              content: ConvertibleText('音频播放失败: $e'),
               backgroundColor: AppConstants.errorColor,
             ),
           );
@@ -675,7 +676,7 @@ class _ListeningQuestionState extends State<ListeningQuestion> {
               ElevatedButton.icon(
                 onPressed: _playAudio,
                 icon: Icon(_isPlaying ? Icons.stop : Icons.play_arrow),
-                label: Text(_isPlaying ? '停止' : '播放音频'),
+                label: ConvertibleText(_isPlaying ? '停止' : '播放音频'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade700,
                   foregroundColor: Colors.white,

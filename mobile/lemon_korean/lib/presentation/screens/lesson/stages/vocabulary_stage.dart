@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_loader.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Vocabulary Stage with Flip Card Animation
 /// Shows vocabulary cards with images, audio, and Chinese translations
@@ -197,7 +198,7 @@ class _VocabularyStageState extends State<VocabularyStage>
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('播放音频...'),
+              content: ConvertibleText('播放音频...'),
               duration: Duration(seconds: 1),
             ),
           );
@@ -206,7 +207,7 @@ class _VocabularyStageState extends State<VocabularyStage>
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('音频播放失败: $e'),
+              content: ConvertibleText('音频播放失败: $e'),
               backgroundColor: AppConstants.errorColor,
             ),
           );
@@ -338,7 +339,7 @@ class _VocabularyStageState extends State<VocabularyStage>
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一个'),
+                    child: const ConvertibleText('上一个'),
                   ),
                 ),
 

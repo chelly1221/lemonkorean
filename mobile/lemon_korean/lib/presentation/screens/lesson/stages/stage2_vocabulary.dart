@@ -4,6 +4,7 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../widgets/bilingual_text.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Stage 2: Vocabulary
 /// Learn new words with flashcards and examples
@@ -74,9 +75,9 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
               color: AppConstants.textHint,
             ),
             SizedBox(height: 8),
-            Text(
+            ConvertibleText(
               '暂无图片',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: AppConstants.fontSizeSmall,
                 color: AppConstants.textHint,
               ),
@@ -176,7 +177,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                 const SizedBox(height: 20),
 
                 // Chinese
-                Text(
+                ConvertibleText(
                   word['chinese']!,
                   style: const TextStyle(
                     fontSize: 32,

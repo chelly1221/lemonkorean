@@ -4,6 +4,7 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../widgets/bilingual_text.dart';
+import '../../../widgets/convertible_text.dart';
 
 /// Stage 5: Dialogue
 /// Practice conversations with audio playback
@@ -261,7 +262,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
               icon: Icon(
                 _playingLineIndex != null ? Icons.pause : Icons.play_arrow,
               ),
-              label: Text(_playingLineIndex != null ? '播放中...' : '播放全部'),
+              label: ConvertibleText(_playingLineIndex != null ? '播放中...' : '播放全部'),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppConstants.paddingMedium,
