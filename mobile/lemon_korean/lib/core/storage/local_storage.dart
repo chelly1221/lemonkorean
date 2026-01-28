@@ -248,19 +248,6 @@ class LocalStorage {
   // GENERAL
   // ================================================================
 
-  /// Get total storage size (in bytes)
-  static int getTotalStorageSize() {
-    int total = 0;
-
-    total += _lessonsBox.length;
-    total += _vocabularyBox.length;
-    total += _progressBox.length;
-    total += _syncQueueBox.length;
-    total += _settingsBox.length;
-
-    return total;
-  }
-
   /// Clear all data
   static Future<void> clearAll() async {
     await Future.wait([

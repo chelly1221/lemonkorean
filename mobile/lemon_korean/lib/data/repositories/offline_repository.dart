@@ -187,8 +187,8 @@ class OfflineRepository {
       totalVocabulary: vocabulary.length,
       totalProgress: progress.length,
       totalReviews: reviews.length,
-      mediaFileCount: mediaStats['count'] as int,
-      mediaStorageBytes: mediaStats['size'] as int,
+      mediaFileCount: mediaStats['media_files_count'] as int,
+      mediaStorageBytes: mediaStats['total_size_bytes'] as int,
       cacheStorageBytes: cacheSize,
       totalStorageBytes: appSize + cacheSize,
       syncQueueSize: getSyncQueueSize(),
@@ -332,9 +332,9 @@ class OfflineRepository {
         'pending_items': syncQueue.map((item) => item['type']).toList(),
       },
       'media': {
-        'file_count': mediaStats['count'],
-        'oldest_file': mediaStats['oldest'],
-        'newest_file': mediaStats['newest'],
+        'file_count': mediaStats['media_files_count'],
+        'oldest_file': null,  // database_helper does not provide this
+        'newest_file': null,  // database_helper does not provide this
       },
       'downloads': {
         'active_downloads': getActiveDownloads().length,

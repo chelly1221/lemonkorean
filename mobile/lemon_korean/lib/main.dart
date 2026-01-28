@@ -4,10 +4,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/app_constants.dart';
+import 'core/services/notification_service.dart';
 import 'core/storage/local_storage.dart';
 import 'presentation/providers/auth_provider.dart';
+import 'presentation/providers/download_provider.dart';
 import 'presentation/providers/lesson_provider.dart';
 import 'presentation/providers/progress_provider.dart';
+import 'presentation/providers/settings_provider.dart';
 import 'presentation/providers/sync_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
@@ -18,6 +21,9 @@ void main() async {
   // Initialize Hive
   await Hive.initFlutter();
   await LocalStorage.init();
+
+  // Initialize Notification Service
+  await NotificationService.instance.init();
 
   // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
@@ -46,7 +52,9 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => LessonProvider()),
         ChangeNotifierProvider(create: (_) => ProgressProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
         ChangeNotifierProvider(create: (_) => SyncProvider()),
+        ChangeNotifierProvider(create: (_) => DownloadProvider()),
       ],
       child: MaterialApp(
         title: AppConstants.appName,
@@ -88,6 +96,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkAuth() async {
     await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return;
+
+    // Initialize SettingsProvider
+    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+    await settingsProvider.init();
 
     if (!mounted) return;
 

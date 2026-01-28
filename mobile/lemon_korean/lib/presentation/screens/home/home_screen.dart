@@ -14,6 +14,10 @@ import '../auth/login_screen.dart';
 import '../download/download_manager_screen.dart';
 import '../lesson/lesson_screen.dart';
 import '../review/review_screen.dart';
+import '../settings/language_settings_screen.dart';
+import '../settings/notification_settings_screen.dart';
+import '../settings/help_center_screen.dart';
+import '../settings/app_info_screen.dart';
 import 'widgets/user_header.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
@@ -776,13 +780,27 @@ class _ProfileTab extends StatelessWidget {
                 icon: Icons.notifications_outlined,
                 chinese: '通知设置',
                 korean: '알림 설정',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationSettingsScreen(),
+                    ),
+                  );
+                },
               ),
               _buildMenuItem(
                 icon: Icons.language,
                 chinese: '语言设置',
                 korean: '언어 설정',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LanguageSettingsScreen(),
+                    ),
+                  );
+                },
               ),
               _buildMenuItem(
                 icon: Icons.storage_outlined,
@@ -803,13 +821,27 @@ class _ProfileTab extends StatelessWidget {
                 icon: Icons.help_outline,
                 chinese: '帮助中心',
                 korean: '도움말 센터',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HelpCenterScreen(),
+                    ),
+                  );
+                },
               ),
               _buildMenuItem(
                 icon: Icons.info_outline,
                 chinese: '关于应用',
                 korean: '앱 정보',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AppInfoScreen(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: AppConstants.paddingMedium),
               Card(

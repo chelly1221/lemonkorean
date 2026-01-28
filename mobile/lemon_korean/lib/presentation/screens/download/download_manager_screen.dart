@@ -373,9 +373,11 @@ class _StorageInfoBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<DownloadProvider>();
     final usedMB = stats?.mediaStorageMB ?? 0.0;
-    const totalMB = 500.0; // Max storage
-    final percentage = (usedMB / totalMB).clamp(0.0, 1.0);
+    final availableGB = provider.availableStorageBytes / (1024 * 1024 * 1024);
+    final totalGB = provider.totalStorageBytes / (1024 * 1024 * 1024);
+    final percentage = totalGB > 0 ? ((usedMB / 1024) / totalGB).clamp(0.0, 1.0) : 0.0;
 
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -388,26 +390,80 @@ class _StorageInfoBar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header
+          const Text(
+            '存储空间 / 저장공간',
+            style: TextStyle(
+              fontSize: AppConstants.fontSizeSmall,
+              color: AppConstants.textSecondary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Used storage
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                '存储空间 / 저장공간',
+                '使用中 / 사용 중',
                 style: TextStyle(
-                  fontSize: AppConstants.fontSizeSmall,
+                  fontSize: AppConstants.fontSizeSmall - 1,
                   color: AppConstants.textSecondary,
                 ),
               ),
               Text(
-                '${usedMB.toStringAsFixed(1)} / ${totalMB.toStringAsFixed(0)} MB',
+                '${usedMB.toStringAsFixed(1)} MB',
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeSmall,
                   fontWeight: FontWeight.bold,
+                  color: AppConstants.primaryColor,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
+          // Available storage
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                '可用 / 사용 가능',
+                style: TextStyle(
+                  fontSize: AppConstants.fontSizeSmall - 1,
+                  color: AppConstants.textSecondary,
+                ),
+              ),
+              Text(
+                '${availableGB.toStringAsFixed(2)} GB',
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeSmall,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          // Total storage
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                '总计 / 전체',
+                style: TextStyle(
+                  fontSize: AppConstants.fontSizeSmall - 1,
+                  color: AppConstants.textSecondary,
+                ),
+              ),
+              Text(
+                '${totalGB.toStringAsFixed(2)} GB',
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeSmall,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
             child: LinearProgressIndicator(

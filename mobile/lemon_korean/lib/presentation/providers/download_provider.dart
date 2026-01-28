@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../../core/utils/download_manager.dart';
+import '../../core/utils/storage_utils.dart';
 import '../../data/models/lesson_model.dart';
 import '../../data/repositories/content_repository.dart';
 import '../../data/repositories/offline_repository.dart';
@@ -21,6 +22,10 @@ class DownloadProvider extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
 
+  // Device storage (actual)
+  int _availableStorageBytes = 0;
+  int _totalStorageBytes = 0;
+
   // Getters
   Map<int, DownloadProgress> get activeDownloads => _activeDownloads;
   List<LessonModel> get downloadedLessons => _downloadedLessons;
@@ -28,6 +33,8 @@ class DownloadProvider extends ChangeNotifier {
   OfflineStorageStats? get storageStats => _storageStats;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  int get availableStorageBytes => _availableStorageBytes;
+  int get totalStorageBytes => _totalStorageBytes;
 
   // Timer for updating progress
   Timer? _progressTimer;
@@ -69,6 +76,17 @@ class DownloadProvider extends ChangeNotifier {
 
       // Load storage stats
       _storageStats = await _offlineRepository.getStorageStats();
+
+      // Load actual device storage
+      _availableStorageBytes = await StorageUtils.getAvailableStorageBytes();
+      _totalStorageBytes = await StorageUtils.getTotalStorageBytes();
+
+      if (kDebugMode) {
+        print('[DownloadProvider] Device storage:');
+        print('  - Available: ${StorageUtils.formatMB(_availableStorageBytes)} MB');
+        print('  - Total: ${StorageUtils.formatMB(_totalStorageBytes)} MB');
+        print('  - App used: ${StorageUtils.formatMB(_storageStats?.mediaStorageBytes ?? 0)} MB');
+      }
 
       _clearError();
       _setLoading(false);
