@@ -8,11 +8,16 @@ import '../../../widgets/bilingual_text.dart';
 /// Grammar explanations with examples
 class Stage3Grammar extends StatefulWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onNext;
-  final VoidCallback onPrevious;
+  final VoidCallback? onPrevious;
 
   const Stage3Grammar({
-    required this.lesson, required this.onNext, required this.onPrevious, super.key,
+    required this.lesson,
+    this.stageData,
+    required this.onNext,
+    this.onPrevious,
+    super.key,
   });
 
   @override

@@ -1,12 +1,12 @@
 # 首页界面 (Home Screen)
 
-Material Design 3 风格的首页，包含4个Tab和动画效果。
+Material Design 3 风格的首页，包含3个Tab和动画效果。
 
 ## 文件结构
 
 ```
 home/
-├── home_screen.dart              # 主屏幕（包含4个Tab）
+├── home_screen.dart              # 主屏幕（包含3个Tab）
 └── widgets/
     ├── user_header.dart          # 用户头部（问候 + 连续学习天数）
     ├── daily_goal_card.dart      # 今日目标卡片（进度条）
@@ -20,12 +20,13 @@ home/
 
 ### 主屏幕 (HomeScreen)
 
-使用 `IndexedStack` 和 `NavigationBar` 实现4个Tab：
+使用 `IndexedStack` 和 `NavigationBar` 实现3个Tab：
 
 1. **首页** (HomeTab) - 主要学习界面
-2. **下载** (DownloadsTab) - 已下载课程
-3. **复习** (ReviewTab) - SRS复习计划
-4. **我的** (ProfileTab) - 用户设置和统计
+2. **复习** (ReviewTab) - SRS复习计划
+3. **我的** (ProfileTab) - 用户设置和统计
+
+> **注意**: 下载管理功能通过单独的 `DownloadManagerScreen` 访问，不再作为主屏幕Tab。
 
 ---
 

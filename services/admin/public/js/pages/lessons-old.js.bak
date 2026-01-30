@@ -1,0 +1,183 @@
+/**
+ * Lessons Page
+ *
+ * 레슨 관리 페이지
+ */
+
+const LessonsPage = (() => {
+  let currentPage = 1;
+
+  async function render() {
+    const layout = `
+      <div class="app-layout">
+        ${Sidebar.render()}
+        <div class="main-content">
+          ${Header.render('레슨 관리', [
+            { label: '새 레슨', icon: 'fa-plus', class: 'btn-primary', onClick: () => Router.navigate('/lessons/new') }
+          ])}
+          <div class="content-container">
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>제목</th>
+                      <th>레벨</th>
+                      <th>상태</th>
+                      <th>작업</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lessons-tbody">
+                    <tr><td colspan="5" class="text-center"><div class="spinner-border"></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div id="pagination-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    Router.render(layout);
+    Sidebar.updateActive();
+    await loadLessons();
+  }
+
+  async function renderNew() {
+    const layout = `
+      <div class="app-layout">
+        ${Sidebar.render()}
+        <div class="main-content">
+          ${Header.render('새 레슨 만들기')}
+          <div class="content-container">
+            <div class="table-card">
+              <form id="lesson-form">
+                <div class="mb-3">
+                  <label class="form-label">레벨</label>
+                  <input type="number" class="form-control" name="level" min="1" max="6" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">제목 (한국어)</label>
+                  <input type="text" class="form-control" name="title_ko" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">제목 (중국어)</label>
+                  <input type="text" class="form-control" name="title_zh" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">설명</label>
+                  <textarea class="form-control" name="description" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">생성</button>
+                <button type="button" class="btn btn-secondary" onclick="Router.navigate('/lessons')">취소</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    Router.render(layout);
+    Sidebar.updateActive();
+    attachFormListeners();
+  }
+
+  async function renderEdit(params) {
+    const lesson = await API.lessons.getById(params.id);
+    const layout = `
+      <div class="app-layout">
+        ${Sidebar.render()}
+        <div class="main-content">
+          ${Header.render('레슨 수정')}
+          <div class="content-container">
+            <div class="table-card">
+              <form id="lesson-form">
+                <div class="mb-3">
+                  <label class="form-label">레벨</label>
+                  <input type="number" class="form-control" name="level" value="${lesson.level}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">제목 (한국어)</label>
+                  <input type="text" class="form-control" name="title_ko" value="${lesson.title_ko}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">제목 (중국어)</label>
+                  <input type="text" class="form-control" name="title_zh" value="${lesson.title_zh}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">저장</button>
+                <button type="button" class="btn btn-secondary" onclick="Router.navigate('/lessons')">취소</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    Router.render(layout);
+    Sidebar.updateActive();
+    attachFormListeners(params.id);
+  }
+
+  function attachFormListeners(lessonId = null) {
+    document.getElementById('lesson-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+
+      try {
+        if (lessonId) {
+          await API.lessons.update(lessonId, data);
+          Toast.success('레슨이 수정되었습니다.');
+        } else {
+          await API.lessons.create(data);
+          Toast.success('레슨이 생성되었습니다.');
+        }
+        Router.navigate('/lessons');
+      } catch (error) {
+        Toast.error(error.message);
+      }
+    });
+  }
+
+  async function loadLessons() {
+    try {
+      const response = await API.lessons.list({ page: currentPage, limit: 10 });
+      renderTable(response.data);
+      renderPagination(response.pagination);
+    } catch (error) {
+      Toast.error('레슨 목록을 불러올 수 없습니다.');
+    }
+  }
+
+  function renderTable(lessons) {
+    const tbody = document.getElementById('lessons-tbody');
+    if (lessons.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center">레슨이 없습니다.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = lessons.map(lesson => `
+      <tr>
+        <td>${lesson.id}</td>
+        <td>${lesson.title_ko}</td>
+        <td>${lesson.level}</td>
+        <td>${Formatters.formatLessonStatus(lesson.status)}</td>
+        <td>
+          <button class="btn btn-link text-secondary p-0" onclick="Router.navigate('/lessons/${lesson.id}')" title="레슨 수정">
+            <i class="fas fa-edit fa-lg"></i>
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function renderPagination(pagination) {
+    document.getElementById('pagination-container').innerHTML = Pagination.render({
+      ...pagination,
+      onPageChange: (page) => {
+        currentPage = page;
+        loadLessons();
+      },
+    });
+  }
+
+  return { render, renderNew, renderEdit };
+})();

@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: analytics-service
+  namespace: lemon-korean
+spec:
+  selector:
+    app: analytics-service
+  ports:
+    - port: 3005
+      targetPort: 3005
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-service
+  namespace: lemon-korean
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: analytics-service
+  template:
+    metadata:
+      labels:
+        app: analytics-service
+    spec:
+      containers:
+        - name: analytics-service
+          image: lemon-korean/analytics-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3005
+          env:
+            - name: ANALYTICS_SERVICE_PORT
+              value: "3005"
+            - name: DB_HOST
+              value: "postgres-service"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: lemon-korean-config
+                  key: DB_NAME
+            - name: DB_USER
+              value: "lemon_admin"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: DB_PASSWORD
+            - name: MONGODB_URI
+              value: "mongodb://lemon_admin:$(DB_PASSWORD)@mongodb-service:27017/$(DB_NAME)?authSource=admin"
+            - name: REDIS_HOST
+              value: "redis-service"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: REDIS_PASSWORD
+            - name: LOG_LEVEL
+              value: "INFO"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3005
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3005
+            initialDelaySeconds: 5
+            periodSeconds: 5

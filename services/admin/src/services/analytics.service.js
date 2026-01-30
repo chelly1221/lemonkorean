@@ -43,6 +43,14 @@ const getDashboardOverview = async () => {
       generatedAt: new Date().toISOString()
     };
 
+    // Debug log
+    console.log('[ANALYTICS_SERVICE] Dashboard overview:', JSON.stringify({
+      users_count: usersStats.total_users,
+      lessons_count: lessonsStats.total_lessons,
+      completion_rate: progressStats.avg_completion_rate,
+      vocabulary_count: vocabularyStats.total_vocabulary
+    }));
+
     // Cache for 5 minutes
     await cacheHelpers.set(cacheKey, overview, 300);
 
@@ -131,7 +139,12 @@ const getProgressStats = async () => {
         COUNT(*) FILTER (WHERE status = 'in_progress') as in_progress_entries,
         COUNT(*) FILTER (WHERE completed_at >= NOW() - INTERVAL '7 days') as completions_7d,
         COUNT(*) FILTER (WHERE completed_at >= NOW() - INTERVAL '30 days') as completions_30d,
-        AVG(quiz_score) FILTER (WHERE quiz_score IS NOT NULL) as avg_quiz_score
+        AVG(quiz_score) FILTER (WHERE quiz_score IS NOT NULL) as avg_quiz_score,
+        CASE
+          WHEN COUNT(*) > 0 THEN
+            COUNT(*) FILTER (WHERE status = 'completed')::float / COUNT(*)::float
+          ELSE 0
+        END as avg_completion_rate
       FROM user_progress
     `);
 
@@ -144,7 +157,8 @@ const getProgressStats = async () => {
       in_progress_entries: parseInt(stats.in_progress_entries) || 0,
       completions_7d: parseInt(stats.completions_7d) || 0,
       completions_30d: parseInt(stats.completions_30d) || 0,
-      avg_quiz_score: parseFloat(stats.avg_quiz_score) || 0
+      avg_quiz_score: parseFloat(stats.avg_quiz_score) || 0,
+      avg_completion_rate: parseFloat(stats.avg_completion_rate) || 0
     };
   } catch (error) {
     console.error('[ANALYTICS_SERVICE] Error getting progress stats:', error);
@@ -186,11 +200,11 @@ const getVocabularyStats = async () => {
  * @param {string} period - Time period (7d, 30d, 90d)
  * @returns {Object} User analytics
  */
-const getUserAnalytics = async (period = '30d') => {
+const getUserAnalytics = async (period = '1d') => {
   try {
     console.log(`[ANALYTICS_SERVICE] Getting user analytics for period: ${period}`);
 
-    const days = period === '7d' ? 7 : period === '90d' ? 90 : 30;
+    const days = period === '1d' ? 1 : period === '7d' ? 7 : period === '30d' ? 30 : period === '365d' ? 365 : 7;
 
     const result = await query(`
       SELECT
@@ -219,11 +233,11 @@ const getUserAnalytics = async (period = '30d') => {
  * @param {string} period - Time period (7d, 30d, 90d)
  * @returns {Object} Engagement metrics
  */
-const getEngagementMetrics = async (period = '30d') => {
+const getEngagementMetrics = async (period = '1d') => {
   try {
     console.log(`[ANALYTICS_SERVICE] Getting engagement metrics for period: ${period}`);
 
-    const days = period === '7d' ? 7 : period === '90d' ? 90 : 30;
+    const days = period === '1d' ? 1 : period === '7d' ? 7 : period === '30d' ? 30 : period === '365d' ? 365 : 7;
 
     // Lesson completion trends
     const completionResult = await query(`
@@ -297,6 +311,18 @@ const getContentStats = async () => {
   try {
     console.log('[ANALYTICS_SERVICE] Getting content statistics');
 
+    // Total lessons count
+    const totalLessonsResult = await query(`
+      SELECT COUNT(*) as total_lessons
+      FROM lessons
+    `);
+
+    // Total vocabulary count
+    const totalVocabularyResult = await query(`
+      SELECT COUNT(*) as total_vocabulary
+      FROM vocabulary
+    `);
+
     // Lessons by level
     const lessonsByLevel = await query(`
       SELECT
@@ -320,6 +346,8 @@ const getContentStats = async () => {
     `);
 
     return {
+      totalLessons: parseInt(totalLessonsResult.rows[0]?.total_lessons) || 0,
+      totalVocabulary: parseInt(totalVocabularyResult.rows[0]?.total_vocabulary) || 0,
       lessonsByLevel: lessonsByLevel.rows,
       vocabularyByPartOfSpeech: vocabularyByPOS.rows
     };

@@ -6,8 +6,15 @@
 
 ```
 providers/
-└── auth_provider.dart      # 认证状态管理
+├── auth_provider.dart      # 认证状态管理
+├── lesson_provider.dart    # 课程状态管理
+├── progress_provider.dart  # 学习进度管理
+├── download_provider.dart  # 下载队列管理
+├── settings_provider.dart  # 应用设置管理
+└── sync_provider.dart      # 离线同步管理
 ```
+
+> **注意**: 本文档主要介绍 AuthProvider。其他 Provider 请参考相应的源代码注释。
 
 ---
 
@@ -703,13 +710,18 @@ testWidgets('shows loading indicator while logging in', (tester) async {
 
 ## 扩展功能
 
+### 已实现的高级功能
+
+1. **令牌自动刷新**: JWT 验证和后台刷新 (`_refreshUserProfileInBackground`)
+2. **用户资料缓存**: 本地缓存用户信息 (`_fetchAndCacheUserProfile`)
+3. **强制登出**: 令牌无效时自动登出 (`_forceLogout`)
+
 ### 计划添加的功能
 
-1. **令牌自动刷新**: 在令牌过期前自动刷新
-2. **生物识别登录**: 指纹/面容 ID
-3. **记住我**: 保存用户偏好
-4. **多设备登录**: 管理多个登录会话
-5. **社交登录**: 微信、QQ 登录集成
+1. **生物识别登录**: 指纹/面容 ID
+2. **记住我**: 保存用户偏好
+3. **多设备登录**: 管理多个登录会话
+4. **社交登录**: 微信、QQ 登录集成
 
 ### 实现示例: 令牌自动刷新
 

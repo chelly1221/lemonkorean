@@ -226,6 +226,28 @@ class LocalStorage {
   }
 
   // ================================================================
+  // USER CACHE (for offline-first auth)
+  // ================================================================
+
+  static const String _cachedUserKey = 'cached_user';
+
+  /// Save user to local cache for offline access
+  static Future<void> saveCachedUser(Map<String, dynamic> user) async {
+    await _settingsBox.put(_cachedUserKey, user);
+  }
+
+  /// Get cached user for offline-first auth
+  static Map<String, dynamic>? getCachedUser() {
+    final data = _settingsBox.get(_cachedUserKey);
+    return data != null ? Map<String, dynamic>.from(data) : null;
+  }
+
+  /// Clear cached user on logout
+  static Future<void> clearCachedUser() async {
+    await _settingsBox.delete(_cachedUserKey);
+  }
+
+  // ================================================================
   // USER DATA
   // ================================================================
 

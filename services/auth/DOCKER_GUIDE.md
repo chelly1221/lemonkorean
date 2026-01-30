@@ -149,7 +149,7 @@ docker run -d \
 cat > .env <<EOF
 NODE_ENV=production
 PORT=3001
-DATABASE_URL=postgres://3chan:Scott122001&&@postgres:5432/lemon_korean
+DATABASE_URL=postgres://3chan:your_secure_password@postgres:5432/lemon_korean
 JWT_SECRET=change_this_jwt_secret_key
 JWT_EXPIRES_IN=7d
 REDIS_URL=redis://:change_this_redis_password@redis:6379
@@ -308,7 +308,7 @@ NODE_ENV=production
 PORT=3001
 
 # Database
-DATABASE_URL=postgres://3chan:Scott122001&&@postgres:5432/lemon_korean
+DATABASE_URL=postgres://3chan:your_secure_password@postgres:5432/lemon_korean
 
 # JWT
 JWT_SECRET=change_this_jwt_secret_key

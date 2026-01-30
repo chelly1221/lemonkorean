@@ -360,6 +360,79 @@ const bulkDelete = async (req, res) => {
   }
 };
 
+/**
+ * GET /api/admin/lessons/:id/content
+ * Get lesson content from MongoDB (7 stages)
+ */
+const getLessonContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const content = await contentService.getLessonContent(id);
+
+    if (!content) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: `Lesson content not found for lesson ID ${id}`
+      });
+    }
+
+    res.json({
+      success: true,
+      data: content
+    });
+  } catch (error) {
+    console.error('[LESSONS_CONTROLLER] Error getting lesson content:', error);
+
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to retrieve lesson content',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * PUT /api/admin/lessons/:id/content
+ * Save lesson content to MongoDB (7 stages)
+ */
+const saveLessonContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const contentData = req.body;
+
+    // Validate content structure
+    if (!contentData.content || typeof contentData.content !== 'object') {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Invalid content structure. Expected { content: {...} }'
+      });
+    }
+
+    const savedContent = await contentService.saveLessonContent(id, contentData);
+
+    res.json({
+      success: true,
+      message: 'Lesson content saved successfully',
+      data: savedContent
+    });
+  } catch (error) {
+    console.error('[LESSONS_CONTROLLER] Error saving lesson content:', error);
+
+    if (error.message.includes('not found')) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: error.message
+      });
+    }
+
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to save lesson content',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
 module.exports = {
   listLessons,
   getLessonById,
@@ -369,5 +442,7 @@ module.exports = {
   publishLesson,
   unpublishLesson,
   bulkPublish,
-  bulkDelete
+  bulkDelete,
+  getLessonContent,
+  saveLessonContent
 };

@@ -1,0 +1,123 @@
+worker_processes auto;
+error_log /var/log/nginx/error.log warn;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log /var/log/nginx/access.log main;
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    client_max_body_size 100M;
+
+    # Upstream servers
+    upstream auth_service {
+        server auth-service:3001 max_fails=3 fail_timeout=30s;
+    }
+
+    upstream content_service {
+        server content-service:3002 max_fails=3 fail_timeout=30s;
+    }
+
+    upstream progress_service {
+        server progress-service:3003 max_fails=3 fail_timeout=30s;
+    }
+
+    upstream media_service {
+        server media-service:3004 max_fails=3 fail_timeout=30s;
+    }
+
+    upstream admin_service {
+        server admin-service:3006 max_fails=3 fail_timeout=30s;
+    }
+
+    server {
+        listen 80;
+        listen [::]:80;
+        server_name _;
+
+        # CORS headers
+        add_header Access-Control-Allow-Origin "*" always;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, PATCH, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, Origin, X-Requested-With" always;
+
+        # Health check
+        location /health {
+            access_log off;
+            add_header Content-Type text/plain;
+            return 200 "OK\n";
+        }
+
+        # Auth Service
+        location /api/auth/ {
+            proxy_pass http://auth_service/api/auth/;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Content Service
+        location /api/content/ {
+            proxy_pass http://content_service/api/content/;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Progress Service
+        location /api/progress/ {
+            proxy_pass http://progress_service/api/progress/;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Media Service
+        location /media/ {
+            proxy_pass http://media_service/media/;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_cache_bypass $http_upgrade;
+        }
+
+        # Admin Service
+        location /api/admin/ {
+            proxy_pass http://admin_service/api/admin/;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Admin Web UI
+        location / {
+            proxy_pass http://admin_service/;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}

@@ -163,6 +163,37 @@ const cacheHelpers = {
       console.error('[REDIS] FlushAll error:', error);
       return false;
     }
+  },
+
+  // Delete keys by pattern (using SCAN)
+  delPattern: async (pattern) => {
+    try {
+      const client = getRedisClient();
+      if (!client) return 0;
+
+      let cursor = 0;
+      let deletedCount = 0;
+
+      do {
+        const result = await client.scan(cursor, {
+          MATCH: pattern,
+          COUNT: 100
+        });
+
+        cursor = result.cursor;
+        const keys = result.keys;
+
+        if (keys.length > 0) {
+          deletedCount += await client.del(keys);
+        }
+      } while (cursor !== 0);
+
+      console.log(`[REDIS] Deleted ${deletedCount} keys matching pattern: ${pattern}`);
+      return deletedCount;
+    } catch (error) {
+      console.error('[REDIS] Delete pattern error:', error);
+      return 0;
+    }
   }
 };
 

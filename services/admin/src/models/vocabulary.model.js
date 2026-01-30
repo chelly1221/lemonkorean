@@ -257,6 +257,25 @@ const deleteVocabulary = async (vocabId) => {
 };
 
 /**
+ * Find vocabulary by Korean word
+ * @param {string} korean - Korean word to search for
+ * @returns {Object|null} Vocabulary entry or null if not found
+ */
+const findByKorean = async (korean) => {
+  try {
+    const result = await query(
+      `SELECT * FROM vocabulary WHERE korean = $1 LIMIT 1`,
+      [korean]
+    );
+
+    return result.rows.length > 0 ? result.rows[0] : null;
+  } catch (error) {
+    console.error('[VOCABULARY_MODEL] Error finding vocabulary by Korean:', error);
+    throw error;
+  }
+};
+
+/**
  * Bulk delete vocabulary
  * @param {Array<number>} vocabIds - Vocabulary IDs to delete
  * @returns {number} Number of vocabulary entries deleted
@@ -280,6 +299,7 @@ const bulkDelete = async (vocabIds) => {
 module.exports = {
   getAll,
   findById,
+  findByKorean,
   create,
   update,
   deleteVocabulary,

@@ -13,8 +13,13 @@ RUN apk add --no-cache \
 # Remove default config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy both config files to temporary location
+COPY nginx.conf /nginx-configs/nginx.conf
+COPY nginx.dev.conf /nginx-configs/nginx.dev.conf
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Create cache directories
 RUN mkdir -p /var/cache/nginx/media \
@@ -39,5 +44,5 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 # Expose ports
 EXPOSE 80 443
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start nginx with custom entrypoint
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

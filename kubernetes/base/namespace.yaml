@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: lemon-korean
+  labels:
+    name: lemon-korean
+    environment: production

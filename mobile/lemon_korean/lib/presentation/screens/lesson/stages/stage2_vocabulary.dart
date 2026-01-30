@@ -10,11 +10,16 @@ import '../../../widgets/convertible_text.dart';
 /// Learn new words with flashcards and examples
 class Stage2Vocabulary extends StatefulWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onNext;
-  final VoidCallback onPrevious;
+  final VoidCallback? onPrevious;
 
   const Stage2Vocabulary({
-    required this.lesson, required this.onNext, required this.onPrevious, super.key,
+    required this.lesson,
+    this.stageData,
+    required this.onNext,
+    this.onPrevious,
+    super.key,
   });
 
   @override
@@ -23,29 +28,56 @@ class Stage2Vocabulary extends StatefulWidget {
 
 class _Stage2VocabularyState extends State<Stage2Vocabulary> {
   int _currentWordIndex = 0;
-  final List<Map<String, String?>> _mockWords = [
-    {
-      'korean': '안녕하세요',
-      'chinese': '您好',
-      'pinyin': 'nín hǎo',
-      'imageUrl': null, // Will show placeholder
-    },
-    {
-      'korean': '감사합니다',
-      'chinese': '谢谢',
-      'pinyin': 'xiè xie',
-      'imageUrl': null, // Will show placeholder
-    },
-    {
-      'korean': '죄송합니다',
-      'chinese': '对不起',
-      'pinyin': 'duì bu qǐ',
-      'imageUrl': null, // Will show placeholder
-    },
-  ];
+  late List<Map<String, dynamic>> _words;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWords();
+  }
+
+  /// Load words from stageData (v2) or lesson content (v1) or mock data
+  void _loadWords() {
+    if (widget.stageData != null && widget.stageData!.containsKey('words')) {
+      // v2 structure: use stageData
+      _words = List<Map<String, dynamic>>.from(widget.stageData!['words']);
+    } else if (widget.lesson.content != null) {
+      // v1 structure: fallback to lesson content
+      final vocabData = widget.lesson.content!['stage2_vocabulary'];
+      _words = vocabData != null
+          ? List<Map<String, dynamic>>.from(vocabData['words'])
+          : _getMockWords();
+    } else {
+      _words = _getMockWords();
+    }
+  }
+
+  /// Get mock words for fallback
+  List<Map<String, dynamic>> _getMockWords() {
+    return [
+      {
+        'korean': '안녕하세요',
+        'chinese': '您好',
+        'pinyin': 'nín hǎo',
+        'image_url': null,
+      },
+      {
+        'korean': '감사합니다',
+        'chinese': '谢谢',
+        'pinyin': 'xiè xie',
+        'image_url': null,
+      },
+      {
+        'korean': '죄송합니다',
+        'chinese': '对不起',
+        'pinyin': 'duì bu qǐ',
+        'image_url': null,
+      },
+    ];
+  }
 
   void _nextWord() {
-    if (_currentWordIndex < _mockWords.length - 1) {
+    if (_currentWordIndex < _words.length - 1) {
       setState(() {
         _currentWordIndex++;
       });
@@ -59,6 +91,8 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
       setState(() {
         _currentWordIndex--;
       });
+    } else if (widget.onPrevious != null) {
+      widget.onPrevious!();
     }
   }
 
@@ -90,7 +124,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
 
   @override
   Widget build(BuildContext context) {
-    final word = _mockWords[_currentWordIndex];
+    final word = _words[_currentWordIndex];
 
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -110,7 +144,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
 
           // Word Counter
           Text(
-            '${_currentWordIndex + 1} / ${_mockWords.length}',
+            '${_currentWordIndex + 1} / ${_words.length}',
             style: const TextStyle(
               fontSize: AppConstants.fontSizeMedium,
               color: AppConstants.textSecondary,
@@ -237,10 +271,10 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                     ),
                   ),
                   child: InlineBilingualText(
-                    chinese: _currentWordIndex < _mockWords.length - 1
+                    chinese: _currentWordIndex < _words.length - 1
                         ? '下一个'
                         : '继续',
-                    korean: _currentWordIndex < _mockWords.length - 1
+                    korean: _currentWordIndex < _words.length - 1
                         ? '다음'
                         : '계속',
                   ),

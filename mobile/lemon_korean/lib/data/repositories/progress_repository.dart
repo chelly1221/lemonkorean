@@ -230,7 +230,7 @@ class ProgressRepository {
   /// Get review schedule for user
   Future<List<ReviewModel>> getReviewSchedule(int userId) async {
     try {
-      final response = await _apiClient.getReviewSchedule();
+      final response = await _apiClient.getReviewSchedule(userId);
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['reviews'];
@@ -327,6 +327,108 @@ class ProgressRepository {
     }
 
     return reviewModel;
+  }
+
+  // ================================================================
+  // SESSION TRACKING
+  // ================================================================
+
+  /// Active session ID (stored locally during lesson)
+  int? _activeSessionId;
+  int? get activeSessionId => _activeSessionId;
+
+  /// Start a learning session (call when user begins a lesson)
+  Future<int?> startSession({
+    required int userId,
+    required int lessonId,
+    required String sessionType,
+  }) async {
+    try {
+      // Determine device type
+      final deviceType = _getDeviceType();
+
+      final response = await _apiClient.startLearningSession(
+        userId: userId,
+        lessonId: lessonId,
+        sessionType: sessionType,
+        deviceType: deviceType,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        _activeSessionId = response.data['session_id'] as int?;
+        print('[ProgressRepository] Session started: $_activeSessionId');
+        return _activeSessionId;
+      }
+    } catch (e) {
+      print('[ProgressRepository] startSession error: $e');
+      // Session tracking is non-critical, continue without it
+    }
+
+    return null;
+  }
+
+  /// End a learning session (call when user completes or exits a lesson)
+  Future<void> endSession({
+    int? sessionId,
+    int itemsStudied = 0,
+    int correctAnswers = 0,
+    int incorrectAnswers = 0,
+  }) async {
+    final id = sessionId ?? _activeSessionId;
+    if (id == null) {
+      print('[ProgressRepository] No active session to end');
+      return;
+    }
+
+    try {
+      final response = await _apiClient.endLearningSession(
+        sessionId: id,
+        itemsStudied: itemsStudied,
+        correctAnswers: correctAnswers,
+        incorrectAnswers: incorrectAnswers,
+      );
+
+      if (response.statusCode == 200) {
+        print('[ProgressRepository] Session ended: $id');
+        _activeSessionId = null;
+      }
+    } catch (e) {
+      print('[ProgressRepository] endSession error: $e');
+      // Queue for later sync
+      await LocalStorage.addToSyncQueue({
+        'type': 'session_end',
+        'data': {
+          'session_id': id,
+          'items_studied': itemsStudied,
+          'correct_answers': correctAnswers,
+          'incorrect_answers': incorrectAnswers,
+        },
+        'created_at': DateTime.now().toIso8601String(),
+      });
+      _activeSessionId = null;
+    }
+  }
+
+  /// Get session statistics for a user
+  Future<Map<String, dynamic>?> getSessionStats(int userId) async {
+    try {
+      final response = await _apiClient.getSessionStats(userId);
+
+      if (response.statusCode == 200) {
+        return response.data as Map<String, dynamic>;
+      }
+    } catch (e) {
+      print('[ProgressRepository] getSessionStats error: $e');
+    }
+
+    return null;
+  }
+
+  /// Helper to get device type
+  String _getDeviceType() {
+    // Using Platform from dart:io would require import
+    // For now, return 'mobile' as generic device type
+    return 'mobile';
   }
 
   // ================================================================

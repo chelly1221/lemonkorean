@@ -72,3 +72,46 @@ mobile/flutter_app/ios/Pods/
 mobile/flutter_app/ios/.symlinks/
 mobile/flutter_app/android/.gradle/
 mobile/flutter_app/android/app/release/
+
+# Backups
+backups/
+*.sql.gz
+*.archive
+*.backup
+
+# SSL Certificates
+nginx/ssl/*.pem
+nginx/ssl/*.key
+nginx/ssl/*.crt
+*.pem
+*.key
+*.crt
+
+# Secrets
+.secrets
+secrets.yml
+
+# Production config
+.env.production.local
+
+# Nginx logs and cache
+nginx/logs/
+nginx/cache/
+
+# Go vendor
+services/*/vendor/
+
+# Python virtual env
+venv/
+env/
+.venv/
+
+# Test coverage
+*.out
+coverage.xml
+htmlcov/
+
+# Lock files (keep in git)
+!package-lock.json
+!go.sum
+!requirements.txt

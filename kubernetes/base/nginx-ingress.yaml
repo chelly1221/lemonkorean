@@ -1,0 +1,249 @@
+# ================================================================
+# Nginx Ingress for Self-Hosted Kubernetes
+# ================================================================
+# Prerequisites:
+# - NGINX Ingress Controller installed
+# - cert-manager for SSL (optional)
+# ================================================================
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: lemon-korean
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes auto;
+    error_log /var/log/nginx/error.log warn;
+    pid /var/run/nginx.pid;
+
+    events {
+        worker_connections 2048;
+    }
+
+    http {
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        # Logging
+        log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log /var/log/nginx/access.log main;
+
+        # Performance
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+
+        # Compression
+        gzip on;
+        gzip_vary on;
+        gzip_min_length 1024;
+        gzip_types text/plain text/css text/xml text/javascript application/json application/javascript application/xml+rss;
+
+        # Security headers
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+
+        # Rate limiting
+        limit_req_zone $binary_remote_addr zone=general:10m rate=100r/s;
+        limit_req_zone $binary_remote_addr zone=auth:10m rate=10r/s;
+
+        # Cache
+        proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=cache:10m max_size=1g inactive=60m;
+
+        include /etc/nginx/conf.d/*.conf;
+    }
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-gateway
+  namespace: lemon-korean
+spec:
+  type: NodePort
+  selector:
+    app: nginx-gateway
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+    - name: https
+      port: 443
+      targetPort: 443
+      nodePort: 30443
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-gateway
+  namespace: lemon-korean
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-gateway
+  template:
+    metadata:
+      labels:
+        app: nginx-gateway
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nginx-conf-d
+              mountPath: /etc/nginx/conf.d
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: nginx-conf-d
+          configMap:
+            name: nginx-routes
+        - name: nginx-cache
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-routes
+  namespace: lemon-korean
+data:
+  default.conf: |
+    upstream auth_backend {
+        server auth-service:3001;
+    }
+
+    upstream content_backend {
+        server content-service:3002;
+    }
+
+    upstream progress_backend {
+        server progress-service:3003;
+    }
+
+    upstream media_backend {
+        server media-service:3004;
+    }
+
+    upstream analytics_backend {
+        server analytics-service:3005;
+    }
+
+    upstream admin_backend {
+        server admin-service:3006;
+    }
+
+    server {
+        listen 80;
+        server_name _;
+
+        # Health check endpoint
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+
+        # Auth Service
+        location /api/auth {
+            limit_req zone=auth burst=20 nodelay;
+            proxy_pass http://auth_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Content Service
+        location /api/content {
+            limit_req zone=general burst=50 nodelay;
+            proxy_pass http://content_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # Cache for 1 hour
+            proxy_cache cache;
+            proxy_cache_valid 200 1h;
+            proxy_cache_key $uri$is_args$args;
+            add_header X-Cache-Status $upstream_cache_status;
+        }
+
+        # Progress Service
+        location /api/progress {
+            limit_req zone=general burst=50 nodelay;
+            proxy_pass http://progress_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        # Media Service
+        location /media {
+            limit_req zone=general burst=100 nodelay;
+            proxy_pass http://media_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+
+            # Cache media for 7 days
+            proxy_cache cache;
+            proxy_cache_valid 200 7d;
+            proxy_cache_key $uri;
+            add_header X-Cache-Status $upstream_cache_status;
+        }
+
+        # Analytics Service
+        location /api/analytics {
+            limit_req zone=general burst=30 nodelay;
+            proxy_pass http://analytics_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+
+        # Admin Service
+        location /api/admin {
+            limit_req zone=auth burst=10 nodelay;
+            proxy_pass http://admin_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }

@@ -185,7 +185,16 @@ const getLessonById = async (req, res) => {
     // 4. Get grammar
     const grammar = await Lesson.getGrammar(lessonId);
 
-    // 5. Build complete lesson object
+    // 5. Calculate vocabulary count from content stages
+    let vocabularyCount = 0;
+    if (content?.stages) {
+      const vocabStage = content.stages.find(s => s.type === 'vocabulary');
+      if (vocabStage?.data?.words) {
+        vocabularyCount = vocabStage.data.words.length;
+      }
+    }
+
+    // 6. Build complete lesson object
     const lesson = {
       id: metadata.id,
       level: metadata.level,
@@ -196,6 +205,7 @@ const getLessonById = async (req, res) => {
       description_ko: metadata.description_ko,
       description_zh: metadata.description_zh,
       duration_minutes: metadata.duration_minutes,
+      estimated_minutes: metadata.duration_minutes,
       difficulty: metadata.difficulty,
       thumbnail_url: metadata.thumbnail_url,
       version: metadata.version,
@@ -205,6 +215,7 @@ const getLessonById = async (req, res) => {
       tags: metadata.tags,
       view_count: metadata.view_count,
       completion_count: metadata.completion_count,
+      vocabulary_count: vocabularyCount,
       content: content,
       vocabulary: vocabulary.map(v => ({
         id: v.id,

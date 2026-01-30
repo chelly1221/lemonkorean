@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/settings_keys.dart';
+import '../../core/network/api_client.dart';
 import '../../core/services/notification_service.dart';
 import '../../core/storage/local_storage.dart';
 
@@ -15,6 +16,12 @@ enum ChineseVariant {
 /// Manages app settings state using Provider pattern
 class SettingsProvider extends ChangeNotifier {
   // ================================================================
+  // DEPENDENCIES
+  // ================================================================
+
+  final _apiClient = ApiClient.instance;
+
+  // ================================================================
   // STATE
   // ================================================================
 
@@ -25,6 +32,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _reviewRemindersEnabled = true;
 
   bool _isInitialized = false;
+  int? _userId;
 
   // ================================================================
   // GETTERS
@@ -107,6 +115,11 @@ class SettingsProvider extends ChangeNotifier {
   // LANGUAGE SETTINGS
   // ================================================================
 
+  /// Set user ID for syncing (call after login)
+  void setUserId(int? userId) {
+    _userId = userId;
+  }
+
   /// Set Chinese variant (simplified/traditional)
   Future<void> setChineseVariant(ChineseVariant variant) async {
     if (_chineseVariant == variant) return;
@@ -122,6 +135,9 @@ class SettingsProvider extends ChangeNotifier {
     if (kDebugMode) {
       print('[SettingsProvider] Chinese variant changed to: ${variant.name}');
     }
+
+    // Sync to backend
+    await _syncPreferencesToBackend();
   }
 
   // ================================================================
@@ -169,6 +185,9 @@ class SettingsProvider extends ChangeNotifier {
       print('[SettingsProvider] Notifications ${enabled ? 'enabled' : 'disabled'}');
     }
 
+    // Sync to backend
+    await _syncPreferencesToBackend();
+
     return true;
   }
 
@@ -201,6 +220,9 @@ class SettingsProvider extends ChangeNotifier {
     if (kDebugMode) {
       print('[SettingsProvider] Daily reminder ${enabled ? 'enabled' : 'disabled'}');
     }
+
+    // Sync to backend
+    await _syncPreferencesToBackend();
   }
 
   /// Set daily reminder time
@@ -228,6 +250,9 @@ class SettingsProvider extends ChangeNotifier {
     if (kDebugMode) {
       print('[SettingsProvider] Daily reminder time set to: $timeStr');
     }
+
+    // Sync to backend
+    await _syncPreferencesToBackend();
   }
 
   /// Toggle review reminders on/off
@@ -244,6 +269,74 @@ class SettingsProvider extends ChangeNotifier {
 
     if (kDebugMode) {
       print('[SettingsProvider] Review reminders ${enabled ? 'enabled' : 'disabled'}');
+    }
+
+    // Sync to backend
+    await _syncPreferencesToBackend();
+  }
+
+  // ================================================================
+  // SYNC
+  // ================================================================
+
+  /// Sync preferences to backend
+  Future<void> _syncPreferencesToBackend() async {
+    if (_userId == null) {
+      if (kDebugMode) {
+        print('[SettingsProvider] No user ID, skipping sync');
+      }
+      return;
+    }
+
+    final prefs = {
+      'user_id': _userId,
+      'language_preference': _chineseVariant.name,
+      'notifications_enabled': _notificationsEnabled,
+      'daily_reminder_enabled': _dailyReminderEnabled,
+      'daily_reminder_time': '${_dailyReminderTime.hour.toString().padLeft(2, '0')}:${_dailyReminderTime.minute.toString().padLeft(2, '0')}',
+      'review_reminders_enabled': _reviewRemindersEnabled,
+    };
+
+    try {
+      final response = await _apiClient.updateUserPreferences(prefs);
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('[SettingsProvider] Preferences synced to backend');
+        }
+      } else {
+        // Queue for later sync
+        await _queuePreferencesSync(prefs);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('[SettingsProvider] Error syncing preferences: $e');
+      }
+      // Queue for later sync when offline
+      await _queuePreferencesSync(prefs);
+    }
+  }
+
+  /// Queue preferences for later sync (when offline)
+  Future<void> _queuePreferencesSync(Map<String, dynamic> prefs) async {
+    await LocalStorage.addToSyncQueue({
+      'type': 'settings_change',
+      'data': prefs,
+      'created_at': DateTime.now().toIso8601String(),
+    });
+
+    if (kDebugMode) {
+      print('[SettingsProvider] Preferences queued for sync');
+    }
+  }
+
+  /// Load preferences from server (call after login)
+  Future<void> loadPreferencesFromServer() async {
+    // This would fetch preferences from the server
+    // For now, we trust the local storage as the source of truth
+    // Server preferences would be fetched via auth/profile endpoint
+    if (kDebugMode) {
+      print('[SettingsProvider] loadPreferencesFromServer called (using local for now)');
     }
   }
 

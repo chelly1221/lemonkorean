@@ -10,11 +10,16 @@ import '../../../widgets/convertible_text.dart';
 /// Practice conversations with audio playback
 class Stage5Dialogue extends StatefulWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onNext;
-  final VoidCallback onPrevious;
+  final VoidCallback? onPrevious;
 
   const Stage5Dialogue({
-    required this.lesson, required this.onNext, required this.onPrevious, super.key,
+    required this.lesson,
+    this.stageData,
+    required this.onNext,
+    this.onPrevious,
+    super.key,
   });
 
   @override

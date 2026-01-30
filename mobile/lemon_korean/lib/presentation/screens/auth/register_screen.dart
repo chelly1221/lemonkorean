@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/validators.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/bilingual_text.dart';
 import '../home/home_screen.dart';
@@ -132,18 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     filled: true,
                     fillColor: Colors.grey.shade50,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '请输入用户名';
-                    }
-                    if (value.length < 2) {
-                      return '用户名至少需要2个字符';
-                    }
-                    if (value.length > 20) {
-                      return '用户名不能超过20个字符';
-                    }
-                    return null;
-                  },
+                  validator: Validators.usernameValidator,
                 ),
 
                 const SizedBox(height: AppConstants.paddingMedium),
@@ -166,19 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     filled: true,
                     fillColor: Colors.grey.shade50,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '请输入邮箱';
-                    }
-                    // Basic email validation
-                    final emailRegex = RegExp(
-                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                    );
-                    if (!emailRegex.hasMatch(value)) {
-                      return '请输入有效的邮箱地址';
-                    }
-                    return null;
-                  },
+                  validator: Validators.emailValidator,
                 ),
 
                 const SizedBox(height: AppConstants.paddingMedium),
@@ -213,20 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     filled: true,
                     fillColor: Colors.grey.shade50,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '请输入密码';
-                    }
-                    if (value.length < AppConstants.minPasswordLength) {
-                      return '密码至少需要${AppConstants.minPasswordLength}个字符';
-                    }
-                    // Check for at least one letter and one number
-                    if (!RegExp(r'[a-zA-Z]').hasMatch(value) ||
-                        !RegExp(r'[0-9]').hasMatch(value)) {
-                      return '密码必须包含字母和数字';
-                    }
-                    return null;
-                  },
+                  validator: Validators.passwordStrictValidator,
                 ),
 
                 const SizedBox(height: AppConstants.paddingMedium),
@@ -262,15 +227,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     filled: true,
                     fillColor: Colors.grey.shade50,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '请再次输入密码';
-                    }
-                    if (value != _passwordController.text) {
-                      return '两次输入的密码不一致';
-                    }
-                    return null;
-                  },
+                  validator: Validators.confirmPasswordValidator(
+                    () => _passwordController.text,
+                  ),
                 ),
 
                 const SizedBox(height: AppConstants.paddingMedium),

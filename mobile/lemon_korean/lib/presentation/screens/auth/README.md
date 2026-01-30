@@ -143,7 +143,7 @@ void initState() {
 
 void _clearError() {
   final authProvider = Provider.of<AuthProvider>(context, listen: false);
-  if (authProvider.errorMessage != null) {
+  if (authProvider.error != null) {
     authProvider.clearError();
   }
 }
@@ -318,17 +318,15 @@ if (value != _passwordController.text) {
 
 ```dart
 class AuthProvider extends ChangeNotifier {
-  bool _isAuthenticated = false;
+  UserModel? _currentUser;
   bool _isLoading = false;
-  String? _errorMessage;
-  int? _userId;
-  String? _username;
-  String? _email;
+  String? _error;
 
   // Getters
-  bool get isAuthenticated => _isAuthenticated;
+  UserModel? get currentUser => _currentUser;
   bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
+  String? get error => _error;
+  bool get isLoggedIn => _currentUser != null;
 }
 ```
 
@@ -340,30 +338,24 @@ Future<bool> login({
   required String email,
   required String password,
 }) async {
-  _isLoading = true;
-  _errorMessage = null;
-  notifyListeners();
+  _setLoading(true);
+  _clearError();
 
   try {
-    final response = await _apiClient.login(email: email, password: password);
+    final result = await _authRepository.login(email, password);
 
-    if (response.statusCode == 200) {
-      // Save tokens
-      await _secureStorage.write(key: 'token', value: data['token']);
-
-      // Save user data
-      _userId = data['user']['id'];
-      _username = data['user']['username'];
-      _isAuthenticated = true;
-
-      _isLoading = false;
-      notifyListeners();
+    if (result.isSuccess) {
+      _currentUser = result.user;
+      _setLoading(false);
       return true;
+    } else {
+      _setError(result.error ?? '登录失败');
+      _setLoading(false);
+      return false;
     }
   } catch (e) {
-    _errorMessage = e.toString();
-    _isLoading = false;
-    notifyListeners();
+    _setError(e.toString());
+    _setLoading(false);
     return false;
   }
 }

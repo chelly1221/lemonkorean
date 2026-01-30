@@ -7,6 +7,9 @@ import '../providers/settings_provider.dart';
 /// Convertible Text Widget
 /// Automatically converts Chinese text based on user's language preference
 /// Use this for any standalone Chinese text that isn't part of BilingualText
+///
+/// Uses context.select() to only rebuild when chineseVariant changes,
+/// not when other settings change.
 class ConvertibleText extends StatefulWidget {
   final String text;
   final TextStyle? style;
@@ -39,17 +42,6 @@ class _ConvertibleTextState extends State<ConvertibleText> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final settings = context.watch<SettingsProvider>();
-
-    // Only convert if variant changed
-    if (_lastVariant != settings.chineseVariant && !_isConverting) {
-      _convertText(settings.chineseVariant);
-    }
-  }
-
-  @override
   void didUpdateWidget(ConvertibleText oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.text != widget.text) {
@@ -61,6 +53,8 @@ class _ConvertibleTextState extends State<ConvertibleText> {
   }
 
   Future<void> _convertText(ChineseVariant variant) async {
+    if (_isConverting) return;
+
     _isConverting = true;
     _lastVariant = variant;
 
@@ -84,6 +78,22 @@ class _ConvertibleTextState extends State<ConvertibleText> {
 
   @override
   Widget build(BuildContext context) {
+    // Use context.select to only listen to chineseVariant changes
+    // This prevents rebuilds when other settings (notifications, etc.) change
+    final variant = context.select<SettingsProvider, ChineseVariant>(
+      (settings) => settings.chineseVariant,
+    );
+
+    // Only convert if variant changed
+    if (_lastVariant != variant && !_isConverting) {
+      // Schedule conversion after build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _convertText(variant);
+        }
+      });
+    }
+
     return Text(
       _displayText,
       style: widget.style,

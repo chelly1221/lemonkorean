@@ -1,0 +1,670 @@
+{
+  "@@locale": "zh",
+  "@@context": "LemonKorean App - Simplified Chinese",
+
+  "appName": "柠檬韩语",
+  "@appName": {"description": "App name"},
+
+  "login": "登录",
+  "@login": {"description": "Login button"},
+
+  "register": "注册",
+  "@register": {"description": "Register button"},
+
+  "email": "邮箱",
+  "@email": {"description": "Email field label"},
+
+  "password": "密码",
+  "@password": {"description": "Password field label"},
+
+  "confirmPassword": "确认密码",
+  "@confirmPassword": {"description": "Confirm password field label"},
+
+  "username": "用户名",
+  "@username": {"description": "Username field label"},
+
+  "enterEmail": "请输入邮箱地址",
+  "@enterEmail": {"description": "Email placeholder"},
+
+  "enterPassword": "请输入密码",
+  "@enterPassword": {"description": "Password placeholder"},
+
+  "enterConfirmPassword": "请再次输入密码",
+  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
+
+  "enterUsername": "请输入用户名",
+  "@enterUsername": {"description": "Username placeholder"},
+
+  "createAccount": "创建账号",
+  "@createAccount": {"description": "Create account title"},
+
+  "startJourney": "开始你的韩语学习之旅",
+  "@startJourney": {"description": "Subtitle for registration"},
+
+  "interfaceLanguage": "界面语言",
+  "@interfaceLanguage": {"description": "Interface language label"},
+
+  "simplifiedChinese": "简体中文",
+  "@simplifiedChinese": {"description": "Simplified Chinese option"},
+
+  "traditionalChinese": "繁体中文",
+  "@traditionalChinese": {"description": "Traditional Chinese option"},
+
+  "passwordRequirements": "密码要求",
+  "@passwordRequirements": {"description": "Password requirements title"},
+
+  "minCharacters": "至少{count}个字符",
+  "@minCharacters": {
+    "description": "Minimum characters requirement",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "containLettersNumbers": "包含字母和数字",
+  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
+
+  "haveAccount": "已有账号？",
+  "@haveAccount": {"description": "Already have account text"},
+
+  "noAccount": "没有账号？",
+  "@noAccount": {"description": "No account text"},
+
+  "loginNow": "立即登录",
+  "@loginNow": {"description": "Login now button"},
+
+  "registerNow": "立即注册",
+  "@registerNow": {"description": "Register now button"},
+
+  "registerSuccess": "注册成功",
+  "@registerSuccess": {"description": "Registration success message"},
+
+  "registerFailed": "注册失败",
+  "@registerFailed": {"description": "Registration failed message"},
+
+  "loginSuccess": "登录成功",
+  "@loginSuccess": {"description": "Login success message"},
+
+  "loginFailed": "登录失败",
+  "@loginFailed": {"description": "Login failed message"},
+
+  "networkError": "网络连接失败，请检查网络设置",
+  "@networkError": {"description": "Network error message"},
+
+  "invalidCredentials": "邮箱或密码错误",
+  "@invalidCredentials": {"description": "Invalid credentials message"},
+
+  "emailAlreadyExists": "邮箱已被注册",
+  "@emailAlreadyExists": {"description": "Email exists message"},
+
+  "requestTimeout": "请求超时，请重试",
+  "@requestTimeout": {"description": "Request timeout message"},
+
+  "operationFailed": "操作失败，请稍后重试",
+  "@operationFailed": {"description": "Generic operation failed message"},
+
+  "settings": "设置",
+  "@settings": {"description": "Settings title"},
+
+  "languageSettings": "语言设置",
+  "@languageSettings": {"description": "Language settings title"},
+
+  "chineseDisplay": "中文显示",
+  "@chineseDisplay": {"description": "Chinese display section title"},
+
+  "chineseDisplayDesc": "选择中文文字显示方式。更改后将立即应用到所有界面。",
+  "@chineseDisplayDesc": {"description": "Chinese display description"},
+
+  "switchedToSimplified": "已切换到简体中文",
+  "@switchedToSimplified": {"description": "Switched to simplified message"},
+
+  "switchedToTraditional": "已切换到繁体中文",
+  "@switchedToTraditional": {"description": "Switched to traditional message"},
+
+  "displayTip": "提示：课程内容将使用您选择的中文字体显示。",
+  "@displayTip": {"description": "Display tip text"},
+
+  "notificationSettings": "通知设置",
+  "@notificationSettings": {"description": "Notification settings title"},
+
+  "enableNotifications": "启用通知",
+  "@enableNotifications": {"description": "Enable notifications toggle"},
+
+  "enableNotificationsDesc": "开启后可以接收学习提醒",
+  "@enableNotificationsDesc": {"description": "Enable notifications description"},
+
+  "permissionRequired": "请在系统设置中允许通知权限",
+  "@permissionRequired": {"description": "Permission required message"},
+
+  "dailyLearningReminder": "每日学习提醒",
+  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
+
+  "dailyReminder": "每日提醒",
+  "@dailyReminder": {"description": "Daily reminder toggle"},
+
+  "dailyReminderDesc": "每天固定时间提醒学习",
+  "@dailyReminderDesc": {"description": "Daily reminder description"},
+
+  "reminderTime": "提醒时间",
+  "@reminderTime": {"description": "Reminder time label"},
+
+  "reminderTimeSet": "提醒时间已设置为 {time}",
+  "@reminderTimeSet": {
+    "description": "Reminder time set message",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "reviewReminder": "复习提醒",
+  "@reviewReminder": {"description": "Review reminder toggle"},
+
+  "reviewReminderDesc": "根据记忆曲线提醒复习",
+  "@reviewReminderDesc": {"description": "Review reminder description"},
+
+  "notificationTip": "提示：",
+  "@notificationTip": {"description": "Tip prefix"},
+
+  "helpCenter": "帮助中心",
+  "@helpCenter": {"description": "Help center title"},
+
+  "offlineLearning": "离线学习",
+  "@offlineLearning": {"description": "Offline learning section"},
+
+  "howToDownload": "如何下载课程？",
+  "@howToDownload": {"description": "How to download FAQ"},
+
+  "howToDownloadAnswer": "在课程列表中，点击右侧的下载图标即可下载课程。下载后可以离线学习。",
+  "@howToDownloadAnswer": {"description": "How to download answer"},
+
+  "howToUseDownloaded": "如何使用已下载的课程？",
+  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
+
+  "howToUseDownloadedAnswer": "即使没有网络连接，您也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。",
+  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
+
+  "storageManagement": "存储管理",
+  "@storageManagement": {"description": "Storage management section"},
+
+  "howToCheckStorage": "如何查看存储空间？",
+  "@howToCheckStorage": {"description": "How to check storage FAQ"},
+
+  "howToCheckStorageAnswer": "进入【设置 → 存储管理】可以查看已使用和可用的存储空间。",
+  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
+
+  "howToDeleteDownloaded": "如何删除已下载的课程？",
+  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
+
+  "howToDeleteDownloadedAnswer": "在【存储管理】页面，点击课程旁边的删除按钮即可删除。",
+  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
+
+  "notificationSection": "通知设置",
+  "@notificationSection": {"description": "Notification section in help"},
+
+  "howToEnableReminder": "如何开启学习提醒？",
+  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
+
+  "howToEnableReminderAnswer": "进入【设置 → 通知设置】，打开【启用通知】开关。首次使用需要授予通知权限。",
+  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
+
+  "whatIsReviewReminder": "什么是复习提醒？",
+  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
+
+  "whatIsReviewReminderAnswer": "基于间隔重复算法（SRS），应用会在最佳时间提醒您复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。",
+  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
+
+  "languageSection": "语言设置",
+  "@languageSection": {"description": "Language section in help"},
+
+  "howToSwitchChinese": "如何切换简繁体中文？",
+  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
+
+  "howToSwitchChineseAnswer": "进入【设置 → 语言设置】，选择【简体中文】或【繁体中文】。更改后立即生效。",
+  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
+
+  "faq": "常见问题",
+  "@faq": {"description": "FAQ section title"},
+
+  "howToStart": "如何开始学习？",
+  "@howToStart": {"description": "How to start learning FAQ"},
+
+  "howToStartAnswer": "在主页面选择适合您水平的课程，从第1课开始。每节课包含7个学习阶段。",
+  "@howToStartAnswer": {"description": "How to start learning answer"},
+
+  "progressNotSaved": "进度没有保存怎么办？",
+  "@progressNotSaved": {"description": "Progress not saved FAQ"},
+
+  "progressNotSavedAnswer": "进度会自动保存到本地。如果联网，会自动同步到服务器。请检查网络连接。",
+  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
+
+  "aboutApp": "关于应用",
+  "@aboutApp": {"description": "About app title"},
+
+  "moreInfo": "更多信息",
+  "@moreInfo": {"description": "More info section"},
+
+  "versionInfo": "版本信息",
+  "@versionInfo": {"description": "Version info label"},
+
+  "developer": "开发者",
+  "@developer": {"description": "Developer label"},
+
+  "appIntro": "应用介绍",
+  "@appIntro": {"description": "App introduction label"},
+
+  "appIntroContent": "专为中文使用者设计的韩语学习应用，支持离线学习、智能复习提醒等功能。",
+  "@appIntroContent": {"description": "App introduction content"},
+
+  "termsOfService": "服务条款",
+  "@termsOfService": {"description": "Terms of service"},
+
+  "termsComingSoon": "服务条款页面开发中...",
+  "@termsComingSoon": {"description": "Terms coming soon message"},
+
+  "privacyPolicy": "隐私政策",
+  "@privacyPolicy": {"description": "Privacy policy"},
+
+  "privacyComingSoon": "隐私政策页面开发中...",
+  "@privacyComingSoon": {"description": "Privacy coming soon message"},
+
+  "openSourceLicenses": "开源许可",
+  "@openSourceLicenses": {"description": "Open source licenses"},
+
+  "notStarted": "未开始",
+  "@notStarted": {"description": "Status: not started"},
+
+  "inProgress": "进行中",
+  "@inProgress": {"description": "Status: in progress"},
+
+  "completed": "已完成",
+  "@completed": {"description": "Status: completed"},
+
+  "notPassed": "未通过",
+  "@notPassed": {"description": "Status: not passed"},
+
+  "timeToReview": "该复习了",
+  "@timeToReview": {"description": "Time to review message"},
+
+  "today": "今天",
+  "@today": {"description": "Today"},
+
+  "tomorrow": "明天",
+  "@tomorrow": {"description": "Tomorrow"},
+
+  "daysLater": "{count}天后",
+  "@daysLater": {
+    "description": "Days later",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "noun": "名词",
+  "@noun": {"description": "Part of speech: noun"},
+
+  "verb": "动词",
+  "@verb": {"description": "Part of speech: verb"},
+
+  "adjective": "形容词",
+  "@adjective": {"description": "Part of speech: adjective"},
+
+  "adverb": "副词",
+  "@adverb": {"description": "Part of speech: adverb"},
+
+  "particle": "助词",
+  "@particle": {"description": "Part of speech: particle"},
+
+  "pronoun": "代词",
+  "@pronoun": {"description": "Part of speech: pronoun"},
+
+  "highSimilarity": "高相似度",
+  "@highSimilarity": {"description": "High similarity level"},
+
+  "mediumSimilarity": "中等相似度",
+  "@mediumSimilarity": {"description": "Medium similarity level"},
+
+  "lowSimilarity": "低相似度",
+  "@lowSimilarity": {"description": "Low similarity level"},
+
+  "lessonComplete": "课程完成！",
+  "@lessonComplete": {"description": "Lesson complete message"},
+
+  "learningComplete": "学习完成",
+  "@learningComplete": {"description": "Learning complete title"},
+
+  "experiencePoints": "经验值 +{points}",
+  "@experiencePoints": {
+    "description": "Experience points gained",
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+
+  "keepLearning": "继续保持学习热情",
+  "@keepLearning": {"description": "Keep learning message"},
+
+  "streakDays": "学习连续天数 +1",
+  "@streakDays": {"description": "Streak days increased"},
+
+  "streakDaysCount": "已连续学习 {days} 天",
+  "@streakDaysCount": {
+    "description": "Streak days count",
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "lessonContent": "本课学习内容",
+  "@lessonContent": {"description": "Lesson content title"},
+
+  "words": "单词",
+  "@words": {"description": "Words label"},
+
+  "grammarPoints": "语法点",
+  "@grammarPoints": {"description": "Grammar points label"},
+
+  "dialogues": "对话",
+  "@dialogues": {"description": "Dialogues label"},
+
+  "grammarExplanation": "语法讲解",
+  "@grammarExplanation": {"description": "Grammar explanation title"},
+
+  "exampleSentences": "例句",
+  "@exampleSentences": {"description": "Example sentences label"},
+
+  "previous": "上一个",
+  "@previous": {"description": "Previous button"},
+
+  "next": "下一个",
+  "@next": {"description": "Next button"},
+
+  "continueBtn": "继续",
+  "@continueBtn": {"description": "Continue button"},
+
+  "topicParticle": "主题助词",
+  "@topicParticle": {"description": "Topic particle grammar"},
+
+  "honorificEnding": "敬语结尾",
+  "@honorificEnding": {"description": "Honorific ending grammar"},
+
+  "questionWord": "什么",
+  "@questionWord": {"description": "Question word what"},
+
+  "hello": "你好",
+  "@hello": {"description": "Hello"},
+
+  "thankYou": "谢谢",
+  "@thankYou": {"description": "Thank you"},
+
+  "goodbye": "再见",
+  "@goodbye": {"description": "Goodbye"},
+
+  "sorry": "对不起",
+  "@sorry": {"description": "Sorry"},
+
+  "imStudent": "我是学生",
+  "@imStudent": {"description": "I am a student"},
+
+  "bookInteresting": "书很有趣",
+  "@bookInteresting": {"description": "Book is interesting"},
+
+  "isStudent": "是学生",
+  "@isStudent": {"description": "Is student"},
+
+  "isTeacher": "是老师",
+  "@isTeacher": {"description": "Is teacher"},
+
+  "whatIsThis": "这是什么？",
+  "@whatIsThis": {"description": "What is this?"},
+
+  "whatDoingPolite": "在做什么？",
+  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
+
+  "listenAndChoose": "听音频，选择正确的翻译",
+  "@listenAndChoose": {"description": "Listen and choose instruction"},
+
+  "fillInBlank": "填入正确的助词",
+  "@fillInBlank": {"description": "Fill in blank instruction"},
+
+  "chooseTranslation": "选择正确的翻译",
+  "@chooseTranslation": {"description": "Choose translation instruction"},
+
+  "arrangeWords": "按正确顺序排列单词",
+  "@arrangeWords": {"description": "Arrange words instruction"},
+
+  "choosePronunciation": "选择正确的发音",
+  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
+
+  "consonantEnding": "当名词以辅音结尾时，应该使用哪个主题助词？",
+  "@consonantEnding": {"description": "Consonant ending quiz question"},
+
+  "correctSentence": "选择正确的句子",
+  "@correctSentence": {"description": "Choose correct sentence instruction"},
+
+  "allCorrect": "以上都对",
+  "@allCorrect": {"description": "All of the above option"},
+
+  "howAreYou": "你好吗？",
+  "@howAreYou": {"description": "How are you?"},
+
+  "whatIsYourName": "你叫什么名字？",
+  "@whatIsYourName": {"description": "What is your name?"},
+
+  "whoAreYou": "你是谁？",
+  "@whoAreYou": {"description": "Who are you?"},
+
+  "whereAreYou": "你在哪里？",
+  "@whereAreYou": {"description": "Where are you?"},
+
+  "niceToMeetYou": "很高兴认识你",
+  "@niceToMeetYou": {"description": "Nice to meet you"},
+
+  "areYouStudent": "你是学生",
+  "@areYouStudent": {"description": "You are a student"},
+
+  "areYouStudentQuestion": "你是学生吗？",
+  "@areYouStudentQuestion": {"description": "Are you a student?"},
+
+  "amIStudent": "我是学生吗？",
+  "@amIStudent": {"description": "Am I a student?"},
+
+  "listening": "听力",
+  "@listening": {"description": "Listening question type"},
+
+  "fillBlank": "填空",
+  "@fillBlank": {"description": "Fill in blank question type"},
+
+  "translation": "翻译",
+  "@translation": {"description": "Translation question type"},
+
+  "wordOrder": "排序",
+  "@wordOrder": {"description": "Word order question type"},
+
+  "pronunciation": "发音",
+  "@pronunciation": {"description": "Pronunciation question type"},
+
+  "excellent": "太棒了！",
+  "@excellent": {"description": "Excellent feedback"},
+
+  "correctOrderIs": "正确顺序是:",
+  "@correctOrderIs": {"description": "Correct order is prefix"},
+
+  "correctAnswerIs": "正确答案是:",
+  "@correctAnswerIs": {"description": "Correct answer is prefix"},
+
+  "previousQuestion": "上一题",
+  "@previousQuestion": {"description": "Previous question button"},
+
+  "nextQuestion": "下一题",
+  "@nextQuestion": {"description": "Next question button"},
+
+  "finish": "完成",
+  "@finish": {"description": "Finish button"},
+
+  "quizComplete": "测验完成！",
+  "@quizComplete": {"description": "Quiz complete title"},
+
+  "greatJob": "太棒了！",
+  "@greatJob": {"description": "Great job message"},
+
+  "keepPracticing": "继续加油！",
+  "@keepPracticing": {"description": "Keep practicing message"},
+
+  "score": "得分：{correct} / {total}",
+  "@score": {
+    "description": "Score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "masteredContent": "你已经很好地掌握了本课内容！",
+  "@masteredContent": {"description": "Mastered content message"},
+
+  "reviewSuggestion": "建议复习一下课程内容，再来挑战吧！",
+  "@reviewSuggestion": {"description": "Review suggestion message"},
+
+  "timeUsed": "用时: {time}",
+  "@timeUsed": {
+    "description": "Time used display",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "playAudio": "播放音频",
+  "@playAudio": {"description": "Play audio button"},
+
+  "replayAudio": "重新播放",
+  "@replayAudio": {"description": "Replay audio button"},
+
+  "vowelEnding": "以元音结尾，使用",
+  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
+
+  "lessonNumber": "第{number}课",
+  "@lessonNumber": {
+    "description": "Lesson number",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "stageIntro": "课程介绍",
+  "@stageIntro": {"description": "Stage 1: Introduction"},
+
+  "stageVocabulary": "词汇学习",
+  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
+
+  "stageGrammar": "语法讲解",
+  "@stageGrammar": {"description": "Stage 3: Grammar"},
+
+  "stagePractice": "练习",
+  "@stagePractice": {"description": "Stage 4: Practice"},
+
+  "stageDialogue": "对话练习",
+  "@stageDialogue": {"description": "Stage 5: Dialogue"},
+
+  "stageQuiz": "测验",
+  "@stageQuiz": {"description": "Stage 6: Quiz"},
+
+  "stageSummary": "总结",
+  "@stageSummary": {"description": "Stage 7: Summary"},
+
+  "downloadLesson": "下载课程",
+  "@downloadLesson": {"description": "Download lesson button"},
+
+  "downloading": "下载中...",
+  "@downloading": {"description": "Downloading status"},
+
+  "downloaded": "已下载",
+  "@downloaded": {"description": "Downloaded status"},
+
+  "downloadFailed": "下载失败",
+  "@downloadFailed": {"description": "Download failed status"},
+
+  "home": "首页",
+  "@home": {"description": "Home tab"},
+
+  "lessons": "课程",
+  "@lessons": {"description": "Lessons tab"},
+
+  "review": "复习",
+  "@review": {"description": "Review tab"},
+
+  "profile": "我的",
+  "@profile": {"description": "Profile tab"},
+
+  "continueLearning": "继续学习",
+  "@continueLearning": {"description": "Continue learning button"},
+
+  "dailyGoal": "每日目标",
+  "@dailyGoal": {"description": "Daily goal title"},
+
+  "lessonsCompleted": "已完成 {count} 课",
+  "@lessonsCompleted": {
+    "description": "Lessons completed count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "minutesLearned": "已学习 {minutes} 分钟",
+  "@minutesLearned": {
+    "description": "Minutes learned count",
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+
+  "welcome": "欢迎回来",
+  "@welcome": {"description": "Welcome message"},
+
+  "goodMorning": "早上好",
+  "@goodMorning": {"description": "Good morning greeting"},
+
+  "goodAfternoon": "下午好",
+  "@goodAfternoon": {"description": "Good afternoon greeting"},
+
+  "goodEvening": "晚上好",
+  "@goodEvening": {"description": "Good evening greeting"},
+
+  "logout": "退出登录",
+  "@logout": {"description": "Logout button"},
+
+  "confirmLogout": "确定要退出登录吗？",
+  "@confirmLogout": {"description": "Logout confirmation"},
+
+  "cancel": "取消",
+  "@cancel": {"description": "Cancel button"},
+
+  "confirm": "确定",
+  "@confirm": {"description": "Confirm button"},
+
+  "delete": "删除",
+  "@delete": {"description": "Delete button"},
+
+  "save": "保存",
+  "@save": {"description": "Save button"},
+
+  "edit": "编辑",
+  "@edit": {"description": "Edit button"},
+
+  "close": "关闭",
+  "@close": {"description": "Close button"},
+
+  "retry": "重试",
+  "@retry": {"description": "Retry button"},
+
+  "loading": "加载中...",
+  "@loading": {"description": "Loading status"},
+
+  "noData": "暂无数据",
+  "@noData": {"description": "No data message"},
+
+  "error": "出错了",
+  "@error": {"description": "Error title"},
+
+  "success": "成功",
+  "@success": {"description": "Success title"}
+}

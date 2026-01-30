@@ -76,6 +76,9 @@ Body: { "subscription_type": "premium", "name": "New Name" }
 PUT /api/admin/users/:id/ban
 Body: { "is_active": false }
 
+# Delete user
+DELETE /api/admin/users/:id
+
 # Get user activity
 GET /api/admin/users/:id/activity
 
@@ -121,6 +124,13 @@ PUT /api/admin/lessons/:id/publish
 # Unpublish lesson
 PUT /api/admin/lessons/:id/unpublish
 
+# Get lesson content (MongoDB)
+GET /api/admin/lessons/:id/content
+
+# Save lesson content (MongoDB)
+PUT /api/admin/lessons/:id/content
+Body: { "stage1_intro": {...}, "stage2_vocabulary": {...}, ... }
+
 # Bulk publish
 POST /api/admin/lessons/bulk-publish
 Body: { "lessonIds": [1, 2, 3] }
@@ -159,6 +169,19 @@ Body: { "level": 2, "notes": "Updated note" }
 
 # Delete vocabulary
 DELETE /api/admin/vocabulary/:id
+
+# Download Excel template
+GET /api/admin/vocabulary/template
+
+# Bulk upload from Excel
+POST /api/admin/vocabulary/bulk-upload
+Content-Type: multipart/form-data
+Form fields:
+  - file: <Excel file>
+
+# Bulk delete
+POST /api/admin/vocabulary/bulk-delete
+Body: { "vocabularyIds": [1, 2, 3] }
 ```
 
 ### Media Upload (`/media`)

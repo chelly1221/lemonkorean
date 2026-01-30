@@ -3,7 +3,7 @@ const { collections } = require('../config/mongodb');
 
 class Lesson {
   /**
-   * Get all lessons (metadata from PostgreSQL)
+   * Get all lessons (metadata from PostgreSQL + vocabulary count from MongoDB)
    * @param {Object} filters - Filter options
    * @returns {Array} Lessons array
    */
@@ -11,11 +11,12 @@ class Lesson {
     const { level, status, limit = 100, offset = 0 } = filters;
 
     let sql = `
-      SELECT id, level, week, order_num, title_ko, title_zh,
-             description_ko, description_zh, duration_minutes, difficulty,
-             thumbnail_url, version, status, published_at, view_count, completion_count,
-             tags, created_at, updated_at
-      FROM lessons
+      SELECT l.id, l.level, l.week, l.order_num, l.title_ko, l.title_zh,
+             l.description_ko, l.description_zh, l.duration_minutes, l.difficulty,
+             l.thumbnail_url, l.version, l.status, l.published_at, l.view_count, l.completion_count,
+             l.tags, l.created_at, l.updated_at,
+             l.duration_minutes as estimated_minutes
+      FROM lessons l
       WHERE 1=1
     `;
 
@@ -23,26 +24,59 @@ class Lesson {
     let paramCount = 1;
 
     if (level) {
-      sql += ` AND level = $${paramCount}`;
+      sql += ` AND l.level = $${paramCount}`;
       params.push(level);
       paramCount++;
     }
 
     if (status) {
-      sql += ` AND status = $${paramCount}`;
+      sql += ` AND l.status = $${paramCount}`;
       params.push(status);
       paramCount++;
     } else {
       // Default: only published lessons
-      sql += ` AND status = 'published'`;
+      sql += ` AND l.status = 'published'`;
     }
 
-    sql += ` ORDER BY level, week, order_num`;
+    sql += ` ORDER BY l.level, l.week, l.order_num`;
     sql += ` LIMIT $${paramCount} OFFSET $${paramCount + 1}`;
     params.push(limit, offset);
 
     const result = await query(sql, params);
-    return result.rows;
+    const lessons = result.rows;
+
+    // Get vocabulary counts from MongoDB content for all lessons
+    try {
+      const collection = collections.lessonsContent();
+      const lessonIds = lessons.map(l => l.id);
+      const contents = await collection.find({ lesson_id: { $in: lessonIds } }).toArray();
+
+      // Create a map of lesson_id -> vocabulary_count
+      const vocabCounts = {};
+      for (const content of contents) {
+        let count = 0;
+        if (content.content?.stages) {
+          const vocabStage = content.content.stages.find(s => s.type === 'vocabulary');
+          if (vocabStage?.data?.words) {
+            count = vocabStage.data.words.length;
+          }
+        }
+        vocabCounts[content.lesson_id] = count;
+      }
+
+      // Add vocabulary_count to each lesson
+      for (const lesson of lessons) {
+        lesson.vocabulary_count = vocabCounts[lesson.id] || 0;
+      }
+    } catch (mongoError) {
+      console.error('Error fetching vocabulary counts from MongoDB:', mongoError);
+      // Set vocabulary_count to 0 for all lessons if MongoDB fails
+      for (const lesson of lessons) {
+        lesson.vocabulary_count = 0;
+      }
+    }
+
+    return lessons;
   }
 
   /**
@@ -87,15 +121,46 @@ class Lesson {
    */
   static async findByLevel(level) {
     const sql = `
-      SELECT id, level, week, order_num, title_ko, title_zh,
-             duration_minutes, difficulty, thumbnail_url, status
-      FROM lessons
-      WHERE level = $1 AND status = 'published'
-      ORDER BY week, order_num
+      SELECT l.id, l.level, l.week, l.order_num, l.title_ko, l.title_zh,
+             l.duration_minutes, l.difficulty, l.thumbnail_url, l.status,
+             l.duration_minutes as estimated_minutes
+      FROM lessons l
+      WHERE l.level = $1 AND l.status = 'published'
+      ORDER BY l.week, l.order_num
     `;
 
     const result = await query(sql, [level]);
-    return result.rows;
+    const lessons = result.rows;
+
+    // Get vocabulary counts from MongoDB content
+    try {
+      const collection = collections.lessonsContent();
+      const lessonIds = lessons.map(l => l.id);
+      const contents = await collection.find({ lesson_id: { $in: lessonIds } }).toArray();
+
+      const vocabCounts = {};
+      for (const content of contents) {
+        let count = 0;
+        if (content.content?.stages) {
+          const vocabStage = content.content.stages.find(s => s.type === 'vocabulary');
+          if (vocabStage?.data?.words) {
+            count = vocabStage.data.words.length;
+          }
+        }
+        vocabCounts[content.lesson_id] = count;
+      }
+
+      for (const lesson of lessons) {
+        lesson.vocabulary_count = vocabCounts[lesson.id] || 0;
+      }
+    } catch (mongoError) {
+      console.error('Error fetching vocabulary counts from MongoDB:', mongoError);
+      for (const lesson of lessons) {
+        lesson.vocabulary_count = 0;
+      }
+    }
+
+    return lessons;
   }
 
   /**

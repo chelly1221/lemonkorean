@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/l10n_extensions.dart';
+import '../../../core/utils/validators.dart';
 import '../../providers/auth_provider.dart';
-import '../../widgets/bilingual_text.dart';
 import '../home/home_screen.dart';
 import 'register_screen.dart';
 
@@ -77,15 +78,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // Logo
                 Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: AppConstants.primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
-                    ),
-                    child: const Center(
-                      child: Text('🍋', style: TextStyle(fontSize: 50)),
+                  child: Semantics(
+                    label: 'Lemon Korean app logo',
+                    excludeSemantics: true,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: AppConstants.primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                      ),
+                      child: const Center(
+                        child: Text('🍋', style: TextStyle(fontSize: 50)),
+                      ),
                     ),
                   ),
                 ),
@@ -104,10 +109,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: AppConstants.paddingSmall),
 
-                const Text(
-                  '柠檬韩语',
+                Text(
+                  context.l10n.appName,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: AppConstants.fontSizeLarge,
                     color: AppConstants.textSecondary,
                   ),
@@ -120,11 +125,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    label: const InlineBilingualText(
-                      chinese: '邮箱',
-                      korean: '이메일',
-                    ),
-                    hintText: '请输入邮箱地址',
+                    labelText: '${context.l10n.email} / 이메일',
+                    hintText: context.l10n.enterEmail,
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
@@ -132,19 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     filled: true,
                     fillColor: Colors.grey.shade50,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '请输入邮箱';
-                    }
-                    // Basic email validation
-                    final emailRegex = RegExp(
-                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                    );
-                    if (!emailRegex.hasMatch(value)) {
-                      return '请输入有效的邮箱地址';
-                    }
-                    return null;
-                  },
+                  validator: Validators.emailValidator,
                 ),
 
                 const SizedBox(height: AppConstants.paddingMedium),
@@ -154,23 +144,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
-                    label: const InlineBilingualText(
-                      chinese: '密码',
-                      korean: '비밀번호',
-                    ),
-                    hintText: '请输入密码',
+                    labelText: '${context.l10n.password} / 비밀번호',
+                    hintText: context.l10n.enterPassword,
                     prefixIcon: const Icon(Icons.lock_outlined),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                    suffixIcon: Semantics(
+                      label: _isPasswordVisible ? 'Hide password' : 'Show password',
+                      button: true,
+                      child: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
-                        });
-                      },
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
@@ -178,15 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     filled: true,
                     fillColor: Colors.grey.shade50,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '请输入密码';
-                    }
-                    if (value.length < AppConstants.minPasswordLength) {
-                      return '密码至少需要${AppConstants.minPasswordLength}个字符';
-                    }
-                    return null;
-                  },
+                  validator: Validators.passwordBasicValidator,
                 ),
 
                 const SizedBox(height: AppConstants.paddingLarge),
@@ -197,38 +180,42 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (authProvider.error == null) {
                       return const SizedBox.shrink();
                     }
-                    return Container(
-                      margin: const EdgeInsets.only(
-                        bottom: AppConstants.paddingMedium,
-                      ),
-                      padding: const EdgeInsets.all(AppConstants.paddingMedium),
-                      decoration: BoxDecoration(
-                        color: AppConstants.errorColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusMedium,
+                    return Semantics(
+                      liveRegion: true,
+                      label: 'Error: ${authProvider.error}',
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          bottom: AppConstants.paddingMedium,
                         ),
-                        border: Border.all(
-                          color: AppConstants.errorColor.withOpacity(0.3),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.error_outline,
-                            color: AppConstants.errorColor,
-                            size: 20,
+                        padding: const EdgeInsets.all(AppConstants.paddingMedium),
+                        decoration: BoxDecoration(
+                          color: AppConstants.errorColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.radiusMedium,
                           ),
-                          const SizedBox(width: AppConstants.paddingSmall),
-                          Expanded(
-                            child: Text(
-                              authProvider.error!,
-                              style: const TextStyle(
-                                color: AppConstants.errorColor,
-                                fontSize: AppConstants.fontSizeMedium,
+                          border: Border.all(
+                            color: AppConstants.errorColor.withOpacity(0.3),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.error_outline,
+                              color: AppConstants.errorColor,
+                              size: 20,
+                            ),
+                            const SizedBox(width: AppConstants.paddingSmall),
+                            Expanded(
+                              child: Text(
+                                authProvider.error!,
+                                style: const TextStyle(
+                                  color: AppConstants.errorColor,
+                                  fontSize: AppConstants.fontSizeMedium,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -261,10 +248,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             )
-                          : const InlineBilingualText(
-                              chinese: '登录',
-                              korean: '로그인',
-                              style: TextStyle(
+                          : Text(
+                              '${context.l10n.login} / 로그인',
+                              style: const TextStyle(
                                 fontSize: AppConstants.fontSizeLarge,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -279,10 +265,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const InlineBilingualText(
-                      chinese: '没有账号？',
-                      korean: '계정이 없으신가요?',
-                      style: TextStyle(
+                    Text(
+                      '${context.l10n.noAccount} / 계정이 없으신가요?',
+                      style: const TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: AppConstants.textSecondary,
                       ),
@@ -295,10 +280,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: const InlineBilingualText(
-                        chinese: '立即注册',
-                        korean: '회원가입',
-                        style: TextStyle(
+                      child: Text(
+                        '${context.l10n.registerNow} / 회원가입',
+                        style: const TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,
                         ),

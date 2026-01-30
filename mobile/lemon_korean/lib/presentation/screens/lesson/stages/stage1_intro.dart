@@ -8,10 +8,14 @@ import '../../../../data/models/lesson_model.dart';
 /// Shows lesson overview and objectives
 class Stage1Intro extends StatelessWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onNext;
 
   const Stage1Intro({
-    required this.lesson, required this.onNext, super.key,
+    required this.lesson,
+    this.stageData,
+    required this.onNext,
+    super.key,
   });
 
   @override

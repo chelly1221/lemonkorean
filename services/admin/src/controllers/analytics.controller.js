@@ -34,10 +34,10 @@ const getOverview = async (req, res) => {
  */
 const getUserAnalytics = async (req, res) => {
   try {
-    const { period = '30d' } = req.query;
+    const { period = '1d' } = req.query;
 
     // Validate period
-    const validPeriods = ['7d', '30d', '90d'];
+    const validPeriods = ['1d', '7d', '30d', '365d'];
     if (!validPeriods.includes(period)) {
       return res.status(400).json({
         error: 'Bad Request',
@@ -68,10 +68,10 @@ const getUserAnalytics = async (req, res) => {
  */
 const getEngagement = async (req, res) => {
   try {
-    const { period = '30d' } = req.query;
+    const { period = '1d' } = req.query;
 
     // Validate period
-    const validPeriods = ['7d', '30d', '90d'];
+    const validPeriods = ['1d', '7d', '30d', '365d'];
     if (!validPeriods.includes(period)) {
       return res.status(400).json({
         error: 'Bad Request',

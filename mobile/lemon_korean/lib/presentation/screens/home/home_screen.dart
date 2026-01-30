@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/storage/local_storage.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/models/progress_model.dart';
 import '../../../data/models/user_model.dart';
@@ -18,6 +19,8 @@ import '../settings/language_settings_screen.dart';
 import '../settings/notification_settings_screen.dart';
 import '../settings/help_center_screen.dart';
 import '../settings/app_info_screen.dart';
+import '../stats/completed_lessons_screen.dart';
+import '../stats/mastered_words_screen.dart';
 import 'widgets/user_header.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
@@ -41,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
           index: _selectedIndex,
           children: const [
             _HomeTab(),
-            _DownloadsTab(),
             _ReviewTab(),
             _ProfileTab(),
           ],
@@ -60,12 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIcon: const Icon(Icons.home),
             label: '首页',
             tooltip: '홈',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.download_outlined),
-            selectedIcon: const Icon(Icons.download),
-            label: '下载',
-            tooltip: '다운로드',
           ),
           NavigationDestination(
             icon: const Icon(Icons.replay_outlined),
@@ -180,51 +176,105 @@ class _HomeTabState extends State<_HomeTab> {
     final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    // Fetch lessons
-    await lessonProvider.fetchLessons();
+    // Step 1: Load cached data immediately for instant display
+    _loadCachedData(lessonProvider);
 
-    // Fetch progress if user is logged in
+    // Step 2: Fetch fresh data in background (parallel API calls)
+    await _fetchFreshData(lessonProvider, progressProvider, authProvider);
+  }
+
+  /// Load cached lessons immediately for instant display
+  void _loadCachedData(LessonProvider lessonProvider) {
+    // First try from provider (may already have data from splash prefetch)
+    if (lessonProvider.lessons.isNotEmpty) {
+      setState(() {
+        _lessons = lessonProvider.lessons
+            .map((json) => LessonModel.fromJson(json))
+            .toList();
+      });
+      return;
+    }
+
+    // Fallback to direct local storage read
+    final cachedLessons = LocalStorage.getAllLessons();
+    if (cachedLessons.isNotEmpty) {
+      setState(() {
+        _lessons = cachedLessons
+            .map((json) => LessonModel.fromJson(json))
+            .toList();
+      });
+    }
+  }
+
+  /// Fetch fresh data with parallel API calls
+  Future<void> _fetchFreshData(
+    LessonProvider lessonProvider,
+    ProgressProvider progressProvider,
+    AuthProvider authProvider,
+  ) async {
+    // Parallel fetch: lessons and progress at the same time
     if (authProvider.currentUser != null) {
-      await progressProvider.fetchProgress(authProvider.currentUser!.id);
+      await Future.wait([
+        lessonProvider.fetchLessons(),
+        progressProvider.fetchProgress(authProvider.currentUser!.id),
+      ]);
 
-      // Calculate stats
-      final progressList = progressProvider.progressList;
-      final today = DateTime.now();
-      final todayProgress = progressList.where((p) {
-        final completedAt = DateTime.parse(p['completed_at'] ?? '');
+      // Update progress stats
+      _updateProgressStats(progressProvider);
+    } else {
+      // No user logged in, just fetch lessons
+      await lessonProvider.fetchLessons();
+    }
+
+    // Update lessons from provider
+    _updateLessonsFromProvider(lessonProvider);
+  }
+
+  /// Update progress statistics from provider data
+  void _updateProgressStats(ProgressProvider progressProvider) {
+    final progressList = progressProvider.progressList;
+    final today = DateTime.now();
+    final todayProgress = progressList.where((p) {
+      final completedAtStr = p['completed_at'];
+      if (completedAtStr == null || completedAtStr.toString().isEmpty) return false;
+      try {
+        final completedAt = DateTime.parse(completedAtStr.toString());
         return completedAt.year == today.year &&
                completedAt.month == today.month &&
                completedAt.day == today.day;
-      }).length;
+      } catch (_) {
+        return false;
+      }
+    }).length;
 
-      // Build lesson progress map
-      final lessonProgressMap = <int, double>{};
-      for (final progress in progressList) {
-        final lessonId = progress['lesson_id'] as int;
-        final status = progress['status'] as String?;
-        final quizScore = progress['quiz_score'] as int?;
+    // Build lesson progress map
+    final lessonProgressMap = <int, double>{};
+    for (final progress in progressList) {
+      final lessonId = progress['lesson_id'] as int;
+      final status = progress['status'] as String?;
+      final quizScore = progress['quiz_score'] as int?;
 
-        if (status == 'completed') {
-          lessonProgressMap[lessonId] = 1.0;
-        } else if (status == 'in_progress') {
-          // If quiz score exists, use it as progress indicator (0-100 -> 0.0-1.0)
-          if (quizScore != null) {
-            lessonProgressMap[lessonId] = (quizScore / 100).clamp(0.0, 0.99);
-          } else {
-            lessonProgressMap[lessonId] = 0.5; // Default for in-progress
-          }
+      if (status == 'completed') {
+        lessonProgressMap[lessonId] = 1.0;
+      } else if (status == 'in_progress') {
+        if (quizScore != null) {
+          lessonProgressMap[lessonId] = (quizScore / 100).clamp(0.0, 0.99);
+        } else {
+          lessonProgressMap[lessonId] = 0.5;
         }
       }
-
-      setState(() {
-        _completedToday = todayProgress;
-        _todayProgress = todayProgress / _targetLessons;
-        _lessonProgress = lessonProgressMap;
-        _streakDays = _calculateStreakDays(progressList);
-      });
     }
 
-    // Get lessons from provider
+    setState(() {
+      _completedToday = todayProgress;
+      _todayProgress = todayProgress / _targetLessons;
+      _lessonProgress = lessonProgressMap;
+      _streakDays = _calculateStreakDays(progressList);
+    });
+  }
+
+  /// Update lessons list from provider
+  void _updateLessonsFromProvider(LessonProvider lessonProvider) {
     setState(() {
       _lessons = lessonProvider.lessons
           .map((json) => LessonModel.fromJson(json))
@@ -285,7 +335,7 @@ class _HomeTabState extends State<_HomeTab> {
               progress: _todayProgress,
               completedLessons: _completedToday,
               targetLessons: _targetLessons,
-            ).animate().fadeIn(delay: 100.ms, duration: 400.ms).slideY(
+            ).animate().fadeIn(duration: 400.ms).slideY(
                   begin: 0.2,
                   end: 0,
                   duration: 400.ms,
@@ -326,7 +376,7 @@ class _HomeTabState extends State<_HomeTab> {
                   ),
                 ],
               ),
-            ).animate().fadeIn(delay: 200.ms, duration: 400.ms).slideY(
+            ).animate().fadeIn(duration: 400.ms).slideY(
                   begin: 0.2,
                   end: 0,
                   duration: 400.ms,
@@ -362,7 +412,7 @@ class _HomeTabState extends State<_HomeTab> {
                 ),
               ],
             ),
-          ).animate().fadeIn(delay: 300.ms, duration: 400.ms),
+          ).animate().fadeIn(duration: 400.ms),
         ),
 
         // Lessons Grid
@@ -393,7 +443,7 @@ class _HomeTabState extends State<_HomeTab> {
                     );
                   },
                 )
-                    .animate(delay: Duration(milliseconds: 400 + index * 50))
+                    .animate()
                     .fadeIn(duration: 400.ms)
                     .scale(
                       begin: const Offset(0.8, 0.8),
@@ -410,148 +460,6 @@ class _HomeTabState extends State<_HomeTab> {
         // Bottom padding
         const SliverToBoxAdapter(
           child: SizedBox(height: AppConstants.paddingLarge),
-        ),
-      ],
-    );
-  }
-}
-
-// ================================================================
-// DOWNLOADS TAB
-// ================================================================
-
-class _DownloadsTab extends StatelessWidget {
-  const _DownloadsTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          pinned: true,
-          title: const BilingualText(
-            chinese: '已下载课程',
-            korean: '다운로드한 수업',
-            chineseStyle: TextStyle(
-              fontSize: AppConstants.fontSizeLarge,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.storage_outlined),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DownloadManagerScreen(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.all(AppConstants.paddingMedium),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Card(
-                  margin: const EdgeInsets.only(
-                    bottom: AppConstants.paddingMedium,
-                  ),
-                  child: ListTile(
-                    leading: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppConstants.primaryColor.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusSmall,
-                        ),
-                      ),
-                      child: const Icon(Icons.download_done),
-                    ),
-                    title: BilingualText(
-                      chinese: '韩语课程 ${index + 1}',
-                      korean: '한국어 수업 ${index + 1}',
-                      textAlign: TextAlign.left,
-                    ),
-                    subtitle: const BilingualText(
-                      chinese: '已下载 • 45 MB',
-                      korean: '다운로드 완료',
-                      textAlign: TextAlign.left,
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete_outline),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('删除下载'),
-                            content: Text('确定要删除课程 ${index + 1} 吗？'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text('取消'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('删除功能开发中'),
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                },
-                                style: TextButton.styleFrom(
-                                  foregroundColor: AppConstants.errorColor,
-                                ),
-                                child: const Text('删除'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('从下载中打开课程功能开发中'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-              childCount: 3,
-            ),
-          ),
-        ),
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.cloud_download_outlined,
-                  size: 80,
-                  color: Colors.grey.shade400,
-                ),
-                const SizedBox(height: AppConstants.paddingMedium),
-                Text(
-                  '暂无更多下载',
-                  style: TextStyle(
-                    fontSize: AppConstants.fontSizeMedium,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ),
       ],
     );
@@ -684,12 +592,33 @@ class _ReviewTab extends StatelessWidget {
 // PROFILE TAB
 // ================================================================
 
-class _ProfileTab extends StatelessWidget {
+class _ProfileTab extends StatefulWidget {
   const _ProfileTab();
+
+  @override
+  State<_ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<_ProfileTab> {
+  @override
+  void initState() {
+    super.initState();
+    _loadStats();
+  }
+
+  Future<void> _loadStats() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+
+    if (authProvider.currentUser != null) {
+      await progressProvider.fetchUserStats(authProvider.currentUser!.id);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final progressProvider = Provider.of<ProgressProvider>(context);
     final user = authProvider.currentUser;
 
     return CustomScrollView(
@@ -771,9 +700,40 @@ class _ProfileTab extends StatelessWidget {
           sliver: SliverList(
             delegate: SliverChildListDelegate([
               _buildSection('学习统计', '학습 통계'),
-              _buildStatCard('已完成课程', '완료한 수업', '12', Icons.check_circle_outline),
-              _buildStatCard('学习天数', '학습 일수', '45', Icons.calendar_today_outlined),
-              _buildStatCard('掌握单词', '습득 단어', '230', Icons.translate),
+              _buildStatCard(
+                chinese: '已完成课程',
+                korean: '완료한 수업',
+                value: '${progressProvider.completedLessons}',
+                icon: Icons.check_circle_outline,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CompletedLessonsScreen(),
+                    ),
+                  );
+                },
+              ),
+              _buildStatCard(
+                chinese: '学习天数',
+                korean: '학습 일수',
+                value: '${progressProvider.totalStudyDays}',
+                icon: Icons.calendar_today_outlined,
+              ),
+              _buildStatCard(
+                chinese: '掌握单词',
+                korean: '습득 단어',
+                value: '${progressProvider.masteredWords}',
+                icon: Icons.translate,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MasteredWordsScreen(),
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: AppConstants.paddingMedium),
               _buildSection('设置', '설정'),
               _buildMenuItem(
@@ -922,8 +882,14 @@ class _ProfileTab extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(String chinese, String korean, String value, IconData icon) {
-    return Card(
+  Widget _buildStatCard({
+    required String chinese,
+    required String korean,
+    required String value,
+    required IconData icon,
+    VoidCallback? onTap,
+  }) {
+    final card = Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
       child: Padding(
         padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -955,10 +921,28 @@ class _ProfileTab extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            if (onTap != null) ...[
+              const SizedBox(width: AppConstants.paddingSmall),
+              const Icon(
+                Icons.chevron_right,
+                color: AppConstants.textSecondary,
+                size: 20,
+              ),
+            ],
           ],
         ),
       ),
     );
+
+    if (onTap != null) {
+      return InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+        child: card,
+      );
+    }
+
+    return card;
   }
 
   Widget _buildMenuItem({

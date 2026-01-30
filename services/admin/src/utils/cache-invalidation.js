@@ -11,10 +11,13 @@ const { cacheHelpers } = require('../config/redis');
  */
 const invalidateLessonCaches = async (lessonId) => {
   try {
-    const keysToDelete = [
+    const specificKeys = [
       `lesson:full:${lessonId}`,
       `lesson:package:${lessonId}`,
-      `lesson:metadata:${lessonId}`,
+      `lesson:metadata:${lessonId}`
+    ];
+
+    const patterns = [
       'lessons:list:*',
       'lessons:published:*',
       'admin:lessons:*'
@@ -23,14 +26,13 @@ const invalidateLessonCaches = async (lessonId) => {
     console.log(`[CACHE] Invalidating lesson caches for lesson ${lessonId}`);
 
     // Delete specific keys
-    for (const key of keysToDelete) {
-      if (key.includes('*')) {
-        // For wildcard patterns, we'd need to use SCAN in production
-        // For now, just log
-        console.log(`[CACHE] Would delete pattern: ${key}`);
-      } else {
-        await cacheHelpers.del(key);
-      }
+    if (specificKeys.length > 0) {
+      await cacheHelpers.del(...specificKeys);
+    }
+
+    // Delete pattern-matched keys
+    for (const pattern of patterns) {
+      await cacheHelpers.delPattern(pattern);
     }
 
     console.log(`[CACHE] Lesson caches invalidated for lesson ${lessonId}`);
@@ -47,12 +49,10 @@ const invalidateLessonListCaches = async () => {
   try {
     console.log('[CACHE] Invalidating all lesson list caches');
 
-    // In production, would use Redis SCAN to find and delete all matching keys
-    // For now, just clear known patterns
     const patterns = ['lessons:list:*', 'lessons:published:*', 'admin:lessons:list:*'];
 
     for (const pattern of patterns) {
-      console.log(`[CACHE] Would delete pattern: ${pattern}`);
+      await cacheHelpers.delPattern(pattern);
     }
 
     console.log('[CACHE] Lesson list caches invalidated');
@@ -67,25 +67,22 @@ const invalidateLessonListCaches = async () => {
  */
 const invalidateVocabularyCaches = async (vocabId = null) => {
   try {
-    const keysToDelete = [
+    const patterns = [
       'vocabulary:list:*',
       'vocabulary:search:*',
       'admin:vocabulary:*'
     ];
 
     if (vocabId) {
-      keysToDelete.push(`vocabulary:${vocabId}`);
+      await cacheHelpers.del(`vocabulary:${vocabId}`);
       console.log(`[CACHE] Invalidating vocabulary caches for vocab ${vocabId}`);
     } else {
       console.log('[CACHE] Invalidating all vocabulary caches');
     }
 
-    for (const key of keysToDelete) {
-      if (key.includes('*')) {
-        console.log(`[CACHE] Would delete pattern: ${key}`);
-      } else {
-        await cacheHelpers.del(key);
-      }
+    // Delete pattern-matched keys
+    for (const pattern of patterns) {
+      await cacheHelpers.delPattern(pattern);
     }
 
     console.log('[CACHE] Vocabulary caches invalidated');
@@ -101,7 +98,7 @@ const invalidateAllAdminCaches = async () => {
   try {
     console.log('[CACHE] Invalidating all admin caches');
 
-    await cacheHelpers.del('admin:*');
+    await cacheHelpers.delPattern('admin:*');
 
     console.log('[CACHE] All admin caches invalidated');
   } catch (error) {

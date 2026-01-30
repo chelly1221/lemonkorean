@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../data/models/network_config_model.dart';
+import '../config/environment_config.dart';
+import '../utils/app_logger.dart';
 
 class AppConstants {
   // App Info
@@ -6,21 +9,62 @@ class AppConstants {
   static const String appNameChinese = '柠檬韩语';
   static const String version = '1.0.0';
 
-  // API Endpoints
-  static const String baseUrl = 'http://3chan.kr:3001'; // Auth service
-  static const String apiUrl = '$baseUrl/api';
-  static const String mediaUrl = 'http://3chan.kr:3004/media';
+  // Dynamic API Configuration (updated from server on app start)
+  // Default values come from EnvironmentConfig (loaded from .env files)
+  static String _baseUrl = '';
+  static String _contentUrl = '';
+  static String _progressUrl = '';
+  static String _mediaUrl = '';
+  static bool _useGateway = true;
 
-  // Endpoints
-  static const String authEndpoint = '$apiUrl/auth';
-  static const String contentEndpoint = '$apiUrl/content';
-  static const String progressEndpoint = '$apiUrl/progress';
-  static const String analyticsEndpoint = '$apiUrl/analytics';
+  /// Initialize URLs from EnvironmentConfig
+  /// Should be called after EnvironmentConfig.init()
+  static void initFromEnvironment() {
+    _baseUrl = EnvironmentConfig.baseUrl;
+    _contentUrl = EnvironmentConfig.contentUrl;
+    _progressUrl = EnvironmentConfig.progressUrl;
+    _mediaUrl = EnvironmentConfig.mediaUrl;
+  }
+
+  // Getters for URLs
+  static String get baseUrl => _baseUrl;
+  static String get contentUrl => _contentUrl;
+  static String get progressUrl => _progressUrl;
+  static String get mediaUrl => _mediaUrl;
+  static bool get useGateway => _useGateway;
+
+  // Legacy compatibility - uses baseUrl
+  static String get apiUrl => '$_baseUrl/api';
+
+  // API Endpoints (dynamically constructed)
+  static String get authEndpoint => '$_baseUrl/api/auth';
+  static String get contentEndpoint => '$_contentUrl/api/content';
+  static String get progressEndpoint => '$_progressUrl/api/progress';
+  static String get analyticsEndpoint => '$_baseUrl/api/analytics';
+
+  /// Update network configuration from server
+  /// Called once on app startup
+  static void updateFromConfig(NetworkConfigModel config) {
+    _baseUrl = config.baseUrl;
+    _contentUrl = config.contentUrl;
+    _progressUrl = config.progressUrl;
+    _mediaUrl = config.mediaUrl;
+    _useGateway = config.useGateway;
+
+    AppLogger.i('Updated network config:', tag: 'AppConstants');
+    AppLogger.d('  Mode: ${config.mode}', tag: 'AppConstants');
+    AppLogger.d('  Base URL: $_baseUrl', tag: 'AppConstants');
+    AppLogger.d('  Content URL: $_contentUrl', tag: 'AppConstants');
+    AppLogger.d('  Progress URL: $_progressUrl', tag: 'AppConstants');
+    AppLogger.d('  Media URL: $_mediaUrl', tag: 'AppConstants');
+    AppLogger.d('  Use Gateway: $_useGateway', tag: 'AppConstants');
+  }
 
   // Storage Keys
   static const String tokenKey = 'auth_token';
   static const String refreshTokenKey = 'refresh_token';
   static const String userIdKey = 'user_id';
+  static const String secureUserIdKey = 'secure_user_id'; // Reliable storage for user_id
   static const String syncQueueKey = 'sync_queue';
 
   // Hive Box Names
@@ -85,6 +129,24 @@ class AppConstants {
   static const Duration animationFast = Duration(milliseconds: 200);
   static const Duration animationNormal = Duration(milliseconds: 300);
   static const Duration animationSlow = Duration(milliseconds: 500);
+  static const Duration animationVerySlow = Duration(milliseconds: 600);
+
+  // UI Feedback Durations
+  static const Duration snackBarShort = Duration(seconds: 2);
+  static const Duration snackBarLong = Duration(seconds: 3);
+  static const Duration splashDelay = Duration(seconds: 2);
+  static const Duration dialogueAutoAdvance = Duration(seconds: 2);
+
+  // Quiz Timer
+  static const int quizTimeLimitSeconds = 300; // 5 minutes
+  static const int quizWarningThresholdSeconds = 60; // 1 minute warning
+
+  // Progress Tracking
+  static const Duration progressUpdateInterval = Duration(milliseconds: 500);
+
+  // Chinese Conversion Cache
+  static const int chineseConversionCacheSize = 500;
+  static const int chineseConversionChunkSize = 1000;
 
   // Network
   static const Duration connectTimeout = Duration(seconds: 30);

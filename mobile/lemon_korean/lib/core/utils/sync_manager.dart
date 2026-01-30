@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import '../constants/app_constants.dart';
 import '../network/api_client.dart';
 import '../storage/local_storage.dart';
+import 'app_logger.dart';
 
 /// Sync Manager
 /// Handles offline data synchronization with the server
@@ -45,7 +46,7 @@ class SyncManager {
       _notifyStatusChange();
     } catch (e) {
       _isOnline = false;
-      print('[SyncManager] Error checking connectivity: $e');
+      AppLogger.logSync('Error checking connectivity', details: e.toString(), isError: true);
     }
   }
 
@@ -56,11 +57,11 @@ class SyncManager {
         final wasOffline = !_isOnline;
         _isOnline = result != ConnectivityResult.none;
 
-        print('[SyncManager] Connectivity changed: $_isOnline');
+        AppLogger.logSync('Connectivity changed', details: 'isOnline: $_isOnline');
 
         if (wasOffline && _isOnline) {
           // Just came online - trigger sync
-          print('[SyncManager] Network recovered, starting sync...');
+          AppLogger.logSync('Network recovered, starting sync');
           sync();
         }
 
@@ -76,7 +77,7 @@ class SyncManager {
     _syncTimer?.cancel();
     _syncTimer = Timer.periodic(AppConstants.syncInterval, (timer) {
       if (_isOnline && !_isSyncing) {
-        print('[SyncManager] Auto sync triggered');
+        AppLogger.logSync('Auto sync triggered');
         sync();
       }
     });
@@ -114,10 +115,10 @@ class SyncManager {
     String? errorMessage;
 
     try {
-      print('[SyncManager] Starting sync...');
+      AppLogger.logSync('Starting sync');
 
       final queue = LocalStorage.getSyncQueue();
-      print('[SyncManager] Queue size: ${queue.length}');
+      AppLogger.logSync('Queue size', details: '${queue.length} items');
 
       if (queue.isEmpty) {
         _lastSyncTime = DateTime.now();
@@ -132,9 +133,17 @@ class SyncManager {
       }
 
       // Group items by type
-      final progressItems = queue.where((item) => item['type'] == 'lesson_complete').toList();
-      final reviewItems = queue.where((item) => item['type'] == 'review_complete').toList();
+      // Include all progress-related types (lesson_start, lesson_complete, stage_progress, progress_update)
+      final progressTypes = ['lesson_start', 'lesson_complete', 'stage_progress', 'progress_update'];
+      final progressItems = queue.where((item) => progressTypes.contains(item['type'])).toList();
+      // Include both 'review_complete' and 'review_submit' types
+      final reviewItems = queue.where((item) =>
+          item['type'] == 'review_complete' || item['type'] == 'review_submit').toList();
       final eventItems = queue.where((item) => item['type'] == 'event_log').toList();
+      // Settings/preferences sync
+      final settingsItems = queue.where((item) => item['type'] == 'settings_change').toList();
+      // Session end tracking
+      final sessionItems = queue.where((item) => item['type'] == 'session_end').toList();
 
       // Sync progress
       if (progressItems.isNotEmpty) {
@@ -157,9 +166,23 @@ class SyncManager {
         failedCount += result.failedCount;
       }
 
+      // Sync settings/preferences
+      if (settingsItems.isNotEmpty) {
+        final result = await _syncSettings(settingsItems);
+        syncedCount += result.syncedCount;
+        failedCount += result.failedCount;
+      }
+
+      // Sync session end events
+      if (sessionItems.isNotEmpty) {
+        final result = await _syncSessions(sessionItems);
+        syncedCount += result.syncedCount;
+        failedCount += result.failedCount;
+      }
+
       _lastSyncTime = DateTime.now();
 
-      print('[SyncManager] Sync complete: $syncedCount synced, $failedCount failed');
+      AppLogger.logSync('Sync complete', details: '$syncedCount synced, $failedCount failed');
 
       return SyncResult(
         success: failedCount == 0,
@@ -168,7 +191,7 @@ class SyncManager {
       );
     } catch (e) {
       errorMessage = e.toString();
-      print('[SyncManager] Sync error: $e');
+      AppLogger.logSync('Sync error', details: e.toString(), isError: true);
 
       onSyncError?.call(errorMessage);
 
@@ -212,7 +235,7 @@ class SyncManager {
         failedCount = items.length;
       }
     } catch (e) {
-      print('[SyncManager] Error syncing progress: $e');
+      AppLogger.logSync('Error syncing progress', details: e.toString(), isError: true);
       failedCount = items.length;
     }
 
@@ -243,11 +266,11 @@ class SyncManager {
           }
         } else {
           // API call failed
-          print('[SyncManager] Review sync failed: ${response.statusCode}');
+          AppLogger.logSync('Review sync failed', details: 'status: ${response.statusCode}', isError: true);
           failedCount++;
         }
       } catch (e) {
-        print('[SyncManager] Error syncing review: $e');
+        AppLogger.logSync('Error syncing review', details: e.toString(), isError: true);
         failedCount++;
       }
     }
@@ -280,7 +303,80 @@ class SyncManager {
           syncedCount++;
         }
       } catch (e) {
-        print('[SyncManager] Error syncing event: $e');
+        AppLogger.logSync('Error syncing event', details: e.toString(), isError: true);
+        failedCount++;
+      }
+    }
+
+    return _SyncItemResult(
+      syncedCount: syncedCount,
+      failedCount: failedCount,
+    );
+  }
+
+  /// Sync user settings/preferences
+  Future<_SyncItemResult> _syncSettings(List<Map<String, dynamic>> items) async {
+    int syncedCount = 0;
+    int failedCount = 0;
+
+    for (final item in items) {
+      try {
+        final settingsData = item['data'] as Map<String, dynamic>;
+
+        final response = await _apiClient.updateUserPreferences(settingsData);
+
+        if (response.statusCode == 200) {
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+        } else {
+          AppLogger.logSync('Settings sync failed', details: 'status: ${response.statusCode}', isError: true);
+          failedCount++;
+        }
+      } catch (e) {
+        AppLogger.logSync('Error syncing settings', details: e.toString(), isError: true);
+        failedCount++;
+      }
+    }
+
+    return _SyncItemResult(
+      syncedCount: syncedCount,
+      failedCount: failedCount,
+    );
+  }
+
+  /// Sync session end events
+  Future<_SyncItemResult> _syncSessions(List<Map<String, dynamic>> items) async {
+    int syncedCount = 0;
+    int failedCount = 0;
+
+    for (final item in items) {
+      try {
+        final sessionData = item['data'] as Map<String, dynamic>;
+
+        final response = await _apiClient.endLearningSession(
+          sessionId: sessionData['session_id'] as int,
+          itemsStudied: sessionData['items_studied'] as int? ?? 0,
+          correctAnswers: sessionData['correct_answers'] as int? ?? 0,
+          incorrectAnswers: sessionData['incorrect_answers'] as int? ?? 0,
+        );
+
+        if (response.statusCode == 200) {
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+        } else {
+          AppLogger.logSync('Session sync failed', details: 'status: ${response.statusCode}', isError: true);
+          failedCount++;
+        }
+      } catch (e) {
+        AppLogger.logSync('Error syncing session', details: e.toString(), isError: true);
         failedCount++;
       }
     }
@@ -297,7 +393,7 @@ class SyncManager {
 
   /// Force immediate sync
   Future<SyncResult> forceSync() async {
-    print('[SyncManager] Force sync requested');
+    AppLogger.logSync('Force sync requested');
     return await sync();
   }
 

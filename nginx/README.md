@@ -20,14 +20,21 @@ Nginx가 다음 역할을 수행합니다:
 ```
 nginx/
 ├── nginx.conf              # 프로덕션 설정 (SSL, 엄격한 rate limiting)
-├── nginx.dev.conf          # 개발 설정 (HTTP only, 완화된 제한)
+├── nginx.dev.conf          # 개발 설정 (HTTP only, 완화된 제한) - Docker 빌드 시 사용됨
+├── nginx.conf.dev          # ⚠️ 레거시 (사용 권장하지 않음 - proxy_pass 버그 있음)
 ├── Dockerfile              # Nginx 컨테이너 빌드
+├── docker-entrypoint.sh    # 환경에 따라 설정 파일 선택
 ├── generate-ssl.sh         # 자체 서명 인증서 생성 (개발용)
 ├── setup-letsencrypt.sh    # Let's Encrypt 설정 (프로덕션용)
+├── conf.d/                 # 추가 Nginx 설정 디렉토리
 ├── ssl/                    # SSL 인증서 디렉토리
 ├── cache/                  # Nginx 캐시 디렉토리
 └── logs/                   # 로그 파일
 ```
+
+> **참고**: Docker 빌드 시 `NGINX_MODE` 환경 변수에 따라 자동으로 설정 파일이 선택됩니다:
+> - `NGINX_MODE=development` → nginx.dev.conf 사용
+> - `NGINX_MODE=production` (기본값) → nginx.conf 사용
 
 ---
 
@@ -62,9 +69,11 @@ limit_conn conn_limit 20
 ```
 
 ### 개발 (nginx.dev.conf)
-- 일반 API: 1000 req/s
-- 인증 API: 100 req/s
-- 업로드: 50 req/min
+- 일반 API: 1000 req/s (burst=100)
+- 인증 API: 100 req/s (burst=50)
+- 업로드: 50 req/min (burst=10)
+
+> **참고**: 개발 환경은 프로덕션보다 2배 높은 burst 값을 사용합니다.
 
 ---
 
@@ -79,18 +88,26 @@ limit_conn conn_limit 20
 
 proxy_cache_valid 200 7d;
 proxy_cache_valid 404 1m;
+
+# 고급 캐싱 기능 (프로덕션)
+proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+proxy_cache_background_update on;
+proxy_cache_lock on;
+proxy_cache_revalidate on;
 ```
 
 ### API 응답 캐싱
 ```nginx
 # 위치: /var/cache/nginx/api
-# 최대 크기: 1GB
-# 유효 기간: 1시간
+# 최대 크기: 1GB (프로덕션) / 100MB (개발)
+# 유효 기간: 1시간 (프로덕션) / 10분 (개발)
 
 proxy_cache_valid 200 1h;
 # GET 요청만 캐싱
 proxy_cache_methods GET HEAD;
 ```
+
+> **개발 환경 캐시 설정**: 미디어 캐시 max_size=1g, inactive=1h; API 캐시 max_size=100m, inactive=10m
 
 ### 캐시 상태 확인
 ```bash
@@ -265,10 +282,12 @@ docker run -d \
 
 # 특징:
 # - HTTP only (포트 80)
-# - 완화된 rate limiting
-# - 짧은 캐시 시간
+# - 완화된 rate limiting (burst 값 2배)
+# - 짧은 캐시 시간 (1시간)
 # - 상세한 로깅 (debug level)
 # - 허용적인 CORS (*)
+# - 보안 헤더 생략 (HSTS 등)
+# - Keepalive 미설정 (기본값 사용)
 ```
 
 ### 프로덕션 환경
@@ -373,14 +392,24 @@ events {
 }
 ```
 
-### Keepalive Connections
+### Keepalive Connections (프로덕션)
 ```nginx
-# Upstream keepalive
+# 일반 서비스: keepalive 32
+upstream auth_service {
+    least_conn;
+    server auth-service:3001 max_fails=3 fail_timeout=30s;
+    keepalive 32;
+}
+
+# 미디어 서비스: keepalive 64 (더 많은 연결)
 upstream media_service {
-    server media-service:3004;
-    keepalive 64;  # 미디어는 더 많은 연결 유지
+    least_conn;
+    server media-service:3004 max_fails=3 fail_timeout=30s;
+    keepalive 64;
 }
 ```
+
+> **참고**: 개발 환경(nginx.dev.conf)은 keepalive 및 health check를 사용하지 않습니다.
 
 ### Buffer 크기
 ```nginx

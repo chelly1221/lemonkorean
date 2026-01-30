@@ -7,6 +7,9 @@ import '../providers/settings_provider.dart';
 /// Bilingual Text Widget
 /// Displays Chinese text with Korean translation underneath in smaller font
 /// Automatically converts Chinese text based on user's language preference (Simplified/Traditional)
+///
+/// Uses context.select() to only rebuild when chineseVariant changes,
+/// not when other settings change.
 class BilingualText extends StatefulWidget {
   final String chinese;
   final String korean;
@@ -41,17 +44,19 @@ class _BilingualTextState extends State<BilingualText> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final settings = context.watch<SettingsProvider>();
-
-    // Only convert if variant changed
-    if (_lastVariant != settings.chineseVariant && !_isConverting) {
-      _convertText(settings.chineseVariant);
+  void didUpdateWidget(BilingualText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.chinese != widget.chinese) {
+      _displayChinese = widget.chinese;
+      if (_lastVariant != null) {
+        _convertText(_lastVariant!);
+      }
     }
   }
 
   Future<void> _convertText(ChineseVariant variant) async {
+    if (_isConverting) return;
+
     _isConverting = true;
     _lastVariant = variant;
 
@@ -75,6 +80,20 @@ class _BilingualTextState extends State<BilingualText> {
 
   @override
   Widget build(BuildContext context) {
+    // Use context.select to only listen to chineseVariant changes
+    final variant = context.select<SettingsProvider, ChineseVariant>(
+      (settings) => settings.chineseVariant,
+    );
+
+    // Only convert if variant changed
+    if (_lastVariant != variant && !_isConverting) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _convertText(variant);
+        }
+      });
+    }
+
     final defaultChineseStyle = widget.chineseStyle ??
         Theme.of(context).textTheme.bodyMedium;
 
@@ -104,6 +123,9 @@ class _BilingualTextState extends State<BilingualText> {
 
 /// Inline Bilingual Text - for buttons and small UI elements
 /// Automatically converts Chinese text based on user's language preference
+///
+/// Uses context.select() to only rebuild when chineseVariant changes,
+/// not when other settings change.
 class InlineBilingualText extends StatefulWidget {
   final String chinese;
   final String korean;
@@ -134,17 +156,19 @@ class _InlineBilingualTextState extends State<InlineBilingualText> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final settings = context.watch<SettingsProvider>();
-
-    // Only convert if variant changed
-    if (_lastVariant != settings.chineseVariant && !_isConverting) {
-      _convertText(settings.chineseVariant);
+  void didUpdateWidget(InlineBilingualText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.chinese != widget.chinese) {
+      _displayChinese = widget.chinese;
+      if (_lastVariant != null) {
+        _convertText(_lastVariant!);
+      }
     }
   }
 
   Future<void> _convertText(ChineseVariant variant) async {
+    if (_isConverting) return;
+
     _isConverting = true;
     _lastVariant = variant;
 
@@ -168,6 +192,20 @@ class _InlineBilingualTextState extends State<InlineBilingualText> {
 
   @override
   Widget build(BuildContext context) {
+    // Use context.select to only listen to chineseVariant changes
+    final variant = context.select<SettingsProvider, ChineseVariant>(
+      (settings) => settings.chineseVariant,
+    );
+
+    // Only convert if variant changed
+    if (_lastVariant != variant && !_isConverting) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _convertText(variant);
+        }
+      });
+    }
+
     final baseStyle = widget.style ?? Theme.of(context).textTheme.bodyMedium;
     final baseFontSize = baseStyle?.fontSize ?? 14;
 

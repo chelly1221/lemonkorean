@@ -54,9 +54,9 @@ Authorization: Bearer <jwt_token>
 
 | 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `w` | integer | 아니오 | - | 리사이즈 너비 (px) |
-| `h` | integer | 아니오 | - | 리사이즈 높이 (px) |
-| `q` | integer | 아니오 | 85 | 품질 (1-100) |
+| `width` | integer | 아니오 | - | 리사이즈 너비 (px) |
+| `height` | integer | 아니오 | - | 리사이즈 높이 (px) |
+| `quality` | integer | 아니오 | 85 | 품질 (1-100) |
 | `format` | string | 아니오 | original | 출력 형식 (webp, jpg, png) |
 
 #### 응답
@@ -83,10 +83,10 @@ Last-Modified: Wed, 25 Jan 2024 10:30:00 GMT
 curl -X GET http://localhost:3004/media/images/lessons/1/thumbnail.jpg
 
 # Get resized image (300x200, WebP format, 90% quality)
-curl -X GET "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?w=300&h=200&format=webp&q=90"
+curl -X GET "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?width=300&height=200&format=webp&quality=90"
 
 # Get thumbnail (100x100)
-curl -X GET "http://localhost:3004/media/images/vocab/1/image.jpg?w=100&h=100"
+curl -X GET "http://localhost:3004/media/images/vocab/1/image.jpg?width=100&height=100"
 ```
 
 #### 오류 응답
@@ -361,9 +361,11 @@ curl -X DELETE http://localhost:3004/media/images/lessons/1/old-thumbnail.jpg \
 
 ### 미디어 정보 조회
 
+> **참고**: 이 엔드포인트는 현재 구현 예정입니다.
+
 미디어 파일에 대한 메타데이터를 조회합니다.
 
-**엔드포인트**: `GET /media/info/:type/:key`
+**엔드포인트**: `GET /media/info/:type/:key` *(계획됨)*
 
 **인증**: 불필요
 
@@ -402,12 +404,12 @@ curl -X DELETE http://localhost:3004/media/images/lessons/1/old-thumbnail.jpg \
       {
         "size": "thumbnail",
         "dimensions": "300x200",
-        "url": "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?w=300&h=200"
+        "url": "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?width=300&height=200"
       },
       {
         "size": "medium",
         "dimensions": "800x600",
-        "url": "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?w=800&h=600"
+        "url": "http://localhost:3004/media/images/lessons/1/thumbnail.jpg?width=800&height=600"
       }
     ]
   }
@@ -424,9 +426,11 @@ curl -X GET http://localhost:3004/media/info/images/lessons/1/thumbnail.jpg
 
 ### 배치 다운로드
 
+> **참고**: 이 엔드포인트는 현재 구현 예정입니다.
+
 여러 미디어 파일에 대한 다운로드 URL을 조회합니다.
 
-**엔드포인트**: `POST /media/batch-download`
+**엔드포인트**: `POST /media/batch-download` *(계획됨)*
 
 **인증**: 필요 (JWT)
 
@@ -715,22 +719,24 @@ curl -X GET http://localhost:3004/media/images/lessons/1/thumbnail.jpg \
 예시:
 ```bash
 # Fit mode (default)
-curl "http://localhost:3004/media/images/lessons/1/banner.jpg?w=800&h=400&mode=fit"
+curl "http://localhost:3004/media/images/lessons/1/banner.jpg?width=800&height=400&mode=fit"
 
 # Fill mode (cropped)
-curl "http://localhost:3004/media/images/lessons/1/banner.jpg?w=800&h=400&mode=fill"
+curl "http://localhost:3004/media/images/lessons/1/banner.jpg?width=800&height=400&mode=fill"
 ```
+
+> **참고**: `mode` 파라미터는 현재 구현되지 않았습니다. 모든 이미지는 fit 모드로만 리사이즈됩니다.
 
 ### 품질
 
-**쿼리 파라미터**: `q` (1-100, 기본값: 85)
+**쿼리 파라미터**: `quality` (1-100, 기본값: 85)
 
 ```bash
 # High quality (larger file)
-curl "http://localhost:3004/media/images/lessons/1/photo.jpg?q=95"
+curl "http://localhost:3004/media/images/lessons/1/photo.jpg?quality=95"
 
 # Low quality (smaller file)
-curl "http://localhost:3004/media/images/lessons/1/photo.jpg?q=60"
+curl "http://localhost:3004/media/images/lessons/1/photo.jpg?quality=60"
 ```
 
 ---

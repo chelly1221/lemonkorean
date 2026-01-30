@@ -4,6 +4,9 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/storage/local_storage.dart';
+import '../../core/utils/app_logger.dart';
+import '../../core/utils/result.dart';
+import '../../core/utils/app_exception.dart';
 import '../models/lesson_model.dart';
 import '../models/vocabulary_model.dart';
 
@@ -17,7 +20,8 @@ class ContentRepository {
   // ================================================================
 
   /// Get all lessons (with optional level filter)
-  Future<List<LessonModel>> getLessons({int? level}) async {
+  /// Returns Result type for better error handling
+  Future<Result<List<LessonModel>>> getLessonsResult({int? level}) async {
     try {
       // Try remote first
       final response = await _apiClient.getLessons(level: level);
@@ -31,16 +35,37 @@ class ContentRepository {
           await LocalStorage.saveLesson(lesson.toJson());
         }
 
-        return lessons;
+        return Success(lessons, isFromCache: false);
       }
 
-      // If status not 200, fallback to local
-      return _getLocalLessons(level: level);
-    } catch (e) {
-      print('[ContentRepository] getLessons error: $e');
-      // Network error, use local
-      return _getLocalLessons(level: level);
+      // If status not 200, fallback to local with error indication
+      final cachedLessons = await _getLocalLessons(level: level);
+      return Error(
+        'Server returned status ${response.statusCode}',
+        code: ErrorCodes.serverError,
+        cachedData: cachedLessons,
+      );
+    } catch (e, stackTrace) {
+      AppLogger.w('getLessons error', tag: 'ContentRepository', error: e);
+
+      // Return cached data with error
+      final cachedLessons = await _getLocalLessons(level: level);
+      final exception = ExceptionHandler.handle(e, stackTrace);
+      return Error(
+        exception.message,
+        code: exception.code,
+        cachedData: cachedLessons,
+      );
     }
+  }
+
+  /// Get all lessons (legacy method - kept for backwards compatibility)
+  Future<List<LessonModel>> getLessons({int? level}) async {
+    final result = await getLessonsResult(level: level);
+    return result.when(
+      success: (data, _) => data,
+      error: (_, __, cachedData) => cachedData ?? [],
+    );
   }
 
   /// Get single lesson by ID
@@ -53,7 +78,14 @@ class ContentRepository {
       final response = await _apiClient.getLesson(id);
 
       if (response.statusCode == 200) {
-        final lesson = LessonModel.fromJson(response.data);
+        // API returns {"success": true, "lesson": {...}}
+        final lessonData = response.data['lesson'];
+        if (lessonData == null) {
+          AppLogger.w('[ContentRepository] getLesson: lesson data is null in response');
+          return localLesson != null ? LessonModel.fromJson(localLesson) : null;
+        }
+
+        final lesson = LessonModel.fromJson(lessonData);
 
         // Update local storage
         await LocalStorage.saveLesson(lesson.toJson());
@@ -64,7 +96,7 @@ class ContentRepository {
       // If remote fails, return local
       return localLesson != null ? LessonModel.fromJson(localLesson) : null;
     } catch (e) {
-      print('[ContentRepository] getLesson error: $e');
+      AppLogger.w('[ContentRepository] getLesson error: $e');
       // Return local data
       final local = LocalStorage.getLesson(id);
       return local != null ? LessonModel.fromJson(local) : null;
@@ -94,7 +126,7 @@ class ContentRepository {
 
       return null;
     } catch (e) {
-      print('[ContentRepository] downloadLessonPackage error: $e');
+      AppLogger.w('[ContentRepository] downloadLessonPackage error: $e');
       return null;
     }
   }
@@ -111,7 +143,7 @@ class ContentRepository {
 
       return [];
     } catch (e) {
-      print('[ContentRepository] checkForUpdates error: $e');
+      AppLogger.w('[ContentRepository] checkForUpdates error: $e');
       return [];
     }
   }
@@ -162,7 +194,7 @@ class ContentRepository {
       // Fallback to local
       return _getLocalVocabulary(lessonId: lessonId);
     } catch (e) {
-      print('[ContentRepository] getVocabularyByLesson error: $e');
+      AppLogger.w('[ContentRepository] getVocabularyByLesson error: $e');
       return _getLocalVocabulary(lessonId: lessonId);
     }
   }
@@ -187,7 +219,7 @@ class ContentRepository {
 
       return _getLocalVocabulary(level: level);
     } catch (e) {
-      print('[ContentRepository] getVocabularyByLevel error: $e');
+      AppLogger.w('[ContentRepository] getVocabularyByLevel error: $e');
       return _getLocalVocabulary(level: level);
     }
   }
@@ -220,7 +252,7 @@ class ContentRepository {
       // Fallback to local
       return _getLocalVocabularyByIds(ids);
     } catch (e) {
-      print('[ContentRepository] getVocabularyByIds error: $e');
+      AppLogger.w('[ContentRepository] getVocabularyByIds error: $e');
       return _getLocalVocabularyByIds(ids);
     }
   }
@@ -243,7 +275,7 @@ class ContentRepository {
 
       return [];
     } catch (e) {
-      print('[ContentRepository] getSimilarVocabulary error: $e');
+      AppLogger.w('[ContentRepository] getSimilarVocabulary error: $e');
       return [];
     }
   }
@@ -318,7 +350,7 @@ class ContentRepository {
       // Fallback: return empty list
       return [];
     } catch (e) {
-      print('[ContentRepository] getReviewSchedule error: $e');
+      AppLogger.w('[ContentRepository] getReviewSchedule error: $e');
       // Return empty list on error
       return [];
     }
@@ -330,7 +362,7 @@ class ContentRepository {
       final response = await _apiClient.markReviewDone(data);
       return response.statusCode == 200;
     } catch (e) {
-      print('[ContentRepository] markReviewDone error: $e');
+      AppLogger.w('[ContentRepository] markReviewDone error: $e');
       return false;
     }
   }
@@ -376,7 +408,7 @@ class ContentRepository {
         }
       }
     } catch (e) {
-      print('[ContentRepository] Error calculating cache size: $e');
+      AppLogger.w('[ContentRepository] Error calculating cache size: $e');
       // Return 0 if calculation fails
       cacheSizeMB = 0.0;
     }

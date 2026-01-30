@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 
+import '../../core/constants/app_constants.dart';
 import '../../core/utils/download_manager.dart';
 import '../../core/utils/storage_utils.dart';
 import '../../data/models/lesson_model.dart';
@@ -173,7 +174,7 @@ class DownloadProvider extends ChangeNotifier {
   // ================================================================
 
   void _startProgressMonitoring() {
-    _progressTimer = Timer.periodic(const Duration(milliseconds: 500), (_) {
+    _progressTimer = Timer.periodic(AppConstants.progressUpdateInterval, (_) {
       _updateActiveDownloads();
     });
   }

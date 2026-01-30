@@ -25,10 +25,11 @@
 
 ## 인증
 
-`/health`를 제외한 모든 엔드포인트는 JWT 인증이 필요합니다:
+> **참고**: 현재 Content Service의 모든 엔드포인트는 **공개(Public)** 상태입니다.
+> JWT 인증은 향후 구현 예정입니다.
 
 ```
-Authorization: Bearer <jwt_token>
+Authorization: Bearer <jwt_token>  # 향후 구현 예정
 ```
 
 ---
@@ -41,7 +42,7 @@ Authorization: Bearer <jwt_token>
 
 **엔드포인트**: `GET /api/content/lessons`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
 
 #### 쿼리 파라미터
 
@@ -60,32 +61,30 @@ Authorization: Bearer <jwt_token>
 ```json
 {
   "success": true,
-  "data": {
-    "lessons": [
-      {
-        "id": 1,
-        "level": "beginner",
-        "title_ko": "안녕하세요",
-        "title_zh": "你好",
-        "description_zh": "学习韩语的基本问候语",
-        "thumbnail": "http://localhost:9000/lemon-korean/lessons/1/thumbnail.jpg",
-        "duration_minutes": 30,
-        "version": "1.2.0",
-        "status": "published",
-        "vocabulary_count": 10,
-        "grammar_count": 2,
-        "is_downloaded": false,
-        "created_at": "2024-01-20T10:00:00Z",
-        "updated_at": "2024-01-25T15:30:00Z"
-      }
-    ],
-    "pagination": {
-      "page": 1,
-      "limit": 20,
-      "total": 150,
-      "total_pages": 8
+  "lessons": [
+    {
+      "id": 1,
+      "level": "beginner",
+      "title_ko": "안녕하세요",
+      "title_zh": "你好",
+      "description_zh": "学习韩语的基本问候语",
+      "thumbnail": "http://localhost:9000/lemon-korean/lessons/1/thumbnail.jpg",
+      "duration_minutes": 30,
+      "version": "1.2.0",
+      "status": "published",
+      "vocabulary_count": 10,
+      "grammar_count": 2,
+      "is_downloaded": false,
+      "created_at": "2024-01-20T10:00:00Z",
+      "updated_at": "2024-01-25T15:30:00Z"
     }
-  }
+  ],
+  "total": 150,
+  "page": 1,
+  "limit": 20,
+  "totalPages": 8,
+  "hasNextPage": true,
+  "hasPreviousPage": false
 }
 ```
 
@@ -124,7 +123,7 @@ curl -X GET "http://localhost:3002/api/content/lessons?page=1&limit=10&level=beg
 
 **엔드포인트**: `GET /api/content/lessons/:id`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
 
 #### 경로 파라미터
 
@@ -139,7 +138,7 @@ curl -X GET "http://localhost:3002/api/content/lessons?page=1&limit=10&level=beg
 ```json
 {
   "success": true,
-  "data": {
+  "lesson": {
     "id": 1,
     "level": "beginner",
     "title_ko": "안녕하세요",
@@ -279,11 +278,12 @@ curl -X GET "http://localhost:3002/api/content/lessons?page=1&limit=10&level=beg
 }
 ```
 
+> **참고**: 실제 응답에는 추가 필드가 포함됩니다: `week`, `order_num`, `estimated_minutes`, `difficulty`, `published_at`, `prerequisites`, `tags`, `view_count`, `completion_count`
+
 #### 예시
 
 ```bash
-curl -X GET http://localhost:3002/api/content/lessons/1 \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+curl -X GET http://localhost:3002/api/content/lessons/1
 ```
 
 #### 오류 응답
@@ -304,11 +304,11 @@ curl -X GET http://localhost:3002/api/content/lessons/1 \
 
 ### 레슨 패키지 다운로드
 
-오프라인 사용을 위한 완전한 레슨 패키지를 다운로드합니다.
+오프라인 사용을 위한 완전한 레슨 패키지를 ZIP 파일로 다운로드합니다.
 
 **엔드포인트**: `GET /api/content/lessons/:id/download`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
 
 #### 경로 파라미터
 
@@ -316,56 +316,33 @@ curl -X GET http://localhost:3002/api/content/lessons/1 \
 |-----------|------|----------|-------------|
 | `id` | integer | 예 | 레슨 ID |
 
-#### 쿼리 파라미터
-
-| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
-|-----------|------|----------|---------|-------------|
-| `include_media` | boolean | 아니오 | true | 패키지에 미디어 파일 포함 |
-
 #### 응답
 
 **상태**: `200 OK`
 
-**Content-Type**: `application/json`
+**Content-Type**: `application/zip`
 
-```json
-{
-  "success": true,
-  "data": {
-    "lesson_id": 1,
-    "version": "1.2.0",
-    "package_size": 52428800,
-    "content": {
-      "lesson": {
-        "id": 1,
-        "title_ko": "안녕하세요",
-        "content": { /* ... full lesson content ... */ }
-      }
-    },
-    "media_files": [
-      {
-        "key": "lessons/1/thumbnail.jpg",
-        "local_path": null,
-        "remote_url": "http://localhost:9000/lemon-korean/lessons/1/thumbnail.jpg",
-        "size": 102400,
-        "checksum": "a1b2c3d4e5f6"
-      }
-    ],
-    "download_instructions": {
-      "total_files": 25,
-      "total_size": 52428800,
-      "media_base_url": "http://localhost:9000/lemon-korean"
-    }
-  }
-}
+**Content-Disposition**: `attachment; filename="lesson_{id}_v{version}.zip"`
+
+ZIP 파일 구조:
+```
+lesson_{id}_v{version}.zip
+├── lesson.json          # 레슨 메타데이터 및 콘텐츠
+├── media/               # 미디어 파일 디렉토리
+│   ├── thumbnail.jpg
+│   ├── audio/
+│   └── images/
+└── manifest.json        # 파일 매니페스트
 ```
 
 #### 예시
 
 ```bash
-curl -X GET "http://localhost:3002/api/content/lessons/1/download?include_media=true" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+curl -X GET "http://localhost:3002/api/content/lessons/1/download" \
+  -o lesson_1.zip
 ```
+
+> **참고**: 메타데이터만 필요한 경우 `/api/content/lessons/:id/package` 엔드포인트를 사용하세요.
 
 #### 오류 응답
 
@@ -388,9 +365,11 @@ curl -X GET "http://localhost:3002/api/content/lessons/1/download?include_media=
 
 레슨 콘텐츠 업데이트를 확인합니다.
 
-**엔드포인트**: `POST /api/content/check-updates`
+**엔드포인트**: `POST /api/content/lessons/check-updates`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
+
+> **제한**: 요청당 최대 100개 레슨
 
 #### 요청 본문
 
@@ -457,7 +436,7 @@ curl -X POST http://localhost:3002/api/content/check-updates \
 
 **엔드포인트**: `GET /api/content/vocabulary`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
 
 #### 쿼리 파라미터
 
@@ -476,30 +455,28 @@ curl -X POST http://localhost:3002/api/content/check-updates \
 ```json
 {
   "success": true,
-  "data": {
-    "vocabulary": [
-      {
-        "id": 1,
-        "korean": "안녕하세요",
-        "chinese": "你好",
-        "pinyin": "nǐ hǎo",
-        "romanization": "annyeonghaseyo",
-        "hanja": null,
-        "similarity_score": 95,
-        "part_of_speech": "phrase",
-        "difficulty_level": "beginner",
-        "usage_frequency": "very_high",
-        "image_url": "http://localhost:9000/lemon-korean/vocab/1/image.jpg",
-        "audio_url": "http://localhost:9000/lemon-korean/vocab/1/audio.mp3"
-      }
-    ],
-    "pagination": {
-      "page": 1,
-      "limit": 50,
-      "total": 500,
-      "total_pages": 10
+  "vocabulary": [
+    {
+      "id": 1,
+      "korean": "안녕하세요",
+      "chinese": "你好",
+      "pinyin": "nǐ hǎo",
+      "romanization": "annyeonghaseyo",
+      "hanja": null,
+      "similarity_score": 95,
+      "part_of_speech": "phrase",
+      "image_url": "http://localhost:9000/lemon-korean/vocab/1/image.jpg",
+      "audio_url_male": "http://localhost:9000/lemon-korean/vocab/1/audio_m.mp3",
+      "audio_url_female": "http://localhost:9000/lemon-korean/vocab/1/audio_f.mp3",
+      "is_primary": true
     }
-  }
+  ],
+  "total": 500,
+  "page": 1,
+  "limit": 50,
+  "total_pages": 10,
+  "has_next": true,
+  "has_prev": false
 }
 ```
 
@@ -518,7 +495,7 @@ curl -X GET "http://localhost:3002/api/content/vocabulary?lesson_id=1&limit=10" 
 
 **엔드포인트**: `GET /api/content/grammar`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
 
 #### 쿼리 파라미터
 
@@ -536,31 +513,33 @@ curl -X GET "http://localhost:3002/api/content/vocabulary?lesson_id=1&limit=10" 
 ```json
 {
   "success": true,
-  "data": {
-    "grammar_points": [
-      {
-        "id": 1,
-        "title_ko": "은/는 (주제 조사)",
-        "title_zh": "은/는 (主题助词)",
-        "level": "beginner",
-        "rule_ko": "받침이 있으면 '은', 없으면 '는'을 사용합니다.",
-        "rule_zh": "有收音时使用'은'，无收音时使用'는'。",
-        "comparison_zh": "类似于中文的'呢'或者用来强调主语。",
-        "examples": [
-          {
-            "korean": "저는 학생입니다.",
-            "chinese": "我是学生。"
-          }
-        ]
-      }
-    ],
-    "pagination": {
-      "page": 1,
-      "limit": 20,
-      "total": 80,
-      "total_pages": 4
+  "grammar": [
+    {
+      "id": 1,
+      "name_ko": "은/는 (주제 조사)",
+      "name_zh": "은/는 (主题助词)",
+      "category": "particle",
+      "level": "beginner",
+      "difficulty": 1,
+      "description": "받침이 있으면 '은', 없으면 '는'을 사용합니다.",
+      "chinese_comparison": "类似于中文的'呢'或者用来强调主语。",
+      "examples": [
+        {
+          "korean": "저는 학생입니다.",
+          "chinese": "我是学生。"
+        }
+      ],
+      "usage_notes": "주어나 주제를 강조할 때 사용",
+      "common_mistakes": "받침 유무에 따른 선택 오류",
+      "related_grammar": [1, 2]
     }
-  }
+  ],
+  "total": 80,
+  "page": 1,
+  "limit": 20,
+  "total_pages": 4,
+  "has_next": true,
+  "has_prev": false
 }
 ```
 
@@ -573,21 +552,20 @@ curl -X GET "http://localhost:3002/api/content/grammar?level=beginner" \
 
 ---
 
-### 콘텐츠 검색
+### 단어 검색
 
-레슨, 단어 및 문법을 통합 검색합니다.
+단어를 검색합니다.
 
-**엔드포인트**: `GET /api/content/search`
+**엔드포인트**: `GET /api/content/vocabulary/search`
 
-**인증**: 필요 (JWT)
+**인증**: 공개 (향후 JWT 인증 예정)
 
 #### 쿼리 파라미터
 
 | 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
 | `q` | string | 예 | - | 검색 쿼리 |
-| `type` | string | 아니오 | all | 검색 타입 (all, lessons, vocabulary, grammar) |
-| `limit` | integer | 아니오 | 20 | 페이지당 항목 수 |
+| `limit` | integer | 아니오 | 20 | 결과 수 제한 |
 
 #### 응답
 
@@ -596,34 +574,220 @@ curl -X GET "http://localhost:3002/api/content/grammar?level=beginner" \
 ```json
 {
   "success": true,
-  "data": {
-    "lessons": [
-      {
-        "id": 1,
-        "title_ko": "안녕하세요",
-        "title_zh": "你好",
-        "score": 0.95
-      }
-    ],
-    "vocabulary": [
-      {
-        "id": 1,
-        "korean": "안녕하세요",
-        "chinese": "你好",
-        "score": 1.0
-      }
-    ],
-    "grammar": [],
-    "total_results": 2
-  }
+  "vocabulary": [
+    {
+      "id": 1,
+      "korean": "안녕하세요",
+      "chinese": "你好",
+      "pinyin": "nǐ hǎo",
+      "romanization": "annyeonghaseyo",
+      "similarity_score": 95
+    }
+  ],
+  "total": 5
 }
 ```
 
 #### 예시
 
 ```bash
-curl -X GET "http://localhost:3002/api/content/search?q=안녕&type=all" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+curl -X GET "http://localhost:3002/api/content/vocabulary/search?q=안녕&limit=10"
+```
+
+> **참고**: 통합 검색 (`/api/content/search`)은 향후 구현 예정입니다.
+
+---
+
+### 레슨 버전 확인
+
+특정 레슨의 현재 버전을 확인합니다.
+
+**엔드포인트**: `GET /api/content/lessons/:id/version`
+
+**인증**: 공개
+
+#### 경로 파라미터
+
+| 파라미터 | 타입 | 필수 | 설명 |
+|-----------|------|----------|-------------|
+| `id` | integer | 예 | 레슨 ID |
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "lesson_id": 1,
+  "version": "1.2.0",
+  "updated_at": "2024-01-25T15:30:00Z"
+}
+```
+
+---
+
+### 레슨 패키지 메타데이터
+
+다운로드 전 레슨 패키지 정보를 조회합니다 (실제 다운로드 없이).
+
+**엔드포인트**: `GET /api/content/lessons/:id/package`
+
+**인증**: 공개 (향후 JWT 인증 예정)
+
+#### 경로 파라미터
+
+| 파라미터 | 타입 | 필수 | 설명 |
+|-----------|------|----------|-------------|
+| `id` | integer | 예 | 레슨 ID |
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "lesson_id": 1,
+  "version": "1.2.0",
+  "package_size": 52428800,
+  "media_files": [
+    {
+      "key": "lessons/1/thumbnail.jpg",
+      "type": "image",
+      "size": 102400
+    }
+  ],
+  "total_files": 25
+}
+```
+
+---
+
+### 레벨별 단어 조회
+
+특정 레벨의 단어 목록을 조회합니다.
+
+**엔드포인트**: `GET /api/content/vocabulary/level/:level`
+
+**인증**: 공개 (향후 JWT 인증 예정)
+
+#### 경로 파라미터
+
+| 파라미터 | 타입 | 필수 | 설명 |
+|-----------|------|----------|-------------|
+| `level` | string | 예 | 레벨 (beginner, intermediate, advanced) |
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "vocabulary": [ /* 단어 목록 */ ],
+  "total": 150,
+  "level": "beginner"
+}
+```
+
+---
+
+### 고유사도 단어 조회
+
+중국어와 유사도가 높은 한국어 단어 목록을 조회합니다.
+
+**엔드포인트**: `GET /api/content/vocabulary/high-similarity`
+
+**인증**: 공개 (향후 JWT 인증 예정)
+
+#### 쿼리 파라미터
+
+| 파라미터 | 타입 | 필수 | 기본값 | 설명 |
+|-----------|------|----------|---------|-------------|
+| `min_similarity` | number | 아니오 | 0.8 | 최소 유사도 (0-1) |
+| `limit` | integer | 아니오 | 100 | 결과 수 (최대: 500) |
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "vocabulary": [
+    {
+      "id": 1,
+      "korean": "도서관",
+      "chinese": "图书馆",
+      "similarity_score": 98
+    }
+  ],
+  "total": 45
+}
+```
+
+---
+
+### 문법 카테고리 조회
+
+문법 카테고리 목록을 조회합니다.
+
+**엔드포인트**: `GET /api/content/grammar/categories`
+
+**인증**: 공개 (향후 JWT 인증 예정)
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "categories": [
+    {
+      "id": "particle",
+      "name_ko": "조사",
+      "name_zh": "助词",
+      "count": 25
+    },
+    {
+      "id": "ending",
+      "name_ko": "어미",
+      "name_zh": "词尾",
+      "count": 40
+    }
+  ]
+}
+```
+
+---
+
+### 레벨별 문법 조회
+
+특정 레벨의 문법 목록을 조회합니다.
+
+**엔드포인트**: `GET /api/content/grammar/level/:level`
+
+**인증**: 공개 (향후 JWT 인증 예정)
+
+#### 경로 파라미터
+
+| 파라미터 | 타입 | 필수 | 설명 |
+|-----------|------|----------|-------------|
+| `level` | string | 예 | 레벨 (beginner, intermediate, advanced) |
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "grammar": [ /* 문법 목록 */ ],
+  "total": 30,
+  "level": "beginner"
+}
 ```
 
 ---
@@ -632,7 +796,9 @@ curl -X GET "http://localhost:3002/api/content/search?q=안녕&type=all" \
 
 Content Service가 정상인지 확인합니다.
 
-**엔드포인트**: `GET /api/content/health`
+**엔드포인트**: `GET /health`
+
+> **참고**: 헬스 체크 엔드포인트는 `/api/content/` 프리픽스를 사용하지 않습니다.
 
 **인증**: 불필요
 
@@ -667,7 +833,7 @@ Content Service가 정상인지 확인합니다.
 #### 예시
 
 ```bash
-curl -X GET http://localhost:3002/api/content/health
+curl -X GET http://localhost:3002/health
 ```
 
 ---
@@ -723,10 +889,10 @@ curl -X GET http://localhost:3002/api/content/health
   "hanja": "string (nullable)",
   "similarity_score": "integer (0-100)",
   "part_of_speech": "string",
-  "difficulty_level": "string",
-  "usage_frequency": "string",
   "image_url": "string (URL)",
-  "audio_url": "string (URL)",
+  "audio_url_male": "string (URL)",
+  "audio_url_female": "string (URL)",
+  "is_primary": "boolean",
   "example_sentence_ko": "string",
   "example_sentence_zh": "string"
 }
@@ -737,19 +903,24 @@ curl -X GET http://localhost:3002/api/content/health
 ```json
 {
   "id": "integer",
-  "title_ko": "string",
-  "title_zh": "string",
+  "name_ko": "string",
+  "name_zh": "string",
+  "category": "string",
   "level": "string (enum: beginner, intermediate, advanced)",
-  "rule_ko": "string",
-  "rule_zh": "string",
-  "comparison_zh": "string",
+  "difficulty": "integer (1-5)",
+  "description": "string",
+  "chinese_comparison": "string",
   "examples": [
     {
       "korean": "string",
       "chinese": "string",
       "highlight": "string (optional)"
     }
-  ]
+  ],
+  "usage_notes": "string",
+  "common_mistakes": "string",
+  "related_grammar": "array of integers",
+  "version": "string"
 }
 ```
 
@@ -936,5 +1107,5 @@ paths:
 
 ---
 
-**Last Updated**: 2024-01-26
-**Version**: 1.0.0
+**Last Updated**: 2026-01-30
+**Version**: 1.1.0

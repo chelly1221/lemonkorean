@@ -43,27 +43,54 @@
 
 ---
 
-### 2. backup.sh - 백업 스크립트
+### 2. 백업 스크립트
 
-모든 데이터베이스와 스토리지를 백업합니다.
+**두 가지 백업 시스템이 있습니다:**
 
-**기능:**
-- 📦 PostgreSQL 백업 (pg_dump)
-- 📦 MongoDB 백업 (mongodump)
-- 📦 MinIO 백업 (데이터 볼륨)
-- 🗑️ 오래된 백업 삭제 (30일 이상)
+#### 2a. backup.sh - 통합 백업 (레거시)
+
+모든 데이터베이스와 스토리지를 한 번에 백업합니다.
 
 **사용법:**
 ```bash
 ./scripts/backup.sh
 ```
 
+#### 2b. scripts/backup/ - 모듈화 백업 (권장)
+
+개별 백업 스크립트로 세분화된 백업/복구 지원:
+
+```
+scripts/backup/
+├── backup-all.sh        # 전체 백업 (PostgreSQL + MongoDB)
+├── backup-postgres.sh   # PostgreSQL만 백업
+├── backup-mongodb.sh    # MongoDB만 백업
+├── restore-postgres.sh  # PostgreSQL 복구
+├── restore-mongodb.sh   # MongoDB 복구
+└── setup-cron.sh        # Cron 자동화 설정
+```
+
+**사용법:**
+```bash
+# 전체 백업
+./scripts/backup/backup-all.sh
+
+# 개별 백업
+./scripts/backup/backup-postgres.sh
+./scripts/backup/backup-mongodb.sh
+
+# Cron 자동화 설정
+./scripts/backup/setup-cron.sh
+```
+
+상세 문서: [scripts/backup/README.md](/scripts/backup/README.md)
+
 **백업 위치:**
 ```
 backups/
 ├── postgres/
 │   └── lemon_korean_YYYYMMDD_HHMMSS.sql.gz
-├── mongo/
+├── mongodb/
 │   └── lemon_korean_YYYYMMDD_HHMMSS.tar.gz
 └── minio/
     └── lemon_korean_YYYYMMDD_HHMMSS.tar.gz
@@ -73,7 +100,7 @@ backups/
 
 **cron 설정 (매일 새벽 2시):**
 ```bash
-0 2 * * * /home/sanchan/lemonkorean/scripts/backup.sh >> /var/log/lemon_korean_backup.log 2>&1
+0 2 * * * /home/sanchan/lemonkorean/scripts/backup/backup-all.sh >> /var/log/lemon_korean_backup.log 2>&1
 ```
 
 ---
@@ -252,7 +279,7 @@ docker-compose up -d postgres mongo redis
 ### 직접 데이터베이스 접근
 ```bash
 # PostgreSQL
-docker-compose exec postgres psql -U lemon_user -d lemon_korean
+docker-compose exec postgres psql -U 3chan -d lemon_korean
 
 # MongoDB
 docker-compose exec mongo mongosh

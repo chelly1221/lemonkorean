@@ -23,6 +23,9 @@ const findById = async (userId) => {
         email_verified,
         is_active,
         role,
+        banned,
+        ban_reason,
+        banned_at,
         created_at,
         last_login
       FROM users
@@ -59,6 +62,9 @@ const findByEmail = async (email) => {
         email_verified,
         is_active,
         role,
+        banned,
+        ban_reason,
+        banned_at,
         created_at,
         last_login
       FROM users
@@ -151,6 +157,9 @@ const getAll = async (options = {}) => {
         email_verified,
         is_active,
         role,
+        banned,
+        ban_reason,
+        banned_at,
         created_at,
         last_login
       FROM users
@@ -215,7 +224,8 @@ const update = async (userId, updates) => {
        WHERE id = $${paramIndex}
        RETURNING
         id, email, name, subscription_type, language_preference,
-        email_verified, is_active, role, created_at, last_login`,
+        email_verified, is_active, role, banned, ban_reason, banned_at,
+        created_at, last_login`,
       params
     );
 

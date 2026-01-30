@@ -13,10 +13,10 @@ const getHealth = async (req, res) => {
   try {
     const health = await systemService.checkAllServices();
 
-    const statusCode = health.status === 'healthy' ? 200 : 503;
-
-    res.status(statusCode).json({
-      success: health.status === 'healthy',
+    // Always return 200 OK so frontend can display the data
+    // Frontend will check health.status to determine if services are healthy or degraded
+    res.status(200).json({
+      success: true,
       data: health
     });
   } catch (error) {

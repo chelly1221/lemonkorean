@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
+import '../../../data/repositories/content_repository.dart';
 import '../../providers/progress_provider.dart';
 import '../../widgets/convertible_text.dart';
 import 'stages/stage1_intro.dart';
@@ -15,7 +16,7 @@ import 'stages/stage6_quiz.dart';
 import 'stages/stage7_summary.dart';
 
 /// Lesson Screen
-/// Full-screen immersive learning experience with 7 stages
+/// Full-screen immersive learning experience with dynamic stages
 class LessonScreen extends StatefulWidget {
   final LessonModel lesson;
 
@@ -29,18 +30,107 @@ class LessonScreen extends StatefulWidget {
 
 class _LessonScreenState extends State<LessonScreen> {
   int _currentStage = 0;
-  final int _totalStages = 7;
+  late int _totalStages;
+  late List<Map<String, dynamic>> _stages;
   final PageController _pageController = PageController();
 
   // Track lesson progress
   int _quizScore = 0;
   DateTime? _startTime;
 
+  // Lesson content loading state
+  bool _isLoadingContent = true;
+  String? _loadError;
+  LessonModel? _fullLesson;
+  final _contentRepository = ContentRepository();
+
   @override
   void initState() {
     super.initState();
-    _startTime = DateTime.now();
+    _stages = [];
+    _totalStages = 0;
+    _loadLessonContent();
     _enterImmersiveMode();
+  }
+
+  /// Load lesson content from API
+  Future<void> _loadLessonContent() async {
+    setState(() {
+      _isLoadingContent = true;
+      _loadError = null;
+    });
+
+    try {
+      // Fetch full lesson content from API
+      final fullLesson = await _contentRepository.getLesson(widget.lesson.id);
+
+      if (fullLesson != null && fullLesson.content != null) {
+        _fullLesson = fullLesson;
+        _initializeStages();
+        _startTime = DateTime.now();
+      } else {
+        _loadError = '레슨 콘텐츠를 불러올 수 없습니다';
+      }
+    } catch (e) {
+      print('[LessonScreen] Load error: $e');
+      _loadError = '네트워크 오류가 발생했습니다';
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoadingContent = false;
+        });
+      }
+    }
+  }
+
+  /// Initialize stages from lesson content (supports v1 and v2)
+  void _initializeStages() {
+    // Use _fullLesson (from API) if available, otherwise fall back to widget.lesson
+    final content = _fullLesson?.content ?? widget.lesson.content;
+    if (content == null) {
+      _stages = [];
+      _totalStages = 0;
+      return;
+    }
+
+    // Check if v2 structure (stages array)
+    if (content.containsKey('stages') && content['stages'] is List) {
+      _stages = List<Map<String, dynamic>>.from(content['stages']);
+      _stages.sort((a, b) => (a['order'] ?? 0).compareTo(b['order'] ?? 0));
+    } else {
+      // v1: Auto-migrate to v2 structure
+      _stages = _migrateV1ToV2(content);
+    }
+
+    _totalStages = _stages.length;
+  }
+
+  /// Migrate v1 content structure to v2
+  List<Map<String, dynamic>> _migrateV1ToV2(Map<String, dynamic> content) {
+    final stages = <Map<String, dynamic>>[];
+    final mapping = [
+      {'key': 'stage1_intro', 'type': 'intro'},
+      {'key': 'stage2_vocabulary', 'type': 'vocabulary'},
+      {'key': 'stage3_grammar', 'type': 'grammar'},
+      {'key': 'stage4_practice', 'type': 'practice'},
+      {'key': 'stage5_dialogue', 'type': 'dialogue'},
+      {'key': 'stage6_quiz', 'type': 'quiz'},
+      {'key': 'stage7_summary', 'type': 'summary'},
+    ];
+
+    for (var i = 0; i < mapping.length; i++) {
+      final m = mapping[i];
+      if (content.containsKey(m['key'])) {
+        stages.add({
+          'id': 'stage_$i',
+          'type': m['type'],
+          'order': i,
+          'data': content[m['key']],
+        });
+      }
+    }
+
+    return stages;
   }
 
   @override
@@ -170,6 +260,79 @@ class _LessonScreenState extends State<LessonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Show loading state
+    if (_isLoadingContent) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(AppConstants.primaryColor),
+              ),
+              const SizedBox(height: 16),
+              ConvertibleText(
+                '${widget.lesson.titleZh} 불러오는 중...',
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeMedium,
+                  color: AppConstants.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Show error state
+    if (_loadError != null) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: ConvertibleText(widget.lesson.titleZh),
+          backgroundColor: Colors.white,
+          foregroundColor: AppConstants.textPrimary,
+          elevation: 0,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 64,
+                color: Colors.red.shade400,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                _loadError!,
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeMedium,
+                  color: AppConstants.textSecondary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                onPressed: _loadLessonContent,
+                icon: const Icon(Icons.refresh),
+                label: const ConvertibleText('다시 시도'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppConstants.primaryColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return WillPopScope(
       onWillPop: () async {
         await _showExitDialog();
@@ -185,52 +348,20 @@ class _LessonScreenState extends State<LessonScreen> {
 
               // Stage Content
               Expanded(
-                child: PageView(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(), // Disable swipe
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentStage = index;
-                    });
-                  },
-                  children: [
-                    Stage1Intro(
-                      lesson: widget.lesson,
-                      onNext: _nextStage,
-                    ),
-                    Stage2Vocabulary(
-                      lesson: widget.lesson,
-                      onNext: _nextStage,
-                      onPrevious: _previousStage,
-                    ),
-                    Stage3Grammar(
-                      lesson: widget.lesson,
-                      onNext: _nextStage,
-                      onPrevious: _previousStage,
-                    ),
-                    Stage4Practice(
-                      lesson: widget.lesson,
-                      onNext: _nextStage,
-                      onPrevious: _previousStage,
-                    ),
-                    Stage5Dialogue(
-                      lesson: widget.lesson,
-                      onNext: _nextStage,
-                      onPrevious: _previousStage,
-                    ),
-                    Stage6Quiz(
-                      lesson: widget.lesson,
-                      onNext: _nextStage,
-                      onPrevious: _previousStage,
-                      onScoreUpdate: _updateQuizScore,
-                    ),
-                    Stage7Summary(
-                      lesson: widget.lesson,
-                      onComplete: _completeLessonAndExit,
-                      onPrevious: _previousStage,
-                    ),
-                  ],
-                ),
+                child: _totalStages == 0
+                    ? _buildEmptyState()
+                    : PageView.builder(
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(), // Disable swipe
+                        itemCount: _totalStages,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentStage = index;
+                          });
+                        },
+                        itemBuilder: (context, index) =>
+                            _buildStageWidget(_stages[index], index),
+                      ),
               ),
             ],
           ),
@@ -240,7 +371,7 @@ class _LessonScreenState extends State<LessonScreen> {
   }
 
   Widget _buildTopBar() {
-    final progress = (_currentStage + 1) / _totalStages;
+    final progress = _totalStages > 0 ? (_currentStage + 1) / _totalStages : 0.0;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -301,6 +432,105 @@ class _LessonScreenState extends State<LessonScreen> {
               fontWeight: FontWeight.bold,
               color: AppConstants.primaryColor,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Build stage widget based on type
+  Widget _buildStageWidget(Map<String, dynamic> stage, int index) {
+    final type = stage['type'] as String;
+    final data = stage['data'] as Map<String, dynamic>?;
+    final isFirst = index == 0;
+    final isLast = index == _totalStages - 1;
+
+    // Use _fullLesson (from API) if available, otherwise fall back to widget.lesson
+    final lesson = _fullLesson ?? widget.lesson;
+
+    switch (type) {
+      case 'intro':
+        return Stage1Intro(
+          lesson: lesson,
+          stageData: data,
+          onNext: _nextStage,
+        );
+      case 'vocabulary':
+        return Stage2Vocabulary(
+          lesson: lesson,
+          stageData: data,
+          onNext: _nextStage,
+          onPrevious: isFirst ? null : _previousStage,
+        );
+      case 'grammar':
+        return Stage3Grammar(
+          lesson: lesson,
+          stageData: data,
+          onNext: _nextStage,
+          onPrevious: isFirst ? null : _previousStage,
+        );
+      case 'practice':
+        return Stage4Practice(
+          lesson: lesson,
+          stageData: data,
+          onNext: _nextStage,
+          onPrevious: isFirst ? null : _previousStage,
+        );
+      case 'dialogue':
+        return Stage5Dialogue(
+          lesson: lesson,
+          stageData: data,
+          onNext: _nextStage,
+          onPrevious: isFirst ? null : _previousStage,
+        );
+      case 'quiz':
+        return Stage6Quiz(
+          lesson: lesson,
+          stageData: data,
+          onNext: isLast ? _completeLessonAndExit : _nextStage,
+          onPrevious: isFirst ? null : _previousStage,
+          onScoreUpdate: _updateQuizScore,
+        );
+      case 'summary':
+        return Stage7Summary(
+          lesson: lesson,
+          stageData: data,
+          onComplete: _completeLessonAndExit,
+          onPrevious: isFirst ? null : _previousStage,
+        );
+      default:
+        return Center(
+          child: Text(
+            '未知阶段类型: $type',
+            style: const TextStyle(color: Colors.red),
+          ),
+        );
+    }
+  }
+
+  /// Build empty state when no stages
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.inbox_outlined,
+            size: 64,
+            color: Colors.grey.shade400,
+          ),
+          const SizedBox(height: 16),
+          const ConvertibleText(
+            '此课程暂无内容',
+            style: TextStyle(
+              fontSize: 18,
+              color: AppConstants.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 32),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            child: const ConvertibleText('返回'),
           ),
         ],
       ),

@@ -8,14 +8,16 @@ import '../../../widgets/convertible_text.dart';
 /// Comprehensive quiz to test lesson understanding
 class Stage6Quiz extends StatefulWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onNext;
-  final VoidCallback onPrevious;
+  final VoidCallback? onPrevious;
   final Function(int)? onScoreUpdate;
 
   const Stage6Quiz({
     required this.lesson,
+    this.stageData,
     required this.onNext,
-    required this.onPrevious,
+    this.onPrevious,
     this.onScoreUpdate,
     super.key,
   });
@@ -29,71 +31,121 @@ class _Stage6QuizState extends State<Stage6Quiz> {
   final Map<int, String> _userAnswers = {};
   bool _quizCompleted = false;
 
-  final List<Map<String, dynamic>> _mockQuizQuestions = [
-    {
-      'question': '"안녕하세요"的意思是？',
-      'options': ['你好', '谢谢', '再见', '对不起'],
-      'correctAnswer': '你好',
-      'type': 'vocabulary',
-    },
-    {
-      'question': '"감사합니다"的中文翻译是？',
-      'options': ['你好', '谢谢', '再见', '对不起'],
-      'correctAnswer': '谢谢',
-      'type': 'vocabulary',
-    },
-    {
-      'question': '当名词以辅音结尾时，应该使用哪个主题助词？',
-      'options': ['은', '는', '이', '가'],
-      'correctAnswer': '은',
-      'type': 'grammar',
-    },
-    {
-      'question': '选择正确的句子："我是学生"',
-      'options': [
-        '저는 학생입니다',
-        '저는 학생이에요',
-        '저는 학생예요',
-        '以上都对',
-      ],
-      'correctAnswer': '以上都对',
-      'type': 'grammar',
-    },
-    {
-      'question': '"이름이 뭐예요?"的意思是？',
-      'options': [
-        '你好吗？',
-        '你叫什么名字？',
-        '你是谁？',
-        '你在哪里？',
-      ],
-      'correctAnswer': '你叫什么名字？',
-      'type': 'dialogue',
-    },
-    {
-      'question': '如何用韩语说"很高兴认识你"？',
-      'options': ['안녕하세요', '감사합니다', '반갑습니다', '죄송합니다'],
-      'correctAnswer': '반갑습니다',
-      'type': 'dialogue',
-    },
-    {
-      'question': '"학생이에요?"的意思是？',
-      'options': [
-        '你是学生',
-        '你是学生吗？',
-        '我是学生',
-        '我是学生吗？',
-      ],
-      'correctAnswer': '你是学生吗？',
-      'type': 'grammar',
-    },
-    {
-      'question': '选择"对不起"的韩语',
-      'options': ['안녕하세요', '감사합니다', '죄송합니다', '반갑습니다'],
-      'correctAnswer': '죄송합니다',
-      'type': 'vocabulary',
-    },
-  ];
+  late List<Map<String, dynamic>> _quizQuestions;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Load questions from stageData or use mock data
+    List<Map<String, dynamic>> sourceQuestions;
+    if (widget.stageData != null && widget.stageData!.containsKey('questions')) {
+      final rawQuestions = List<Map<String, dynamic>>.from(widget.stageData!['questions']);
+      // Normalize API format to app format
+      sourceQuestions = rawQuestions.map((q) {
+        final options = List<String>.from(q['options'] ?? []);
+        String correctAnswer;
+
+        // Handle both formats: correct_answer (index) and correctAnswer (string)
+        if (q.containsKey('correct_answer') && q['correct_answer'] is int) {
+          // API format: correct_answer is an index
+          final index = q['correct_answer'] as int;
+          correctAnswer = (index >= 0 && index < options.length)
+              ? options[index]
+              : options.isNotEmpty ? options[0] : '';
+        } else if (q.containsKey('correctAnswer')) {
+          // Legacy format: correctAnswer is the answer string
+          correctAnswer = q['correctAnswer'] as String;
+        } else {
+          correctAnswer = options.isNotEmpty ? options[0] : '';
+        }
+
+        return {
+          'question': q['question'] ?? '',
+          'options': options,
+          'correctAnswer': correctAnswer,
+          'type': q['type'] ?? 'general',
+        };
+      }).toList();
+    } else {
+      // Use mock questions
+      sourceQuestions = [
+        {
+          'question': '"안녕하세요"的意思是？',
+          'options': ['你好', '谢谢', '再见', '对不起'],
+          'correctAnswer': '你好',
+          'type': 'vocabulary',
+        },
+        {
+          'question': '"감사합니다"的中文翻译是？',
+          'options': ['你好', '谢谢', '再见', '对不起'],
+          'correctAnswer': '谢谢',
+          'type': 'vocabulary',
+        },
+        {
+          'question': '当名词以辅音结尾时，应该使用哪个主题助词？',
+          'options': ['은', '는', '이', '가'],
+          'correctAnswer': '은',
+          'type': 'grammar',
+        },
+        {
+          'question': '选择正确的句子："我是学生"',
+          'options': [
+            '저는 학생입니다',
+            '저는 학생이에요',
+            '저는 학생예요',
+            '以上都对',
+          ],
+          'correctAnswer': '以上都对',
+          'type': 'grammar',
+        },
+        {
+          'question': '"이름이 뭐예요?"的意思是？',
+          'options': [
+            '你好吗？',
+            '你叫什么名字？',
+            '你是谁？',
+            '你在哪里？',
+          ],
+          'correctAnswer': '你叫什么名字？',
+          'type': 'dialogue',
+        },
+        {
+          'question': '如何用韩语说"很高兴认识你"？',
+          'options': ['안녕하세요', '감사합니다', '반갑습니다', '죄송합니다'],
+          'correctAnswer': '반갑습니다',
+          'type': 'dialogue',
+        },
+        {
+          'question': '"학생이에요?"的意思是？',
+          'options': [
+            '你是学生',
+            '你是学生吗？',
+            '我是学生',
+            '我是学生吗？',
+          ],
+          'correctAnswer': '你是学生吗？',
+          'type': 'grammar',
+        },
+        {
+          'question': '选择"对不起"的韩语',
+          'options': ['안녕하세요', '감사합니다', '죄송합니다', '반갑습니다'],
+          'correctAnswer': '죄송합니다',
+          'type': 'vocabulary',
+        },
+      ];
+    }
+
+    // Keep question order (no shuffle)
+    _quizQuestions = List.from(sourceQuestions);
+
+    // Shuffle only the options for each question (but keep correctAnswer reference)
+    for (var question in _quizQuestions) {
+      if (question['options'] != null && question['options'] is List) {
+        question['options'] = List.from(question['options'])..shuffle();
+      }
+    }
+  }
 
   void _selectAnswer(String answer) {
     setState(() {
@@ -102,7 +154,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
   }
 
   void _nextQuestion() {
-    if (_currentQuestionIndex < _mockQuizQuestions.length - 1) {
+    if (_currentQuestionIndex < _quizQuestions.length - 1) {
       setState(() {
         _currentQuestionIndex++;
       });
@@ -132,8 +184,8 @@ class _Stage6QuizState extends State<Stage6Quiz> {
 
   int _calculateScore() {
     int correct = 0;
-    for (int i = 0; i < _mockQuizQuestions.length; i++) {
-      if (_userAnswers[i] == _mockQuizQuestions[i]['correctAnswer']) {
+    for (int i = 0; i < _quizQuestions.length; i++) {
+      if (_userAnswers[i] == _quizQuestions[i]['correctAnswer']) {
         correct++;
       }
     }
@@ -141,7 +193,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
   }
 
   double _calculatePercentage() {
-    return (_calculateScore() / _mockQuizQuestions.length) * 100;
+    return (_calculateScore() / _quizQuestions.length) * 100;
   }
 
   @override
@@ -150,7 +202,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
       return _buildResultScreen();
     }
 
-    final question = _mockQuizQuestions[_currentQuestionIndex];
+    final question = _quizQuestions[_currentQuestionIndex];
     final selectedAnswer = _userAnswers[_currentQuestionIndex];
 
     return Container(
@@ -173,7 +225,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${_currentQuestionIndex + 1} / ${_mockQuizQuestions.length}',
+                '${_currentQuestionIndex + 1} / ${_quizQuestions.length}',
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                   color: AppConstants.textSecondary,
@@ -190,7 +242,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  '已答 ${_userAnswers.length}/${_mockQuizQuestions.length}',
+                  '已答 ${_userAnswers.length}/${_quizQuestions.length}',
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.primaryColor,
@@ -207,7 +259,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
           ClipRRect(
             borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
             child: LinearProgressIndicator(
-              value: (_currentQuestionIndex + 1) / _mockQuizQuestions.length,
+              value: (_currentQuestionIndex + 1) / _quizQuestions.length,
               minHeight: 8,
               backgroundColor: Colors.grey.shade200,
               valueColor: const AlwaysStoppedAnimation<Color>(
@@ -374,7 +426,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                     ),
                   ),
                   child: Text(
-                    _currentQuestionIndex < _mockQuizQuestions.length - 1
+                    _currentQuestionIndex < _quizQuestions.length - 1
                         ? '下一题'
                         : '提交',
                   ),
@@ -434,7 +486,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
 
           // Score
           Text(
-            '得分：$score / ${_mockQuizQuestions.length}',
+            '得分：$score / ${_quizQuestions.length}',
             style: const TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,

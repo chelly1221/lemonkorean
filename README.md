@@ -160,7 +160,7 @@ cp .env.example .env
 # 데이터베이스
 DB_PASSWORD=your_secure_password
 POSTGRES_DB=lemon_korean
-POSTGRES_USER=lemon_user
+POSTGRES_USER=3chan
 
 # JWT
 JWT_SECRET=your_jwt_secret_key
@@ -212,13 +212,13 @@ docker-compose logs -f
 헬스 체크 엔드포인트:
 ```bash
 # Auth Service
-curl http://localhost:3001/api/auth/health
+curl http://localhost:3001/health
 
 # Content Service
-curl http://localhost:3002/api/content/health
+curl http://localhost:3002/health
 
 # Progress Service
-curl http://localhost:3003/api/progress/health
+curl http://localhost:3003/health
 ```
 
 #### 5️⃣ Flutter 앱 실행
@@ -343,7 +343,7 @@ flutter build ios --release
 
 ```bash
 # PostgreSQL 접속
-docker-compose exec postgres psql -U lemon_user -d lemon_korean
+docker-compose exec postgres psql -U 3chan -d lemon_korean
 
 # MongoDB 접속
 docker-compose exec mongo mongosh
@@ -352,7 +352,7 @@ docker-compose exec mongo mongosh
 docker-compose exec redis redis-cli
 
 # 데이터베이스 마이그레이션 실행
-docker-compose exec postgres psql -U lemon_user -d lemon_korean -f /init/01_schema.sql
+docker-compose exec postgres psql -U 3chan -d lemon_korean -f /init/01_schema.sql
 ```
 
 ### 코드 규칙
@@ -554,7 +554,7 @@ docker-compose logs postgres
 docker-compose restart postgres
 
 # PostgreSQL 준비 대기
-docker-compose exec postgres pg_isready -U lemon_user
+docker-compose exec postgres pg_isready -U 3chan
 ```
 
 #### 4. Flutter 빌드 오류
@@ -719,9 +719,9 @@ docker-compose exec nginx nginx -s reload
 - [x] **Phase 2**: 진도 서비스 + 동기화 메커니즘
 - [x] **Phase 3**: Flutter 기본 화면 (로그인, 회원가입, 홈)
 - [x] **Phase 4**: 레슨 7단계 구현
-- [ ] **Phase 5**: 관리자 대시보드
-- [ ] **Phase 6**: 데이터 분석 서비스
-- [ ] **Phase 7**: 프로덕션 배포 + CI/CD
+- [x] **Phase 5**: 관리자 대시보드
+- [x] **Phase 6**: 데이터 분석 서비스
+- [x] **Phase 7**: 프로덕션 배포 + CI/CD
 
 ---
 

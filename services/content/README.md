@@ -52,27 +52,35 @@ npm start
 
 ## API 엔드포인트
 
+### 헬스 체크
+
+- `GET /health` - 서비스 상태 확인
+
 ### 레슨
 
 - `GET /api/content/lessons` - 모든 레슨 조회
-- `GET /api/content/lessons/:id` - 레슨 메타데이터 조회
-- `GET /api/content/lessons/:id/full` - 전체 레슨 조회 (메타데이터 + 콘텐츠)
-- `GET /api/content/lessons/:id/download` - 레슨 패키지 다운로드 (ZIP)
 - `GET /api/content/lessons/level/:level` - 레벨별 레슨 조회
+- `GET /api/content/lessons/:id` - 레슨 상세 조회 (메타데이터 + 콘텐츠)
+- `GET /api/content/lessons/:id/version` - 레슨 버전 확인
+- `GET /api/content/lessons/:id/package` - 레슨 패키지 메타데이터
+- `GET /api/content/lessons/:id/download` - 레슨 패키지 다운로드 (ZIP)
 - `POST /api/content/lessons/check-updates` - 레슨 업데이트 확인
 
 ### 단어
 
 - `GET /api/content/vocabulary` - 모든 단어 조회
-- `GET /api/content/vocabulary/:id` - ID로 단어 조회
 - `GET /api/content/vocabulary/search?q=term` - 단어 검색
 - `GET /api/content/vocabulary/stats` - 단어 통계 조회
+- `GET /api/content/vocabulary/high-similarity` - 고유사도 단어 조회
+- `GET /api/content/vocabulary/level/:level` - 레벨별 단어 조회
+- `GET /api/content/vocabulary/:id` - ID로 단어 조회
 
 ### 문법
 
 - `GET /api/content/grammar` - 모든 문법 규칙 조회
-- `GET /api/content/grammar/:id` - ID로 문법 규칙 조회
 - `GET /api/content/grammar/categories` - 문법 카테고리 조회
+- `GET /api/content/grammar/level/:level` - 레벨별 문법 조회
+- `GET /api/content/grammar/:id` - ID로 문법 규칙 조회
 
 ## Docker
 

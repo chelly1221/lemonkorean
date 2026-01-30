@@ -203,9 +203,8 @@ const invalidateUserCaches = async (userId) => {
     // Invalidate user details cache
     await cacheHelpers.del(`admin:user:details:${userId}`);
 
-    // Invalidate user list caches (all variants)
-    // This is a brute force approach; in production, consider using Redis SCAN or key patterns
-    await cacheHelpers.del('admin:users:list:*');
+    // Invalidate user list caches (all variants) using SCAN pattern matching
+    await cacheHelpers.delPattern('admin:users:list:*');
 
     console.log(`[USER_SERVICE] Invalidated caches for user ${userId}`);
   } catch (error) {
@@ -219,5 +218,6 @@ module.exports = {
   getUserDetails,
   updateUser,
   banUser,
-  getUserActivity
+  getUserActivity,
+  invalidateUserCaches
 };

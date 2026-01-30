@@ -226,21 +226,16 @@ curl -X POST http://localhost:3003/api/progress/complete \
 
 레슨의 특정 스테이지에 대한 진도를 업데이트합니다.
 
-**엔드포인트**: `PUT /api/progress/lesson/:lessonId`
+**엔드포인트**: `POST /api/progress/update`
 
 **인증**: 필요 (JWT)
-
-#### 경로 파라미터
-
-| 파라미터 | 타입 | 필수 | 설명 |
-|-----------|------|----------|-------------|
-| `lessonId` | integer | 예 | 레슨 ID |
 
 #### 요청 본문
 
 ```json
 {
   "user_id": 1,
+  "lesson_id": 2,
   "current_stage": 3,
   "stage_data": {
     "vocabulary_learned": 8,
@@ -274,11 +269,12 @@ curl -X POST http://localhost:3003/api/progress/complete \
 #### 예시
 
 ```bash
-curl -X PUT http://localhost:3003/api/progress/lesson/2 \
+curl -X POST http://localhost:3003/api/progress/update \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json" \
   -d '{
     "user_id": 1,
+    "lesson_id": 2,
     "current_stage": 3,
     "time_spent_seconds": 600
   }'
@@ -522,7 +518,7 @@ curl -X GET "http://localhost:3003/api/progress/review-schedule?user_id=1&days=7
 
 SRS 복습 결과를 제출합니다.
 
-**엔드포인트**: `POST /api/progress/review`
+**엔드포인트**: `POST /api/progress/review/complete`
 
 **인증**: 필요 (JWT)
 
@@ -567,7 +563,7 @@ SRS 복습 결과를 제출합니다.
 #### 예시
 
 ```bash
-curl -X POST http://localhost:3003/api/progress/review \
+curl -X POST http://localhost:3003/api/progress/review/complete \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json" \
   -d '{
@@ -598,15 +594,20 @@ curl -X POST http://localhost:3003/api/progress/review \
 
 사용자 학습 통계를 조회합니다.
 
-**엔드포인트**: `GET /api/progress/statistics`
+**엔드포인트**: `GET /api/progress/stats/:userId`
 
 **인증**: 필요 (JWT)
+
+#### 경로 파라미터
+
+| 파라미터 | 타입 | 필수 | 설명 |
+|-----------|------|----------|-------------|
+| `userId` | integer | 예 | 사용자 ID |
 
 #### 쿼리 파라미터
 
 | 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `user_id` | integer | 예 | - | 사용자 ID |
 | `period` | string | 아니오 | all | 기간 (all, week, month, year) |
 
 #### 응답
@@ -690,9 +691,11 @@ curl -X GET "http://localhost:3003/api/progress/statistics?user_id=1&period=mont
 
 ### 연속 기록 조회
 
+> **참고**: 이 엔드포인트는 현재 구현 예정입니다. 연속 기록 데이터는 `/api/progress/stats/:userId` 응답에 포함되어 있습니다.
+
 사용자의 학습 연속 기록 정보를 조회합니다.
 
-**엔드포인트**: `GET /api/progress/streak`
+**엔드포인트**: `GET /api/progress/streak` *(계획됨)*
 
 **인증**: 필요 (JWT)
 
@@ -759,7 +762,9 @@ curl -X GET "http://localhost:3003/api/progress/streak?user_id=1" \
 
 Progress Service가 정상인지 확인합니다.
 
-**엔드포인트**: `GET /api/progress/health`
+**엔드포인트**: `GET /health`
+
+> **참고**: 헬스 체크 엔드포인트는 `/api/progress/` 프리픽스를 사용하지 않습니다.
 
 **인증**: 불필요
 
@@ -791,7 +796,7 @@ Progress Service가 정상인지 확인합니다.
 #### 예시
 
 ```bash
-curl -X GET http://localhost:3003/api/progress/health
+curl -X GET http://localhost:3003/health
 ```
 
 ---

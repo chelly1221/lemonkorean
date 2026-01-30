@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { testConnection } = require('./config/database');
 const { testMongoConnection } = require('./config/mongodb');
@@ -7,6 +8,7 @@ const { testRedisConnection } = require('./config/redis');
 const { testMinIOConnection } = require('./config/minio');
 
 // Import routes
+const authRoutes = require('./routes/auth.routes');
 const usersRoutes = require('./routes/users.routes');
 const lessonsRoutes = require('./routes/lessons.routes');
 const vocabularyRoutes = require('./routes/vocabulary.routes');
@@ -14,6 +16,8 @@ const mediaRoutes = require('./routes/media.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
 const systemRoutes = require('./routes/system.routes');
 const testRoutes = require('./routes/test.routes');
+const networkRoutes = require('./routes/network.routes');
+const docsRoutes = require('./routes/docs.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3006;
@@ -23,6 +27,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Static files (Admin Dashboard UI)
+app.use(express.static(path.join(__dirname, '../public')));
+
 // Request logging
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
@@ -30,6 +37,7 @@ app.use((req, res, next) => {
 });
 
 // ==================== Routes ====================
+app.use('/api/auth', authRoutes);
 app.use('/api/admin/users', usersRoutes);
 app.use('/api/admin/lessons', lessonsRoutes);
 app.use('/api/admin/vocabulary', vocabularyRoutes);
@@ -37,6 +45,8 @@ app.use('/api/admin/media', mediaRoutes);
 app.use('/api/admin/analytics', analyticsRoutes);
 app.use('/api/admin/system', systemRoutes);
 app.use('/api/admin/test', testRoutes);
+app.use('/api/admin/network', networkRoutes);
+app.use('/api/admin/docs', docsRoutes);
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
@@ -98,21 +108,9 @@ app.get('/health', async (req, res) => {
   }
 });
 
-// Root endpoint
+// Root endpoint - Serve Admin Dashboard
 app.get('/', (req, res) => {
-  res.json({
-    service: 'Lemon Korean Admin Service',
-    version: '1.0.0',
-    endpoints: {
-      health: '/health',
-      users: '/api/admin/users',
-      lessons: '/api/admin/lessons',
-      vocabulary: '/api/admin/vocabulary',
-      media: '/api/admin/media',
-      analytics: '/api/admin/analytics',
-      system: '/api/admin/system'
-    }
-  });
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // ==================== Error Handling ====================

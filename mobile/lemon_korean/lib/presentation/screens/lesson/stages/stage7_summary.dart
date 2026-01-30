@@ -9,11 +9,16 @@ import '../../../widgets/bilingual_text.dart';
 /// Lesson completion summary with achievements and next steps
 class Stage7Summary extends StatelessWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onComplete;
-  final VoidCallback onPrevious;
+  final VoidCallback? onPrevious;
 
   const Stage7Summary({
-    required this.lesson, required this.onComplete, required this.onPrevious, super.key,
+    required this.lesson,
+    this.stageData,
+    required this.onComplete,
+    this.onPrevious,
+    super.key,
   });
 
   @override

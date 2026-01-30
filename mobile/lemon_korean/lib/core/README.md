@@ -10,6 +10,8 @@ Core 레이어는 앱 전역에서 사용되는 핵심 기능을 제공합니다
 
 ```
 core/
+├── config/
+│   └── environment_config.dart   # 환경 변수 설정 (.env 파일)
 ├── constants/
 │   └── app_constants.dart        # 전역 상수
 ├── network/
@@ -19,7 +21,8 @@ core/
 │   └── database_helper.dart      # SQLite 데이터베이스
 └── utils/
     ├── download_manager.dart     # 다운로드 관리자
-    └── sync_manager.dart         # 동기화 관리자
+    ├── sync_manager.dart         # 동기화 관리자
+    └── chinese_converter.dart    # 간체/번체 변환 유틸리티
 ```
 
 ---
@@ -399,9 +402,65 @@ test('SyncManager syncs queue', () async {
 
 ---
 
+## EnvironmentConfig (환경 설정)
+
+`.env` 파일에서 런타임 설정을 로드합니다.
+
+**파일 위치:** `/lib/core/config/environment_config.dart`
+
+```dart
+// 환경 설정 로드
+await dotenv.load(fileName: '.env');
+
+// 설정 값 접근
+final apiUrl = EnvironmentConfig.apiBaseUrl;
+final mediaUrl = EnvironmentConfig.mediaBaseUrl;
+```
+
+**지원 환경 파일:**
+- `.env.development` - 개발 환경
+- `.env.production` - 프로덕션 환경
+
+**주요 설정:**
+- `API_BASE_URL` - API 서버 주소
+- `MEDIA_BASE_URL` - 미디어 서버 주소
+- `DEBUG_MODE` - 디버그 모드 활성화
+
+---
+
+## ChineseConverter (중국어 변환)
+
+간체/번체 중국어 자동 변환 유틸리티입니다.
+
+**파일 위치:** `/lib/core/utils/chinese_converter.dart`
+
+```dart
+import 'package:flutter_open_chinese_convert/flutter_open_chinese_convert.dart';
+
+// 간체 → 번체 변환
+final traditional = await ChineseConverter.convert(
+  text,
+  ChineseVariant.s2t,
+);
+
+// 번체 → 간체 변환
+final simplified = await ChineseConverter.convert(
+  text,
+  ChineseVariant.t2s,
+);
+```
+
+**사용 위젯:**
+- `ConvertibleText` - 설정에 따라 자동 변환
+- `BilingualText` - 한국어/중국어 동시 표시
+
+---
+
 ## 참고 자료
 
 - [Hive Documentation](https://docs.hivedb.dev/)
 - [Dio Documentation](https://pub.dev/packages/dio)
 - [SQLite Flutter](https://pub.dev/packages/sqflite)
 - [Connectivity Plus](https://pub.dev/packages/connectivity_plus)
+- [flutter_open_chinese_convert](https://pub.dev/packages/flutter_open_chinese_convert)
+- [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)

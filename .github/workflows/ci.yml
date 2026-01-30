@@ -1,0 +1,312 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  NODE_VERSION: '18'
+  GO_VERSION: '1.21'
+  PYTHON_VERSION: '3.11'
+  FLUTTER_VERSION: '3.16.0'
+
+jobs:
+  # ================================================================
+  # Test Node.js Services
+  # ================================================================
+  test-node-services:
+    name: Test Node.js Services
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: lemon_korean_test
+          POSTGRES_USER: 3chan
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    strategy:
+      matrix:
+        service: [auth, content, admin]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: services/${{ matrix.service }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: services/${{ matrix.service }}
+        run: npm ci
+
+      - name: Run tests
+        working-directory: services/${{ matrix.service }}
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: lemon_korean_test
+          DB_USER: 3chan
+          DB_PASSWORD: test_password
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          JWT_SECRET: test_jwt_secret_key_for_ci
+        run: npm test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./services/${{ matrix.service }}/coverage/lcov.info
+          flags: ${{ matrix.service }}
+
+  # ================================================================
+  # Test Go Services
+  # ================================================================
+  test-go-services:
+    name: Test Go Services
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: lemon_korean_test
+          POSTGRES_USER: 3chan
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    strategy:
+      matrix:
+        service: [progress, media]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: services/${{ matrix.service }}/go.sum
+
+      - name: Install dependencies
+        working-directory: services/${{ matrix.service }}
+        run: go mod download
+
+      - name: Run tests
+        working-directory: services/${{ matrix.service }}
+        env:
+          DATABASE_URL: postgres://3chan:test_password@localhost:5432/lemon_korean_test?sslmode=disable
+        run: go test -v -cover ./...
+
+      - name: Generate coverage
+        working-directory: services/${{ matrix.service }}
+        run: go test -coverprofile=coverage.out ./...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./services/${{ matrix.service }}/coverage.out
+          flags: ${{ matrix.service }}
+
+  # ================================================================
+  # Test Python Services
+  # ================================================================
+  test-python-services:
+    name: Test Analytics Service
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: lemon_korean_test
+          POSTGRES_USER: 3chan
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+
+      mongodb:
+        image: mongo:4.4
+        env:
+          MONGO_INITDB_ROOT_USERNAME: 3chan
+          MONGO_INITDB_ROOT_PASSWORD: test_password
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: services/analytics/requirements.txt
+
+      - name: Install dependencies
+        working-directory: services/analytics
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: services/analytics
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: lemon_korean_test
+          DB_USER: 3chan
+          DB_PASSWORD: test_password
+          MONGODB_URI: mongodb://3chan:test_password@localhost:27017/lemon_korean_test?authSource=admin
+        run: pytest -v --cov=. --cov-report=xml
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./services/analytics/coverage.xml
+          flags: analytics
+
+  # ================================================================
+  # Lint and Format
+  # ================================================================
+  lint:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Lint Node.js services
+        run: |
+          for service in auth content admin; do
+            cd services/$service
+            npm install
+            npm run lint || echo "No lint script for $service"
+            cd ../..
+          done
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Lint Go services
+        uses: golangci/golangci-lint-action@v3
+        with:
+          working-directory: services/progress
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Lint Python services
+        working-directory: services/analytics
+        run: |
+          pip install black flake8
+          black --check .
+          flake8 .
+
+  # ================================================================
+  # Build Docker Images
+  # ================================================================
+  build-images:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    needs: [test-node-services, test-go-services, test-python-services]
+
+    strategy:
+      matrix:
+        service: [auth, content, progress, media, analytics, admin]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/${{ matrix.service }}
+          file: ./services/${{ matrix.service }}/Dockerfile
+          push: false
+          tags: lemon-korean-${{ matrix.service }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ================================================================
+  # Security Scan
+  # ================================================================
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # ================================================================
+  # Summary
+  # ================================================================
+  ci-success:
+    name: CI Pipeline Success
+    runs-on: ubuntu-latest
+    needs: [test-node-services, test-go-services, test-python-services, lint, build-images]
+    if: success()
+
+    steps:
+      - name: Success message
+        run: echo "✅ All CI checks passed!"

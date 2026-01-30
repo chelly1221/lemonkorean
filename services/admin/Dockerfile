@@ -34,18 +34,23 @@ LABEL maintainer="Lemon Korean Team" \
 # Install runtime dependencies
 # - dumb-init: proper signal handling for PID 1
 # - wget: for health checks (used in docker-compose)
+# - docker-cli: for managing containers
 RUN apk add --no-cache \
     dumb-init \
     wget \
-    tzdata && \
+    tzdata \
+    docker-cli && \
     rm -rf /var/cache/apk/*
 
 # Set timezone (optional)
 ENV TZ=Asia/Seoul
 
 # Create app user for security (non-root)
+# Add docker group with same GID as host (984) for docker socket access
 RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 -G nodejs
+    adduser -S nodejs -u 1001 -G nodejs && \
+    addgroup -g 984 -S docker && \
+    addgroup nodejs docker
 
 # Set working directory
 WORKDIR /app
@@ -58,6 +63,9 @@ COPY --chown=nodejs:nodejs package*.json ./
 
 # Copy application source code
 COPY --chown=nodejs:nodejs src ./src
+
+# Copy public directory (Admin Dashboard UI)
+COPY --chown=nodejs:nodejs public ./public
 
 # Set environment variables
 ENV NODE_ENV=production \

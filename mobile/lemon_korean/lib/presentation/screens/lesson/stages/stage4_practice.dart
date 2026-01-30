@@ -8,11 +8,16 @@ import '../../../widgets/bilingual_text.dart';
 /// Interactive exercises to practice vocabulary and grammar
 class Stage4Practice extends StatefulWidget {
   final LessonModel lesson;
+  final Map<String, dynamic>? stageData;
   final VoidCallback onNext;
-  final VoidCallback onPrevious;
+  final VoidCallback? onPrevious;
 
   const Stage4Practice({
-    required this.lesson, required this.onNext, required this.onPrevious, super.key,
+    required this.lesson,
+    this.stageData,
+    required this.onNext,
+    this.onPrevious,
+    super.key,
   });
 
   @override
@@ -25,52 +30,76 @@ class _Stage4PracticeState extends State<Stage4Practice> {
   bool _showResult = false;
   int _correctCount = 0;
 
-  final List<Map<String, dynamic>> _mockQuestions = [
-    {
-      'type': 'multiple_choice',
-      'question': '请选择正确的翻译：안녕하세요',
-      'options': ['你好', '谢谢', '再见', '对不起'],
-      'correctAnswer': '你好',
-    },
-    {
-      'type': 'multiple_choice',
-      'question': '哪个是"谢谢"的韩语？',
-      'options': ['안녕하세요', '감사합니다', '죄송합니다', '잘 가요'],
-      'correctAnswer': '감사합니다',
-    },
-    {
-      'type': 'fill_blank',
-      'question': '填空：저___ 학생입니다 (我是学生)',
-      'options': ['은', '는', '이', '가'],
-      'correctAnswer': '는',
-    },
-    {
-      'type': 'multiple_choice',
-      'question': '选择正确的助词：책___ 재미있어요',
-      'options': ['은', '는', '이', '가'],
-      'correctAnswer': '은',
-    },
-    {
-      'type': 'matching',
-      'question': '选择"对不起"的韩语',
-      'options': ['안녕하세요', '감사합니다', '죄송합니다', '반갑습니다'],
-      'correctAnswer': '죄송합니다',
-    },
-  ];
+  late List<Map<String, dynamic>> _questions;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Load questions from stageData or use mock data
+    List<Map<String, dynamic>> sourceQuestions;
+    if (widget.stageData != null && widget.stageData!.containsKey('exercises')) {
+      sourceQuestions = List<Map<String, dynamic>>.from(widget.stageData!['exercises']);
+    } else {
+      // Use mock questions
+      sourceQuestions = [
+        {
+          'type': 'multiple_choice',
+          'question': '请选择正确的翻译：안녕하세요',
+          'options': ['你好', '谢谢', '再见', '对不起'],
+          'correctAnswer': '你好',
+        },
+        {
+          'type': 'multiple_choice',
+          'question': '哪个是"谢谢"的韩语？',
+          'options': ['안녕하세요', '감사합니다', '죄송합니다', '잘 가요'],
+          'correctAnswer': '감사합니다',
+        },
+        {
+          'type': 'fill_blank',
+          'question': '填空：저___ 학생입니다 (我是学生)',
+          'options': ['은', '는', '이', '가'],
+          'correctAnswer': '는',
+        },
+        {
+          'type': 'multiple_choice',
+          'question': '选择正确的助词：책___ 재미있어요',
+          'options': ['은', '는', '이', '가'],
+          'correctAnswer': '은',
+        },
+        {
+          'type': 'matching',
+          'question': '选择"对不起"的韩语',
+          'options': ['안녕하세요', '감사합니다', '죄송합니다', '반갑습니다'],
+          'correctAnswer': '죄송합니다',
+        },
+      ];
+    }
+
+    // Keep question order (no shuffle)
+    _questions = List.from(sourceQuestions);
+
+    // Shuffle only the options for each question
+    for (var question in _questions) {
+      if (question['options'] != null && question['options'] is List) {
+        question['options'] = List.from(question['options'])..shuffle();
+      }
+    }
+  }
 
   void _checkAnswer() {
     if (_selectedAnswer == null) return;
 
     setState(() {
       _showResult = true;
-      if (_selectedAnswer == _mockQuestions[_currentQuestionIndex]['correctAnswer']) {
+      if (_selectedAnswer == _questions[_currentQuestionIndex]['correctAnswer']) {
         _correctCount++;
       }
     });
   }
 
   void _nextQuestion() {
-    if (_currentQuestionIndex < _mockQuestions.length - 1) {
+    if (_currentQuestionIndex < _questions.length - 1) {
       setState(() {
         _currentQuestionIndex++;
         _selectedAnswer = null;
@@ -94,7 +123,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
 
   @override
   Widget build(BuildContext context) {
-    final question = _mockQuestions[_currentQuestionIndex];
+    final question = _questions[_currentQuestionIndex];
     final isCorrect = _selectedAnswer == question['correctAnswer'];
 
     return Container(
@@ -118,7 +147,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${_currentQuestionIndex + 1} / ${_mockQuestions.length}',
+                '${_currentQuestionIndex + 1} / ${_questions.length}',
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                   color: AppConstants.textSecondary,
@@ -362,12 +391,12 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                   ),
                   child: InlineBilingualText(
                     chinese: _showResult
-                        ? (_currentQuestionIndex < _mockQuestions.length - 1
+                        ? (_currentQuestionIndex < _questions.length - 1
                             ? '下一题'
                             : '继续')
                         : '检查答案',
                     korean: _showResult
-                        ? (_currentQuestionIndex < _mockQuestions.length - 1
+                        ? (_currentQuestionIndex < _questions.length - 1
                             ? '다음'
                             : '계속')
                         : '답안 확인',

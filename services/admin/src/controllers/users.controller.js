@@ -1,5 +1,6 @@
 const userService = require('../services/user-management.service');
 const { getAuditLogs } = require('../middleware/audit.middleware');
+const { query } = require('../config/database');
 
 /**
  * Users Controller
@@ -171,21 +172,53 @@ const banUser = async (req, res) => {
       });
     }
 
-    const { ban } = req.body;
+    const { banned, ban_reason } = req.body;
 
-    if (typeof ban !== 'boolean') {
+    if (typeof banned !== 'boolean') {
       return res.status(400).json({
         error: 'Bad Request',
-        message: 'ban field must be a boolean'
+        message: 'banned field must be a boolean'
       });
     }
 
-    const updatedUser = await userService.banUser(userId, ban, req.user.id);
+    if (banned && !ban_reason) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'ban_reason is required when banning a user'
+      });
+    }
+
+    // Update user ban status
+    const updates = {
+      banned: banned,
+      ban_reason: banned ? ban_reason : null,
+      banned_at: banned ? new Date().toISOString() : null
+    };
+
+    const result = await query(
+      `UPDATE users
+       SET banned = $1, ban_reason = $2, banned_at = $3
+       WHERE id = $4
+       RETURNING id, email, name, subscription_type, language_preference,
+                 email_verified, is_active, role, banned, ban_reason, banned_at,
+                 created_at, last_login`,
+      [updates.banned, updates.ban_reason, updates.banned_at, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'User not found'
+      });
+    }
+
+    // Invalidate caches
+    await userService.invalidateUserCaches(userId);
 
     res.json({
       success: true,
-      message: `User ${ban ? 'banned' : 'unbanned'} successfully`,
-      data: updatedUser
+      message: `User ${banned ? 'banned' : 'unbanned'} successfully`,
+      data: result.rows[0]
     });
   } catch (error) {
     console.error('[USERS_CONTROLLER] Error banning user:', error);
@@ -280,11 +313,63 @@ const getUserAuditLogs = async (req, res) => {
   }
 };
 
+/**
+ * DELETE /api/admin/users/:id
+ * Delete a user
+ */
+const deleteUser = async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id);
+
+    if (isNaN(userId)) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Invalid user ID'
+      });
+    }
+
+    // Check if user exists
+    const userCheck = await query(
+      'SELECT id FROM users WHERE id = $1',
+      [userId]
+    );
+
+    if (userCheck.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'User not found'
+      });
+    }
+
+    // Delete user (cascade will handle related records)
+    await query('DELETE FROM users WHERE id = $1', [userId]);
+
+    // Invalidate caches
+    await userService.invalidateUserCaches(userId);
+
+    console.log(`[USERS_CONTROLLER] User deleted: ${userId}`);
+
+    res.json({
+      success: true,
+      message: 'User deleted successfully'
+    });
+  } catch (error) {
+    console.error('[USERS_CONTROLLER] Error deleting user:', error);
+
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to delete user',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
 module.exports = {
   listUsers,
   getUserById,
   updateUser,
   banUser,
+  deleteUser,
   getUserActivity,
   getUserAuditLogs
 };

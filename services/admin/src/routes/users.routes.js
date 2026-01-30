@@ -44,6 +44,15 @@ router.put(
   usersController.banUser
 );
 
+// Delete user
+router.delete(
+  '/:id',
+  requireAuth,
+  requireAdmin,
+  auditLog('user.delete', 'user'),
+  usersController.deleteUser
+);
+
 // Get user activity
 router.get(
   '/:id/activity',

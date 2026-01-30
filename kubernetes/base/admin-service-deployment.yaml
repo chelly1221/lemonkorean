@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-service
+  namespace: lemon-korean
+spec:
+  selector:
+    app: admin-service
+  ports:
+    - port: 3006
+      targetPort: 3006
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-service
+  namespace: lemon-korean
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-service
+  template:
+    metadata:
+      labels:
+        app: admin-service
+    spec:
+      containers:
+        - name: admin-service
+          image: lemon-korean/admin-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3006
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3006"
+            - name: DATABASE_URL
+              value: "postgres://lemon_admin:$(DB_PASSWORD)@postgres-service:5432/$(DB_NAME)"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: DB_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: lemon-korean-config
+                  key: DB_NAME
+            - name: MONGO_URL
+              value: "mongodb://lemon_admin:$(DB_PASSWORD)@mongodb-service:27017/$(DB_NAME)?authSource=admin"
+            - name: REDIS_HOST
+              value: "redis-service"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: REDIS_PASSWORD
+            - name: MINIO_ENDPOINT
+              value: "minio-service:9000"
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: MINIO_ACCESS_KEY
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: MINIO_SECRET_KEY
+            - name: MINIO_USE_SSL
+              value: "false"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: JWT_SECRET
+            - name: ADMIN_EMAILS
+              valueFrom:
+                secretKeyRef:
+                  name: lemon-korean-secrets
+                  key: ADMIN_EMAILS
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3006
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3006
+            initialDelaySeconds: 5
+            periodSeconds: 5

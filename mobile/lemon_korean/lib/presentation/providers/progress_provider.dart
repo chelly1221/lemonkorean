@@ -9,13 +9,23 @@ class ProgressProvider with ChangeNotifier {
   final _apiClient = ApiClient.instance;
 
   List<Map<String, dynamic>> _progressList = [];
+  Map<String, dynamic>? _userStats;
   bool _isLoading = false;
   String? _errorMessage;
 
   // Getters
   List<Map<String, dynamic>> get progressList => _progressList;
+  Map<String, dynamic>? get userStats => _userStats;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
+
+  // Stats getters (with defaults)
+  int get completedLessons => _userStats?['completed_lessons'] ?? 0;
+  int get totalLessons => _userStats?['total_lessons'] ?? 0;
+  int get totalStudyDays => _userStats?['study_days'] ?? 0;
+  int get masteredWords => _userStats?['mastered_words'] ?? 0;
+  int get currentStreak => _userStats?['current_streak'] ?? 0;
+  int get totalTimeMinutes => _userStats?['total_time_minutes'] ?? 0;
 
   /// Fetch user progress
   Future<void> fetchProgress(int userId) async {
@@ -48,6 +58,56 @@ class ProgressProvider with ChangeNotifier {
     _progressList = LocalStorage.getAllProgress();
     _isLoading = false;
     notifyListeners();
+  }
+
+  /// Fetch user statistics
+  Future<void> fetchUserStats(int userId) async {
+    try {
+      final response = await _apiClient.getUserStats(userId);
+
+      if (response.statusCode == 200) {
+        _userStats = response.data['stats'] as Map<String, dynamic>?;
+        notifyListeners();
+        return;
+      }
+    } catch (e) {
+      debugPrint('[ProgressProvider] Failed to fetch stats: $e');
+    }
+
+    // Calculate stats from local progress if API fails
+    _calculateLocalStats();
+    notifyListeners();
+  }
+
+  /// Calculate stats from local progress data
+  void _calculateLocalStats() {
+    final allProgress = LocalStorage.getAllProgress();
+
+    int completedCount = 0;
+    int totalTime = 0;
+    final studyDates = <String>{};
+
+    for (final p in allProgress) {
+      if (p['status'] == 'completed') {
+        completedCount++;
+      }
+      if (p['time_spent_minutes'] != null) {
+        totalTime += (p['time_spent_minutes'] as int);
+      }
+      if (p['completed_at'] != null) {
+        final date = DateTime.parse(p['completed_at']).toIso8601String().substring(0, 10);
+        studyDates.add(date);
+      }
+    }
+
+    _userStats = {
+      'completed_lessons': completedCount,
+      'total_lessons': allProgress.length,
+      'study_days': studyDates.length,
+      'mastered_words': completedCount * 5, // Estimate 5 words per lesson
+      'total_time_minutes': totalTime,
+      'current_streak': 0, // Would need more complex calculation
+    };
   }
 
   /// Complete lesson
@@ -171,5 +231,89 @@ class ProgressProvider with ChangeNotifier {
   void clearError() {
     _errorMessage = null;
     notifyListeners();
+  }
+
+  /// Get list of completed lessons with details
+  List<Map<String, dynamic>> getCompletedLessons() {
+    final allProgress = LocalStorage.getAllProgress();
+    final completedList = allProgress
+        .where((p) => p['status'] == 'completed')
+        .toList();
+
+    // Sort by completion date (most recent first)
+    completedList.sort((a, b) {
+      final dateA = a['completed_at'] != null
+          ? DateTime.parse(a['completed_at'])
+          : DateTime(1970);
+      final dateB = b['completed_at'] != null
+          ? DateTime.parse(b['completed_at'])
+          : DateTime(1970);
+      return dateB.compareTo(dateA);
+    });
+
+    // Enrich with lesson details from local storage
+    return completedList.map((progress) {
+      final lessonId = progress['lesson_id'] as int;
+      final lessonData = LocalStorage.getLesson(lessonId);
+
+      return {
+        ...progress,
+        'title_ko': lessonData?['title_ko'] ?? '레슨 $lessonId',
+        'title_zh': lessonData?['title_zh'] ?? '课程 $lessonId',
+        'level': lessonData?['level'] ?? 1,
+        'vocabulary_count': lessonData?['vocabulary_count'] ?? 0,
+      };
+    }).toList();
+  }
+
+  /// Get list of mastered vocabulary words
+  List<Map<String, dynamic>> getMasteredWords() {
+    final allVocabulary = LocalStorage.getAllVocabulary();
+
+    // If no vocabulary data, generate from completed lessons
+    if (allVocabulary.isEmpty) {
+      return _generateVocabularyFromProgress();
+    }
+
+    return allVocabulary;
+  }
+
+  /// Generate vocabulary list from completed lesson progress
+  List<Map<String, dynamic>> _generateVocabularyFromProgress() {
+    final completedLessons = getCompletedLessons();
+    final vocabularyList = <Map<String, dynamic>>[];
+
+    for (final lesson in completedLessons) {
+      final lessonId = lesson['lesson_id'] as int;
+      final lessonData = LocalStorage.getLesson(lessonId);
+
+      // Try to get vocabulary from lesson content
+      if (lessonData != null && lessonData['content'] != null) {
+        final content = lessonData['content'] as Map<String, dynamic>?;
+        final vocabStage = content?['stage2_vocabulary'] as Map<String, dynamic>?;
+        final words = vocabStage?['words'] as List?;
+
+        if (words != null) {
+          for (final word in words) {
+            vocabularyList.add(Map<String, dynamic>.from(word as Map));
+          }
+        }
+      } else {
+        // Generate sample vocabulary for the lesson
+        final vocabCount = lesson['vocabulary_count'] as int? ?? 5;
+        for (int i = 1; i <= vocabCount; i++) {
+          vocabularyList.add({
+            'id': lessonId * 100 + i,
+            'korean': '단어$lessonId-$i',
+            'chinese': '单词$lessonId-$i',
+            'pinyin': 'dān cí',
+            'lesson_id': lessonId,
+            'mastery_level': 100,
+          });
+        }
+      }
+    }
+
+    return vocabularyList;
   }
 }

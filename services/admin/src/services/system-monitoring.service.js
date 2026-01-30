@@ -31,8 +31,9 @@ const checkAllServices = async () => {
       externalServices: await checkExternalServices()
     };
 
-    // Determine overall status
-    const allHealthy = Object.values(services).every(service => {
+    // Determine overall status (skip externalServices array)
+    const allHealthy = Object.entries(services).every(([key, service]) => {
+      if (key === 'externalServices') return true; // Skip external services check
       if (service.name === 'Admin Service') return service.status === 'healthy';
       return service.status === 'healthy' || service.status === 'connected';
     });

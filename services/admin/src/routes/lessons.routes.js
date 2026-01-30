@@ -18,6 +18,23 @@ router.get(
   lessonsController.listLessons
 );
 
+// Get lesson content (MongoDB)
+router.get(
+  '/:id/content',
+  requireAuth,
+  requireAdmin,
+  lessonsController.getLessonContent
+);
+
+// Save lesson content (MongoDB)
+router.put(
+  '/:id/content',
+  requireAuth,
+  requireAdmin,
+  auditLog('lesson.content_update', 'lesson'),
+  lessonsController.saveLessonContent
+);
+
 // Get lesson by ID
 router.get(
   '/:id',

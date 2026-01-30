@@ -15,7 +15,8 @@
   - [토큰 갱신](#토큰-갱신)
   - [프로필 조회](#프로필-조회)
   - [프로필 업데이트](#프로필-업데이트)
-  - [비밀번호 변경](#비밀번호-변경)
+  - [토큰 검증](#토큰-검증)
+  - [로그아웃](#로그아웃)
   - [헬스 체크](#헬스-체크)
 - [오류 코드](#오류-코드)
 - [데이터 모델](#데이터-모델)
@@ -47,9 +48,9 @@ Authorization: Bearer <jwt_token>
 ```json
 {
   "email": "string (required, email format)",
-  "password": "string (required, min: 8, max: 64)",
-  "username": "string (required, min: 3, max: 30)",
-  "language": "string (optional, default: 'zh', enum: ['zh', 'en'])"
+  "password": "string (required, min: 6, max: 64)",
+  "name": "string (required, min: 2, max: 50)",
+  "language_preference": "string (optional, default: 'zh', enum: ['zh', 'en', 'ko'])"
 }
 ```
 
@@ -60,21 +61,17 @@ Authorization: Bearer <jwt_token>
 ```json
 {
   "success": true,
-  "data": {
-    "user": {
-      "id": 1,
-      "email": "user@example.com",
-      "username": "johndoe",
-      "language": "zh",
-      "subscription_type": "free",
-      "created_at": "2024-01-25T10:30:00Z"
-    },
-    "token": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "expires_in": 604800
-    }
-  }
+  "message": "User registered successfully",
+  "user": {
+    "id": 1,
+    "email": "user@example.com",
+    "name": "johndoe",
+    "language_preference": "zh",
+    "subscription_type": "free",
+    "created_at": "2024-01-25T10:30:00Z"
+  },
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
@@ -86,8 +83,8 @@ curl -X POST http://localhost:3001/api/auth/register \
   -d '{
     "email": "user@example.com",
     "password": "SecureP@ss123",
-    "username": "johndoe",
-    "language": "zh"
+    "name": "johndoe",
+    "language_preference": "zh"
   }'
 ```
 
@@ -149,22 +146,18 @@ curl -X POST http://localhost:3001/api/auth/register \
 ```json
 {
   "success": true,
-  "data": {
-    "user": {
-      "id": 1,
-      "email": "user@example.com",
-      "username": "johndoe",
-      "language": "zh",
-      "subscription_type": "premium",
-      "created_at": "2024-01-25T10:30:00Z",
-      "last_login": "2024-01-26T08:15:00Z"
-    },
-    "token": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "expires_in": 604800
-    }
-  }
+  "message": "Login successful",
+  "user": {
+    "id": 1,
+    "email": "user@example.com",
+    "name": "johndoe",
+    "language_preference": "zh",
+    "subscription_type": "premium",
+    "created_at": "2024-01-25T10:30:00Z",
+    "last_login_at": "2024-01-26T08:15:00Z"
+  },
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
@@ -220,7 +213,7 @@ curl -X POST http://localhost:3001/api/auth/login \
 
 ```json
 {
-  "refresh_token": "string (required)"
+  "refreshToken": "string (required)"
 }
 ```
 
@@ -231,13 +224,8 @@ curl -X POST http://localhost:3001/api/auth/login \
 ```json
 {
   "success": true,
-  "data": {
-    "token": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "expires_in": 604800
-    }
-  }
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
@@ -247,7 +235,7 @@ curl -X POST http://localhost:3001/api/auth/login \
 curl -X POST http://localhost:3001/api/auth/refresh \
   -H "Content-Type: application/json" \
   -d '{
-    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
   }'
 ```
 
@@ -282,17 +270,14 @@ curl -X POST http://localhost:3001/api/auth/refresh \
 ```json
 {
   "success": true,
-  "data": {
+  "user": {
     "id": 1,
     "email": "user@example.com",
-    "username": "johndoe",
-    "language": "zh",
+    "name": "johndoe",
+    "language_preference": "zh",
     "subscription_type": "premium",
     "subscription_expires_at": "2024-12-31T23:59:59Z",
-    "total_lessons_completed": 45,
-    "streak_days": 12,
-    "created_at": "2024-01-25T10:30:00Z",
-    "last_login": "2024-01-26T08:15:00Z"
+    "created_at": "2024-01-25T10:30:00Z"
   }
 }
 ```
@@ -332,8 +317,8 @@ curl -X GET http://localhost:3001/api/auth/profile \
 
 ```json
 {
-  "username": "string (optional, min: 3, max: 30)",
-  "language": "string (optional, enum: ['zh', 'en'])",
+  "name": "string (optional, min: 2, max: 50)",
+  "language_preference": "string (optional, enum: ['zh', 'en', 'ko'])",
   "email": "string (optional, email format)"
 }
 ```
@@ -345,11 +330,11 @@ curl -X GET http://localhost:3001/api/auth/profile \
 ```json
 {
   "success": true,
-  "data": {
+  "user": {
     "id": 1,
     "email": "newemail@example.com",
-    "username": "newusername",
-    "language": "en",
+    "name": "newusername",
+    "language_preference": "en",
     "subscription_type": "premium",
     "updated_at": "2024-01-26T10:30:00Z"
   }
@@ -384,20 +369,19 @@ curl -X PUT http://localhost:3001/api/auth/profile \
 
 ---
 
-### 비밀번호 변경
+### 토큰 검증
 
-사용자 비밀번호를 변경합니다.
+JWT 토큰의 유효성을 검증하고 사용자 정보를 반환합니다.
 
-**엔드포인트**: `POST /api/auth/change-password`
+**엔드포인트**: `POST /api/auth/verify`
 
-**인증**: 필요 (JWT)
+**인증**: 불필요
 
 #### 요청 본문
 
 ```json
 {
-  "current_password": "string (required)",
-  "new_password": "string (required, min: 8, max: 64)"
+  "token": "string (required)"
 }
 ```
 
@@ -408,19 +392,22 @@ curl -X PUT http://localhost:3001/api/auth/profile \
 ```json
 {
   "success": true,
-  "message": "Password changed successfully"
+  "valid": true,
+  "user": {
+    "id": 1,
+    "email": "user@example.com",
+    "name": "johndoe"
+  }
 }
 ```
 
 #### 예시
 
 ```bash
-curl -X POST http://localhost:3001/api/auth/change-password \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+curl -X POST http://localhost:3001/api/auth/verify \
   -H "Content-Type: application/json" \
   -d '{
-    "current_password": "OldP@ss123",
-    "new_password": "NewSecureP@ss456"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
   }'
 ```
 
@@ -431,23 +418,53 @@ curl -X POST http://localhost:3001/api/auth/change-password \
 ```json
 {
   "success": false,
+  "valid": false,
   "error": {
-    "code": "INVALID_PASSWORD",
-    "message": "Current password is incorrect"
+    "code": "INVALID_TOKEN",
+    "message": "Token is invalid or expired"
   }
 }
 ```
 
-**Status**: `400 Bad Request`
+---
+
+### 로그아웃
+
+사용자를 로그아웃하고 리프레시 토큰을 무효화합니다.
+
+**엔드포인트**: `POST /api/auth/logout`
+
+**인증**: 필요 (JWT)
+
+#### 요청 본문
 
 ```json
 {
-  "success": false,
-  "error": {
-    "code": "WEAK_PASSWORD",
-    "message": "New password does not meet security requirements"
-  }
+  "refreshToken": "string (optional)",
+  "logoutAll": "boolean (optional, default: false)"
 }
+```
+
+#### 응답
+
+**상태**: `200 OK`
+
+```json
+{
+  "success": true,
+  "message": "Logged out successfully"
+}
+```
+
+#### 예시
+
+```bash
+curl -X POST http://localhost:3001/api/auth/logout \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "logoutAll": false
+  }'
 ```
 
 ---
@@ -456,7 +473,9 @@ curl -X POST http://localhost:3001/api/auth/change-password \
 
 Auth Service가 정상인지 확인합니다.
 
-**엔드포인트**: `GET /api/auth/health`
+**엔드포인트**: `GET /health`
+
+> **참고**: 헬스 체크 엔드포인트는 `/api/auth/` 프리픽스를 사용하지 않습니다.
 
 **인증**: 불필요
 
@@ -480,7 +499,7 @@ Auth Service가 정상인지 확인합니다.
 #### 예시
 
 ```bash
-curl -X GET http://localhost:3001/api/auth/health
+curl -X GET http://localhost:3001/health
 ```
 
 ---
@@ -512,15 +531,12 @@ curl -X GET http://localhost:3001/api/auth/health
 {
   "id": "integer",
   "email": "string (email format)",
-  "username": "string (3-30 characters)",
-  "language": "string (enum: 'zh', 'en')",
+  "name": "string (2-50 characters)",
+  "language_preference": "string (enum: 'zh', 'en', 'ko')",
   "subscription_type": "string (enum: 'free', 'premium', 'vip')",
   "subscription_expires_at": "string (ISO 8601 datetime, nullable)",
-  "total_lessons_completed": "integer",
-  "streak_days": "integer",
   "created_at": "string (ISO 8601 datetime)",
-  "updated_at": "string (ISO 8601 datetime)",
-  "last_login": "string (ISO 8601 datetime, nullable)"
+  "updated_at": "string (ISO 8601 datetime)"
 }
 ```
 
@@ -528,9 +544,8 @@ curl -X GET http://localhost:3001/api/auth/health
 
 ```json
 {
-  "access_token": "string (JWT)",
-  "refresh_token": "string (JWT)",
-  "expires_in": "integer (seconds)"
+  "accessToken": "string (JWT)",
+  "refreshToken": "string (JWT)"
 }
 ```
 

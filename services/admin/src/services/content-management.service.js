@@ -2,6 +2,7 @@ const Lesson = require('../models/lesson.model');
 const Vocabulary = require('../models/vocabulary.model');
 const { cacheHelpers } = require('../config/redis');
 const { invalidateLessonCaches, invalidateLessonListCaches, invalidateVocabularyCaches } = require('../utils/cache-invalidation');
+const { collections } = require('../config/mongodb');
 
 /**
  * Content Management Service
@@ -320,6 +321,20 @@ const updateVocabulary = async (vocabId, updates) => {
 };
 
 /**
+ * Find vocabulary by Korean word
+ * @param {string} korean - Korean word
+ * @returns {Object|null} Vocabulary or null
+ */
+const findVocabularyByKorean = async (korean) => {
+  try {
+    return await Vocabulary.findByKorean(korean);
+  } catch (error) {
+    console.error('[CONTENT_SERVICE] Error finding vocabulary by Korean:', error);
+    throw error;
+  }
+};
+
+/**
  * Delete vocabulary
  * @param {number} vocabId - Vocabulary ID
  * @returns {boolean} Success
@@ -361,6 +376,160 @@ const bulkDeleteVocabulary = async (vocabIds) => {
   }
 };
 
+// ==================== Lesson Content (MongoDB) ====================
+
+/**
+ * Check if content is v1 structure (fixed 7 stages)
+ * @param {Object} content - Content object
+ * @returns {boolean} True if v1 structure
+ */
+function isV1Content(content) {
+  return !content.stages && (
+    content.stage1_intro || content.stage2_vocabulary ||
+    content.stage3_grammar || content.stage4_practice ||
+    content.stage5_dialogue || content.stage6_quiz || content.stage7_summary
+  );
+}
+
+/**
+ * Migrate v1 content structure to v2 (array-based)
+ * @param {Object} v1Content - V1 content object
+ * @returns {Object} V2 content object with stages array
+ */
+function migrateV1ToV2(v1Content) {
+  const stages = [];
+  const mapping = [
+    {key: 'stage1_intro', type: 'intro'},
+    {key: 'stage2_vocabulary', type: 'vocabulary'},
+    {key: 'stage3_grammar', type: 'grammar'},
+    {key: 'stage4_practice', type: 'practice'},
+    {key: 'stage5_dialogue', type: 'dialogue'},
+    {key: 'stage6_quiz', type: 'quiz'},
+    {key: 'stage7_summary', type: 'summary'}
+  ];
+
+  mapping.forEach(({key, type}, order) => {
+    if (v1Content[key]) {
+      stages.push({
+        id: `stage_${Date.now()}_${order}`,
+        type,
+        order,
+        data: v1Content[key]
+      });
+    }
+  });
+
+  return {stages};
+}
+
+/**
+ * Get lesson content from MongoDB
+ * @param {number} lessonId - Lesson ID
+ * @returns {Object|null} Lesson content (v2 structure with stages array)
+ */
+const getLessonContent = async (lessonId) => {
+  try {
+    console.log('[CONTENT_SERVICE] Getting lesson content from MongoDB:', lessonId);
+
+    // Try cache first
+    const cacheKey = `admin:lesson:${lessonId}:content`;
+    const cached = await cacheHelpers.get(cacheKey);
+
+    if (cached) {
+      console.log('[CONTENT_SERVICE] Returning cached lesson content');
+      return cached;
+    }
+
+    // Get from MongoDB
+    const lessonsContent = collections.lessonsContent();
+    const content = await lessonsContent.findOne({ lesson_id: parseInt(lessonId) });
+
+    if (!content) {
+      console.log('[CONTENT_SERVICE] No content found for lesson:', lessonId);
+      return null;
+    }
+
+    // v1 → v2 auto-migration
+    if (isV1Content(content.content)) {
+      console.log('[CONTENT_SERVICE] Auto-migrating v1 to v2 for lesson:', lessonId);
+      content.content = migrateV1ToV2(content.content);
+      content.version = '2.0.0';
+    }
+
+    // Cache for 5 minutes
+    await cacheHelpers.set(cacheKey, content, 300);
+
+    return content;
+  } catch (error) {
+    console.error('[CONTENT_SERVICE] Error getting lesson content:', error);
+    throw error;
+  }
+};
+
+/**
+ * Save lesson content to MongoDB
+ * @param {number} lessonId - Lesson ID
+ * @param {Object} content - Content data (v2 structure with stages array)
+ * @returns {Object} Saved content
+ */
+const saveLessonContent = async (lessonId, content) => {
+  try {
+    console.log('[CONTENT_SERVICE] Saving lesson content to MongoDB:', lessonId);
+    console.log('[CONTENT_SERVICE] Received stages count:', content.content?.stages?.length || 0);
+    console.log('[CONTENT_SERVICE] Stage IDs:', content.content?.stages?.map(s => `${s.id}(${s.type})`).join(', ') || 'none');
+
+    // Validate lesson exists in PostgreSQL
+    const lesson = await Lesson.findById(lessonId);
+    if (!lesson) {
+      throw new Error(`Lesson ${lessonId} not found in PostgreSQL`);
+    }
+
+    // v2 structure validation
+    if (content.content && content.content.stages) {
+      if (!Array.isArray(content.content.stages)) {
+        throw new Error('stages must be an array');
+      }
+
+      content.content.stages.forEach((stage, index) => {
+        if (!stage.id || !stage.type || stage.order === undefined) {
+          throw new Error(`Invalid stage at index ${index}: missing id, type, or order`);
+        }
+      });
+    }
+
+    // Prepare content document
+    const contentDoc = {
+      lesson_id: parseInt(lessonId),
+      version: content.version || '2.0.0',
+      content: content.content || {},
+      updated_at: new Date()
+    };
+
+    console.log('[CONTENT_SERVICE] Saving to MongoDB with stages:', contentDoc.content.stages?.length || 0);
+
+    // Upsert to MongoDB
+    const lessonsContent = collections.lessonsContent();
+    const result = await lessonsContent.updateOne(
+      { lesson_id: parseInt(lessonId) },
+      { $set: contentDoc },
+      { upsert: true }
+    );
+
+    console.log('[CONTENT_SERVICE] Lesson content saved:', result);
+
+    // Invalidate cache
+    const cacheKey = `admin:lesson:${lessonId}:content`;
+    await cacheHelpers.del(cacheKey);
+    await invalidateLessonCaches(lessonId);
+
+    // Return saved content
+    return contentDoc;
+  } catch (error) {
+    console.error('[CONTENT_SERVICE] Error saving lesson content:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   // Lessons
   listLessons,
@@ -372,10 +541,13 @@ module.exports = {
   unpublishLesson,
   bulkPublishLessons,
   bulkDeleteLessons,
+  getLessonContent,
+  saveLessonContent,
 
   // Vocabulary
   listVocabulary,
   getVocabularyById,
+  findVocabularyByKorean,
   createVocabulary,
   updateVocabulary,
   deleteVocabulary,
