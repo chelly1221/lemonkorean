@@ -124,7 +124,7 @@ const API = (() => {
      * @returns {Promise<{token: string, user: Object}>} JWT 토큰 및 사용자 정보
      */
     async login(credentials) {
-      return request('/api/auth/login', {
+      return request('/api/admin/auth/login', {
         method: 'POST',
         body: credentials,
         skipAuth: true,
@@ -137,7 +137,7 @@ const API = (() => {
      * @returns {Promise<Object>} 성공 메시지
      */
     async logout() {
-      return request('/api/auth/logout', { method: 'POST' });
+      return request('/api/admin/auth/logout', { method: 'POST' });
     },
 
     /**
@@ -146,7 +146,7 @@ const API = (() => {
      * @returns {Promise<{token: string}>} 새 JWT 토큰
      */
     async refresh() {
-      return request('/api/auth/refresh', { method: 'POST' });
+      return request('/api/admin/auth/refresh', { method: 'POST' });
     },
 
     /**
@@ -155,7 +155,7 @@ const API = (() => {
      * @returns {Promise<Object>} 사용자 정보
      */
     async getProfile() {
-      return request('/api/auth/profile');
+      return request('/api/admin/auth/profile');
     },
   };
 
@@ -747,44 +747,6 @@ const API = (() => {
     },
   };
 
-  /**
-   * 네트워크 설정 API
-   */
-  const networkAPI = {
-    /**
-     * 네트워크 설정 조회
-     *
-     * @returns {Promise<Object>} 현재 모드, 상태 정보
-     */
-    async getSettings() {
-      return request('/api/admin/network/settings');
-    },
-
-    /**
-     * 네트워크 설정 업데이트
-     *
-     * @param {Object} data - 설정 데이터
-     * @param {string} data.mode - development 또는 production
-     * @returns {Promise<Object>} 업데이트 결과
-     */
-    async updateSettings(data) {
-      return request('/api/admin/network/settings', {
-        method: 'PUT',
-        body: data
-      });
-    },
-
-    /**
-     * Nginx 재시작
-     *
-     * @returns {Promise<Object>} 재시작 결과
-     */
-    async restartNginx() {
-      return request('/api/admin/network/restart', {
-        method: 'POST'
-      });
-    },
-  };
 
   // =============================================================================
   // Docs API
@@ -812,6 +774,41 @@ const API = (() => {
     },
   };
 
+  // =============================================================================
+  // Dev Notes API
+  // =============================================================================
+
+  const devNotesAPI = {
+    /**
+     * 개발노트 목록 조회
+     *
+     * @returns {Promise<{success: boolean, notes: Array, count: number}>} 개발노트 목록
+     */
+    async list() {
+      return request('/api/admin/dev-notes');
+    },
+
+    /**
+     * 개발노트 내용 조회
+     *
+     * @param {string} notePath - 노트 경로 (예: 'dev-notes/2026-01-30-example.md')
+     * @returns {Promise<{success: boolean, note: Object}>} 노트 내용 및 메타데이터
+     */
+    async content(notePath) {
+      const queryString = buildQueryString({ path: notePath });
+      return request(`/api/admin/dev-notes/content${queryString}`);
+    },
+
+    /**
+     * 카테고리 목록 조회
+     *
+     * @returns {Promise<{success: boolean, categories: Array}>} 고유 카테고리 목록
+     */
+    async categories() {
+      return request('/api/admin/dev-notes/categories');
+    },
+  };
+
   // Public API 반환
   return {
     auth: authAPI,
@@ -821,7 +818,7 @@ const API = (() => {
     media: mediaAPI,
     analytics: analyticsAPI,
     system: systemAPI,
-    network: networkAPI,
     docs: docsAPI,
+    devNotes: devNotesAPI,
   };
 })();

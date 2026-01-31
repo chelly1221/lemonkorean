@@ -49,14 +49,14 @@ const Sidebar = (() => {
       label: '시스템 모니터링',
     },
     {
-      path: '/network-settings',
-      icon: 'fa-network-wired',
-      label: '네트워크 설정',
-    },
-    {
       path: '/docs',
       icon: 'fa-book',
       label: '개발 문서',
+    },
+    {
+      path: '/dev-notes',
+      icon: 'fa-sticky-note',
+      label: '개발노트',
     },
   ];
 

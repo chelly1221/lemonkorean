@@ -16,14 +16,27 @@ const mediaRoutes = require('./routes/media.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
 const systemRoutes = require('./routes/system.routes');
 const testRoutes = require('./routes/test.routes');
-const networkRoutes = require('./routes/network.routes');
 const docsRoutes = require('./routes/docs.routes');
+const devNotesRoutes = require('./routes/dev-notes.routes');
+const configRoutes = require('./routes/config.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3006;
 
 // ==================== Middleware ====================
-app.use(cors());
+// CORS configuration - allow web app and mobile clients
+app.use(cors({
+  origin: '*', // Allow all origins in development
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'X-Request-Id'],
+  maxAge: 86400 // 24 hours
+}));
+
+// Handle OPTIONS preflight requests explicitly
+app.options('*', cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,7 +50,7 @@ app.use((req, res, next) => {
 });
 
 // ==================== Routes ====================
-app.use('/api/auth', authRoutes);
+app.use('/api/admin/auth', authRoutes);
 app.use('/api/admin/users', usersRoutes);
 app.use('/api/admin/lessons', lessonsRoutes);
 app.use('/api/admin/vocabulary', vocabularyRoutes);
@@ -45,8 +58,9 @@ app.use('/api/admin/media', mediaRoutes);
 app.use('/api/admin/analytics', analyticsRoutes);
 app.use('/api/admin/system', systemRoutes);
 app.use('/api/admin/test', testRoutes);
-app.use('/api/admin/network', networkRoutes);
 app.use('/api/admin/docs', docsRoutes);
+app.use('/api/admin/dev-notes', devNotesRoutes);
+app.use('/api/admin', configRoutes);
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
@@ -152,8 +166,24 @@ const startServer = async () => {
     await testMongoConnection();
     console.log('✓ MongoDB connection successful');
 
+    // Initialize Redis connection BEFORE testing
+    const { connectRedis, getRedisClient } = require('./config/redis');
+    await connectRedis();
+    console.log('✓ Redis connected');
+
     await testRedisConnection();
     console.log('✓ Redis connection successful');
+
+    // Cleanup legacy network:mode key from Redis
+    try {
+      const client = getRedisClient();
+      if (client) {
+        await client.del('network:mode');
+        console.log('✓ Cleaned up legacy network:mode key from Redis');
+      }
+    } catch (error) {
+      console.log('Note: Could not clean up network:mode key:', error.message);
+    }
 
     await testMinIOConnection();
     console.log('✓ MinIO connection successful');

@@ -236,8 +236,8 @@ const Router = (() => {
     register('/media', MediaPage.render, true);
     register('/services', ServicesPage.render, true);
     register('/system', SystemPage.render, true);
-    register('/network-settings', NetworkSettingsPage.render, true);
     register('/docs', DocsPage.render, true);
+    register('/dev-notes', DevNotesPage.render, true);
 
     // Hash 변경 이벤트 리스너
     window.addEventListener('hashchange', handleRoute);
