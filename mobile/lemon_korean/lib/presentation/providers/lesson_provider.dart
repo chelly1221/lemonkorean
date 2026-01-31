@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 
 class LessonProvider with ChangeNotifier {
   final _apiClient = ApiClient.instance;

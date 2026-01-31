@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/storage/local_storage.dart';
+import '../../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../../data/models/vocabulary_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../providers/auth_provider.dart';

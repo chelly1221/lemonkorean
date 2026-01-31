@@ -241,6 +241,140 @@ await apiClient.syncProgress(progressData);
 
 ---
 
+## 웹 플랫폼 지원 (2026-01-31 추가)
+
+### 개요
+Flutter 앱은 웹 플랫폼도 지원합니다. 웹 버전은 브라우저 `localStorage`를 사용하여 모바일과 동일한 오프라인 우선 경험을 제공합니다.
+
+### 웹 스텁 아키텍처
+
+웹 빌드 시 Hive (모바일 전용)를 사용할 수 없으므로, 웹 플랫폼용 스텁을 사용합니다:
+
+**스텁 파일 위치:**
+```
+lib/core/platform/web/stubs/
+├── local_storage_stub.dart      # Hive → localStorage 대체 (562줄, 50+ 메서드)
+├── hive_stub.dart               # Hive API 스텁
+├── notification_stub.dart       # 알림 스텁 (제한된 기능)
+└── secure_storage_web.dart      # 웹 보안 저장소
+```
+
+**LocalStorage 웹 스텁 상세:**
+- **저장소**: 브라우저 `localStorage` API + JSON 인코딩
+- **키 접두사**: `lk_` (예: `lk_setting_chineseVariant`)
+- **메서드**: 모바일과 동일한 50+ 정적 메서드 제공
+  - Settings (4): getSetting, saveSetting, deleteSetting, clearSettings
+  - Lessons (6): saveLesson, getLesson, getAllLessons, hasLesson, deleteLesson, clearLessons
+  - Vocabulary (7): 전체 단어 관리 + 레벨별 캐싱
+  - Progress (5): 학습 진도 저장/로드
+  - Reviews (4): SRS 복습 데이터
+  - Bookmarks (9): 북마크 관리
+  - Sync Queue (5): 웹에서는 no-op (항상 온라인 가정)
+  - User Data (6): 사용자 캐시 및 ID
+  - General (3): init, clearAll, close
+- **에러 처리**: 모든 메서드에 try-catch, 기본값 반환
+- **저장 한계**: 브라우저 localStorage 5-10MB (설정/소규모 데이터에 충분)
+
+### 웹 빌드
+
+```bash
+# 웹 앱 빌드
+flutter build web
+
+# 빌드 출력: build/web/
+# 빌드 시간: ~9-10분
+# 최적화:
+#   - Icon tree-shaking (99%+ 크기 감소)
+#   - JS 압축 및 최적화
+```
+
+### 로컬 테스트
+
+```bash
+# 개발 모드로 실행
+flutter run -d chrome
+
+# 또는 빌드된 웹 앱 서빙
+cd build/web
+python3 -m http.server 8080
+
+# 브라우저에서 접속
+# http://localhost:8080
+```
+
+### 프로덕션 배포
+
+**Docker Compose 배포:**
+```bash
+# 1. 웹 빌드
+flutter build web
+
+# 2. Nginx 재시작 (새 빌드 로드)
+docker compose restart nginx
+
+# Volume 매핑:
+# ./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro
+```
+
+**배포 URL:**
+- **프로덕션**: http://3chan.kr/app/
+- **로컬**: http://localhost/app/
+- **Nginx 위치**: `location /app/`
+
+### 웹 앱 검증
+
+```bash
+# 브라우저에서 접속 후 DevTools (F12) 확인:
+
+# 1. Console 탭
+#    - 에러 없는지 확인
+#    - LateInitializationError 없음 확인
+
+# 2. Application → Local Storage
+#    - lk_setting_chineseVariant: "simplified"
+#    - lk_setting_notificationsEnabled: false
+#    - lk_setting_dailyReminderEnabled: true
+
+# 3. 기능 테스트
+#    - Settings 변경 후 새로고침 시 유지 확인
+#    - 중국어 간체/번체 토글 동작 확인
+```
+
+### 웹 vs 모바일 차이점
+
+| 항목 | 모바일 (Hive) | 웹 (localStorage) |
+|------|---------------|-------------------|
+| 저장 용량 | 무제한 (기기 저장소) | 5-10MB |
+| 오프라인 지원 | ✅ 완전 지원 | ❌ 온라인 전용 |
+| 동기화 큐 | ✅ 완전 동작 | ⚠️ No-op (즉시 동기화) |
+| 미디어 다운로드 | ✅ 지원 | ⚠️ 제한적 |
+| 성능 | ⚡ 매우 빠름 | 🔵 빠름 |
+| 데이터 지속성 | ✅ 앱 삭제 전까지 | ⚠️ 브라우저 캐시 정리 시 삭제 |
+
+### 문제 해결
+
+**Q: 웹 빌드 시 LateInitializationError 발생**
+
+A: 웹 스텁이 올바르게 구현되어 있는지 확인:
+```dart
+// lib/core/platform/web/stubs/local_storage_stub.dart
+// 50+ 메서드가 모두 구현되어 있어야 함
+```
+
+**Q: localStorage 저장 용량 초과**
+
+A: 브라우저 localStorage는 5-10MB 제한이 있습니다. 큰 데이터는 서버에서 직접 로드하세요:
+```dart
+// 캐시하지 않고 직접 API 호출
+final lesson = await apiClient.getLesson(id);
+```
+
+**Q: 웹에서 오프라인 모드 지원**
+
+A: 현재 웹 버전은 온라인 전용입니다. Service Worker 기반 오프라인 지원은 향후 개선 예정입니다.
+
+---
+
 ## 빌드 및 배포
 
 ### Android 빌드

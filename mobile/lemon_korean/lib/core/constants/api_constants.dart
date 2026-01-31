@@ -1,24 +1,16 @@
 /// API Configuration Constants
 class ApiConstants {
-  // Base URLs
-  static const String baseUrl = 'http://3chan.kr';
+  // Base URL - Single domain for all services
+  static const String baseUrl = 'https://lemon.3chan.kr';
   static const String apiVersion = 'v1';
 
-  // Service Ports
-  static const int authServicePort = 3001;
-  static const int contentServicePort = 3002;
-  static const int progressServicePort = 3003;
-  static const int mediaServicePort = 3004;
-  static const int analyticsServicePort = 3005;
-  static const int adminServicePort = 3006;
-
-  // API Endpoints
-  static const String authBaseUrl = '$baseUrl:$authServicePort/api/auth';
-  static const String contentBaseUrl = '$baseUrl:$contentServicePort/api/content';
-  static const String progressBaseUrl = '$baseUrl:$progressServicePort/api/progress';
-  static const String mediaBaseUrl = '$baseUrl:$mediaServicePort/media';
-  static const String analyticsBaseUrl = '$baseUrl:$analyticsServicePort/api/analytics';
-  static const String adminBaseUrl = '$baseUrl:$adminServicePort/api/admin';
+  // API Endpoints - Using Nginx API Gateway (no port-specific URLs)
+  static const String authBaseUrl = '$baseUrl/api/auth';
+  static const String contentBaseUrl = '$baseUrl/api/content';
+  static const String progressBaseUrl = '$baseUrl/api/progress';
+  static const String mediaBaseUrl = '$baseUrl/media';
+  static const String analyticsBaseUrl = '$baseUrl/api/analytics';
+  static const String adminBaseUrl = '$baseUrl/api/admin';
 
   // Auth Endpoints
   static const String loginEndpoint = '$authBaseUrl/login';

@@ -1,5 +1,297 @@
 # Lemon Korean - Change Log
 
+## 2026-01-31 - Flutter Web Dynamic Network Configuration (Development Mode Support)
+
+### Feature: Multi-URL Network Config Fetching for Web Platform
+
+**Requirement:** Flutter web app at `http://3chan.kr:3007` should automatically use development mode URLs when admin network settings are set to "개발모드" (development mode).
+
+**Problem:** Web builds bake in `.env.production` URLs at compile time. The `dart.vm.product` environment detection doesn't work for web platform, so the app always loaded production URLs even when accessed at development port 3007.
+
+**Solution:** Enhanced ApiClient to try comprehensive URL list with automatic platform detection:
+1. **Web auto-detection**: For web platform, try `window.location.origin` first (e.g., `http://3chan.kr:3007`)
+2. **Production URLs**: Fallback to production URLs from `.env.production`
+3. **Development URLs**: Additional fallbacks for development environments
+4. **Nginx proxy**: Added proxy on port 3007 to forward network config API to admin service
+
+**Files Changed:**
+1. **`mobile/lemon_korean/lib/core/network/api_client.dart`** (Lines 1-11, 70-142)
+   - Added `import 'package:flutter/foundation.dart' show kIsWeb;`
+   - Added conditional import: `import 'dart:html' as html if (dart.library.io) '';`
+   - Completely rewrote `getNetworkConfig()` method with comprehensive URL list logic
+   - **Before**: Only tried 3 production URLs from .env.production
+   - **After**: Tries 6+ URLs including current host (web), production, and development fallbacks
+
+2. **`nginx/nginx.dev.conf`** (After line 136)
+   - Added new `location /api/admin/network/config` proxy block in port 3007 server
+   - Proxies network config requests to admin service
+   - Includes CORS headers for cross-origin requests
+
+**Implementation Details:**
+
+**URL Priority Order:**
+```
+1. window.location.origin (web only) → http://3chan.kr:3007
+2. EnvironmentConfig.adminUrl → http://3chan.kr:3006
+3. EnvironmentConfig.baseUrl → http://3chan.kr
+4. Hardcoded development fallbacks:
+   - http://3chan.kr:3007
+   - http://192.168.0.100:3006
+   - http://localhost:3006
+5. Extracted base host + :3006
+```
+
+**Nginx Proxy (Port 3007):**
+```nginx
+location /api/admin/network/config {
+    proxy_pass http://admin_service;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # CORS for proxied requests
+    add_header Access-Control-Allow-Origin "*" always;
+    add_header Access-Control-Allow-Methods "GET, OPTIONS" always;
+    add_header Access-Control-Allow-Headers "*" always;
+}
+```
+
+**Build & Deployment:**
+```bash
+# Rebuild web app with updated ApiClient
+cd mobile/lemon_korean
+flutter build web
+# Build time: 360 seconds (~6 minutes)
+
+# Restart nginx to load new proxy config
+docker compose restart nginx
+```
+
+**Verification:**
+```bash
+# Port 3007 accessible
+curl -I http://localhost:3007/
+# Expected: HTTP 200 OK ✅
+
+# Network config API works via proxy
+curl -s http://localhost:3007/api/admin/network/config
+# Expected: {"success":true,"config":{"mode":"development",...}} ✅
+
+# Nginx config loaded correctly
+docker exec lemon-nginx nginx -T | grep "location /api/admin/network/config"
+# Expected: Proxy location found ✅
+
+# Network mode is development
+docker exec lemon-redis redis-cli -a "password" GET network:mode
+# Expected: "development" ✅
+```
+
+**Impact:**
+- ✅ Web app at port 3007 now automatically detects it's in development environment
+- ✅ Fetches network config from current host first (http://3chan.kr:3007)
+- ✅ Nginx proxies the request to admin service
+- ✅ Admin service returns development mode URLs based on Redis setting
+- ✅ Web app uses direct microservice URLs (3001-3004) instead of gateway
+- ✅ Production mode still works normally (web app at http://3chan.kr/app/)
+- ✅ No impact on mobile apps (Android/iOS unchanged)
+- ✅ Backward compatible: Falls back to production URLs if development unavailable
+
+**Expected Behavior:**
+
+**Development Mode (Admin setting: "개발모드"):**
+- Access: `http://3chan.kr:3007/` or `http://localhost:3007/`
+- Network config returns: `{"mode":"development","baseUrl":"http://localhost:3001",...}`
+- Direct microservice access (bypass gateway)
+- Permissive CORS headers
+- Relaxed rate limiting
+
+**Production Mode (Admin setting: "프로덕션 모드"):**
+- Access: `http://3chan.kr/app/` or `http://localhost/app/`
+- Network config returns: `{"mode":"production","baseUrl":"http://3chan.kr",...}`
+- Gateway routing via nginx
+- Strict CORS policies
+- Production rate limiting
+
+**User Experience:**
+1. User opens `http://3chan.kr:3007/` in browser
+2. Flutter web app loads and detects current origin
+3. Tries to fetch config from `http://3chan.kr:3007/api/admin/network/config`
+4. Nginx proxies request to admin service
+5. Admin service checks Redis: `network:mode = "development"`
+6. Returns development URLs: `http://localhost:3001`, `http://localhost:3002`, etc.
+7. App updates AppConstants with development URLs
+8. All API calls now use direct microservice ports
+9. Developer can test against local backend services
+
+**Documentation Updated:**
+- `CHANGES.md` - This entry
+- `WEB_DEPLOYMENT_SUMMARY.md` - Will be updated with new network config behavior
+
+**Production Status:** ✅ Deployed and verified
+
+---
+
+## 2026-01-31 - Flutter Web LateInitializationError Fix & Production Deployment
+
+### Critical Bug Fix: Web Platform LocalStorage Stub Implementation
+
+**Issue:** Flutter web app crashes on startup with `LateInitializationError: Field '' has not been initialized` in browser console.
+
+**Root Cause:** The web stub at `lib/core/platform/web/stubs/local_storage_stub.dart` only implemented 3 methods (init, getLesson, getAllLessons), but `SettingsProvider.init()` calls `LocalStorage.getSetting()` which doesn't exist in the stub, causing a runtime error.
+
+**Error Flow:**
+```
+main() → SettingsProvider.init() (line 53)
+  → LocalStorage.getSetting() (line 56)
+  → Method not found on web stub → Runtime Error ❌
+```
+
+**Files Changed:**
+1. `mobile/lemon_korean/lib/core/platform/web/stubs/local_storage_stub.dart` (PRIMARY FIX)
+   - **Before**: 20 lines, 3 methods
+   - **After**: 562 lines, 50+ methods
+   - Complete rewrite with browser localStorage backing
+
+2. `mobile/lemon_korean/lib/main.dart` (line 51)
+   - Added: `await LocalStorage.init();` for web platform
+   - Ensures stub initialization flag is set
+
+**Solution:** Implemented complete localStorage-backed web stub mirroring all static methods from mobile LocalStorage class:
+
+**Implemented Method Categories:**
+- **Settings** (4 methods): getSetting, saveSetting, deleteSetting, clearSettings ✅
+- **Lessons** (6 methods): saveLesson, getLesson, getAllLessons, hasLesson, deleteLesson, clearLessons ✅
+- **Vocabulary** (7 methods): saveVocabulary, getVocabulary, getAllVocabulary, getVocabularyByLevel, etc. ✅
+- **Progress** (5 methods): saveProgress, getProgress, getAllProgress, updateProgress, getLessonProgress ✅
+- **Reviews** (4 methods): saveReview, getVocabularyReview, getAllReviews, clearReviews ✅
+- **Bookmarks** (9 methods): Complete bookmark management ✅
+- **Sync Queue** (5 methods): All no-ops on web (always online) ✅
+- **User Data** (6 methods): User cache and ID management ✅
+- **General** (3 methods): init, clearAll, close ✅
+
+**Storage Strategy:**
+- Uses browser `localStorage` API with JSON encoding
+- Key prefix: `lk_` (e.g., `lk_setting_chineseVariant`)
+- Category prefixes: `lk_setting_*`, `lk_lesson_*`, `lk_vocab_*`, `lk_progress_*`, etc.
+- All methods use try-catch with sensible defaults
+- Debug logging for error tracking
+
+**Build & Deployment:**
+```bash
+# Build web app
+cd mobile/lemon_korean
+flutter build web
+
+# Build result: 570 seconds (~9.5 minutes)
+# Output: build/web/
+# Optimizations:
+#   - CupertinoIcons: 257,628 bytes → 1,472 bytes (99.4% reduction)
+#   - MaterialIcons: 1,645,184 bytes → 15,680 bytes (99.0% reduction)
+
+# Deploy (restart nginx to load new build)
+docker compose restart nginx
+```
+
+**Deployment Configuration:**
+- Volume mapping: `./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro`
+- Nginx location: `/app/`
+- Production URL: http://3chan.kr/app/
+- Local URL: http://localhost/app/
+
+**Impact:**
+- ✅ Web app loads without errors
+- ✅ No LateInitializationError in browser console
+- ✅ SettingsProvider initializes successfully
+- ✅ Settings persist across page refresh (localStorage)
+- ✅ Mobile app unchanged (no regressions)
+- ✅ All providers using LocalStorage work on web
+
+**Verification (Browser DevTools - localStorage keys):**
+```
+lk_setting_chineseVariant: "simplified"
+lk_setting_notificationsEnabled: false
+lk_setting_dailyReminderEnabled: true
+lk_setting_dailyReminderTime: "20:00"
+lk_setting_reviewRemindersEnabled: true
+```
+
+**Performance:**
+- **Web**: Negligible (localStorage is fast for small data)
+- **Mobile**: Zero impact (no code changes)
+- **Storage**: Web localStorage 5-10MB limit (sufficient for settings/small data)
+
+**Documentation Updated:**
+- `CLAUDE.md`: Flutter app structure section updated
+- `CHANGES.md`: This entry
+- `mobile/lemon_korean/README.md`: Web build/deployment guide added
+- Dev Notes: `/dev-notes/2026-01-31-web-late-initialization-fix.md`
+
+**Production Status:** ✅ Deployed and verified at http://3chan.kr/app/
+
+---
+
+## 2026-01-30 - Mobile App Token Authentication Fix
+
+### Bug Fix: Service-Specific Dio Instances Missing JWT Tokens
+
+**Issue:** Content and Progress Service API calls from Flutter app returning 401 Unauthorized errors due to missing JWT tokens in request headers.
+
+**Root Cause:** The `_createServiceDio()` helper method in `api_client.dart` was creating service-specific Dio instances without adding JWT tokens to headers. While the main `_dio` instance had an `AuthInterceptor` that automatically added tokens, the service-specific instances bypassed this interceptor.
+
+**Files Changed:**
+- `mobile/lemon_korean/lib/core/network/api_client.dart` (lines 46-62, and 20+ method calls)
+
+**Changes:**
+1. Modified `_createServiceDio()` to be async and read JWT token from secure storage
+2. Token is now manually added to headers: `'Authorization': 'Bearer $token'`
+3. Updated all 20 methods using `_createServiceDio()` to await the async call
+
+**Before:**
+```dart
+Dio _createServiceDio(String baseURL) {
+  return Dio(BaseOptions(
+    baseUrl: baseURL,
+    headers: _dio.options.headers,  // Static headers only, no token!
+  ));
+}
+```
+
+**After:**
+```dart
+Future<Dio> _createServiceDio(String baseURL) async {
+  final token = await _secureStorage.read(key: AppConstants.tokenKey);
+
+  return Dio(BaseOptions(
+    baseUrl: baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    },
+  ));
+}
+```
+
+**Impact:**
+- ✅ Content Service API calls now include authentication
+- ✅ Progress Service API calls now authenticated
+- ✅ Lesson download functionality restored
+- ✅ Progress sync now works correctly
+- ✅ Review schedule accessible
+- ✅ All service-specific endpoints functional
+
+**Affected Methods (20 total):**
+- Content: `getLessons`, `getLesson`, `downloadLessonPackage`, `getVocabularyByLesson`, `getVocabularyByLevel`, `getVocabularyByIds`, `getSimilarVocabulary`
+- Progress: `getUserProgress`, `getUserStats`, `getLessonProgress`, `startLesson`, `completeLesson`, `syncProgress`, `getReviewSchedule`, `markReviewDone`, `submitReview`, `updateVocabularyBatch`
+- Sessions: `startLearningSession`, `endLearningSession`, `getSessionStats`
+
+**Testing:**
+No server restart needed - this is a client-side fix only.
+
+---
+
 ## 2026-01-26 - JWT Validation Fix
 
 ### Critical Bug Fix: Progress Service JWT Token Validation

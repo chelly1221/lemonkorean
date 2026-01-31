@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../core/utils/app_logger.dart';
 import '../../core/utils/result.dart';
 import '../../core/utils/app_exception.dart';
@@ -109,19 +110,16 @@ class ContentRepository {
       final response = await _apiClient.downloadLessonPackage(id);
 
       if (response.statusCode == 200) {
-        final lesson = LessonModel.fromJson(response.data);
+        final packageData = response.data as Map<String, dynamic>;
 
-        // Save complete package locally
-        await LocalStorage.saveLesson(lesson.toJson());
+        // 다운로드 정보 추가
+        packageData['is_downloaded'] = true;
+        packageData['downloaded_at'] = DateTime.now().toIso8601String();
 
-        // Mark as downloaded
-        final updatedLesson = lesson.copyWith(
-          isDownloaded: true,
-          downloadedAt: DateTime.now(),
-        );
-        await LocalStorage.saveLesson(updatedLesson.toJson());
+        // 원본 데이터 직접 저장 (vocabulary, grammar 포함)
+        await LocalStorage.saveLesson(packageData);
 
-        return updatedLesson;
+        return LessonModel.fromJson(packageData);
       }
 
       return null;

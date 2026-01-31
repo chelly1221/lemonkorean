@@ -18,8 +18,30 @@ const getOverview = async (req, res) => {
       data: overview
     });
   } catch (error) {
-    console.error('[ANALYTICS_CONTROLLER] Error getting overview:', error);
+    console.error('[ANALYTICS_CONTROLLER] Error getting overview:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+      endpoint: '/api/admin/analytics/overview'
+    });
 
+    // Try to return cached data as fallback
+    try {
+      const { cacheHelpers } = require('../config/redis');
+      const cached = await cacheHelpers.get('admin:analytics:overview');
+      if (cached) {
+        console.log('[ANALYTICS_CONTROLLER] Returning stale cached data');
+        return res.json({
+          success: true,
+          data: cached,
+          warning: 'Using cached data due to database error'
+        });
+      }
+    } catch (cacheError) {
+      console.error('[ANALYTICS_CONTROLLER] Cache fallback failed:', cacheError);
+    }
+
+    // No cache available, return error with helpful message
     res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to retrieve analytics overview',
@@ -52,7 +74,30 @@ const getUserAnalytics = async (req, res) => {
       data: analytics
     });
   } catch (error) {
-    console.error('[ANALYTICS_CONTROLLER] Error getting user analytics:', error);
+    console.error('[ANALYTICS_CONTROLLER] Error getting user analytics:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+      endpoint: '/api/admin/analytics/users',
+      period: req.query.period
+    });
+
+    // Try to return cached data as fallback
+    try {
+      const { cacheHelpers } = require('../config/redis');
+      const cacheKey = `admin:analytics:users:${req.query.period || '1d'}`;
+      const cached = await cacheHelpers.get(cacheKey);
+      if (cached) {
+        console.log('[ANALYTICS_CONTROLLER] Returning stale cached data');
+        return res.json({
+          success: true,
+          data: cached,
+          warning: 'Using cached data due to database error'
+        });
+      }
+    } catch (cacheError) {
+      console.error('[ANALYTICS_CONTROLLER] Cache fallback failed:', cacheError);
+    }
 
     res.status(500).json({
       error: 'Internal Server Error',
@@ -86,7 +131,30 @@ const getEngagement = async (req, res) => {
       data: engagement
     });
   } catch (error) {
-    console.error('[ANALYTICS_CONTROLLER] Error getting engagement:', error);
+    console.error('[ANALYTICS_CONTROLLER] Error getting engagement:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+      endpoint: '/api/admin/analytics/engagement',
+      period: req.query.period
+    });
+
+    // Try to return cached data as fallback
+    try {
+      const { cacheHelpers } = require('../config/redis');
+      const cacheKey = `admin:analytics:engagement:${req.query.period || '1d'}`;
+      const cached = await cacheHelpers.get(cacheKey);
+      if (cached) {
+        console.log('[ANALYTICS_CONTROLLER] Returning stale cached data');
+        return res.json({
+          success: true,
+          data: cached,
+          warning: 'Using cached data due to database error'
+        });
+      }
+    } catch (cacheError) {
+      console.error('[ANALYTICS_CONTROLLER] Cache fallback failed:', cacheError);
+    }
 
     res.status(500).json({
       error: 'Internal Server Error',
@@ -109,7 +177,28 @@ const getContentStats = async (req, res) => {
       data: stats
     });
   } catch (error) {
-    console.error('[ANALYTICS_CONTROLLER] Error getting content stats:', error);
+    console.error('[ANALYTICS_CONTROLLER] Error getting content stats:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+      endpoint: '/api/admin/analytics/content'
+    });
+
+    // Try to return cached data as fallback
+    try {
+      const { cacheHelpers } = require('../config/redis');
+      const cached = await cacheHelpers.get('admin:analytics:content');
+      if (cached) {
+        console.log('[ANALYTICS_CONTROLLER] Returning stale cached data');
+        return res.json({
+          success: true,
+          data: cached,
+          warning: 'Using cached data due to database error'
+        });
+      }
+    } catch (cacheError) {
+      console.error('[ANALYTICS_CONTROLLER] Cache fallback failed:', cacheError);
+    }
 
     res.status(500).json({
       error: 'Internal Server Error',

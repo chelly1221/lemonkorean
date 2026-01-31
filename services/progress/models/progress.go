@@ -87,6 +87,19 @@ type VocabularyPracticeRequest struct {
 	ResponseTime int   `json:"response_time"` // milliseconds
 }
 
+// VocabularyResult represents a single vocabulary result in batch
+type VocabularyResult struct {
+	VocabularyID int64 `json:"vocabulary_id" binding:"required"`
+	IsCorrect    bool  `json:"is_correct"`
+}
+
+// VocabularyBatchRequest represents a batch vocabulary progress update from quiz
+type VocabularyBatchRequest struct {
+	UserID            int64              `json:"user_id" binding:"required"`
+	LessonID          int64              `json:"lesson_id" binding:"required"`
+	VocabularyResults []VocabularyResult `json:"vocabulary_results" binding:"required"`
+}
+
 // SyncProgressRequest represents a sync request from offline client
 type SyncProgressRequest struct {
 	UserID       int64        `json:"user_id" binding:"required"`
@@ -138,6 +151,7 @@ type UserStats struct {
 	AverageQuizScore    float64   `json:"average_quiz_score"`
 	CurrentStreak       int       `json:"current_streak"`
 	LongestStreak       int       `json:"longest_streak"`
+	StudyDays           int       `json:"study_days"`
 	VocabularyMastered  int       `json:"vocabulary_mastered"`
 	VocabularyLearning  int       `json:"vocabulary_learning"`
 	LastStudiedAt       *time.Time `json:"last_studied_at,omitempty"`

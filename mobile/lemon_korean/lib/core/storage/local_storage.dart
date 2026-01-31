@@ -10,6 +10,7 @@ class LocalStorage {
   static late Box _syncQueueBox;
   static late Box _settingsBox;
   static late Box _reviewsBox;
+  static late Box _bookmarksBox;
 
   /// Initialize all Hive boxes
   static Future<void> init() async {
@@ -22,6 +23,7 @@ class LocalStorage {
     _syncQueueBox = await Hive.openBox(AppConstants.syncQueueBox);
     _settingsBox = await Hive.openBox(AppConstants.settingsBox);
     _reviewsBox = await Hive.openBox('reviews');
+    _bookmarksBox = await Hive.openBox('bookmarks');
   }
 
   // ================================================================
@@ -30,7 +32,15 @@ class LocalStorage {
 
   /// Save a lesson to local storage
   static Future<void> saveLesson(Map<String, dynamic> lesson) async {
-    final lessonId = lesson['id'];
+    // 백엔드는 'lesson_id', 일부 코드는 'id' 사용 - 둘 다 지원
+    final lessonId = lesson['id'] ?? lesson['lesson_id'];
+    if (lessonId == null) {
+      return;
+    }
+
+    // 일관성을 위해 'id' 필드도 추가
+    lesson['id'] = lessonId;
+
     await _lessonsBox.put('lesson_$lessonId', lesson);
   }
 
@@ -90,6 +100,46 @@ class LocalStorage {
     await _vocabularyBox.clear();
   }
 
+  /// Get vocabulary by level (cached)
+  static Future<List<Map<String, dynamic>>?> getVocabularyByLevel(int level) async {
+    try {
+      final box = await Hive.openBox('vocabulary_cache');
+      final data = box.get('level_$level');
+      if (data == null) return null;
+
+      return (data as List).map((item) => Map<String, dynamic>.from(item as Map)).toList();
+    } catch (e) {
+      print('Error getting vocabulary cache for level $level: $e');
+      return null;
+    }
+  }
+
+  /// Save vocabulary by level to cache
+  static Future<void> saveVocabularyByLevel(int level, List<Map<String, dynamic>> words) async {
+    try {
+      final box = await Hive.openBox('vocabulary_cache');
+      await box.put('level_$level', words);
+      await box.put('level_${level}_timestamp', DateTime.now().toIso8601String());
+    } catch (e) {
+      print('Error saving vocabulary cache for level $level: $e');
+    }
+  }
+
+  /// Get vocabulary cache age
+  static Future<Duration?> getVocabularyCacheAge(int level) async {
+    try {
+      final box = await Hive.openBox('vocabulary_cache');
+      final timestampStr = box.get('level_${level}_timestamp');
+      if (timestampStr == null) return null;
+
+      final timestamp = DateTime.parse(timestampStr as String);
+      return DateTime.now().difference(timestamp);
+    } catch (e) {
+      print('Error getting cache age for level $level: $e');
+      return null;
+    }
+  }
+
   // ================================================================
   // PROGRESS
   // ================================================================
@@ -97,6 +147,12 @@ class LocalStorage {
   /// Save user progress
   static Future<void> saveProgress(Map<String, dynamic> progress) async {
     final lessonId = progress['lesson_id'];
+
+    // updated_at이 없으면 현재 시간 추가 (동기화 시 타임스탬프 비교용)
+    if (progress['updated_at'] == null) {
+      progress['updated_at'] = DateTime.now().toIso8601String();
+    }
+
     await _progressBox.put('progress_$lessonId', progress);
   }
 
@@ -161,6 +217,74 @@ class LocalStorage {
   /// Clear all reviews
   static Future<void> clearReviews() async {
     await _reviewsBox.clear();
+  }
+
+  // ================================================================
+  // BOOKMARKS
+  // ================================================================
+
+  /// Save a bookmark
+  static Future<void> saveBookmark(Map<String, dynamic> bookmark) async {
+    final bookmarkId = bookmark['id'];
+    if (bookmarkId == null) {
+      return;
+    }
+    await _bookmarksBox.put('bookmark_$bookmarkId', bookmark);
+  }
+
+  /// Get bookmark by ID
+  static Map<String, dynamic>? getBookmark(int bookmarkId) {
+    final data = _bookmarksBox.get('bookmark_$bookmarkId');
+    return data != null ? Map<String, dynamic>.from(data) : null;
+  }
+
+  /// Get all bookmarks
+  static List<Map<String, dynamic>> getAllBookmarks() {
+    return _bookmarksBox.values
+        .map((e) => Map<String, dynamic>.from(e as Map))
+        .toList();
+  }
+
+  /// Delete a bookmark
+  static Future<void> deleteBookmark(int bookmarkId) async {
+    await _bookmarksBox.delete('bookmark_$bookmarkId');
+  }
+
+  /// Clear all bookmarks
+  static Future<void> clearBookmarks() async {
+    await _bookmarksBox.clear();
+  }
+
+  /// Check if vocabulary is bookmarked
+  static bool isBookmarked(int vocabularyId) {
+    return _bookmarksBox.values.any((bookmark) {
+      final b = Map<String, dynamic>.from(bookmark as Map);
+      return b['vocabulary_id'] == vocabularyId;
+    });
+  }
+
+  /// Get bookmark by vocabulary ID
+  static Map<String, dynamic>? getBookmarkByVocabularyId(int vocabularyId) {
+    for (final bookmark in _bookmarksBox.values) {
+      final b = Map<String, dynamic>.from(bookmark as Map);
+      if (b['vocabulary_id'] == vocabularyId) {
+        return b;
+      }
+    }
+    return null;
+  }
+
+  /// Delete bookmark by vocabulary ID
+  static Future<void> deleteBookmarkByVocabularyId(int vocabularyId) async {
+    final bookmark = getBookmarkByVocabularyId(vocabularyId);
+    if (bookmark != null && bookmark['id'] != null) {
+      await deleteBookmark(bookmark['id'] as int);
+    }
+  }
+
+  /// Get bookmarks count
+  static int getBookmarksCount() {
+    return _bookmarksBox.length;
   }
 
   // ================================================================

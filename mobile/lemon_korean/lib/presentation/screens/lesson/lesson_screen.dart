@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/repositories/content_repository.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/progress_provider.dart';
 import '../../widgets/convertible_text.dart';
 import 'stages/stage1_intro.dart';
@@ -12,7 +13,7 @@ import 'stages/stage2_vocabulary.dart';
 import 'stages/stage3_grammar.dart';
 import 'stages/stage4_practice.dart';
 import 'stages/stage5_dialogue.dart';
-import 'stages/stage6_quiz.dart';
+import 'stages/stage6_quiz.dart' show Stage6Quiz, VocabularyQuizResult;
 import 'stages/stage7_summary.dart';
 
 /// Lesson Screen
@@ -37,6 +38,9 @@ class _LessonScreenState extends State<LessonScreen> {
   // Track lesson progress
   int _quizScore = 0;
   DateTime? _startTime;
+
+  // Track vocabulary results from quiz
+  List<Map<String, dynamic>> _vocabularyResults = [];
 
   // Lesson content loading state
   bool _isLoadingContent = true;
@@ -225,17 +229,29 @@ class _LessonScreenState extends State<LessonScreen> {
   Future<void> _completeLessonAndExit() async {
     if (!mounted) return;
 
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
     final timeSpent = _startTime != null
         ? DateTime.now().difference(_startTime!).inSeconds
         : 0;
 
+    // Update vocabulary progress if we have results
+    if (_vocabularyResults.isNotEmpty) {
+      await progressProvider.updateVocabularyBatch(
+        lessonId: widget.lesson.id,
+        vocabularyResults: _vocabularyResults,
+      );
+    }
+
     // Save lesson completion
-    await progressProvider.completeLesson(
-      lessonId: widget.lesson.id,
-      quizScore: _quizScore,
-      timeSpent: timeSpent,
-    );
+    if (authProvider.currentUser != null) {
+      await progressProvider.completeLesson(
+        userId: authProvider.currentUser!.id,
+        lessonId: widget.lesson.id,
+        quizScore: _quizScore,
+        timeSpent: timeSpent,
+      );
+    }
 
     if (mounted) {
       // Show success message
@@ -255,6 +271,13 @@ class _LessonScreenState extends State<LessonScreen> {
   void _updateQuizScore(int score) {
     setState(() {
       _quizScore = score;
+    });
+  }
+
+  /// Update vocabulary results from quiz
+  void _updateVocabularyResults(List<VocabularyQuizResult> results) {
+    setState(() {
+      _vocabularyResults = results.map((r) => r.toJson()).toList();
     });
   }
 
@@ -490,6 +513,7 @@ class _LessonScreenState extends State<LessonScreen> {
           onNext: isLast ? _completeLessonAndExit : _nextStage,
           onPrevious: isFirst ? null : _previousStage,
           onScoreUpdate: _updateQuizScore,
+          onVocabularyResults: _updateVocabularyResults,
         );
       case 'summary':
         return Stage7Summary(

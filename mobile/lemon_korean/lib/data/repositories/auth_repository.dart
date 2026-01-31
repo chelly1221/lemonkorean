@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../core/utils/app_logger.dart';
 import '../models/user_model.dart';
 
@@ -74,16 +76,64 @@ class AuthRepository {
     required String password,
   }) async {
     try {
+      print('[AuthRepository] Attempting login for: $email');
+
       final response = await _apiClient.login(
         email: email,
         password: password,
       );
 
+      print('[AuthRepository] Login response status: ${response.statusCode}');
+
       if (response.statusCode == 200) {
         final data = response.data;
 
-        // Parse user
-        final user = UserModel.fromJson(data['user']);
+        // Validate response structure
+        if (data == null || data['user'] == null) {
+          print('[AuthRepository] Error: Invalid response structure');
+          print('[AuthRepository] Response data: $data');
+          return AuthResult(
+            success: false,
+            message: '服务器返回数据格式错误 (no user object)',
+          );
+        }
+
+        final userJson = data['user'];
+
+        // Log the user data for debugging
+        print('[AuthRepository] User data received: $userJson');
+
+        // Validate required fields with detailed logging
+        if (userJson['id'] == null) {
+          print('[AuthRepository] Error: Missing user ID');
+          return AuthResult(
+            success: false,
+            message: '用户数据缺少ID',
+          );
+        }
+
+        if (userJson['email'] == null || userJson['email'].toString().isEmpty) {
+          print('[AuthRepository] Error: Missing or empty email');
+          return AuthResult(
+            success: false,
+            message: '用户数据缺少邮箱',
+          );
+        }
+
+        // Try to parse user with try-catch for better error reporting
+        UserModel user;
+        try {
+          user = UserModel.fromJson(data['user']);
+          print('[AuthRepository] User parsed successfully: ${user.email}');
+        } catch (e, stackTrace) {
+          print('[AuthRepository] Failed to parse user model: $e');
+          print('[AuthRepository] Stack trace: $stackTrace');
+          print('[AuthRepository] User JSON: ${data['user']}');
+          return AuthResult(
+            success: false,
+            message: '解析用户数据失败: ${e.toString()}',
+          );
+        }
 
         // Save user ID to BOTH Hive AND SecureStorage for reliability
         await LocalStorage.saveUserId(user.id);
@@ -106,6 +156,16 @@ class AuthRepository {
         message: response.data['message'] ?? '登录失败',
       );
     } catch (e) {
+      // Add debug context for troubleshooting
+      print('[AuthRepository] Login failed: $e');
+      if (e is DioException) {
+        print('[AuthRepository] Request URL: ${e.requestOptions.uri}');
+        print('[AuthRepository] Request method: ${e.requestOptions.method}');
+        print('[AuthRepository] Response status: ${e.response?.statusCode}');
+        print('[AuthRepository] Response data: ${e.response?.data}');
+        print('[AuthRepository] Error type: ${e.type}');
+      }
+
       return AuthResult(
         success: false,
         message: _handleError(e),

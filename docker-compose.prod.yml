@@ -193,6 +193,8 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-progress-service
     environment:
+      NODE_ENV: production
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://3chan.kr}
       PORT: 3003
       DATABASE_URL: postgres://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}?sslmode=disable
       REDIS_HOST: redis
@@ -226,6 +228,8 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-media-service
     environment:
+      NODE_ENV: production
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://3chan.kr}
       PORT: 3004
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
@@ -345,9 +349,10 @@ services:
       - ./nginx/cache:/var/cache/nginx
       - ./nginx/logs:/var/log/nginx
       - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "8443:443"
     depends_on:
       auth-service:
         condition: service_healthy

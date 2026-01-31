@@ -34,21 +34,51 @@ class UserModel {
     this.lastLoginAt,
   });
 
-  // From JSON
+  // From JSON - Safe parsing with no unsafe casts
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] as int,
-      email: json['email'] as String,
-      username: (json['username'] ?? json['name']) as String,
-      avatar: json['avatar'] as String?,
-      subscriptionType: json['subscription_type'] as String? ?? 'free',
-      createdAt: json['created_at'] != null
-          ? DateTime.parse(json['created_at'] as String)
-          : DateTime.now(),
-      lastLoginAt: json['last_login'] != null || json['last_login_at'] != null
-          ? DateTime.parse((json['last_login'] ?? json['last_login_at']) as String)
-          : null,
+      // Safe ID parsing - handles int, string, or null
+      id: json['id'] is int
+          ? json['id'] as int
+          : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+
+      // Safe email parsing - never null
+      email: (json['email'] ?? json['user_email'] ?? '').toString(),
+
+      // Safe username with full fallback chain
+      username: (json['username'] ??
+                 json['name'] ??
+                 json['email']?.toString().split('@').first ??
+                 'User').toString(),
+
+      // Avatar is nullable - safe
+      avatar: json['avatar']?.toString(),
+
+      // Subscription type with default
+      subscriptionType: (json['subscription_type'] ?? 'free').toString(),
+
+      // Safe created_at parsing with helper
+      createdAt: _parseDateTime(json['created_at']) ?? DateTime.now(),
+
+      // Safe last_login parsing with helper
+      lastLoginAt: _parseDateTime(json['last_login'] ?? json['last_login_at']),
     );
+  }
+
+  /// Helper method for safe DateTime parsing
+  /// Returns null if parsing fails or input is null
+  static DateTime? _parseDateTime(dynamic value) {
+    if (value == null) return null;
+    if (value is DateTime) return value;
+
+    try {
+      final str = value.toString();
+      if (str.isEmpty) return null;
+      return DateTime.parse(str);
+    } catch (e) {
+      print('[UserModel] Failed to parse DateTime: $value');
+      return null;
+    }
   }
 
   // To JSON

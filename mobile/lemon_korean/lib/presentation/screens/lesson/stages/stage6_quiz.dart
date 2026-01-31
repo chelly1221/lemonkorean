@@ -4,6 +4,19 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../widgets/convertible_text.dart';
 
+/// Vocabulary result from quiz
+class VocabularyQuizResult {
+  final int vocabularyId;
+  final bool isCorrect;
+
+  VocabularyQuizResult({required this.vocabularyId, required this.isCorrect});
+
+  Map<String, dynamic> toJson() => {
+    'vocabulary_id': vocabularyId,
+    'is_correct': isCorrect,
+  };
+}
+
 /// Stage 6: Quiz
 /// Comprehensive quiz to test lesson understanding
 class Stage6Quiz extends StatefulWidget {
@@ -12,6 +25,7 @@ class Stage6Quiz extends StatefulWidget {
   final VoidCallback onNext;
   final VoidCallback? onPrevious;
   final Function(int)? onScoreUpdate;
+  final Function(List<VocabularyQuizResult>)? onVocabularyResults;
 
   const Stage6Quiz({
     required this.lesson,
@@ -19,6 +33,7 @@ class Stage6Quiz extends StatefulWidget {
     required this.onNext,
     this.onPrevious,
     this.onScoreUpdate,
+    this.onVocabularyResults,
     super.key,
   });
 
@@ -65,6 +80,8 @@ class _Stage6QuizState extends State<Stage6Quiz> {
           'options': options,
           'correctAnswer': correctAnswer,
           'type': q['type'] ?? 'general',
+          // Track vocabulary_id for vocabulary questions
+          'vocabulary_id': q['vocabulary_id'],
         };
       }).toList();
     } else {
@@ -180,6 +197,26 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     final score = _calculateScore();
     final percentage = _calculatePercentage();
     widget.onScoreUpdate?.call(percentage.toInt());
+
+    // Collect vocabulary results for tracking
+    final vocabularyResults = <VocabularyQuizResult>[];
+    for (int i = 0; i < _quizQuestions.length; i++) {
+      final question = _quizQuestions[i];
+      // Only track vocabulary questions with vocabulary_id
+      if (question['type'] == 'vocabulary' && question['vocabulary_id'] != null) {
+        final vocabId = question['vocabulary_id'];
+        final isCorrect = _userAnswers[i] == question['correctAnswer'];
+        vocabularyResults.add(VocabularyQuizResult(
+          vocabularyId: vocabId is int ? vocabId : int.tryParse(vocabId.toString()) ?? 0,
+          isCorrect: isCorrect,
+        ));
+      }
+    }
+
+    // Pass vocabulary results to parent
+    if (vocabularyResults.isNotEmpty) {
+      widget.onVocabularyResults?.call(vocabularyResults);
+    }
   }
 
   int _calculateScore() {

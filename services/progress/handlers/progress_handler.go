@@ -678,6 +678,58 @@ func (h *ProgressHandler) GetVocabularyProgress(c *gin.Context) {
 	})
 }
 
+// RecordVocabularyBatch records batch vocabulary results from lesson quiz
+// POST /api/progress/vocabulary/batch
+func (h *ProgressHandler) RecordVocabularyBatch(c *gin.Context) {
+	var req models.VocabularyBatchRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		log.Printf("[VOCAB] Invalid batch request: %v", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"error":   "Bad Request",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	// Verify authenticated user
+	userID, err := middleware.GetUserID(c)
+	if err != nil || userID != req.UserID {
+		log.Printf("[VOCAB] Unauthorized batch: auth=%d, req=%d", userID, req.UserID)
+		c.JSON(http.StatusForbidden, gin.H{
+			"success": false,
+			"error":   "Forbidden",
+			"message": "Cannot record vocabulary for other users",
+		})
+		return
+	}
+
+	log.Printf("[VOCAB] Recording batch for user %d, lesson %d: %d items",
+		req.UserID, req.LessonID, len(req.VocabularyResults))
+
+	successCount, failCount, err := h.repo.RecordVocabularyBatch(c.Request.Context(), &req)
+	if err != nil {
+		log.Printf("[VOCAB] Error recording batch: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"success": false,
+			"error":   "Internal Server Error",
+			"message": "Failed to record vocabulary batch",
+		})
+		return
+	}
+
+	log.Printf("[VOCAB] Batch recorded: success=%d, failed=%d", successCount, failCount)
+
+	c.JSON(http.StatusOK, gin.H{
+		"success":       true,
+		"message":       "Vocabulary batch recorded successfully",
+		"lesson_id":     req.LessonID,
+		"total_items":   len(req.VocabularyResults),
+		"success_count": successCount,
+		"fail_count":    failCount,
+	})
+}
+
 // RecordVocabularyPractice records a vocabulary practice result
 // POST /api/progress/vocabulary/practice
 func (h *ProgressHandler) RecordVocabularyPractice(c *gin.Context) {

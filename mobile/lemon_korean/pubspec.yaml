@@ -57,6 +57,9 @@ dependencies:
   shared_preferences: ^2.2.2
   flutter_open_chinese_convert: ^0.7.0
 
+  # Web Storage (IndexedDB wrapper for cross-platform support)
+  idb_shim: ^2.4.1
+
   # Environment Configuration
   flutter_dotenv: ^5.1.0
 

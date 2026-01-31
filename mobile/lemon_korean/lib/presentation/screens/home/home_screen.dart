@@ -3,11 +3,13 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/storage/local_storage.dart';
+import '../../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/models/progress_model.dart';
 import '../../../data/models/user_model.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/bookmark_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../providers/progress_provider.dart';
 import '../../widgets/bilingual_text.dart';
@@ -21,6 +23,8 @@ import '../settings/help_center_screen.dart';
 import '../settings/app_info_screen.dart';
 import '../stats/completed_lessons_screen.dart';
 import '../stats/mastered_words_screen.dart';
+import '../vocabulary_book/vocabulary_book_screen.dart';
+import '../vocabulary_browser/vocabulary_browser_screen.dart';
 import 'widgets/user_header.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
@@ -212,11 +216,12 @@ class _HomeTabState extends State<_HomeTab> {
     ProgressProvider progressProvider,
     AuthProvider authProvider,
   ) async {
-    // Parallel fetch: lessons and progress at the same time
+    // Parallel fetch: lessons, progress, and stats at the same time
     if (authProvider.currentUser != null) {
       await Future.wait([
         lessonProvider.fetchLessons(),
         progressProvider.fetchProgress(authProvider.currentUser!.id),
+        progressProvider.fetchUserStats(authProvider.currentUser!.id),
       ]);
 
       // Update progress stats
@@ -609,9 +614,13 @@ class _ProfileTabState extends State<_ProfileTab> {
   Future<void> _loadStats() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final bookmarkProvider = Provider.of<BookmarkProvider>(context, listen: false);
 
     if (authProvider.currentUser != null) {
-      await progressProvider.fetchUserStats(authProvider.currentUser!.id);
+      await Future.wait([
+        progressProvider.fetchUserStats(authProvider.currentUser!.id),
+        bookmarkProvider.fetchBookmarks(silent: true),
+      ]);
     }
   }
 
@@ -619,6 +628,7 @@ class _ProfileTabState extends State<_ProfileTab> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final progressProvider = Provider.of<ProgressProvider>(context);
+    final bookmarkProvider = Provider.of<BookmarkProvider>(context);
     final user = authProvider.currentUser;
 
     return CustomScrollView(
@@ -730,6 +740,34 @@ class _ProfileTabState extends State<_ProfileTab> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const MasteredWordsScreen(),
+                    ),
+                  );
+                },
+              ),
+              _buildStatCard(
+                chinese: '我的单词本',
+                korean: '나의 단어장',
+                value: '${bookmarkProvider.bookmarkCount}',
+                icon: Icons.bookmark,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const VocabularyBookScreen(),
+                    ),
+                  );
+                },
+              ),
+              _buildStatCard(
+                chinese: '单词浏览器',
+                korean: '단어 브라우저',
+                value: 'Level 1-6',
+                icon: Icons.library_books,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const VocabularyBrowserScreen(),
                     ),
                   );
                 },

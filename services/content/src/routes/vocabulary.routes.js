@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const vocabularyController = require('../controllers/vocabulary.controller');
+const { requireAuth } = require('../middleware/auth.middleware');
+
+/**
+ * ================================================================
+ * VOCABULARY ENDPOINTS (Public)
+ * ================================================================
+ */
 
 /**
  * @route   GET /api/content/vocabulary
@@ -39,6 +46,64 @@ router.get('/high-similarity', vocabularyController.getHighSimilarityVocabulary)
  * @access  Public
  */
 router.get('/level/:level', vocabularyController.getVocabularyByLevel);
+
+/**
+ * ================================================================
+ * BOOKMARK ENDPOINTS (Protected - Requires Authentication)
+ * ================================================================
+ */
+
+/**
+ * @route   POST /api/content/vocabulary/bookmarks/batch
+ * @desc    Create multiple bookmarks at once
+ * @access  Private (JWT required)
+ * @body    bookmarks - Array of {vocabulary_id, notes}
+ */
+router.post('/bookmarks/batch', requireAuth, vocabularyController.createBookmarksBatch);
+
+/**
+ * @route   POST /api/content/vocabulary/bookmarks
+ * @desc    Create a new vocabulary bookmark
+ * @access  Private (JWT required)
+ * @body    vocabulary_id, notes (optional)
+ */
+router.post('/bookmarks', requireAuth, vocabularyController.createBookmark);
+
+/**
+ * @route   GET /api/content/vocabulary/bookmarks
+ * @desc    Get user's bookmarks with full vocabulary data
+ * @access  Private (JWT required)
+ * @query   page, limit
+ */
+router.get('/bookmarks', requireAuth, vocabularyController.getUserBookmarks);
+
+/**
+ * @route   GET /api/content/vocabulary/bookmarks/:id
+ * @desc    Get single bookmark by ID
+ * @access  Private (JWT required)
+ */
+router.get('/bookmarks/:id', requireAuth, vocabularyController.getBookmark);
+
+/**
+ * @route   PUT /api/content/vocabulary/bookmarks/:id
+ * @desc    Update bookmark notes
+ * @access  Private (JWT required)
+ * @body    notes
+ */
+router.put('/bookmarks/:id', requireAuth, vocabularyController.updateBookmarkNotes);
+
+/**
+ * @route   DELETE /api/content/vocabulary/bookmarks/:id
+ * @desc    Delete bookmark
+ * @access  Private (JWT required)
+ */
+router.delete('/bookmarks/:id', requireAuth, vocabularyController.deleteBookmark);
+
+/**
+ * ================================================================
+ * VOCABULARY BY ID (Must be last to avoid route conflicts)
+ * ================================================================
+ */
 
 /**
  * @route   GET /api/content/vocabulary/:id

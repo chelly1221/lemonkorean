@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../core/storage/database_helper.dart';
 import '../../core/utils/download_manager.dart';
 import '../../core/utils/sync_manager.dart';

@@ -1,5 +1,6 @@
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 import '../models/progress_model.dart';
 
 /// Progress Repository

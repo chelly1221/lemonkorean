@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../constants/app_constants.dart';
 import '../network/api_client.dart';
-import '../storage/local_storage.dart';
+import '../storage/local_storage.dart'
+    if (dart.library.html) '../platform/web/stubs/local_storage_stub.dart';
 import 'app_logger.dart';
 
 /// Sync Manager
@@ -89,6 +91,15 @@ class SyncManager {
 
   /// Main sync function
   Future<SyncResult> sync() async {
+    // Web: No sync queue, always sync immediately (no offline queue)
+    if (kIsWeb) {
+      return SyncResult(
+        success: true,
+        syncedItems: 0,
+        failedItems: 0,
+      );
+    }
+
     if (_isSyncing) {
       return SyncResult(
         success: false,
@@ -139,11 +150,16 @@ class SyncManager {
       // Include both 'review_complete' and 'review_submit' types
       final reviewItems = queue.where((item) =>
           item['type'] == 'review_complete' || item['type'] == 'review_submit').toList();
+      // Vocabulary batch updates from lesson quiz
+      final vocabularyBatchItems = queue.where((item) => item['type'] == 'vocabulary_batch').toList();
       final eventItems = queue.where((item) => item['type'] == 'event_log').toList();
       // Settings/preferences sync
       final settingsItems = queue.where((item) => item['type'] == 'settings_change').toList();
       // Session end tracking
       final sessionItems = queue.where((item) => item['type'] == 'session_end').toList();
+      // Bookmark operations (create, update, delete)
+      final bookmarkTypes = ['bookmark_create', 'bookmark_update', 'bookmark_delete'];
+      final bookmarkItems = queue.where((item) => bookmarkTypes.contains(item['type'])).toList();
 
       // Sync progress
       if (progressItems.isNotEmpty) {
@@ -155,6 +171,13 @@ class SyncManager {
       // Sync reviews
       if (reviewItems.isNotEmpty) {
         final result = await _syncReviews(reviewItems);
+        syncedCount += result.syncedCount;
+        failedCount += result.failedCount;
+      }
+
+      // Sync vocabulary batch
+      if (vocabularyBatchItems.isNotEmpty) {
+        final result = await _syncVocabularyBatch(vocabularyBatchItems);
         syncedCount += result.syncedCount;
         failedCount += result.failedCount;
       }
@@ -176,6 +199,13 @@ class SyncManager {
       // Sync session end events
       if (sessionItems.isNotEmpty) {
         final result = await _syncSessions(sessionItems);
+        syncedCount += result.syncedCount;
+        failedCount += result.failedCount;
+      }
+
+      // Sync bookmarks
+      if (bookmarkItems.isNotEmpty) {
+        final result = await _syncBookmarks(bookmarkItems);
         syncedCount += result.syncedCount;
         failedCount += result.failedCount;
       }
@@ -348,6 +378,58 @@ class SyncManager {
     );
   }
 
+  /// Sync vocabulary batch items
+  Future<_SyncItemResult> _syncVocabularyBatch(List<Map<String, dynamic>> items) async {
+    int syncedCount = 0;
+    int failedCount = 0;
+
+    for (final item in items) {
+      try {
+        final data = item['data'] as Map<String, dynamic>;
+        final userId = data['user_id'] as int;
+        final lessonId = data['lesson_id'] as int;
+        final results = List<Map<String, dynamic>>.from(data['vocabulary_results'] ?? []);
+
+        if (results.isEmpty) {
+          // Empty batch, just remove from queue
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+          continue;
+        }
+
+        final response = await _apiClient.updateVocabularyBatch(
+          userId: userId,
+          lessonId: lessonId,
+          vocabularyResults: results,
+        );
+
+        if (response.statusCode == 200) {
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+        } else {
+          AppLogger.logSync('Vocabulary batch sync failed', details: 'status: ${response.statusCode}', isError: true);
+          failedCount++;
+        }
+      } catch (e) {
+        AppLogger.logSync('Error syncing vocabulary batch', details: e.toString(), isError: true);
+        failedCount++;
+      }
+    }
+
+    return _SyncItemResult(
+      syncedCount: syncedCount,
+      failedCount: failedCount,
+    );
+  }
+
   /// Sync session end events
   Future<_SyncItemResult> _syncSessions(List<Map<String, dynamic>> items) async {
     int syncedCount = 0;
@@ -377,6 +459,99 @@ class SyncManager {
         }
       } catch (e) {
         AppLogger.logSync('Error syncing session', details: e.toString(), isError: true);
+        failedCount++;
+      }
+    }
+
+    return _SyncItemResult(
+      syncedCount: syncedCount,
+      failedCount: failedCount,
+    );
+  }
+
+  /// Sync bookmark operations (create, update, delete)
+  Future<_SyncItemResult> _syncBookmarks(List<Map<String, dynamic>> items) async {
+    int syncedCount = 0;
+    int failedCount = 0;
+
+    for (final item in items) {
+      try {
+        final type = item['type'] as String;
+        final data = item['data'] as Map<String, dynamic>;
+        bool success = false;
+
+        switch (type) {
+          case 'bookmark_create':
+            // Create new bookmark
+            final vocabularyId = data['vocabulary_id'] as int;
+            final notes = data['notes'] as String?;
+
+            final response = await _apiClient.createBookmark(vocabularyId, notes: notes);
+
+            if (response.statusCode == 200 || response.statusCode == 201) {
+              // Update local bookmark with server ID
+              final serverBookmark = response.data;
+              if (serverBookmark != null && serverBookmark['id'] != null) {
+                final localBookmarkId = data['local_id'] as int?;
+                if (localBookmarkId != null) {
+                  // Update local bookmark with server ID
+                  final localBookmark = LocalStorage.getBookmark(localBookmarkId);
+                  if (localBookmark != null) {
+                    localBookmark['id'] = serverBookmark['id'];
+                    localBookmark['is_synced'] = true;
+                    await LocalStorage.saveBookmark(localBookmark);
+                  }
+                }
+              }
+              success = true;
+            }
+            break;
+
+          case 'bookmark_update':
+            // Update bookmark notes
+            final bookmarkId = data['id'] as int;
+            final notes = data['notes'] as String;
+
+            final response = await _apiClient.updateBookmarkNotes(bookmarkId, notes);
+
+            if (response.statusCode == 200) {
+              // Update local bookmark sync status
+              final localBookmark = LocalStorage.getBookmark(bookmarkId);
+              if (localBookmark != null) {
+                localBookmark['is_synced'] = true;
+                await LocalStorage.saveBookmark(localBookmark);
+              }
+              success = true;
+            }
+            break;
+
+          case 'bookmark_delete':
+            // Delete bookmark
+            final bookmarkId = data['id'] as int;
+
+            final response = await _apiClient.deleteBookmark(bookmarkId);
+
+            if (response.statusCode == 200 || response.statusCode == 204) {
+              // Already deleted locally, just confirm server deletion
+              success = true;
+            }
+            break;
+        }
+
+        if (success) {
+          // Remove successfully synced item from queue
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+        } else {
+          AppLogger.logSync('Bookmark sync failed', details: 'type: $type', isError: true);
+          failedCount++;
+        }
+      } catch (e) {
+        AppLogger.logSync('Error syncing bookmark', details: e.toString(), isError: true);
         failedCount++;
       }
     }
@@ -548,6 +723,7 @@ enum SyncItemType {
   reviewComplete,
   eventLog,
   settingChange,
+  vocabularyBatch,
 }
 
 /// Sync priority enum

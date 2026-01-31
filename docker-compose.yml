@@ -209,6 +209,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3002
+      JWT_SECRET: ${JWT_SECRET}
       DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
       MONGO_URL: mongodb://3chan:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
@@ -239,6 +240,7 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-progress-service
     environment:
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3003
       DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}?sslmode=disable
       REDIS_HOST: redis
@@ -270,6 +272,7 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-media-service
     environment:
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3004
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
@@ -390,9 +393,16 @@ services:
     volumes:
       - ./nginx/cache:/var/cache/nginx
       - ./nginx/logs:/var/log/nginx
+      # Config files (for easy development)
+      - ./nginx/nginx.conf:/nginx-configs/nginx.conf:ro
+      - ./nginx/nginx.dev.conf:/nginx-configs/nginx.dev.conf:ro
+      - ./nginx/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
+      # Flutter web app build output
+      - ./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro
     ports:
       - "80:80"
       - "443:443"
+      - "3007:3007"  # Network config server (development)
     depends_on:
       auth-service:
         condition: service_healthy

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -93,6 +94,7 @@ func main() {
 		// Vocabulary progress
 		api.GET("/vocabulary/:userId", progressHandler.GetVocabularyProgress)
 		api.POST("/vocabulary/practice", progressHandler.RecordVocabularyPractice)
+		api.POST("/vocabulary/batch", progressHandler.RecordVocabularyBatch)
 
 		// SRS (Spaced Repetition System)
 		api.GET("/review-schedule/:userId", progressHandler.GetReviewSchedule)
@@ -153,16 +155,32 @@ func main() {
 	log.Println("Server exited")
 }
 
-// CORS middleware
+// CORS middleware with spec-compliant configuration
 func corsMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
+	corsConfig := config.GetCORSConfig()
 
+	return func(c *gin.Context) {
+		origin := c.Request.Header.Get("Origin")
+
+		// Only set CORS headers for allowed origins
+		if corsConfig.IsOriginAllowed(origin) {
+			// Reflect specific origin (spec-compliant)
+			c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+			c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+			c.Writer.Header().Set("Access-Control-Allow-Methods",
+				strings.Join(corsConfig.AllowedMethods, ", "))
+			c.Writer.Header().Set("Access-Control-Allow-Headers",
+				strings.Join(corsConfig.AllowedHeaders, ", "))
+			c.Writer.Header().Set("Access-Control-Max-Age", "3600")
+		}
+
+		// Handle preflight OPTIONS
 		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
+			if corsConfig.IsOriginAllowed(origin) {
+				c.AbortWithStatus(204)
+			} else {
+				c.AbortWithStatus(403)
+			}
 			return
 		}
 

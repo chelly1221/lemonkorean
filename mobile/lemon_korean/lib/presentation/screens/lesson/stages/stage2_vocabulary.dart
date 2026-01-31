@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../../data/models/vocabulary_model.dart';
 import '../../../widgets/bilingual_text.dart';
+import '../../../widgets/bookmark_button.dart';
 import '../../../widgets/convertible_text.dart';
 
 /// Stage 2: Vocabulary
@@ -96,6 +98,21 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
     }
   }
 
+  /// Convert word map to VocabularyModel for BookmarkButton
+  VocabularyModel _convertToVocabularyModel(Map<String, dynamic> word) {
+    return VocabularyModel(
+      id: word['id'] ?? 0,
+      korean: word['korean'] ?? '',
+      chinese: word['chinese'] ?? '',
+      pinyin: word['pinyin'],
+      partOfSpeech: word['part_of_speech'] ?? 'noun',
+      level: widget.lesson.level,
+      imageUrl: word['image_url'],
+      audioUrl: word['audio_url'],
+      createdAt: DateTime.now(),
+    );
+  }
+
   Widget _buildImagePlaceholder() {
     return Container(
       color: AppConstants.primaryColor.withOpacity(0.05),
@@ -153,23 +170,25 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
 
           const Spacer(),
 
-          // Flashcard
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(40),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+          // Flashcard with Bookmark Button
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(40),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Column(
-              children: [
+                child: Column(
+                  children: [
                 // Image or Placeholder
                 Container(
                   height: 200,
@@ -221,17 +240,29 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
 
                 const SizedBox(height: 12),
 
-                // Pinyin
-                Text(
-                  word['pinyin']!,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: AppConstants.textHint,
-                    fontStyle: FontStyle.italic,
-                  ),
+                    // Pinyin
+                    Text(
+                      word['pinyin']!,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: AppConstants.textHint,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+
+              // Bookmark Button (Top-Right Corner)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: BookmarkButton(
+                  vocabulary: _convertToVocabularyModel(word),
+                  size: 28,
+                ),
+              ),
+            ],
           ),
 
           const Spacer(),

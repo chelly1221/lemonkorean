@@ -196,7 +196,10 @@ const update = async (userId, updates) => {
       'language_preference',
       'email_verified',
       'is_active',
-      'role'
+      'role',
+      'banned',
+      'ban_reason',
+      'banned_at'
     ];
 
     const updateFields = [];

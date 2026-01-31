@@ -3,6 +3,7 @@ const { testMongoConnection } = require('../config/mongodb');
 const { testRedisConnection } = require('../config/redis');
 const { testMinIOConnection } = require('../config/minio');
 const { getAllAuditLogs } = require('../middleware/audit.middleware');
+const http = require('http');
 
 /**
  * System Monitoring Service
@@ -145,38 +146,56 @@ const checkExternalServices = async () => {
     { name: 'Media Service', url: 'http://media-service:3004/health' }
   ];
 
-  const statuses = await Promise.allSettled(
-    services.map(async (service) => {
-      try {
-        // Simple HTTP check (would need http module or fetch)
-        // For now, return placeholder
-        return {
-          name: service.name,
-          status: 'unknown',
-          url: service.url
-        };
-      } catch (error) {
-        return {
-          name: service.name,
-          status: 'error',
-          error: error.message
-        };
-      }
-    })
+  const results = await Promise.allSettled(
+    services.map(service => checkServiceHealth(service.url, service.name))
   );
 
-  return statuses.map((result, index) => {
+  return results.map((result, index) => {
     if (result.status === 'fulfilled') {
       return result.value;
     } else {
       return {
         name: services[index].name,
         status: 'error',
-        error: result.reason.message
+        error: result.reason.message,
+        url: services[index].url
       };
     }
   });
 };
+
+/**
+ * Check individual service health via HTTP
+ * @param {string} url - Service health check URL
+ * @param {string} name - Service name
+ * @returns {Promise<Object>} Service status
+ */
+function checkServiceHealth(url, name) {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error('Timeout after 3 seconds'));
+    }, 3000);
+
+    http.get(url, (res) => {
+      clearTimeout(timeout);
+
+      let data = '';
+      res.on('data', chunk => { data += chunk; });
+      res.on('end', () => {
+        resolve({
+          name,
+          status: res.statusCode === 200 ? 'connected' : 'error',
+          url,
+          statusCode: res.statusCode,
+          responseTime: 'fast'
+        });
+      });
+    }).on('error', (error) => {
+      clearTimeout(timeout);
+      reject(error);
+    });
+  });
+}
 
 /**
  * Get system logs (recent audit logs)

@@ -135,6 +135,7 @@ func (r *ProgressRepository) CompleteLesson(ctx context.Context, req *models.Com
 
 	// Invalidate cache
 	r.invalidateProgressCache(ctx, req.UserID)
+	r.invalidateStatsCache(ctx, req.UserID)
 
 	return nil
 }
@@ -173,6 +174,7 @@ func (r *ProgressRepository) UpdateProgress(ctx context.Context, req *models.Upd
 
 	// Invalidate cache
 	r.invalidateProgressCache(ctx, req.UserID)
+	r.invalidateStatsCache(ctx, req.UserID)
 
 	return nil
 }
@@ -191,6 +193,7 @@ func (r *ProgressRepository) ResetLessonProgress(ctx context.Context, userID, le
 
 	// Invalidate cache
 	r.invalidateProgressCache(ctx, userID)
+	r.invalidateStatsCache(ctx, userID)
 
 	return nil
 }
@@ -324,6 +327,75 @@ func (r *ProgressRepository) RecordVocabularyPractice(ctx context.Context, req *
 	return nil
 }
 
+// RecordVocabularyBatch records multiple vocabulary results from lesson quiz
+func (r *ProgressRepository) RecordVocabularyBatch(ctx context.Context, req *models.VocabularyBatchRequest) (int, int, error) {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return 0, 0, fmt.Errorf("failed to begin transaction: %w", err)
+	}
+	defer tx.Rollback()
+
+	now := time.Now()
+	successCount := 0
+	failCount := 0
+
+	for _, result := range req.VocabularyResults {
+		// Determine mastery level and SRS values based on correctness
+		var masteryLevel int
+		var correctIncrement, incorrectIncrement int
+
+		if result.IsCorrect {
+			masteryLevel = 2 // learning
+			correctIncrement = 1
+		} else {
+			masteryLevel = 1 // seen
+			incorrectIncrement = 1
+		}
+
+		// SRS initial values
+		easinessFactor := 2.5
+		intervalDays := 1
+		repetitionCount := 1
+		nextReviewAt := now.Add(24 * time.Hour)
+
+		query := `
+			INSERT INTO vocabulary_progress (
+				user_id, vocabulary_id, mastery_level, correct_count, incorrect_count,
+				last_reviewed_at, next_review_at, easiness_factor, repetition_count,
+				interval_days, created_at, updated_at
+			) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $6, $6)
+			ON CONFLICT (user_id, vocabulary_id)
+			DO UPDATE SET
+				mastery_level = GREATEST(vocabulary_progress.mastery_level, $3),
+				correct_count = vocabulary_progress.correct_count + $4,
+				incorrect_count = vocabulary_progress.incorrect_count + $5,
+				last_reviewed_at = $6,
+				next_review_at = CASE WHEN $3 > vocabulary_progress.mastery_level THEN $7 ELSE vocabulary_progress.next_review_at END,
+				easiness_factor = CASE WHEN $3 > vocabulary_progress.mastery_level THEN $8 ELSE vocabulary_progress.easiness_factor END,
+				repetition_count = vocabulary_progress.repetition_count + 1,
+				interval_days = CASE WHEN $3 > vocabulary_progress.mastery_level THEN $10 ELSE vocabulary_progress.interval_days END,
+				updated_at = $6
+		`
+
+		_, err := tx.ExecContext(ctx, query,
+			req.UserID, result.VocabularyID, masteryLevel, correctIncrement, incorrectIncrement,
+			now, nextReviewAt, easinessFactor, repetitionCount, intervalDays,
+		)
+
+		if err != nil {
+			failCount++
+		} else {
+			successCount++
+		}
+	}
+
+	if err := tx.Commit(); err != nil {
+		return 0, 0, fmt.Errorf("failed to commit transaction: %w", err)
+	}
+
+	return successCount, failCount, nil
+}
+
 // GetReviewSchedule retrieves vocabulary items due for review
 func (r *ProgressRepository) GetReviewSchedule(ctx context.Context, userID int64, limit int) ([]models.ReviewItem, error) {
 	query := `
@@ -396,6 +468,40 @@ func (r *ProgressRepository) cacheProgress(ctx context.Context, userID int64, pr
 	}
 
 	return r.redis.Set(ctx, cacheKey, data, 1*time.Hour).Err()
+}
+
+// Stats cache helpers
+func (r *ProgressRepository) invalidateStatsCache(ctx context.Context, userID int64) {
+	cacheKey := fmt.Sprintf("stats:user:%d", userID)
+	r.redis.Del(ctx, cacheKey)
+}
+
+func (r *ProgressRepository) getCachedStats(ctx context.Context, userID int64) (*models.UserStats, error) {
+	cacheKey := fmt.Sprintf("stats:user:%d", userID)
+	data, err := r.redis.Get(ctx, cacheKey).Result()
+	if err == redis.Nil {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	var stats models.UserStats
+	if err := json.Unmarshal([]byte(data), &stats); err != nil {
+		return nil, err
+	}
+
+	return &stats, nil
+}
+
+func (r *ProgressRepository) cacheStats(ctx context.Context, userID int64, stats *models.UserStats) error {
+	cacheKey := fmt.Sprintf("stats:user:%d", userID)
+	data, err := json.Marshal(stats)
+	if err != nil {
+		return err
+	}
+
+	return r.redis.Set(ctx, cacheKey, data, 5*time.Minute).Err()
 }
 
 // ================================================================
@@ -501,6 +607,12 @@ func (r *ProgressRepository) GetSessionStats(ctx context.Context, userID int64) 
 
 // GetUserStats retrieves overall statistics for a user
 func (r *ProgressRepository) GetUserStats(ctx context.Context, userID int64) (*models.UserStats, error) {
+	// Check cache first
+	cachedStats, err := r.getCachedStats(ctx, userID)
+	if err == nil && cachedStats != nil {
+		return cachedStats, nil
+	}
+
 	query := `
 		SELECT
 			COUNT(DISTINCT lesson_id) as total_lessons,
@@ -508,7 +620,8 @@ func (r *ProgressRepository) GetUserStats(ctx context.Context, userID int64) (*m
 			COUNT(*) FILTER (WHERE status = 'in_progress') as in_progress_lessons,
 			COALESCE(SUM(time_spent_minutes), 0) as total_time,
 			COALESCE(AVG(quiz_score), 0) as average_score,
-			MAX(last_accessed_at) as last_studied_at
+			MAX(last_accessed_at) as last_studied_at,
+			COUNT(DISTINCT DATE(completed_at)) FILTER (WHERE status = 'completed') as study_days
 		FROM user_progress
 		WHERE user_id = $1
 	`
@@ -516,13 +629,14 @@ func (r *ProgressRepository) GetUserStats(ctx context.Context, userID int64) (*m
 	var stats models.UserStats
 	stats.UserID = userID
 
-	err := r.db.QueryRowContext(ctx, query, userID).Scan(
+	err = r.db.QueryRowContext(ctx, query, userID).Scan(
 		&stats.TotalLessons,
 		&stats.CompletedLessons,
 		&stats.InProgressLessons,
 		&stats.TotalTimeMinutes,
 		&stats.AverageQuizScore,
 		&stats.LastStudiedAt,
+		&stats.StudyDays,
 	)
 
 	if err != nil {
@@ -550,6 +664,9 @@ func (r *ProgressRepository) GetUserStats(ctx context.Context, userID int64) (*m
 	// Calculate streaks (simplified)
 	stats.CurrentStreak = r.calculateCurrentStreak(ctx, userID)
 	stats.LongestStreak = r.calculateLongestStreak(ctx, userID)
+
+	// Cache the stats
+	_ = r.cacheStats(ctx, userID, &stats)
 
 	return &stats, nil
 }

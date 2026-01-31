@@ -3,9 +3,9 @@ const { Pool } = require('pg');
 // PostgreSQL connection pool
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  max: 20,
+  max: 50,  // Increased from 20 to 50 for concurrent dashboard loads
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 5000,  // Increased from 2000 to 5000
 });
 
 // Handle pool errors
@@ -31,7 +31,10 @@ const testConnection = async () => {
 const query = async (text, params) => {
   const start = Date.now();
   try {
-    const result = await pool.query(text, params);
+    // Support both formats: query(text, params) and query({text, values})
+    const result = typeof text === 'object'
+      ? await pool.query(text)
+      : await pool.query(text, params);
     const duration = Date.now() - start;
     console.log('[DATABASE] Executed query', { duration, rows: result.rowCount });
     return result;

@@ -4,22 +4,41 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// Loads and provides access to environment-specific settings
 class EnvironmentConfig {
   static bool _initialized = false;
+  static String _currentEnvFile = '';  // Track which file was loaded
 
   /// Initialize environment configuration
   /// Should be called before runApp()
-  static Future<void> init({String? envFile}) async {
+  ///
+  /// [envFile] - Explicit file name to load (e.g., '.env.development')
+  /// [mode] - Mode override from server ('development' or 'production')
+  ///          Takes precedence over build mode
+  static Future<void> init({String? envFile, String? mode}) async {
     if (_initialized) return;
 
-    final fileName = envFile ?? _getEnvFileName();
+    String fileName;
+    if (envFile != null) {
+      // Explicit file name provided
+      fileName = envFile;
+    } else if (mode != null) {
+      // Mode override from server - converts mode to file name
+      fileName = mode == 'development' ? '.env.development' : '.env.production';
+      print('[EnvironmentConfig] Using mode override from server: $mode');
+    } else {
+      // Default: use build mode
+      fileName = _getEnvFileName();
+    }
 
     try {
       await dotenv.load(fileName: fileName);
       _initialized = true;
+      _currentEnvFile = fileName;
       print('[EnvironmentConfig] Loaded environment from: $fileName');
+      print('[EnvironmentConfig] ENV_MODE: ${envMode}');
     } catch (e) {
       print('[EnvironmentConfig] Failed to load $fileName: $e');
       print('[EnvironmentConfig] Using default values');
       _initialized = true;
+      _currentEnvFile = 'none (defaults)';
     }
   }
 
@@ -32,6 +51,9 @@ class EnvironmentConfig {
 
   /// Check if environment is initialized
   static bool get isInitialized => _initialized;
+
+  /// Get the name of the loaded environment file
+  static String get loadedEnvFile => _currentEnvFile;
 
   /// Safe getter for dotenv values - returns null if not initialized
   static String? _getEnvValue(String key) {

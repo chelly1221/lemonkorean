@@ -22,18 +22,38 @@ const getDashboardOverview = async () => {
       return cached;
     }
 
-    // Get all stats in parallel
-    const [
-      usersStats,
-      lessonsStats,
-      progressStats,
-      vocabularyStats
-    ] = await Promise.all([
+    // Get all stats in parallel with graceful degradation
+    const results = await Promise.allSettled([
       getUsersStats(),
       getLessonsStats(),
       getProgressStats(),
       getVocabularyStats()
     ]);
+
+    // Extract results with fallbacks
+    const usersStats = results[0].status === 'fulfilled'
+      ? results[0].value
+      : { total_users: 0, new_users_7d: 0, new_users_30d: 0, free_users: 0, premium_users: 0, lifetime_users: 0, active_users: 0, inactive_users: 0 };
+
+    const lessonsStats = results[1].status === 'fulfilled'
+      ? results[1].value
+      : { total_lessons: 0, published_lessons: 0, draft_lessons: 0, archived_lessons: 0, total_levels: 0, avg_duration_minutes: 0, total_views: 0, total_completions: 0 };
+
+    const progressStats = results[2].status === 'fulfilled'
+      ? results[2].value
+      : { total_progress_entries: 0, users_with_progress: 0, completed_entries: 0, in_progress_entries: 0, completions_7d: 0, completions_30d: 0, avg_quiz_score: 0, avg_completion_rate: 0 };
+
+    const vocabularyStats = results[3].status === 'fulfilled'
+      ? results[3].value
+      : { total_vocabulary: 0, total_parts_of_speech: 0, vocabulary_with_level: 0, avg_similarity_score: 0 };
+
+    // Log any failures
+    results.forEach((result, index) => {
+      if (result.status === 'rejected') {
+        const names = ['usersStats', 'lessonsStats', 'progressStats', 'vocabularyStats'];
+        console.error(`[ANALYTICS_SERVICE] ${names[index]} failed:`, result.reason);
+      }
+    });
 
     const overview = {
       users: usersStats,
@@ -206,17 +226,20 @@ const getUserAnalytics = async (period = '1d') => {
 
     const days = period === '1d' ? 1 : period === '7d' ? 7 : period === '30d' ? 30 : period === '365d' ? 365 : 7;
 
-    const result = await query(`
-      SELECT
-        DATE(created_at) as date,
-        COUNT(*) as new_users,
-        COUNT(*) FILTER (WHERE subscription_type = 'premium') as premium_signups,
-        COUNT(*) FILTER (WHERE subscription_type = 'lifetime') as lifetime_signups
-      FROM users
-      WHERE created_at >= NOW() - INTERVAL '${days} days'
-      GROUP BY DATE(created_at)
-      ORDER BY date ASC
-    `);
+    const result = await query({
+      text: `
+        SELECT
+          DATE(created_at) as date,
+          COUNT(*) as new_users,
+          COUNT(*) FILTER (WHERE subscription_type = 'premium') as premium_signups,
+          COUNT(*) FILTER (WHERE subscription_type = 'lifetime') as lifetime_signups
+        FROM users
+        WHERE created_at >= NOW() - $1::interval
+        GROUP BY DATE(created_at)
+        ORDER BY date ASC
+      `,
+      values: [`${days} days`]
+    });
 
     return {
       period,
@@ -240,36 +263,42 @@ const getEngagementMetrics = async (period = '1d') => {
     const days = period === '1d' ? 1 : period === '7d' ? 7 : period === '30d' ? 30 : period === '365d' ? 365 : 7;
 
     // Lesson completion trends
-    const completionResult = await query(`
-      SELECT
-        DATE(completed_at) as date,
-        COUNT(*) as completions,
-        COUNT(DISTINCT user_id) as unique_users,
-        AVG(quiz_score) as avg_quiz_score
-      FROM user_progress
-      WHERE completed_at >= NOW() - INTERVAL '${days} days'
-        AND status = 'completed'
-      GROUP BY DATE(completed_at)
-      ORDER BY date ASC
-    `);
+    const completionResult = await query({
+      text: `
+        SELECT
+          DATE(completed_at) as date,
+          COUNT(*) as completions,
+          COUNT(DISTINCT user_id) as unique_users,
+          AVG(quiz_score) as avg_quiz_score
+        FROM user_progress
+        WHERE completed_at >= NOW() - $1::interval
+          AND status = 'completed'
+        GROUP BY DATE(completed_at)
+        ORDER BY date ASC
+      `,
+      values: [`${days} days`]
+    });
 
     // Most popular lessons
-    const popularLessonsResult = await query(`
-      SELECT
-        l.id,
-        l.title_ko,
-        l.title_zh,
-        l.level,
-        COUNT(up.id) as completion_count,
-        AVG(up.quiz_score) as avg_quiz_score
-      FROM lessons l
-      LEFT JOIN user_progress up ON l.id = up.lesson_id
-      WHERE up.completed_at >= NOW() - INTERVAL '${days} days'
-        AND up.status = 'completed'
-      GROUP BY l.id, l.title_ko, l.title_zh, l.level
-      ORDER BY completion_count DESC
-      LIMIT 10
-    `);
+    const popularLessonsResult = await query({
+      text: `
+        SELECT
+          l.id,
+          l.title_ko,
+          l.title_zh,
+          l.level,
+          COUNT(up.id) as completion_count,
+          AVG(up.quiz_score) as avg_quiz_score
+        FROM lessons l
+        LEFT JOIN user_progress up ON l.id = up.lesson_id
+        WHERE up.completed_at >= NOW() - $1::interval
+          AND up.status = 'completed'
+        GROUP BY l.id, l.title_ko, l.title_zh, l.level
+        ORDER BY completion_count DESC
+        LIMIT 10
+      `,
+      values: [`${days} days`]
+    });
 
     // Lesson completion rate by level
     const completionRateResult = await query(`
@@ -346,8 +375,8 @@ const getContentStats = async () => {
     `);
 
     return {
-      totalLessons: parseInt(totalLessonsResult.rows[0]?.total_lessons) || 0,
-      totalVocabulary: parseInt(totalVocabularyResult.rows[0]?.total_vocabulary) || 0,
+      totalLessons: Number(totalLessonsResult.rows[0]?.total_lessons) || 0,
+      totalVocabulary: Number(totalVocabularyResult.rows[0]?.total_vocabulary) || 0,
       lessonsByLevel: lessonsByLevel.rows,
       vocabularyByPartOfSpeech: vocabularyByPOS.rows
     };

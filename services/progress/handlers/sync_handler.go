@@ -267,6 +267,9 @@ func (h *SyncHandler) processSyncItem(c *gin.Context, item *models.SyncItem, use
 	case "vocabulary_practice":
 		return h.syncVocabularyPractice(c, item, userID)
 
+	case "vocabulary_batch":
+		return h.syncVocabularyBatch(c, item, userID)
+
 	default:
 		return nil // Ignore unknown types
 	}
@@ -369,4 +372,51 @@ func (h *SyncHandler) syncVocabularyPractice(c *gin.Context, item *models.SyncIt
 	}
 
 	return h.repo.RecordVocabularyPractice(c.Request.Context(), req, srsData)
+}
+
+// syncVocabularyBatch syncs batch vocabulary results from lesson quiz
+func (h *SyncHandler) syncVocabularyBatch(c *gin.Context, item *models.SyncItem, userID int64) error {
+	lessonID, ok := item.Data["lesson_id"].(float64)
+	if !ok {
+		return fmt.Errorf("missing lesson_id")
+	}
+
+	resultsRaw, ok := item.Data["vocabulary_results"].([]interface{})
+	if !ok {
+		return fmt.Errorf("missing vocabulary_results")
+	}
+
+	// Convert results to VocabularyResult slice
+	results := make([]models.VocabularyResult, 0, len(resultsRaw))
+	for _, r := range resultsRaw {
+		result, ok := r.(map[string]interface{})
+		if !ok {
+			continue
+		}
+
+		vocabID, ok := result["vocabulary_id"].(float64)
+		if !ok {
+			continue
+		}
+
+		isCorrect, _ := result["is_correct"].(bool)
+
+		results = append(results, models.VocabularyResult{
+			VocabularyID: int64(vocabID),
+			IsCorrect:    isCorrect,
+		})
+	}
+
+	if len(results) == 0 {
+		return nil // No results to sync
+	}
+
+	req := &models.VocabularyBatchRequest{
+		UserID:            userID,
+		LessonID:          int64(lessonID),
+		VocabularyResults: results,
+	}
+
+	_, _, err := h.repo.RecordVocabularyBatch(c.Request.Context(), req)
+	return err
 }

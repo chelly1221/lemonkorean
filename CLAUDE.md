@@ -25,6 +25,176 @@
 
 ---
 
+## Claude 작업 프로토콜 (Claude Work Protocol)
+
+### 개발노트 자동 생성 (Automatic Dev Notes Creation)
+
+**중요**: Claude는 중요한 코드 변경을 완료한 후 **반드시** 개발노트를 작성해야 합니다.
+
+**⚠️ 언어 규칙**: 개발노트는 **반드시 한국어로 작성**해야 합니다.
+- 제목(title): 한국어
+- 본문 내용: 한국어 (코드 예시 제외)
+- 섹션 제목: 한국어
+- 설명 및 분석: 한국어
+- 코드 주석: 한국어 권장
+- **예외**: 코드 블록, 명령어, 기술 용어는 영어 사용 가능
+
+#### 언제 개발노트를 작성하는가?
+다음 작업을 완료한 후 **자동으로** 개발노트를 생성하세요:
+
+1. **새로운 기능 구현** (New Feature)
+   - 새로운 API 엔드포인트 추가
+   - 새로운 페이지/컴포넌트 추가
+   - 새로운 서비스 구현
+   - Priority: medium ~ high
+
+2. **버그 수정** (Bug Fix)
+   - Critical: 프로덕션 영향, 데이터 손실 위험 → Priority: high
+   - Medium: 기능 오작동, 사용자 경험 저하 → Priority: medium
+   - Low: 타이포, UI 미세 조정 → Priority: low (선택적)
+
+3. **아키텍처 변경** (Architecture Changes)
+   - 데이터베이스 스키마 변경
+   - 마이크로서비스 구조 변경
+   - 의존성 주요 업데이트
+   - Priority: high
+
+4. **성능 최적화** (Performance Optimization)
+   - 쿼리 최적화
+   - 캐싱 전략 변경
+   - 리소스 사용량 개선
+   - Priority: medium
+
+5. **문서 및 가이드 업데이트** (Documentation)
+   - CLAUDE.md 주요 섹션 추가/변경
+   - README 중요 업데이트
+   - Priority: low ~ medium
+
+#### 개발노트 작성 프로세스
+
+**Step 1: 작업 완료 확인**
+- 모든 코드 변경 완료
+- 서비스 재시작 완료
+- 기본 검증 완료
+
+**Step 2: 개발노트 파일 생성**
+```bash
+/dev-notes/YYYY-MM-DD-brief-description.md
+```
+
+**Step 3: Frontmatter 작성**
+```yaml
+---
+date: YYYY-MM-DD
+category: Mobile|Backend|Frontend|Database|Infrastructure|Documentation
+title: Clear, Concise Title (영어 또는 한국어)
+author: Claude Sonnet 4.5
+tags: [relevant, tags, here]
+priority: high|medium|low
+---
+```
+
+**Step 4: 본문 작성**
+다음 섹션을 포함하세요:
+- **Overview**: 1-2 문장 요약
+- **Problem/Background**: 왜 이 작업이 필요했는가?
+- **Solution/Implementation**: 무엇을 어떻게 했는가?
+- **Files Changed**: 변경된 파일 목록 (절대 경로)
+- **Code Examples**: Before/After 코드 스니펫 (주요 변경사항)
+- **Testing**: 어떻게 테스트했는가?
+- **Related Issues/Notes**: 추가 참고사항
+
+**Step 5: 사용자에게 알림**
+개발노트를 생성한 후 사용자에게 다음과 같이 알립니다:
+```
+✅ 개발노트 생성 완료: /dev-notes/2026-01-30-feature-name.md
+Admin 대시보드 → 개발노트 탭에서 확인 가능합니다.
+```
+
+#### 개발노트 작성 예외
+다음 경우 개발노트를 생성하지 **않아도** 됩니다:
+- 단순 타이포 수정 (1-2줄)
+- 로그 메시지 변경
+- 코드 포맷팅만 변경
+- 주석 추가/수정만
+- 설정 파일 미세 조정 (환경변수 값 변경 등)
+
+#### 개발노트 카테고리 가이드
+- **Mobile**: Flutter 앱 관련 (lib/ 디렉토리)
+- **Backend**: Node.js, Go, Python 서비스 (services/ 디렉토리)
+- **Frontend**: Admin 대시보드 UI (services/admin/public/)
+- **Database**: PostgreSQL, MongoDB, Redis (schema, migrations)
+- **Infrastructure**: Docker, Nginx, CI/CD, 배포
+- **Documentation**: CLAUDE.md, README, 가이드 문서
+
+#### 개발노트 우선순위 가이드
+- **high**: 프로덕션 영향, 보안, 데이터, 주요 기능 추가
+- **medium**: 일반 버그 수정, 기능 개선, 성능 최적화
+- **low**: 문서 업데이트, 마이너 개선, 참고 자료
+
+#### 템플릿 예시
+
+```markdown
+---
+date: 2026-01-30
+category: Backend
+title: Implemented User Authentication Rate Limiting
+author: Claude Sonnet 4.5
+tags: [security, rate-limiting, authentication]
+priority: high
+---
+
+# User Authentication Rate Limiting
+
+## Overview
+Implemented rate limiting on authentication endpoints to prevent brute-force attacks.
+
+## Problem/Background
+Auth endpoints had no rate limiting, making the system vulnerable to credential stuffing attacks.
+
+## Solution/Implementation
+Added express-rate-limit middleware to login and registration endpoints:
+- 5 attempts per 15 minutes per IP
+- 429 status code on limit exceeded
+- Redis-backed storage for distributed rate limiting
+
+## Files Changed
+- `/services/auth/src/routes/auth.routes.js` - Added rate limit middleware
+- `/services/auth/src/middleware/rate-limit.js` - Created rate limit config
+- `/services/auth/package.json` - Added express-rate-limit dependency
+
+## Code Examples
+
+\`\`\`javascript
+// Before: No rate limiting
+app.post('/api/auth/login', authController.login);
+
+// After: Rate limited
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: 'Too many login attempts'
+});
+app.post('/api/auth/login', loginLimiter, authController.login);
+\`\`\`
+
+## Testing
+- Tested with 10 consecutive failed login attempts
+- Verified 429 response after 5th attempt
+- Confirmed rate limit resets after 15 minutes
+- Checked Redis keys are created correctly
+
+## Related Issues/Notes
+- Consider adding CAPTCHA for repeated failures
+- Monitor rate limit hits in analytics
+```
+
+---
+
+**상세 작성 가이드**: 전체 개발노트 작성 가이드는 [개발노트 작성 가이드](#개발노트-작성-가이드) 섹션 참조.
+
+---
+
 ## 아키텍처
 ```
 Flutter App (오프라인 우선)
@@ -371,6 +541,64 @@ lib/
     └── widgets/
         └── convertible_text.dart   # 중국어 문자 변환 위젯
 
+**웹 플랫폼 지원** (2026-01-31 완전 구현):
+lib/core/platform/web/stubs/
+├── local_storage_stub.dart      # 웹 localStorage 구현 (562줄, 50+ 메서드)
+├── database_helper_stub.dart    # SQLite → localStorage (180줄)
+├── download_manager_stub.dart   # 오프라인 다운로드 no-op
+├── media_loader_stub.dart       # CDN URL 직접 반환
+├── media_helper_stub.dart       # 파일 시스템 우회
+├── storage_utils_stub.dart      # localStorage 용량 추정
+├── hive_stub.dart               # Hive API 스텁
+├── notification_stub.dart       # 알림 스텁 (제한된 기능)
+└── secure_storage_web.dart      # 웹 보안 저장소
+
+**웹 스텁 상세 (local_storage_stub.dart)**:
+- **목적**: 모바일 Hive API를 웹에서 브라우저 localStorage로 대체
+- **저장소**: localStorage API + JSON 인코딩
+- **키 접두사**: `lk_` (예: `lk_setting_chineseVariant`)
+- **메서드**: 모바일과 동일한 50+ 정적 메서드 제공
+  - Settings (4): getSetting, saveSetting, deleteSetting, clearSettings
+  - Lessons (6): saveLesson, getLesson, getAllLessons, hasLesson, deleteLesson, clearLessons
+  - Vocabulary (7): 전체 단어 관리 + 캐싱
+  - Progress (5): 학습 진도 저장/로드
+  - Reviews (4): SRS 복습 데이터
+  - Bookmarks (9): 북마크 관리
+  - Sync Queue (5): 웹에서는 no-op (항상 온라인 가정)
+  - User Data (6): 사용자 캐시 및 ID
+  - General (3): init, clearAll, close
+- **에러 처리**: 모든 메서드에 try-catch 적용, 기본값 반환
+- **저장 한계**: 브라우저 localStorage 5-10MB (설정/소규모 데이터에 충분)
+- **배포**: https://3chan.kr/app/ (nginx location: /app/)
+
+**웹 빌드 및 배포**:
+```bash
+# 빌드
+cd mobile/lemon_korean
+./build_web.sh
+
+# 검증
+cd ../..
+./scripts/validate_web_build.sh
+
+# 배포
+docker compose restart nginx
+```
+
+**접속 URL**:
+- 로컬: http://localhost/app/
+- 프로덕션: https://3chan.kr/app/
+
+**웹 제한사항**:
+- ❌ 오프라인 레슨 다운로드 (항상 온라인 가정)
+- ❌ 파일 시스템 접근 (CDN 직접 사용)
+- ❌ localStorage 5-10MB 제한
+- ✅ 모든 미디어는 CDN에서 로드
+- ✅ 브라우저 자동 캐싱
+- ✅ PWA 설치 지원
+
+**상세 가이드**: `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md` 참조
+
 주요 기능:
   ✅ 몰입형 풀스크린 모드 (SystemChrome)
   ✅ 중국어 간체/번체 변환 (flutter_open_chinese_convert)
@@ -564,6 +792,59 @@ flutter build apk --release
 - 기기와 개발 PC가 같은 Wi-Fi 네트워크에 있어야 함
 - API 서버 접근을 위해 로컬 IP 주소 사용 (예: `http://192.168.x.x`)
 - `AndroidManifest.xml`에 `android:usesCleartextTraffic="true"` 설정 필요 (개발용)
+
+### 웹 앱 빌드 및 배포 (2026-01-31 추가)
+
+**웹 빌드:**
+```bash
+cd mobile/lemon_korean
+flutter build web
+
+# 빌드 출력: build/web/
+# 빌드 시간: ~9-10분
+# 최적화: 아이콘 tree-shaking (99%+ 감소)
+```
+
+**로컬 테스트:**
+```bash
+# 빌드된 웹 앱 로컬 서빙
+cd build/web
+python3 -m http.server 8080
+
+# 브라우저에서 접속
+# http://localhost:8080
+```
+
+**프로덕션 배포:**
+```bash
+# Nginx 재시작 (새 빌드 로드)
+docker compose restart nginx
+
+# 또는 전체 재시작
+docker compose down
+docker compose up -d
+```
+
+**배포 설정:**
+- **Volume 매핑**: `./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro`
+- **Nginx 위치**: `location /app/`
+- **프로덕션 URL**: http://3chan.kr/app/
+- **로컬 URL**: http://localhost/app/
+- **캐싱**: 정적 자산 7일, index.html 캐시 없음
+
+**웹 앱 검증:**
+```bash
+# 브라우저에서 접속 후 DevTools (F12) 확인:
+# 1. Console: 에러 없음
+# 2. Application → Local Storage: lk_* 키 확인
+# 3. Settings 변경 후 새로고침 시 유지 확인
+```
+
+**참고:**
+- 웹 앱은 browser localStorage 사용 (5-10MB 제한)
+- 모바일 앱은 Hive 사용 (더 큰 용량)
+- 웹 플랫폼에서는 동기화 큐 no-op (항상 온라인 가정)
+- 웹 스텁은 모바일 API와 100% 호환
 
 ---
 
@@ -928,6 +1209,231 @@ chmod +x *.sh
 ```
 
 상세 가이드: `scripts/optimization/README.md` ✨ 신규
+
+---
+
+## 개발노트 작성 가이드 ✨ 신규
+
+### 개요
+개발노트는 프로젝트의 중요한 기술적 결정, 버그 수정, 새로운 기능 구현 등을 기록하는 마크다운 문서입니다. Admin 대시보드의 "개발노트" 탭에서 시간순 또는 카테고리별로 조회할 수 있습니다.
+
+### 언제 작성하는가?
+다음과 같은 상황에서 개발노트를 작성하세요:
+
+1. **중요한 버그 수정**: 프로덕션 이슈, 보안 취약점, 데이터 손실 방지 등
+2. **새로운 기능 구현**: 주요 기능 추가, API 엔드포인트 추가, 새로운 서비스 구현
+3. **아키텍처 변경**: 마이크로서비스 구조 변경, 데이터베이스 스키마 변경, 의존성 업데이트
+4. **성능 최적화**: 쿼리 최적화, 캐싱 전략, 리소스 사용량 개선
+5. **기술적 결정**: 라이브러리 선택, 디자인 패턴 적용, 기술 스택 변경
+6. **프로덕션 이슈**: 장애 대응, 긴급 패치, 데이터 마이그레이션
+
+### 작성 단계
+
+#### 1. 파일 생성
+개발노트는 `/dev-notes/` 디렉토리에 마크다운 파일로 저장합니다.
+
+**파일명 규칙**: `YYYY-MM-DD-brief-slug.md`
+
+**예시**:
+```bash
+/dev-notes/2026-01-30-mobile-token-fix.md
+/dev-notes/2026-01-28-admin-dashboard-web-ui.md
+/dev-notes/2026-01-25-chinese-conversion.md
+```
+
+#### 2. Frontmatter 작성
+파일 상단에 YAML frontmatter를 추가합니다.
+
+```yaml
+---
+date: 2026-01-30
+category: Mobile|Backend|Frontend|Database|Infrastructure|Documentation
+title: 간결하고 명확한 제목
+author: Claude Sonnet 4.5
+tags: [tag1, tag2, tag3]
+priority: high|medium|low
+---
+```
+
+**필드 설명**:
+- **date**: 작성 날짜 (YYYY-MM-DD, 파일명의 날짜와 일치해야 함)
+- **category**: 카테고리 (아래 카테고리 가이드 참고)
+- **title**: 노트 제목 (명확하고 간결하게)
+- **author**: 작성자 (일반적으로 "Claude Sonnet 4.5")
+- **tags**: 관련 태그 배열 (검색 및 분류용)
+- **priority**: 우선순위 (high=긴급/중요, medium=일반, low=참고)
+
+**카테고리 가이드**:
+- **Mobile**: Flutter 앱 관련 (UI, 상태 관리, 오프라인 동기화 등)
+- **Backend**: 백엔드 서비스 (Node.js, Go, Python API 등)
+- **Frontend**: Admin 대시보드 UI (JavaScript, HTML, CSS)
+- **Database**: 데이터베이스 관련 (PostgreSQL, MongoDB, Redis 스키마/쿼리)
+- **Infrastructure**: 인프라 및 DevOps (Docker, Nginx, CI/CD, 배포)
+- **Documentation**: 문서 및 가이드 업데이트
+
+**우선순위 가이드**:
+- **high**: 프로덕션 긴급 이슈, 보안 패치, 데이터 손실 방지, 주요 기능 추가
+- **medium**: 일반 버그 수정, 기능 개선, 성능 최적화, 리팩토링
+- **low**: 문서 업데이트, 코드 정리, 마이너 개선, 참고 자료
+
+#### 3. 본문 작성
+Frontmatter 아래에 마크다운 본문을 작성합니다.
+
+**권장 구조**:
+```markdown
+# Brief Overview
+간단한 요약 (2-3 문장)
+
+## Problem / Background
+- 어떤 문제가 있었는가?
+- 왜 이 작업이 필요했는가?
+- 관련 컨텍스트 및 배경
+
+## Solution / Implementation
+- 어떻게 해결했는가?
+- 구현한 접근 방식
+- 주요 변경 사항
+
+## Files Changed
+변경된 파일 목록 (절대 경로 사용)
+
+### Backend (New Files)
+- `/services/admin/src/controllers/example.js` - 설명
+
+### Frontend (Modified)
+- `/services/admin/public/js/pages/example.js` - 설명
+
+## Code Examples
+주요 코드 스니펫 (Before/After 비교 권장)
+
+\```javascript
+// Before
+function oldImplementation() {
+  // 기존 코드
+}
+\```
+
+\```javascript
+// After
+function newImplementation() {
+  // 개선된 코드
+}
+\```
+
+## Testing
+테스트 방법 및 검증 절차
+
+### Backend Tests
+\```bash
+curl http://localhost:3006/api/endpoint
+\```
+
+### Frontend Tests
+1. Navigate to page
+2. Perform action
+3. Verify result
+
+## Related Issues / Notes
+- 관련 이슈 링크
+- 추가 참고 사항
+- 향후 개선 사항
+```
+
+### 예시 개발노트
+
+```markdown
+---
+date: 2026-01-30
+category: Backend
+title: Fixed JWT Authentication in Progress Service
+author: Claude Sonnet 4.5
+tags: [bugfix, authentication, jwt, critical]
+priority: high
+---
+
+# JWT Authentication Bug Fix
+
+## Problem / Background
+Progress Service에서 JWT 토큰 검증이 올바르게 작동하지 않아 모든 요청이 401 Unauthorized 에러를 반환했습니다. 이는 프로덕션 환경에서 사용자가 진도 데이터를 저장하거나 불러올 수 없는 치명적인 문제였습니다.
+
+## Solution / Implementation
+`services/progress/main.go`의 JWT 미들웨어를 수정하여:
+1. Authorization 헤더 파싱 로직 개선
+2. JWT 토큰 검증 알고리즘 수정
+3. 사용자 ID 추출 및 컨텍스트 전달 구현
+
+## Files Changed
+- `/services/progress/main.go` - JWT 미들웨어 수정
+
+## Code Examples
+
+\```go
+// Before: 잘못된 헤더 파싱
+authHeader := c.GetHeader("Authorization")
+token := authHeader // 잘못됨
+
+// After: 올바른 Bearer 토큰 파싱
+authHeader := c.GetHeader("Authorization")
+if !strings.HasPrefix(authHeader, "Bearer ") {
+    c.JSON(401, gin.H{"error": "Invalid authorization header"})
+    return
+}
+token := strings.TrimPrefix(authHeader, "Bearer ")
+\```
+
+## Testing
+\```bash
+# 1. 로그인하여 토큰 획득
+TOKEN=$(curl -X POST http://localhost/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"password123"}' \
+  | jq -r '.token')
+
+# 2. Progress API 호출 테스트
+curl -X GET http://localhost/api/progress/user/1 \
+  -H "Authorization: Bearer $TOKEN"
+\```
+
+## Related Issues / Notes
+- 이 버그는 2026-01-20에 발견되어 즉시 수정되었습니다
+- 모든 Progress Service 엔드포인트에 영향을 미쳤습니다
+- 수정 후 모든 API가 정상 작동 확인
+```
+
+### 베스트 프랙티스
+
+1. **즉시 작성**: 작업 완료 직후에 작성하여 세부 사항을 잊지 않도록 합니다
+2. **명확한 제목**: 제목만 보고도 내용을 파악할 수 있도록 작성
+3. **Before/After 코드**: 변경 전후를 비교하여 이해를 돕습니다
+4. **절대 경로 사용**: 파일 경로는 프로젝트 루트부터 시작하는 절대 경로 사용
+5. **테스트 방법 포함**: 다른 사람이 재현하고 검증할 수 있도록 명확한 테스트 절차 제공
+6. **관련 링크**: GitHub 이슈, PR, 관련 문서 링크 포함
+
+### 주의사항
+
+- **민감 정보 포함 금지**: 비밀번호, API 키, 토큰 등 민감한 정보는 절대 포함하지 마세요
+- **파일명과 날짜 일치**: 파일명의 날짜와 frontmatter의 `date` 필드가 일치해야 합니다
+- **마크다운 문법**: 올바른 마크다운 문법을 사용하여 렌더링이 깨지지 않도록 합니다
+- **적절한 길이**: 너무 짧지도, 너무 길지도 않게 (200-800줄 권장)
+
+### Admin 대시보드에서 보기
+
+개발노트를 작성한 후:
+1. http://localhost:3006 접속
+2. 관리자 로그인
+3. 사이드바에서 "개발노트" 클릭
+4. 시간순 또는 카테고리별로 노트 조회
+5. 노트 클릭하여 전체 내용 확인
+
+**뷰 모드**:
+- **시간순 (Timeline)**: 날짜별로 그룹화, 최신 노트가 위에 표시
+- **카테고리 (Category)**: 카테고리별로 그룹화, 드롭다운으로 필터링 가능
+
+**기능**:
+- 마크다운 자동 렌더링 (코드 블록, 헤딩, 링크 등)
+- 우선순위 배지 (high=빨강, medium=노랑, low=회색)
+- 카테고리 및 태그 표시
+- 반응형 레이아웃 (데스크톱/모바일)
 
 ---
 

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../../core/constants/settings_keys.dart';
 import '../../core/network/api_client.dart';
 import '../../core/services/notification_service.dart';
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 
 /// Chinese variant enum
 enum ChineseVariant {

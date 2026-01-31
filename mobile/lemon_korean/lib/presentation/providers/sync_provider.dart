@@ -4,7 +4,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart';
+import '../../core/storage/local_storage.dart'
+    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 
 class SyncProvider with ChangeNotifier {
   final _apiClient = ApiClient.instance;

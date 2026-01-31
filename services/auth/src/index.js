@@ -8,7 +8,19 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // ==================== Middleware ====================
-app.use(cors());
+// CORS configuration - allow web app and mobile clients
+app.use(cors({
+  origin: '*', // Allow all origins in development
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'X-Request-Id'],
+  maxAge: 86400 // 24 hours
+}));
+
+// Handle OPTIONS preflight requests explicitly
+app.options('*', cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

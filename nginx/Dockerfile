@@ -42,7 +42,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD curl -f http://localhost/health || exit 1
 
 # Expose ports
-EXPOSE 80 443
+EXPOSE 80 443 3007
 
 # Start nginx with custom entrypoint
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

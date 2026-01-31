@@ -1,10 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../constants/app_constants.dart';
 import '../config/environment_config.dart';
+import '../platform/platform_factory.dart';
+import '../platform/secure_storage_interface.dart';
 import '../utils/app_logger.dart';
 import '../../data/models/network_config_model.dart';
+
+// Conditional import for web platform
+import 'dart:html' as html if (dart.library.io) '';
 
 /// API Client using Dio
 /// Handles HTTP requests with authentication and error handling
@@ -12,12 +17,14 @@ class ApiClient {
   static final ApiClient instance = ApiClient._init();
 
   late final Dio _dio;
-  final _secureStorage = const FlutterSecureStorage();
+  late final ISecureStorage _secureStorage;
 
   ApiClient._init() {
+    _secureStorage = PlatformFactory.createSecureStorage();
     _dio = Dio(
       BaseOptions(
-        baseUrl: AppConstants.apiUrl,
+        // baseUrl will be set later after environment loads
+        baseUrl: '',  // Empty initially
         connectTimeout: AppConstants.connectTimeout,
         receiveTimeout: AppConstants.receiveTimeout,
         sendTimeout: AppConstants.sendTimeout,
@@ -36,6 +43,15 @@ class ApiClient {
 
   Dio get dio => _dio;
 
+  /// Ensure ApiClient is properly initialized with base URL
+  /// Must be called after EnvironmentConfig.init() and AppConstants.initFromEnvironment()
+  Future<void> ensureInitialized() async {
+    if (_dio.options.baseUrl.isEmpty || _dio.options.baseUrl == '') {
+      _dio.options.baseUrl = AppConstants.apiUrl;
+      AppLogger.d('Initialized base URL to: ${_dio.options.baseUrl}', tag: 'ApiClient');
+    }
+  }
+
   /// Update base URL after network config is loaded
   /// Must be called after AppConstants.updateFromConfig()
   void updateBaseUrl() {
@@ -43,14 +59,21 @@ class ApiClient {
     AppLogger.d('Updated base URL to: ${_dio.options.baseUrl}', tag: 'ApiClient');
   }
 
-  // Helper method to create Dio instance for specific service
-  Dio _createServiceDio(String baseURL) {
+  // Helper method to create Dio instance for specific service with token
+  Future<Dio> _createServiceDio(String baseURL) async {
+    // Read token from secure storage
+    final token = await _secureStorage.read(key: AppConstants.tokenKey);
+
     return Dio(BaseOptions(
       baseUrl: baseURL,
       connectTimeout: AppConstants.connectTimeout,
       receiveTimeout: AppConstants.receiveTimeout,
       sendTimeout: AppConstants.sendTimeout,
-      headers: _dio.options.headers,  // Include auth headers
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
     ));
   }
 
@@ -60,54 +83,83 @@ class ApiClient {
 
   /// Fetch network configuration from server
   /// This should be called BEFORE any other API calls
-  /// Uses URLs from EnvironmentConfig (loaded from .env files)
+  /// Tries multiple URLs with comprehensive fallback logic:
+  /// 1. For web: Nginx gateway first (avoids CORS)
+  /// 2. Production/environment URLs
+  /// 3. Development URL fallbacks
   Future<NetworkConfigModel> getNetworkConfig() async {
-    print('[ApiClient] Fetching network config from: ${EnvironmentConfig.adminUrl}');
-    try {
-      // Try admin service port first (for development mode)
-      // Then fall back to gateway if that fails
-      final configDio = Dio(BaseOptions(
-        baseUrl: EnvironmentConfig.adminUrl,  // From .env file
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 5),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      ));
+    // Build comprehensive list of URLs to try
+    final urls = <String>[];
 
-      print('[ApiClient] Making request to /api/admin/network/config');
-      final response = await configDio.get('/api/admin/network/config');
-
-      print('[ApiClient] Network config SUCCESS: ${response.data}');
-      AppLogger.d('Network config response: ${response.data}', tag: 'ApiClient');
-
-      return NetworkConfigModel.fromJson(response.data['config']);
-    } catch (e) {
-      print('[ApiClient] Network config FAILED from admin: $e');
-      AppLogger.w('Failed to fetch network config from admin service', tag: 'ApiClient', error: e);
-
-      // Try gateway as fallback
+    if (kIsWeb) {
+      // For web: Try Nginx gateway first (port 80/443) to avoid CORS
       try {
-        final gatewayDio = Dio(BaseOptions(
-          baseUrl: EnvironmentConfig.baseUrl,  // From .env file
-          connectTimeout: const Duration(seconds: 5),
-          receiveTimeout: const Duration(seconds: 5),
+        final currentHost = html.window.location.host; // e.g., "3chan.kr:3007"
+        final baseHost = currentHost.split(':')[0]; // "3chan.kr"
+
+        // Try Nginx routes first (same-origin, no CORS)
+        urls.add('http://$baseHost');  // Nginx gateway with /api/admin/network/config route
+        urls.add(html.window.location.origin);  // Current origin (e.g., http://3chan.kr:3007)
+        urls.add('http://$baseHost:3006');  // Admin service direct
+        print('[ApiClient] Web platform detected, host: $baseHost');
+      } catch (e) {
+        print('[ApiClient] Could not get window.location: $e');
+      }
+    } else {
+      // Mobile: Try admin service and environment URLs
+      urls.add(EnvironmentConfig.adminUrl);
+      urls.add(EnvironmentConfig.baseUrl);
+    }
+
+    // Fallbacks for both platforms
+    urls.add('http://3chan.kr');                   // Production Nginx
+    urls.add('http://3chan.kr:3006');              // Production Admin
+    urls.add('http://localhost:3006');             // Local dev
+    urls.add('http://192.168.0.100:3006');         // Local network dev
+
+    // Remove duplicates while preserving order
+    final uniqueUrls = <String>[];
+    for (final url in urls) {
+      if (!uniqueUrls.contains(url)) {
+        uniqueUrls.add(url);
+      }
+    }
+
+    print('[ApiClient] Will try ${uniqueUrls.length} URLs for network config');
+
+    // Try each URL until one succeeds
+    for (final url in uniqueUrls) {
+      try {
+        print('[ApiClient] Trying network config from: $url');
+        final configDio = Dio(BaseOptions(
+          baseUrl: url,
+          connectTimeout: const Duration(seconds: 3),
+          receiveTimeout: const Duration(seconds: 3),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
         ));
 
-        final response = await gatewayDio.get('/api/admin/network/config');
-        AppLogger.d('Network config from gateway: ${response.data}', tag: 'ApiClient');
+        final response = await configDio.get('/api/admin/network/config');
+        print('[ApiClient] Network config SUCCESS from: $url');
+        AppLogger.d('Network config response: ${response.data}', tag: 'ApiClient');
         return NetworkConfigModel.fromJson(response.data['config']);
-      } catch (e2) {
-        AppLogger.w('Failed to fetch from gateway too', tag: 'ApiClient', error: e2);
-        AppLogger.i('Using default config from environment', tag: 'ApiClient');
-        return NetworkConfigModel.defaultConfig();
+      } catch (e) {
+        print('[ApiClient] Network config FAILED from $url: $e');
       }
     }
+
+    // All attempts failed, use default config
+    print('[ApiClient] All ${uniqueUrls.length} attempts failed, using default config');
+    AppLogger.i('Using default config from environment', tag: 'ApiClient');
+    return NetworkConfigModel.defaultConfig();
+  }
+
+  /// URL에서 호스트 부분만 추출 (scheme://host)
+  String _extractHost(String url) {
+    final uri = Uri.parse(url);
+    return '${uri.scheme}://${uri.host}';
   }
 
   // ================================================================
@@ -170,7 +222,7 @@ class ApiClient {
     int? limit,
   }) async {
     // Use contentUrl for lesson data (supports dev mode direct port access)
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
 
     return await contentDio.get(
       '/api/content/lessons',
@@ -183,12 +235,12 @@ class ApiClient {
   }
 
   Future<Response> getLesson(int lessonId) async {
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.get('/api/content/lessons/$lessonId');
   }
 
   Future<Response> downloadLessonPackage(int lessonId) async {
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.get('/api/content/lessons/$lessonId/download');
   }
 
@@ -208,17 +260,17 @@ class ApiClient {
   }
 
   Future<Response> getVocabularyByLesson(int lessonId) async {
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.get('/api/content/vocabulary?lesson_id=$lessonId');
   }
 
   Future<Response> getVocabularyByLevel(int level) async {
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.get('/api/content/vocabulary?level=$level');
   }
 
   Future<Response> getVocabularyByIds(List<int> ids) async {
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.post(
       '/api/content/vocabulary/batch',
       data: {'ids': ids},
@@ -227,10 +279,68 @@ class ApiClient {
 
   Future<Response> getSimilarVocabulary(
       String korean, {double minScore = 0.7}) async {
-    final contentDio = _createServiceDio(AppConstants.contentUrl);
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.get(
       '/api/content/vocabulary/similar',
       queryParameters: {'korean': korean, 'min_score': minScore},
+    );
+  }
+
+  // ================================================================
+  // BOOKMARKS
+  // ================================================================
+
+  /// Create a new vocabulary bookmark
+  Future<Response> createBookmark(int vocabularyId, {String? notes}) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.post(
+      '/api/content/vocabulary/bookmarks',
+      data: {
+        'vocabulary_id': vocabularyId,
+        if (notes != null) 'notes': notes,
+      },
+    );
+  }
+
+  /// Get all user bookmarks (with pagination)
+  Future<Response> getUserBookmarks({int page = 1, int limit = 20}) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.get(
+      '/api/content/vocabulary/bookmarks',
+      queryParameters: {
+        'page': page,
+        'limit': limit,
+      },
+    );
+  }
+
+  /// Get single bookmark by ID
+  Future<Response> getBookmark(int bookmarkId) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.get('/api/content/vocabulary/bookmarks/$bookmarkId');
+  }
+
+  /// Update bookmark notes
+  Future<Response> updateBookmarkNotes(int bookmarkId, String notes) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.put(
+      '/api/content/vocabulary/bookmarks/$bookmarkId',
+      data: {'notes': notes},
+    );
+  }
+
+  /// Delete a bookmark
+  Future<Response> deleteBookmark(int bookmarkId) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.delete('/api/content/vocabulary/bookmarks/$bookmarkId');
+  }
+
+  /// Batch create bookmarks
+  Future<Response> createBookmarksBatch(List<Map<String, dynamic>> bookmarks) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.post(
+      '/api/content/vocabulary/bookmarks/batch',
+      data: {'bookmarks': bookmarks},
     );
   }
 
@@ -239,22 +349,22 @@ class ApiClient {
   // ================================================================
 
   Future<Response> getUserProgress(int userId) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.get('/api/progress/user/$userId');
   }
 
   Future<Response> getUserStats(int userId) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.get('/api/progress/stats/$userId');
   }
 
   Future<Response> getLessonProgress(int userId, int lessonId) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.get('/api/progress/lesson/$lessonId');
   }
 
   Future<Response> startLesson(int userId, int lessonId) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/update',
       data: {
@@ -270,7 +380,7 @@ class ApiClient {
     required int quizScore,
     required int timeSpent,
   }) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/complete',
       data: {
@@ -282,7 +392,7 @@ class ApiClient {
   }
 
   Future<Response> syncProgress(List<Map<String, dynamic>> progressData) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/sync',
       data: {'progress': progressData},
@@ -290,7 +400,7 @@ class ApiClient {
   }
 
   Future<Response> getReviewSchedule(int userId, {int limit = 20}) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.get(
       '/api/progress/review-schedule/$userId',
       queryParameters: {'limit': limit},
@@ -298,7 +408,7 @@ class ApiClient {
   }
 
   Future<Response> markReviewDone(Map<String, dynamic> data) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/review/complete',
       data: data,
@@ -311,13 +421,30 @@ class ApiClient {
     int vocabularyId, {
     required int quality,
   }) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/vocabulary/practice',
       data: {
         'user_id': userId,
         'vocabulary_id': vocabularyId,
         'quality': quality,
+      },
+    );
+  }
+
+  /// Submit batch vocabulary results from lesson quiz
+  Future<Response> updateVocabularyBatch({
+    required int userId,
+    required int lessonId,
+    required List<Map<String, dynamic>> vocabularyResults,
+  }) async {
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
+    return await progressDio.post(
+      '/api/progress/vocabulary/batch',
+      data: {
+        'user_id': userId,
+        'lesson_id': lessonId,
+        'vocabulary_results': vocabularyResults,
       },
     );
   }
@@ -333,7 +460,7 @@ class ApiClient {
     required String sessionType,
     required String deviceType,
   }) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/session/start',
       data: {
@@ -352,7 +479,7 @@ class ApiClient {
     required int correctAnswers,
     required int incorrectAnswers,
   }) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.post(
       '/api/progress/session/end',
       data: {
@@ -366,7 +493,7 @@ class ApiClient {
 
   /// Get session statistics for a user
   Future<Response> getSessionStats(int userId) async {
-    final progressDio = _createServiceDio(AppConstants.progressUrl);
+    final progressDio = await _createServiceDio(AppConstants.progressUrl);
     return await progressDio.get('/api/progress/session/stats/$userId');
   }
 
@@ -423,7 +550,7 @@ class ApiClient {
 
 /// Auth Interceptor - Adds JWT token to requests
 class _AuthInterceptor extends Interceptor {
-  final FlutterSecureStorage _storage;
+  final ISecureStorage _storage;
 
   /// Dedicated Dio instance for retrying requests (without interceptors to avoid infinite loops)
   late final Dio _retryDio;

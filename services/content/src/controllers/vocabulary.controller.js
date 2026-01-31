@@ -443,6 +443,493 @@ const getHighSimilarityVocabulary = async (req, res) => {
 
 /**
  * ================================================================
+ * BOOKMARK ENDPOINTS
+ * ================================================================
+ * User bookmark management for vocabulary items
+ * ================================================================
+ */
+
+/**
+ * ================================================================
+ * POST /api/content/vocabulary/bookmarks
+ * ================================================================
+ * Create a new vocabulary bookmark
+ * @body vocabulary_id - ID of vocabulary to bookmark (required)
+ * @body notes - Personal notes (optional)
+ */
+const createBookmark = async (req, res) => {
+  try {
+    const userId = req.user.id; // From JWT middleware
+    const { vocabulary_id, notes } = req.body;
+    console.log('[BOOKMARK] POST /api/content/vocabulary/bookmarks', { userId, vocabulary_id, notes });
+
+    // Validate vocabulary_id
+    if (!vocabulary_id || isNaN(parseInt(vocabulary_id))) {
+      return res.status(400).json({
+        success: false,
+        error: 'vocabulary_id is required and must be a number'
+      });
+    }
+
+    const vocabId = parseInt(vocabulary_id);
+
+    // Check if vocabulary exists
+    const vocabulary = await Vocabulary.findById(vocabId);
+    if (!vocabulary) {
+      return res.status(404).json({
+        success: false,
+        error: 'Vocabulary not found'
+      });
+    }
+
+    // Create bookmark
+    const { query } = require('../config/database');
+    const insertSql = `
+      INSERT INTO user_bookmarks (user_id, resource_type, resource_id, notes)
+      VALUES ($1, 'vocabulary', $2, $3)
+      ON CONFLICT (user_id, resource_type, resource_id) DO UPDATE
+      SET notes = EXCLUDED.notes, created_at = NOW()
+      RETURNING *
+    `;
+
+    const result = await query(insertSql, [userId, vocabId, notes || null]);
+    const bookmark = result.rows[0];
+
+    // Invalidate cache
+    const cacheKey = `bookmarks:user:${userId}`;
+    await cacheHelpers.del(cacheKey);
+
+    console.log('[BOOKMARK] Created bookmark:', bookmark.id);
+
+    res.status(201).json({
+      success: true,
+      bookmark: {
+        id: bookmark.id,
+        vocabulary_id: bookmark.resource_id,
+        notes: bookmark.notes,
+        created_at: bookmark.created_at
+      }
+    });
+
+  } catch (error) {
+    console.error('[BOOKMARK] Error in createBookmark:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create bookmark',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * GET /api/content/vocabulary/bookmarks
+ * ================================================================
+ * Get user's bookmarks with full vocabulary data
+ * @query page - Page number (default: 1)
+ * @query limit - Items per page (default: 20, max: 100)
+ */
+const getUserBookmarks = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { page = 1, limit = 20 } = req.query;
+    console.log('[BOOKMARK] GET /api/content/vocabulary/bookmarks', { userId, page, limit });
+
+    // Validate pagination
+    const pageNum = Math.max(1, parseInt(page) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
+    const offset = (pageNum - 1) * limitNum;
+
+    // Build cache key
+    const cacheKey = `bookmarks:user:${userId}:${pageNum}:${limitNum}`;
+
+    // Check cache
+    const cached = await cacheHelpers.get(cacheKey);
+    if (cached) {
+      console.log('[BOOKMARK] Cache hit:', cacheKey);
+      return res.json({
+        success: true,
+        cached: true,
+        ...cached
+      });
+    }
+
+    // Get total count
+    const { query } = require('../config/database');
+    const countSql = `
+      SELECT COUNT(*) as total
+      FROM user_bookmarks
+      WHERE user_id = $1 AND resource_type = 'vocabulary'
+    `;
+    const countResult = await query(countSql, [userId]);
+    const total = parseInt(countResult.rows[0].total);
+
+    // Fetch bookmarks with JOIN to vocabulary and vocabulary_progress
+    const bookmarksSql = `
+      SELECT
+        ub.id as bookmark_id,
+        ub.notes,
+        ub.created_at as bookmarked_at,
+        v.*,
+        vp.mastery_level,
+        vp.next_review,
+        vp.ease_factor,
+        vp.interval_days
+      FROM user_bookmarks ub
+      JOIN vocabulary v ON ub.resource_id = v.id
+      LEFT JOIN vocabulary_progress vp ON (vp.user_id = ub.user_id AND vp.vocab_id = v.id)
+      WHERE ub.user_id = $1 AND ub.resource_type = 'vocabulary'
+      ORDER BY ub.created_at DESC
+      LIMIT $2 OFFSET $3
+    `;
+
+    const bookmarksResult = await query(bookmarksSql, [userId, limitNum, offset]);
+    const bookmarks = bookmarksResult.rows.map(row => ({
+      bookmark_id: row.bookmark_id,
+      notes: row.notes,
+      bookmarked_at: row.bookmarked_at,
+      vocabulary: {
+        id: row.id,
+        korean: row.korean,
+        hanja: row.hanja,
+        chinese: row.chinese,
+        pinyin: row.pinyin,
+        part_of_speech: row.part_of_speech,
+        level: row.level,
+        similarity_score: row.similarity_score,
+        image_url: row.image_url,
+        audio_url_male: row.audio_url_male,
+        audio_url_female: row.audio_url_female,
+        example_sentence_ko: row.example_sentence_ko,
+        example_sentence_zh: row.example_sentence_zh,
+        frequency_rank: row.frequency_rank
+      },
+      progress: row.mastery_level !== null ? {
+        mastery_level: row.mastery_level,
+        next_review: row.next_review,
+        ease_factor: row.ease_factor,
+        interval_days: row.interval_days
+      } : null
+    }));
+
+    const response = {
+      bookmarks,
+      pagination: buildPaginationMeta(total, pageNum, limitNum)
+    };
+
+    // Cache for 1 hour
+    await cacheHelpers.set(cacheKey, response, 3600);
+
+    console.log(`[BOOKMARK] Returned ${bookmarks.length} bookmarks (page ${pageNum}/${response.pagination.total_pages})`);
+
+    res.json({
+      success: true,
+      ...response
+    });
+
+  } catch (error) {
+    console.error('[BOOKMARK] Error in getUserBookmarks:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch bookmarks',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * GET /api/content/vocabulary/bookmarks/:id
+ * ================================================================
+ * Get single bookmark by ID
+ */
+const getBookmark = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const bookmarkId = parseInt(req.params.id);
+    console.log('[BOOKMARK] GET /api/content/vocabulary/bookmarks/:id', { userId, bookmarkId });
+
+    // Validate ID
+    if (isNaN(bookmarkId) || bookmarkId < 1) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid bookmark ID'
+      });
+    }
+
+    // Fetch bookmark with vocabulary data
+    const { query } = require('../config/database');
+    const bookmarkSql = `
+      SELECT
+        ub.id as bookmark_id,
+        ub.notes,
+        ub.created_at as bookmarked_at,
+        v.*
+      FROM user_bookmarks ub
+      JOIN vocabulary v ON ub.resource_id = v.id
+      WHERE ub.id = $1 AND ub.user_id = $2 AND ub.resource_type = 'vocabulary'
+    `;
+
+    const result = await query(bookmarkSql, [bookmarkId, userId]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'Bookmark not found'
+      });
+    }
+
+    const row = result.rows[0];
+    const bookmark = {
+      bookmark_id: row.bookmark_id,
+      notes: row.notes,
+      bookmarked_at: row.bookmarked_at,
+      vocabulary: {
+        id: row.id,
+        korean: row.korean,
+        hanja: row.hanja,
+        chinese: row.chinese,
+        pinyin: row.pinyin,
+        part_of_speech: row.part_of_speech,
+        level: row.level,
+        similarity_score: row.similarity_score,
+        image_url: row.image_url,
+        audio_url_male: row.audio_url_male,
+        audio_url_female: row.audio_url_female,
+        example_sentence_ko: row.example_sentence_ko,
+        example_sentence_zh: row.example_sentence_zh
+      }
+    };
+
+    console.log('[BOOKMARK] Found bookmark:', bookmark.bookmark_id);
+
+    res.json({
+      success: true,
+      bookmark
+    });
+
+  } catch (error) {
+    console.error('[BOOKMARK] Error in getBookmark:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch bookmark',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * PUT /api/content/vocabulary/bookmarks/:id
+ * ================================================================
+ * Update bookmark notes
+ * @body notes - New notes text
+ */
+const updateBookmarkNotes = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const bookmarkId = parseInt(req.params.id);
+    const { notes } = req.body;
+    console.log('[BOOKMARK] PUT /api/content/vocabulary/bookmarks/:id', { userId, bookmarkId, notes });
+
+    // Validate ID
+    if (isNaN(bookmarkId) || bookmarkId < 1) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid bookmark ID'
+      });
+    }
+
+    // Update bookmark
+    const { query } = require('../config/database');
+    const updateSql = `
+      UPDATE user_bookmarks
+      SET notes = $1
+      WHERE id = $2 AND user_id = $3 AND resource_type = 'vocabulary'
+      RETURNING *
+    `;
+
+    const result = await query(updateSql, [notes || null, bookmarkId, userId]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'Bookmark not found or unauthorized'
+      });
+    }
+
+    const bookmark = result.rows[0];
+
+    // Invalidate cache
+    const cacheKey = `bookmarks:user:${userId}`;
+    await cacheHelpers.del(cacheKey);
+
+    console.log('[BOOKMARK] Updated bookmark:', bookmark.id);
+
+    res.json({
+      success: true,
+      bookmark: {
+        id: bookmark.id,
+        vocabulary_id: bookmark.resource_id,
+        notes: bookmark.notes,
+        created_at: bookmark.created_at
+      }
+    });
+
+  } catch (error) {
+    console.error('[BOOKMARK] Error in updateBookmarkNotes:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update bookmark',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * DELETE /api/content/vocabulary/bookmarks/:id
+ * ================================================================
+ * Delete bookmark
+ */
+const deleteBookmark = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const bookmarkId = parseInt(req.params.id);
+    console.log('[BOOKMARK] DELETE /api/content/vocabulary/bookmarks/:id', { userId, bookmarkId });
+
+    // Validate ID
+    if (isNaN(bookmarkId) || bookmarkId < 1) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid bookmark ID'
+      });
+    }
+
+    // Delete bookmark
+    const { query } = require('../config/database');
+    const deleteSql = `
+      DELETE FROM user_bookmarks
+      WHERE id = $1 AND user_id = $2 AND resource_type = 'vocabulary'
+      RETURNING id
+    `;
+
+    const result = await query(deleteSql, [bookmarkId, userId]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'Bookmark not found or unauthorized'
+      });
+    }
+
+    // Invalidate cache
+    const cacheKey = `bookmarks:user:${userId}`;
+    await cacheHelpers.del(cacheKey);
+
+    console.log('[BOOKMARK] Deleted bookmark:', bookmarkId);
+
+    res.json({
+      success: true,
+      message: 'Bookmark deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('[BOOKMARK] Error in deleteBookmark:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete bookmark',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * POST /api/content/vocabulary/bookmarks/batch
+ * ================================================================
+ * Create multiple bookmarks at once
+ * @body bookmarks - Array of {vocabulary_id, notes}
+ */
+const createBookmarksBatch = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { bookmarks } = req.body;
+    console.log('[BOOKMARK] POST /api/content/vocabulary/bookmarks/batch', { userId, count: bookmarks?.length });
+
+    // Validate input
+    if (!Array.isArray(bookmarks) || bookmarks.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'bookmarks must be a non-empty array'
+      });
+    }
+
+    // Validate each bookmark
+    for (const b of bookmarks) {
+      if (!b.vocabulary_id || isNaN(parseInt(b.vocabulary_id))) {
+        return res.status(400).json({
+          success: false,
+          error: 'Each bookmark must have a valid vocabulary_id'
+        });
+      }
+    }
+
+    // Insert bookmarks
+    const { query } = require('../config/database');
+    const results = [];
+    const errors = [];
+
+    for (const b of bookmarks) {
+      try {
+        const insertSql = `
+          INSERT INTO user_bookmarks (user_id, resource_type, resource_id, notes)
+          VALUES ($1, 'vocabulary', $2, $3)
+          ON CONFLICT (user_id, resource_type, resource_id) DO UPDATE
+          SET notes = EXCLUDED.notes
+          RETURNING *
+        `;
+        const result = await query(insertSql, [userId, parseInt(b.vocabulary_id), b.notes || null]);
+        results.push(result.rows[0]);
+      } catch (error) {
+        errors.push({
+          vocabulary_id: b.vocabulary_id,
+          error: error.message
+        });
+      }
+    }
+
+    // Invalidate cache
+    const cacheKey = `bookmarks:user:${userId}`;
+    await cacheHelpers.del(cacheKey);
+
+    console.log(`[BOOKMARK] Batch created ${results.length} bookmarks, ${errors.length} errors`);
+
+    res.status(201).json({
+      success: true,
+      created: results.length,
+      errors: errors.length,
+      bookmarks: results.map(b => ({
+        id: b.id,
+        vocabulary_id: b.resource_id,
+        notes: b.notes,
+        created_at: b.created_at
+      })),
+      ...(errors.length > 0 && { errors })
+    });
+
+  } catch (error) {
+    console.error('[BOOKMARK] Error in createBookmarksBatch:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create bookmarks',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
  * EXPORTS
  * ================================================================
  */
@@ -452,5 +939,12 @@ module.exports = {
   searchVocabulary,
   getVocabularyStats,
   getVocabularyByLevel,
-  getHighSimilarityVocabulary
+  getHighSimilarityVocabulary,
+  // Bookmark endpoints
+  createBookmark,
+  getUserBookmarks,
+  getBookmark,
+  updateBookmarkNotes,
+  deleteBookmark,
+  createBookmarksBatch
 };
