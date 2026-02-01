@@ -16,12 +16,14 @@
 ---
 
 ## 파일 통계
-- **Dart 파일**: 78 (모델, 화면, 프로바이더, 리포지토리, 유틸리티)
-- **JavaScript 파일**: 80 (Auth, Content, Admin 서비스 + 설정)
-- **Go 파일**: 17 (Progress, Media 서비스)
+- **Dart 파일**: 115 (104 소스 + 5 생성(.g.dart) + 6 l10n)
+- **JavaScript 파일**: 82 (Auth, Content, Admin 서비스 + 설정)
+- **Go 파일**: 19 (Progress, Media 서비스)
+- **Python 파일**: 2 (Analytics 서비스)
 - **SQL 파일**: 3 (PostgreSQL 스키마, 시드, 관리자 스키마)
+- **ARB 번역 파일**: 6 (zh, zh_TW, ko, en, ja, es)
 - **설정 파일**: 30+ (Docker, Nginx, 환경 설정)
-- **문서**: 20+ (README, 가이드, API 예제)
+- **문서**: 83+ (README, 가이드, API 예제, 개발노트 24개 포함)
 
 ---
 
@@ -229,7 +231,7 @@ PostgreSQL + MongoDB + Redis + MinIO
 - **Redis 7**: 캐시, 세션, 실시간 데이터
 - **MinIO**: 미디어 파일 (S3 호환, bucket: lemon-korean-media)
 
-### Mobile (78 Dart 파일)
+### Mobile (115 Dart 파일)
 - **Flutter 3.x**: iOS/Android 크로스플랫폼
 - **Hive 2.2.3**: 로컬 DB (레슨, 진도)
 - **SQLite (sqflite 2.3.0)**: 미디어 파일 매핑
@@ -459,7 +461,7 @@ GET                  /health
 
 ---
 
-## Flutter 앱 구조 (78 Dart 파일)
+## Flutter 앱 구조 (115 Dart 파일)
 ```
 lib/
 ├── main.dart                          # 앱 진입점, MultiProvider 설정
@@ -503,7 +505,9 @@ lib/
     │   ├── progress_provider.dart   # 사용자 진도 상태
     │   ├── download_provider.dart   # 다운로드 큐 관리
     │   ├── sync_provider.dart       # 동기화 상태
-    │   └── settings_provider.dart   # 앱 설정 (언어, 알림)
+    │   ├── settings_provider.dart   # 앱 설정 (언어, 알림)
+    │   ├── bookmark_provider.dart   # 북마크 상태 관리
+    │   └── vocabulary_browser_provider.dart  # 단어 검색 상태
     │
     ├── screens/
     │   ├── auth/
@@ -528,30 +532,70 @@ lib/
     │   │       ├── stage7_summary.dart      # 요약 및 복습
     │   │       ├── vocabulary_stage.dart    # 23KB 상세 구현
     │   │       ├── grammar_stage.dart       # 31KB 상세 구현
-    │   │       └── quiz_stage.dart          # 52KB 상세 구현
+    │   │       ├── quiz_stage.dart          # 52KB 상세 구현
+    │   │       └── quiz/                    # 퀴즈 문제 유형 (5개)
+    │   │           ├── listening_question.dart      # 듣기 문제
+    │   │           ├── fill_in_blank_question.dart  # 빈칸 채우기
+    │   │           ├── translation_question.dart    # 번역 문제
+    │   │           ├── word_order_question.dart     # 어순 배열
+    │   │           └── pronunciation_question.dart  # 발음 문제
     │   ├── download/
     │   │   └── download_manager_screen.dart
     │   ├── review/
     │   │   └── review_screen.dart         # SRS 복습 인터페이스
     │   ├── profile/
     │   │   └── (프로필 관리)
-    │   └── settings/
-    │       └── (앱 설정)
+    │   ├── settings/                # 설정 화면 (4개)
+    │   │   ├── settings_screen.dart
+    │   │   ├── language_settings_screen.dart     # 언어 설정
+    │   │   ├── notification_settings_screen.dart # 알림 설정
+    │   │   ├── help_center_screen.dart           # 도움말 센터
+    │   │   └── app_info_screen.dart              # 앱 정보
+    │   ├── stats/                   # 통계 화면 (2개)
+    │   │   ├── completed_lessons_screen.dart     # 완료한 레슨
+    │   │   └── mastered_words_screen.dart        # 마스터한 단어
+    │   ├── vocabulary_book/         # 단어장 (2개)
+    │   │   ├── vocabulary_book_screen.dart
+    │   │   └── vocabulary_detail_screen.dart
+    │   └── vocabulary_browser/      # 단어 검색
+    │       └── vocabulary_browser_screen.dart
     │
     └── widgets/
         └── convertible_text.dart   # 중국어 문자 변환 위젯
 
-**웹 플랫폼 지원** (2026-01-31 완전 구현):
-lib/core/platform/web/stubs/
-├── local_storage_stub.dart      # 웹 localStorage 구현 (562줄, 50+ 메서드)
-├── database_helper_stub.dart    # SQLite → localStorage (180줄)
-├── download_manager_stub.dart   # 오프라인 다운로드 no-op
-├── media_loader_stub.dart       # CDN URL 직접 반환
-├── media_helper_stub.dart       # 파일 시스템 우회
-├── storage_utils_stub.dart      # localStorage 용량 추정
-├── hive_stub.dart               # Hive API 스텁
-├── notification_stub.dart       # 알림 스텁 (제한된 기능)
-└── secure_storage_web.dart      # 웹 보안 저장소
+├── l10n/                            # 다국어 지원 (6개 언어)
+│   ├── app_zh.arb                   # 중국어 간체
+│   ├── app_zh_TW.arb                # 중국어 번체
+│   ├── app_ko.arb                   # 한국어
+│   ├── app_en.arb                   # 영어
+│   ├── app_ja.arb                   # 일본어
+│   ├── app_es.arb                   # 스페인어
+│   └── generated/                   # 자동 생성된 번역 클래스 (6개)
+
+**플랫폼 추상화** (22개 파일):
+lib/core/platform/
+├── interfaces/                  # 플랫폼 인터페이스 (5개)
+│   ├── local_storage_interface.dart
+│   ├── database_helper_interface.dart
+│   ├── download_manager_interface.dart
+│   ├── media_helper_interface.dart
+│   └── storage_utils_interface.dart
+├── io/                          # 모바일 구현 (4개)
+│   ├── local_storage_io.dart
+│   ├── database_helper_io.dart
+│   ├── download_manager_io.dart
+│   └── media_helper_io.dart
+└── web/                         # 웹 구현 (13개)
+    ├── stubs/                   # 웹 스텁 (8개)
+    │   ├── local_storage_stub.dart      # 웹 localStorage 구현 (562줄, 50+ 메서드)
+    │   ├── database_helper_stub.dart    # SQLite → localStorage (180줄)
+    │   ├── download_manager_stub.dart   # 오프라인 다운로드 no-op
+    │   ├── media_loader_stub.dart       # CDN URL 직접 반환
+    │   ├── media_helper_stub.dart       # 파일 시스템 우회
+    │   ├── storage_utils_stub.dart      # localStorage 용량 추정
+    │   ├── hive_stub.dart               # Hive API 스텁
+    │   └── notification_stub.dart       # 알림 스텁 (제한된 기능)
+    └── secure_storage_web.dart          # 웹 보안 저장소
 
 **웹 스텁 상세 (local_storage_stub.dart)**:
 - **목적**: 모바일 Hive API를 웹에서 브라우저 localStorage로 대체
@@ -895,6 +939,29 @@ docker compose up -d
 - ConvertibleText 위젯으로 UI 전체 적용
 - 레슨 콘텐츠 및 UI 모두 변환 지원
 
+### 다국어 지원 (i18n)
+Flutter 앱은 6개 언어를 지원합니다:
+
+| 언어 | 로케일 코드 | ARB 파일 |
+|------|-------------|----------|
+| 중국어 간체 | zh | app_zh.arb |
+| 중국어 번체 | zh_TW | app_zh_TW.arb |
+| 한국어 | ko | app_ko.arb |
+| 영어 | en | app_en.arb |
+| 일본어 | ja | app_ja.arb |
+| 스페인어 | es | app_es.arb |
+
+**ARB 파일 위치**: `/mobile/lemon_korean/lib/l10n/`
+**생성된 파일**: `/mobile/lemon_korean/lib/l10n/generated/`
+**번역 키 수**: 206개
+
+**새 번역 추가:**
+```bash
+# 1. ARB 파일에 키 추가
+# 2. flutter gen-l10n 실행 (또는 빌드 시 자동)
+flutter gen-l10n
+```
+
 ### Docker Compose vs 외부 설정 파일
 
 **중요**: 데이터베이스 및 서비스 설정 변경 시:
@@ -1019,9 +1086,10 @@ docker-compose exec postgres psql -U 3chan -d lemon_korean
 4. **Phase 4**: 레슨 스테이지 구현 (7개 전체) ✅
 5. **Phase 5**: 관리자 대시보드 ✅
 
-### 🚀 현재 상태 (2026-01-28 업데이트)
+### 🚀 현재 상태 (2026-02-01 업데이트)
 - **백엔드**: 6/6 서비스 완전 구현 ✅
-- **모바일**: 78 Dart 파일, 모든 핵심 기능 구현
+- **모바일**: 115 Dart 파일 (104 소스 + 5 생성 + 6 l10n), 모든 핵심 기능 구현
+- **다국어**: 6개 언어 지원 (zh, zh_TW, ko, en, ja, es) ✅
 - **데이터베이스**: 15개 테이블, 뷰, 트리거 완성
 - **인프라**: Docker Compose, Nginx 완전 설정
 - **백업 전략**: 자동화된 백업 시스템 구현 ✅
@@ -1095,7 +1163,7 @@ docker-compose exec postgres psql -U 3chan -d lemon_korean
    - 마이크로서비스 자동 스케일링
    - 로드 밸런싱 고도화
 
-### 📊 전체 업데이트 타임라인 (2026-01)
+### 📊 전체 업데이트 타임라인 (2026-01 ~ 2026-02)
 - ✅ 2026-01-20: JWT 인증 버그 수정 (Critical)
 - ✅ 2026-01-23: 설정 화면 및 알림 기능
 - ✅ 2026-01-25: 중국어 간체/번체 완전 변환 구현
@@ -1114,6 +1182,13 @@ docker-compose exec postgres psql -U 3chan -d lemon_korean
     - Bootstrap 5 + Chart.js 기반 SPA
     - 완전 반응형 디자인
     - 접속 URL: https://lemon.3chan.kr/admin/
+- ✅ 2026-02-01: **다국어 지원 및 앱 개선** ✨ 신규
+  - i18n 6개 언어 지원 추가 (zh, zh_TW, ko, en, ja, es)
+  - 206개 번역 키, ARB 파일 기반
+  - 앱 아이콘 업데이트 (레몬 캐릭터)
+  - 웹 앱 미디어 URL 버그 수정 (lemon.3chan.kr)
+  - Flutter 웹 정적 자산 404 오류 수정
+  - CORS 및 인증 관련 버그 수정
 
 ---
 

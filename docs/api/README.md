@@ -14,6 +14,8 @@ Lemon Korean API 문서에 오신 것을 환영합니다. 이 디렉토리는 Le
 | **Content Service** | 3002 | [CONTENT_API.md](./CONTENT_API.md) | 레슨, 단어, 문법 콘텐츠 |
 | **Progress Service** | 3003 | [PROGRESS_API.md](./PROGRESS_API.md) | 학습 진도 및 SRS 복습 |
 | **Media Service** | 3004 | [MEDIA_API.md](./MEDIA_API.md) | 이미지 및 오디오 파일 서빙 |
+| **Analytics Service** | 3005 | [ANALYTICS_API.md](./ANALYTICS_API.md) | 로그 분석, 통계 API |
+| **Admin Service** | 3006 | [ADMIN_API.md](./ADMIN_API.md) | 관리자 대시보드 REST API |
 
 ---
 
@@ -31,10 +33,15 @@ Media Service:    http://localhost:3004
 
 **프로덕션 환경**:
 ```
-Auth Service:     https://api.lemonkorean.com/auth
-Content Service:  https://api.lemonkorean.com/content
-Progress Service: https://api.lemonkorean.com/progress
-Media Service:    https://media.lemonkorean.com
+API Gateway:       https://lemon.3chan.kr/api
+Auth Service:      https://lemon.3chan.kr/api/auth
+Content Service:   https://lemon.3chan.kr/api/content
+Progress Service:  https://lemon.3chan.kr/api/progress
+Media Service:     https://lemon.3chan.kr/media
+Analytics Service: https://lemon.3chan.kr/api/analytics
+Admin Service:     https://lemon.3chan.kr/api/admin
+Admin Dashboard:   https://lemon.3chan.kr/admin/
+Web App:           https://lemon.3chan.kr/app/
 ```
 
 ### 인증
@@ -143,6 +150,55 @@ curl -X GET http://localhost:3002/api/content/lessons \
 - `POST /media/batch-download` - 배치 다운로드 URL
 
 **문서**: [MEDIA_API.md](./MEDIA_API.md)
+
+---
+
+### Analytics Service
+
+**목적**: 사용자 활동 로깅, 학습 패턴 분석, 통계 대시보드
+
+**주요 엔드포인트**:
+- `POST /api/analytics/events` - 이벤트 로깅
+- `GET /api/analytics/user/:userId/activity` - 사용자 활동 조회
+- `GET /api/analytics/user/:userId/patterns` - 학습 패턴 분석
+- `GET /api/analytics/dashboard` - 통계 대시보드 (관리자)
+- `GET /api/analytics/reports/daily` - 일일 리포트
+- `GET /api/analytics/reports/weekly` - 주간 리포트
+- `GET /health` - 헬스체크
+
+**문서**: [ANALYTICS_API.md](./ANALYTICS_API.md)
+
+---
+
+### Admin Service
+
+**목적**: 관리자 대시보드, 콘텐츠 관리, 시스템 모니터링
+
+**주요 엔드포인트**:
+- `POST /api/admin/auth/login` - 관리자 로그인
+- `GET /api/admin/users` - 사용자 목록 조회
+- `GET /api/admin/users/:id` - 사용자 상세 조회
+- `PUT /api/admin/users/:id` - 사용자 정보 수정
+- `DELETE /api/admin/users/:id` - 사용자 삭제
+- `GET /api/admin/lessons` - 레슨 목록 조회
+- `POST /api/admin/lessons` - 레슨 생성
+- `PUT /api/admin/lessons/:id` - 레슨 수정
+- `DELETE /api/admin/lessons/:id` - 레슨 삭제
+- `GET /api/admin/vocabulary` - 단어 목록 조회
+- `POST /api/admin/vocabulary` - 단어 추가
+- `PUT /api/admin/vocabulary/:id` - 단어 수정
+- `DELETE /api/admin/vocabulary/:id` - 단어 삭제
+- `POST /api/admin/media/upload` - 미디어 업로드
+- `GET /api/admin/analytics/dashboard` - 분석 대시보드
+- `GET /api/admin/system/health` - 시스템 헬스체크
+- `GET /api/admin/system/metrics` - 시스템 메트릭
+- `GET /api/admin/dev-notes` - 개발노트 목록
+- `GET /api/admin/dev-notes/:filename` - 개발노트 상세
+- `GET /health` - 헬스체크
+
+**웹 대시보드**: https://lemon.3chan.kr/admin/
+
+**문서**: [ADMIN_API.md](./ADMIN_API.md)
 
 ---
 
@@ -535,7 +591,7 @@ API 문제나 질문이 있는 경우:
 
 ---
 
-**마지막 업데이트**: 2024-01-26
+**마지막 업데이트**: 2026-02-01
 **API 버전**: 1.0.0
 
 **중국어권 한국어 학습자를 위해 만들어졌습니다**
