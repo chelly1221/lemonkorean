@@ -73,13 +73,13 @@ class MediaLoader {
 
   static String _getRemoteImageUrl(String remoteKey) {
     // Use production URL for web
-    const baseUrl = 'https://3chan.kr';
+    const baseUrl = 'https://lemon.3chan.kr';
     return '$baseUrl/media/images/$remoteKey';
   }
 
   static String _getRemoteAudioUrl(String remoteKey) {
     // Use production URL for web
-    const baseUrl = 'https://3chan.kr';
+    const baseUrl = 'https://lemon.3chan.kr';
     return '$baseUrl/media/audio/$remoteKey';
   }
 }
