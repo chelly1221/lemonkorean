@@ -357,6 +357,75 @@ docker compose down && docker compose up -d
 
 **이 규칙은 절대적입니다. 예외는 없습니다.**
 
+---
+
+## 16. Docker Compose 수정 규칙
+
+### 절대 금지: docker-compose.yml에서 설정 변경
+
+다음 항목은 docker-compose.yml에서 **절대** 수정하지 마세요:
+
+```bash
+❌ PostgreSQL 설정 (memory, connections, logging)
+❌ Redis 설정 (maxmemory, persistence)
+❌ MongoDB 설정 (cache, logging, profiling)
+❌ RabbitMQ 설정 (memory limits, queues)
+❌ 볼륨 경로 변경 (data volume paths)
+❌ command 섹션의 설정 플래그
+```
+
+### 대신 외부 설정 파일 수정
+
+설정 변경이 필요하면 다음 파일을 수정하세요:
+
+| 서비스 | 설정 파일 |
+|--------|----------|
+| PostgreSQL | `config/postgres/postgresql.conf` |
+| Redis | `config/redis/redis.conf` |
+| MongoDB | `config/mongo/mongod.conf` |
+| RabbitMQ | `config/rabbitmq/rabbitmq.conf` |
+| RabbitMQ Queues | `config/rabbitmq/definitions.json` |
+| Prometheus | `monitoring/prometheus/prometheus.yml` |
+| Prometheus Alerts | `monitoring/prometheus/rules/alerts.yml` |
+| Nginx | `nginx/nginx.dev.conf` or `nginx/nginx.conf` |
+
+### docker-compose.yml 수정이 허용되는 경우
+
+```bash
+✅ 새 서비스 추가
+✅ 포트 매핑 변경
+✅ 환경 변수 추가/변경 (비설정 관련)
+✅ depends_on 관계 변경
+✅ 네트워크 설정 변경
+✅ 새 볼륨 마운트 추가
+```
+
+### 워크플로우
+
+1. 설정 변경 요청 받음
+2. docker-compose.yml 수정 ❌ **금지**
+3. 해당 `config/` 파일 수정 ✅
+4. 컨테이너 재시작으로 적용:
+```bash
+docker compose restart <service>
+```
+
+### 예시
+
+```
+❌ 사용자 요청: "PostgreSQL 메모리를 512MB로 변경해줘"
+
+❌ 잘못된 방법: docker-compose.yml의 command 섹션 수정
+
+✅ 올바른 방법:
+1. config/postgres/postgresql.conf 수정
+   shared_buffers = 512MB
+2. 컨테이너 재시작
+   docker compose restart postgres
+```
+
+---
+
 **작성일**: 2026-02-01
-**버전**: 1.0
+**버전**: 1.1
 **우선순위**: 🚨 CRITICAL - MUST FOLLOW

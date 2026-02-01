@@ -4,6 +4,9 @@ services:
   # ==================== Infrastructure Services ====================
 
   # PostgreSQL Database
+  # ⚠️ DO NOT modify 'command' or config settings here
+  # ⚠️ Edit config/postgres/postgresql.conf instead
+  # ⚠️ Apply changes: docker compose restart postgres
   postgres:
     image: postgres:15-alpine
     container_name: lemon-postgres
@@ -28,6 +31,9 @@ services:
     restart: unless-stopped
 
   # MongoDB Database
+  # ⚠️ DO NOT modify 'command' or config settings here
+  # ⚠️ Edit config/mongo/mongod.conf instead
+  # ⚠️ Apply changes: docker compose restart mongo
   mongo:
     image: mongo:4.4
     container_name: lemon-mongo
@@ -53,6 +59,9 @@ services:
     restart: unless-stopped
 
   # Redis Cache
+  # ⚠️ DO NOT modify 'command' or config settings here
+  # ⚠️ Edit config/redis/redis.conf instead
+  # ⚠️ Apply changes: docker compose restart redis
   redis:
     image: redis:7-alpine
     container_name: lemon-redis
@@ -94,6 +103,10 @@ services:
     restart: unless-stopped
 
   # RabbitMQ Message Queue
+  # ⚠️ DO NOT modify config settings here
+  # ⚠️ Edit config/rabbitmq/rabbitmq.conf instead
+  # ⚠️ For queue definitions: config/rabbitmq/definitions.json
+  # ⚠️ Apply changes: docker compose restart rabbitmq
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: lemon-rabbitmq

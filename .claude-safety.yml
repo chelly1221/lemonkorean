@@ -69,3 +69,69 @@ audit:
   enabled: true
   log_file: ".claude-safety.log"
   log_dangerous_attempts: true
+
+# Docker Compose Configuration Protection
+protected_files:
+  - path: "docker-compose.yml"
+    protected_sections:
+      - "command:"          # Database startup commands
+      - "volumes:"          # Data volume definitions
+    allowed_changes:
+      - "ports:"            # Port mappings can be changed
+      - "depends_on:"       # Service dependencies
+      - "networks:"         # Network configuration
+      - "environment:"      # Non-config environment variables
+    reason: "Use external config files in config/ directory instead"
+  - path: "docker-compose.prod.yml"
+    protected_sections:
+      - "command:"
+      - "volumes:"
+    allowed_changes:
+      - "ports:"
+      - "depends_on:"
+      - "networks:"
+      - "environment:"
+    reason: "Use external config files in config/ directory instead"
+
+# Configuration change workflow - MUST follow this process
+config_change_workflow:
+  postgresql:
+    edit: "config/postgres/postgresql.conf"
+    never_edit: "docker-compose.yml command section"
+    apply: "docker compose restart postgres"
+    examples:
+      - setting: "shared_buffers"
+        file: "config/postgres/postgresql.conf"
+      - setting: "max_connections"
+        file: "config/postgres/postgresql.conf"
+  redis:
+    edit: "config/redis/redis.conf"
+    never_edit: "docker-compose.yml command section"
+    apply: "docker compose restart redis"
+    examples:
+      - setting: "maxmemory"
+        file: "config/redis/redis.conf"
+      - setting: "appendonly"
+        file: "config/redis/redis.conf"
+  mongodb:
+    edit: "config/mongo/mongod.conf"
+    never_edit: "docker-compose.yml command section"
+    apply: "docker compose restart mongo"
+    examples:
+      - setting: "cacheSizeGB"
+        file: "config/mongo/mongod.conf"
+      - setting: "slowOpThresholdMs"
+        file: "config/mongo/mongod.conf"
+  rabbitmq:
+    edit: "config/rabbitmq/rabbitmq.conf"
+    queue_definitions: "config/rabbitmq/definitions.json"
+    never_edit: "docker-compose.yml"
+    apply: "docker compose restart rabbitmq"
+  nginx:
+    edit: "nginx/nginx.dev.conf"
+    production: "nginx/nginx.conf"
+    apply: "docker compose exec nginx nginx -s reload"
+  prometheus:
+    edit: "monitoring/prometheus/prometheus.yml"
+    alerts: "monitoring/prometheus/rules/alerts.yml"
+    apply: "docker compose restart prometheus"

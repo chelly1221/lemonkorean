@@ -895,6 +895,28 @@ docker compose up -d
 - ConvertibleText 위젯으로 UI 전체 적용
 - 레슨 콘텐츠 및 UI 모두 변환 지원
 
+### Docker Compose vs 외부 설정 파일
+
+**중요**: 데이터베이스 및 서비스 설정 변경 시:
+- ❌ docker-compose.yml 수정 금지
+- ✅ config/ 디렉토리의 외부 설정 파일 수정
+
+| 변경 대상 | 수정할 파일 |
+|----------|------------|
+| PostgreSQL 메모리/연결/로깅 | `config/postgres/postgresql.conf` |
+| Redis 메모리 정책/지속성 | `config/redis/redis.conf` |
+| MongoDB 캐시/프로파일링 | `config/mongo/mongod.conf` |
+| RabbitMQ 큐/리소스 | `config/rabbitmq/rabbitmq.conf` |
+| Nginx 설정 | `nginx/nginx.dev.conf` 또는 `nginx/nginx.conf` |
+| Prometheus 알림 | `monitoring/prometheus/rules/alerts.yml` |
+
+설정 적용: `docker compose restart <service>`
+
+**위반 시 문제점:**
+- 설정 충돌: docker-compose 명령어 ↔ 설정 파일 불일치
+- 데이터 손상: 볼륨 경로 변경 시 기존 데이터 손실
+- 버전 관리 어려움: 설정 파일 변경이 더 추적하기 쉬움
+
 ---
 
 ## 트러블슈팅
