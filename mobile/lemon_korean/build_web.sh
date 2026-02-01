@@ -21,7 +21,7 @@ echo "🔨 Building web app..."
 flutter build web \
   --release \
   --base-href=/ \
-  --dart-define=API_URL=https://3chan.kr \
+  --dart-define=API_URL=https://lemon.3chan.kr \
   --dart-define=ENVIRONMENT=production
 
 # Check build output

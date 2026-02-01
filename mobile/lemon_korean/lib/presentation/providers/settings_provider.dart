@@ -13,6 +13,29 @@ enum ChineseVariant {
   traditional,
 }
 
+/// App language enum
+enum AppLanguage {
+  zhCN('zh_CN', '中文(简体)', '중국어(간체자)'),
+  zhTW('zh_TW', '中文(繁體)', '중국어(번체자)'),
+  ko('ko', '한국어', '한국어'),
+  en('en', 'English', '영어'),
+  ja('ja', '日本語', '일본어'),
+  es('es', 'Español', '스페인어');
+
+  final String code;
+  final String nativeName;
+  final String koreanName;
+
+  const AppLanguage(this.code, this.nativeName, this.koreanName);
+
+  static AppLanguage fromCode(String code) {
+    return AppLanguage.values.firstWhere(
+      (lang) => lang.code == code,
+      orElse: () => AppLanguage.zhCN,
+    );
+  }
+}
+
 /// Settings Provider
 /// Manages app settings state using Provider pattern
 class SettingsProvider extends ChangeNotifier {
@@ -27,6 +50,7 @@ class SettingsProvider extends ChangeNotifier {
   // ================================================================
 
   ChineseVariant _chineseVariant = ChineseVariant.simplified;
+  AppLanguage _appLanguage = AppLanguage.zhCN;
   bool _notificationsEnabled = false;
   bool _dailyReminderEnabled = true;
   TimeOfDay _dailyReminderTime = const TimeOfDay(hour: 20, minute: 0);
@@ -40,6 +64,7 @@ class SettingsProvider extends ChangeNotifier {
   // ================================================================
 
   ChineseVariant get chineseVariant => _chineseVariant;
+  AppLanguage get appLanguage => _appLanguage;
   bool get notificationsEnabled => _notificationsEnabled;
   bool get dailyReminderEnabled => _dailyReminderEnabled;
   TimeOfDay get dailyReminderTime => _dailyReminderTime;
@@ -61,6 +86,20 @@ class SettingsProvider extends ChangeNotifier {
       _chineseVariant = variantStr == 'traditional'
           ? ChineseVariant.traditional
           : ChineseVariant.simplified;
+
+      // Load app language
+      final langCode = LocalStorage.getSetting<String>(
+        SettingsKeys.appLanguage,
+        defaultValue: SettingsKeys.defaultAppLanguage,
+      );
+      _appLanguage = AppLanguage.fromCode(langCode ?? 'zh_CN');
+
+      // Sync Chinese variant with language selection
+      if (_appLanguage == AppLanguage.zhTW) {
+        _chineseVariant = ChineseVariant.traditional;
+      } else if (_appLanguage == AppLanguage.zhCN) {
+        _chineseVariant = ChineseVariant.simplified;
+      }
 
       // Load notification settings
       _notificationsEnabled = LocalStorage.getSetting<bool>(
@@ -99,6 +138,7 @@ class SettingsProvider extends ChangeNotifier {
       if (kDebugMode) {
         print('[SettingsProvider] Settings initialized:');
         print('  - Chinese variant: ${_chineseVariant.name}');
+        print('  - App language: ${_appLanguage.code} (${_appLanguage.nativeName})');
         print('  - Notifications: $_notificationsEnabled');
         print('  - Daily reminder: $_dailyReminderEnabled (${_dailyReminderTime.hour}:${_dailyReminderTime.minute.toString().padLeft(2, '0')})');
         print('  - Review reminders: $_reviewRemindersEnabled');
@@ -135,6 +175,44 @@ class SettingsProvider extends ChangeNotifier {
 
     if (kDebugMode) {
       print('[SettingsProvider] Chinese variant changed to: ${variant.name}');
+    }
+
+    // Sync to backend
+    await _syncPreferencesToBackend();
+  }
+
+  /// Set app language
+  Future<void> setAppLanguage(AppLanguage language) async {
+    if (_appLanguage == language) return;
+
+    _appLanguage = language;
+    await LocalStorage.saveSetting(
+      SettingsKeys.appLanguage,
+      language.code,
+    );
+
+    // Automatically set Chinese variant based on language selection
+    if (language == AppLanguage.zhCN) {
+      _chineseVariant = ChineseVariant.simplified;
+      await LocalStorage.saveSetting(
+        SettingsKeys.chineseVariant,
+        ChineseVariant.simplified.name,
+      );
+    } else if (language == AppLanguage.zhTW) {
+      _chineseVariant = ChineseVariant.traditional;
+      await LocalStorage.saveSetting(
+        SettingsKeys.chineseVariant,
+        ChineseVariant.traditional.name,
+      );
+    }
+
+    notifyListeners();
+
+    if (kDebugMode) {
+      print('[SettingsProvider] App language changed to: ${language.code} (${language.nativeName})');
+      if (language == AppLanguage.zhCN || language == AppLanguage.zhTW) {
+        print('[SettingsProvider] Chinese variant auto-set to: ${_chineseVariant.name}');
+      }
     }
 
     // Sync to backend
@@ -292,6 +370,7 @@ class SettingsProvider extends ChangeNotifier {
     final prefs = {
       'user_id': _userId,
       'language_preference': _chineseVariant.name,
+      'app_language': _appLanguage.code,
       'notifications_enabled': _notificationsEnabled,
       'daily_reminder_enabled': _dailyReminderEnabled,
       'daily_reminder_time': '${_dailyReminderTime.hour.toString().padLeft(2, '0')}:${_dailyReminderTime.minute.toString().padLeft(2, '0')}',
@@ -348,6 +427,7 @@ class SettingsProvider extends ChangeNotifier {
   /// Reset all settings to defaults
   Future<void> resetToDefaults() async {
     _chineseVariant = ChineseVariant.simplified;
+    _appLanguage = AppLanguage.zhCN;
     _notificationsEnabled = SettingsKeys.defaultNotificationsEnabled;
     _dailyReminderEnabled = SettingsKeys.defaultDailyReminderEnabled;
     _dailyReminderTime = const TimeOfDay(hour: 20, minute: 0);

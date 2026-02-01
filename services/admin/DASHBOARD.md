@@ -3,7 +3,7 @@
 ## 개요
 Lemon Korean Admin Service를 위한 완전한 웹 대시보드가 구현되었습니다.
 
-**접속 URL**: http://localhost:3006
+**접속 URL**: https://lemon.3chan.kr/admin/
 
 ---
 
@@ -105,7 +105,7 @@ docker compose up -d admin-service
 ```
 
 ### 2. 대시보드 접속
-브라우저에서 http://localhost:3006 접속
+브라우저에서 https://lemon.3chan.kr/admin/ 접속
 
 ### 3. 로그인
 - **이메일**: admin@lemon.com (또는 기존 관리자 계정)
@@ -303,13 +303,13 @@ docker compose up -d admin-service
 docker ps | grep admin
 
 # 2. 헬스 체크
-curl http://localhost:3006/health
+curl https://lemon.3chan.kr/admin/health
 
 # 3. Static 파일 확인
-curl -I http://localhost:3006/css/admin.css
+curl -I https://lemon.3chan.kr/admin/css/admin.css
 
 # 4. 대시보드 접속 (브라우저)
-# http://localhost:3006
+# https://lemon.3chan.kr/admin
 ```
 
 ---

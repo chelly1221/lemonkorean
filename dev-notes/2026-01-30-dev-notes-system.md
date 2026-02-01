@@ -117,16 +117,16 @@ function renderViewToggle() {
 ### 백엔드 테스트
 ```bash
 # 노트 목록
-curl http://localhost:3006/api/admin/dev-notes \
+curl https://lemon.3chan.kr/api/admin/dev-notes \
   -H "Authorization: Bearer YOUR_TOKEN"
 
 # 노트 내용 조회
-curl "http://localhost:3006/api/admin/dev-notes/content?path=dev-notes/2026-01-30-example.md" \
+curl "https://lemon.3chan.kr/api/admin/dev-notes/content?path=dev-notes/2026-01-30-example.md" \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
 ### 프론트엔드 테스트
-1. http://localhost:3006 접속
+1. https://lemon.3chan.kr 접속
 2. 관리자로 로그인
 3. 사이드바에서 "개발노트" 클릭
 4. 타임라인과 카테고리 뷰 전환

@@ -6,8 +6,7 @@ Administration service for Lemon Korean platform providing comprehensive managem
 
 The Admin Service provides a complete dashboard for managing users, content, media, and monitoring system health. All endpoints require admin authentication and include full audit logging.
 
-**Port:** 3006
-**Base URL:** `http://localhost:3006/api/admin`
+**Base URL:** `https://lemon.3chan.kr/api/admin`
 
 ## Features
 
@@ -411,27 +410,27 @@ TOKEN=$(curl -s -X POST http://localhost:3001/api/auth/login \
 ```bash
 # List users
 curl -H "Authorization: Bearer $TOKEN" \
-  "http://localhost:3006/api/admin/users?page=1&limit=10" | jq
+  "https://lemon.3chan.kr/api/admin/users?page=1&limit=10" | jq
 
 # Create lesson
 curl -X POST -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"level":1,"title_ko":"테스트","title_zh":"测试","status":"draft"}' \
-  http://localhost:3006/api/admin/lessons | jq
+  https://lemon.3chan.kr/api/admin/lessons | jq
 
 # Upload image
 curl -X POST -H "Authorization: Bearer $TOKEN" \
   -F "file=@test.jpg" \
   -F "type=images" \
-  http://localhost:3006/api/admin/media/upload | jq
+  https://lemon.3chan.kr/api/admin/media/upload | jq
 
 # Get analytics
 curl -H "Authorization: Bearer $TOKEN" \
-  http://localhost:3006/api/admin/analytics/overview | jq
+  https://lemon.3chan.kr/api/admin/analytics/overview | jq
 
 # Check system health
 curl -H "Authorization: Bearer $TOKEN" \
-  http://localhost:3006/api/admin/system/health | jq
+  https://lemon.3chan.kr/api/admin/system/health | jq
 ```
 
 ## Docker

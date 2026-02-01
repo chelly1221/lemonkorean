@@ -666,5 +666,55 @@
   "@error": {"description": "Error title"},
 
   "success": "成功",
-  "@success": {"description": "Success title"}
+  "@success": {"description": "Success title"},
+
+  "filter": "筛选",
+  "@filter": {"description": "Filter button"},
+
+  "reviewSchedule": "复习计划",
+  "@reviewSchedule": {"description": "Review schedule title"},
+
+  "todayReview": "今日复习",
+  "@todayReview": {"description": "Today's review title"},
+
+  "startReview": "开始复习",
+  "@startReview": {"description": "Start review button"},
+
+  "learningStats": "学习统计",
+  "@learningStats": {"description": "Learning statistics section"},
+
+  "completedLessonsCount": "已完成课程",
+  "@completedLessonsCount": {"description": "Completed lessons label"},
+
+  "studyDays": "学习天数",
+  "@studyDays": {"description": "Study days label"},
+
+  "masteredWordsCount": "掌握单词",
+  "@masteredWordsCount": {"description": "Mastered words label"},
+
+  "myVocabularyBook": "我的单词本",
+  "@myVocabularyBook": {"description": "My vocabulary book"},
+
+  "vocabularyBrowser": "单词浏览器",
+  "@vocabularyBrowser": {"description": "Vocabulary browser"},
+
+  "about": "关于",
+  "@about": {"description": "About section"},
+
+  "premiumMember": "高级会员",
+  "@premiumMember": {"description": "Premium member label"},
+
+  "freeUser": "免费用户",
+  "@freeUser": {"description": "Free user label"},
+
+  "wordsWaitingReview": "{count}个单词等待复习",
+  "@wordsWaitingReview": {
+    "description": "Words waiting for review",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "user": "用户",
+  "@user": {"description": "Default user name"}
 }

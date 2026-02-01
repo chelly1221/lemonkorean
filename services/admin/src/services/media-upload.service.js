@@ -8,6 +8,7 @@ const crypto = require('crypto');
  */
 
 const BUCKET_NAME = process.env.MINIO_BUCKET || 'lemon-korean-media';
+const PUBLIC_URL = process.env.API_BASE_URL || 'https://lemon.3chan.kr';
 
 /**
  * Upload file to MinIO
@@ -15,9 +16,11 @@ const BUCKET_NAME = process.env.MINIO_BUCKET || 'lemon-korean-media';
  * @param {string} type - Media type (images, audio, video, documents)
  * @returns {Object} Upload result with URL
  */
-const uploadFile = async (file, type = 'images') => {
+const uploadFile = async (file, type = 'images', originalName = null) => {
   try {
-    console.log(`[MEDIA_SERVICE] Uploading file: ${file.originalname} (${type})`);
+    // Use provided originalName or fallback to file.originalname
+    const displayName = originalName || file.originalname;
+    console.log(`[MEDIA_SERVICE] Uploading file: ${displayName} (${type})`);
 
     // Ensure bucket exists
     await ensureBucket(BUCKET_NAME);
@@ -37,20 +40,20 @@ const uploadFile = async (file, type = 'images') => {
       file.size,
       {
         'Content-Type': file.mimetype,
-        'X-Original-Name': file.originalname,
+        'X-Original-Name': Buffer.from(displayName, 'utf8').toString('base64'),
         'X-Uploaded-By': 'admin-service'
       }
     );
 
     console.log(`[MEDIA_SERVICE] File uploaded: ${objectKey}`);
 
-    // Generate URL (through media service)
-    const mediaUrl = `http://media-service:3004/media/${type}/${fileName}`;
+    // Generate URL (public URL for external access)
+    const mediaUrl = `${PUBLIC_URL}/media/${type}/${fileName}`;
 
     return {
       key: objectKey,
       url: mediaUrl,
-      originalName: file.originalname,
+      originalName: displayName,
       mimeType: file.mimetype,
       size: file.size,
       type: type
@@ -75,45 +78,74 @@ const listFiles = async (type = null, limit = 100) => {
     const prefix = type ? `${type}/` : '';
 
     const files = [];
-    const stream = minioClient.listObjects(BUCKET_NAME, prefix, false);
+    const stream = minioClient.listObjects(BUCKET_NAME, prefix, true);
 
-    return new Promise((resolve, reject) => {
+    // First, collect all file keys
+    const fileKeys = await new Promise((resolve, reject) => {
+      const keys = [];
       stream.on('data', (obj) => {
-        if (files.length < limit) {
-          // Parse object key to get type and filename
-          // MinIO returns 'name' or 'key' depending on version
+        if (keys.length < limit) {
           const objectKey = obj.name || obj.key;
-
-          if (!objectKey) {
-            console.warn('[MEDIA_SERVICE] Object has no name/key:', obj);
-            return;
+          if (objectKey) {
+            keys.push({
+              key: objectKey,
+              size: obj.size,
+              lastModified: obj.lastModified
+            });
           }
-
-          const parts = objectKey.split('/');
-          const fileType = parts[0];
-          const fileName = parts[1];
-
-          files.push({
-            key: objectKey,
-            name: fileName,
-            type: fileType,
-            size: obj.size,
-            lastModified: obj.lastModified,
-            url: `http://media-service:3004/media/${fileType}/${fileName}`
-          });
         }
       });
-
-      stream.on('error', (err) => {
-        console.error('[MEDIA_SERVICE] Error listing files:', err);
-        reject(err);
-      });
-
-      stream.on('end', () => {
-        console.log(`[MEDIA_SERVICE] Listed ${files.length} files`);
-        resolve(files);
-      });
+      stream.on('error', reject);
+      stream.on('end', () => resolve(keys));
     });
+
+    // Then, fetch metadata for each file to get original name
+    const filesWithMetadata = await Promise.all(
+      fileKeys.map(async (fileInfo) => {
+        const parts = fileInfo.key.split('/');
+        const fileType = parts[0];
+        const fileName = parts[1];
+
+        let originalName = fileName;
+        try {
+          const stat = await minioClient.statObject(BUCKET_NAME, fileInfo.key);
+          if (stat.metaData) {
+            // 대소문자 무관하게 키 찾기
+            const metaKeys = Object.keys(stat.metaData);
+            const nameKey = metaKeys.find(k => k.toLowerCase() === 'x-original-name');
+            if (nameKey && stat.metaData[nameKey]) {
+              const rawValue = stat.metaData[nameKey];
+              // Base64 디코딩 시도, 실패 시 URL 디코딩 시도 (기존 파일 호환)
+              try {
+                originalName = Buffer.from(rawValue, 'base64').toString('utf8');
+              } catch (decodeErr) {
+                try {
+                  originalName = decodeURIComponent(rawValue);
+                } catch (urlDecodeErr) {
+                  originalName = rawValue;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          // If metadata fetch fails, use filename as fallback
+          console.warn(`[MEDIA_SERVICE] Could not fetch metadata for ${fileInfo.key}`);
+        }
+
+        return {
+          key: fileInfo.key,
+          name: fileName,
+          originalName: originalName,
+          type: fileType,
+          size: fileInfo.size,
+          lastModified: fileInfo.lastModified,
+          url: `${PUBLIC_URL}/media/${fileType}/${fileName}`
+        };
+      })
+    );
+
+    console.log(`[MEDIA_SERVICE] Listed ${filesWithMetadata.length} files`);
+    return filesWithMetadata;
   } catch (error) {
     console.error('[MEDIA_SERVICE] Error listing files:', error);
     throw error;
@@ -161,7 +193,7 @@ const getFileMetadata = async (key) => {
       size: stat.size,
       lastModified: stat.lastModified,
       contentType: stat.metaData['content-type'],
-      url: `http://media-service:3004/media/${fileType}/${fileName}`
+      url: `${PUBLIC_URL}/media/${fileType}/${fileName}`
     };
   } catch (error) {
     console.error('[MEDIA_SERVICE] Error getting file metadata:', error);

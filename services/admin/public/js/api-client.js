@@ -644,7 +644,8 @@ const API = (() => {
      * @returns {Promise<Object>} 성공 메시지
      */
     async delete(type, key) {
-      return request(`/api/admin/media/${type}/${key}`, {
+      // key already contains type prefix (e.g., "images/filename.png")
+      return request(`/api/admin/media/${key}`, {
         method: 'DELETE',
       });
     },

@@ -3,7 +3,7 @@
 ## 개요
 Lemon Korean Flutter 앱을 웹 플랫폼에 배포하기 위한 전체 가이드입니다.
 
-**배포 URL**: https://3chan.kr/app/
+**배포 URL**: https://lemon.3chan.kr/app/
 
 ## 웹 플랫폼 아키텍처
 
@@ -38,7 +38,7 @@ cd /home/sanchan/lemonkorean/mobile/lemon_korean
 - `--release`: 프로덕션 최적화
 - `--base-href=/app/`: Nginx /app/ 경로
 - `--web-renderer=canvaskit`: 고품질 렌더링
-- `--dart-define=API_URL=https://3chan.kr`: 런타임 환경 변수
+- `--dart-define=API_URL=https://lemon.3chan.kr`: 런타임 환경 변수
 
 **예상 소요 시간**: 9-10분
 
@@ -88,7 +88,7 @@ docker compose restart nginx
 
 ### .env.production
 ```env
-BASE_URL=https://3chan.kr
+BASE_URL=https://lemon.3chan.kr
 ```
 
 **중요**: 모든 URL을 https://로 설정하여 Mixed Content 에러 방지
@@ -110,13 +110,13 @@ python3 -m http.server 8080
 ### 프로덕션 테스트
 1. **접속 확인**
    ```bash
-   curl -I https://3chan.kr/app/
+   curl -I https://lemon.3chan.kr/app/
    # HTTP/1.1 200 OK 기대
    ```
 
 2. **브라우저 DevTools (F12)**
    - Console: 에러 없음
-   - Network: API 호출 https://3chan.kr 사용
+   - Network: API 호출 https://lemon.3chan.kr 사용
    - Application > Local Storage: lk_* 키 확인
    - Mixed Content 경고 없음
 
@@ -183,7 +183,7 @@ docker compose restart nginx
 ### localStorage 가득 참
 **원인**: 브라우저 5-10MB 제한
 **해결**:
-1. 브라우저 설정 → 사이트 데이터 → 3chan.kr 삭제
+1. 브라우저 설정 → 사이트 데이터 → lemon.3chan.kr 삭제
 2. DevTools → Application → Local Storage → Clear
 
 ---

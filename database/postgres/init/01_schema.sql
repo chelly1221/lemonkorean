@@ -154,9 +154,9 @@ CREATE TABLE user_progress (
     status VARCHAR(20) DEFAULT 'not_started' CHECK (status IN ('not_started', 'in_progress', 'completed', 'reviewing')),
     progress_percent INTEGER DEFAULT 0 CHECK (progress_percent BETWEEN 0 AND 100),
     quiz_score INTEGER CHECK (quiz_score BETWEEN 0 AND 100),
-    time_spent_seconds INTEGER DEFAULT 0,
+    time_spent_minutes INTEGER DEFAULT 0,
     completed_at TIMESTAMP,
-    last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_accessed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     attempt_count INTEGER DEFAULT 0,
     stage_progress JSONB DEFAULT '{}',
     notes TEXT,
@@ -169,7 +169,7 @@ CREATE INDEX idx_user_progress_user ON user_progress(user_id);
 CREATE INDEX idx_user_progress_lesson ON user_progress(lesson_id);
 CREATE INDEX idx_user_progress_status ON user_progress(status);
 CREATE INDEX idx_user_progress_completed ON user_progress(completed_at DESC);
-CREATE INDEX idx_user_progress_last_accessed ON user_progress(last_accessed DESC);
+CREATE INDEX idx_user_progress_last_accessed_at ON user_progress(last_accessed_at DESC);
 CREATE INDEX idx_user_progress_user_status ON user_progress(user_id, status);
 
 COMMENT ON TABLE user_progress IS '사용자별 레슨 진도 추적';
@@ -366,8 +366,8 @@ SELECT
     COUNT(DISTINCT up.lesson_id) FILTER (WHERE up.status = 'completed') AS lessons_completed,
     COUNT(DISTINCT vp.vocab_id) FILTER (WHERE vp.mastery_level >= 3) AS words_mastered,
     ROUND(AVG(up.quiz_score), 2) AS avg_quiz_score,
-    SUM(up.time_spent_seconds) AS total_study_time_seconds,
-    MAX(up.last_accessed) AS last_study_date,
+    SUM(up.time_spent_minutes) AS total_study_time_minutes,
+    MAX(up.last_accessed_at) AS last_study_date,
     COUNT(DISTINCT DATE(ls.started_at)) AS study_days_count
 FROM users u
 LEFT JOIN user_progress up ON u.id = up.user_id

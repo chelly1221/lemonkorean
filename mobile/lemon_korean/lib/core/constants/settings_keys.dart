@@ -9,6 +9,10 @@ class SettingsKeys {
   /// Values: 'simplified' or 'traditional'
   static const String chineseVariant = 'chinese_variant';
 
+  /// App language setting key
+  /// Values: 'zh_CN' (Chinese Simplified), 'zh_TW' (Chinese Traditional), 'ko' (Korean), 'en' (English), 'ja' (Japanese), 'es' (Spanish)
+  static const String appLanguage = 'app_language';
+
   // ================================================================
   // NOTIFICATION SETTINGS
   // ================================================================
@@ -30,6 +34,7 @@ class SettingsKeys {
   // ================================================================
 
   static const String defaultChineseVariant = 'simplified';
+  static const String defaultAppLanguage = 'zh_CN';
   static const bool defaultNotificationsEnabled = false;
   static const bool defaultDailyReminderEnabled = true;
   static const String defaultDailyReminderTime = '20:00';

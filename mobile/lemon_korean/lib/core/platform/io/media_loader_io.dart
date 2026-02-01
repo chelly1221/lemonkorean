@@ -16,14 +16,12 @@ class MediaLoaderImpl implements IMediaLoader {
   Future<String> getMediaPath(String remoteKey) async {
     try {
       // Try to get local path from database
+      // getLocalPath already updates last_accessed internally
       final localPath = await DatabaseHelper.instance.getLocalPath(remoteKey);
 
       if (localPath != null) {
         final file = File(localPath);
         if (await file.exists()) {
-          // Update last accessed time
-          await DatabaseHelper.instance
-              .updateMediaLastAccessed(remoteKey, DateTime.now());
           return localPath;
         }
       }

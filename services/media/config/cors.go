@@ -41,12 +41,9 @@ func GetCORSConfig() *CORSConfig {
 		// Development: Permissive for local testing
 		config.AllowedOrigins = []string{
 			"http://localhost",
-			"http://localhost:3007",
 			"http://localhost:80",
 			"http://127.0.0.1",
-			"http://127.0.0.1:3007",
-			"http://lemon.3chan.kr:3007", // Dev server port
-			"http://lemon.3chan.kr",      // Dev domain (nginx)
+			"http://lemon.3chan.kr",
 		}
 	}
 

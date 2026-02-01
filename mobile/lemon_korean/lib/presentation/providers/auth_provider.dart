@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../core/constants/app_constants.dart';
+import '../../core/platform/platform_factory.dart';
+import '../../core/platform/secure_storage_interface.dart';
 import '../../core/network/api_client.dart';
 import '../../core/utils/app_logger.dart';
 import '../../core/utils/jwt_utils.dart';
@@ -13,7 +14,7 @@ import '../../data/repositories/auth_repository.dart';
 class AuthProvider extends ChangeNotifier {
   static const String _tag = 'AuthProvider';
   final AuthRepository _authRepository = AuthRepository();
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+  final ISecureStorage _secureStorage = PlatformFactory.createSecureStorage();
   final _apiClient = ApiClient.instance;
 
   // ================================================================
@@ -114,7 +115,7 @@ class AuthProvider extends ChangeNotifier {
     }
 
     try {
-      final response = await _apiClient.getUserProfile(userId);
+      final response = await _apiClient.getUserProfile();
       if (response.statusCode == 200) {
         _currentUser = UserModel.fromJson(response.data['user']);
         await _authRepository.cacheUser(_currentUser!);
@@ -143,7 +144,7 @@ class AuthProvider extends ChangeNotifier {
     if (userId == null) return;
 
     try {
-      final response = await _apiClient.getUserProfile(userId);
+      final response = await _apiClient.getUserProfile();
       if (response.statusCode == 200) {
         final freshUser = UserModel.fromJson(response.data['user']);
         _currentUser = freshUser;
@@ -237,13 +238,13 @@ class AuthProvider extends ChangeNotifier {
         if (result.token != null) {
           await _secureStorage.write(
             key: AppConstants.tokenKey,
-            value: result.token,
+            value: result.token!,
           );
         }
         if (result.refreshToken != null) {
           await _secureStorage.write(
             key: AppConstants.refreshTokenKey,
-            value: result.refreshToken,
+            value: result.refreshToken!,
           );
         }
 
@@ -298,13 +299,13 @@ class AuthProvider extends ChangeNotifier {
         if (result.token != null) {
           await _secureStorage.write(
             key: AppConstants.tokenKey,
-            value: result.token,
+            value: result.token!,
           );
         }
         if (result.refreshToken != null) {
           await _secureStorage.write(
             key: AppConstants.refreshTokenKey,
-            value: result.refreshToken,
+            value: result.refreshToken!,
           );
         }
 

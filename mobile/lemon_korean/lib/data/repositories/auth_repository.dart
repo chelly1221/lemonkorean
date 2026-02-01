@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../core/constants/app_constants.dart';
+import '../../core/platform/platform_factory.dart';
+import '../../core/platform/secure_storage_interface.dart';
 import '../../core/network/api_client.dart';
 import '../../core/storage/local_storage.dart'
     if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
@@ -13,7 +14,7 @@ import '../models/user_model.dart';
 class AuthRepository {
   static const String _tag = 'AuthRepository';
   final _apiClient = ApiClient.instance;
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+  final ISecureStorage _secureStorage = PlatformFactory.createSecureStorage();
 
   // ================================================================
   // REGISTER

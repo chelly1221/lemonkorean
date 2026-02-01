@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../../core/storage/local_storage.dart'
     if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../../data/models/lesson_model.dart';
@@ -53,33 +54,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+      bottomNavigationBar: Builder(
+        builder: (context) {
+          final l10n = AppLocalizations.of(context);
+          return NavigationBar(
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: l10n?.home ?? 'Home',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.replay_outlined),
+                selectedIcon: const Icon(Icons.replay),
+                label: l10n?.review ?? 'Review',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.person_outlined),
+                selectedIcon: const Icon(Icons.person),
+                label: l10n?.profile ?? 'Profile',
+              ),
+            ],
+          );
         },
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home),
-            label: '首页',
-            tooltip: '홈',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.replay_outlined),
-            selectedIcon: const Icon(Icons.replay),
-            label: '复习',
-            tooltip: '복습',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.person_outlined),
-            selectedIcon: const Icon(Icons.person),
-            label: '我的',
-            tooltip: '내 정보',
-          ),
-        ],
       ),
     );
   }
@@ -352,72 +355,75 @@ class _HomeTabState extends State<_HomeTab> {
         // Continue Learning Section
         if (_currentProgress != null)
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(AppConstants.paddingMedium),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const BilingualText(
-                    chinese: '继续学习',
-                    korean: '계속 학습하기',
-                    chineseStyle: TextStyle(
-                      fontSize: AppConstants.fontSizeLarge,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  const SizedBox(height: AppConstants.paddingSmall),
-                  ContinueLessonCard(
-                    lesson: _lessons.first,
-                    progress: _currentProgress!,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LessonScreen(lesson: _lessons.first),
+            child: Builder(
+              builder: (context) {
+                final l10n = AppLocalizations.of(context);
+                return Padding(
+                  padding: const EdgeInsets.all(AppConstants.paddingMedium),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n?.continueLearning ?? 'Continue Learning',
+                        style: const TextStyle(
+                          fontSize: AppConstants.fontSizeLarge,
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    },
+                      ),
+                      const SizedBox(height: AppConstants.paddingSmall),
+                      ContinueLessonCard(
+                        lesson: _lessons.first,
+                        progress: _currentProgress!,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LessonScreen(lesson: _lessons.first),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ).animate().fadeIn(duration: 400.ms).slideY(
-                  begin: 0.2,
-                  end: 0,
-                  duration: 400.ms,
-                  curve: Curves.easeOut,
-                ),
+                ).animate().fadeIn(duration: 400.ms).slideY(
+                      begin: 0.2,
+                      end: 0,
+                      duration: 400.ms,
+                      curve: Curves.easeOut,
+                    );
+              },
+            ),
           ),
 
         // All Lessons Section
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const BilingualText(
-                  chinese: '所有课程',
-                  korean: '모든 수업',
-                  chineseStyle: TextStyle(
-                    fontSize: AppConstants.fontSizeLarge,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.left,
+          child: Builder(
+            builder: (context) {
+              final l10n = AppLocalizations.of(context);
+              return Padding(
+                padding: const EdgeInsets.all(AppConstants.paddingMedium),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n?.lessons ?? 'Lessons',
+                      style: const TextStyle(
+                        fontSize: AppConstants.fontSizeLarge,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        // Show filter
+                      },
+                      icon: const Icon(Icons.filter_list, size: 20),
+                      label: Text(l10n?.filter ?? 'Filter'),
+                    ),
+                  ],
                 ),
-                TextButton.icon(
-                  onPressed: () {
-                    // Show filter
-                  },
-                  icon: const Icon(Icons.filter_list, size: 20),
-                  label: const InlineBilingualText(
-                    chinese: '筛选',
-                    korean: '필터',
-                  ),
-                ),
-              ],
-            ),
-          ).animate().fadeIn(duration: 400.ms),
+              ).animate().fadeIn(duration: 400.ms);
+            },
+          ),
         ),
 
         // Lessons Grid
@@ -480,14 +486,15 @@ class _ReviewTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return CustomScrollView(
       slivers: [
-        const SliverAppBar(
+        SliverAppBar(
           pinned: true,
-          title: BilingualText(
-            chinese: '复习计划',
-            korean: '복습 계획',
-            chineseStyle: TextStyle(
+          title: Text(
+            l10n?.reviewSchedule ?? 'Review Schedule',
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -508,19 +515,17 @@ class _ReviewTab extends StatelessWidget {
                       color: AppConstants.primaryColor,
                     ),
                     const SizedBox(height: AppConstants.paddingMedium),
-                    const BilingualText(
-                      chinese: '今日复习',
-                      korean: '오늘의 복습',
-                      chineseStyle: TextStyle(
+                    Text(
+                      l10n?.todayReview ?? "Today's Review",
+                      style: const TextStyle(
                         fontSize: AppConstants.fontSizeLarge,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: AppConstants.paddingSmall),
-                    const BilingualText(
-                      chinese: '15个单词等待复习',
-                      korean: '15개 단어 복습 대기중',
-                      chineseStyle: TextStyle(
+                    Text(
+                      l10n?.wordsWaitingReview(15) ?? '15 words waiting for review',
+                      style: const TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: AppConstants.textSecondary,
                       ),
@@ -543,10 +548,7 @@ class _ReviewTab extends StatelessWidget {
                           vertical: AppConstants.paddingMedium,
                         ),
                       ),
-                      child: const InlineBilingualText(
-                        chinese: '开始复习',
-                        korean: '복습 시작',
-                      ),
+                      child: Text(l10n?.startReview ?? 'Start Review'),
                     ),
                   ],
                 ),
@@ -561,7 +563,12 @@ class _ReviewTab extends StatelessWidget {
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final days = ['今天', '明天', '2天后', '3天后'];
+                final days = [
+                  l10n?.today ?? 'Today',
+                  l10n?.tomorrow ?? 'Tomorrow',
+                  l10n?.daysLater(2) ?? '2 days later',
+                  l10n?.daysLater(3) ?? '3 days later',
+                ];
                 final counts = [15, 8, 12, 5];
 
                 return Card(
@@ -579,7 +586,7 @@ class _ReviewTab extends StatelessWidget {
                       ),
                     ),
                     title: Text(days[index]),
-                    subtitle: Text('${counts[index]}个单词'),
+                    subtitle: Text(l10n?.wordsWaitingReview(counts[index]) ?? '${counts[index]} words'),
                     trailing: const Icon(Icons.chevron_right),
                   ),
                 );
@@ -630,6 +637,7 @@ class _ProfileTabState extends State<_ProfileTab> {
     final progressProvider = Provider.of<ProgressProvider>(context);
     final bookmarkProvider = Provider.of<BookmarkProvider>(context);
     final user = authProvider.currentUser;
+    final l10n = AppLocalizations.of(context);
 
     return CustomScrollView(
       slivers: [
@@ -663,7 +671,7 @@ class _ProfileTabState extends State<_ProfileTab> {
                 ),
                 const SizedBox(height: AppConstants.paddingMedium),
                 Text(
-                  user?.username ?? '用户',
+                  user?.username ?? (l10n?.user ?? 'User'),
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeXLarge,
                     fontWeight: FontWeight.bold,
@@ -689,9 +697,10 @@ class _ProfileTabState extends State<_ProfileTab> {
                         : Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: InlineBilingualText(
-                    chinese: user?.isPremium == true ? '高级会员' : '免费用户',
-                    korean: user?.isPremium == true ? '프리미엄 회원' : '무료 사용자',
+                  child: Text(
+                    user?.isPremium == true
+                        ? (l10n?.premiumMember ?? 'Premium Member')
+                        : (l10n?.freeUser ?? 'Free User'),
                     style: TextStyle(
                       color: user?.isPremium == true
                           ? Colors.black87
@@ -709,10 +718,9 @@ class _ProfileTabState extends State<_ProfileTab> {
           padding: const EdgeInsets.all(AppConstants.paddingMedium),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              _buildSection('学习统计', '학습 통계'),
+              _buildSection(l10n?.learningStats ?? 'Learning Statistics'),
               _buildStatCard(
-                chinese: '已完成课程',
-                korean: '완료한 수업',
+                label: l10n?.completedLessonsCount ?? 'Completed Lessons',
                 value: '${progressProvider.completedLessons}',
                 icon: Icons.check_circle_outline,
                 onTap: () {
@@ -725,14 +733,12 @@ class _ProfileTabState extends State<_ProfileTab> {
                 },
               ),
               _buildStatCard(
-                chinese: '学习天数',
-                korean: '학습 일수',
+                label: l10n?.studyDays ?? 'Study Days',
                 value: '${progressProvider.totalStudyDays}',
                 icon: Icons.calendar_today_outlined,
               ),
               _buildStatCard(
-                chinese: '掌握单词',
-                korean: '습득 단어',
+                label: l10n?.masteredWordsCount ?? 'Mastered Words',
                 value: '${progressProvider.masteredWords}',
                 icon: Icons.translate,
                 onTap: () {
@@ -745,8 +751,7 @@ class _ProfileTabState extends State<_ProfileTab> {
                 },
               ),
               _buildStatCard(
-                chinese: '我的单词本',
-                korean: '나의 단어장',
+                label: l10n?.myVocabularyBook ?? 'My Vocabulary Book',
                 value: '${bookmarkProvider.bookmarkCount}',
                 icon: Icons.bookmark,
                 onTap: () {
@@ -759,8 +764,7 @@ class _ProfileTabState extends State<_ProfileTab> {
                 },
               ),
               _buildStatCard(
-                chinese: '单词浏览器',
-                korean: '단어 브라우저',
+                label: l10n?.vocabularyBrowser ?? 'Vocabulary Browser',
                 value: 'Level 1-6',
                 icon: Icons.library_books,
                 onTap: () {
@@ -773,11 +777,10 @@ class _ProfileTabState extends State<_ProfileTab> {
                 },
               ),
               const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection('设置', '설정'),
+              _buildSection(l10n?.settings ?? 'Settings'),
               _buildMenuItem(
                 icon: Icons.notifications_outlined,
-                chinese: '通知设置',
-                korean: '알림 설정',
+                label: l10n?.notificationSettings ?? 'Notification Settings',
                 onTap: () {
                   Navigator.push(
                     context,
@@ -789,8 +792,7 @@ class _ProfileTabState extends State<_ProfileTab> {
               ),
               _buildMenuItem(
                 icon: Icons.language,
-                chinese: '语言设置',
-                korean: '언어 설정',
+                label: l10n?.languageSettings ?? 'Language Settings',
                 onTap: () {
                   Navigator.push(
                     context,
@@ -802,8 +804,7 @@ class _ProfileTabState extends State<_ProfileTab> {
               ),
               _buildMenuItem(
                 icon: Icons.storage_outlined,
-                chinese: '存储管理',
-                korean: '저장공간 관리',
+                label: l10n?.storageManagement ?? 'Storage Management',
                 onTap: () {
                   Navigator.push(
                     context,
@@ -814,11 +815,10 @@ class _ProfileTabState extends State<_ProfileTab> {
                 },
               ),
               const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection('关于', '정보'),
+              _buildSection(l10n?.about ?? 'About'),
               _buildMenuItem(
                 icon: Icons.help_outline,
-                chinese: '帮助中心',
-                korean: '도움말 센터',
+                label: l10n?.helpCenter ?? 'Help Center',
                 onTap: () {
                   Navigator.push(
                     context,
@@ -830,8 +830,7 @@ class _ProfileTabState extends State<_ProfileTab> {
               ),
               _buildMenuItem(
                 icon: Icons.info_outline,
-                chinese: '关于应用',
-                korean: '앱 정보',
+                label: l10n?.aboutApp ?? 'About App',
                 onTap: () {
                   Navigator.push(
                     context,
@@ -849,35 +848,36 @@ class _ProfileTabState extends State<_ProfileTab> {
                     Icons.logout,
                     color: AppConstants.errorColor,
                   ),
-                  title: const BilingualText(
-                    chinese: '退出登录',
-                    korean: '로그아웃',
-                    chineseStyle: TextStyle(
+                  title: Text(
+                    l10n?.logout ?? 'Log Out',
+                    style: const TextStyle(
                       color: AppConstants.errorColor,
                       fontWeight: FontWeight.bold,
                     ),
-                    textAlign: TextAlign.left,
                   ),
                   onTap: () async {
                     final confirm = await showDialog<bool>(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('确认退出'),
-                        content: const Text('确定要退出登录吗？'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: const Text('取消'),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            style: TextButton.styleFrom(
-                              foregroundColor: AppConstants.errorColor,
+                      builder: (dialogContext) {
+                        final dialogL10n = AppLocalizations.of(dialogContext);
+                        return AlertDialog(
+                          title: Text(dialogL10n?.logout ?? 'Log Out'),
+                          content: Text(dialogL10n?.confirmLogout ?? 'Are you sure you want to log out?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(dialogContext, false),
+                              child: Text(dialogL10n?.cancel ?? 'Cancel'),
                             ),
-                            child: const Text('确定'),
-                          ),
-                        ],
-                      ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(dialogContext, true),
+                              style: TextButton.styleFrom(
+                                foregroundColor: AppConstants.errorColor,
+                              ),
+                              child: Text(dialogL10n?.confirm ?? 'Confirm'),
+                            ),
+                          ],
+                        );
+                      },
                     );
 
                     if (confirm == true && context.mounted) {
@@ -901,29 +901,26 @@ class _ProfileTabState extends State<_ProfileTab> {
     );
   }
 
-  Widget _buildSection(String chinese, String korean) {
+  Widget _buildSection(String title) {
     return Padding(
       padding: const EdgeInsets.only(
         top: AppConstants.paddingMedium,
         bottom: AppConstants.paddingSmall,
       ),
-      child: BilingualText(
-        chinese: chinese,
-        korean: korean,
-        chineseStyle: const TextStyle(
+      child: Text(
+        title,
+        style: const TextStyle(
           fontSize: AppConstants.fontSizeMedium,
           fontWeight: FontWeight.bold,
           color: AppConstants.textSecondary,
         ),
-        textAlign: TextAlign.left,
       ),
     );
   }
 
   Widget _buildStatCard({
-    required String chinese,
-    required String korean,
-    required String value,
+    required String label,
+    String? value,
     required IconData icon,
     VoidCallback? onTap,
   }) {
@@ -943,20 +940,11 @@ class _ProfileTabState extends State<_ProfileTab> {
             ),
             const SizedBox(width: AppConstants.paddingMedium),
             Expanded(
-              child: BilingualText(
-                chinese: chinese,
-                korean: korean,
-                chineseStyle: const TextStyle(
+              child: Text(
+                label,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                 ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: AppConstants.fontSizeXLarge,
-                fontWeight: FontWeight.bold,
               ),
             ),
             if (onTap != null) ...[
@@ -985,19 +973,14 @@ class _ProfileTabState extends State<_ProfileTab> {
 
   Widget _buildMenuItem({
     required IconData icon,
-    required String chinese,
-    required String korean,
+    required String label,
     required VoidCallback onTap,
   }) {
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
       child: ListTile(
         leading: Icon(icon),
-        title: BilingualText(
-          chinese: chinese,
-          korean: korean,
-          textAlign: TextAlign.left,
-        ),
+        title: Text(label),
         trailing: const Icon(Icons.chevron_right, size: 20),
         onTap: onTap,
       ),

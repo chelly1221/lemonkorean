@@ -289,7 +289,7 @@ if [ ${#FAILED_SERVICES[@]} -eq 0 ]; then
     echo "  - Progress Service:  http://localhost:3003"
     echo "  - Media Service:     http://localhost:3004"
     echo "  - Analytics Service: http://localhost:3005"
-    echo "  - Admin Service:     http://localhost:3006"
+    echo "  - Admin Dashboard:   https://lemon.3chan.kr/admin/"
     echo "  - MinIO Console:     http://localhost:9001"
     echo ""
     echo "Use './scripts/logs.sh' to view logs"

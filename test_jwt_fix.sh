@@ -118,7 +118,7 @@ echo ""
 # Test 3a: Get users list (should fail - not admin)
 echo "Test 3a: GET /api/admin/users (should return 403 - not admin)"
 ADMIN_USERS_RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
-  "http://localhost:3006/api/admin/users?limit=5" \
+  "https://lemon.3chan.kr/api/admin/users?limit=5" \
   -H "Authorization: Bearer $ACCESS_TOKEN")
 
 HTTP_STATUS=$(echo "$ADMIN_USERS_RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
@@ -141,7 +141,7 @@ echo ""
 # Test 3b: Get analytics
 echo "Test 3b: GET /api/admin/analytics/overview (should return 403 - not admin)"
 ADMIN_ANALYTICS_RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
-  "http://localhost:3006/api/admin/analytics/overview" \
+  "https://lemon.3chan.kr/api/admin/analytics/overview" \
   -H "Authorization: Bearer $ACCESS_TOKEN")
 
 HTTP_STATUS=$(echo "$ADMIN_ANALYTICS_RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)

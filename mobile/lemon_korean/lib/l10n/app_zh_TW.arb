@@ -206,5 +206,21 @@
   "loading": "加載中...",
   "noData": "暫無數據",
   "error": "出錯了",
-  "success": "成功"
+  "success": "成功",
+
+  "filter": "篩選",
+  "reviewSchedule": "複習計劃",
+  "todayReview": "今日複習",
+  "startReview": "開始複習",
+  "learningStats": "學習統計",
+  "completedLessonsCount": "已完成課程",
+  "studyDays": "學習天數",
+  "masteredWordsCount": "掌握單詞",
+  "myVocabularyBook": "我的單詞本",
+  "vocabularyBrowser": "單詞瀏覽器",
+  "about": "關於",
+  "premiumMember": "高級會員",
+  "freeUser": "免費用戶",
+  "wordsWaitingReview": "{count}個單詞等待複習",
+  "user": "用戶"
 }

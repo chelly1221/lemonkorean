@@ -25,7 +25,7 @@ class MediaHelper {
 
     // Build URL based on media type
     final type = _getMediaType(remoteKey);
-    const baseUrl = 'https://3chan.kr';
+    const baseUrl = 'https://lemon.3chan.kr';
     return '$baseUrl/media/$type/$remoteKey';
   }
 

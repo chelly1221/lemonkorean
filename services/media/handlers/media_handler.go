@@ -65,13 +65,16 @@ func (h *MediaHandler) ServeImage(c *gin.Context) {
 	format := c.Query("format") // webp, jpeg, png
 	quality := c.DefaultQuery("quality", "85")
 
+	// Build full object key with folder prefix
+	objectKey := "images/" + key
+
 	log.Printf("[MEDIA] Serving image: %s (width=%s, height=%s, format=%s)",
-		key, widthStr, heightStr, format)
+		objectKey, widthStr, heightStr, format)
 
 	ctx := context.Background()
 
 	// Fetch from MinIO
-	object, err := h.minioClient.GetObject(ctx, config.BucketImages, key, minio.GetObjectOptions{})
+	object, err := h.minioClient.GetObject(ctx, config.BucketImages, objectKey, minio.GetObjectOptions{})
 	if err != nil {
 		log.Printf("[MEDIA] Error fetching image: %v", err)
 		c.JSON(http.StatusNotFound, gin.H{
@@ -189,12 +192,15 @@ func (h *MediaHandler) ServeAudio(c *gin.Context) {
 		return
 	}
 
-	log.Printf("[MEDIA] Streaming audio: %s", key)
+	// Build full object key with folder prefix
+	objectKey := "audio/" + key
+
+	log.Printf("[MEDIA] Streaming audio: %s", objectKey)
 
 	ctx := context.Background()
 
 	// Fetch from MinIO
-	object, err := h.minioClient.GetObject(ctx, config.BucketAudio, key, minio.GetObjectOptions{})
+	object, err := h.minioClient.GetObject(ctx, config.BucketAudio, objectKey, minio.GetObjectOptions{})
 	if err != nil {
 		log.Printf("[MEDIA] Error fetching audio: %v", err)
 		c.JSON(http.StatusNotFound, gin.H{
@@ -272,12 +278,15 @@ func (h *MediaHandler) ServeThumbnail(c *gin.Context) {
 		size = DefaultThumbnailSize
 	}
 
-	log.Printf("[MEDIA] Generating thumbnail: %s (size=%d)", key, size)
+	// Build full object key with folder prefix
+	objectKey := "images/" + key
+
+	log.Printf("[MEDIA] Generating thumbnail: %s (size=%d)", objectKey, size)
 
 	ctx := context.Background()
 
 	// Fetch original image from MinIO
-	object, err := h.minioClient.GetObject(ctx, config.BucketImages, key, minio.GetObjectOptions{})
+	object, err := h.minioClient.GetObject(ctx, config.BucketImages, objectKey, minio.GetObjectOptions{})
 	if err != nil {
 		log.Printf("[MEDIA] Error fetching image for thumbnail: %v", err)
 		c.JSON(http.StatusNotFound, gin.H{
@@ -473,13 +482,16 @@ func (h *MediaHandler) DeleteMedia(c *gin.Context) {
 		return
 	}
 
-	log.Printf("[MEDIA] Deleting %s: %s", mediaType, key)
+	// Build full object key with folder prefix
+	objectKey := mediaType + "/" + key
+
+	log.Printf("[MEDIA] Deleting %s: %s", mediaType, objectKey)
 
 	bucket := config.GetBucketName(mediaType)
 	ctx := context.Background()
 
 	// Check if object exists
-	_, err := h.minioClient.StatObject(ctx, bucket, key, minio.StatObjectOptions{})
+	_, err := h.minioClient.StatObject(ctx, bucket, objectKey, minio.StatObjectOptions{})
 	if err != nil {
 		log.Printf("[MEDIA] Object not found: %v", err)
 		c.JSON(http.StatusNotFound, gin.H{
@@ -490,7 +502,7 @@ func (h *MediaHandler) DeleteMedia(c *gin.Context) {
 	}
 
 	// Delete object
-	err = h.minioClient.RemoveObject(ctx, bucket, key, minio.RemoveObjectOptions{})
+	err = h.minioClient.RemoveObject(ctx, bucket, objectKey, minio.RemoveObjectOptions{})
 	if err != nil {
 		log.Printf("[MEDIA] Error deleting media: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{

@@ -1,0 +1,720 @@
+{
+  "@@locale": "ja",
+  "@@context": "LemonKorean App - Japanese",
+
+  "appName": "レモン韓国語",
+  "@appName": {"description": "App name"},
+
+  "login": "ログイン",
+  "@login": {"description": "Login button"},
+
+  "register": "新規登録",
+  "@register": {"description": "Register button"},
+
+  "email": "メールアドレス",
+  "@email": {"description": "Email field label"},
+
+  "password": "パスワード",
+  "@password": {"description": "Password field label"},
+
+  "confirmPassword": "パスワード確認",
+  "@confirmPassword": {"description": "Confirm password field label"},
+
+  "username": "ユーザー名",
+  "@username": {"description": "Username field label"},
+
+  "enterEmail": "メールアドレスを入力してください",
+  "@enterEmail": {"description": "Email placeholder"},
+
+  "enterPassword": "パスワードを入力してください",
+  "@enterPassword": {"description": "Password placeholder"},
+
+  "enterConfirmPassword": "パスワードを再入力してください",
+  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
+
+  "enterUsername": "ユーザー名を入力してください",
+  "@enterUsername": {"description": "Username placeholder"},
+
+  "createAccount": "アカウント作成",
+  "@createAccount": {"description": "Create account title"},
+
+  "startJourney": "韓国語学習を始めましょう",
+  "@startJourney": {"description": "Subtitle for registration"},
+
+  "interfaceLanguage": "表示言語",
+  "@interfaceLanguage": {"description": "Interface language label"},
+
+  "simplifiedChinese": "中国語（簡体字）",
+  "@simplifiedChinese": {"description": "Simplified Chinese option"},
+
+  "traditionalChinese": "中国語（繁体字）",
+  "@traditionalChinese": {"description": "Traditional Chinese option"},
+
+  "passwordRequirements": "パスワード要件",
+  "@passwordRequirements": {"description": "Password requirements title"},
+
+  "minCharacters": "{count}文字以上",
+  "@minCharacters": {
+    "description": "Minimum characters requirement",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "containLettersNumbers": "英字と数字を含む",
+  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
+
+  "haveAccount": "すでにアカウントをお持ちですか？",
+  "@haveAccount": {"description": "Already have account text"},
+
+  "noAccount": "アカウントをお持ちでないですか？",
+  "@noAccount": {"description": "No account text"},
+
+  "loginNow": "ログインする",
+  "@loginNow": {"description": "Login now button"},
+
+  "registerNow": "新規登録する",
+  "@registerNow": {"description": "Register now button"},
+
+  "registerSuccess": "登録完了",
+  "@registerSuccess": {"description": "Registration success message"},
+
+  "registerFailed": "登録に失敗しました",
+  "@registerFailed": {"description": "Registration failed message"},
+
+  "loginSuccess": "ログイン成功",
+  "@loginSuccess": {"description": "Login success message"},
+
+  "loginFailed": "ログインに失敗しました",
+  "@loginFailed": {"description": "Login failed message"},
+
+  "networkError": "ネットワーク接続に失敗しました。ネットワーク設定をご確認ください。",
+  "@networkError": {"description": "Network error message"},
+
+  "invalidCredentials": "メールアドレスまたはパスワードが正しくありません",
+  "@invalidCredentials": {"description": "Invalid credentials message"},
+
+  "emailAlreadyExists": "このメールアドレスは既に登録されています",
+  "@emailAlreadyExists": {"description": "Email exists message"},
+
+  "requestTimeout": "リクエストがタイムアウトしました。もう一度お試しください。",
+  "@requestTimeout": {"description": "Request timeout message"},
+
+  "operationFailed": "操作に失敗しました。しばらくしてからもう一度お試しください。",
+  "@operationFailed": {"description": "Generic operation failed message"},
+
+  "settings": "設定",
+  "@settings": {"description": "Settings title"},
+
+  "languageSettings": "言語設定",
+  "@languageSettings": {"description": "Language settings title"},
+
+  "chineseDisplay": "中国語表示",
+  "@chineseDisplay": {"description": "Chinese display section title"},
+
+  "chineseDisplayDesc": "中国語の表示方法を選択してください。変更後すぐにすべての画面に適用されます。",
+  "@chineseDisplayDesc": {"description": "Chinese display description"},
+
+  "switchedToSimplified": "簡体字に切り替えました",
+  "@switchedToSimplified": {"description": "Switched to simplified message"},
+
+  "switchedToTraditional": "繁体字に切り替えました",
+  "@switchedToTraditional": {"description": "Switched to traditional message"},
+
+  "displayTip": "ヒント：レッスンの内容は選択した中国語フォントで表示されます。",
+  "@displayTip": {"description": "Display tip text"},
+
+  "notificationSettings": "通知設定",
+  "@notificationSettings": {"description": "Notification settings title"},
+
+  "enableNotifications": "通知を有効にする",
+  "@enableNotifications": {"description": "Enable notifications toggle"},
+
+  "enableNotificationsDesc": "オンにすると学習リマインダーを受け取れます",
+  "@enableNotificationsDesc": {"description": "Enable notifications description"},
+
+  "permissionRequired": "システム設定で通知の許可を有効にしてください",
+  "@permissionRequired": {"description": "Permission required message"},
+
+  "dailyLearningReminder": "毎日の学習リマインダー",
+  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
+
+  "dailyReminder": "毎日のリマインダー",
+  "@dailyReminder": {"description": "Daily reminder toggle"},
+
+  "dailyReminderDesc": "毎日決まった時間に学習リマインダーを送信します",
+  "@dailyReminderDesc": {"description": "Daily reminder description"},
+
+  "reminderTime": "リマインダー時刻",
+  "@reminderTime": {"description": "Reminder time label"},
+
+  "reminderTimeSet": "リマインダー時刻を{time}に設定しました",
+  "@reminderTimeSet": {
+    "description": "Reminder time set message",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "reviewReminder": "復習リマインダー",
+  "@reviewReminder": {"description": "Review reminder toggle"},
+
+  "reviewReminderDesc": "記憶曲線に基づいて復習リマインダーを送信します",
+  "@reviewReminderDesc": {"description": "Review reminder description"},
+
+  "notificationTip": "ヒント：",
+  "@notificationTip": {"description": "Tip prefix"},
+
+  "helpCenter": "ヘルプセンター",
+  "@helpCenter": {"description": "Help center title"},
+
+  "offlineLearning": "オフライン学習",
+  "@offlineLearning": {"description": "Offline learning section"},
+
+  "howToDownload": "レッスンをダウンロードするには？",
+  "@howToDownload": {"description": "How to download FAQ"},
+
+  "howToDownloadAnswer": "レッスン一覧で右側のダウンロードアイコンをタップするとレッスンをダウンロードできます。ダウンロード後はオフラインで学習できます。",
+  "@howToDownloadAnswer": {"description": "How to download answer"},
+
+  "howToUseDownloaded": "ダウンロードしたレッスンを使うには？",
+  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
+
+  "howToUseDownloadedAnswer": "ネットワーク接続がなくても、ダウンロードしたレッスンは通常通り学習できます。進捗はローカルに保存され、ネットワーク接続時に自動的に同期されます。",
+  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
+
+  "storageManagement": "ストレージ管理",
+  "@storageManagement": {"description": "Storage management section"},
+
+  "howToCheckStorage": "ストレージ容量を確認するには？",
+  "@howToCheckStorage": {"description": "How to check storage FAQ"},
+
+  "howToCheckStorageAnswer": "【設定 → ストレージ管理】で使用中と利用可能なストレージ容量を確認できます。",
+  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
+
+  "howToDeleteDownloaded": "ダウンロードしたレッスンを削除するには？",
+  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
+
+  "howToDeleteDownloadedAnswer": "【ストレージ管理】でレッスンの横にある削除ボタンをタップすると削除できます。",
+  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
+
+  "notificationSection": "通知設定",
+  "@notificationSection": {"description": "Notification section in help"},
+
+  "howToEnableReminder": "学習リマインダーを有効にするには？",
+  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
+
+  "howToEnableReminderAnswer": "【設定 → 通知設定】で【通知を有効にする】スイッチをオンにしてください。初回使用時は通知の許可が必要です。",
+  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
+
+  "whatIsReviewReminder": "復習リマインダーとは？",
+  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
+
+  "whatIsReviewReminderAnswer": "間隔反復アルゴリズム（SRS）に基づき、学習したレッスンを最適なタイミングで復習するようリマインドします。復習間隔：1日 → 3日 → 7日 → 14日 → 30日。",
+  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
+
+  "languageSection": "言語設定",
+  "@languageSection": {"description": "Language section in help"},
+
+  "howToSwitchChinese": "簡体字と繁体字を切り替えるには？",
+  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
+
+  "howToSwitchChineseAnswer": "【設定 → 言語設定】で【簡体字】または【繁体字】を選択してください。変更後すぐに反映されます。",
+  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
+
+  "faq": "よくある質問",
+  "@faq": {"description": "FAQ section title"},
+
+  "howToStart": "学習を始めるには？",
+  "@howToStart": {"description": "How to start learning FAQ"},
+
+  "howToStartAnswer": "メイン画面で自分のレベルに合ったレッスンを選び、レッスン1から始めてください。各レッスンは7つのステージで構成されています。",
+  "@howToStartAnswer": {"description": "How to start learning answer"},
+
+  "progressNotSaved": "進捗が保存されない場合は？",
+  "@progressNotSaved": {"description": "Progress not saved FAQ"},
+
+  "progressNotSavedAnswer": "進捗は自動的にローカルに保存されます。オンライン時にサーバーに自動同期されます。ネットワーク接続をご確認ください。",
+  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
+
+  "aboutApp": "アプリについて",
+  "@aboutApp": {"description": "About app title"},
+
+  "moreInfo": "詳細情報",
+  "@moreInfo": {"description": "More info section"},
+
+  "versionInfo": "バージョン情報",
+  "@versionInfo": {"description": "Version info label"},
+
+  "developer": "開発者",
+  "@developer": {"description": "Developer label"},
+
+  "appIntro": "アプリ紹介",
+  "@appIntro": {"description": "App introduction label"},
+
+  "appIntroContent": "中国語話者向けに設計された韓国語学習アプリです。オフライン学習、スマート復習リマインダーなどの機能をサポートしています。",
+  "@appIntroContent": {"description": "App introduction content"},
+
+  "termsOfService": "利用規約",
+  "@termsOfService": {"description": "Terms of service"},
+
+  "termsComingSoon": "利用規約ページは準備中です...",
+  "@termsComingSoon": {"description": "Terms coming soon message"},
+
+  "privacyPolicy": "プライバシーポリシー",
+  "@privacyPolicy": {"description": "Privacy policy"},
+
+  "privacyComingSoon": "プライバシーポリシーページは準備中です...",
+  "@privacyComingSoon": {"description": "Privacy coming soon message"},
+
+  "openSourceLicenses": "オープンソースライセンス",
+  "@openSourceLicenses": {"description": "Open source licenses"},
+
+  "notStarted": "未開始",
+  "@notStarted": {"description": "Status: not started"},
+
+  "inProgress": "学習中",
+  "@inProgress": {"description": "Status: in progress"},
+
+  "completed": "完了",
+  "@completed": {"description": "Status: completed"},
+
+  "notPassed": "不合格",
+  "@notPassed": {"description": "Status: not passed"},
+
+  "timeToReview": "復習の時間です",
+  "@timeToReview": {"description": "Time to review message"},
+
+  "today": "今日",
+  "@today": {"description": "Today"},
+
+  "tomorrow": "明日",
+  "@tomorrow": {"description": "Tomorrow"},
+
+  "daysLater": "{count}日後",
+  "@daysLater": {
+    "description": "Days later",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "noun": "名詞",
+  "@noun": {"description": "Part of speech: noun"},
+
+  "verb": "動詞",
+  "@verb": {"description": "Part of speech: verb"},
+
+  "adjective": "形容詞",
+  "@adjective": {"description": "Part of speech: adjective"},
+
+  "adverb": "副詞",
+  "@adverb": {"description": "Part of speech: adverb"},
+
+  "particle": "助詞",
+  "@particle": {"description": "Part of speech: particle"},
+
+  "pronoun": "代名詞",
+  "@pronoun": {"description": "Part of speech: pronoun"},
+
+  "highSimilarity": "高い類似度",
+  "@highSimilarity": {"description": "High similarity level"},
+
+  "mediumSimilarity": "中程度の類似度",
+  "@mediumSimilarity": {"description": "Medium similarity level"},
+
+  "lowSimilarity": "低い類似度",
+  "@lowSimilarity": {"description": "Low similarity level"},
+
+  "lessonComplete": "レッスン完了！",
+  "@lessonComplete": {"description": "Lesson complete message"},
+
+  "learningComplete": "学習完了",
+  "@learningComplete": {"description": "Learning complete title"},
+
+  "experiencePoints": "経験値 +{points}",
+  "@experiencePoints": {
+    "description": "Experience points gained",
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+
+  "keepLearning": "学習のモチベーションを維持しましょう",
+  "@keepLearning": {"description": "Keep learning message"},
+
+  "streakDays": "連続学習 +1日",
+  "@streakDays": {"description": "Streak days increased"},
+
+  "streakDaysCount": "連続{days}日学習中",
+  "@streakDaysCount": {
+    "description": "Streak days count",
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "lessonContent": "このレッスンの学習内容",
+  "@lessonContent": {"description": "Lesson content title"},
+
+  "words": "単語",
+  "@words": {"description": "Words label"},
+
+  "grammarPoints": "文法ポイント",
+  "@grammarPoints": {"description": "Grammar points label"},
+
+  "dialogues": "会話",
+  "@dialogues": {"description": "Dialogues label"},
+
+  "grammarExplanation": "文法説明",
+  "@grammarExplanation": {"description": "Grammar explanation title"},
+
+  "exampleSentences": "例文",
+  "@exampleSentences": {"description": "Example sentences label"},
+
+  "previous": "前へ",
+  "@previous": {"description": "Previous button"},
+
+  "next": "次へ",
+  "@next": {"description": "Next button"},
+
+  "continueBtn": "続ける",
+  "@continueBtn": {"description": "Continue button"},
+
+  "topicParticle": "主題助詞",
+  "@topicParticle": {"description": "Topic particle grammar"},
+
+  "honorificEnding": "敬語語尾",
+  "@honorificEnding": {"description": "Honorific ending grammar"},
+
+  "questionWord": "何",
+  "@questionWord": {"description": "Question word what"},
+
+  "hello": "こんにちは",
+  "@hello": {"description": "Hello"},
+
+  "thankYou": "ありがとうございます",
+  "@thankYou": {"description": "Thank you"},
+
+  "goodbye": "さようなら",
+  "@goodbye": {"description": "Goodbye"},
+
+  "sorry": "すみません",
+  "@sorry": {"description": "Sorry"},
+
+  "imStudent": "私は学生です",
+  "@imStudent": {"description": "I am a student"},
+
+  "bookInteresting": "本が面白いです",
+  "@bookInteresting": {"description": "Book is interesting"},
+
+  "isStudent": "学生です",
+  "@isStudent": {"description": "Is student"},
+
+  "isTeacher": "先生です",
+  "@isTeacher": {"description": "Is teacher"},
+
+  "whatIsThis": "これは何ですか？",
+  "@whatIsThis": {"description": "What is this?"},
+
+  "whatDoingPolite": "何をしていますか？",
+  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
+
+  "listenAndChoose": "聞いて正しい訳を選んでください",
+  "@listenAndChoose": {"description": "Listen and choose instruction"},
+
+  "fillInBlank": "正しい助詞を入れてください",
+  "@fillInBlank": {"description": "Fill in blank instruction"},
+
+  "chooseTranslation": "正しい訳を選んでください",
+  "@chooseTranslation": {"description": "Choose translation instruction"},
+
+  "arrangeWords": "正しい順序に単語を並べてください",
+  "@arrangeWords": {"description": "Arrange words instruction"},
+
+  "choosePronunciation": "正しい発音を選んでください",
+  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
+
+  "consonantEnding": "名詞が子音で終わる場合、どの主題助詞を使いますか？",
+  "@consonantEnding": {"description": "Consonant ending quiz question"},
+
+  "correctSentence": "正しい文を選んでください",
+  "@correctSentence": {"description": "Choose correct sentence instruction"},
+
+  "allCorrect": "すべて正解",
+  "@allCorrect": {"description": "All of the above option"},
+
+  "howAreYou": "お元気ですか？",
+  "@howAreYou": {"description": "How are you?"},
+
+  "whatIsYourName": "お名前は何ですか？",
+  "@whatIsYourName": {"description": "What is your name?"},
+
+  "whoAreYou": "どなたですか？",
+  "@whoAreYou": {"description": "Who are you?"},
+
+  "whereAreYou": "どこにいますか？",
+  "@whereAreYou": {"description": "Where are you?"},
+
+  "niceToMeetYou": "はじめまして",
+  "@niceToMeetYou": {"description": "Nice to meet you"},
+
+  "areYouStudent": "あなたは学生です",
+  "@areYouStudent": {"description": "You are a student"},
+
+  "areYouStudentQuestion": "学生ですか？",
+  "@areYouStudentQuestion": {"description": "Are you a student?"},
+
+  "amIStudent": "私は学生ですか？",
+  "@amIStudent": {"description": "Am I a student?"},
+
+  "listening": "リスニング",
+  "@listening": {"description": "Listening question type"},
+
+  "fillBlank": "穴埋め",
+  "@fillBlank": {"description": "Fill in blank question type"},
+
+  "translation": "翻訳",
+  "@translation": {"description": "Translation question type"},
+
+  "wordOrder": "語順",
+  "@wordOrder": {"description": "Word order question type"},
+
+  "pronunciation": "発音",
+  "@pronunciation": {"description": "Pronunciation question type"},
+
+  "excellent": "素晴らしい！",
+  "@excellent": {"description": "Excellent feedback"},
+
+  "correctOrderIs": "正しい順序：",
+  "@correctOrderIs": {"description": "Correct order is prefix"},
+
+  "correctAnswerIs": "正解：",
+  "@correctAnswerIs": {"description": "Correct answer is prefix"},
+
+  "previousQuestion": "前の問題",
+  "@previousQuestion": {"description": "Previous question button"},
+
+  "nextQuestion": "次の問題",
+  "@nextQuestion": {"description": "Next question button"},
+
+  "finish": "完了",
+  "@finish": {"description": "Finish button"},
+
+  "quizComplete": "クイズ完了！",
+  "@quizComplete": {"description": "Quiz complete title"},
+
+  "greatJob": "よくできました！",
+  "@greatJob": {"description": "Great job message"},
+
+  "keepPracticing": "頑張って！",
+  "@keepPracticing": {"description": "Keep practicing message"},
+
+  "score": "スコア：{correct} / {total}",
+  "@score": {
+    "description": "Score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "masteredContent": "このレッスンの内容をマスターしました！",
+  "@masteredContent": {"description": "Mastered content message"},
+
+  "reviewSuggestion": "レッスン内容を復習してから再挑戦してみましょう！",
+  "@reviewSuggestion": {"description": "Review suggestion message"},
+
+  "timeUsed": "所要時間：{time}",
+  "@timeUsed": {
+    "description": "Time used display",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "playAudio": "音声を再生",
+  "@playAudio": {"description": "Play audio button"},
+
+  "replayAudio": "もう一度再生",
+  "@replayAudio": {"description": "Replay audio button"},
+
+  "vowelEnding": "母音で終わる場合は：",
+  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
+
+  "lessonNumber": "レッスン{number}",
+  "@lessonNumber": {
+    "description": "Lesson number",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "stageIntro": "レッスン紹介",
+  "@stageIntro": {"description": "Stage 1: Introduction"},
+
+  "stageVocabulary": "語彙学習",
+  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
+
+  "stageGrammar": "文法説明",
+  "@stageGrammar": {"description": "Stage 3: Grammar"},
+
+  "stagePractice": "練習",
+  "@stagePractice": {"description": "Stage 4: Practice"},
+
+  "stageDialogue": "会話練習",
+  "@stageDialogue": {"description": "Stage 5: Dialogue"},
+
+  "stageQuiz": "クイズ",
+  "@stageQuiz": {"description": "Stage 6: Quiz"},
+
+  "stageSummary": "まとめ",
+  "@stageSummary": {"description": "Stage 7: Summary"},
+
+  "downloadLesson": "レッスンをダウンロード",
+  "@downloadLesson": {"description": "Download lesson button"},
+
+  "downloading": "ダウンロード中...",
+  "@downloading": {"description": "Downloading status"},
+
+  "downloaded": "ダウンロード済み",
+  "@downloaded": {"description": "Downloaded status"},
+
+  "downloadFailed": "ダウンロード失敗",
+  "@downloadFailed": {"description": "Download failed status"},
+
+  "home": "ホーム",
+  "@home": {"description": "Home tab"},
+
+  "lessons": "レッスン",
+  "@lessons": {"description": "Lessons tab"},
+
+  "review": "復習",
+  "@review": {"description": "Review tab"},
+
+  "profile": "マイページ",
+  "@profile": {"description": "Profile tab"},
+
+  "continueLearning": "学習を続ける",
+  "@continueLearning": {"description": "Continue learning button"},
+
+  "dailyGoal": "毎日の目標",
+  "@dailyGoal": {"description": "Daily goal title"},
+
+  "lessonsCompleted": "{count}レッスン完了",
+  "@lessonsCompleted": {
+    "description": "Lessons completed count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "minutesLearned": "{minutes}分学習",
+  "@minutesLearned": {
+    "description": "Minutes learned count",
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+
+  "welcome": "おかえりなさい",
+  "@welcome": {"description": "Welcome message"},
+
+  "goodMorning": "おはようございます",
+  "@goodMorning": {"description": "Good morning greeting"},
+
+  "goodAfternoon": "こんにちは",
+  "@goodAfternoon": {"description": "Good afternoon greeting"},
+
+  "goodEvening": "こんばんは",
+  "@goodEvening": {"description": "Good evening greeting"},
+
+  "logout": "ログアウト",
+  "@logout": {"description": "Logout button"},
+
+  "confirmLogout": "ログアウトしてもよろしいですか？",
+  "@confirmLogout": {"description": "Logout confirmation"},
+
+  "cancel": "キャンセル",
+  "@cancel": {"description": "Cancel button"},
+
+  "confirm": "確認",
+  "@confirm": {"description": "Confirm button"},
+
+  "delete": "削除",
+  "@delete": {"description": "Delete button"},
+
+  "save": "保存",
+  "@save": {"description": "Save button"},
+
+  "edit": "編集",
+  "@edit": {"description": "Edit button"},
+
+  "close": "閉じる",
+  "@close": {"description": "Close button"},
+
+  "retry": "再試行",
+  "@retry": {"description": "Retry button"},
+
+  "loading": "読み込み中...",
+  "@loading": {"description": "Loading status"},
+
+  "noData": "データがありません",
+  "@noData": {"description": "No data message"},
+
+  "error": "エラーが発生しました",
+  "@error": {"description": "Error title"},
+
+  "success": "成功",
+  "@success": {"description": "Success title"},
+
+  "filter": "フィルター",
+  "@filter": {"description": "Filter button"},
+
+  "reviewSchedule": "復習スケジュール",
+  "@reviewSchedule": {"description": "Review schedule title"},
+
+  "todayReview": "今日の復習",
+  "@todayReview": {"description": "Today's review title"},
+
+  "startReview": "復習を始める",
+  "@startReview": {"description": "Start review button"},
+
+  "learningStats": "学習統計",
+  "@learningStats": {"description": "Learning statistics section"},
+
+  "completedLessonsCount": "完了したレッスン",
+  "@completedLessonsCount": {"description": "Completed lessons label"},
+
+  "studyDays": "学習日数",
+  "@studyDays": {"description": "Study days label"},
+
+  "masteredWordsCount": "習得した単語",
+  "@masteredWordsCount": {"description": "Mastered words label"},
+
+  "myVocabularyBook": "マイ単語帳",
+  "@myVocabularyBook": {"description": "My vocabulary book"},
+
+  "vocabularyBrowser": "単語ブラウザ",
+  "@vocabularyBrowser": {"description": "Vocabulary browser"},
+
+  "about": "情報",
+  "@about": {"description": "About section"},
+
+  "premiumMember": "プレミアム会員",
+  "@premiumMember": {"description": "Premium member label"},
+
+  "freeUser": "無料ユーザー",
+  "@freeUser": {"description": "Free user label"},
+
+  "wordsWaitingReview": "{count}個の単語が復習待ち",
+  "@wordsWaitingReview": {
+    "description": "Words waiting for review",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "user": "ユーザー",
+  "@user": {"description": "Default user name"}
+}

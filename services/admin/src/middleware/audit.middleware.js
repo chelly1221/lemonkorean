@@ -20,7 +20,8 @@ const auditLog = (action, resourceType) => {
     res.json = async (body) => {
       try {
         // Determine status based on HTTP status code
-        const status = res.statusCode >= 200 && res.statusCode < 300 ? 'success' : 'failure';
+        // DB constraint allows: 'success', 'failed', 'pending'
+        const status = res.statusCode >= 200 && res.statusCode < 300 ? 'success' : 'failed';
 
         // Extract resource ID from params or body
         const resourceId = req.params.id || req.params.userId || req.params.lessonId || req.body.id || null;

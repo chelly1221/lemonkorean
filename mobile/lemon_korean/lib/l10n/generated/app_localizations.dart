@@ -5,6 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_ja.dart';
+import 'app_localizations_ko.dart';
 import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -93,6 +97,10 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('es'),
+    Locale('ja'),
+    Locale('ko'),
     Locale('zh'),
     Locale('zh', 'TW')
   ];
@@ -1326,6 +1334,96 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'成功'**
   String get success;
+
+  /// Filter button
+  ///
+  /// In zh, this message translates to:
+  /// **'筛选'**
+  String get filter;
+
+  /// Review schedule title
+  ///
+  /// In zh, this message translates to:
+  /// **'复习计划'**
+  String get reviewSchedule;
+
+  /// Today's review title
+  ///
+  /// In zh, this message translates to:
+  /// **'今日复习'**
+  String get todayReview;
+
+  /// Start review button
+  ///
+  /// In zh, this message translates to:
+  /// **'开始复习'**
+  String get startReview;
+
+  /// Learning statistics section
+  ///
+  /// In zh, this message translates to:
+  /// **'学习统计'**
+  String get learningStats;
+
+  /// Completed lessons label
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成课程'**
+  String get completedLessonsCount;
+
+  /// Study days label
+  ///
+  /// In zh, this message translates to:
+  /// **'学习天数'**
+  String get studyDays;
+
+  /// Mastered words label
+  ///
+  /// In zh, this message translates to:
+  /// **'掌握单词'**
+  String get masteredWordsCount;
+
+  /// My vocabulary book
+  ///
+  /// In zh, this message translates to:
+  /// **'我的单词本'**
+  String get myVocabularyBook;
+
+  /// Vocabulary browser
+  ///
+  /// In zh, this message translates to:
+  /// **'单词浏览器'**
+  String get vocabularyBrowser;
+
+  /// About section
+  ///
+  /// In zh, this message translates to:
+  /// **'关于'**
+  String get about;
+
+  /// Premium member label
+  ///
+  /// In zh, this message translates to:
+  /// **'高级会员'**
+  String get premiumMember;
+
+  /// Free user label
+  ///
+  /// In zh, this message translates to:
+  /// **'免费用户'**
+  String get freeUser;
+
+  /// Words waiting for review
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}个单词等待复习'**
+  String wordsWaitingReview(int count);
+
+  /// Default user name
+  ///
+  /// In zh, this message translates to:
+  /// **'用户'**
+  String get user;
 }
 
 class _AppLocalizationsDelegate
@@ -1339,7 +1437,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['zh'].contains(locale.languageCode);
+      <String>['en', 'es', 'ja', 'ko', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1360,6 +1458,14 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'ja':
+      return AppLocalizationsJa();
+    case 'ko':
+      return AppLocalizationsKo();
     case 'zh':
       return AppLocalizationsZh();
   }

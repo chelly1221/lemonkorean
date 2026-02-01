@@ -4,12 +4,12 @@
 
 ### Feature: Multi-URL Network Config Fetching for Web Platform
 
-**Requirement:** Flutter web app at `http://3chan.kr:3007` should automatically use development mode URLs when admin network settings are set to "개발모드" (development mode).
+**Requirement:** Flutter web app at `https://lemon.3chan.kr:3007` should automatically use development mode URLs when admin network settings are set to "개발모드" (development mode).
 
 **Problem:** Web builds bake in `.env.production` URLs at compile time. The `dart.vm.product` environment detection doesn't work for web platform, so the app always loaded production URLs even when accessed at development port 3007.
 
 **Solution:** Enhanced ApiClient to try comprehensive URL list with automatic platform detection:
-1. **Web auto-detection**: For web platform, try `window.location.origin` first (e.g., `http://3chan.kr:3007`)
+1. **Web auto-detection**: For web platform, try `window.location.origin` first (e.g., `https://lemon.3chan.kr:3007`)
 2. **Production URLs**: Fallback to production URLs from `.env.production`
 3. **Development URLs**: Additional fallbacks for development environments
 4. **Nginx proxy**: Added proxy on port 3007 to forward network config API to admin service
@@ -31,14 +31,10 @@
 
 **URL Priority Order:**
 ```
-1. window.location.origin (web only) → http://3chan.kr:3007
-2. EnvironmentConfig.adminUrl → http://3chan.kr:3006
-3. EnvironmentConfig.baseUrl → http://3chan.kr
-4. Hardcoded development fallbacks:
-   - http://3chan.kr:3007
-   - http://192.168.0.100:3006
-   - http://localhost:3006
-5. Extracted base host + :3006
+1. window.location.origin (web only) → https://lemon.3chan.kr
+2. EnvironmentConfig.baseUrl → https://lemon.3chan.kr
+3. Admin Dashboard → https://lemon.3chan.kr/admin/
+4. Flutter Web App → https://lemon.3chan.kr/app/
 ```
 
 **Nginx Proxy (Port 3007):**
@@ -90,34 +86,34 @@ docker exec lemon-redis redis-cli -a "password" GET network:mode
 
 **Impact:**
 - ✅ Web app at port 3007 now automatically detects it's in development environment
-- ✅ Fetches network config from current host first (http://3chan.kr:3007)
+- ✅ Fetches network config from current host first (https://lemon.3chan.kr:3007)
 - ✅ Nginx proxies the request to admin service
 - ✅ Admin service returns development mode URLs based on Redis setting
 - ✅ Web app uses direct microservice URLs (3001-3004) instead of gateway
-- ✅ Production mode still works normally (web app at http://3chan.kr/app/)
+- ✅ Production mode still works normally (web app at https://lemon.3chan.kr/app/)
 - ✅ No impact on mobile apps (Android/iOS unchanged)
 - ✅ Backward compatible: Falls back to production URLs if development unavailable
 
 **Expected Behavior:**
 
 **Development Mode (Admin setting: "개발모드"):**
-- Access: `http://3chan.kr:3007/` or `http://localhost:3007/`
+- Access: `https://lemon.3chan.kr:3007/` or `http://localhost:3007/`
 - Network config returns: `{"mode":"development","baseUrl":"http://localhost:3001",...}`
 - Direct microservice access (bypass gateway)
 - Permissive CORS headers
 - Relaxed rate limiting
 
 **Production Mode (Admin setting: "프로덕션 모드"):**
-- Access: `http://3chan.kr/app/` or `http://localhost/app/`
-- Network config returns: `{"mode":"production","baseUrl":"http://3chan.kr",...}`
+- Access: `https://lemon.3chan.kr/app/` or `http://localhost/app/`
+- Network config returns: `{"mode":"production","baseUrl":"https://lemon.3chan.kr",...}`
 - Gateway routing via nginx
 - Strict CORS policies
 - Production rate limiting
 
 **User Experience:**
-1. User opens `http://3chan.kr:3007/` in browser
+1. User opens `https://lemon.3chan.kr:3007/` in browser
 2. Flutter web app loads and detects current origin
-3. Tries to fetch config from `http://3chan.kr:3007/api/admin/network/config`
+3. Tries to fetch config from `https://lemon.3chan.kr:3007/api/admin/network/config`
 4. Nginx proxies request to admin service
 5. Admin service checks Redis: `network:mode = "development"`
 6. Returns development URLs: `http://localhost:3001`, `http://localhost:3002`, etc.
@@ -197,7 +193,7 @@ docker compose restart nginx
 **Deployment Configuration:**
 - Volume mapping: `./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro`
 - Nginx location: `/app/`
-- Production URL: http://3chan.kr/app/
+- Production URL: https://lemon.3chan.kr/app/
 - Local URL: http://localhost/app/
 
 **Impact:**
@@ -228,7 +224,7 @@ lk_setting_reviewRemindersEnabled: true
 - `mobile/lemon_korean/README.md`: Web build/deployment guide added
 - Dev Notes: `/dev-notes/2026-01-31-web-late-initialization-fix.md`
 
-**Production Status:** ✅ Deployed and verified at http://3chan.kr/app/
+**Production Status:** ✅ Deployed and verified at https://lemon.3chan.kr/app/
 
 ---
 

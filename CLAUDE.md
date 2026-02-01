@@ -402,8 +402,8 @@ DELETE /media/:type/:key                       # 미디어 삭제
 GET    /health                                 # 헬스체크
 ```
 
-### Admin Service (Port 3006) ✨ 완전 웹 대시보드
-**Web UI**: http://localhost:3006 (Bootstrap 5 + Chart.js SPA)
+### Admin Service ✨ 완전 웹 대시보드
+**Web UI**: https://lemon.3chan.kr/admin/ (Bootstrap 5 + Chart.js SPA)
 
 **페이지** (7개):
 - 로그인 (#/login) - JWT 인증
@@ -569,7 +569,7 @@ lib/core/platform/web/stubs/
   - General (3): init, clearAll, close
 - **에러 처리**: 모든 메서드에 try-catch 적용, 기본값 반환
 - **저장 한계**: 브라우저 localStorage 5-10MB (설정/소규모 데이터에 충분)
-- **배포**: https://3chan.kr/app/ (nginx location: /app/)
+- **배포**: https://lemon.3chan.kr/app/ (nginx location: /app/)
 
 **웹 빌드 및 배포**:
 ```bash
@@ -587,7 +587,7 @@ docker compose restart nginx
 
 **접속 URL**:
 - 로컬: http://localhost/app/
-- 프로덕션: https://3chan.kr/app/
+- 프로덕션: https://lemon.3chan.kr/app/
 
 **웹 제한사항**:
 - ❌ 오프라인 레슨 다운로드 (항상 온라인 가정)
@@ -828,7 +828,7 @@ docker compose up -d
 **배포 설정:**
 - **Volume 매핑**: `./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro`
 - **Nginx 위치**: `location /app/`
-- **프로덕션 URL**: http://3chan.kr/app/
+- **프로덕션 URL**: https://lemon.3chan.kr/app/
 - **로컬 URL**: http://localhost/app/
 - **캐싱**: 정적 자산 7일, index.html 캐시 없음
 
@@ -1113,7 +1113,7 @@ docker-compose exec postgres psql -U 3chan -d lemon_korean
     - 7개 페이지 (로그인, 대시보드, 사용자, 레슨, 단어, 미디어, 시스템)
     - Bootstrap 5 + Chart.js 기반 SPA
     - 완전 반응형 디자인
-    - 접속 URL: http://localhost:3006
+    - 접속 URL: https://lemon.3chan.kr/admin/
 
 ---
 
@@ -1347,7 +1347,7 @@ function newImplementation() {
 
 ### Backend Tests
 \```bash
-curl http://localhost:3006/api/endpoint
+curl https://lemon.3chan.kr/api/admin/endpoint
 \```
 
 ### Frontend Tests
@@ -1441,7 +1441,7 @@ curl -X GET http://localhost/api/progress/user/1 \
 ### Admin 대시보드에서 보기
 
 개발노트를 작성한 후:
-1. http://localhost:3006 접속
+1. https://lemon.3chan.kr/admin/ 접속
 2. 관리자 로그인
 3. 사이드바에서 "개발노트" 클릭
 4. 시간순 또는 카테고리별로 노트 조회

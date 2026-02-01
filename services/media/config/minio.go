@@ -12,9 +12,11 @@ import (
 
 // MinIO configuration
 const (
-	BucketImages = "lemon-images"
-	BucketAudio  = "lemon-audio"
-	BucketVideo  = "lemon-video"
+	// Use unified bucket with folder structure (same as admin-service)
+	UnifiedBucket = "lemon-korean-media"
+	BucketImages  = "lemon-korean-media"
+	BucketAudio   = "lemon-korean-media"
+	BucketVideo   = "lemon-korean-media"
 )
 
 // InitMinIO initializes and returns a MinIO client

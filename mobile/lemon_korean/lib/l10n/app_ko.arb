@@ -1,0 +1,720 @@
+{
+  "@@locale": "ko",
+  "@@context": "LemonKorean App - Korean",
+
+  "appName": "레몬 한국어",
+  "@appName": {"description": "App name"},
+
+  "login": "로그인",
+  "@login": {"description": "Login button"},
+
+  "register": "회원가입",
+  "@register": {"description": "Register button"},
+
+  "email": "이메일",
+  "@email": {"description": "Email field label"},
+
+  "password": "비밀번호",
+  "@password": {"description": "Password field label"},
+
+  "confirmPassword": "비밀번호 확인",
+  "@confirmPassword": {"description": "Confirm password field label"},
+
+  "username": "사용자 이름",
+  "@username": {"description": "Username field label"},
+
+  "enterEmail": "이메일 주소를 입력하세요",
+  "@enterEmail": {"description": "Email placeholder"},
+
+  "enterPassword": "비밀번호를 입력하세요",
+  "@enterPassword": {"description": "Password placeholder"},
+
+  "enterConfirmPassword": "비밀번호를 다시 입력하세요",
+  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
+
+  "enterUsername": "사용자 이름을 입력하세요",
+  "@enterUsername": {"description": "Username placeholder"},
+
+  "createAccount": "계정 만들기",
+  "@createAccount": {"description": "Create account title"},
+
+  "startJourney": "한국어 학습 여정을 시작하세요",
+  "@startJourney": {"description": "Subtitle for registration"},
+
+  "interfaceLanguage": "인터페이스 언어",
+  "@interfaceLanguage": {"description": "Interface language label"},
+
+  "simplifiedChinese": "중국어(간체)",
+  "@simplifiedChinese": {"description": "Simplified Chinese option"},
+
+  "traditionalChinese": "중국어(번체)",
+  "@traditionalChinese": {"description": "Traditional Chinese option"},
+
+  "passwordRequirements": "비밀번호 요구사항",
+  "@passwordRequirements": {"description": "Password requirements title"},
+
+  "minCharacters": "최소 {count}자 이상",
+  "@minCharacters": {
+    "description": "Minimum characters requirement",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "containLettersNumbers": "문자와 숫자를 포함해야 합니다",
+  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
+
+  "haveAccount": "이미 계정이 있으신가요?",
+  "@haveAccount": {"description": "Already have account text"},
+
+  "noAccount": "계정이 없으신가요?",
+  "@noAccount": {"description": "No account text"},
+
+  "loginNow": "로그인하기",
+  "@loginNow": {"description": "Login now button"},
+
+  "registerNow": "회원가입하기",
+  "@registerNow": {"description": "Register now button"},
+
+  "registerSuccess": "가입 완료",
+  "@registerSuccess": {"description": "Registration success message"},
+
+  "registerFailed": "가입 실패",
+  "@registerFailed": {"description": "Registration failed message"},
+
+  "loginSuccess": "로그인 성공",
+  "@loginSuccess": {"description": "Login success message"},
+
+  "loginFailed": "로그인 실패",
+  "@loginFailed": {"description": "Login failed message"},
+
+  "networkError": "네트워크 연결에 실패했습니다. 네트워크 설정을 확인해 주세요.",
+  "@networkError": {"description": "Network error message"},
+
+  "invalidCredentials": "이메일 또는 비밀번호가 올바르지 않습니다",
+  "@invalidCredentials": {"description": "Invalid credentials message"},
+
+  "emailAlreadyExists": "이미 등록된 이메일입니다",
+  "@emailAlreadyExists": {"description": "Email exists message"},
+
+  "requestTimeout": "요청 시간이 초과되었습니다. 다시 시도해 주세요.",
+  "@requestTimeout": {"description": "Request timeout message"},
+
+  "operationFailed": "작업에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+  "@operationFailed": {"description": "Generic operation failed message"},
+
+  "settings": "설정",
+  "@settings": {"description": "Settings title"},
+
+  "languageSettings": "언어 설정",
+  "@languageSettings": {"description": "Language settings title"},
+
+  "chineseDisplay": "중국어 표시",
+  "@chineseDisplay": {"description": "Chinese display section title"},
+
+  "chineseDisplayDesc": "중국어 문자 표시 방식을 선택하세요. 변경 시 즉시 모든 화면에 적용됩니다.",
+  "@chineseDisplayDesc": {"description": "Chinese display description"},
+
+  "switchedToSimplified": "중국어(간체)로 전환되었습니다",
+  "@switchedToSimplified": {"description": "Switched to simplified message"},
+
+  "switchedToTraditional": "중국어(번체)로 전환되었습니다",
+  "@switchedToTraditional": {"description": "Switched to traditional message"},
+
+  "displayTip": "팁: 강의 내용은 선택한 중국어 글꼴로 표시됩니다.",
+  "@displayTip": {"description": "Display tip text"},
+
+  "notificationSettings": "알림 설정",
+  "@notificationSettings": {"description": "Notification settings title"},
+
+  "enableNotifications": "알림 사용",
+  "@enableNotifications": {"description": "Enable notifications toggle"},
+
+  "enableNotificationsDesc": "켜면 학습 알림을 받을 수 있습니다",
+  "@enableNotificationsDesc": {"description": "Enable notifications description"},
+
+  "permissionRequired": "시스템 설정에서 알림 권한을 허용해 주세요",
+  "@permissionRequired": {"description": "Permission required message"},
+
+  "dailyLearningReminder": "일일 학습 알림",
+  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
+
+  "dailyReminder": "일일 알림",
+  "@dailyReminder": {"description": "Daily reminder toggle"},
+
+  "dailyReminderDesc": "매일 정해진 시간에 학습 알림을 보냅니다",
+  "@dailyReminderDesc": {"description": "Daily reminder description"},
+
+  "reminderTime": "알림 시간",
+  "@reminderTime": {"description": "Reminder time label"},
+
+  "reminderTimeSet": "알림 시간이 {time}으로 설정되었습니다",
+  "@reminderTimeSet": {
+    "description": "Reminder time set message",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "reviewReminder": "복습 알림",
+  "@reviewReminder": {"description": "Review reminder toggle"},
+
+  "reviewReminderDesc": "기억 곡선에 따라 복습 알림을 보냅니다",
+  "@reviewReminderDesc": {"description": "Review reminder description"},
+
+  "notificationTip": "팁:",
+  "@notificationTip": {"description": "Tip prefix"},
+
+  "helpCenter": "도움말",
+  "@helpCenter": {"description": "Help center title"},
+
+  "offlineLearning": "오프라인 학습",
+  "@offlineLearning": {"description": "Offline learning section"},
+
+  "howToDownload": "강의를 어떻게 다운로드하나요?",
+  "@howToDownload": {"description": "How to download FAQ"},
+
+  "howToDownloadAnswer": "강의 목록에서 오른쪽의 다운로드 아이콘을 탭하면 강의를 다운로드할 수 있습니다. 다운로드 후 오프라인으로 학습할 수 있습니다.",
+  "@howToDownloadAnswer": {"description": "How to download answer"},
+
+  "howToUseDownloaded": "다운로드한 강의는 어떻게 사용하나요?",
+  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
+
+  "howToUseDownloadedAnswer": "네트워크에 연결되어 있지 않아도 다운로드한 강의를 정상적으로 학습할 수 있습니다. 진도는 로컬에 저장되며 네트워크 연결 시 자동으로 동기화됩니다.",
+  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
+
+  "storageManagement": "저장 공간 관리",
+  "@storageManagement": {"description": "Storage management section"},
+
+  "howToCheckStorage": "저장 공간은 어떻게 확인하나요?",
+  "@howToCheckStorage": {"description": "How to check storage FAQ"},
+
+  "howToCheckStorageAnswer": "【설정 → 저장 공간 관리】에서 사용된 저장 공간과 사용 가능한 공간을 확인할 수 있습니다.",
+  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
+
+  "howToDeleteDownloaded": "다운로드한 강의는 어떻게 삭제하나요?",
+  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
+
+  "howToDeleteDownloadedAnswer": "【저장 공간 관리】에서 강의 옆의 삭제 버튼을 탭하면 삭제됩니다.",
+  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
+
+  "notificationSection": "알림 설정",
+  "@notificationSection": {"description": "Notification section in help"},
+
+  "howToEnableReminder": "학습 알림은 어떻게 켜나요?",
+  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
+
+  "howToEnableReminderAnswer": "【설정 → 알림 설정】에서 【알림 사용】 스위치를 켜세요. 처음 사용 시 알림 권한을 허용해야 합니다.",
+  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
+
+  "whatIsReviewReminder": "복습 알림이란 무엇인가요?",
+  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
+
+  "whatIsReviewReminderAnswer": "간격 반복 알고리즘(SRS)에 기반하여 학습한 강의를 최적의 시간에 복습하도록 알림을 보냅니다. 복습 간격: 1일 → 3일 → 7일 → 14일 → 30일.",
+  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
+
+  "languageSection": "언어 설정",
+  "@languageSection": {"description": "Language section in help"},
+
+  "howToSwitchChinese": "간체와 번체는 어떻게 전환하나요?",
+  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
+
+  "howToSwitchChineseAnswer": "【설정 → 언어 설정】에서 【중국어(간체)】 또는 【중국어(번체)】를 선택하세요. 변경 시 즉시 적용됩니다.",
+  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
+
+  "faq": "자주 묻는 질문",
+  "@faq": {"description": "FAQ section title"},
+
+  "howToStart": "학습은 어떻게 시작하나요?",
+  "@howToStart": {"description": "How to start learning FAQ"},
+
+  "howToStartAnswer": "메인 화면에서 본인 수준에 맞는 강의를 선택하고 1과부터 시작하세요. 각 강의는 7단계로 구성되어 있습니다.",
+  "@howToStartAnswer": {"description": "How to start learning answer"},
+
+  "progressNotSaved": "진도가 저장되지 않으면 어떻게 하나요?",
+  "@progressNotSaved": {"description": "Progress not saved FAQ"},
+
+  "progressNotSavedAnswer": "진도는 자동으로 로컬에 저장됩니다. 네트워크에 연결되면 서버에 자동으로 동기화됩니다. 네트워크 연결을 확인해 주세요.",
+  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
+
+  "aboutApp": "앱 정보",
+  "@aboutApp": {"description": "About app title"},
+
+  "moreInfo": "추가 정보",
+  "@moreInfo": {"description": "More info section"},
+
+  "versionInfo": "버전 정보",
+  "@versionInfo": {"description": "Version info label"},
+
+  "developer": "개발자",
+  "@developer": {"description": "Developer label"},
+
+  "appIntro": "앱 소개",
+  "@appIntro": {"description": "App introduction label"},
+
+  "appIntroContent": "중국어 사용자를 위한 한국어 학습 앱입니다. 오프라인 학습, 스마트 복습 알림 등의 기능을 지원합니다.",
+  "@appIntroContent": {"description": "App introduction content"},
+
+  "termsOfService": "서비스 이용약관",
+  "@termsOfService": {"description": "Terms of service"},
+
+  "termsComingSoon": "서비스 이용약관 페이지는 준비 중입니다...",
+  "@termsComingSoon": {"description": "Terms coming soon message"},
+
+  "privacyPolicy": "개인정보 처리방침",
+  "@privacyPolicy": {"description": "Privacy policy"},
+
+  "privacyComingSoon": "개인정보 처리방침 페이지는 준비 중입니다...",
+  "@privacyComingSoon": {"description": "Privacy coming soon message"},
+
+  "openSourceLicenses": "오픈소스 라이선스",
+  "@openSourceLicenses": {"description": "Open source licenses"},
+
+  "notStarted": "시작 전",
+  "@notStarted": {"description": "Status: not started"},
+
+  "inProgress": "진행 중",
+  "@inProgress": {"description": "Status: in progress"},
+
+  "completed": "완료",
+  "@completed": {"description": "Status: completed"},
+
+  "notPassed": "미통과",
+  "@notPassed": {"description": "Status: not passed"},
+
+  "timeToReview": "복습할 시간입니다",
+  "@timeToReview": {"description": "Time to review message"},
+
+  "today": "오늘",
+  "@today": {"description": "Today"},
+
+  "tomorrow": "내일",
+  "@tomorrow": {"description": "Tomorrow"},
+
+  "daysLater": "{count}일 후",
+  "@daysLater": {
+    "description": "Days later",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "noun": "명사",
+  "@noun": {"description": "Part of speech: noun"},
+
+  "verb": "동사",
+  "@verb": {"description": "Part of speech: verb"},
+
+  "adjective": "형용사",
+  "@adjective": {"description": "Part of speech: adjective"},
+
+  "adverb": "부사",
+  "@adverb": {"description": "Part of speech: adverb"},
+
+  "particle": "조사",
+  "@particle": {"description": "Part of speech: particle"},
+
+  "pronoun": "대명사",
+  "@pronoun": {"description": "Part of speech: pronoun"},
+
+  "highSimilarity": "높은 유사도",
+  "@highSimilarity": {"description": "High similarity level"},
+
+  "mediumSimilarity": "중간 유사도",
+  "@mediumSimilarity": {"description": "Medium similarity level"},
+
+  "lowSimilarity": "낮은 유사도",
+  "@lowSimilarity": {"description": "Low similarity level"},
+
+  "lessonComplete": "강의 완료!",
+  "@lessonComplete": {"description": "Lesson complete message"},
+
+  "learningComplete": "학습 완료",
+  "@learningComplete": {"description": "Learning complete title"},
+
+  "experiencePoints": "경험치 +{points}",
+  "@experiencePoints": {
+    "description": "Experience points gained",
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+
+  "keepLearning": "학습 열정을 유지하세요",
+  "@keepLearning": {"description": "Keep learning message"},
+
+  "streakDays": "연속 학습 +1일",
+  "@streakDays": {"description": "Streak days increased"},
+
+  "streakDaysCount": "연속 {days}일 학습 중",
+  "@streakDaysCount": {
+    "description": "Streak days count",
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "lessonContent": "이번 강의 학습 내용",
+  "@lessonContent": {"description": "Lesson content title"},
+
+  "words": "단어",
+  "@words": {"description": "Words label"},
+
+  "grammarPoints": "문법 포인트",
+  "@grammarPoints": {"description": "Grammar points label"},
+
+  "dialogues": "대화",
+  "@dialogues": {"description": "Dialogues label"},
+
+  "grammarExplanation": "문법 설명",
+  "@grammarExplanation": {"description": "Grammar explanation title"},
+
+  "exampleSentences": "예문",
+  "@exampleSentences": {"description": "Example sentences label"},
+
+  "previous": "이전",
+  "@previous": {"description": "Previous button"},
+
+  "next": "다음",
+  "@next": {"description": "Next button"},
+
+  "continueBtn": "계속",
+  "@continueBtn": {"description": "Continue button"},
+
+  "topicParticle": "주제 조사",
+  "@topicParticle": {"description": "Topic particle grammar"},
+
+  "honorificEnding": "존경 어미",
+  "@honorificEnding": {"description": "Honorific ending grammar"},
+
+  "questionWord": "무엇",
+  "@questionWord": {"description": "Question word what"},
+
+  "hello": "안녕하세요",
+  "@hello": {"description": "Hello"},
+
+  "thankYou": "감사합니다",
+  "@thankYou": {"description": "Thank you"},
+
+  "goodbye": "안녕히 가세요",
+  "@goodbye": {"description": "Goodbye"},
+
+  "sorry": "죄송합니다",
+  "@sorry": {"description": "Sorry"},
+
+  "imStudent": "저는 학생입니다",
+  "@imStudent": {"description": "I am a student"},
+
+  "bookInteresting": "책이 재미있습니다",
+  "@bookInteresting": {"description": "Book is interesting"},
+
+  "isStudent": "학생입니다",
+  "@isStudent": {"description": "Is student"},
+
+  "isTeacher": "선생님입니다",
+  "@isTeacher": {"description": "Is teacher"},
+
+  "whatIsThis": "이것은 무엇입니까?",
+  "@whatIsThis": {"description": "What is this?"},
+
+  "whatDoingPolite": "뭐 하세요?",
+  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
+
+  "listenAndChoose": "듣고 올바른 번역을 선택하세요",
+  "@listenAndChoose": {"description": "Listen and choose instruction"},
+
+  "fillInBlank": "올바른 조사를 채워 넣으세요",
+  "@fillInBlank": {"description": "Fill in blank instruction"},
+
+  "chooseTranslation": "올바른 번역을 선택하세요",
+  "@chooseTranslation": {"description": "Choose translation instruction"},
+
+  "arrangeWords": "올바른 순서로 단어를 배열하세요",
+  "@arrangeWords": {"description": "Arrange words instruction"},
+
+  "choosePronunciation": "올바른 발음을 선택하세요",
+  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
+
+  "consonantEnding": "명사가 자음으로 끝날 때 어떤 주제 조사를 사용해야 할까요?",
+  "@consonantEnding": {"description": "Consonant ending quiz question"},
+
+  "correctSentence": "올바른 문장을 선택하세요",
+  "@correctSentence": {"description": "Choose correct sentence instruction"},
+
+  "allCorrect": "모두 맞음",
+  "@allCorrect": {"description": "All of the above option"},
+
+  "howAreYou": "잘 지내세요?",
+  "@howAreYou": {"description": "How are you?"},
+
+  "whatIsYourName": "이름이 뭐예요?",
+  "@whatIsYourName": {"description": "What is your name?"},
+
+  "whoAreYou": "누구세요?",
+  "@whoAreYou": {"description": "Who are you?"},
+
+  "whereAreYou": "어디에 계세요?",
+  "@whereAreYou": {"description": "Where are you?"},
+
+  "niceToMeetYou": "만나서 반갑습니다",
+  "@niceToMeetYou": {"description": "Nice to meet you"},
+
+  "areYouStudent": "당신은 학생입니다",
+  "@areYouStudent": {"description": "You are a student"},
+
+  "areYouStudentQuestion": "학생이에요?",
+  "@areYouStudentQuestion": {"description": "Are you a student?"},
+
+  "amIStudent": "저 학생이에요?",
+  "@amIStudent": {"description": "Am I a student?"},
+
+  "listening": "듣기",
+  "@listening": {"description": "Listening question type"},
+
+  "fillBlank": "빈칸 채우기",
+  "@fillBlank": {"description": "Fill in blank question type"},
+
+  "translation": "번역",
+  "@translation": {"description": "Translation question type"},
+
+  "wordOrder": "순서 맞추기",
+  "@wordOrder": {"description": "Word order question type"},
+
+  "pronunciation": "발음",
+  "@pronunciation": {"description": "Pronunciation question type"},
+
+  "excellent": "훌륭합니다!",
+  "@excellent": {"description": "Excellent feedback"},
+
+  "correctOrderIs": "올바른 순서:",
+  "@correctOrderIs": {"description": "Correct order is prefix"},
+
+  "correctAnswerIs": "정답:",
+  "@correctAnswerIs": {"description": "Correct answer is prefix"},
+
+  "previousQuestion": "이전 문제",
+  "@previousQuestion": {"description": "Previous question button"},
+
+  "nextQuestion": "다음 문제",
+  "@nextQuestion": {"description": "Next question button"},
+
+  "finish": "완료",
+  "@finish": {"description": "Finish button"},
+
+  "quizComplete": "퀴즈 완료!",
+  "@quizComplete": {"description": "Quiz complete title"},
+
+  "greatJob": "잘했습니다!",
+  "@greatJob": {"description": "Great job message"},
+
+  "keepPracticing": "계속 화이팅!",
+  "@keepPracticing": {"description": "Keep practicing message"},
+
+  "score": "점수: {correct} / {total}",
+  "@score": {
+    "description": "Score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "masteredContent": "이 강의 내용을 잘 익혔습니다!",
+  "@masteredContent": {"description": "Mastered content message"},
+
+  "reviewSuggestion": "강의 내용을 다시 복습한 후 도전해 보세요!",
+  "@reviewSuggestion": {"description": "Review suggestion message"},
+
+  "timeUsed": "소요 시간: {time}",
+  "@timeUsed": {
+    "description": "Time used display",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "playAudio": "오디오 재생",
+  "@playAudio": {"description": "Play audio button"},
+
+  "replayAudio": "다시 재생",
+  "@replayAudio": {"description": "Replay audio button"},
+
+  "vowelEnding": "모음으로 끝날 때 사용:",
+  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
+
+  "lessonNumber": "{number}과",
+  "@lessonNumber": {
+    "description": "Lesson number",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "stageIntro": "강의 소개",
+  "@stageIntro": {"description": "Stage 1: Introduction"},
+
+  "stageVocabulary": "어휘 학습",
+  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
+
+  "stageGrammar": "문법 설명",
+  "@stageGrammar": {"description": "Stage 3: Grammar"},
+
+  "stagePractice": "연습",
+  "@stagePractice": {"description": "Stage 4: Practice"},
+
+  "stageDialogue": "대화 연습",
+  "@stageDialogue": {"description": "Stage 5: Dialogue"},
+
+  "stageQuiz": "퀴즈",
+  "@stageQuiz": {"description": "Stage 6: Quiz"},
+
+  "stageSummary": "요약",
+  "@stageSummary": {"description": "Stage 7: Summary"},
+
+  "downloadLesson": "강의 다운로드",
+  "@downloadLesson": {"description": "Download lesson button"},
+
+  "downloading": "다운로드 중...",
+  "@downloading": {"description": "Downloading status"},
+
+  "downloaded": "다운로드됨",
+  "@downloaded": {"description": "Downloaded status"},
+
+  "downloadFailed": "다운로드 실패",
+  "@downloadFailed": {"description": "Download failed status"},
+
+  "home": "홈",
+  "@home": {"description": "Home tab"},
+
+  "lessons": "강의",
+  "@lessons": {"description": "Lessons tab"},
+
+  "review": "복습",
+  "@review": {"description": "Review tab"},
+
+  "profile": "내 정보",
+  "@profile": {"description": "Profile tab"},
+
+  "continueLearning": "계속 학습",
+  "@continueLearning": {"description": "Continue learning button"},
+
+  "dailyGoal": "일일 목표",
+  "@dailyGoal": {"description": "Daily goal title"},
+
+  "lessonsCompleted": "{count}과 완료",
+  "@lessonsCompleted": {
+    "description": "Lessons completed count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "minutesLearned": "{minutes}분 학습",
+  "@minutesLearned": {
+    "description": "Minutes learned count",
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+
+  "welcome": "다시 오신 것을 환영합니다",
+  "@welcome": {"description": "Welcome message"},
+
+  "goodMorning": "좋은 아침입니다",
+  "@goodMorning": {"description": "Good morning greeting"},
+
+  "goodAfternoon": "좋은 오후입니다",
+  "@goodAfternoon": {"description": "Good afternoon greeting"},
+
+  "goodEvening": "좋은 저녁입니다",
+  "@goodEvening": {"description": "Good evening greeting"},
+
+  "logout": "로그아웃",
+  "@logout": {"description": "Logout button"},
+
+  "confirmLogout": "정말 로그아웃하시겠습니까?",
+  "@confirmLogout": {"description": "Logout confirmation"},
+
+  "cancel": "취소",
+  "@cancel": {"description": "Cancel button"},
+
+  "confirm": "확인",
+  "@confirm": {"description": "Confirm button"},
+
+  "delete": "삭제",
+  "@delete": {"description": "Delete button"},
+
+  "save": "저장",
+  "@save": {"description": "Save button"},
+
+  "edit": "편집",
+  "@edit": {"description": "Edit button"},
+
+  "close": "닫기",
+  "@close": {"description": "Close button"},
+
+  "retry": "재시도",
+  "@retry": {"description": "Retry button"},
+
+  "loading": "로드 중...",
+  "@loading": {"description": "Loading status"},
+
+  "noData": "데이터가 없습니다",
+  "@noData": {"description": "No data message"},
+
+  "error": "오류가 발생했습니다",
+  "@error": {"description": "Error title"},
+
+  "success": "성공",
+  "@success": {"description": "Success title"},
+
+  "filter": "필터",
+  "@filter": {"description": "Filter button"},
+
+  "reviewSchedule": "복습 계획",
+  "@reviewSchedule": {"description": "Review schedule title"},
+
+  "todayReview": "오늘의 복습",
+  "@todayReview": {"description": "Today's review title"},
+
+  "startReview": "복습 시작",
+  "@startReview": {"description": "Start review button"},
+
+  "learningStats": "학습 통계",
+  "@learningStats": {"description": "Learning statistics section"},
+
+  "completedLessonsCount": "완료한 강의",
+  "@completedLessonsCount": {"description": "Completed lessons label"},
+
+  "studyDays": "학습 일수",
+  "@studyDays": {"description": "Study days label"},
+
+  "masteredWordsCount": "습득 단어",
+  "@masteredWordsCount": {"description": "Mastered words label"},
+
+  "myVocabularyBook": "나의 단어장",
+  "@myVocabularyBook": {"description": "My vocabulary book"},
+
+  "vocabularyBrowser": "단어 브라우저",
+  "@vocabularyBrowser": {"description": "Vocabulary browser"},
+
+  "about": "정보",
+  "@about": {"description": "About section"},
+
+  "premiumMember": "프리미엄 회원",
+  "@premiumMember": {"description": "Premium member label"},
+
+  "freeUser": "무료 사용자",
+  "@freeUser": {"description": "Free user label"},
+
+  "wordsWaitingReview": "{count}개 단어 복습 대기 중",
+  "@wordsWaitingReview": {
+    "description": "Words waiting for review",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "user": "사용자",
+  "@user": {"description": "Default user name"}
+}

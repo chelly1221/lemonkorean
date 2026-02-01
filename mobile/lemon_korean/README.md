@@ -317,7 +317,7 @@ docker compose restart nginx
 ```
 
 **배포 URL:**
-- **프로덕션**: http://3chan.kr/app/
+- **프로덕션**: https://lemon.3chan.kr/app/
 - **로컬**: http://localhost/app/
 - **Nginx 위치**: `location /app/`
 

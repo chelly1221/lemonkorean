@@ -286,7 +286,7 @@ http://localhost:3007/home
 http://localhost/api/admin/network/config
 
 # Admin 대시보드
-http://localhost:3006
+https://lemon.3chan.kr/admin
 
 # 기타 API
 http://localhost/api/auth/*

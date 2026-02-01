@@ -403,19 +403,19 @@ INSERT INTO lesson_grammar (lesson_id, grammar_id, is_primary, display_order) VA
 -- ==================== Sample User Progress ====================
 
 -- User 2 (zhang.wei@example.com) progress
-INSERT INTO user_progress (user_id, lesson_id, status, progress_percent, quiz_score, time_spent_seconds, completed_at, last_accessed, attempt_count, stage_progress) VALUES
-(2, 1, 'completed', 100, 95, 1500, CURRENT_TIMESTAMP - INTERVAL '25 days', CURRENT_TIMESTAMP - INTERVAL '25 days', 1,
+INSERT INTO user_progress (user_id, lesson_id, status, progress_percent, quiz_score, time_spent_minutes, completed_at, last_accessed_at, attempt_count, stage_progress) VALUES
+(2, 1, 'completed', 100, 95, 25, CURRENT_TIMESTAMP - INTERVAL '25 days', CURRENT_TIMESTAMP - INTERVAL '25 days', 1,
  '{"stage1": 100, "stage2": 100, "stage3": 100, "stage4": 100, "stage5": 100, "stage6": 100, "stage7": 100}'::jsonb),
-(2, 2, 'completed', 100, 88, 1620, CURRENT_TIMESTAMP - INTERVAL '20 days', CURRENT_TIMESTAMP - INTERVAL '20 days', 2,
+(2, 2, 'completed', 100, 88, 27, CURRENT_TIMESTAMP - INTERVAL '20 days', CURRENT_TIMESTAMP - INTERVAL '20 days', 2,
  '{"stage1": 100, "stage2": 100, "stage3": 100, "stage4": 100, "stage5": 100, "stage6": 100, "stage7": 100}'::jsonb),
-(2, 3, 'in_progress', 60, NULL, 900, NULL, CURRENT_TIMESTAMP - INTERVAL '1 day', 1,
+(2, 3, 'in_progress', 60, NULL, 15, NULL, CURRENT_TIMESTAMP - INTERVAL '1 day', 1,
  '{"stage1": 100, "stage2": 100, "stage3": 100, "stage4": 80, "stage5": 0, "stage6": 0, "stage7": 0}'::jsonb);
 
 -- User 3 (li.na@example.com) progress
-INSERT INTO user_progress (user_id, lesson_id, status, progress_percent, quiz_score, time_spent_seconds, completed_at, last_accessed, attempt_count, stage_progress) VALUES
-(3, 1, 'completed', 100, 78, 2100, CURRENT_TIMESTAMP - INTERVAL '10 days', CURRENT_TIMESTAMP - INTERVAL '10 days', 2,
+INSERT INTO user_progress (user_id, lesson_id, status, progress_percent, quiz_score, time_spent_minutes, completed_at, last_accessed_at, attempt_count, stage_progress) VALUES
+(3, 1, 'completed', 100, 78, 35, CURRENT_TIMESTAMP - INTERVAL '10 days', CURRENT_TIMESTAMP - INTERVAL '10 days', 2,
  '{"stage1": 100, "stage2": 100, "stage3": 100, "stage4": 100, "stage5": 100, "stage6": 100, "stage7": 100}'::jsonb),
-(3, 2, 'in_progress', 45, NULL, 680, NULL, CURRENT_TIMESTAMP - INTERVAL '3 hours', 1,
+(3, 2, 'in_progress', 45, NULL, 11, NULL, CURRENT_TIMESTAMP - INTERVAL '3 hours', 1,
  '{"stage1": 100, "stage2": 100, "stage3": 50, "stage4": 0, "stage5": 0, "stage6": 0, "stage7": 0}'::jsonb);
 
 -- ==================== Vocabulary Progress (SRS) ====================

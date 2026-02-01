@@ -83,6 +83,24 @@ void main() async {
   runApp(const LemonKoreanApp());
 }
 
+/// Convert AppLanguage to Locale
+Locale _getLocaleFromLanguage(AppLanguage language) {
+  switch (language) {
+    case AppLanguage.zhCN:
+      return const Locale('zh');
+    case AppLanguage.zhTW:
+      return const Locale('zh', 'TW');
+    case AppLanguage.ko:
+      return const Locale('ko');
+    case AppLanguage.en:
+      return const Locale('en');
+    case AppLanguage.ja:
+      return const Locale('ja');
+    case AppLanguage.es:
+      return const Locale('es');
+  }
+}
+
 class LemonKoreanApp extends StatelessWidget {
   const LemonKoreanApp({super.key});
 
@@ -102,10 +120,8 @@ class LemonKoreanApp extends StatelessWidget {
       ],
       child: Consumer<SettingsProvider>(
         builder: (context, settings, child) {
-          // Determine locale based on Chinese variant setting
-          final locale = settings.chineseVariant == ChineseVariant.traditional
-              ? const Locale('zh', 'TW')
-              : const Locale('zh');
+          // Determine locale based on app language setting
+          final locale = _getLocaleFromLanguage(settings.appLanguage);
 
           return MaterialApp(
             title: AppConstants.appName,

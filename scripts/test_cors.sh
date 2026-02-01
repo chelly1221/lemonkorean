@@ -1,6 +1,6 @@
 #!/bin/bash
 # CORS Configuration Test Script
-# Tests all allowed origins for Progress and Media services
+# Tests allowed origins for Progress and Media services
 
 set -e
 
@@ -44,20 +44,14 @@ test_cors() {
 
 # Test Progress Service
 echo "--- Progress Service Tests ---"
-test_cors "Progress" "3003/api/progress/user/1" "http://localhost:3007" "http://localhost:3007"
 test_cors "Progress" "3003/api/progress/user/1" "http://localhost" "http://localhost"
-test_cors "Progress" "3003/api/progress/user/1" "http://127.0.0.1:3007" "http://127.0.0.1:3007"
-test_cors "Progress" "3003/api/progress/user/1" "http://3chan.kr:3007" "http://3chan.kr:3007"
-test_cors "Progress" "3003/api/progress/user/1" "http://3chan.kr" "http://3chan.kr"
+test_cors "Progress" "3003/api/progress/user/1" "http://lemon.3chan.kr" "http://lemon.3chan.kr"
 echo ""
 
 # Test Media Service
 echo "--- Media Service Tests ---"
-test_cors "Media" "3004/media/images/test.jpg" "http://localhost:3007" "http://localhost:3007"
 test_cors "Media" "3004/media/images/test.jpg" "http://localhost" "http://localhost"
-test_cors "Media" "3004/media/images/test.jpg" "http://127.0.0.1:3007" "http://127.0.0.1:3007"
-test_cors "Media" "3004/media/images/test.jpg" "http://3chan.kr:3007" "http://3chan.kr:3007"
-test_cors "Media" "3004/media/images/test.jpg" "http://3chan.kr" "http://3chan.kr"
+test_cors "Media" "3004/media/images/test.jpg" "http://lemon.3chan.kr" "http://lemon.3chan.kr"
 echo ""
 
 # Test disallowed origin (should fail)
@@ -81,7 +75,7 @@ echo "=========================================="
 echo ""
 echo "Next steps:"
 echo "1. Open browser DevTools (F12)"
-echo "2. Navigate to: http://3chan.kr:3007"
+echo "2. Navigate to: https://lemon.3chan.kr/app/"
 echo "3. Check Console for CORS errors (should be none)"
 echo "4. Check Network tab for API calls"
 echo "5. Verify 'Access-Control-Allow-Origin' headers"

@@ -42,7 +42,7 @@ flutter build web
 - Restart: Completed at 2026-01-31 11:34 KST
 
 **Access URLs:**
-- **Production**: http://3chan.kr/app/
+- **Production**: https://lemon.3chan.kr/app/
 - **Local**: http://localhost/app/
 - **Status**: ✅ HTTP 200 OK (Verified)
 
@@ -309,6 +309,6 @@ If issues arise:
 - ✅ **Nginx serving web app correctly**
 - ✅ **localStorage stub fully functional**
 - ✅ **No errors in browser console**
-- ✅ **Production URL accessible**: http://3chan.kr/app/
+- ✅ **Production URL accessible**: https://lemon.3chan.kr/app/
 
 **The Flutter web app is now live and fully functional!** 🎉

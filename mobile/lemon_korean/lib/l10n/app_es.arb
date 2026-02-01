@@ -1,0 +1,720 @@
+{
+  "@@locale": "es",
+  "@@context": "LemonKorean App - Spanish",
+
+  "appName": "Lemon Coreano",
+  "@appName": {"description": "App name"},
+
+  "login": "Iniciar sesión",
+  "@login": {"description": "Login button"},
+
+  "register": "Registrarse",
+  "@register": {"description": "Register button"},
+
+  "email": "Correo electrónico",
+  "@email": {"description": "Email field label"},
+
+  "password": "Contraseña",
+  "@password": {"description": "Password field label"},
+
+  "confirmPassword": "Confirmar contraseña",
+  "@confirmPassword": {"description": "Confirm password field label"},
+
+  "username": "Nombre de usuario",
+  "@username": {"description": "Username field label"},
+
+  "enterEmail": "Ingresa tu correo electrónico",
+  "@enterEmail": {"description": "Email placeholder"},
+
+  "enterPassword": "Ingresa tu contraseña",
+  "@enterPassword": {"description": "Password placeholder"},
+
+  "enterConfirmPassword": "Ingresa tu contraseña nuevamente",
+  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
+
+  "enterUsername": "Ingresa tu nombre de usuario",
+  "@enterUsername": {"description": "Username placeholder"},
+
+  "createAccount": "Crear cuenta",
+  "@createAccount": {"description": "Create account title"},
+
+  "startJourney": "Comienza tu viaje de aprendizaje del coreano",
+  "@startJourney": {"description": "Subtitle for registration"},
+
+  "interfaceLanguage": "Idioma de la interfaz",
+  "@interfaceLanguage": {"description": "Interface language label"},
+
+  "simplifiedChinese": "Chino simplificado",
+  "@simplifiedChinese": {"description": "Simplified Chinese option"},
+
+  "traditionalChinese": "Chino tradicional",
+  "@traditionalChinese": {"description": "Traditional Chinese option"},
+
+  "passwordRequirements": "Requisitos de contraseña",
+  "@passwordRequirements": {"description": "Password requirements title"},
+
+  "minCharacters": "Al menos {count} caracteres",
+  "@minCharacters": {
+    "description": "Minimum characters requirement",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "containLettersNumbers": "Contiene letras y números",
+  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
+
+  "haveAccount": "¿Ya tienes una cuenta?",
+  "@haveAccount": {"description": "Already have account text"},
+
+  "noAccount": "¿No tienes una cuenta?",
+  "@noAccount": {"description": "No account text"},
+
+  "loginNow": "Inicia sesión ahora",
+  "@loginNow": {"description": "Login now button"},
+
+  "registerNow": "Regístrate ahora",
+  "@registerNow": {"description": "Register now button"},
+
+  "registerSuccess": "Registro exitoso",
+  "@registerSuccess": {"description": "Registration success message"},
+
+  "registerFailed": "Registro fallido",
+  "@registerFailed": {"description": "Registration failed message"},
+
+  "loginSuccess": "Inicio de sesión exitoso",
+  "@loginSuccess": {"description": "Login success message"},
+
+  "loginFailed": "Inicio de sesión fallido",
+  "@loginFailed": {"description": "Login failed message"},
+
+  "networkError": "Error de conexión de red. Por favor verifica tu configuración de red.",
+  "@networkError": {"description": "Network error message"},
+
+  "invalidCredentials": "Correo electrónico o contraseña inválidos",
+  "@invalidCredentials": {"description": "Invalid credentials message"},
+
+  "emailAlreadyExists": "El correo electrónico ya está registrado",
+  "@emailAlreadyExists": {"description": "Email exists message"},
+
+  "requestTimeout": "Tiempo de solicitud agotado. Por favor intenta de nuevo.",
+  "@requestTimeout": {"description": "Request timeout message"},
+
+  "operationFailed": "Operación fallida. Por favor intenta más tarde.",
+  "@operationFailed": {"description": "Generic operation failed message"},
+
+  "settings": "Configuración",
+  "@settings": {"description": "Settings title"},
+
+  "languageSettings": "Configuración de idioma",
+  "@languageSettings": {"description": "Language settings title"},
+
+  "chineseDisplay": "Visualización del chino",
+  "@chineseDisplay": {"description": "Chinese display section title"},
+
+  "chineseDisplayDesc": "Elige cómo se muestran los caracteres chinos. Los cambios se aplicarán a todas las pantallas inmediatamente.",
+  "@chineseDisplayDesc": {"description": "Chinese display description"},
+
+  "switchedToSimplified": "Cambiado a chino simplificado",
+  "@switchedToSimplified": {"description": "Switched to simplified message"},
+
+  "switchedToTraditional": "Cambiado a chino tradicional",
+  "@switchedToTraditional": {"description": "Switched to traditional message"},
+
+  "displayTip": "Consejo: El contenido de las lecciones se mostrará usando la fuente china seleccionada.",
+  "@displayTip": {"description": "Display tip text"},
+
+  "notificationSettings": "Configuración de notificaciones",
+  "@notificationSettings": {"description": "Notification settings title"},
+
+  "enableNotifications": "Habilitar notificaciones",
+  "@enableNotifications": {"description": "Enable notifications toggle"},
+
+  "enableNotificationsDesc": "Activa para recibir recordatorios de aprendizaje",
+  "@enableNotificationsDesc": {"description": "Enable notifications description"},
+
+  "permissionRequired": "Por favor permite los permisos de notificación en la configuración del sistema",
+  "@permissionRequired": {"description": "Permission required message"},
+
+  "dailyLearningReminder": "Recordatorio diario de aprendizaje",
+  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
+
+  "dailyReminder": "Recordatorio diario",
+  "@dailyReminder": {"description": "Daily reminder toggle"},
+
+  "dailyReminderDesc": "Recibe un recordatorio a una hora fija cada día",
+  "@dailyReminderDesc": {"description": "Daily reminder description"},
+
+  "reminderTime": "Hora del recordatorio",
+  "@reminderTime": {"description": "Reminder time label"},
+
+  "reminderTimeSet": "Hora del recordatorio establecida a las {time}",
+  "@reminderTimeSet": {
+    "description": "Reminder time set message",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "reviewReminder": "Recordatorio de repaso",
+  "@reviewReminder": {"description": "Review reminder toggle"},
+
+  "reviewReminderDesc": "Recibe recordatorios basados en la curva de memoria",
+  "@reviewReminderDesc": {"description": "Review reminder description"},
+
+  "notificationTip": "Consejo:",
+  "@notificationTip": {"description": "Tip prefix"},
+
+  "helpCenter": "Centro de ayuda",
+  "@helpCenter": {"description": "Help center title"},
+
+  "offlineLearning": "Aprendizaje sin conexión",
+  "@offlineLearning": {"description": "Offline learning section"},
+
+  "howToDownload": "¿Cómo descargo las lecciones?",
+  "@howToDownload": {"description": "How to download FAQ"},
+
+  "howToDownloadAnswer": "En la lista de lecciones, toca el ícono de descarga a la derecha para descargar una lección. Puedes estudiar sin conexión después de descargar.",
+  "@howToDownloadAnswer": {"description": "How to download answer"},
+
+  "howToUseDownloaded": "¿Cómo uso las lecciones descargadas?",
+  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
+
+  "howToUseDownloadedAnswer": "Puedes estudiar las lecciones descargadas normalmente incluso sin conexión a la red. El progreso se guarda localmente y se sincroniza automáticamente cuando te reconectes.",
+  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
+
+  "storageManagement": "Gestión de almacenamiento",
+  "@storageManagement": {"description": "Storage management section"},
+
+  "howToCheckStorage": "¿Cómo verifico el espacio de almacenamiento?",
+  "@howToCheckStorage": {"description": "How to check storage FAQ"},
+
+  "howToCheckStorageAnswer": "Ve a [Configuración → Gestión de almacenamiento] para ver el espacio utilizado y disponible.",
+  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
+
+  "howToDeleteDownloaded": "¿Cómo elimino las lecciones descargadas?",
+  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
+
+  "howToDeleteDownloadedAnswer": "En [Gestión de almacenamiento], toca el botón de eliminar junto a la lección para borrarla.",
+  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
+
+  "notificationSection": "Configuración de notificaciones",
+  "@notificationSection": {"description": "Notification section in help"},
+
+  "howToEnableReminder": "¿Cómo activo los recordatorios de aprendizaje?",
+  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
+
+  "howToEnableReminderAnswer": "Ve a [Configuración → Configuración de notificaciones] y activa [Habilitar notificaciones]. Necesitas otorgar permisos de notificación en el primer uso.",
+  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
+
+  "whatIsReviewReminder": "¿Qué es un recordatorio de repaso?",
+  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
+
+  "whatIsReviewReminderAnswer": "Basado en el algoritmo de repetición espaciada (SRS), la aplicación te recordará repasar las lecciones completadas en momentos óptimos. Intervalos de repaso: 1 día → 3 días → 7 días → 14 días → 30 días.",
+  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
+
+  "languageSection": "Configuración de idioma",
+  "@languageSection": {"description": "Language section in help"},
+
+  "howToSwitchChinese": "¿Cómo cambio entre chino simplificado y tradicional?",
+  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
+
+  "howToSwitchChineseAnswer": "Ve a [Configuración → Configuración de idioma] y selecciona [Chino simplificado] o [Chino tradicional]. Los cambios se aplican inmediatamente.",
+  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
+
+  "faq": "Preguntas frecuentes",
+  "@faq": {"description": "FAQ section title"},
+
+  "howToStart": "¿Cómo empiezo a aprender?",
+  "@howToStart": {"description": "How to start learning FAQ"},
+
+  "howToStartAnswer": "En la pantalla principal, selecciona una lección apropiada para tu nivel y comienza desde la Lección 1. Cada lección consta de 7 etapas.",
+  "@howToStartAnswer": {"description": "How to start learning answer"},
+
+  "progressNotSaved": "¿Qué pasa si mi progreso no se guarda?",
+  "@progressNotSaved": {"description": "Progress not saved FAQ"},
+
+  "progressNotSavedAnswer": "El progreso se guarda automáticamente de forma local. Si estás en línea, se sincronizará automáticamente con el servidor. Por favor verifica tu conexión de red.",
+  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
+
+  "aboutApp": "Acerca de la aplicación",
+  "@aboutApp": {"description": "About app title"},
+
+  "moreInfo": "Más información",
+  "@moreInfo": {"description": "More info section"},
+
+  "versionInfo": "Información de versión",
+  "@versionInfo": {"description": "Version info label"},
+
+  "developer": "Desarrollador",
+  "@developer": {"description": "Developer label"},
+
+  "appIntro": "Introducción de la aplicación",
+  "@appIntro": {"description": "App introduction label"},
+
+  "appIntroContent": "Una aplicación de aprendizaje de coreano diseñada para hablantes de chino, con soporte para aprendizaje sin conexión, recordatorios inteligentes de repaso y más.",
+  "@appIntroContent": {"description": "App introduction content"},
+
+  "termsOfService": "Términos de servicio",
+  "@termsOfService": {"description": "Terms of service"},
+
+  "termsComingSoon": "Página de términos de servicio en desarrollo...",
+  "@termsComingSoon": {"description": "Terms coming soon message"},
+
+  "privacyPolicy": "Política de privacidad",
+  "@privacyPolicy": {"description": "Privacy policy"},
+
+  "privacyComingSoon": "Página de política de privacidad en desarrollo...",
+  "@privacyComingSoon": {"description": "Privacy coming soon message"},
+
+  "openSourceLicenses": "Licencias de código abierto",
+  "@openSourceLicenses": {"description": "Open source licenses"},
+
+  "notStarted": "No iniciado",
+  "@notStarted": {"description": "Status: not started"},
+
+  "inProgress": "En progreso",
+  "@inProgress": {"description": "Status: in progress"},
+
+  "completed": "Completado",
+  "@completed": {"description": "Status: completed"},
+
+  "notPassed": "No aprobado",
+  "@notPassed": {"description": "Status: not passed"},
+
+  "timeToReview": "Hora de repasar",
+  "@timeToReview": {"description": "Time to review message"},
+
+  "today": "Hoy",
+  "@today": {"description": "Today"},
+
+  "tomorrow": "Mañana",
+  "@tomorrow": {"description": "Tomorrow"},
+
+  "daysLater": "En {count} días",
+  "@daysLater": {
+    "description": "Days later",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "noun": "Sustantivo",
+  "@noun": {"description": "Part of speech: noun"},
+
+  "verb": "Verbo",
+  "@verb": {"description": "Part of speech: verb"},
+
+  "adjective": "Adjetivo",
+  "@adjective": {"description": "Part of speech: adjective"},
+
+  "adverb": "Adverbio",
+  "@adverb": {"description": "Part of speech: adverb"},
+
+  "particle": "Partícula",
+  "@particle": {"description": "Part of speech: particle"},
+
+  "pronoun": "Pronombre",
+  "@pronoun": {"description": "Part of speech: pronoun"},
+
+  "highSimilarity": "Alta similitud",
+  "@highSimilarity": {"description": "High similarity level"},
+
+  "mediumSimilarity": "Similitud media",
+  "@mediumSimilarity": {"description": "Medium similarity level"},
+
+  "lowSimilarity": "Baja similitud",
+  "@lowSimilarity": {"description": "Low similarity level"},
+
+  "lessonComplete": "¡Lección completada!",
+  "@lessonComplete": {"description": "Lesson complete message"},
+
+  "learningComplete": "Aprendizaje completado",
+  "@learningComplete": {"description": "Learning complete title"},
+
+  "experiencePoints": "+{points} XP",
+  "@experiencePoints": {
+    "description": "Experience points gained",
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+
+  "keepLearning": "Mantén tu motivación de aprendizaje",
+  "@keepLearning": {"description": "Keep learning message"},
+
+  "streakDays": "Racha +1 día",
+  "@streakDays": {"description": "Streak days increased"},
+
+  "streakDaysCount": "Racha de {days} días",
+  "@streakDaysCount": {
+    "description": "Streak days count",
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "lessonContent": "Contenido de la lección",
+  "@lessonContent": {"description": "Lesson content title"},
+
+  "words": "Palabras",
+  "@words": {"description": "Words label"},
+
+  "grammarPoints": "Puntos de gramática",
+  "@grammarPoints": {"description": "Grammar points label"},
+
+  "dialogues": "Diálogos",
+  "@dialogues": {"description": "Dialogues label"},
+
+  "grammarExplanation": "Explicación de gramática",
+  "@grammarExplanation": {"description": "Grammar explanation title"},
+
+  "exampleSentences": "Oraciones de ejemplo",
+  "@exampleSentences": {"description": "Example sentences label"},
+
+  "previous": "Anterior",
+  "@previous": {"description": "Previous button"},
+
+  "next": "Siguiente",
+  "@next": {"description": "Next button"},
+
+  "continueBtn": "Continuar",
+  "@continueBtn": {"description": "Continue button"},
+
+  "topicParticle": "Partícula de tema",
+  "@topicParticle": {"description": "Topic particle grammar"},
+
+  "honorificEnding": "Terminación honorífica",
+  "@honorificEnding": {"description": "Honorific ending grammar"},
+
+  "questionWord": "Qué",
+  "@questionWord": {"description": "Question word what"},
+
+  "hello": "Hola",
+  "@hello": {"description": "Hello"},
+
+  "thankYou": "Gracias",
+  "@thankYou": {"description": "Thank you"},
+
+  "goodbye": "Adiós",
+  "@goodbye": {"description": "Goodbye"},
+
+  "sorry": "Lo siento",
+  "@sorry": {"description": "Sorry"},
+
+  "imStudent": "Soy estudiante",
+  "@imStudent": {"description": "I am a student"},
+
+  "bookInteresting": "El libro es interesante",
+  "@bookInteresting": {"description": "Book is interesting"},
+
+  "isStudent": "es estudiante",
+  "@isStudent": {"description": "Is student"},
+
+  "isTeacher": "es profesor",
+  "@isTeacher": {"description": "Is teacher"},
+
+  "whatIsThis": "¿Qué es esto?",
+  "@whatIsThis": {"description": "What is this?"},
+
+  "whatDoingPolite": "¿Qué estás haciendo?",
+  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
+
+  "listenAndChoose": "Escucha y elige la traducción correcta",
+  "@listenAndChoose": {"description": "Listen and choose instruction"},
+
+  "fillInBlank": "Llena con la partícula correcta",
+  "@fillInBlank": {"description": "Fill in blank instruction"},
+
+  "chooseTranslation": "Elige la traducción correcta",
+  "@chooseTranslation": {"description": "Choose translation instruction"},
+
+  "arrangeWords": "Ordena las palabras correctamente",
+  "@arrangeWords": {"description": "Arrange words instruction"},
+
+  "choosePronunciation": "Elige la pronunciación correcta",
+  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
+
+  "consonantEnding": "¿Qué partícula de tema se debe usar cuando un sustantivo termina en consonante?",
+  "@consonantEnding": {"description": "Consonant ending quiz question"},
+
+  "correctSentence": "Elige la oración correcta",
+  "@correctSentence": {"description": "Choose correct sentence instruction"},
+
+  "allCorrect": "Todas las anteriores",
+  "@allCorrect": {"description": "All of the above option"},
+
+  "howAreYou": "¿Cómo estás?",
+  "@howAreYou": {"description": "How are you?"},
+
+  "whatIsYourName": "¿Cuál es tu nombre?",
+  "@whatIsYourName": {"description": "What is your name?"},
+
+  "whoAreYou": "¿Quién eres?",
+  "@whoAreYou": {"description": "Who are you?"},
+
+  "whereAreYou": "¿Dónde estás?",
+  "@whereAreYou": {"description": "Where are you?"},
+
+  "niceToMeetYou": "Mucho gusto",
+  "@niceToMeetYou": {"description": "Nice to meet you"},
+
+  "areYouStudent": "Eres estudiante",
+  "@areYouStudent": {"description": "You are a student"},
+
+  "areYouStudentQuestion": "¿Eres estudiante?",
+  "@areYouStudentQuestion": {"description": "Are you a student?"},
+
+  "amIStudent": "¿Soy estudiante?",
+  "@amIStudent": {"description": "Am I a student?"},
+
+  "listening": "Escucha",
+  "@listening": {"description": "Listening question type"},
+
+  "fillBlank": "Llenar espacios",
+  "@fillBlank": {"description": "Fill in blank question type"},
+
+  "translation": "Traducción",
+  "@translation": {"description": "Translation question type"},
+
+  "wordOrder": "Orden de palabras",
+  "@wordOrder": {"description": "Word order question type"},
+
+  "pronunciation": "Pronunciación",
+  "@pronunciation": {"description": "Pronunciation question type"},
+
+  "excellent": "¡Excelente!",
+  "@excellent": {"description": "Excellent feedback"},
+
+  "correctOrderIs": "Orden correcto:",
+  "@correctOrderIs": {"description": "Correct order is prefix"},
+
+  "correctAnswerIs": "Respuesta correcta:",
+  "@correctAnswerIs": {"description": "Correct answer is prefix"},
+
+  "previousQuestion": "Pregunta anterior",
+  "@previousQuestion": {"description": "Previous question button"},
+
+  "nextQuestion": "Siguiente pregunta",
+  "@nextQuestion": {"description": "Next question button"},
+
+  "finish": "Finalizar",
+  "@finish": {"description": "Finish button"},
+
+  "quizComplete": "¡Cuestionario completado!",
+  "@quizComplete": {"description": "Quiz complete title"},
+
+  "greatJob": "¡Buen trabajo!",
+  "@greatJob": {"description": "Great job message"},
+
+  "keepPracticing": "¡Sigue así!",
+  "@keepPracticing": {"description": "Keep practicing message"},
+
+  "score": "Puntuación: {correct} / {total}",
+  "@score": {
+    "description": "Score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "masteredContent": "¡Has dominado el contenido de esta lección!",
+  "@masteredContent": {"description": "Mastered content message"},
+
+  "reviewSuggestion": "¡Intenta revisar el contenido de la lección antes de intentar de nuevo!",
+  "@reviewSuggestion": {"description": "Review suggestion message"},
+
+  "timeUsed": "Tiempo: {time}",
+  "@timeUsed": {
+    "description": "Time used display",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "playAudio": "Reproducir audio",
+  "@playAudio": {"description": "Play audio button"},
+
+  "replayAudio": "Reproducir de nuevo",
+  "@replayAudio": {"description": "Replay audio button"},
+
+  "vowelEnding": "Cuando termina en vocal, usa:",
+  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
+
+  "lessonNumber": "Lección {number}",
+  "@lessonNumber": {
+    "description": "Lesson number",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "stageIntro": "Introducción",
+  "@stageIntro": {"description": "Stage 1: Introduction"},
+
+  "stageVocabulary": "Vocabulario",
+  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
+
+  "stageGrammar": "Gramática",
+  "@stageGrammar": {"description": "Stage 3: Grammar"},
+
+  "stagePractice": "Práctica",
+  "@stagePractice": {"description": "Stage 4: Practice"},
+
+  "stageDialogue": "Diálogo",
+  "@stageDialogue": {"description": "Stage 5: Dialogue"},
+
+  "stageQuiz": "Cuestionario",
+  "@stageQuiz": {"description": "Stage 6: Quiz"},
+
+  "stageSummary": "Resumen",
+  "@stageSummary": {"description": "Stage 7: Summary"},
+
+  "downloadLesson": "Descargar lección",
+  "@downloadLesson": {"description": "Download lesson button"},
+
+  "downloading": "Descargando...",
+  "@downloading": {"description": "Downloading status"},
+
+  "downloaded": "Descargado",
+  "@downloaded": {"description": "Downloaded status"},
+
+  "downloadFailed": "Descarga fallida",
+  "@downloadFailed": {"description": "Download failed status"},
+
+  "home": "Inicio",
+  "@home": {"description": "Home tab"},
+
+  "lessons": "Lecciones",
+  "@lessons": {"description": "Lessons tab"},
+
+  "review": "Repaso",
+  "@review": {"description": "Review tab"},
+
+  "profile": "Perfil",
+  "@profile": {"description": "Profile tab"},
+
+  "continueLearning": "Continuar aprendiendo",
+  "@continueLearning": {"description": "Continue learning button"},
+
+  "dailyGoal": "Meta diaria",
+  "@dailyGoal": {"description": "Daily goal title"},
+
+  "lessonsCompleted": "{count} lecciones completadas",
+  "@lessonsCompleted": {
+    "description": "Lessons completed count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "minutesLearned": "{minutes} minutos aprendidos",
+  "@minutesLearned": {
+    "description": "Minutes learned count",
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+
+  "welcome": "Bienvenido de nuevo",
+  "@welcome": {"description": "Welcome message"},
+
+  "goodMorning": "Buenos días",
+  "@goodMorning": {"description": "Good morning greeting"},
+
+  "goodAfternoon": "Buenas tardes",
+  "@goodAfternoon": {"description": "Good afternoon greeting"},
+
+  "goodEvening": "Buenas noches",
+  "@goodEvening": {"description": "Good evening greeting"},
+
+  "logout": "Cerrar sesión",
+  "@logout": {"description": "Logout button"},
+
+  "confirmLogout": "¿Estás seguro de que quieres cerrar sesión?",
+  "@confirmLogout": {"description": "Logout confirmation"},
+
+  "cancel": "Cancelar",
+  "@cancel": {"description": "Cancel button"},
+
+  "confirm": "Confirmar",
+  "@confirm": {"description": "Confirm button"},
+
+  "delete": "Eliminar",
+  "@delete": {"description": "Delete button"},
+
+  "save": "Guardar",
+  "@save": {"description": "Save button"},
+
+  "edit": "Editar",
+  "@edit": {"description": "Edit button"},
+
+  "close": "Cerrar",
+  "@close": {"description": "Close button"},
+
+  "retry": "Reintentar",
+  "@retry": {"description": "Retry button"},
+
+  "loading": "Cargando...",
+  "@loading": {"description": "Loading status"},
+
+  "noData": "Sin datos disponibles",
+  "@noData": {"description": "No data message"},
+
+  "error": "Ocurrió un error",
+  "@error": {"description": "Error title"},
+
+  "success": "Éxito",
+  "@success": {"description": "Success title"},
+
+  "filter": "Filtrar",
+  "@filter": {"description": "Filter button"},
+
+  "reviewSchedule": "Calendario de repaso",
+  "@reviewSchedule": {"description": "Review schedule title"},
+
+  "todayReview": "Repaso de hoy",
+  "@todayReview": {"description": "Today's review title"},
+
+  "startReview": "Comenzar repaso",
+  "@startReview": {"description": "Start review button"},
+
+  "learningStats": "Estadísticas de aprendizaje",
+  "@learningStats": {"description": "Learning statistics section"},
+
+  "completedLessonsCount": "Lecciones completadas",
+  "@completedLessonsCount": {"description": "Completed lessons label"},
+
+  "studyDays": "Días de estudio",
+  "@studyDays": {"description": "Study days label"},
+
+  "masteredWordsCount": "Palabras dominadas",
+  "@masteredWordsCount": {"description": "Mastered words label"},
+
+  "myVocabularyBook": "Mi libro de vocabulario",
+  "@myVocabularyBook": {"description": "My vocabulary book"},
+
+  "vocabularyBrowser": "Explorador de vocabulario",
+  "@vocabularyBrowser": {"description": "Vocabulary browser"},
+
+  "about": "Acerca de",
+  "@about": {"description": "About section"},
+
+  "premiumMember": "Miembro premium",
+  "@premiumMember": {"description": "Premium member label"},
+
+  "freeUser": "Usuario gratuito",
+  "@freeUser": {"description": "Free user label"},
+
+  "wordsWaitingReview": "{count} palabras esperando repaso",
+  "@wordsWaitingReview": {
+    "description": "Words waiting for review",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "user": "Usuario",
+  "@user": {"description": "Default user name"}
+}

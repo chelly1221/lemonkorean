@@ -106,8 +106,8 @@ class ApiClient {
     );
   }
 
-  Future<Response> getUserProfile(int userId) async {
-    return await _dio.get('/auth/profile/$userId');
+  Future<Response> getUserProfile() async {
+    return await _dio.get('/auth/profile');
   }
 
   Future<void> logout() async {

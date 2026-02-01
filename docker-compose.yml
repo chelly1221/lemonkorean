@@ -263,6 +263,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3003
+      JWT_SECRET: ${JWT_SECRET}
       DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}?sslmode=disable
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -295,6 +296,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3004
+      JWT_SECRET: ${JWT_SECRET}
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}

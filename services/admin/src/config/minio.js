@@ -14,7 +14,8 @@ const initMinIO = () => {
       port: parseInt(port) || 9000,
       useSSL: process.env.MINIO_USE_SSL === 'true',
       accessKey: process.env.MINIO_ACCESS_KEY,
-      secretKey: process.env.MINIO_SECRET_KEY
+      secretKey: process.env.MINIO_SECRET_KEY,
+      region: 'us-east-1'  // Required for minio-js 7.x
     });
 
     console.log('[MINIO] Client initialized');

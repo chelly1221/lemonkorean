@@ -646,6 +646,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get success => '成功';
+
+  @override
+  String get filter => '筛选';
+
+  @override
+  String get reviewSchedule => '复习计划';
+
+  @override
+  String get todayReview => '今日复习';
+
+  @override
+  String get startReview => '开始复习';
+
+  @override
+  String get learningStats => '学习统计';
+
+  @override
+  String get completedLessonsCount => '已完成课程';
+
+  @override
+  String get studyDays => '学习天数';
+
+  @override
+  String get masteredWordsCount => '掌握单词';
+
+  @override
+  String get myVocabularyBook => '我的单词本';
+
+  @override
+  String get vocabularyBrowser => '单词浏览器';
+
+  @override
+  String get about => '关于';
+
+  @override
+  String get premiumMember => '高级会员';
+
+  @override
+  String get freeUser => '免费用户';
+
+  @override
+  String wordsWaitingReview(int count) {
+    return '$count个单词等待复习';
+  }
+
+  @override
+  String get user => '用户';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -1290,4 +1337,51 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get success => '成功';
+
+  @override
+  String get filter => '篩選';
+
+  @override
+  String get reviewSchedule => '複習計劃';
+
+  @override
+  String get todayReview => '今日複習';
+
+  @override
+  String get startReview => '開始複習';
+
+  @override
+  String get learningStats => '學習統計';
+
+  @override
+  String get completedLessonsCount => '已完成課程';
+
+  @override
+  String get studyDays => '學習天數';
+
+  @override
+  String get masteredWordsCount => '掌握單詞';
+
+  @override
+  String get myVocabularyBook => '我的單詞本';
+
+  @override
+  String get vocabularyBrowser => '單詞瀏覽器';
+
+  @override
+  String get about => '關於';
+
+  @override
+  String get premiumMember => '高級會員';
+
+  @override
+  String get freeUser => '免費用戶';
+
+  @override
+  String wordsWaitingReview(int count) {
+    return '$count個單詞等待複習';
+  }
+
+  @override
+  String get user => '用戶';
 }

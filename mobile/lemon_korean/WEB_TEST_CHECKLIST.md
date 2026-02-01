@@ -8,8 +8,8 @@
 
 ## Deployment
 - [ ] `docker compose restart nginx` 실행
-- [ ] http://3chan.kr/app/ 접속 가능 (200 OK)
-- [ ] https://3chan.kr/app/ 접속 가능 (SSL 정상)
+- [ ] https://lemon.3chan.kr/app/ 접속 가능 (200 OK)
+- [ ] https://lemon.3chan.kr/app/ 접속 가능 (SSL 정상)
 
 ## Functionality
 - [ ] 로그인 화면 표시
@@ -23,7 +23,7 @@
 
 ## Browser DevTools
 - [ ] Console: 치명적 에러 없음
-- [ ] Network: API 호출 https://3chan.kr 사용
+- [ ] Network: API 호출 https://lemon.3chan.kr 사용
 - [ ] Application > Local Storage: lk_* 키 존재
 - [ ] Application > Service Worker: 등록됨
 - [ ] Mixed Content 경고 없음

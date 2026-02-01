@@ -109,6 +109,8 @@ const MediaPage = (() => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', getFileType(file.name));
+    // 파일명을 그대로 전송 (백엔드에서 Base64 인코딩)
+    formData.append('originalName', file.name);
 
     try {
       progressBar.style.width = '50%';
@@ -156,7 +158,7 @@ const MediaPage = (() => {
       <div class="col-md-3 mb-3">
         <div class="card">
           <div class="card-body">
-            <h6 class="card-title text-truncate">${file.name}</h6>
+            <h6 class="card-title text-truncate" title="${file.originalName || file.name}">${file.originalName || file.name}</h6>
             <p class="card-text small text-muted">${Formatters.formatFileSize(file.size)}</p>
             <button class="btn btn-sm btn-outline-secondary" onclick="MediaPage.copyURL('${file.url}')">
               <i class="fas fa-copy"></i> URL 복사

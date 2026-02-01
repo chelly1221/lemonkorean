@@ -18,7 +18,10 @@ const uploadFile = async (req, res) => {
       });
     }
 
-    const { type = 'images' } = req.body;
+    const { type = 'images', originalName } = req.body;
+
+    // 원본 파일명 사용 (프론트엔드에서 그대로 전송)
+    const displayName = originalName || req.file.originalname;
 
     // Validate type
     const validTypes = ['images', 'audio', 'video', 'documents'];
@@ -45,7 +48,7 @@ const uploadFile = async (req, res) => {
       });
     }
 
-    const result = await mediaService.uploadFile(req.file, type);
+    const result = await mediaService.uploadFile(req.file, type, displayName);
 
     res.status(201).json({
       success: true,

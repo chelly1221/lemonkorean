@@ -18,8 +18,8 @@ Flutter 웹 버전이 `LateInitializationError: Field '' has not been initialize
 웹 앱 로딩 시 브라우저 콘솔에서 다음 에러 발생:
 ```
 Uncaught : LateInitializationError: Field '' has not been initialized.
-    h http://3chan.kr:3007/main.dart.js:4020
-    ba http://3chan.kr:3007/main.dart.js:46312
+    h https://lemon.3chan.kr:3007/main.dart.js:4020
+    ba https://lemon.3chan.kr:3007/main.dart.js:46312
 ```
 
 ### 근본 원인
@@ -196,7 +196,7 @@ docker compose restart nginx
 **배포 경로**:
 - Volume 매핑: `./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro`
 - Nginx 위치: `location /app/`
-- URL: `http://3chan.kr/app/` 또는 `http://localhost/app/`
+- URL: `https://lemon.3chan.kr/app/` 또는 `http://localhost/app/`
 
 **Nginx 설정** (nginx.conf:502-520):
 ```nginx
@@ -322,4 +322,4 @@ lk_setting_reviewRemindersEnabled: true
 
 Flutter 웹 버전의 LateInitializationError 문제를 완전히 해결하여 웹 앱이 정상적으로 작동하도록 수정했습니다. 웹 스텁을 완전하게 구현하여 모바일 앱과 동일한 API를 제공하며, 브라우저 localStorage를 사용하여 데이터를 저장합니다. 이 수정은 웹 플랫폼에만 영향을 미치며, 모바일 앱은 변경 없이 정상 작동합니다.
 
-**프로덕션 배포 완료**: http://3chan.kr/app/
+**프로덕션 배포 완료**: https://lemon.3chan.kr/app/

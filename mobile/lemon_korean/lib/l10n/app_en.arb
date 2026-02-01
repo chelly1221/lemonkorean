@@ -1,0 +1,720 @@
+{
+  "@@locale": "en",
+  "@@context": "LemonKorean App - English",
+
+  "appName": "Lemon Korean",
+  "@appName": {"description": "App name"},
+
+  "login": "Log In",
+  "@login": {"description": "Login button"},
+
+  "register": "Sign Up",
+  "@register": {"description": "Register button"},
+
+  "email": "Email",
+  "@email": {"description": "Email field label"},
+
+  "password": "Password",
+  "@password": {"description": "Password field label"},
+
+  "confirmPassword": "Confirm Password",
+  "@confirmPassword": {"description": "Confirm password field label"},
+
+  "username": "Username",
+  "@username": {"description": "Username field label"},
+
+  "enterEmail": "Enter your email address",
+  "@enterEmail": {"description": "Email placeholder"},
+
+  "enterPassword": "Enter your password",
+  "@enterPassword": {"description": "Password placeholder"},
+
+  "enterConfirmPassword": "Enter your password again",
+  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
+
+  "enterUsername": "Enter your username",
+  "@enterUsername": {"description": "Username placeholder"},
+
+  "createAccount": "Create Account",
+  "@createAccount": {"description": "Create account title"},
+
+  "startJourney": "Start your Korean learning journey",
+  "@startJourney": {"description": "Subtitle for registration"},
+
+  "interfaceLanguage": "Interface Language",
+  "@interfaceLanguage": {"description": "Interface language label"},
+
+  "simplifiedChinese": "Simplified Chinese",
+  "@simplifiedChinese": {"description": "Simplified Chinese option"},
+
+  "traditionalChinese": "Traditional Chinese",
+  "@traditionalChinese": {"description": "Traditional Chinese option"},
+
+  "passwordRequirements": "Password Requirements",
+  "@passwordRequirements": {"description": "Password requirements title"},
+
+  "minCharacters": "At least {count} characters",
+  "@minCharacters": {
+    "description": "Minimum characters requirement",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "containLettersNumbers": "Contains letters and numbers",
+  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
+
+  "haveAccount": "Already have an account?",
+  "@haveAccount": {"description": "Already have account text"},
+
+  "noAccount": "Don't have an account?",
+  "@noAccount": {"description": "No account text"},
+
+  "loginNow": "Log in now",
+  "@loginNow": {"description": "Login now button"},
+
+  "registerNow": "Sign up now",
+  "@registerNow": {"description": "Register now button"},
+
+  "registerSuccess": "Registration successful",
+  "@registerSuccess": {"description": "Registration success message"},
+
+  "registerFailed": "Registration failed",
+  "@registerFailed": {"description": "Registration failed message"},
+
+  "loginSuccess": "Login successful",
+  "@loginSuccess": {"description": "Login success message"},
+
+  "loginFailed": "Login failed",
+  "@loginFailed": {"description": "Login failed message"},
+
+  "networkError": "Network connection failed. Please check your network settings.",
+  "@networkError": {"description": "Network error message"},
+
+  "invalidCredentials": "Invalid email or password",
+  "@invalidCredentials": {"description": "Invalid credentials message"},
+
+  "emailAlreadyExists": "Email is already registered",
+  "@emailAlreadyExists": {"description": "Email exists message"},
+
+  "requestTimeout": "Request timed out. Please try again.",
+  "@requestTimeout": {"description": "Request timeout message"},
+
+  "operationFailed": "Operation failed. Please try again later.",
+  "@operationFailed": {"description": "Generic operation failed message"},
+
+  "settings": "Settings",
+  "@settings": {"description": "Settings title"},
+
+  "languageSettings": "Language Settings",
+  "@languageSettings": {"description": "Language settings title"},
+
+  "chineseDisplay": "Chinese Display",
+  "@chineseDisplay": {"description": "Chinese display section title"},
+
+  "chineseDisplayDesc": "Choose how Chinese characters are displayed. Changes will be applied to all screens immediately.",
+  "@chineseDisplayDesc": {"description": "Chinese display description"},
+
+  "switchedToSimplified": "Switched to Simplified Chinese",
+  "@switchedToSimplified": {"description": "Switched to simplified message"},
+
+  "switchedToTraditional": "Switched to Traditional Chinese",
+  "@switchedToTraditional": {"description": "Switched to traditional message"},
+
+  "displayTip": "Tip: Lesson content will be displayed using your selected Chinese font.",
+  "@displayTip": {"description": "Display tip text"},
+
+  "notificationSettings": "Notification Settings",
+  "@notificationSettings": {"description": "Notification settings title"},
+
+  "enableNotifications": "Enable Notifications",
+  "@enableNotifications": {"description": "Enable notifications toggle"},
+
+  "enableNotificationsDesc": "Turn on to receive learning reminders",
+  "@enableNotificationsDesc": {"description": "Enable notifications description"},
+
+  "permissionRequired": "Please allow notification permissions in system settings",
+  "@permissionRequired": {"description": "Permission required message"},
+
+  "dailyLearningReminder": "Daily Learning Reminder",
+  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
+
+  "dailyReminder": "Daily Reminder",
+  "@dailyReminder": {"description": "Daily reminder toggle"},
+
+  "dailyReminderDesc": "Receive a reminder at a fixed time every day",
+  "@dailyReminderDesc": {"description": "Daily reminder description"},
+
+  "reminderTime": "Reminder Time",
+  "@reminderTime": {"description": "Reminder time label"},
+
+  "reminderTimeSet": "Reminder time set to {time}",
+  "@reminderTimeSet": {
+    "description": "Reminder time set message",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "reviewReminder": "Review Reminder",
+  "@reviewReminder": {"description": "Review reminder toggle"},
+
+  "reviewReminderDesc": "Receive reminders based on memory curve",
+  "@reviewReminderDesc": {"description": "Review reminder description"},
+
+  "notificationTip": "Tip:",
+  "@notificationTip": {"description": "Tip prefix"},
+
+  "helpCenter": "Help Center",
+  "@helpCenter": {"description": "Help center title"},
+
+  "offlineLearning": "Offline Learning",
+  "@offlineLearning": {"description": "Offline learning section"},
+
+  "howToDownload": "How do I download lessons?",
+  "@howToDownload": {"description": "How to download FAQ"},
+
+  "howToDownloadAnswer": "In the lesson list, tap the download icon on the right to download a lesson. You can study offline after downloading.",
+  "@howToDownloadAnswer": {"description": "How to download answer"},
+
+  "howToUseDownloaded": "How do I use downloaded lessons?",
+  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
+
+  "howToUseDownloadedAnswer": "You can study downloaded lessons normally even without network connection. Progress is saved locally and automatically synced when you reconnect.",
+  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
+
+  "storageManagement": "Storage Management",
+  "@storageManagement": {"description": "Storage management section"},
+
+  "howToCheckStorage": "How do I check storage space?",
+  "@howToCheckStorage": {"description": "How to check storage FAQ"},
+
+  "howToCheckStorageAnswer": "Go to [Settings → Storage Management] to view used and available storage space.",
+  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
+
+  "howToDeleteDownloaded": "How do I delete downloaded lessons?",
+  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
+
+  "howToDeleteDownloadedAnswer": "In [Storage Management], tap the delete button next to the lesson to delete it.",
+  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
+
+  "notificationSection": "Notification Settings",
+  "@notificationSection": {"description": "Notification section in help"},
+
+  "howToEnableReminder": "How do I enable learning reminders?",
+  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
+
+  "howToEnableReminderAnswer": "Go to [Settings → Notification Settings] and turn on [Enable Notifications]. You need to grant notification permissions on first use.",
+  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
+
+  "whatIsReviewReminder": "What is a review reminder?",
+  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
+
+  "whatIsReviewReminderAnswer": "Based on the spaced repetition algorithm (SRS), the app will remind you to review completed lessons at optimal times. Review intervals: 1 day → 3 days → 7 days → 14 days → 30 days.",
+  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
+
+  "languageSection": "Language Settings",
+  "@languageSection": {"description": "Language section in help"},
+
+  "howToSwitchChinese": "How do I switch between Simplified and Traditional Chinese?",
+  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
+
+  "howToSwitchChineseAnswer": "Go to [Settings → Language Settings] and select [Simplified Chinese] or [Traditional Chinese]. Changes take effect immediately.",
+  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
+
+  "faq": "Frequently Asked Questions",
+  "@faq": {"description": "FAQ section title"},
+
+  "howToStart": "How do I start learning?",
+  "@howToStart": {"description": "How to start learning FAQ"},
+
+  "howToStartAnswer": "On the main screen, select a lesson appropriate for your level and start from Lesson 1. Each lesson consists of 7 stages.",
+  "@howToStartAnswer": {"description": "How to start learning answer"},
+
+  "progressNotSaved": "What if my progress isn't saved?",
+  "@progressNotSaved": {"description": "Progress not saved FAQ"},
+
+  "progressNotSavedAnswer": "Progress is automatically saved locally. If online, it will automatically sync to the server. Please check your network connection.",
+  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
+
+  "aboutApp": "About App",
+  "@aboutApp": {"description": "About app title"},
+
+  "moreInfo": "More Information",
+  "@moreInfo": {"description": "More info section"},
+
+  "versionInfo": "Version Info",
+  "@versionInfo": {"description": "Version info label"},
+
+  "developer": "Developer",
+  "@developer": {"description": "Developer label"},
+
+  "appIntro": "App Introduction",
+  "@appIntro": {"description": "App introduction label"},
+
+  "appIntroContent": "A Korean learning app designed for Chinese speakers, supporting offline learning, smart review reminders, and more.",
+  "@appIntroContent": {"description": "App introduction content"},
+
+  "termsOfService": "Terms of Service",
+  "@termsOfService": {"description": "Terms of service"},
+
+  "termsComingSoon": "Terms of Service page is under development...",
+  "@termsComingSoon": {"description": "Terms coming soon message"},
+
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {"description": "Privacy policy"},
+
+  "privacyComingSoon": "Privacy Policy page is under development...",
+  "@privacyComingSoon": {"description": "Privacy coming soon message"},
+
+  "openSourceLicenses": "Open Source Licenses",
+  "@openSourceLicenses": {"description": "Open source licenses"},
+
+  "notStarted": "Not Started",
+  "@notStarted": {"description": "Status: not started"},
+
+  "inProgress": "In Progress",
+  "@inProgress": {"description": "Status: in progress"},
+
+  "completed": "Completed",
+  "@completed": {"description": "Status: completed"},
+
+  "notPassed": "Not Passed",
+  "@notPassed": {"description": "Status: not passed"},
+
+  "timeToReview": "Time to Review",
+  "@timeToReview": {"description": "Time to review message"},
+
+  "today": "Today",
+  "@today": {"description": "Today"},
+
+  "tomorrow": "Tomorrow",
+  "@tomorrow": {"description": "Tomorrow"},
+
+  "daysLater": "{count} days later",
+  "@daysLater": {
+    "description": "Days later",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "noun": "Noun",
+  "@noun": {"description": "Part of speech: noun"},
+
+  "verb": "Verb",
+  "@verb": {"description": "Part of speech: verb"},
+
+  "adjective": "Adjective",
+  "@adjective": {"description": "Part of speech: adjective"},
+
+  "adverb": "Adverb",
+  "@adverb": {"description": "Part of speech: adverb"},
+
+  "particle": "Particle",
+  "@particle": {"description": "Part of speech: particle"},
+
+  "pronoun": "Pronoun",
+  "@pronoun": {"description": "Part of speech: pronoun"},
+
+  "highSimilarity": "High Similarity",
+  "@highSimilarity": {"description": "High similarity level"},
+
+  "mediumSimilarity": "Medium Similarity",
+  "@mediumSimilarity": {"description": "Medium similarity level"},
+
+  "lowSimilarity": "Low Similarity",
+  "@lowSimilarity": {"description": "Low similarity level"},
+
+  "lessonComplete": "Lesson Complete!",
+  "@lessonComplete": {"description": "Lesson complete message"},
+
+  "learningComplete": "Learning Complete",
+  "@learningComplete": {"description": "Learning complete title"},
+
+  "experiencePoints": "+{points} XP",
+  "@experiencePoints": {
+    "description": "Experience points gained",
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+
+  "keepLearning": "Keep up your learning momentum",
+  "@keepLearning": {"description": "Keep learning message"},
+
+  "streakDays": "Streak +1 day",
+  "@streakDays": {"description": "Streak days increased"},
+
+  "streakDaysCount": "{days} day streak",
+  "@streakDaysCount": {
+    "description": "Streak days count",
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "lessonContent": "Lesson Content",
+  "@lessonContent": {"description": "Lesson content title"},
+
+  "words": "Words",
+  "@words": {"description": "Words label"},
+
+  "grammarPoints": "Grammar Points",
+  "@grammarPoints": {"description": "Grammar points label"},
+
+  "dialogues": "Dialogues",
+  "@dialogues": {"description": "Dialogues label"},
+
+  "grammarExplanation": "Grammar Explanation",
+  "@grammarExplanation": {"description": "Grammar explanation title"},
+
+  "exampleSentences": "Example Sentences",
+  "@exampleSentences": {"description": "Example sentences label"},
+
+  "previous": "Previous",
+  "@previous": {"description": "Previous button"},
+
+  "next": "Next",
+  "@next": {"description": "Next button"},
+
+  "continueBtn": "Continue",
+  "@continueBtn": {"description": "Continue button"},
+
+  "topicParticle": "Topic Particle",
+  "@topicParticle": {"description": "Topic particle grammar"},
+
+  "honorificEnding": "Honorific Ending",
+  "@honorificEnding": {"description": "Honorific ending grammar"},
+
+  "questionWord": "What",
+  "@questionWord": {"description": "Question word what"},
+
+  "hello": "Hello",
+  "@hello": {"description": "Hello"},
+
+  "thankYou": "Thank you",
+  "@thankYou": {"description": "Thank you"},
+
+  "goodbye": "Goodbye",
+  "@goodbye": {"description": "Goodbye"},
+
+  "sorry": "Sorry",
+  "@sorry": {"description": "Sorry"},
+
+  "imStudent": "I am a student",
+  "@imStudent": {"description": "I am a student"},
+
+  "bookInteresting": "The book is interesting",
+  "@bookInteresting": {"description": "Book is interesting"},
+
+  "isStudent": "is a student",
+  "@isStudent": {"description": "Is student"},
+
+  "isTeacher": "is a teacher",
+  "@isTeacher": {"description": "Is teacher"},
+
+  "whatIsThis": "What is this?",
+  "@whatIsThis": {"description": "What is this?"},
+
+  "whatDoingPolite": "What are you doing?",
+  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
+
+  "listenAndChoose": "Listen and choose the correct translation",
+  "@listenAndChoose": {"description": "Listen and choose instruction"},
+
+  "fillInBlank": "Fill in the correct particle",
+  "@fillInBlank": {"description": "Fill in blank instruction"},
+
+  "chooseTranslation": "Choose the correct translation",
+  "@chooseTranslation": {"description": "Choose translation instruction"},
+
+  "arrangeWords": "Arrange the words in the correct order",
+  "@arrangeWords": {"description": "Arrange words instruction"},
+
+  "choosePronunciation": "Choose the correct pronunciation",
+  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
+
+  "consonantEnding": "Which topic particle should be used when a noun ends in a consonant?",
+  "@consonantEnding": {"description": "Consonant ending quiz question"},
+
+  "correctSentence": "Choose the correct sentence",
+  "@correctSentence": {"description": "Choose correct sentence instruction"},
+
+  "allCorrect": "All of the above",
+  "@allCorrect": {"description": "All of the above option"},
+
+  "howAreYou": "How are you?",
+  "@howAreYou": {"description": "How are you?"},
+
+  "whatIsYourName": "What is your name?",
+  "@whatIsYourName": {"description": "What is your name?"},
+
+  "whoAreYou": "Who are you?",
+  "@whoAreYou": {"description": "Who are you?"},
+
+  "whereAreYou": "Where are you?",
+  "@whereAreYou": {"description": "Where are you?"},
+
+  "niceToMeetYou": "Nice to meet you",
+  "@niceToMeetYou": {"description": "Nice to meet you"},
+
+  "areYouStudent": "You are a student",
+  "@areYouStudent": {"description": "You are a student"},
+
+  "areYouStudentQuestion": "Are you a student?",
+  "@areYouStudentQuestion": {"description": "Are you a student?"},
+
+  "amIStudent": "Am I a student?",
+  "@amIStudent": {"description": "Am I a student?"},
+
+  "listening": "Listening",
+  "@listening": {"description": "Listening question type"},
+
+  "fillBlank": "Fill in the Blank",
+  "@fillBlank": {"description": "Fill in blank question type"},
+
+  "translation": "Translation",
+  "@translation": {"description": "Translation question type"},
+
+  "wordOrder": "Word Order",
+  "@wordOrder": {"description": "Word order question type"},
+
+  "pronunciation": "Pronunciation",
+  "@pronunciation": {"description": "Pronunciation question type"},
+
+  "excellent": "Excellent!",
+  "@excellent": {"description": "Excellent feedback"},
+
+  "correctOrderIs": "Correct order:",
+  "@correctOrderIs": {"description": "Correct order is prefix"},
+
+  "correctAnswerIs": "Correct answer:",
+  "@correctAnswerIs": {"description": "Correct answer is prefix"},
+
+  "previousQuestion": "Previous Question",
+  "@previousQuestion": {"description": "Previous question button"},
+
+  "nextQuestion": "Next Question",
+  "@nextQuestion": {"description": "Next question button"},
+
+  "finish": "Finish",
+  "@finish": {"description": "Finish button"},
+
+  "quizComplete": "Quiz Complete!",
+  "@quizComplete": {"description": "Quiz complete title"},
+
+  "greatJob": "Great Job!",
+  "@greatJob": {"description": "Great job message"},
+
+  "keepPracticing": "Keep it up!",
+  "@keepPracticing": {"description": "Keep practicing message"},
+
+  "score": "Score: {correct} / {total}",
+  "@score": {
+    "description": "Score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "masteredContent": "You've mastered this lesson's content!",
+  "@masteredContent": {"description": "Mastered content message"},
+
+  "reviewSuggestion": "Try reviewing the lesson content before trying again!",
+  "@reviewSuggestion": {"description": "Review suggestion message"},
+
+  "timeUsed": "Time: {time}",
+  "@timeUsed": {
+    "description": "Time used display",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "playAudio": "Play Audio",
+  "@playAudio": {"description": "Play audio button"},
+
+  "replayAudio": "Replay",
+  "@replayAudio": {"description": "Replay audio button"},
+
+  "vowelEnding": "When ending in a vowel, use:",
+  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
+
+  "lessonNumber": "Lesson {number}",
+  "@lessonNumber": {
+    "description": "Lesson number",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "stageIntro": "Introduction",
+  "@stageIntro": {"description": "Stage 1: Introduction"},
+
+  "stageVocabulary": "Vocabulary",
+  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
+
+  "stageGrammar": "Grammar",
+  "@stageGrammar": {"description": "Stage 3: Grammar"},
+
+  "stagePractice": "Practice",
+  "@stagePractice": {"description": "Stage 4: Practice"},
+
+  "stageDialogue": "Dialogue",
+  "@stageDialogue": {"description": "Stage 5: Dialogue"},
+
+  "stageQuiz": "Quiz",
+  "@stageQuiz": {"description": "Stage 6: Quiz"},
+
+  "stageSummary": "Summary",
+  "@stageSummary": {"description": "Stage 7: Summary"},
+
+  "downloadLesson": "Download Lesson",
+  "@downloadLesson": {"description": "Download lesson button"},
+
+  "downloading": "Downloading...",
+  "@downloading": {"description": "Downloading status"},
+
+  "downloaded": "Downloaded",
+  "@downloaded": {"description": "Downloaded status"},
+
+  "downloadFailed": "Download Failed",
+  "@downloadFailed": {"description": "Download failed status"},
+
+  "home": "Home",
+  "@home": {"description": "Home tab"},
+
+  "lessons": "Lessons",
+  "@lessons": {"description": "Lessons tab"},
+
+  "review": "Review",
+  "@review": {"description": "Review tab"},
+
+  "profile": "Profile",
+  "@profile": {"description": "Profile tab"},
+
+  "continueLearning": "Continue Learning",
+  "@continueLearning": {"description": "Continue learning button"},
+
+  "dailyGoal": "Daily Goal",
+  "@dailyGoal": {"description": "Daily goal title"},
+
+  "lessonsCompleted": "{count} lessons completed",
+  "@lessonsCompleted": {
+    "description": "Lessons completed count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "minutesLearned": "{minutes} minutes learned",
+  "@minutesLearned": {
+    "description": "Minutes learned count",
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+
+  "welcome": "Welcome back",
+  "@welcome": {"description": "Welcome message"},
+
+  "goodMorning": "Good morning",
+  "@goodMorning": {"description": "Good morning greeting"},
+
+  "goodAfternoon": "Good afternoon",
+  "@goodAfternoon": {"description": "Good afternoon greeting"},
+
+  "goodEvening": "Good evening",
+  "@goodEvening": {"description": "Good evening greeting"},
+
+  "logout": "Log Out",
+  "@logout": {"description": "Logout button"},
+
+  "confirmLogout": "Are you sure you want to log out?",
+  "@confirmLogout": {"description": "Logout confirmation"},
+
+  "cancel": "Cancel",
+  "@cancel": {"description": "Cancel button"},
+
+  "confirm": "Confirm",
+  "@confirm": {"description": "Confirm button"},
+
+  "delete": "Delete",
+  "@delete": {"description": "Delete button"},
+
+  "save": "Save",
+  "@save": {"description": "Save button"},
+
+  "edit": "Edit",
+  "@edit": {"description": "Edit button"},
+
+  "close": "Close",
+  "@close": {"description": "Close button"},
+
+  "retry": "Retry",
+  "@retry": {"description": "Retry button"},
+
+  "loading": "Loading...",
+  "@loading": {"description": "Loading status"},
+
+  "noData": "No data available",
+  "@noData": {"description": "No data message"},
+
+  "error": "An error occurred",
+  "@error": {"description": "Error title"},
+
+  "success": "Success",
+  "@success": {"description": "Success title"},
+
+  "filter": "Filter",
+  "@filter": {"description": "Filter button"},
+
+  "reviewSchedule": "Review Schedule",
+  "@reviewSchedule": {"description": "Review schedule title"},
+
+  "todayReview": "Today's Review",
+  "@todayReview": {"description": "Today's review title"},
+
+  "startReview": "Start Review",
+  "@startReview": {"description": "Start review button"},
+
+  "learningStats": "Learning Statistics",
+  "@learningStats": {"description": "Learning statistics section"},
+
+  "completedLessonsCount": "Completed Lessons",
+  "@completedLessonsCount": {"description": "Completed lessons label"},
+
+  "studyDays": "Study Days",
+  "@studyDays": {"description": "Study days label"},
+
+  "masteredWordsCount": "Mastered Words",
+  "@masteredWordsCount": {"description": "Mastered words label"},
+
+  "myVocabularyBook": "My Vocabulary Book",
+  "@myVocabularyBook": {"description": "My vocabulary book"},
+
+  "vocabularyBrowser": "Vocabulary Browser",
+  "@vocabularyBrowser": {"description": "Vocabulary browser"},
+
+  "about": "About",
+  "@about": {"description": "About section"},
+
+  "premiumMember": "Premium Member",
+  "@premiumMember": {"description": "Premium member label"},
+
+  "freeUser": "Free User",
+  "@freeUser": {"description": "Free user label"},
+
+  "wordsWaitingReview": "{count} words waiting for review",
+  "@wordsWaitingReview": {
+    "description": "Words waiting for review",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "user": "User",
+  "@user": {"description": "Default user name"}
+}

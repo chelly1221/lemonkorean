@@ -105,7 +105,7 @@ volumes:
 sudo apt-get install certbot python3-certbot-nginx
 
 # Obtain certificate
-sudo certbot --nginx -d 3chan.kr -d www.3chan.kr
+sudo certbot --nginx -d lemon.3chan.kr -d www.lemon.3chan.kr
 
 # Auto-renewal is handled by systemd timer
 systemctl status certbot.timer
@@ -282,11 +282,11 @@ sudo apt-get install certbot python3-certbot-nginx
 docker compose stop nginx
 
 # 3. Obtain certificate
-sudo certbot certonly --standalone -d 3chan.kr -d www.3chan.kr
+sudo certbot certonly --standalone -d lemon.3chan.kr -d www.lemon.3chan.kr
 
 # 4. Copy certs to nginx/ssl/
-sudo cp /etc/letsencrypt/live/3chan.kr/fullchain.pem nginx/ssl/
-sudo cp /etc/letsencrypt/live/3chan.kr/privkey.pem nginx/ssl/
+sudo cp /etc/letsencrypt/live/lemon.3chan.kr/fullchain.pem nginx/ssl/
+sudo cp /etc/letsencrypt/live/lemon.3chan.kr/privkey.pem nginx/ssl/
 sudo chmod 644 nginx/ssl/*.pem
 
 # 5. Restart nginx
@@ -300,8 +300,8 @@ sudo systemctl start certbot.timer
 sudo nano /etc/letsencrypt/renewal-hooks/deploy/docker-nginx.sh
 
 #!/bin/bash
-cp /etc/letsencrypt/live/3chan.kr/fullchain.pem /home/sanchan/lemonkorean/nginx/ssl/
-cp /etc/letsencrypt/live/3chan.kr/privkey.pem /home/sanchan/lemonkorean/nginx/ssl/
+cp /etc/letsencrypt/live/lemon.3chan.kr/fullchain.pem /home/sanchan/lemonkorean/nginx/ssl/
+cp /etc/letsencrypt/live/lemon.3chan.kr/privkey.pem /home/sanchan/lemonkorean/nginx/ssl/
 chmod 644 /home/sanchan/lemonkorean/nginx/ssl/*.pem
 docker compose -f /home/sanchan/lemonkorean/docker-compose.yml restart nginx
 

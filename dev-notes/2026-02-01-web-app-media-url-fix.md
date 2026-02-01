@@ -10,7 +10,7 @@ priority: high
 # 웹 앱 미디어 URL 도메인 수정
 
 ## 개요
-Flutter 웹 앱의 미디어 로더 스텁에서 잘못된 도메인(`3chan.kr`)을 사용하고 있어 CORS 오류와 혼합 콘텐츠 차단이 발생하던 문제를 수정했습니다.
+Flutter 웹 앱의 미디어 로더 스텁에서 잘못된 도메인(`lemon.3chan.kr`)을 사용하고 있어 CORS 오류와 혼합 콘텐츠 차단이 발생하던 문제를 수정했습니다.
 
 ## 문제 / 배경
 `https://lemon.3chan.kr/app/`에 배포된 웹 앱에서 다음과 같은 콘솔 오류가 발생:
@@ -19,7 +19,7 @@ Flutter 웹 앱의 미디어 로더 스텁에서 잘못된 도메인(`3chan.kr`)
 2. **CORS 오류**: 잘못된 도메인으로 인한 교차 출처 요청 차단
 3. **404 오류**: `/api/admin/network/config` 엔드포인트 미존재 (구버전 코드)
 
-**근본 원인**: `media_loader_stub.dart`가 `https://3chan.kr`을 하드코딩하고 있었으나,
+**근본 원인**: `media_loader_stub.dart`가 `https://lemon.3chan.kr`을 하드코딩하고 있었으나,
 실제 프로덕션 도메인은 `https://lemon.3chan.kr`임.
 
 ## 해결 / 구현
@@ -27,7 +27,7 @@ Flutter 웹 앱의 미디어 로더 스텁에서 잘못된 도메인(`3chan.kr`)
 
 ```dart
 // Before (잘못됨)
-const baseUrl = 'https://3chan.kr';
+const baseUrl = 'https://lemon.3chan.kr';
 
 // After (올바름)
 const baseUrl = 'https://lemon.3chan.kr';
@@ -41,12 +41,12 @@ const baseUrl = 'https://lemon.3chan.kr';
 ```dart
 // Before
 static String _getRemoteImageUrl(String remoteKey) {
-  const baseUrl = 'https://3chan.kr';  // 잘못된 도메인
+  const baseUrl = 'https://lemon.3chan.kr';  // 잘못된 도메인
   return '$baseUrl/media/images/$remoteKey';
 }
 
 static String _getRemoteAudioUrl(String remoteKey) {
-  const baseUrl = 'https://3chan.kr';  // 잘못된 도메인
+  const baseUrl = 'https://lemon.3chan.kr';  // 잘못된 도메인
   return '$baseUrl/media/audio/$remoteKey';
 }
 ```
