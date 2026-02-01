@@ -11,6 +11,7 @@ services:
   postgres:
     image: postgres:15-alpine
     container_name: lemon-postgres
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-lemon_korean}
       POSTGRES_USER: ${POSTGRES_USER:-lemon_admin}
@@ -18,6 +19,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./database/postgres/init:/docker-entrypoint-initdb.d
+      - ./config/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
     networks:
       - lemon-network
     healthcheck:
@@ -38,13 +40,16 @@ services:
   mongo:
     image: mongo:4.4
     container_name: lemon-mongo
+    command: mongod --config /etc/mongod.conf
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${POSTGRES_USER:-lemon_admin}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${POSTGRES_DB:-lemon_korean}
     volumes:
       - mongo-data:/data/db
+      - mongo-log:/var/log/mongodb
       - ./database/mongo/init:/docker-entrypoint-initdb.d
+      - ./config/mongo/mongod.conf:/etc/mongod.conf:ro
     networks:
       - lemon-network
     healthcheck:
@@ -62,9 +67,10 @@ services:
   redis:
     image: redis:7-alpine
     container_name: lemon-redis
-    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
+    command: redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-data:/data
+      - ./config/redis/redis.conf:/etc/redis/redis.conf:ro
     networks:
       - lemon-network
     healthcheck:
@@ -110,6 +116,8 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+      - ./config/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./config/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
     networks:
       - lemon-network
     healthcheck:
@@ -315,6 +323,9 @@ services:
       MINIO_USE_SSL: "false"
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_EMAILS: ${ADMIN_EMAILS:-admin@lemonkorean.com}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./:/project:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -392,6 +403,8 @@ volumes:
     name: lemon-postgres-data-prod
   mongo-data:
     name: lemon-mongo-data-prod
+  mongo-log:
+    name: lemon-mongo-log-prod
   redis-data:
     name: lemon-redis-data-prod
   minio-data:

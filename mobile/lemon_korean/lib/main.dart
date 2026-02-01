@@ -1,11 +1,8 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'core/config/environment_config.dart';
 import 'core/constants/app_constants.dart';
 import 'core/network/api_client.dart';
 import 'core/platform/platform_factory.dart';
@@ -33,33 +30,18 @@ import 'core/services/notification_service.dart'
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // STEP 1: Fetch network mode from server (quick HTTP call)
-  // This determines which .env file to load
-  print('[Main] ═══════════════════════════════════════');
-  print('[Main] Fetching network mode from server...');
-  final networkMode = await _fetchNetworkMode();
-  print('[Main] Network mode from server: ${networkMode ?? "not available (using build mode)"}');
-  print('[Main] ═══════════════════════════════════════');
-
-  // STEP 2: Initialize environment configuration with network mode override
-  // If server returned a mode, use it; otherwise fall back to build mode
-  await EnvironmentConfig.init(mode: networkMode);
-  EnvironmentConfig.printConfig();
-
-  // STEP 3: Initialize AppConstants with environment URLs (as fallback)
-  AppConstants.initFromEnvironment();
-
-  // STEP 3.5: Ensure ApiClient is initialized with base URL
-  await ApiClient.instance.ensureInitialized();
-
   // Log configuration for debugging
   if (kDebugMode) {
-    print('[Main] Environment initialized:');
-    print('  BASE_URL: ${EnvironmentConfig.baseUrl}');
-    print('  API_URL: ${AppConstants.apiUrl}');
+    AppLogger.i('═══════════════════════════════════════', tag: 'Main');
+    AppLogger.i('Initializing Lemon Korean App', tag: 'Main');
+    AppLogger.i('Production URL: ${AppConstants.baseUrl}', tag: 'Main');
+    AppLogger.i('═══════════════════════════════════════', tag: 'Main');
   }
 
-  // STEP 4: Platform-specific initialization
+  // Initialize ApiClient with production URL
+  await ApiClient.instance.ensureInitialized();
+
+  // Platform-specific initialization
   if (kIsWeb) {
     AppLogger.i('Running on WEB platform', tag: 'Main');
 
@@ -98,99 +80,7 @@ void main() async {
     );
   }
 
-  // STEP 5: Wait for network connection (max 5 seconds)
-  await _waitForNetwork();
-
-  // STEP 6: Fetch full network configuration from server
-  AppLogger.i('Fetching network configuration from server...', tag: 'Main');
-  final apiClient = ApiClient.instance;
-  final networkConfig = await apiClient.getNetworkConfig();
-
-  // Update app constants with server configuration
-  AppConstants.updateFromConfig(networkConfig);
-
-  // Update ApiClient's base URL to use new config
-  apiClient.updateBaseUrl();
-
-  // STEP 7: Log final configuration (both environment and network modes)
-  AppLogger.i('═══════════════════════════════════════', tag: 'Main');
-  AppLogger.i('Environment Mode: ${EnvironmentConfig.envMode}', tag: 'Main');
-  AppLogger.i('Network Mode: ${networkConfig.mode}', tag: 'Main');
-  AppLogger.i('Loaded from: ${EnvironmentConfig.loadedEnvFile}', tag: 'Main');
-  AppLogger.i('Base URL: ${networkConfig.baseUrl}', tag: 'Main');
-  AppLogger.i('Use Gateway: ${networkConfig.useGateway}', tag: 'Main');
-  AppLogger.i('═══════════════════════════════════════', tag: 'Main');
-
   runApp(const LemonKoreanApp());
-}
-
-/// Fetch network mode from server before initializing environment
-/// Returns null if server is unreachable (will fall back to build mode)
-Future<String?> _fetchNetworkMode() async {
-  try {
-    final dio = Dio();
-    dio.options.connectTimeout = const Duration(seconds: 5);
-    dio.options.receiveTimeout = const Duration(seconds: 5);
-
-    // Try multiple URLs to find the server
-    // Priority: production with port (works externally), local dev, then generic endpoints
-    final urls = [
-      'http://3chan.kr:3006',      // Production domain with explicit port (works externally)
-      'http://localhost:3006',     // Local development (works locally)
-      'http://localhost',          // Local Nginx gateway
-      'http://3chan.kr',           // Production Nginx gateway
-    ];
-
-    for (final baseUrl in urls) {
-      try {
-        print('[Main] Trying to fetch network mode from: $baseUrl');
-        final response = await dio.get('$baseUrl/api/admin/network/config');
-
-        if (response.statusCode == 200 && response.data != null) {
-          final mode = response.data['config']?['mode'];
-          if (mode != null) {
-            print('[Main] ═══════════════════════════════════════');
-            print('[Main] ✓ Network mode fetch SUCCEEDED');
-            print('[Main]   URL: $baseUrl/api/admin/network/config');
-            print('[Main]   Mode: $mode');
-            print('[Main] ═══════════════════════════════════════');
-            return mode;
-          }
-        }
-      } catch (e) {
-        // Try next URL
-        print('[Main] ✗ Failed to fetch from $baseUrl: ${e.toString().split('\n')[0]}');
-      }
-    }
-
-    print('[Main] ═══════════════════════════════════════');
-    print('[Main] ⚠ Network mode fetch FAILED');
-    print('[Main]   Tried ${urls.length} URLs without success');
-    print('[Main]   Falling back to build mode (.env file)');
-    print('[Main] ═══════════════════════════════════════');
-    return null;  // Fall back to build mode
-  } catch (e) {
-    print('[Main] ⚠ Error fetching network mode: $e');
-    return null;  // Fall back to build mode
-  }
-}
-
-/// Wait for network connection (max 5 seconds)
-Future<void> _waitForNetwork() async {
-  final connectivity = Connectivity();
-
-  for (int i = 0; i < 10; i++) {
-    final result = await connectivity.checkConnectivity();
-    // Check if connection is available (not none)
-    if (result != ConnectivityResult.none) {
-      AppLogger.i('Network connected: $result', tag: 'Main');
-      return;
-    }
-    AppLogger.i('Waiting for network... ($i/10)', tag: 'Main');
-    await Future.delayed(const Duration(milliseconds: 500));
-  }
-
-  AppLogger.w('Network not available after 5 seconds', tag: 'Main');
 }
 
 class LemonKoreanApp extends StatelessWidget {
@@ -276,7 +166,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final lessonProvider = Provider.of<LessonProvider>(context, listen: false);
     final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
 
-    // 먼저 인증 상태 확인
+    // Check auth status
     final isLoggedIn = await authProvider.checkAuth();
 
     if (!mounted) return;
@@ -284,7 +174,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (isLoggedIn && authProvider.currentUser?.id != null) {
       final userId = authProvider.currentUser!.id;
 
-      // 로그인 상태: 레슨 + 진도/통계 동기화 (3초 타임아웃)
+      // Logged in: Sync lessons + progress (3 second timeout)
       await Future.wait([
         lessonProvider.fetchLessons(),
         progressProvider.syncWithServer(userId).timeout(
@@ -295,7 +185,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ]);
     } else {
-      // 비로그인: 레슨만 프리페치
+      // Not logged in: Prefetch lessons only
       await lessonProvider.fetchLessons();
     }
 

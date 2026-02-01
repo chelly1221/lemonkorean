@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../data/models/network_config_model.dart';
-import '../config/environment_config.dart';
-import '../utils/app_logger.dart';
 
 class AppConstants {
   // App Info
@@ -9,56 +6,18 @@ class AppConstants {
   static const String appNameChinese = '柠檬韩语';
   static const String version = '1.0.0';
 
-  // Dynamic API Configuration (updated from server on app start)
-  // Default values come from EnvironmentConfig (loaded from .env files)
-  static String _baseUrl = '';
-  static String _contentUrl = '';
-  static String _progressUrl = '';
-  static String _mediaUrl = '';
-  static bool _useGateway = true;
+  // Static Production URLs (hardcoded)
+  static const String baseUrl = 'https://lemon.3chan.kr';
+  static const String contentUrl = 'https://lemon.3chan.kr';
+  static const String progressUrl = 'https://lemon.3chan.kr';
+  static const String mediaUrl = 'https://lemon.3chan.kr/media';
 
-  /// Initialize URLs from EnvironmentConfig
-  /// Should be called after EnvironmentConfig.init()
-  static void initFromEnvironment() {
-    _baseUrl = EnvironmentConfig.baseUrl;
-    _contentUrl = EnvironmentConfig.contentUrl;
-    _progressUrl = EnvironmentConfig.progressUrl;
-    _mediaUrl = EnvironmentConfig.mediaUrl;
-  }
-
-  // Getters for URLs
-  static String get baseUrl => _baseUrl;
-  static String get contentUrl => _contentUrl;
-  static String get progressUrl => _progressUrl;
-  static String get mediaUrl => _mediaUrl;
-  static bool get useGateway => _useGateway;
-
-  // Legacy compatibility - uses baseUrl
-  static String get apiUrl => '$_baseUrl/api';
-
-  // API Endpoints (dynamically constructed)
-  static String get authEndpoint => '$_baseUrl/api/auth';
-  static String get contentEndpoint => '$_contentUrl/api/content';
-  static String get progressEndpoint => '$_progressUrl/api/progress';
-  static String get analyticsEndpoint => '$_baseUrl/api/analytics';
-
-  /// Update network configuration from server
-  /// Called once on app startup
-  static void updateFromConfig(NetworkConfigModel config) {
-    _baseUrl = config.baseUrl;
-    _contentUrl = config.contentUrl;
-    _progressUrl = config.progressUrl;
-    _mediaUrl = config.mediaUrl;
-    _useGateway = config.useGateway;
-
-    AppLogger.i('Updated network config:', tag: 'AppConstants');
-    AppLogger.d('  Mode: ${config.mode}', tag: 'AppConstants');
-    AppLogger.d('  Base URL: $_baseUrl', tag: 'AppConstants');
-    AppLogger.d('  Content URL: $_contentUrl', tag: 'AppConstants');
-    AppLogger.d('  Progress URL: $_progressUrl', tag: 'AppConstants');
-    AppLogger.d('  Media URL: $_mediaUrl', tag: 'AppConstants');
-    AppLogger.d('  Use Gateway: $_useGateway', tag: 'AppConstants');
-  }
+  // API Endpoints (statically constructed)
+  static const String apiUrl = '$baseUrl/api';
+  static const String authEndpoint = '$baseUrl/api/auth';
+  static const String contentEndpoint = '$baseUrl/api/content';
+  static const String progressEndpoint = '$baseUrl/api/progress';
+  static const String analyticsEndpoint = '$baseUrl/api/analytics';
 
   // Storage Keys
   static const String tokenKey = 'auth_token';

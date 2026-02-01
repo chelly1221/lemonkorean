@@ -18,7 +18,6 @@ const systemRoutes = require('./routes/system.routes');
 const testRoutes = require('./routes/test.routes');
 const docsRoutes = require('./routes/docs.routes');
 const devNotesRoutes = require('./routes/dev-notes.routes');
-const configRoutes = require('./routes/config.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3006;
@@ -60,7 +59,6 @@ app.use('/api/admin/system', systemRoutes);
 app.use('/api/admin/test', testRoutes);
 app.use('/api/admin/docs', docsRoutes);
 app.use('/api/admin/dev-notes', devNotesRoutes);
-app.use('/api/admin', configRoutes);
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
@@ -173,17 +171,6 @@ const startServer = async () => {
 
     await testRedisConnection();
     console.log('✓ Redis connection successful');
-
-    // Cleanup legacy network:mode key from Redis
-    try {
-      const client = getRedisClient();
-      if (client) {
-        await client.del('network:mode');
-        console.log('✓ Cleaned up legacy network:mode key from Redis');
-      }
-    } catch (error) {
-      console.log('Note: Could not clean up network:mode key:', error.message);
-    }
 
     await testMinIOConnection();
     console.log('✓ MinIO connection successful');

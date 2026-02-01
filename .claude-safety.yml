@@ -1,0 +1,71 @@
+# Claude Code Safety Configuration
+# This file prevents Claude Code from executing dangerous commands
+
+safety_mode: strict
+
+# Blocked commands - Claude Code CANNOT execute these
+blocked_commands:
+  - "docker compose down -v"
+  - "docker-compose down -v"
+  - "docker compose down --volumes"
+  - "docker-compose down --volumes"
+  - "docker system prune -a --volumes"
+  - "docker system prune --volumes"
+  - "docker volume rm lemon-postgres-data-safe"
+  - "docker volume rm lemon-mongo-data-safe"
+  - "docker volume rm lemon-redis-data-safe"
+  - "docker volume rm lemon-minio-data-safe"
+  - "docker volume rm lemon-rabbitmq-data-safe"
+  - "docker volume prune"
+  - "rm -rf /var/lib/docker/volumes/*"
+  - "rm -rf backups/*"
+
+# Dangerous patterns - Require explicit user confirmation
+requires_confirmation:
+  - pattern: "docker volume rm.*"
+    reason: "볼륨 삭제는 데이터 손실을 일으킬 수 있습니다"
+  - pattern: "docker.*down.*-v"
+    reason: "볼륨 삭제 플래그가 포함되어 있습니다"
+  - pattern: "docker.*prune.*volume"
+    reason: "사용하지 않는 볼륨을 삭제할 수 있습니다"
+  - pattern: "rm -rf.*backup"
+    reason: "백업 파일을 삭제할 수 있습니다"
+  - pattern: "DROP DATABASE"
+    reason: "데이터베이스를 삭제합니다"
+  - pattern: "TRUNCATE TABLE"
+    reason: "테이블 데이터를 삭제합니다"
+
+# Protected volumes - NEVER delete
+protected_volumes:
+  - lemon-postgres-data-safe
+  - lemon-mongo-data-safe
+  - lemon-redis-data-safe
+  - lemon-minio-data-safe
+  - lemon-rabbitmq-data-safe
+
+# Protected directories - NEVER delete
+protected_directories:
+  - /var/lib/docker/volumes/lemon-postgres-data-safe
+  - /var/lib/docker/volumes/lemon-mongo-data-safe
+  - /var/lib/docker/volumes/lemon-redis-data-safe
+  - /var/lib/docker/volumes/lemon-minio-data-safe
+  - /var/lib/docker/volumes/lemon-rabbitmq-data-safe
+  - ./backups
+  - ./database
+
+# Safe alternatives - Claude should suggest these instead
+safe_alternatives:
+  "docker compose down -v": "docker compose down (볼륨 보존)"
+  "docker system prune -a --volumes": "docker system prune -a (볼륨 보존)"
+  "docker volume rm": "먼저 사용자에게 확인 요청"
+
+# Emergency contacts
+emergency:
+  message: "⚠️ 위험한 작업이 감지되었습니다. 사용자 확인이 필요합니다."
+  require_user_approval: true
+
+# Audit log
+audit:
+  enabled: true
+  log_file: ".claude-safety.log"
+  log_dangerous_attempts: true

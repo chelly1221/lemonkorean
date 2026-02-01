@@ -2,14 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../constants/app_constants.dart';
-import '../config/environment_config.dart';
 import '../platform/platform_factory.dart';
 import '../platform/secure_storage_interface.dart';
 import '../utils/app_logger.dart';
-import '../../data/models/network_config_model.dart';
-
-// Conditional import for web platform
-import 'dart:html' as html if (dart.library.io) '';
 
 /// API Client using Dio
 /// Handles HTTP requests with authentication and error handling
@@ -44,19 +39,12 @@ class ApiClient {
   Dio get dio => _dio;
 
   /// Ensure ApiClient is properly initialized with base URL
-  /// Must be called after EnvironmentConfig.init() and AppConstants.initFromEnvironment()
+  /// Uses the static production URL from AppConstants
   Future<void> ensureInitialized() async {
     if (_dio.options.baseUrl.isEmpty || _dio.options.baseUrl == '') {
       _dio.options.baseUrl = AppConstants.apiUrl;
       AppLogger.d('Initialized base URL to: ${_dio.options.baseUrl}', tag: 'ApiClient');
     }
-  }
-
-  /// Update base URL after network config is loaded
-  /// Must be called after AppConstants.updateFromConfig()
-  void updateBaseUrl() {
-    _dio.options.baseUrl = AppConstants.apiUrl;
-    AppLogger.d('Updated base URL to: ${_dio.options.baseUrl}', tag: 'ApiClient');
   }
 
   // Helper method to create Dio instance for specific service with token
@@ -75,91 +63,6 @@ class ApiClient {
         if (token != null) 'Authorization': 'Bearer $token',
       },
     ));
-  }
-
-  // ================================================================
-  // NETWORK CONFIG
-  // ================================================================
-
-  /// Fetch network configuration from server
-  /// This should be called BEFORE any other API calls
-  /// Tries multiple URLs with comprehensive fallback logic:
-  /// 1. For web: Nginx gateway first (avoids CORS)
-  /// 2. Production/environment URLs
-  /// 3. Development URL fallbacks
-  Future<NetworkConfigModel> getNetworkConfig() async {
-    // Build comprehensive list of URLs to try
-    final urls = <String>[];
-
-    if (kIsWeb) {
-      // For web: Try Nginx gateway first (port 80/443) to avoid CORS
-      try {
-        final currentHost = html.window.location.host; // e.g., "3chan.kr:3007"
-        final baseHost = currentHost.split(':')[0]; // "3chan.kr"
-
-        // Try Nginx routes first (same-origin, no CORS)
-        urls.add('http://$baseHost');  // Nginx gateway with /api/admin/network/config route
-        urls.add(html.window.location.origin);  // Current origin (e.g., http://3chan.kr:3007)
-        urls.add('http://$baseHost:3006');  // Admin service direct
-        print('[ApiClient] Web platform detected, host: $baseHost');
-      } catch (e) {
-        print('[ApiClient] Could not get window.location: $e');
-      }
-    } else {
-      // Mobile: Try admin service and environment URLs
-      urls.add(EnvironmentConfig.adminUrl);
-      urls.add(EnvironmentConfig.baseUrl);
-    }
-
-    // Fallbacks for both platforms
-    urls.add('http://3chan.kr');                   // Production Nginx
-    urls.add('http://3chan.kr:3006');              // Production Admin
-    urls.add('http://localhost:3006');             // Local dev
-    urls.add('http://192.168.0.100:3006');         // Local network dev
-
-    // Remove duplicates while preserving order
-    final uniqueUrls = <String>[];
-    for (final url in urls) {
-      if (!uniqueUrls.contains(url)) {
-        uniqueUrls.add(url);
-      }
-    }
-
-    print('[ApiClient] Will try ${uniqueUrls.length} URLs for network config');
-
-    // Try each URL until one succeeds
-    for (final url in uniqueUrls) {
-      try {
-        print('[ApiClient] Trying network config from: $url');
-        final configDio = Dio(BaseOptions(
-          baseUrl: url,
-          connectTimeout: const Duration(seconds: 3),
-          receiveTimeout: const Duration(seconds: 3),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-        ));
-
-        final response = await configDio.get('/api/admin/network/config');
-        print('[ApiClient] Network config SUCCESS from: $url');
-        AppLogger.d('Network config response: ${response.data}', tag: 'ApiClient');
-        return NetworkConfigModel.fromJson(response.data['config']);
-      } catch (e) {
-        print('[ApiClient] Network config FAILED from $url: $e');
-      }
-    }
-
-    // All attempts failed, use default config
-    print('[ApiClient] All ${uniqueUrls.length} attempts failed, using default config');
-    AppLogger.i('Using default config from environment', tag: 'ApiClient');
-    return NetworkConfigModel.defaultConfig();
-  }
-
-  /// URL에서 호스트 부분만 추출 (scheme://host)
-  String _extractHost(String url) {
-    final uri = Uri.parse(url);
-    return '${uri.scheme}://${uri.host}';
   }
 
   // ================================================================
@@ -221,7 +124,7 @@ class ApiClient {
     int? page,
     int? limit,
   }) async {
-    // Use contentUrl for lesson data (supports dev mode direct port access)
+    // Use contentUrl for lesson data
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
 
     return await contentDio.get(

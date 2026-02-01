@@ -1,5 +1,5 @@
 import 'package:logger/logger.dart';
-import '../config/environment_config.dart';
+import '../constants/app_constants.dart';
 
 /// Centralized logging utility for the app
 /// Replaces raw print() statements with structured logging
@@ -25,7 +25,7 @@ class AppLogger {
 
   /// Get log level based on environment
   static Level _getLogLevel() {
-    if (EnvironmentConfig.enableDebugMode) {
+    if (AppConstants.enableDebugMode) {
       return Level.debug;
     }
     return Level.warning;
@@ -42,7 +42,7 @@ class AppLogger {
 
   /// Log debug message (only in debug mode)
   static void d(String message, {String? tag}) {
-    if (EnvironmentConfig.enableDebugMode) {
+    if (AppConstants.enableDebugMode) {
       _instance._logger.d(_formatMessage(tag, message));
     }
   }
@@ -64,7 +64,7 @@ class AppLogger {
 
   /// Log verbose message (only in debug mode)
   static void v(String message, {String? tag}) {
-    if (EnvironmentConfig.enableDebugMode) {
+    if (AppConstants.enableDebugMode) {
       _instance._logger.t(_formatMessage(tag, message));
     }
   }
@@ -83,7 +83,7 @@ class AppLogger {
 
   /// Log network request
   static void logRequest(String method, String url, {Map<String, dynamic>? headers, dynamic data}) {
-    if (!EnvironmentConfig.enableDebugMode) return;
+    if (!AppConstants.enableDebugMode) return;
 
     final buffer = StringBuffer();
     buffer.writeln('REQUEST $method $url');
@@ -98,7 +98,7 @@ class AppLogger {
 
   /// Log network response
   static void logResponse(int? statusCode, String url, {dynamic data}) {
-    if (!EnvironmentConfig.enableDebugMode) return;
+    if (!AppConstants.enableDebugMode) return;
 
     final buffer = StringBuffer();
     buffer.writeln('RESPONSE $statusCode $url');

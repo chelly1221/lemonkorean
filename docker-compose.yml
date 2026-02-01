@@ -7,6 +7,7 @@ services:
   postgres:
     image: postgres:15-alpine
     container_name: lemon-postgres
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-lemon_korean}
       POSTGRES_USER: ${POSTGRES_USER:-3chan}
@@ -14,6 +15,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./database/postgres/init:/docker-entrypoint-initdb.d
+      - ./config/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
     ports:
       - "5432:5432"
     networks:
@@ -29,13 +31,16 @@ services:
   mongo:
     image: mongo:4.4
     container_name: lemon-mongo
+    command: mongod --config /etc/mongod.conf
     environment:
       MONGO_INITDB_ROOT_USERNAME: 3chan
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${POSTGRES_DB:-lemon_korean}
     volumes:
       - mongo-data:/data/db
+      - mongo-log:/var/log/mongodb
       - ./database/mongo/init:/docker-entrypoint-initdb.d
+      - ./config/mongo/mongod.conf:/etc/mongod.conf:ro
     ports:
       - "27017:27017"
     networks:
@@ -51,9 +56,10 @@ services:
   redis:
     image: redis:7-alpine
     container_name: lemon-redis
-    command: redis-server --requirepass ${REDIS_PASSWORD}
+    command: redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-data:/data
+      - ./config/redis/redis.conf:/etc/redis/redis.conf:ro
     ports:
       - "6379:6379"
     networks:
@@ -96,6 +102,8 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+      - ./config/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./config/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -356,8 +364,7 @@ services:
       MINIO_USE_SSL: "false"
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_EMAILS: admin@lemon.com
-    ports:
-      - "3006:3006"
+    # Port not exposed - only accessible through nginx proxy at /admin/
     volumes:
       - ./services/admin/src:/app/src
       - ./services/admin/public:/app/public
@@ -393,16 +400,17 @@ services:
     volumes:
       - ./nginx/cache:/var/cache/nginx
       - ./nginx/logs:/var/log/nginx
-      # Config files (for easy development)
-      - ./nginx/nginx.conf:/nginx-configs/nginx.conf:ro
-      - ./nginx/nginx.dev.conf:/nginx-configs/nginx.dev.conf:ro
-      - ./nginx/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
+      # Direct config mount (changes take effect with reload)
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      # Logrotate config
+      - ./nginx/logrotate.conf:/etc/logrotate.d/nginx:ro
+      # SSL certificates (for development)
+      - ./nginx/ssl:/etc/nginx/ssl:ro
       # Flutter web app build output
       - ./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro
     ports:
       - "80:80"
       - "443:443"
-      - "3007:3007"  # Network config server (development)
     depends_on:
       auth-service:
         condition: service_healthy
@@ -460,6 +468,8 @@ volumes:
     name: lemon-postgres-data
   mongo-data:
     name: lemon-mongo-data
+  mongo-log:
+    name: lemon-mongo-log
   redis-data:
     name: lemon-redis-data
   minio-data:

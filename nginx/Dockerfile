@@ -13,9 +13,8 @@ RUN apk add --no-cache \
 # Remove default config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy both config files to temporary location
-COPY nginx.conf /nginx-configs/nginx.conf
-COPY nginx.dev.conf /nginx-configs/nginx.dev.conf
+# Default config (will be overridden by volume mount in development)
+COPY nginx.dev.conf /etc/nginx/nginx.conf
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/

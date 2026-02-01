@@ -1,0 +1,113 @@
+{
+  "rabbit_version": "3.12",
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "policies": [
+    {
+      "vhost": "/",
+      "name": "ha-all",
+      "pattern": ".*",
+      "definition": {
+        "ha-mode": "all",
+        "ha-sync-mode": "automatic"
+      },
+      "priority": 0,
+      "apply-to": "all"
+    }
+  ],
+  "queues": [
+    {
+      "name": "progress.sync",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-message-ttl": 86400000,
+        "x-dead-letter-exchange": "dlx",
+        "x-dead-letter-routing-key": "progress.sync.dlq"
+      }
+    },
+    {
+      "name": "progress.sync.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "analytics.events",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-message-ttl": 604800000
+      }
+    },
+    {
+      "name": "notifications.push",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-message-ttl": 86400000
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "lemon.events",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "dlx",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "lemon.events",
+      "vhost": "/",
+      "destination": "progress.sync",
+      "destination_type": "queue",
+      "routing_key": "progress.*",
+      "arguments": {}
+    },
+    {
+      "source": "lemon.events",
+      "vhost": "/",
+      "destination": "analytics.events",
+      "destination_type": "queue",
+      "routing_key": "analytics.*",
+      "arguments": {}
+    },
+    {
+      "source": "lemon.events",
+      "vhost": "/",
+      "destination": "notifications.push",
+      "destination_type": "queue",
+      "routing_key": "notification.*",
+      "arguments": {}
+    },
+    {
+      "source": "dlx",
+      "vhost": "/",
+      "destination": "progress.sync.dlq",
+      "destination_type": "queue",
+      "routing_key": "progress.sync.dlq",
+      "arguments": {}
+    }
+  ]
+}
