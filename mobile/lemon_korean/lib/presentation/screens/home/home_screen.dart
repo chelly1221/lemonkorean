@@ -8,20 +8,14 @@ import '../../../core/storage/local_storage.dart'
     if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/models/progress_model.dart';
-import '../../../data/models/user_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/bookmark_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../providers/progress_provider.dart';
-import '../../widgets/bilingual_text.dart';
-import '../auth/login_screen.dart';
 import '../download/download_manager_screen.dart';
 import '../lesson/lesson_screen.dart';
 import '../review/review_screen.dart';
-import '../settings/language_settings_screen.dart';
-import '../settings/notification_settings_screen.dart';
-import '../settings/help_center_screen.dart';
-import '../settings/app_info_screen.dart';
+import '../settings/settings_menu_screen.dart';
 import '../stats/completed_lessons_screen.dart';
 import '../stats/mastered_words_screen.dart';
 import '../vocabulary_book/vocabulary_book_screen.dart';
@@ -641,6 +635,31 @@ class _ProfileTabState extends State<_ProfileTab> {
 
     return CustomScrollView(
       slivers: [
+        // 톱니바퀴 설정 아이콘이 있는 SliverAppBar
+        SliverAppBar(
+          pinned: false,
+          floating: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.settings_outlined,
+                color: Colors.black87,
+              ),
+              tooltip: l10n?.settings ?? 'Settings',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsMenuScreen(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         SliverToBoxAdapter(
           child: Container(
             padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -777,31 +796,7 @@ class _ProfileTabState extends State<_ProfileTab> {
                 },
               ),
               const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection(l10n?.settings ?? 'Settings'),
-              _buildMenuItem(
-                icon: Icons.notifications_outlined,
-                label: l10n?.notificationSettings ?? 'Notification Settings',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationSettingsScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildMenuItem(
-                icon: Icons.language,
-                label: l10n?.languageSettings ?? 'Language Settings',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LanguageSettingsScreen(),
-                    ),
-                  );
-                },
-              ),
+              _buildSection(l10n?.storageManagement ?? 'Storage Management'),
               _buildMenuItem(
                 icon: Icons.storage_outlined,
                 label: l10n?.storageManagement ?? 'Storage Management',
@@ -813,86 +808,6 @@ class _ProfileTabState extends State<_ProfileTab> {
                     ),
                   );
                 },
-              ),
-              const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection(l10n?.about ?? 'About'),
-              _buildMenuItem(
-                icon: Icons.help_outline,
-                label: l10n?.helpCenter ?? 'Help Center',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HelpCenterScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildMenuItem(
-                icon: Icons.info_outline,
-                label: l10n?.aboutApp ?? 'About App',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AppInfoScreen(),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: AppConstants.paddingMedium),
-              Card(
-                color: AppConstants.errorColor.withOpacity(0.1),
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.logout,
-                    color: AppConstants.errorColor,
-                  ),
-                  title: Text(
-                    l10n?.logout ?? 'Log Out',
-                    style: const TextStyle(
-                      color: AppConstants.errorColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onTap: () async {
-                    final confirm = await showDialog<bool>(
-                      context: context,
-                      builder: (dialogContext) {
-                        final dialogL10n = AppLocalizations.of(dialogContext);
-                        return AlertDialog(
-                          title: Text(dialogL10n?.logout ?? 'Log Out'),
-                          content: Text(dialogL10n?.confirmLogout ?? 'Are you sure you want to log out?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(dialogContext, false),
-                              child: Text(dialogL10n?.cancel ?? 'Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.pop(dialogContext, true),
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppConstants.errorColor,
-                              ),
-                              child: Text(dialogL10n?.confirm ?? 'Confirm'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-
-                    if (confirm == true && context.mounted) {
-                      await authProvider.logout();
-                      if (context.mounted) {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                          (route) => false,
-                        );
-                      }
-                    }
-                  },
-                ),
               ),
             ]),
           ),

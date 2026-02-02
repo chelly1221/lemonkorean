@@ -34,16 +34,19 @@ services:
   # ⚠️ DO NOT modify 'command' or config settings here
   # ⚠️ Edit config/mongo/mongod.conf instead
   # ⚠️ Apply changes: docker compose restart mongo
+  # ⚠️ Data stored on NAS: /mnt/nas/lemon/mongo-data
+  # ⚠️ Running as uid 1000 to match NAS CIFS mount ownership
   mongo:
     image: mongo:4.4
     container_name: lemon-mongo
+    user: "1000:1000"
     command: mongod --config /etc/mongod.conf
     environment:
       MONGO_INITDB_ROOT_USERNAME: 3chan
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${POSTGRES_DB:-lemon_korean}
     volumes:
-      - mongo-data:/data/db
+      - /mnt/nas/lemon/mongo-data:/data/db
       - mongo-log:/var/log/mongodb
       - ./database/mongo/init:/docker-entrypoint-initdb.d
       - ./config/mongo/mongod.conf:/etc/mongod.conf:ro
@@ -81,6 +84,7 @@ services:
     restart: unless-stopped
 
   # MinIO (S3-compatible storage)
+  # ⚠️ Data stored on NAS: /mnt/nas/lemon/minio-data
   minio:
     image: minio/minio:latest
     container_name: lemon-minio
@@ -89,7 +93,7 @@ services:
       MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
       MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
     volumes:
-      - minio-data:/data
+      - /mnt/nas/lemon/minio-data:/data
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -407,22 +411,25 @@ services:
   # ==================== API Gateway & Proxy ====================
 
   # Nginx API Gateway
+  # ⚠️ Logs & cache stored on NAS, web app served from NAS via symlink
+  # ⚠️ Running as uid 1000 to match NAS CIFS mount ownership
   nginx:
     build: ./nginx
     container_name: lemon-nginx
+    user: "1000:1000"
     environment:
       NGINX_MODE: ${NGINX_MODE:-development}
     volumes:
-      - ./nginx/cache:/var/cache/nginx
-      - ./nginx/logs:/var/log/nginx
+      - /mnt/nas/lemon/nginx-cache:/var/cache/nginx
+      - /mnt/nas/lemon/nginx-logs:/var/log/nginx
       # Direct config mount (changes take effect with reload)
       - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
       # Logrotate config
       - ./nginx/logrotate.conf:/etc/logrotate.d/nginx:ro
       # SSL certificates (for development)
       - ./nginx/ssl:/etc/nginx/ssl:ro
-      # Flutter web app build output
-      - ./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro
+      # Flutter web app build output (via symlink to NAS)
+      - /mnt/nas/lemon/flutter-build/build/web:/var/www/lemon_korean_web:ro
     ports:
       - "80:80"
       - "443:443"
@@ -478,17 +485,14 @@ networks:
     name: lemon-network
 
 # ==================== Volumes ====================
+# Note: mongo-data and minio-data moved to NAS bind mounts
 volumes:
   postgres-data:
     name: lemon-postgres-data
-  mongo-data:
-    name: lemon-mongo-data
   mongo-log:
     name: lemon-mongo-log
   redis-data:
     name: lemon-redis-data
-  minio-data:
-    name: lemon-minio-data
   rabbitmq-data:
     name: lemon-rabbitmq-data
   pgadmin-data:

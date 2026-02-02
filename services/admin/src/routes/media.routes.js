@@ -16,6 +16,45 @@ const upload = multer({
   limits: {
     fileSize: 200 * 1024 * 1024, // 200 MB max (will be validated per category)
     files: 1 // Only one file at a time
+  },
+  // Explicitly handle filename encoding for Korean/Unicode characters
+  fileFilter: (req, file, cb) => {
+    try {
+      // Multer may receive filename in latin1 encoding from multipart form
+      // Convert to proper UTF-8
+      const originalName = file.originalname;
+
+      // Try to detect if the filename is garbled (contains mojibake patterns)
+      // If it contains only ASCII, no conversion needed
+      if (/^[\x00-\x7F]*$/.test(originalName)) {
+        // Pure ASCII, safe
+        console.log('[MULTER] Filename is ASCII:', originalName);
+        cb(null, true);
+        return;
+      }
+
+      // Check if it looks like latin1-encoded UTF-8 (common multer issue)
+      // Try to re-decode from latin1 to utf8
+      try {
+        const reencoded = Buffer.from(originalName, 'latin1').toString('utf8');
+        // Check if re-encoding produces valid UTF-8
+        if (reencoded !== originalName && !/�/.test(reencoded)) {
+          console.log('[MULTER] Re-encoded filename from latin1 to utf8');
+          console.log('  Before:', originalName);
+          console.log('  After:', reencoded);
+          file.originalname = reencoded;
+        } else {
+          console.log('[MULTER] Filename already in UTF-8:', originalName);
+        }
+      } catch (err) {
+        console.warn('[MULTER] Failed to re-encode filename:', err.message);
+      }
+
+      cb(null, true);
+    } catch (error) {
+      console.error('[MULTER] Error in fileFilter:', error);
+      cb(null, true); // Don't block upload due to encoding issues
+    }
   }
 });
 

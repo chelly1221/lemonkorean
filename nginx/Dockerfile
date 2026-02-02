@@ -20,11 +20,12 @@ COPY nginx.dev.conf /etc/nginx/nginx.conf
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Create cache directories
+# Create cache directories and runtime directory
 RUN mkdir -p /var/cache/nginx/media \
     /var/cache/nginx/api \
     /var/www/certbot \
-    /etc/nginx/ssl
+    /etc/nginx/ssl \
+    /var/run/nginx
 
 # Create self-signed SSL certificate for development
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -32,9 +33,9 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -out /etc/nginx/ssl/fullchain.pem \
     -subj "/C=KR/ST=Seoul/L=Seoul/O=LemonKorean/CN=localhost"
 
-# Set permissions
-RUN chown -R nginx:nginx /var/cache/nginx \
-    && chmod -R 755 /var/cache/nginx
+# Set permissions for UID 1000 (matching NAS mount ownership)
+RUN chown -R 1000:1000 /var/cache/nginx /var/run/nginx \
+    && chmod -R 755 /var/cache/nginx /var/run/nginx
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \

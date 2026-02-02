@@ -20,19 +20,42 @@ const uploadFile = async (file, type = 'images', originalName = null) => {
   try {
     // Use provided originalName or fallback to file.originalname
     const displayName = originalName || file.originalname;
-    console.log(`[MEDIA_SERVICE] Uploading file: ${displayName} (${type})`);
+    console.log(`[MEDIA_SERVICE] Upload request received`);
+    console.log(`  - Type: ${type}`);
+    console.log(`  - Original filename from multer: ${file.originalname}`);
+    console.log(`  - Original filename from body: ${originalName}`);
+    console.log(`  - Display name (final): ${displayName}`);
+    console.log(`  - File size: ${file.size} bytes`);
+    console.log(`  - MIME type: ${file.mimetype}`);
 
     // Ensure bucket exists
     await ensureBucket(BUCKET_NAME);
 
-    // Generate unique filename
-    const fileExt = path.extname(file.originalname);
+    // Generate unique filename with improved extension handling
+    let fileExt = '';
+    try {
+      fileExt = path.extname(file.originalname);
+      if (!fileExt && displayName) {
+        // Fallback: extract from displayName
+        const dotIndex = displayName.lastIndexOf('.');
+        fileExt = dotIndex >= 0 ? displayName.substring(dotIndex) : '';
+      }
+    } catch (err) {
+      console.warn('[MEDIA_SERVICE] Failed to extract extension:', err.message);
+      fileExt = '';
+    }
+    console.log(`  - Extracted extension: ${fileExt}`);
     const randomName = crypto.randomBytes(16).toString('hex');
     const fileName = `${randomName}${fileExt}`;
     const objectKey = `${type}/${fileName}`;
+    console.log(`  - Generated filename: ${fileName}`);
+    console.log(`  - Object key: ${objectKey}`);
 
     // Upload to MinIO
     const minioClient = getMinioClient();
+    const base64Name = Buffer.from(displayName, 'utf8').toString('base64');
+    console.log(`  - Base64 encoded name: ${base64Name}`);
+
     await minioClient.putObject(
       BUCKET_NAME,
       objectKey,
@@ -40,7 +63,7 @@ const uploadFile = async (file, type = 'images', originalName = null) => {
       file.size,
       {
         'Content-Type': file.mimetype,
-        'X-Original-Name': Buffer.from(displayName, 'utf8').toString('base64'),
+        'X-Original-Name': base64Name,
         'X-Uploaded-By': 'admin-service'
       }
     );

@@ -36,8 +36,8 @@ app.use(cors({
 // Handle OPTIONS preflight requests explicitly
 app.options('*', cors());
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '200mb' }));
+app.use(express.urlencoded({ limit: '200mb', extended: true }));
 
 // Static files (Admin Dashboard UI)
 app.use(express.static(path.join(__dirname, '../public')));
