@@ -716,5 +716,339 @@
   },
 
   "user": "사용자",
-  "@user": {"description": "Default user name"}
+  "@user": {"description": "Default user name"},
+
+  "onboardingSkip": "건너뛰기",
+  "@onboardingSkip": {"description": "Onboarding skip button"},
+
+  "onboardingLanguageTitle": "레몬 한국어",
+  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
+
+  "onboardingLanguagePrompt": "선호하는 언어를 선택하세요",
+  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
+
+  "onboardingNext": "다음",
+  "@onboardingNext": {"description": "Onboarding next button"},
+
+  "onboardingWelcome": "안녕! 나는 레몬한국어의 레몬이야 🍋\n우리 같이 한국어 공부해볼래?",
+  "@onboardingWelcome": {"description": "Onboarding welcome message"},
+
+  "onboardingLevelQuestion": "지금 한국어는 어느 정도야?",
+  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
+
+  "onboardingStart": "시작하기",
+  "@onboardingStart": {"description": "Onboarding start button"},
+
+  "onboardingStartWithoutLevel": "건너뛰고 시작하기",
+  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
+
+  "levelBeginner": "입문",
+  "@levelBeginner": {"description": "Beginner level"},
+
+  "levelBeginnerDesc": "괜찮아! 한글부터 시작하자",
+  "@levelBeginnerDesc": {"description": "Beginner level description"},
+
+  "levelElementary": "초급",
+  "@levelElementary": {"description": "Elementary level"},
+
+  "levelElementaryDesc": "기초 회화부터 연습하자!",
+  "@levelElementaryDesc": {"description": "Elementary level description"},
+
+  "levelIntermediate": "중급",
+  "@levelIntermediate": {"description": "Intermediate level"},
+
+  "levelIntermediateDesc": "더 자연스럽게 말해보자!",
+  "@levelIntermediateDesc": {"description": "Intermediate level description"},
+
+  "levelAdvanced": "고급",
+  "@levelAdvanced": {"description": "Advanced level"},
+
+  "levelAdvancedDesc": "디테일한 표현까지 파보자!",
+  "@levelAdvancedDesc": {"description": "Advanced level description"},
+
+  "onboardingWelcomeTitle": "레몬 한국어에 오신 것을 환영합니다!",
+  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
+
+  "onboardingWelcomeSubtitle": "유창함을 향한 여정이 여기서 시작됩니다",
+  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
+
+  "onboardingFeature1Title": "언제든지 오프라인 학습",
+  "@onboardingFeature1Title": {"description": "Feature 1 title"},
+
+  "onboardingFeature1Desc": "레슨을 다운로드하여 인터넷 없이 학습하세요",
+  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
+
+  "onboardingFeature2Title": "스마트 복습 시스템",
+  "@onboardingFeature2Title": {"description": "Feature 2 title"},
+
+  "onboardingFeature2Desc": "AI 기반 간격 반복으로 더 나은 기억력",
+  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
+
+  "onboardingFeature3Title": "7단계 학습 경로",
+  "@onboardingFeature3Title": {"description": "Feature 3 title"},
+
+  "onboardingFeature3Desc": "입문부터 고급까지 체계적인 커리큘럼",
+  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
+
+  "onboardingLevelTitle": "당신의 한국어 수준은?",
+  "@onboardingLevelTitle": {"description": "Level selection title"},
+
+  "onboardingLevelSubtitle": "맞춤형 경험을 제공해 드립니다",
+  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
+
+  "onboardingGoalTitle": "주간 목표를 설정하세요",
+  "@onboardingGoalTitle": {"description": "Goal selection title"},
+
+  "onboardingGoalSubtitle": "얼마나 많은 시간을 할애할 수 있나요?",
+  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
+
+  "goalCasual": "가볍게",
+  "@goalCasual": {"description": "Casual goal option"},
+
+  "goalCasualDesc": "주당 1-2과",
+  "@goalCasualDesc": {"description": "Casual goal description"},
+
+  "goalCasualTime": "~주당 10-20분",
+  "@goalCasualTime": {"description": "Casual goal time"},
+
+  "goalCasualHelper": "바쁜 일정에 완벽",
+  "@goalCasualHelper": {"description": "Casual goal helper text"},
+
+  "goalRegular": "규칙적으로",
+  "@goalRegular": {"description": "Regular goal option"},
+
+  "goalRegularDesc": "주당 3-4과",
+  "@goalRegularDesc": {"description": "Regular goal description"},
+
+  "goalRegularTime": "~주당 30-40분",
+  "@goalRegularTime": {"description": "Regular goal time"},
+
+  "goalRegularHelper": "부담 없이 꾸준한 진전",
+  "@goalRegularHelper": {"description": "Regular goal helper text"},
+
+  "goalSerious": "열심히",
+  "@goalSerious": {"description": "Serious goal option"},
+
+  "goalSeriousDesc": "주당 5-6과",
+  "@goalSeriousDesc": {"description": "Serious goal description"},
+
+  "goalSeriousTime": "~주당 50-60분",
+  "@goalSeriousTime": {"description": "Serious goal time"},
+
+  "goalSeriousHelper": "빠른 향상을 위한 헌신",
+  "@goalSeriousHelper": {"description": "Serious goal helper text"},
+
+  "goalIntensive": "집중적으로",
+  "@goalIntensive": {"description": "Intensive goal option"},
+
+  "goalIntensiveDesc": "매일 연습",
+  "@goalIntensiveDesc": {"description": "Intensive goal description"},
+
+  "goalIntensiveTime": "주당 60분 이상",
+  "@goalIntensiveTime": {"description": "Intensive goal time"},
+
+  "goalIntensiveHelper": "최고 학습 속도",
+  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
+
+  "onboardingCompleteTitle": "모든 준비가 완료되었습니다!",
+  "@onboardingCompleteTitle": {"description": "Completion screen title"},
+
+  "onboardingCompleteSubtitle": "학습 여정을 시작해볼까요",
+  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
+
+  "onboardingSummaryLanguage": "인터페이스 언어",
+  "@onboardingSummaryLanguage": {"description": "Summary language label"},
+
+  "onboardingSummaryLevel": "한국어 수준",
+  "@onboardingSummaryLevel": {"description": "Summary level label"},
+
+  "onboardingSummaryGoal": "주간 목표",
+  "@onboardingSummaryGoal": {"description": "Summary goal label"},
+
+  "onboardingStartLearning": "학습 시작하기",
+  "@onboardingStartLearning": {"description": "Start learning button"},
+
+  "onboardingBack": "뒤로",
+  "@onboardingBack": {"description": "Back button"},
+
+  "levelTopik": "TOPIK {level}",
+  "@levelTopik": {
+    "description": "TOPIK level indicator",
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+
+  "appLanguage": "앱 언어",
+  "@appLanguage": {"description": "App language section title"},
+
+  "appLanguageDesc": "앱 인터페이스에 사용할 언어를 선택하세요.",
+  "@appLanguageDesc": {"description": "App language description"},
+
+  "languageSelected": "{language} 선택됨",
+  "@languageSelected": {
+    "description": "Language selected message",
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+
+  "notificationTipContent": "• 복습 알림은 레슨 완료 후 자동으로 예약됩니다\n• 일부 기기에서는 시스템 설정에서 절전 모드를 해제해야 알림을 정상적으로 받을 수 있습니다",
+  "@notificationTipContent": {"description": "Notification tip content"},
+
+  "yesterday": "어제",
+  "@yesterday": {"description": "Yesterday"},
+
+  "daysAgo": "{count}일 전",
+  "@daysAgo": {
+    "description": "Days ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dateFormat": "{month}월 {day}일",
+  "@dateFormat": {
+    "description": "Date format",
+    "placeholders": {
+      "month": {"type": "int"},
+      "day": {"type": "int"}
+    }
+  },
+
+  "downloadManager": "다운로드 관리",
+  "@downloadManager": {"description": "Download manager title"},
+
+  "storageInfo": "저장공간 정보",
+  "@storageInfo": {"description": "Storage info"},
+
+  "clearAllDownloads": "전체 삭제",
+  "@clearAllDownloads": {"description": "Clear all downloads"},
+
+  "downloadedTab": "다운로드 완료",
+  "@downloadedTab": {"description": "Downloaded tab"},
+
+  "availableTab": "다운로드 가능",
+  "@availableTab": {"description": "Available tab"},
+
+  "downloadedLessons": "다운로드한 레슨",
+  "@downloadedLessons": {"description": "Downloaded lessons"},
+
+  "mediaFiles": "미디어 파일",
+  "@mediaFiles": {"description": "Media files"},
+
+  "usedStorage": "사용 중",
+  "@usedStorage": {"description": "Used storage"},
+
+  "cacheStorage": "캐시",
+  "@cacheStorage": {"description": "Cache storage"},
+
+  "totalStorage": "총계",
+  "@totalStorage": {"description": "Total storage"},
+
+  "allDownloadsCleared": "전체 삭제 완료",
+  "@allDownloadsCleared": {"description": "All downloads cleared message"},
+
+  "availableStorage": "사용 가능",
+  "@availableStorage": {"description": "Available storage"},
+
+  "noDownloadedLessons": "다운로드한 레슨이 없습니다",
+  "@noDownloadedLessons": {"description": "No downloaded lessons"},
+
+  "goToAvailableTab": "\"다운로드 가능\" 탭에서 레슨을 다운로드하세요",
+  "@goToAvailableTab": {"description": "Go to available tab hint"},
+
+  "allLessonsDownloaded": "모든 레슨이 다운로드되었습니다",
+  "@allLessonsDownloaded": {"description": "All lessons downloaded"},
+
+  "deleteDownload": "다운로드 삭제",
+  "@deleteDownload": {"description": "Delete download"},
+
+  "confirmDeleteDownload": "\"{title}\"을(를) 삭제하시겠습니까?",
+  "@confirmDeleteDownload": {
+    "description": "Confirm delete download",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "confirmClearAllDownloads": "{count}개의 다운로드를 모두 삭제하시겠습니까?",
+  "@confirmClearAllDownloads": {
+    "description": "Confirm clear all downloads",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "downloadingCount": "다운로드 중 ({count})",
+  "@downloadingCount": {
+    "description": "Downloading count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "preparing": "준비 중...",
+  "@preparing": {"description": "Preparing status"},
+
+  "lessonId": "레슨 {id}",
+  "@lessonId": {
+    "description": "Lesson ID",
+    "placeholders": {
+      "id": {"type": "int"}
+    }
+  },
+
+  "searchWords": "단어 검색...",
+  "@searchWords": {"description": "Search words placeholder"},
+
+  "wordCount": "{count}개 단어",
+  "@wordCount": {
+    "description": "Word count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "sortByLesson": "레슨순",
+  "@sortByLesson": {"description": "Sort by lesson"},
+
+  "sortByKorean": "한국어순",
+  "@sortByKorean": {"description": "Sort by Korean"},
+
+  "sortByChinese": "중국어순",
+  "@sortByChinese": {"description": "Sort by Chinese"},
+
+  "noWordsFound": "검색 결과 없음",
+  "@noWordsFound": {"description": "No words found"},
+
+  "noMasteredWords": "습득한 단어가 없습니다",
+  "@noMasteredWords": {"description": "No mastered words"},
+
+  "hanja": "한자",
+  "@hanja": {"description": "Hanja label"},
+
+  "exampleSentence": "예문",
+  "@exampleSentence": {"description": "Example sentence label"},
+
+  "mastered": "습득 완료",
+  "@mastered": {"description": "Mastered status"},
+
+  "sort": "정렬",
+  "@sort": {"description": "Sort button tooltip"},
+
+  "completedLessons": "완료한 레슨",
+  "@completedLessons": {"description": "Completed lessons title"},
+
+  "noCompletedLessons": "완료한 레슨이 없습니다",
+  "@noCompletedLessons": {"description": "No completed lessons"},
+
+  "startFirstLesson": "첫 레슨을 시작해보세요!",
+  "@startFirstLesson": {"description": "Start first lesson hint"},
+
+  "masteredWords": "습득한 단어",
+  "@masteredWords": {"description": "Mastered words title"},
+
+  "download": "다운로드",
+  "@download": {"description": "Download button"}
 }

@@ -85,7 +85,7 @@ class AuthProvider extends ChangeNotifier {
       await _fetchAndCacheUserProfile();
     } catch (e) {
       AppLogger.e('Error loading user: $e', tag: _tag);
-      _setError('加载用户信息失败');
+      _setError('사용자 정보 로드 실패');
       // Don't force logout on general errors if we have cached user
       if (_currentUser == null) {
         await _forceLogout();
@@ -261,12 +261,12 @@ class AuthProvider extends ChangeNotifier {
         _setLoading(false);
         return true;
       } else {
-        _setError(result.message ?? '登录失败');
+        _setError(result.message ?? '로그인 실패');
         _setLoading(false);
         return false;
       }
     } catch (e) {
-      _setError('登录时发生错误: $e');
+      _setError('로그인 중 오류 발생: $e');
       _setLoading(false);
       return false;
     }
@@ -322,12 +322,12 @@ class AuthProvider extends ChangeNotifier {
         _setLoading(false);
         return true;
       } else {
-        _setError(result.message ?? '注册失败');
+        _setError(result.message ?? '회원가입 실패');
         _setLoading(false);
         return false;
       }
     } catch (e) {
-      _setError('注册时发生错误: $e');
+      _setError('회원가입 중 오류 발생: $e');
       _setLoading(false);
       return false;
     }
@@ -360,7 +360,7 @@ class AuthProvider extends ChangeNotifier {
       AppLogger.i('Logout successful', tag: _tag);
       _setLoading(false);
     } catch (e) {
-      _setError('登出时发生错误: $e');
+      _setError('로그아웃 중 오류 발생: $e');
       _setLoading(false);
     }
   }

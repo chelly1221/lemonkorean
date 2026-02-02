@@ -75,7 +75,16 @@ lib/
 │   │   ├── settings/               # 설정 화면 (4개)
 │   │   ├── stats/                  # 통계 화면 (2개)
 │   │   ├── vocabulary_book/        # 단어장 (2개)
-│   │   └── vocabulary_browser/     # 단어 검색
+│   │   ├── vocabulary_browser/     # 단어 검색
+│   │   └── onboarding/             # 온보딩 화면 (15개 파일)
+│   │       ├── language_selection_screen.dart
+│   │       ├── level_selection_screen.dart
+│   │       ├── weekly_goal_screen.dart
+│   │       ├── personalization_complete_screen.dart
+│   │       ├── welcome_introduction_screen.dart
+│   │       ├── welcome_level_screen.dart
+│   │       ├── utils/              # 디자인 시스템 (2개)
+│   │       └── widgets/            # 재사용 위젯 (7개)
 │   ├── providers/                  # 상태 관리 (8개 Providers)
 │   └── widgets/                    # 재사용 위젯
 ├── l10n/                           # 다국어 지원 (6개 언어)
@@ -89,7 +98,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 115개 (104 소스 + 5 생성 + 6 l10n)
+**총 Dart 파일 수**: 131개 (소스 + 생성 + l10n + 온보딩 15개)
 
 ---
 
@@ -133,6 +142,40 @@ flutter run -d chrome
 ---
 
 ## 핵심 기능
+
+### 0. 온보딩 플로우 (2026-02-02 추가)
+
+앱을 처음 실행하면 5단계 개인화 온보딩이 시작됩니다:
+
+1. **언어 선택** (`language_selection_screen.dart`)
+   - 6개 언어 중 선택 (중국어 간체/번체, 한국어, 영어, 일본어, 스페인어)
+   - 선택 즉시 앱 전체 언어 변경
+
+2. **소개 화면** (`welcome_introduction_screen.dart`)
+   - 앱의 핵심 기능 소개 (오프라인 학습, SRS, 중국어 맞춤)
+   - 부드러운 애니메이션
+
+3. **레벨 선택** (`level_selection_screen.dart`)
+   - 완전 초보/초급/중급/고급 4단계
+   - 레벨에 따른 맞춤 콘텐츠 추천
+
+4. **주간 목표** (`weekly_goal_screen.dart`)
+   - 가벼운 (5분)/보통 (15분)/집중 (30분)/프로 (60분)
+   - 일일 학습 시간 목표 설정
+
+5. **개인화 완료** (`personalization_complete_screen.dart`)
+   - 설정 요약 표시
+   - 학습 시작 버튼
+
+**디자인 시스템:**
+- `utils/onboarding_colors.dart` - 토스 스타일 컬러 팔레트
+- `utils/onboarding_text_styles.dart` - 일관된 타이포그래피
+- `widgets/` - 재사용 가능한 카드 컴포넌트 7개
+
+**Provider 연동:**
+- `SettingsProvider.setHasCompletedOnboarding(true)` - 온보딩 완료 상태
+- `SettingsProvider.setWeeklyGoal()` - 주간 목표 저장
+- `SettingsProvider.setUserLevel()` - 사용자 레벨 저장
 
 ### 1. 오프라인 우선 아키텍처
 

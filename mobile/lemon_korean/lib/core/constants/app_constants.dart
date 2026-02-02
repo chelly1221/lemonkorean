@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppConstants {
   // App Info
   static const String appName = 'Lemon Korean';
-  static const String appNameChinese = '柠檬韩语';
+  static const String appNameKorean = '레몬 한국어';
   static const String version = '1.0.0';
 
   // Static Production URLs (hardcoded)
@@ -146,16 +146,16 @@ class AppConstants {
   static const int maxPageSize = 100;
 
   // Error Messages
-  static const String networkErrorMessage = '网络连接失败，请检查您的网络设置';
-  static const String serverErrorMessage = '服务器错误，请稍后重试';
-  static const String authErrorMessage = '认证失败，请重新登录';
-  static const String unknownErrorMessage = '未知错误，请稍后重试';
+  static const String networkErrorMessage = '네트워크 연결 실패. 네트워크 설정을 확인하세요';
+  static const String serverErrorMessage = '서버 오류. 나중에 다시 시도하세요';
+  static const String authErrorMessage = '인증 실패. 다시 로그인하세요';
+  static const String unknownErrorMessage = '알 수 없는 오류. 나중에 다시 시도하세요';
 
   // Success Messages
-  static const String loginSuccessMessage = '登录成功';
-  static const String registerSuccessMessage = '注册成功';
-  static const String syncSuccessMessage = '同步成功';
-  static const String downloadSuccessMessage = '下载成功';
+  static const String loginSuccessMessage = '로그인 성공';
+  static const String registerSuccessMessage = '회원가입 성공';
+  static const String syncSuccessMessage = '동기화 성공';
+  static const String downloadSuccessMessage = '다운로드 성공';
 
   // Feature Flags
   static const bool enableOfflineMode = true;

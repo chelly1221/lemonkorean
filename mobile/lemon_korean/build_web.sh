@@ -29,6 +29,13 @@ if [ -d "build/web" ]; then
   BUILD_SIZE=$(du -sh build/web | cut -f1)
   echo "✅ Build complete: $BUILD_SIZE"
   echo "📂 Output: build/web/"
+
+  # Sync to NAS for nginx deployment
+  echo ""
+  echo "📤 Syncing to NAS..."
+  rsync -av --delete build/web/ /mnt/nas/lemon/flutter-build/build/web/
+  echo "✅ Synced to NAS"
+
   echo ""
   echo "Next steps:"
   echo "1. Validate: ../../scripts/validate_web_build.sh"

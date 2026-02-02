@@ -47,7 +47,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('单词浏览器'),
+        title: const Text('단어 브라우저'),
         bottom: TabBar(
           controller: _tabController,
           isScrollable: false,
@@ -86,7 +86,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
       child: TextField(
         controller: _searchController,
         decoration: InputDecoration(
-          hintText: '搜索单词 (韩语/中文/拼音)',
+          hintText: '단어 검색 (한국어/뜻)',
           prefixIcon: const Icon(Icons.search),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
@@ -119,7 +119,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${provider.currentWordCount} 个单词',
+                '${provider.currentWordCount} 단어',
                 style: TextStyle(color: Colors.grey[600]),
               ),
               TextButton.icon(
@@ -152,7 +152,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => provider.refreshCurrentLevel(),
-                  child: const Text('重试'),
+                  child: const Text('다시 시도'),
                 ),
               ],
             ),
@@ -169,8 +169,8 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
                 const SizedBox(height: 16),
                 Text(
                   provider.searchQuery.isEmpty
-                      ? '此级别暂无单词'
-                      : '未找到匹配的单词',
+                      ? '이 레벨에 단어가 없습니다'
+                      : '일치하는 단어가 없습니다',
                   style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
@@ -200,11 +200,11 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
   String _getSortLabel(VocabSortType type) {
     switch (type) {
       case VocabSortType.level:
-        return '按级别';
+        return '레벨순';
       case VocabSortType.alphabetical:
-        return '按字母';
+        return '알파벳순';
       case VocabSortType.similarity:
-        return '按相似度';
+        return '유사도순';
     }
   }
 
@@ -220,7 +220,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
             children: [
               ListTile(
                 leading: const Icon(Icons.sort_by_alpha),
-                title: const Text('按字母顺序'),
+                title: const Text('알파벳순'),
                 trailing: provider.sortType == VocabSortType.alphabetical
                     ? const Icon(Icons.check, color: Colors.blue)
                     : null,
@@ -231,7 +231,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
               ),
               ListTile(
                 leading: const Icon(Icons.filter_list),
-                title: const Text('按级别'),
+                title: const Text('레벨순'),
                 trailing: provider.sortType == VocabSortType.level
                     ? const Icon(Icons.check, color: Colors.blue)
                     : null,
@@ -242,7 +242,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
               ),
               ListTile(
                 leading: const Icon(Icons.star),
-                title: const Text('按相似度'),
+                title: const Text('유사도순'),
                 trailing: provider.sortType == VocabSortType.similarity
                     ? const Icon(Icons.check, color: Colors.blue)
                     : null,

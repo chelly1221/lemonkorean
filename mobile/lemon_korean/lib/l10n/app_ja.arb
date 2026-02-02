@@ -716,5 +716,278 @@
   },
 
   "user": "ユーザー",
-  "@user": {"description": "Default user name"}
+  "@user": {"description": "Default user name"},
+
+  "onboardingSkip": "スキップ",
+  "@onboardingSkip": {"description": "Onboarding skip button"},
+
+  "onboardingLanguageTitle": "レモン韓国語",
+  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
+
+  "onboardingLanguagePrompt": "使用言語を選択してください",
+  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
+
+  "onboardingNext": "次へ",
+  "@onboardingNext": {"description": "Onboarding next button"},
+
+  "onboardingWelcome": "こんにちは！レモン韓国語のレモンです 🍋\n一緒に韓国語を勉強しませんか？",
+  "@onboardingWelcome": {"description": "Onboarding welcome message"},
+
+  "onboardingLevelQuestion": "現在の韓国語レベルは？",
+  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
+
+  "onboardingStart": "始める",
+  "@onboardingStart": {"description": "Onboarding start button"},
+
+  "onboardingStartWithoutLevel": "スキップして始める",
+  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
+
+  "levelBeginner": "入門",
+  "@levelBeginner": {"description": "Beginner level"},
+
+  "levelBeginnerDesc": "大丈夫！ハングルから始めよう",
+  "@levelBeginnerDesc": {"description": "Beginner level description"},
+
+  "levelElementary": "初級",
+  "@levelElementary": {"description": "Elementary level"},
+
+  "levelElementaryDesc": "基礎会話から練習しよう！",
+  "@levelElementaryDesc": {"description": "Elementary level description"},
+
+  "levelIntermediate": "中級",
+  "@levelIntermediate": {"description": "Intermediate level"},
+
+  "levelIntermediateDesc": "より自然に話そう！",
+  "@levelIntermediateDesc": {"description": "Intermediate level description"},
+
+  "levelAdvanced": "上級",
+  "@levelAdvanced": {"description": "Advanced level"},
+
+  "levelAdvancedDesc": "細かい表現まで極めよう！",
+  "@levelAdvancedDesc": {"description": "Advanced level description"},
+
+  "onboardingWelcomeTitle": "レモン韓国語へようこそ！",
+  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
+
+  "onboardingWelcomeSubtitle": "流暢さへの旅がここから始まります",
+  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
+
+  "onboardingFeature1Title": "いつでもオフライン学習",
+  "@onboardingFeature1Title": {"description": "Feature 1 title"},
+
+  "onboardingFeature1Desc": "レッスンをダウンロードしてインターネットなしで学習",
+  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
+
+  "onboardingFeature2Title": "スマート復習システム",
+  "@onboardingFeature2Title": {"description": "Feature 2 title"},
+
+  "onboardingFeature2Desc": "AI駆動の間隔反復で記憶力向上",
+  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
+
+  "onboardingFeature3Title": "7ステージ学習パス",
+  "@onboardingFeature3Title": {"description": "Feature 3 title"},
+
+  "onboardingFeature3Desc": "初心者から上級者まで体系的なカリキュラム",
+  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
+
+  "onboardingLevelTitle": "あなたの韓国語レベルは？",
+  "@onboardingLevelTitle": {"description": "Level selection title"},
+
+  "onboardingLevelSubtitle": "あなたに合わせた体験を提供します",
+  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
+
+  "onboardingGoalTitle": "週間目標を設定",
+  "@onboardingGoalTitle": {"description": "Goal selection title"},
+
+  "onboardingGoalSubtitle": "どのくらいの時間を確保できますか？",
+  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
+
+  "goalCasual": "カジュアル",
+  "@goalCasual": {"description": "Casual goal option"},
+
+  "goalCasualDesc": "週1-2レッスン",
+  "@goalCasualDesc": {"description": "Casual goal description"},
+
+  "goalCasualTime": "~週10-20分",
+  "@goalCasualTime": {"description": "Casual goal time"},
+
+  "goalCasualHelper": "忙しいスケジュールに最適",
+  "@goalCasualHelper": {"description": "Casual goal helper text"},
+
+  "goalRegular": "レギュラー",
+  "@goalRegular": {"description": "Regular goal option"},
+
+  "goalRegularDesc": "週3-4レッスン",
+  "@goalRegularDesc": {"description": "Regular goal description"},
+
+  "goalRegularTime": "~週30-40分",
+  "@goalRegularTime": {"description": "Regular goal time"},
+
+  "goalRegularHelper": "プレッシャーなく着実に進歩",
+  "@goalRegularHelper": {"description": "Regular goal helper text"},
+
+  "goalSerious": "シリアス",
+  "@goalSerious": {"description": "Serious goal option"},
+
+  "goalSeriousDesc": "週5-6レッスン",
+  "@goalSeriousDesc": {"description": "Serious goal description"},
+
+  "goalSeriousTime": "~週50-60分",
+  "@goalSeriousTime": {"description": "Serious goal time"},
+
+  "goalSeriousHelper": "速い上達を目指す",
+  "@goalSeriousHelper": {"description": "Serious goal helper text"},
+
+  "goalIntensive": "集中",
+  "@goalIntensive": {"description": "Intensive goal option"},
+
+  "goalIntensiveDesc": "毎日練習",
+  "@goalIntensiveDesc": {"description": "Intensive goal description"},
+
+  "goalIntensiveTime": "週60分以上",
+  "@goalIntensiveTime": {"description": "Intensive goal time"},
+
+  "goalIntensiveHelper": "最速の学習スピード",
+  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
+
+  "onboardingCompleteTitle": "準備完了！",
+  "@onboardingCompleteTitle": {"description": "Completion screen title"},
+
+  "onboardingCompleteSubtitle": "学習の旅を始めましょう",
+  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
+
+  "onboardingSummaryLanguage": "表示言語",
+  "@onboardingSummaryLanguage": {"description": "Summary language label"},
+
+  "onboardingSummaryLevel": "韓国語レベル",
+  "@onboardingSummaryLevel": {"description": "Summary level label"},
+
+  "onboardingSummaryGoal": "週間目標",
+  "@onboardingSummaryGoal": {"description": "Summary goal label"},
+
+  "onboardingStartLearning": "学習を始める",
+  "@onboardingStartLearning": {"description": "Start learning button"},
+
+  "onboardingBack": "戻る",
+  "@onboardingBack": {"description": "Back button"},
+
+  "levelTopik": "TOPIK {level}",
+  "@levelTopik": {
+    "description": "TOPIK level indicator",
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+
+  "appLanguage": "アプリ言語",
+  "@appLanguage": {"description": "App language section title"},
+
+  "appLanguageDesc": "アプリインターフェースで使用する言語を選択してください。",
+  "@appLanguageDesc": {"description": "App language description"},
+
+  "languageSelected": "{language} を選択しました",
+  "@languageSelected": {
+    "description": "Language selected message",
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+
+  "sort": "並べ替え",
+  "@sort": {"description": "Sort button tooltip"},
+
+  "notificationTipContent": "• 復習リマインダーはレッスン完了後に自動的に予約されます\n• 一部のデバイスでは、通知を正常に受信するためにシステム設定でバッテリーセーバーを無効にする必要があります",
+  "yesterday": "昨日",
+  "@yesterday": {"description": "Yesterday"},
+
+  "daysAgo": "{count}日前",
+  "@daysAgo": {
+    "description": "Days ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dateFormat": "{month}月{day}日",
+  "@dateFormat": {
+    "description": "Date format",
+    "placeholders": {
+      "month": {"type": "int"},
+      "day": {"type": "int"}
+    }
+  },
+  "downloadManager": "ダウンロード管理",
+  "storageInfo": "ストレージ情報",
+  "clearAllDownloads": "すべて削除",
+  "downloadedTab": "ダウンロード済み",
+  "availableTab": "ダウンロード可能",
+  "downloadedLessons": "ダウンロード済みレッスン",
+  "mediaFiles": "メディアファイル",
+  "usedStorage": "使用中",
+  "cacheStorage": "キャッシュ",
+  "totalStorage": "合計",
+  "allDownloadsCleared": "すべてのダウンロードを削除しました",
+  "availableStorage": "利用可能",
+  "noDownloadedLessons": "ダウンロード済みのレッスンはありません",
+  "goToAvailableTab": "「ダウンロード可能」タブでレッスンをダウンロード",
+  "allLessonsDownloaded": "すべてのレッスンがダウンロード済みです",
+  "deleteDownload": "ダウンロードを削除",
+  "confirmDeleteDownload": "「{title}」を削除してもよろしいですか？",
+  "@confirmDeleteDownload": {
+    "description": "Confirm delete download",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "confirmClearAllDownloads": "{count}件のダウンロードをすべて削除してもよろしいですか？",
+  "@confirmClearAllDownloads": {
+    "description": "Confirm clear all downloads",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "downloadingCount": "ダウンロード中 ({count})",
+  "@downloadingCount": {
+    "description": "Downloading count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "preparing": "準備中...",
+  "@preparing": {"description": "Preparing status"},
+
+  "lessonId": "レッスン {id}",
+  "@lessonId": {
+    "description": "Lesson ID",
+    "placeholders": {
+      "id": {"type": "int"}
+    }
+  },
+
+  "searchWords": "単語を検索...",
+  "@searchWords": {"description": "Search words placeholder"},
+
+  "wordCount": "{count}個の単語",
+  "@wordCount": {
+    "description": "Word count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "sortByLesson": "レッスン順",
+  "sortByKorean": "韓国語順",
+  "sortByChinese": "中国語順",
+  "noWordsFound": "単語が見つかりません",
+  "noMasteredWords": "習得した単語はまだありません",
+  "hanja": "漢字",
+  "exampleSentence": "例文",
+  "mastered": "習得済み",
+  "completedLessons": "完了したレッスン",
+  "noCompletedLessons": "完了したレッスンはありません",
+  "startFirstLesson": "最初のレッスンを始めましょう！",
+  "masteredWords": "習得した単語",
+  "download": "ダウンロード"
 }

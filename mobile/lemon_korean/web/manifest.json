@@ -1,7 +1,7 @@
 {
-  "name": "柠檬韩语 - Lemon Korean",
-  "short_name": "柠檬韩语",
-  "description": "中国人学韩语的最佳应用 - 离线学习、智能复习、沉浸式体验",
+  "name": "레몬 한국어 - Lemon Korean",
+  "short_name": "레몬 한국어",
+  "description": "한국어 학습의 최고의 앱 - 오프라인 학습, 스마트 복습, 몰입형 경험",
   "start_url": "/app/",
   "scope": "/app/",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "background_color": "#FFC107",
   "theme_color": "#FFC107",
   "categories": ["education", "learning"],
-  "lang": "zh-CN",
+  "lang": "ko",
   "prefer_related_applications": false,
   "icons": [
     {

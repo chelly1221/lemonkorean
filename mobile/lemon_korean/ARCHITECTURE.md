@@ -76,6 +76,57 @@ class LessonRepository {
 
 ---
 
+## 온보딩 플로우 (2026-02-02 추가)
+
+### 온보딩 데이터 플로우
+```
+앱 시작
+    │
+    ▼
+SettingsProvider.hasCompletedOnboarding
+    │
+    ├── false → 온보딩 화면
+    │              │
+    │              ▼
+    │         1. LanguageSelectionScreen
+    │              │
+    │              ▼
+    │         2. WelcomeIntroductionScreen
+    │              │
+    │              ▼
+    │         3. LevelSelectionScreen
+    │              │
+    │              ▼
+    │         4. WeeklyGoalScreen
+    │              │
+    │              ▼
+    │         5. PersonalizationCompleteScreen
+    │              │
+    │              ▼
+    │         SettingsProvider 저장:
+    │         - hasCompletedOnboarding: true
+    │         - userLevel: 선택값
+    │         - weeklyGoal: 선택값
+    │         - weeklyGoalTarget: 분 단위
+    │              │
+    └── true → HomeScreen
+```
+
+### 온보딩 Provider 연동
+```dart
+// SettingsProvider (새로운 필드)
+- bool _hasCompletedOnboarding
+- String _userLevel      // 'beginner', 'elementary', 'intermediate', 'advanced'
+- String _weeklyGoal     // 'light', 'regular', 'intensive', 'pro'
+- int _weeklyGoalTarget  // 5, 15, 30, 60 (분)
+
+// 저장소
+- SharedPreferences (웹: localStorage)
+- 키: has_completed_onboarding, user_level, weekly_goal, weekly_goal_target
+```
+
+---
+
 ## 데이터 플로우
 
 ### 읽기 (Read) 플로우

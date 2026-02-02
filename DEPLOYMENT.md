@@ -678,6 +678,64 @@ docker compose exec postgres psql -U lemon_admin -d lemon_korean \
 
 ---
 
+## 웹 앱 배포 (Flutter Web)
+
+### 빌드 및 배포
+
+```bash
+cd mobile/lemon_korean
+
+# 웹 앱 빌드 (약 9-10분 소요)
+./build_web.sh
+
+# 또는 수동 빌드
+flutter build web --release --base-href=/app/ --web-renderer=canvaskit
+
+# Nginx 재시작 (Docker 볼륨으로 자동 반영)
+docker compose restart nginx
+```
+
+### 배포 URL
+- **프로덕션**: https://lemon.3chan.kr/app/
+- **로컬 테스트**: http://localhost/app/
+
+### 웹 앱 제한사항
+- 오프라인 다운로드 미지원 (항상 온라인)
+- localStorage 5-10MB 제한
+- 미디어 파일은 CDN에서 직접 로드
+
+자세한 내용: `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md`
+
+---
+
+## Nginx 캐시 설정
+
+### 캐시 디렉토리 권한 (UID 1000)
+
+Docker 컨테이너에서 Nginx 캐시 권한 문제 발생 시:
+
+```bash
+# 캐시 디렉토리 권한 설정
+sudo chown -R 1000:1000 nginx/cache/
+
+# 또는 docker-compose.yml에서 user 지정
+nginx:
+  user: "1000:1000"
+```
+
+---
+
+## 데이터베이스 사용자
+
+| 환경 | PostgreSQL 사용자 | 비고 |
+|------|-------------------|------|
+| 개발 | 3chan | 기본 개발 계정 |
+| 프로덕션 | lemon_admin | 보안 강화된 계정 |
+
+`.env` 파일에서 `POSTGRES_USER` 확인 필요.
+
+---
+
 ## 추가 리소스
 
 - [Docker 공식 문서](https://docs.docker.com/)

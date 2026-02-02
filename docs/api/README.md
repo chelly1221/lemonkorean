@@ -95,7 +95,7 @@ curl -X GET http://localhost:3002/api/content/lessons \
 - `POST /api/auth/login` - 사용자 인증
 - `POST /api/auth/refresh` - 액세스 토큰 갱신
 - `GET /api/auth/profile` - 사용자 프로필 조회
-- `PUT /api/auth/profile` - 프로필 업데이트
+- `PUT /api/auth/profile` - 프로필 업데이트 (weekly_goal, user_level 포함)
 - `POST /api/auth/change-password` - 비밀번호 변경
 
 **문서**: [AUTH_API.md](./AUTH_API.md)
@@ -591,7 +591,7 @@ API 문제나 질문이 있는 경우:
 
 ---
 
-**마지막 업데이트**: 2026-02-01
+**마지막 업데이트**: 2026-02-03
 **API 버전**: 1.0.0
 
 **중국어권 한국어 학습자를 위해 만들어졌습니다**

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/progress_provider.dart';
-import '../../widgets/bilingual_text.dart';
 import '../../widgets/convertible_text.dart';
 import '../lesson/lesson_screen.dart';
 
@@ -14,34 +14,34 @@ class CompletedLessonsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final progressProvider = Provider.of<ProgressProvider>(context);
     final completedLessons = progressProvider.getCompletedLessons();
 
     return Scaffold(
       appBar: AppBar(
-        title: const BilingualText(
-          chinese: '已完成课程',
-          korean: '완료한 수업',
-          chineseStyle: TextStyle(
+        title: Text(
+          l10n.completedLessons,
+          style: const TextStyle(
             fontSize: AppConstants.fontSizeLarge,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: completedLessons.isEmpty
-          ? _buildEmptyState()
+          ? _buildEmptyState(l10n)
           : ListView.builder(
               padding: const EdgeInsets.all(AppConstants.paddingMedium),
               itemCount: completedLessons.length,
               itemBuilder: (context, index) {
                 final lesson = completedLessons[index];
-                return _buildLessonCard(context, lesson);
+                return _buildLessonCard(context, lesson, l10n);
               },
             ),
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(AppLocalizations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,19 +52,17 @@ class CompletedLessonsScreen extends StatelessWidget {
             color: Colors.grey.shade400,
           ),
           const SizedBox(height: AppConstants.paddingMedium),
-          const BilingualText(
-            chinese: '暂无完成的课程',
-            korean: '완료한 수업이 없습니다',
-            chineseStyle: TextStyle(
+          Text(
+            l10n.noCompletedLessons,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeMedium,
               color: AppConstants.textSecondary,
             ),
           ),
           const SizedBox(height: AppConstants.paddingSmall),
-          const BilingualText(
-            chinese: '开始学习第一课吧！',
-            korean: '첫 수업을 시작해보세요!',
-            chineseStyle: TextStyle(
+          Text(
+            l10n.startFirstLesson,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeSmall,
               color: AppConstants.textSecondary,
             ),
@@ -74,7 +72,7 @@ class CompletedLessonsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLessonCard(BuildContext context, Map<String, dynamic> lesson) {
+  Widget _buildLessonCard(BuildContext context, Map<String, dynamic> lesson, AppLocalizations l10n) {
     final lessonId = lesson['lesson_id'] as int;
     final titleKo = lesson['title_ko'] as String? ?? '레슨 $lessonId';
     final titleZh = lesson['title_zh'] as String? ?? '课程 $lessonId';
@@ -183,7 +181,7 @@ class CompletedLessonsScreen extends StatelessWidget {
                     const SizedBox(height: 4),
                     if (completedAt != null)
                       Text(
-                        _formatDate(completedAt),
+                        _formatDate(completedAt, l10n),
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeSmall,
                           color: Colors.grey.shade500,
@@ -235,18 +233,18 @@ class CompletedLessonsScreen extends StatelessWidget {
     return AppConstants.errorColor;
   }
 
-  String _formatDate(DateTime date) {
+  String _formatDate(DateTime date, AppLocalizations l10n) {
     final now = DateTime.now();
     final diff = now.difference(date);
 
     if (diff.inDays == 0) {
-      return '今天 / 오늘';
+      return l10n.today;
     } else if (diff.inDays == 1) {
-      return '昨天 / 어제';
+      return l10n.yesterday;
     } else if (diff.inDays < 7) {
-      return '${diff.inDays}天前 / ${diff.inDays}일 전';
+      return l10n.daysAgo(diff.inDays);
     } else {
-      return '${date.month}月${date.day}日 / ${date.month}월 ${date.day}일';
+      return l10n.dateFormat(date.month, date.day);
     }
   }
 }

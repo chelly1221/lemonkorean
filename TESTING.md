@@ -236,6 +236,8 @@ func (m *MockDB) Query(query string) (*sql.Rows, error) {
 
 ## 테스트 커버리지 목표
 
+> **참고**: 현재 테스트 커버리지는 0%입니다. 아래 목표는 향후 개선을 위한 aspirational 목표입니다.
+
 | 서비스 | 현재 커버리지 | 목표 |
 |--------|-------------|------|
 | Auth | 0% | 80% |
@@ -245,6 +247,73 @@ func (m *MockDB) Query(query string) (*sql.Rows, error) {
 | Analytics | 0% | 70% |
 | Admin | 0% | 70% |
 | Flutter App | 0% | 60% |
+
+---
+
+## i18n 테스트 (다국어)
+
+### 지원 언어 (6개, 206 키)
+- 중국어 간체 (zh)
+- 중국어 번체 (zh_TW)
+- 한국어 (ko)
+- 영어 (en)
+- 일본어 (ja)
+- 스페인어 (es)
+
+### 번역 키 검증
+```bash
+cd mobile/lemon_korean
+
+# 모든 ARB 파일의 키 수 확인
+for f in lib/l10n/app_*.arb; do
+  echo "$f: $(grep -c '"@' $f 2>/dev/null || echo 0) keys"
+done
+
+# 번역 누락 확인 (en을 기준으로)
+diff <(grep -o '"[a-zA-Z]*":' lib/l10n/app_en.arb | sort) \
+     <(grep -o '"[a-zA-Z]*":' lib/l10n/app_zh.arb | sort)
+```
+
+### 번역 생성 후 테스트
+```bash
+flutter gen-l10n
+flutter test
+```
+
+---
+
+## 온보딩 위젯 테스트 예시
+
+```dart
+testWidgets('Language selection saves to provider', (tester) async {
+  await tester.pumpWidget(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+      ],
+      child: MaterialApp(home: LanguageSelectionScreen()),
+    ),
+  );
+
+  // 중국어 간체 선택
+  await tester.tap(find.text('简体中文'));
+  await tester.pumpAndSettle();
+
+  // Provider에 저장되었는지 확인
+  final provider = tester.element(find.byType(LanguageSelectionScreen))
+      .read<SettingsProvider>();
+  expect(provider.appLanguage, 'zh');
+});
+
+testWidgets('Onboarding flow completes successfully', (tester) async {
+  // 1. 언어 선택
+  // 2. 소개 화면 넘기기
+  // 3. 레벨 선택
+  // 4. 목표 선택
+  // 5. 완료 화면 확인
+  expect(find.text('开始学习'), findsOneWidget);
+});
+```
 
 ## 문제 해결
 

@@ -15,9 +15,9 @@ enum ChineseVariant {
 
 /// App language enum
 enum AppLanguage {
+  ko('ko', '한국어', '한국어'),
   zhCN('zh_CN', '中文(简体)', '중국어(간체자)'),
   zhTW('zh_TW', '中文(繁體)', '중국어(번체자)'),
-  ko('ko', '한국어', '한국어'),
   en('en', 'English', '영어'),
   ja('ja', '日本語', '일본어'),
   es('es', 'Español', '스페인어');
@@ -31,7 +31,7 @@ enum AppLanguage {
   static AppLanguage fromCode(String code) {
     return AppLanguage.values.firstWhere(
       (lang) => lang.code == code,
-      orElse: () => AppLanguage.zhCN,
+      orElse: () => AppLanguage.ko,
     );
   }
 }
@@ -50,11 +50,16 @@ class SettingsProvider extends ChangeNotifier {
   // ================================================================
 
   ChineseVariant _chineseVariant = ChineseVariant.simplified;
-  AppLanguage _appLanguage = AppLanguage.zhCN;
+  AppLanguage _appLanguage = AppLanguage.ko;
   bool _notificationsEnabled = false;
   bool _dailyReminderEnabled = true;
   TimeOfDay _dailyReminderTime = const TimeOfDay(hour: 20, minute: 0);
   bool _reviewRemindersEnabled = true;
+
+  bool _hasCompletedOnboarding = false;
+  String? _userLevel;
+  String _weeklyGoal = 'regular';
+  int _weeklyGoalTarget = 4;
 
   bool _isInitialized = false;
   int? _userId;
@@ -69,6 +74,10 @@ class SettingsProvider extends ChangeNotifier {
   bool get dailyReminderEnabled => _dailyReminderEnabled;
   TimeOfDay get dailyReminderTime => _dailyReminderTime;
   bool get reviewRemindersEnabled => _reviewRemindersEnabled;
+  bool get hasCompletedOnboarding => _hasCompletedOnboarding;
+  String? get userLevel => _userLevel;
+  String get weeklyGoal => _weeklyGoal;
+  int get weeklyGoalTarget => _weeklyGoalTarget;
   bool get isInitialized => _isInitialized;
 
   // ================================================================
@@ -92,7 +101,7 @@ class SettingsProvider extends ChangeNotifier {
         SettingsKeys.appLanguage,
         defaultValue: SettingsKeys.defaultAppLanguage,
       );
-      _appLanguage = AppLanguage.fromCode(langCode ?? 'zh_CN');
+      _appLanguage = AppLanguage.fromCode(langCode ?? 'ko');
 
       // Sync Chinese variant with language selection
       if (_appLanguage == AppLanguage.zhTW) {
@@ -132,6 +141,27 @@ class SettingsProvider extends ChangeNotifier {
         }
       }
 
+      // Load onboarding settings
+      _hasCompletedOnboarding = LocalStorage.getSetting<bool>(
+        SettingsKeys.onboardingCompleted,
+        defaultValue: SettingsKeys.defaultOnboardingCompleted,
+      )!;
+
+      _userLevel = LocalStorage.getSetting<String>(
+        SettingsKeys.userLevel,
+      );
+
+      // Load weekly goal settings
+      _weeklyGoal = LocalStorage.getSetting<String>(
+        SettingsKeys.weeklyGoal,
+        defaultValue: 'regular',
+      ) ?? 'regular';
+
+      _weeklyGoalTarget = LocalStorage.getSetting<int>(
+        SettingsKeys.weeklyGoalTarget,
+        defaultValue: 4,
+      ) ?? 4;
+
       _isInitialized = true;
       notifyListeners();
 
@@ -142,6 +172,9 @@ class SettingsProvider extends ChangeNotifier {
         print('  - Notifications: $_notificationsEnabled');
         print('  - Daily reminder: $_dailyReminderEnabled (${_dailyReminderTime.hour}:${_dailyReminderTime.minute.toString().padLeft(2, '0')})');
         print('  - Review reminders: $_reviewRemindersEnabled');
+        print('  - Onboarding completed: $_hasCompletedOnboarding');
+        print('  - User level: ${_userLevel ?? "not set"}');
+        print('  - Weekly goal: $_weeklyGoal ($_weeklyGoalTarget lessons/week)');
       }
     } catch (e) {
       if (kDebugMode) {
@@ -216,6 +249,66 @@ class SettingsProvider extends ChangeNotifier {
     }
 
     // Sync to backend
+    await _syncPreferencesToBackend();
+  }
+
+  // ================================================================
+  // ONBOARDING SETTINGS
+  // ================================================================
+
+  /// Mark onboarding as completed
+  Future<void> completeOnboarding() async {
+    _hasCompletedOnboarding = true;
+    await LocalStorage.saveSetting(
+      SettingsKeys.onboardingCompleted,
+      true,
+    );
+
+    notifyListeners();
+
+    if (kDebugMode) {
+      print('[SettingsProvider] Onboarding completed');
+    }
+  }
+
+  /// Set user's Korean level
+  Future<void> setUserLevel(String level) async {
+    _userLevel = level;
+    await LocalStorage.saveSetting(
+      SettingsKeys.userLevel,
+      level,
+    );
+
+    notifyListeners();
+
+    if (kDebugMode) {
+      print('[SettingsProvider] User level set to: $level');
+    }
+
+    // Sync to backend if user is logged in
+    await _syncPreferencesToBackend();
+  }
+
+  /// Set user's weekly goal
+  Future<void> setWeeklyGoal(String goal, int target) async {
+    _weeklyGoal = goal;
+    _weeklyGoalTarget = target;
+    await LocalStorage.saveSetting(
+      SettingsKeys.weeklyGoal,
+      goal,
+    );
+    await LocalStorage.saveSetting(
+      SettingsKeys.weeklyGoalTarget,
+      target,
+    );
+
+    notifyListeners();
+
+    if (kDebugMode) {
+      print('[SettingsProvider] Weekly goal set to: $goal ($target lessons/week)');
+    }
+
+    // Sync to backend if user is logged in
     await _syncPreferencesToBackend();
   }
 
@@ -375,6 +468,9 @@ class SettingsProvider extends ChangeNotifier {
       'daily_reminder_enabled': _dailyReminderEnabled,
       'daily_reminder_time': '${_dailyReminderTime.hour.toString().padLeft(2, '0')}:${_dailyReminderTime.minute.toString().padLeft(2, '0')}',
       'review_reminders_enabled': _reviewRemindersEnabled,
+      if (_userLevel != null) 'user_level': _userLevel,
+      'weekly_goal': _weeklyGoal,
+      'weekly_goal_target': _weeklyGoalTarget,
     };
 
     try {
@@ -427,7 +523,7 @@ class SettingsProvider extends ChangeNotifier {
   /// Reset all settings to defaults
   Future<void> resetToDefaults() async {
     _chineseVariant = ChineseVariant.simplified;
-    _appLanguage = AppLanguage.zhCN;
+    _appLanguage = AppLanguage.ko;
     _notificationsEnabled = SettingsKeys.defaultNotificationsEnabled;
     _dailyReminderEnabled = SettingsKeys.defaultDailyReminderEnabled;
     _dailyReminderTime = const TimeOfDay(hour: 20, minute: 0);

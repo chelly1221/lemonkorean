@@ -716,4 +716,319 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get user => 'Usuario';
+
+  @override
+  String get onboardingSkip => 'Saltar';
+
+  @override
+  String get onboardingLanguageTitle => 'Lemon Korean';
+
+  @override
+  String get onboardingLanguagePrompt => 'Elige tu idioma preferido';
+
+  @override
+  String get onboardingNext => 'Siguiente';
+
+  @override
+  String get onboardingWelcome =>
+      '¡Hola! Soy Limón de Lemon Korean 🍋\n¿Quieres aprender coreano juntos?';
+
+  @override
+  String get onboardingLevelQuestion => '¿Cuál es tu nivel actual de coreano?';
+
+  @override
+  String get onboardingStart => 'Comenzar';
+
+  @override
+  String get onboardingStartWithoutLevel => 'Saltar y Comenzar';
+
+  @override
+  String get levelBeginner => 'Principiante';
+
+  @override
+  String get levelBeginnerDesc => '¡No te preocupes! Empecemos desde Hangul';
+
+  @override
+  String get levelElementary => 'Elemental';
+
+  @override
+  String get levelElementaryDesc => '¡Practiquemos conversaciones básicas!';
+
+  @override
+  String get levelIntermediate => 'Intermedio';
+
+  @override
+  String get levelIntermediateDesc => '¡Hablemos más naturalmente!';
+
+  @override
+  String get levelAdvanced => 'Avanzado';
+
+  @override
+  String get levelAdvancedDesc => '¡Dominemos expresiones detalladas!';
+
+  @override
+  String get onboardingWelcomeTitle => '¡Bienvenido a Lemon Coreano!';
+
+  @override
+  String get onboardingWelcomeSubtitle =>
+      'Tu camino hacia la fluidez comienza aquí';
+
+  @override
+  String get onboardingFeature1Title =>
+      'Aprende sin conexión en cualquier momento';
+
+  @override
+  String get onboardingFeature1Desc =>
+      'Descarga lecciones y estudia sin internet';
+
+  @override
+  String get onboardingFeature2Title => 'Sistema de repaso inteligente';
+
+  @override
+  String get onboardingFeature2Desc =>
+      'Repetición espaciada con IA para mejor retención';
+
+  @override
+  String get onboardingFeature3Title => 'Camino de aprendizaje de 7 etapas';
+
+  @override
+  String get onboardingFeature3Desc =>
+      'Currículum estructurado de principiante a avanzado';
+
+  @override
+  String get onboardingLevelTitle => '¿Cuál es tu nivel de coreano?';
+
+  @override
+  String get onboardingLevelSubtitle => 'Personalizaremos tu experiencia';
+
+  @override
+  String get onboardingGoalTitle => 'Establece tu meta semanal';
+
+  @override
+  String get onboardingGoalSubtitle => '¿Cuánto tiempo puedes dedicar?';
+
+  @override
+  String get goalCasual => 'Casual';
+
+  @override
+  String get goalCasualDesc => '1-2 lecciones por semana';
+
+  @override
+  String get goalCasualTime => '~10-20 min/semana';
+
+  @override
+  String get goalCasualHelper => 'Perfecto para horarios ocupados';
+
+  @override
+  String get goalRegular => 'Regular';
+
+  @override
+  String get goalRegularDesc => '3-4 lecciones por semana';
+
+  @override
+  String get goalRegularTime => '~30-40 min/semana';
+
+  @override
+  String get goalRegularHelper => 'Progreso constante sin presión';
+
+  @override
+  String get goalSerious => 'Serio';
+
+  @override
+  String get goalSeriousDesc => '5-6 lecciones por semana';
+
+  @override
+  String get goalSeriousTime => '~50-60 min/semana';
+
+  @override
+  String get goalSeriousHelper => 'Comprometido con mejora rápida';
+
+  @override
+  String get goalIntensive => 'Intensivo';
+
+  @override
+  String get goalIntensiveDesc => 'Práctica diaria';
+
+  @override
+  String get goalIntensiveTime => '60+ min/semana';
+
+  @override
+  String get goalIntensiveHelper => 'Velocidad máxima de aprendizaje';
+
+  @override
+  String get onboardingCompleteTitle => '¡Todo listo!';
+
+  @override
+  String get onboardingCompleteSubtitle => 'Comencemos tu viaje de aprendizaje';
+
+  @override
+  String get onboardingSummaryLanguage => 'Idioma de interfaz';
+
+  @override
+  String get onboardingSummaryLevel => 'Nivel de coreano';
+
+  @override
+  String get onboardingSummaryGoal => 'Meta semanal';
+
+  @override
+  String get onboardingStartLearning => 'Comenzar a aprender';
+
+  @override
+  String get onboardingBack => 'Atrás';
+
+  @override
+  String levelTopik(String level) {
+    return 'TOPIK $level';
+  }
+
+  @override
+  String get appLanguage => 'Idioma de la aplicación';
+
+  @override
+  String get appLanguageDesc =>
+      'Selecciona el idioma para la interfaz de la aplicación.';
+
+  @override
+  String languageSelected(String language) {
+    return '$language seleccionado';
+  }
+
+  @override
+  String get sort => 'Ordenar';
+
+  @override
+  String get notificationTipContent =>
+      '• Los recordatorios de repaso se programan automáticamente después de completar una lección\n• Algunos dispositivos pueden necesitar desactivar el ahorro de batería en la configuración del sistema para recibir notificaciones correctamente';
+
+  @override
+  String get yesterday => 'Ayer';
+
+  @override
+  String daysAgo(int count) {
+    return 'Hace $count días';
+  }
+
+  @override
+  String dateFormat(int month, int day) {
+    return '$day/$month';
+  }
+
+  @override
+  String get downloadManager => 'Gestor de descargas';
+
+  @override
+  String get storageInfo => 'Información de almacenamiento';
+
+  @override
+  String get clearAllDownloads => 'Borrar todo';
+
+  @override
+  String get downloadedTab => 'Descargado';
+
+  @override
+  String get availableTab => 'Disponible';
+
+  @override
+  String get downloadedLessons => 'Lecciones descargadas';
+
+  @override
+  String get mediaFiles => 'Archivos multimedia';
+
+  @override
+  String get usedStorage => 'En uso';
+
+  @override
+  String get cacheStorage => 'Caché';
+
+  @override
+  String get totalStorage => 'Total';
+
+  @override
+  String get allDownloadsCleared => 'Todas las descargas eliminadas';
+
+  @override
+  String get availableStorage => 'Disponible';
+
+  @override
+  String get noDownloadedLessons => 'No hay lecciones descargadas';
+
+  @override
+  String get goToAvailableTab =>
+      'Ve a la pestaña \"Disponible\" para descargar lecciones';
+
+  @override
+  String get allLessonsDownloaded => 'Todas las lecciones descargadas';
+
+  @override
+  String get deleteDownload => 'Eliminar descarga';
+
+  @override
+  String confirmDeleteDownload(String title) {
+    return '¿Seguro que quieres eliminar \"$title\"?';
+  }
+
+  @override
+  String confirmClearAllDownloads(int count) {
+    return '¿Seguro que quieres eliminar las $count descargas?';
+  }
+
+  @override
+  String downloadingCount(int count) {
+    return 'Descargando ($count)';
+  }
+
+  @override
+  String get preparing => 'Preparando...';
+
+  @override
+  String lessonId(int id) {
+    return 'Lección $id';
+  }
+
+  @override
+  String get searchWords => 'Buscar palabras...';
+
+  @override
+  String wordCount(int count) {
+    return '$count palabras';
+  }
+
+  @override
+  String get sortByLesson => 'Por lección';
+
+  @override
+  String get sortByKorean => 'Por coreano';
+
+  @override
+  String get sortByChinese => 'Por chino';
+
+  @override
+  String get noWordsFound => 'No se encontraron palabras';
+
+  @override
+  String get noMasteredWords => 'Aún no hay palabras dominadas';
+
+  @override
+  String get hanja => 'Hanja';
+
+  @override
+  String get exampleSentence => 'Ejemplo';
+
+  @override
+  String get mastered => 'Dominado';
+
+  @override
+  String get completedLessons => 'Lecciones completadas';
+
+  @override
+  String get noCompletedLessons => 'No hay lecciones completadas';
+
+  @override
+  String get startFirstLesson => '¡Comienza tu primera lección!';
+
+  @override
+  String get masteredWords => 'Palabras dominadas';
+
+  @override
+  String get download => 'Descargar';
 }

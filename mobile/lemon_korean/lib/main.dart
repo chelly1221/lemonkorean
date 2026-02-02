@@ -18,6 +18,7 @@ import 'presentation/providers/sync_provider.dart';
 import 'presentation/providers/vocabulary_browser_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
+import 'presentation/screens/onboarding/language_selection_screen.dart';
 
 // Mobile-only imports with web stubs
 import 'package:hive_flutter/hive_flutter.dart'
@@ -80,7 +81,12 @@ void main() async {
     );
   }
 
-  runApp(const LemonKoreanApp());
+  // Pre-initialize SettingsProvider BEFORE runApp to load saved language
+  // This prevents language flicker on startup (showing English/Chinese before Korean)
+  final settingsProvider = SettingsProvider();
+  await settingsProvider.init();
+
+  runApp(LemonKoreanApp(settingsProvider: settingsProvider));
 }
 
 /// Convert AppLanguage to Locale
@@ -102,7 +108,9 @@ Locale _getLocaleFromLanguage(AppLanguage language) {
 }
 
 class LemonKoreanApp extends StatelessWidget {
-  const LemonKoreanApp({super.key});
+  final SettingsProvider settingsProvider;
+
+  const LemonKoreanApp({super.key, required this.settingsProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +121,7 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProgressProvider()),
         ChangeNotifierProvider(create: (_) => BookmarkProvider()),
         ChangeNotifierProvider(create: (_) => VocabularyBrowserProvider()),
-        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider<SettingsProvider>.value(value: settingsProvider),
         ChangeNotifierProvider(create: (_) => SyncProvider()),
         // Download provider only on mobile (web doesn't support file downloads)
         if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),
@@ -172,11 +180,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (!mounted) return;
 
-    // Initialize SettingsProvider
+    // SettingsProvider is already initialized in main() before runApp()
     final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
-    await settingsProvider.init();
 
-    if (!mounted) return;
+    // Check if onboarding is completed
+    if (!settingsProvider.hasCompletedOnboarding) {
+      // Navigate to onboarding
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LanguageSelectionScreen(),
+        ),
+      );
+      return;
+    }
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final lessonProvider = Provider.of<LessonProvider>(context, listen: false);
@@ -271,7 +287,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 builder: (context) {
                   final l10n = AppLocalizations.of(context);
                   return Text(
-                    l10n?.appName ?? '柠檬韩语',
+                    l10n?.appName ?? '레몬 한국어',
                     style: const TextStyle(
                       fontSize: 20,
                       color: Colors.white70,

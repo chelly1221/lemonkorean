@@ -716,5 +716,278 @@
   },
 
   "user": "用户",
-  "@user": {"description": "Default user name"}
+  "@user": {"description": "Default user name"},
+
+  "onboardingSkip": "跳过",
+  "@onboardingSkip": {"description": "Onboarding skip button"},
+
+  "onboardingLanguageTitle": "柠檬韩语",
+  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
+
+  "onboardingLanguagePrompt": "请选择您的首选语言",
+  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
+
+  "onboardingNext": "下一步",
+  "@onboardingNext": {"description": "Onboarding next button"},
+
+  "onboardingWelcome": "你好！我是柠檬韩语的柠檬 🍋\n我们一起学韩语吧？",
+  "@onboardingWelcome": {"description": "Onboarding welcome message"},
+
+  "onboardingLevelQuestion": "你现在的韩语水平是？",
+  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
+
+  "onboardingStart": "开始学习",
+  "@onboardingStart": {"description": "Onboarding start button"},
+
+  "onboardingStartWithoutLevel": "跳过并开始",
+  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
+
+  "levelBeginner": "入门",
+  "@levelBeginner": {"description": "Beginner level"},
+
+  "levelBeginnerDesc": "没关系！从韩文字母开始",
+  "@levelBeginnerDesc": {"description": "Beginner level description"},
+
+  "levelElementary": "初级",
+  "@levelElementary": {"description": "Elementary level"},
+
+  "levelElementaryDesc": "从基础会话开始练习！",
+  "@levelElementaryDesc": {"description": "Elementary level description"},
+
+  "levelIntermediate": "中级",
+  "@levelIntermediate": {"description": "Intermediate level"},
+
+  "levelIntermediateDesc": "说得更自然！",
+  "@levelIntermediateDesc": {"description": "Intermediate level description"},
+
+  "levelAdvanced": "高级",
+  "@levelAdvanced": {"description": "Advanced level"},
+
+  "levelAdvancedDesc": "掌握细节表达！",
+  "@levelAdvancedDesc": {"description": "Advanced level description"},
+
+  "onboardingWelcomeTitle": "欢迎来到柠檬韩语！",
+  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
+
+  "onboardingWelcomeSubtitle": "你的流利之旅从这里开始",
+  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
+
+  "onboardingFeature1Title": "随时随地离线学习",
+  "@onboardingFeature1Title": {"description": "Feature 1 title"},
+
+  "onboardingFeature1Desc": "下载课程，无需网络即可学习",
+  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
+
+  "onboardingFeature2Title": "智能复习系统",
+  "@onboardingFeature2Title": {"description": "Feature 2 title"},
+
+  "onboardingFeature2Desc": "AI驱动的间隔重复，提升记忆效果",
+  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
+
+  "onboardingFeature3Title": "7阶段学习路径",
+  "@onboardingFeature3Title": {"description": "Feature 3 title"},
+
+  "onboardingFeature3Desc": "从入门到高级的结构化课程",
+  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
+
+  "onboardingLevelTitle": "你的韩语水平如何？",
+  "@onboardingLevelTitle": {"description": "Level selection title"},
+
+  "onboardingLevelSubtitle": "我们将为你定制学习体验",
+  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
+
+  "onboardingGoalTitle": "设定你的每周目标",
+  "@onboardingGoalTitle": {"description": "Goal selection title"},
+
+  "onboardingGoalSubtitle": "你能投入多少时间？",
+  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
+
+  "goalCasual": "休闲",
+  "@goalCasual": {"description": "Casual goal option"},
+
+  "goalCasualDesc": "每周1-2课",
+  "@goalCasualDesc": {"description": "Casual goal description"},
+
+  "goalCasualTime": "~每周10-20分钟",
+  "@goalCasualTime": {"description": "Casual goal time"},
+
+  "goalCasualHelper": "适合忙碌的日程",
+  "@goalCasualHelper": {"description": "Casual goal helper text"},
+
+  "goalRegular": "规律",
+  "@goalRegular": {"description": "Regular goal option"},
+
+  "goalRegularDesc": "每周3-4课",
+  "@goalRegularDesc": {"description": "Regular goal description"},
+
+  "goalRegularTime": "~每周30-40分钟",
+  "@goalRegularTime": {"description": "Regular goal time"},
+
+  "goalRegularHelper": "稳定进步，无压力",
+  "@goalRegularHelper": {"description": "Regular goal helper text"},
+
+  "goalSerious": "认真",
+  "@goalSerious": {"description": "Serious goal option"},
+
+  "goalSeriousDesc": "每周5-6课",
+  "@goalSeriousDesc": {"description": "Serious goal description"},
+
+  "goalSeriousTime": "~每周50-60分钟",
+  "@goalSeriousTime": {"description": "Serious goal time"},
+
+  "goalSeriousHelper": "致力于快速提升",
+  "@goalSeriousHelper": {"description": "Serious goal helper text"},
+
+  "goalIntensive": "强化",
+  "@goalIntensive": {"description": "Intensive goal option"},
+
+  "goalIntensiveDesc": "每日练习",
+  "@goalIntensiveDesc": {"description": "Intensive goal description"},
+
+  "goalIntensiveTime": "每周60分钟以上",
+  "@goalIntensiveTime": {"description": "Intensive goal time"},
+
+  "goalIntensiveHelper": "最快学习速度",
+  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
+
+  "onboardingCompleteTitle": "一切就绪！",
+  "@onboardingCompleteTitle": {"description": "Completion screen title"},
+
+  "onboardingCompleteSubtitle": "开始你的学习之旅",
+  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
+
+  "onboardingSummaryLanguage": "界面语言",
+  "@onboardingSummaryLanguage": {"description": "Summary language label"},
+
+  "onboardingSummaryLevel": "韩语水平",
+  "@onboardingSummaryLevel": {"description": "Summary level label"},
+
+  "onboardingSummaryGoal": "每周目标",
+  "@onboardingSummaryGoal": {"description": "Summary goal label"},
+
+  "onboardingStartLearning": "开始学习",
+  "@onboardingStartLearning": {"description": "Start learning button"},
+
+  "onboardingBack": "返回",
+  "@onboardingBack": {"description": "Back button"},
+
+  "levelTopik": "TOPIK {level}",
+  "@levelTopik": {
+    "description": "TOPIK level indicator",
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+
+  "appLanguage": "应用语言",
+  "@appLanguage": {"description": "App language section title"},
+
+  "appLanguageDesc": "选择应用界面使用的语言。",
+  "@appLanguageDesc": {"description": "App language description"},
+
+  "languageSelected": "已选择 {language}",
+  "@languageSelected": {
+    "description": "Language selected message",
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+
+  "sort": "排序",
+  "@sort": {"description": "Sort button tooltip"},
+
+  "notificationTipContent": "• 复习提醒会在完成课程后自动安排\n• 部分手机需要在系统设置中关闭省电模式才能正常接收通知",
+  "yesterday": "昨天",
+  "@yesterday": {"description": "Yesterday"},
+
+  "daysAgo": "{count}天前",
+  "@daysAgo": {
+    "description": "Days ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dateFormat": "{month}月{day}日",
+  "@dateFormat": {
+    "description": "Date format",
+    "placeholders": {
+      "month": {"type": "int"},
+      "day": {"type": "int"}
+    }
+  },
+  "downloadManager": "下载管理",
+  "storageInfo": "存储信息",
+  "clearAllDownloads": "清空下载",
+  "downloadedTab": "已下载",
+  "availableTab": "可下载",
+  "downloadedLessons": "已下载课程",
+  "mediaFiles": "媒体文件",
+  "usedStorage": "使用中",
+  "cacheStorage": "缓存",
+  "totalStorage": "总计",
+  "allDownloadsCleared": "已清空所有下载",
+  "availableStorage": "可用",
+  "noDownloadedLessons": "暂无已下载课程",
+  "goToAvailableTab": "切换到\"可下载\"标签开始下载",
+  "allLessonsDownloaded": "所有课程已下载",
+  "deleteDownload": "删除下载",
+  "confirmDeleteDownload": "确定要删除\"{title}\"吗？",
+  "@confirmDeleteDownload": {
+    "description": "Confirm delete download",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "confirmClearAllDownloads": "确定要删除所有 {count} 个已下载课程吗？",
+  "@confirmClearAllDownloads": {
+    "description": "Confirm clear all downloads",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "downloadingCount": "下载中 ({count})",
+  "@downloadingCount": {
+    "description": "Downloading count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "preparing": "准备中...",
+  "@preparing": {"description": "Preparing status"},
+
+  "lessonId": "课程 {id}",
+  "@lessonId": {
+    "description": "Lesson ID",
+    "placeholders": {
+      "id": {"type": "int"}
+    }
+  },
+
+  "searchWords": "搜索单词...",
+  "@searchWords": {"description": "Search words placeholder"},
+
+  "wordCount": "{count}个单词",
+  "@wordCount": {
+    "description": "Word count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "sortByLesson": "按课程",
+  "sortByKorean": "按韩语",
+  "sortByChinese": "按中文",
+  "noWordsFound": "未找到相关单词",
+  "noMasteredWords": "暂无掌握的单词",
+  "hanja": "汉字",
+  "exampleSentence": "例句",
+  "mastered": "已掌握",
+  "completedLessons": "已完成课程",
+  "noCompletedLessons": "暂无完成的课程",
+  "startFirstLesson": "开始学习第一课吧！",
+  "masteredWords": "已掌握单词",
+  "download": "下载"
 }

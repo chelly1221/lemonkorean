@@ -600,10 +600,10 @@ class SyncManager {
   int get queueSize => LocalStorage.getSyncQueueSize();
 
   String get statusMessage {
-    if (_isSyncing) return '正在同步...';
-    if (!_isOnline) return '离线模式';
-    if (queueSize > 0) return '有 $queueSize 项待同步';
-    return '已同步';
+    if (_isSyncing) return '동기화 중...';
+    if (!_isOnline) return '오프라인 모드';
+    if (queueSize > 0) return '동기화 대기 중: $queueSize 항목';
+    return '동기화 완료';
   }
 
   // ================================================================
@@ -693,10 +693,10 @@ class SyncStatus {
   });
 
   String get statusMessage {
-    if (isSyncing) return '正在同步...';
-    if (!isOnline) return '离线模式';
-    if (queueSize > 0) return '有 $queueSize 项待同步';
-    return '已同步';
+    if (isSyncing) return '동기화 중...';
+    if (!isOnline) return '오프라인 모드';
+    if (queueSize > 0) return '동기화 대기 중: $queueSize 항목';
+    return '동기화 완료';
   }
 
   String? get lastSyncTimeFormatted {
@@ -705,10 +705,10 @@ class SyncStatus {
     final now = DateTime.now();
     final difference = now.difference(lastSyncTime!);
 
-    if (difference.inMinutes < 1) return '刚刚';
-    if (difference.inMinutes < 60) return '${difference.inMinutes} 分钟前';
-    if (difference.inHours < 24) return '${difference.inHours} 小时前';
-    return '${difference.inDays} 天前';
+    if (difference.inMinutes < 1) return '방금';
+    if (difference.inMinutes < 60) return '${difference.inMinutes}분 전';
+    if (difference.inHours < 24) return '${difference.inHours}시간 전';
+    return '${difference.inDays}일 전';
   }
 
   @override

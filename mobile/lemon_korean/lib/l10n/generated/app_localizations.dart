@@ -97,12 +97,12 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-    Locale('es'),
-    Locale('ja'),
     Locale('ko'),
     Locale('zh'),
-    Locale('zh', 'TW')
+    Locale('zh', 'TW'),
+    Locale('en'),
+    Locale('ja'),
+    Locale('es')
   ];
 
   /// App name
@@ -1424,6 +1424,582 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'用户'**
   String get user;
+
+  /// Onboarding skip button
+  ///
+  /// In zh, this message translates to:
+  /// **'跳过'**
+  String get onboardingSkip;
+
+  /// Onboarding language selection title
+  ///
+  /// In zh, this message translates to:
+  /// **'柠檬韩语'**
+  String get onboardingLanguageTitle;
+
+  /// Onboarding language selection prompt
+  ///
+  /// In zh, this message translates to:
+  /// **'请选择您的首选语言'**
+  String get onboardingLanguagePrompt;
+
+  /// Onboarding next button
+  ///
+  /// In zh, this message translates to:
+  /// **'下一步'**
+  String get onboardingNext;
+
+  /// Onboarding welcome message
+  ///
+  /// In zh, this message translates to:
+  /// **'你好！我是柠檬韩语的柠檬 🍋\n我们一起学韩语吧？'**
+  String get onboardingWelcome;
+
+  /// Onboarding level question
+  ///
+  /// In zh, this message translates to:
+  /// **'你现在的韩语水平是？'**
+  String get onboardingLevelQuestion;
+
+  /// Onboarding start button
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习'**
+  String get onboardingStart;
+
+  /// Onboarding start without level selection
+  ///
+  /// In zh, this message translates to:
+  /// **'跳过并开始'**
+  String get onboardingStartWithoutLevel;
+
+  /// Beginner level
+  ///
+  /// In zh, this message translates to:
+  /// **'入门'**
+  String get levelBeginner;
+
+  /// Beginner level description
+  ///
+  /// In zh, this message translates to:
+  /// **'没关系！从韩文字母开始'**
+  String get levelBeginnerDesc;
+
+  /// Elementary level
+  ///
+  /// In zh, this message translates to:
+  /// **'初级'**
+  String get levelElementary;
+
+  /// Elementary level description
+  ///
+  /// In zh, this message translates to:
+  /// **'从基础会话开始练习！'**
+  String get levelElementaryDesc;
+
+  /// Intermediate level
+  ///
+  /// In zh, this message translates to:
+  /// **'中级'**
+  String get levelIntermediate;
+
+  /// Intermediate level description
+  ///
+  /// In zh, this message translates to:
+  /// **'说得更自然！'**
+  String get levelIntermediateDesc;
+
+  /// Advanced level
+  ///
+  /// In zh, this message translates to:
+  /// **'高级'**
+  String get levelAdvanced;
+
+  /// Advanced level description
+  ///
+  /// In zh, this message translates to:
+  /// **'掌握细节表达！'**
+  String get levelAdvancedDesc;
+
+  /// Welcome screen title
+  ///
+  /// In zh, this message translates to:
+  /// **'欢迎来到柠檬韩语！'**
+  String get onboardingWelcomeTitle;
+
+  /// Welcome screen subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'你的流利之旅从这里开始'**
+  String get onboardingWelcomeSubtitle;
+
+  /// Feature 1 title
+  ///
+  /// In zh, this message translates to:
+  /// **'随时随地离线学习'**
+  String get onboardingFeature1Title;
+
+  /// Feature 1 description
+  ///
+  /// In zh, this message translates to:
+  /// **'下载课程，无需网络即可学习'**
+  String get onboardingFeature1Desc;
+
+  /// Feature 2 title
+  ///
+  /// In zh, this message translates to:
+  /// **'智能复习系统'**
+  String get onboardingFeature2Title;
+
+  /// Feature 2 description
+  ///
+  /// In zh, this message translates to:
+  /// **'AI驱动的间隔重复，提升记忆效果'**
+  String get onboardingFeature2Desc;
+
+  /// Feature 3 title
+  ///
+  /// In zh, this message translates to:
+  /// **'7阶段学习路径'**
+  String get onboardingFeature3Title;
+
+  /// Feature 3 description
+  ///
+  /// In zh, this message translates to:
+  /// **'从入门到高级的结构化课程'**
+  String get onboardingFeature3Desc;
+
+  /// Level selection title
+  ///
+  /// In zh, this message translates to:
+  /// **'你的韩语水平如何？'**
+  String get onboardingLevelTitle;
+
+  /// Level selection subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'我们将为你定制学习体验'**
+  String get onboardingLevelSubtitle;
+
+  /// Goal selection title
+  ///
+  /// In zh, this message translates to:
+  /// **'设定你的每周目标'**
+  String get onboardingGoalTitle;
+
+  /// Goal selection subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'你能投入多少时间？'**
+  String get onboardingGoalSubtitle;
+
+  /// Casual goal option
+  ///
+  /// In zh, this message translates to:
+  /// **'休闲'**
+  String get goalCasual;
+
+  /// Casual goal description
+  ///
+  /// In zh, this message translates to:
+  /// **'每周1-2课'**
+  String get goalCasualDesc;
+
+  /// Casual goal time
+  ///
+  /// In zh, this message translates to:
+  /// **'~每周10-20分钟'**
+  String get goalCasualTime;
+
+  /// Casual goal helper text
+  ///
+  /// In zh, this message translates to:
+  /// **'适合忙碌的日程'**
+  String get goalCasualHelper;
+
+  /// Regular goal option
+  ///
+  /// In zh, this message translates to:
+  /// **'规律'**
+  String get goalRegular;
+
+  /// Regular goal description
+  ///
+  /// In zh, this message translates to:
+  /// **'每周3-4课'**
+  String get goalRegularDesc;
+
+  /// Regular goal time
+  ///
+  /// In zh, this message translates to:
+  /// **'~每周30-40分钟'**
+  String get goalRegularTime;
+
+  /// Regular goal helper text
+  ///
+  /// In zh, this message translates to:
+  /// **'稳定进步，无压力'**
+  String get goalRegularHelper;
+
+  /// Serious goal option
+  ///
+  /// In zh, this message translates to:
+  /// **'认真'**
+  String get goalSerious;
+
+  /// Serious goal description
+  ///
+  /// In zh, this message translates to:
+  /// **'每周5-6课'**
+  String get goalSeriousDesc;
+
+  /// Serious goal time
+  ///
+  /// In zh, this message translates to:
+  /// **'~每周50-60分钟'**
+  String get goalSeriousTime;
+
+  /// Serious goal helper text
+  ///
+  /// In zh, this message translates to:
+  /// **'致力于快速提升'**
+  String get goalSeriousHelper;
+
+  /// Intensive goal option
+  ///
+  /// In zh, this message translates to:
+  /// **'强化'**
+  String get goalIntensive;
+
+  /// Intensive goal description
+  ///
+  /// In zh, this message translates to:
+  /// **'每日练习'**
+  String get goalIntensiveDesc;
+
+  /// Intensive goal time
+  ///
+  /// In zh, this message translates to:
+  /// **'每周60分钟以上'**
+  String get goalIntensiveTime;
+
+  /// Intensive goal helper text
+  ///
+  /// In zh, this message translates to:
+  /// **'最快学习速度'**
+  String get goalIntensiveHelper;
+
+  /// Completion screen title
+  ///
+  /// In zh, this message translates to:
+  /// **'一切就绪！'**
+  String get onboardingCompleteTitle;
+
+  /// Completion screen subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'开始你的学习之旅'**
+  String get onboardingCompleteSubtitle;
+
+  /// Summary language label
+  ///
+  /// In zh, this message translates to:
+  /// **'界面语言'**
+  String get onboardingSummaryLanguage;
+
+  /// Summary level label
+  ///
+  /// In zh, this message translates to:
+  /// **'韩语水平'**
+  String get onboardingSummaryLevel;
+
+  /// Summary goal label
+  ///
+  /// In zh, this message translates to:
+  /// **'每周目标'**
+  String get onboardingSummaryGoal;
+
+  /// Start learning button
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习'**
+  String get onboardingStartLearning;
+
+  /// Back button
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get onboardingBack;
+
+  /// TOPIK level indicator
+  ///
+  /// In zh, this message translates to:
+  /// **'TOPIK {level}'**
+  String levelTopik(String level);
+
+  /// App language section title
+  ///
+  /// In zh, this message translates to:
+  /// **'应用语言'**
+  String get appLanguage;
+
+  /// App language description
+  ///
+  /// In zh, this message translates to:
+  /// **'选择应用界面使用的语言。'**
+  String get appLanguageDesc;
+
+  /// Language selected message
+  ///
+  /// In zh, this message translates to:
+  /// **'已选择 {language}'**
+  String languageSelected(String language);
+
+  /// Sort button tooltip
+  ///
+  /// In zh, this message translates to:
+  /// **'排序'**
+  String get sort;
+
+  /// No description provided for @notificationTipContent.
+  ///
+  /// In zh, this message translates to:
+  /// **'• 复习提醒会在完成课程后自动安排\n• 部分手机需要在系统设置中关闭省电模式才能正常接收通知'**
+  String get notificationTipContent;
+
+  /// Yesterday
+  ///
+  /// In zh, this message translates to:
+  /// **'昨天'**
+  String get yesterday;
+
+  /// Days ago
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}天前'**
+  String daysAgo(int count);
+
+  /// Date format
+  ///
+  /// In zh, this message translates to:
+  /// **'{month}月{day}日'**
+  String dateFormat(int month, int day);
+
+  /// No description provided for @downloadManager.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载管理'**
+  String get downloadManager;
+
+  /// No description provided for @storageInfo.
+  ///
+  /// In zh, this message translates to:
+  /// **'存储信息'**
+  String get storageInfo;
+
+  /// No description provided for @clearAllDownloads.
+  ///
+  /// In zh, this message translates to:
+  /// **'清空下载'**
+  String get clearAllDownloads;
+
+  /// No description provided for @downloadedTab.
+  ///
+  /// In zh, this message translates to:
+  /// **'已下载'**
+  String get downloadedTab;
+
+  /// No description provided for @availableTab.
+  ///
+  /// In zh, this message translates to:
+  /// **'可下载'**
+  String get availableTab;
+
+  /// No description provided for @downloadedLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'已下载课程'**
+  String get downloadedLessons;
+
+  /// No description provided for @mediaFiles.
+  ///
+  /// In zh, this message translates to:
+  /// **'媒体文件'**
+  String get mediaFiles;
+
+  /// No description provided for @usedStorage.
+  ///
+  /// In zh, this message translates to:
+  /// **'使用中'**
+  String get usedStorage;
+
+  /// No description provided for @cacheStorage.
+  ///
+  /// In zh, this message translates to:
+  /// **'缓存'**
+  String get cacheStorage;
+
+  /// No description provided for @totalStorage.
+  ///
+  /// In zh, this message translates to:
+  /// **'总计'**
+  String get totalStorage;
+
+  /// No description provided for @allDownloadsCleared.
+  ///
+  /// In zh, this message translates to:
+  /// **'已清空所有下载'**
+  String get allDownloadsCleared;
+
+  /// No description provided for @availableStorage.
+  ///
+  /// In zh, this message translates to:
+  /// **'可用'**
+  String get availableStorage;
+
+  /// No description provided for @noDownloadedLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无已下载课程'**
+  String get noDownloadedLessons;
+
+  /// No description provided for @goToAvailableTab.
+  ///
+  /// In zh, this message translates to:
+  /// **'切换到\"可下载\"标签开始下载'**
+  String get goToAvailableTab;
+
+  /// No description provided for @allLessonsDownloaded.
+  ///
+  /// In zh, this message translates to:
+  /// **'所有课程已下载'**
+  String get allLessonsDownloaded;
+
+  /// No description provided for @deleteDownload.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除下载'**
+  String get deleteDownload;
+
+  /// Confirm delete download
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要删除\"{title}\"吗？'**
+  String confirmDeleteDownload(String title);
+
+  /// Confirm clear all downloads
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要删除所有 {count} 个已下载课程吗？'**
+  String confirmClearAllDownloads(int count);
+
+  /// Downloading count
+  ///
+  /// In zh, this message translates to:
+  /// **'下载中 ({count})'**
+  String downloadingCount(int count);
+
+  /// Preparing status
+  ///
+  /// In zh, this message translates to:
+  /// **'准备中...'**
+  String get preparing;
+
+  /// Lesson ID
+  ///
+  /// In zh, this message translates to:
+  /// **'课程 {id}'**
+  String lessonId(int id);
+
+  /// Search words placeholder
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索单词...'**
+  String get searchWords;
+
+  /// Word count
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}个单词'**
+  String wordCount(int count);
+
+  /// No description provided for @sortByLesson.
+  ///
+  /// In zh, this message translates to:
+  /// **'按课程'**
+  String get sortByLesson;
+
+  /// No description provided for @sortByKorean.
+  ///
+  /// In zh, this message translates to:
+  /// **'按韩语'**
+  String get sortByKorean;
+
+  /// No description provided for @sortByChinese.
+  ///
+  /// In zh, this message translates to:
+  /// **'按中文'**
+  String get sortByChinese;
+
+  /// No description provided for @noWordsFound.
+  ///
+  /// In zh, this message translates to:
+  /// **'未找到相关单词'**
+  String get noWordsFound;
+
+  /// No description provided for @noMasteredWords.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无掌握的单词'**
+  String get noMasteredWords;
+
+  /// No description provided for @hanja.
+  ///
+  /// In zh, this message translates to:
+  /// **'汉字'**
+  String get hanja;
+
+  /// No description provided for @exampleSentence.
+  ///
+  /// In zh, this message translates to:
+  /// **'例句'**
+  String get exampleSentence;
+
+  /// No description provided for @mastered.
+  ///
+  /// In zh, this message translates to:
+  /// **'已掌握'**
+  String get mastered;
+
+  /// No description provided for @completedLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成课程'**
+  String get completedLessons;
+
+  /// No description provided for @noCompletedLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无完成的课程'**
+  String get noCompletedLessons;
+
+  /// No description provided for @startFirstLesson.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习第一课吧！'**
+  String get startFirstLesson;
+
+  /// No description provided for @masteredWords.
+  ///
+  /// In zh, this message translates to:
+  /// **'已掌握单词'**
+  String get masteredWords;
+
+  /// No description provided for @download.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载'**
+  String get download;
 }
 
 class _AppLocalizationsDelegate

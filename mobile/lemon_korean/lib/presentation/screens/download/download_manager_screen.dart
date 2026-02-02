@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/download_provider.dart';
-import '../../widgets/bilingual_text.dart';
 
 class DownloadManagerScreen extends StatefulWidget {
   const DownloadManagerScreen({super.key});
@@ -37,12 +37,13 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const InlineBilingualText(
-          chinese: '下载管理',
-          korean: '다운로드 관리',
-          style: TextStyle(
+        title: Text(
+          l10n.downloadManager,
+          style: const TextStyle(
             fontSize: AppConstants.fontSizeLarge,
             fontWeight: FontWeight.bold,
           ),
@@ -51,24 +52,24 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
           IconButton(
             icon: const Icon(Icons.storage_outlined),
             onPressed: _showStorageInfo,
-            tooltip: '存储信息 / 저장공간',
+            tooltip: l10n.storageInfo,
           ),
           IconButton(
             icon: const Icon(Icons.delete_sweep_outlined),
             onPressed: _showDeleteAllDialog,
-            tooltip: '清空下载 / 전체 삭제',
+            tooltip: l10n.clearAllDownloads,
           ),
         ],
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
+          tabs: [
             Tab(
-              text: '已下载\n다운로드 완료',
-              icon: Icon(Icons.download_done),
+              text: l10n.downloadedTab,
+              icon: const Icon(Icons.download_done),
             ),
             Tab(
-              text: '可下载\n다운로드 가능',
-              icon: Icon(Icons.cloud_download_outlined),
+              text: l10n.availableTab,
+              icon: const Icon(Icons.cloud_download_outlined),
             ),
           ],
         ),
@@ -117,30 +118,28 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
   void _showStorageInfo() {
     final provider = Provider.of<DownloadProvider>(context, listen: false);
     final stats = provider.storageStats;
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const InlineBilingualText(
-          chinese: '存储信息',
-          korean: '저장공간',
-        ),
+        title: Text(l10n.storageInfo),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow('已下载课程 / 다운로드 수업', '${stats?.downloadedLessons ?? 0}'),
-            _buildInfoRow('媒体文件数 / 미디어 파일', '${stats?.mediaFileCount ?? 0}'),
+            _buildInfoRow(l10n.downloadedLessons, '${stats?.downloadedLessons ?? 0}'),
+            _buildInfoRow(l10n.mediaFiles, '${stats?.mediaFileCount ?? 0}'),
             _buildInfoRow(
-              '使用空间 / 사용공간',
+              l10n.usedStorage,
               '${stats?.mediaStorageMB.toStringAsFixed(1) ?? 0} MB',
             ),
             _buildInfoRow(
-              '缓存空间 / 캐시',
+              l10n.cacheStorage,
               '${stats?.cacheStorageMB.toStringAsFixed(1) ?? 0} MB',
             ),
             _buildInfoRow(
-              '总计 / 총계',
+              l10n.totalStorage,
               '${stats?.totalStorageMB.toStringAsFixed(1) ?? 0} MB',
             ),
           ],
@@ -148,10 +147,7 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const InlineBilingualText(
-              chinese: '确定',
-              korean: '확인',
-            ),
+            child: Text(l10n.confirm),
           ),
         ],
       ),
@@ -176,10 +172,11 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
 
   void _showDeleteAllDialog() {
     final provider = Provider.of<DownloadProvider>(context, listen: false);
+    final l10n = AppLocalizations.of(context)!;
 
     if (provider.downloadedLessons.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('暂无已下载课程')),
+        SnackBar(content: Text(l10n.noDownloadedLessons)),
       );
       return;
     }
@@ -187,21 +184,12 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const InlineBilingualText(
-          chinese: '清空下载',
-          korean: '전체 삭제',
-        ),
-        content: BilingualText(
-          chinese: '确定要删除所有 ${provider.downloadedLessons.length} 个已下载课程吗？',
-          korean: '${provider.downloadedLessons.length}개의 다운로드를 삭제하시겠습니까?',
-        ),
+        title: Text(l10n.clearAllDownloads),
+        content: Text(l10n.confirmClearAllDownloads(provider.downloadedLessons.length)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const InlineBilingualText(
-              chinese: '取消',
-              korean: '취소',
-            ),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -209,19 +197,14 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
               await provider.deleteAllDownloads();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('已清空所有下载 / 전체 삭제 완료'),
-                  ),
+                  SnackBar(content: Text(l10n.allDownloadsCleared)),
                 );
               }
             },
             style: TextButton.styleFrom(
               foregroundColor: AppConstants.errorColor,
             ),
-            child: const InlineBilingualText(
-              chinese: '确定',
-              korean: '확인',
-            ),
+            child: Text(l10n.confirm),
           ),
         ],
       ),
@@ -244,6 +227,8 @@ class _ActiveDownloadsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       color: AppConstants.primaryColor.withOpacity(0.1),
       child: Column(
@@ -260,7 +245,7 @@ class _ActiveDownloadsSection extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '下载中 다운로드 중 (${activeDownloads.length})',
+                  l10n.downloadingCount(activeDownloads.length),
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeMedium,
                     fontWeight: FontWeight.bold,
@@ -298,8 +283,9 @@ class _DownloadingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final percentage = progress?.percentage ?? 0.0;
-    final message = progress?.message ?? '准备中...';
+    final message = progress?.message ?? l10n.preparing;
 
     return Card(
       margin: const EdgeInsets.symmetric(
@@ -315,7 +301,7 @@ class _DownloadingItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    '课程 $lessonId',
+                    l10n.lessonId(lessonId),
                     style: const TextStyle(
                       fontSize: AppConstants.fontSizeMedium,
                       fontWeight: FontWeight.bold,
@@ -334,7 +320,7 @@ class _DownloadingItem extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.close, size: 20),
                   onPressed: onCancel,
-                  tooltip: '取消',
+                  tooltip: l10n.cancel,
                 ),
               ],
             ),
@@ -373,6 +359,7 @@ class _StorageInfoBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final provider = context.watch<DownloadProvider>();
     final usedMB = stats?.mediaStorageMB ?? 0.0;
     final availableGB = provider.availableStorageBytes / (1024 * 1024 * 1024);
@@ -391,9 +378,9 @@ class _StorageInfoBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header
-          const Text(
-            '存储空间 / 저장공간',
-            style: TextStyle(
+          Text(
+            l10n.storageInfo,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeSmall,
               color: AppConstants.textSecondary,
               fontWeight: FontWeight.bold,
@@ -404,9 +391,9 @@ class _StorageInfoBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '使用中 / 사용 중',
-                style: TextStyle(
+              Text(
+                l10n.usedStorage,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeSmall - 1,
                   color: AppConstants.textSecondary,
                 ),
@@ -426,9 +413,9 @@ class _StorageInfoBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '可用 / 사용 가능',
-                style: TextStyle(
+              Text(
+                l10n.availableStorage,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeSmall - 1,
                   color: AppConstants.textSecondary,
                 ),
@@ -447,9 +434,9 @@ class _StorageInfoBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '总计 / 전체',
-                style: TextStyle(
+              Text(
+                l10n.totalStorage,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeSmall - 1,
                   color: AppConstants.textSecondary,
                 ),
@@ -496,6 +483,8 @@ class _DownloadedTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (lessons.isEmpty) {
       return Center(
         child: Column(
@@ -507,19 +496,17 @@ class _DownloadedTab extends StatelessWidget {
               color: Colors.grey.shade400,
             ),
             const SizedBox(height: AppConstants.paddingMedium),
-            BilingualText(
-              chinese: '暂无已下载课程',
-              korean: '다운로드한 수업이 없습니다',
-              chineseStyle: TextStyle(
+            Text(
+              l10n.noDownloadedLessons,
+              style: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 color: Colors.grey.shade600,
               ),
             ),
             const SizedBox(height: AppConstants.paddingSmall),
-            BilingualText(
-              chinese: '切换到"可下载"标签开始下载',
-              korean: '"다운로드 가능" 탭에서 시작하세요',
-              chineseStyle: TextStyle(
+            Text(
+              l10n.goToAvailableTab,
+              style: TextStyle(
                 fontSize: AppConstants.fontSizeSmall,
                 color: Colors.grey.shade500,
               ),
@@ -552,24 +539,17 @@ class _DownloadedTab extends StatelessWidget {
   }
 
   void _showDeleteDialog(BuildContext context, LessonModel lesson) {
+    final l10n = AppLocalizations.of(context)!;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const InlineBilingualText(
-          chinese: '删除下载',
-          korean: '다운로드 삭제',
-        ),
-        content: BilingualText(
-          chinese: '确定要删除"${lesson.titleZh}"吗？',
-          korean: '"${lesson.titleZh}"을(를) 삭제하시겠습니까?',
-        ),
+        title: Text(l10n.deleteDownload),
+        content: Text(l10n.confirmDeleteDownload(lesson.titleZh)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const InlineBilingualText(
-              chinese: '取消',
-              korean: '취소',
-            ),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
@@ -579,10 +559,7 @@ class _DownloadedTab extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: AppConstants.errorColor,
             ),
-            child: const InlineBilingualText(
-              chinese: '删除',
-              korean: '삭제',
-            ),
+            child: Text(l10n.delete),
           ),
         ],
       ),
@@ -601,6 +578,8 @@ class _DownloadedLessonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingMedium),
       child: ListTile(
@@ -633,7 +612,7 @@ class _DownloadedLessonCard extends StatelessWidget {
           children: [
             const Icon(Icons.check_circle, size: 14, color: Colors.green),
             const SizedBox(width: 4),
-            const Text('已下载 / 다운로드 완료'),
+            Text(l10n.downloaded),
             const SizedBox(width: 16),
             const Icon(Icons.access_time, size: 14),
             const SizedBox(width: 4),
@@ -670,6 +649,8 @@ class _AvailableTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (lessons.isEmpty) {
       return Center(
         child: Column(
@@ -681,10 +662,9 @@ class _AvailableTab extends StatelessWidget {
               color: Colors.grey.shade400,
             ),
             const SizedBox(height: AppConstants.paddingMedium),
-            BilingualText(
-              chinese: '所有课程已下载',
-              korean: '모든 수업이 다운로드되었습니다',
-              chineseStyle: TextStyle(
+            Text(
+              l10n.allLessonsDownloaded,
+              style: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 color: Colors.grey.shade600,
               ),
@@ -728,6 +708,8 @@ class _AvailableLessonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingMedium),
       child: ListTile(
@@ -764,16 +746,15 @@ class _AvailableLessonCard extends StatelessWidget {
             const SizedBox(width: 16),
             const Icon(Icons.translate, size: 14),
             const SizedBox(width: 4),
-            Text('${lesson.vocabularyCount} 词'),
+            Text(l10n.wordCount(lesson.vocabularyCount ?? 0)),
           ],
         ),
         trailing: ElevatedButton.icon(
           onPressed: onDownload,
           icon: const Icon(Icons.download, size: 18),
-          label: const InlineBilingualText(
-            chinese: '下载',
-            korean: '다운로드',
-            style: TextStyle(fontSize: 12),
+          label: Text(
+            l10n.download,
+            style: const TextStyle(fontSize: 12),
           ),
           style: ElevatedButton.styleFrom(
             backgroundColor: AppConstants.primaryColor,

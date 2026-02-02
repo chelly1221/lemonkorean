@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
 
 /// Language Settings Screen
@@ -12,10 +13,11 @@ class LanguageSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('语言设置 / 언어 설정'),
+        title: Text(l10n.languageSettings),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -28,7 +30,7 @@ class LanguageSettingsScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              '앱 언어 / App Language',
+              l10n.appLanguage,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -41,7 +43,7 @@ class LanguageSettingsScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Text(
-              '앱 인터페이스에 사용할 언어를 선택하세요.\nSelect the language for the app interface.',
+              l10n.appLanguageDesc,
               style: TextStyle(
                 fontSize: 13,
                 color: Colors.grey[600],
@@ -62,7 +64,7 @@ class LanguageSettingsScreen extends StatelessWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${lang.nativeName} 선택됨 / ${lang.nativeName} selected'),
+                      content: Text(l10n.languageSelected(lang.nativeName)),
                       duration: const Duration(seconds: 2),
                     ),
                   );

@@ -222,5 +222,171 @@
   "premiumMember": "高級會員",
   "freeUser": "免費用戶",
   "wordsWaitingReview": "{count}個單詞等待複習",
-  "user": "用戶"
+  "user": "用戶",
+
+  "onboardingSkip": "跳過",
+  "onboardingLanguageTitle": "檸檬韓語",
+  "onboardingLanguagePrompt": "請選擇您的首選語言",
+  "onboardingNext": "下一步",
+  "onboardingWelcome": "你好！我是檸檬韓語的檸檬 🍋\n我們一起學韓語吧？",
+  "onboardingLevelQuestion": "你現在的韓語水平是？",
+  "onboardingStart": "開始學習",
+  "onboardingStartWithoutLevel": "跳過並開始",
+  "levelBeginner": "入門",
+  "levelBeginnerDesc": "沒關係！從韓文字母開始",
+  "levelElementary": "初級",
+  "levelElementaryDesc": "從基礎會話開始練習！",
+  "levelIntermediate": "中級",
+  "levelIntermediateDesc": "說得更自然！",
+  "levelAdvanced": "高級",
+  "levelAdvancedDesc": "掌握細節表達！",
+
+  "onboardingWelcomeTitle": "歡迎來到檸檬韓語！",
+  "onboardingWelcomeSubtitle": "你的流利之旅從這裡開始",
+  "onboardingFeature1Title": "隨時隨地離線學習",
+  "onboardingFeature1Desc": "下載課程，無需網絡即可學習",
+  "onboardingFeature2Title": "智能複習系統",
+  "onboardingFeature2Desc": "AI驅動的間隔重複，提升記憶效果",
+  "onboardingFeature3Title": "7階段學習路徑",
+  "onboardingFeature3Desc": "從入門到高級的結構化課程",
+  "onboardingLevelTitle": "你的韓語水平如何？",
+  "onboardingLevelSubtitle": "我們將為你定製學習體驗",
+  "onboardingGoalTitle": "設定你的每週目標",
+  "onboardingGoalSubtitle": "你能投入多少時間？",
+  "goalCasual": "休閒",
+  "goalCasualDesc": "每週1-2課",
+  "goalCasualTime": "~每週10-20分鐘",
+  "goalCasualHelper": "適合忙碌的日程",
+  "goalRegular": "規律",
+  "goalRegularDesc": "每週3-4課",
+  "goalRegularTime": "~每週30-40分鐘",
+  "goalRegularHelper": "穩定進步，無壓力",
+  "goalSerious": "認真",
+  "goalSeriousDesc": "每週5-6課",
+  "goalSeriousTime": "~每週50-60分鐘",
+  "goalSeriousHelper": "致力於快速提升",
+  "goalIntensive": "強化",
+  "goalIntensiveDesc": "每日練習",
+  "goalIntensiveTime": "每週60分鐘以上",
+  "goalIntensiveHelper": "最快學習速度",
+  "onboardingCompleteTitle": "一切就緒！",
+  "onboardingCompleteSubtitle": "開始你的學習之旅",
+  "onboardingSummaryLanguage": "界面語言",
+  "onboardingSummaryLevel": "韓語水平",
+  "onboardingSummaryGoal": "每週目標",
+  "onboardingStartLearning": "開始學習",
+  "onboardingBack": "返回",
+  "levelTopik": "TOPIK {level}",
+
+  "appLanguage": "應用語言",
+  "@appLanguage": {"description": "App language section title"},
+
+  "appLanguageDesc": "選擇應用界面使用的語言。",
+  "@appLanguageDesc": {"description": "App language description"},
+
+  "languageSelected": "已選擇 {language}",
+  "@languageSelected": {
+    "description": "Language selected message",
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+
+  "sort": "排序",
+  "@sort": {"description": "Sort button tooltip"},
+
+  "notificationTipContent": "• 複習提醒會在完成課程後自動安排\n• 部分手機需要在系統設置中關閉省電模式才能正常接收通知",
+  "yesterday": "昨天",
+  "@yesterday": {"description": "Yesterday"},
+
+  "daysAgo": "{count}天前",
+  "@daysAgo": {
+    "description": "Days ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dateFormat": "{month}月{day}日",
+  "@dateFormat": {
+    "description": "Date format",
+    "placeholders": {
+      "month": {"type": "int"},
+      "day": {"type": "int"}
+    }
+  },
+  "downloadManager": "下載管理",
+  "storageInfo": "存儲信息",
+  "clearAllDownloads": "清空下載",
+  "downloadedTab": "已下載",
+  "availableTab": "可下載",
+  "downloadedLessons": "已下載課程",
+  "mediaFiles": "媒體文件",
+  "usedStorage": "使用中",
+  "cacheStorage": "緩存",
+  "totalStorage": "總計",
+  "allDownloadsCleared": "已清空所有下載",
+  "availableStorage": "可用",
+  "noDownloadedLessons": "暫無已下載課程",
+  "goToAvailableTab": "切換到\"可下載\"標籤開始下載",
+  "allLessonsDownloaded": "所有課程已下載",
+  "deleteDownload": "刪除下載",
+  "confirmDeleteDownload": "確定要刪除\"{title}\"嗎？",
+  "@confirmDeleteDownload": {
+    "description": "Confirm delete download",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "confirmClearAllDownloads": "確定要刪除所有 {count} 個已下載課程嗎？",
+  "@confirmClearAllDownloads": {
+    "description": "Confirm clear all downloads",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "downloadingCount": "下載中 ({count})",
+  "@downloadingCount": {
+    "description": "Downloading count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "preparing": "準備中...",
+  "@preparing": {"description": "Preparing status"},
+
+  "lessonId": "課程 {id}",
+  "@lessonId": {
+    "description": "Lesson ID",
+    "placeholders": {
+      "id": {"type": "int"}
+    }
+  },
+
+  "searchWords": "搜索單詞...",
+  "@searchWords": {"description": "Search words placeholder"},
+
+  "wordCount": "{count}個單詞",
+  "@wordCount": {
+    "description": "Word count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "sortByLesson": "按課程",
+  "sortByKorean": "按韓語",
+  "sortByChinese": "按中文",
+  "noWordsFound": "未找到相關單詞",
+  "noMasteredWords": "暫無掌握的單詞",
+  "hanja": "漢字",
+  "exampleSentence": "例句",
+  "mastered": "已掌握",
+  "completedLessons": "已完成課程",
+  "noCompletedLessons": "暫無完成的課程",
+  "startFirstLesson": "開始學習第一課吧！",
+  "masteredWords": "已掌握單詞",
+  "download": "下載"
 }

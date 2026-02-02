@@ -693,6 +693,313 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get user => '用户';
+
+  @override
+  String get onboardingSkip => '跳过';
+
+  @override
+  String get onboardingLanguageTitle => '柠檬韩语';
+
+  @override
+  String get onboardingLanguagePrompt => '请选择您的首选语言';
+
+  @override
+  String get onboardingNext => '下一步';
+
+  @override
+  String get onboardingWelcome => '你好！我是柠檬韩语的柠檬 🍋\n我们一起学韩语吧？';
+
+  @override
+  String get onboardingLevelQuestion => '你现在的韩语水平是？';
+
+  @override
+  String get onboardingStart => '开始学习';
+
+  @override
+  String get onboardingStartWithoutLevel => '跳过并开始';
+
+  @override
+  String get levelBeginner => '入门';
+
+  @override
+  String get levelBeginnerDesc => '没关系！从韩文字母开始';
+
+  @override
+  String get levelElementary => '初级';
+
+  @override
+  String get levelElementaryDesc => '从基础会话开始练习！';
+
+  @override
+  String get levelIntermediate => '中级';
+
+  @override
+  String get levelIntermediateDesc => '说得更自然！';
+
+  @override
+  String get levelAdvanced => '高级';
+
+  @override
+  String get levelAdvancedDesc => '掌握细节表达！';
+
+  @override
+  String get onboardingWelcomeTitle => '欢迎来到柠檬韩语！';
+
+  @override
+  String get onboardingWelcomeSubtitle => '你的流利之旅从这里开始';
+
+  @override
+  String get onboardingFeature1Title => '随时随地离线学习';
+
+  @override
+  String get onboardingFeature1Desc => '下载课程，无需网络即可学习';
+
+  @override
+  String get onboardingFeature2Title => '智能复习系统';
+
+  @override
+  String get onboardingFeature2Desc => 'AI驱动的间隔重复，提升记忆效果';
+
+  @override
+  String get onboardingFeature3Title => '7阶段学习路径';
+
+  @override
+  String get onboardingFeature3Desc => '从入门到高级的结构化课程';
+
+  @override
+  String get onboardingLevelTitle => '你的韩语水平如何？';
+
+  @override
+  String get onboardingLevelSubtitle => '我们将为你定制学习体验';
+
+  @override
+  String get onboardingGoalTitle => '设定你的每周目标';
+
+  @override
+  String get onboardingGoalSubtitle => '你能投入多少时间？';
+
+  @override
+  String get goalCasual => '休闲';
+
+  @override
+  String get goalCasualDesc => '每周1-2课';
+
+  @override
+  String get goalCasualTime => '~每周10-20分钟';
+
+  @override
+  String get goalCasualHelper => '适合忙碌的日程';
+
+  @override
+  String get goalRegular => '规律';
+
+  @override
+  String get goalRegularDesc => '每周3-4课';
+
+  @override
+  String get goalRegularTime => '~每周30-40分钟';
+
+  @override
+  String get goalRegularHelper => '稳定进步，无压力';
+
+  @override
+  String get goalSerious => '认真';
+
+  @override
+  String get goalSeriousDesc => '每周5-6课';
+
+  @override
+  String get goalSeriousTime => '~每周50-60分钟';
+
+  @override
+  String get goalSeriousHelper => '致力于快速提升';
+
+  @override
+  String get goalIntensive => '强化';
+
+  @override
+  String get goalIntensiveDesc => '每日练习';
+
+  @override
+  String get goalIntensiveTime => '每周60分钟以上';
+
+  @override
+  String get goalIntensiveHelper => '最快学习速度';
+
+  @override
+  String get onboardingCompleteTitle => '一切就绪！';
+
+  @override
+  String get onboardingCompleteSubtitle => '开始你的学习之旅';
+
+  @override
+  String get onboardingSummaryLanguage => '界面语言';
+
+  @override
+  String get onboardingSummaryLevel => '韩语水平';
+
+  @override
+  String get onboardingSummaryGoal => '每周目标';
+
+  @override
+  String get onboardingStartLearning => '开始学习';
+
+  @override
+  String get onboardingBack => '返回';
+
+  @override
+  String levelTopik(String level) {
+    return 'TOPIK $level';
+  }
+
+  @override
+  String get appLanguage => '应用语言';
+
+  @override
+  String get appLanguageDesc => '选择应用界面使用的语言。';
+
+  @override
+  String languageSelected(String language) {
+    return '已选择 $language';
+  }
+
+  @override
+  String get sort => '排序';
+
+  @override
+  String get notificationTipContent =>
+      '• 复习提醒会在完成课程后自动安排\n• 部分手机需要在系统设置中关闭省电模式才能正常接收通知';
+
+  @override
+  String get yesterday => '昨天';
+
+  @override
+  String daysAgo(int count) {
+    return '$count天前';
+  }
+
+  @override
+  String dateFormat(int month, int day) {
+    return '$month月$day日';
+  }
+
+  @override
+  String get downloadManager => '下载管理';
+
+  @override
+  String get storageInfo => '存储信息';
+
+  @override
+  String get clearAllDownloads => '清空下载';
+
+  @override
+  String get downloadedTab => '已下载';
+
+  @override
+  String get availableTab => '可下载';
+
+  @override
+  String get downloadedLessons => '已下载课程';
+
+  @override
+  String get mediaFiles => '媒体文件';
+
+  @override
+  String get usedStorage => '使用中';
+
+  @override
+  String get cacheStorage => '缓存';
+
+  @override
+  String get totalStorage => '总计';
+
+  @override
+  String get allDownloadsCleared => '已清空所有下载';
+
+  @override
+  String get availableStorage => '可用';
+
+  @override
+  String get noDownloadedLessons => '暂无已下载课程';
+
+  @override
+  String get goToAvailableTab => '切换到\"可下载\"标签开始下载';
+
+  @override
+  String get allLessonsDownloaded => '所有课程已下载';
+
+  @override
+  String get deleteDownload => '删除下载';
+
+  @override
+  String confirmDeleteDownload(String title) {
+    return '确定要删除\"$title\"吗？';
+  }
+
+  @override
+  String confirmClearAllDownloads(int count) {
+    return '确定要删除所有 $count 个已下载课程吗？';
+  }
+
+  @override
+  String downloadingCount(int count) {
+    return '下载中 ($count)';
+  }
+
+  @override
+  String get preparing => '准备中...';
+
+  @override
+  String lessonId(int id) {
+    return '课程 $id';
+  }
+
+  @override
+  String get searchWords => '搜索单词...';
+
+  @override
+  String wordCount(int count) {
+    return '$count个单词';
+  }
+
+  @override
+  String get sortByLesson => '按课程';
+
+  @override
+  String get sortByKorean => '按韩语';
+
+  @override
+  String get sortByChinese => '按中文';
+
+  @override
+  String get noWordsFound => '未找到相关单词';
+
+  @override
+  String get noMasteredWords => '暂无掌握的单词';
+
+  @override
+  String get hanja => '汉字';
+
+  @override
+  String get exampleSentence => '例句';
+
+  @override
+  String get mastered => '已掌握';
+
+  @override
+  String get completedLessons => '已完成课程';
+
+  @override
+  String get noCompletedLessons => '暂无完成的课程';
+
+  @override
+  String get startFirstLesson => '开始学习第一课吧！';
+
+  @override
+  String get masteredWords => '已掌握单词';
+
+  @override
+  String get download => '下载';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -1384,4 +1691,311 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get user => '用戶';
+
+  @override
+  String get onboardingSkip => '跳過';
+
+  @override
+  String get onboardingLanguageTitle => '檸檬韓語';
+
+  @override
+  String get onboardingLanguagePrompt => '請選擇您的首選語言';
+
+  @override
+  String get onboardingNext => '下一步';
+
+  @override
+  String get onboardingWelcome => '你好！我是檸檬韓語的檸檬 🍋\n我們一起學韓語吧？';
+
+  @override
+  String get onboardingLevelQuestion => '你現在的韓語水平是？';
+
+  @override
+  String get onboardingStart => '開始學習';
+
+  @override
+  String get onboardingStartWithoutLevel => '跳過並開始';
+
+  @override
+  String get levelBeginner => '入門';
+
+  @override
+  String get levelBeginnerDesc => '沒關係！從韓文字母開始';
+
+  @override
+  String get levelElementary => '初級';
+
+  @override
+  String get levelElementaryDesc => '從基礎會話開始練習！';
+
+  @override
+  String get levelIntermediate => '中級';
+
+  @override
+  String get levelIntermediateDesc => '說得更自然！';
+
+  @override
+  String get levelAdvanced => '高級';
+
+  @override
+  String get levelAdvancedDesc => '掌握細節表達！';
+
+  @override
+  String get onboardingWelcomeTitle => '歡迎來到檸檬韓語！';
+
+  @override
+  String get onboardingWelcomeSubtitle => '你的流利之旅從這裡開始';
+
+  @override
+  String get onboardingFeature1Title => '隨時隨地離線學習';
+
+  @override
+  String get onboardingFeature1Desc => '下載課程，無需網絡即可學習';
+
+  @override
+  String get onboardingFeature2Title => '智能複習系統';
+
+  @override
+  String get onboardingFeature2Desc => 'AI驅動的間隔重複，提升記憶效果';
+
+  @override
+  String get onboardingFeature3Title => '7階段學習路徑';
+
+  @override
+  String get onboardingFeature3Desc => '從入門到高級的結構化課程';
+
+  @override
+  String get onboardingLevelTitle => '你的韓語水平如何？';
+
+  @override
+  String get onboardingLevelSubtitle => '我們將為你定製學習體驗';
+
+  @override
+  String get onboardingGoalTitle => '設定你的每週目標';
+
+  @override
+  String get onboardingGoalSubtitle => '你能投入多少時間？';
+
+  @override
+  String get goalCasual => '休閒';
+
+  @override
+  String get goalCasualDesc => '每週1-2課';
+
+  @override
+  String get goalCasualTime => '~每週10-20分鐘';
+
+  @override
+  String get goalCasualHelper => '適合忙碌的日程';
+
+  @override
+  String get goalRegular => '規律';
+
+  @override
+  String get goalRegularDesc => '每週3-4課';
+
+  @override
+  String get goalRegularTime => '~每週30-40分鐘';
+
+  @override
+  String get goalRegularHelper => '穩定進步，無壓力';
+
+  @override
+  String get goalSerious => '認真';
+
+  @override
+  String get goalSeriousDesc => '每週5-6課';
+
+  @override
+  String get goalSeriousTime => '~每週50-60分鐘';
+
+  @override
+  String get goalSeriousHelper => '致力於快速提升';
+
+  @override
+  String get goalIntensive => '強化';
+
+  @override
+  String get goalIntensiveDesc => '每日練習';
+
+  @override
+  String get goalIntensiveTime => '每週60分鐘以上';
+
+  @override
+  String get goalIntensiveHelper => '最快學習速度';
+
+  @override
+  String get onboardingCompleteTitle => '一切就緒！';
+
+  @override
+  String get onboardingCompleteSubtitle => '開始你的學習之旅';
+
+  @override
+  String get onboardingSummaryLanguage => '界面語言';
+
+  @override
+  String get onboardingSummaryLevel => '韓語水平';
+
+  @override
+  String get onboardingSummaryGoal => '每週目標';
+
+  @override
+  String get onboardingStartLearning => '開始學習';
+
+  @override
+  String get onboardingBack => '返回';
+
+  @override
+  String levelTopik(String level) {
+    return 'TOPIK $level';
+  }
+
+  @override
+  String get appLanguage => '應用語言';
+
+  @override
+  String get appLanguageDesc => '選擇應用界面使用的語言。';
+
+  @override
+  String languageSelected(String language) {
+    return '已選擇 $language';
+  }
+
+  @override
+  String get sort => '排序';
+
+  @override
+  String get notificationTipContent =>
+      '• 複習提醒會在完成課程後自動安排\n• 部分手機需要在系統設置中關閉省電模式才能正常接收通知';
+
+  @override
+  String get yesterday => '昨天';
+
+  @override
+  String daysAgo(int count) {
+    return '$count天前';
+  }
+
+  @override
+  String dateFormat(int month, int day) {
+    return '$month月$day日';
+  }
+
+  @override
+  String get downloadManager => '下載管理';
+
+  @override
+  String get storageInfo => '存儲信息';
+
+  @override
+  String get clearAllDownloads => '清空下載';
+
+  @override
+  String get downloadedTab => '已下載';
+
+  @override
+  String get availableTab => '可下載';
+
+  @override
+  String get downloadedLessons => '已下載課程';
+
+  @override
+  String get mediaFiles => '媒體文件';
+
+  @override
+  String get usedStorage => '使用中';
+
+  @override
+  String get cacheStorage => '緩存';
+
+  @override
+  String get totalStorage => '總計';
+
+  @override
+  String get allDownloadsCleared => '已清空所有下載';
+
+  @override
+  String get availableStorage => '可用';
+
+  @override
+  String get noDownloadedLessons => '暫無已下載課程';
+
+  @override
+  String get goToAvailableTab => '切換到\"可下載\"標籤開始下載';
+
+  @override
+  String get allLessonsDownloaded => '所有課程已下載';
+
+  @override
+  String get deleteDownload => '刪除下載';
+
+  @override
+  String confirmDeleteDownload(String title) {
+    return '確定要刪除\"$title\"嗎？';
+  }
+
+  @override
+  String confirmClearAllDownloads(int count) {
+    return '確定要刪除所有 $count 個已下載課程嗎？';
+  }
+
+  @override
+  String downloadingCount(int count) {
+    return '下載中 ($count)';
+  }
+
+  @override
+  String get preparing => '準備中...';
+
+  @override
+  String lessonId(int id) {
+    return '課程 $id';
+  }
+
+  @override
+  String get searchWords => '搜索單詞...';
+
+  @override
+  String wordCount(int count) {
+    return '$count個單詞';
+  }
+
+  @override
+  String get sortByLesson => '按課程';
+
+  @override
+  String get sortByKorean => '按韓語';
+
+  @override
+  String get sortByChinese => '按中文';
+
+  @override
+  String get noWordsFound => '未找到相關單詞';
+
+  @override
+  String get noMasteredWords => '暫無掌握的單詞';
+
+  @override
+  String get hanja => '漢字';
+
+  @override
+  String get exampleSentence => '例句';
+
+  @override
+  String get mastered => '已掌握';
+
+  @override
+  String get completedLessons => '已完成課程';
+
+  @override
+  String get noCompletedLessons => '暫無完成的課程';
+
+  @override
+  String get startFirstLesson => '開始學習第一課吧！';
+
+  @override
+  String get masteredWords => '已掌握單詞';
+
+  @override
+  String get download => '下載';
 }

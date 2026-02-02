@@ -699,4 +699,311 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get user => 'ユーザー';
+
+  @override
+  String get onboardingSkip => 'スキップ';
+
+  @override
+  String get onboardingLanguageTitle => 'レモン韓国語';
+
+  @override
+  String get onboardingLanguagePrompt => '使用言語を選択してください';
+
+  @override
+  String get onboardingNext => '次へ';
+
+  @override
+  String get onboardingWelcome => 'こんにちは！レモン韓国語のレモンです 🍋\n一緒に韓国語を勉強しませんか？';
+
+  @override
+  String get onboardingLevelQuestion => '現在の韓国語レベルは？';
+
+  @override
+  String get onboardingStart => '始める';
+
+  @override
+  String get onboardingStartWithoutLevel => 'スキップして始める';
+
+  @override
+  String get levelBeginner => '入門';
+
+  @override
+  String get levelBeginnerDesc => '大丈夫！ハングルから始めよう';
+
+  @override
+  String get levelElementary => '初級';
+
+  @override
+  String get levelElementaryDesc => '基礎会話から練習しよう！';
+
+  @override
+  String get levelIntermediate => '中級';
+
+  @override
+  String get levelIntermediateDesc => 'より自然に話そう！';
+
+  @override
+  String get levelAdvanced => '上級';
+
+  @override
+  String get levelAdvancedDesc => '細かい表現まで極めよう！';
+
+  @override
+  String get onboardingWelcomeTitle => 'レモン韓国語へようこそ！';
+
+  @override
+  String get onboardingWelcomeSubtitle => '流暢さへの旅がここから始まります';
+
+  @override
+  String get onboardingFeature1Title => 'いつでもオフライン学習';
+
+  @override
+  String get onboardingFeature1Desc => 'レッスンをダウンロードしてインターネットなしで学習';
+
+  @override
+  String get onboardingFeature2Title => 'スマート復習システム';
+
+  @override
+  String get onboardingFeature2Desc => 'AI駆動の間隔反復で記憶力向上';
+
+  @override
+  String get onboardingFeature3Title => '7ステージ学習パス';
+
+  @override
+  String get onboardingFeature3Desc => '初心者から上級者まで体系的なカリキュラム';
+
+  @override
+  String get onboardingLevelTitle => 'あなたの韓国語レベルは？';
+
+  @override
+  String get onboardingLevelSubtitle => 'あなたに合わせた体験を提供します';
+
+  @override
+  String get onboardingGoalTitle => '週間目標を設定';
+
+  @override
+  String get onboardingGoalSubtitle => 'どのくらいの時間を確保できますか？';
+
+  @override
+  String get goalCasual => 'カジュアル';
+
+  @override
+  String get goalCasualDesc => '週1-2レッスン';
+
+  @override
+  String get goalCasualTime => '~週10-20分';
+
+  @override
+  String get goalCasualHelper => '忙しいスケジュールに最適';
+
+  @override
+  String get goalRegular => 'レギュラー';
+
+  @override
+  String get goalRegularDesc => '週3-4レッスン';
+
+  @override
+  String get goalRegularTime => '~週30-40分';
+
+  @override
+  String get goalRegularHelper => 'プレッシャーなく着実に進歩';
+
+  @override
+  String get goalSerious => 'シリアス';
+
+  @override
+  String get goalSeriousDesc => '週5-6レッスン';
+
+  @override
+  String get goalSeriousTime => '~週50-60分';
+
+  @override
+  String get goalSeriousHelper => '速い上達を目指す';
+
+  @override
+  String get goalIntensive => '集中';
+
+  @override
+  String get goalIntensiveDesc => '毎日練習';
+
+  @override
+  String get goalIntensiveTime => '週60分以上';
+
+  @override
+  String get goalIntensiveHelper => '最速の学習スピード';
+
+  @override
+  String get onboardingCompleteTitle => '準備完了！';
+
+  @override
+  String get onboardingCompleteSubtitle => '学習の旅を始めましょう';
+
+  @override
+  String get onboardingSummaryLanguage => '表示言語';
+
+  @override
+  String get onboardingSummaryLevel => '韓国語レベル';
+
+  @override
+  String get onboardingSummaryGoal => '週間目標';
+
+  @override
+  String get onboardingStartLearning => '学習を始める';
+
+  @override
+  String get onboardingBack => '戻る';
+
+  @override
+  String levelTopik(String level) {
+    return 'TOPIK $level';
+  }
+
+  @override
+  String get appLanguage => 'アプリ言語';
+
+  @override
+  String get appLanguageDesc => 'アプリインターフェースで使用する言語を選択してください。';
+
+  @override
+  String languageSelected(String language) {
+    return '$language を選択しました';
+  }
+
+  @override
+  String get sort => '並べ替え';
+
+  @override
+  String get notificationTipContent =>
+      '• 復習リマインダーはレッスン完了後に自動的に予約されます\n• 一部のデバイスでは、通知を正常に受信するためにシステム設定でバッテリーセーバーを無効にする必要があります';
+
+  @override
+  String get yesterday => '昨日';
+
+  @override
+  String daysAgo(int count) {
+    return '$count日前';
+  }
+
+  @override
+  String dateFormat(int month, int day) {
+    return '$month月$day日';
+  }
+
+  @override
+  String get downloadManager => 'ダウンロード管理';
+
+  @override
+  String get storageInfo => 'ストレージ情報';
+
+  @override
+  String get clearAllDownloads => 'すべて削除';
+
+  @override
+  String get downloadedTab => 'ダウンロード済み';
+
+  @override
+  String get availableTab => 'ダウンロード可能';
+
+  @override
+  String get downloadedLessons => 'ダウンロード済みレッスン';
+
+  @override
+  String get mediaFiles => 'メディアファイル';
+
+  @override
+  String get usedStorage => '使用中';
+
+  @override
+  String get cacheStorage => 'キャッシュ';
+
+  @override
+  String get totalStorage => '合計';
+
+  @override
+  String get allDownloadsCleared => 'すべてのダウンロードを削除しました';
+
+  @override
+  String get availableStorage => '利用可能';
+
+  @override
+  String get noDownloadedLessons => 'ダウンロード済みのレッスンはありません';
+
+  @override
+  String get goToAvailableTab => '「ダウンロード可能」タブでレッスンをダウンロード';
+
+  @override
+  String get allLessonsDownloaded => 'すべてのレッスンがダウンロード済みです';
+
+  @override
+  String get deleteDownload => 'ダウンロードを削除';
+
+  @override
+  String confirmDeleteDownload(String title) {
+    return '「$title」を削除してもよろしいですか？';
+  }
+
+  @override
+  String confirmClearAllDownloads(int count) {
+    return '$count件のダウンロードをすべて削除してもよろしいですか？';
+  }
+
+  @override
+  String downloadingCount(int count) {
+    return 'ダウンロード中 ($count)';
+  }
+
+  @override
+  String get preparing => '準備中...';
+
+  @override
+  String lessonId(int id) {
+    return 'レッスン $id';
+  }
+
+  @override
+  String get searchWords => '単語を検索...';
+
+  @override
+  String wordCount(int count) {
+    return '$count個の単語';
+  }
+
+  @override
+  String get sortByLesson => 'レッスン順';
+
+  @override
+  String get sortByKorean => '韓国語順';
+
+  @override
+  String get sortByChinese => '中国語順';
+
+  @override
+  String get noWordsFound => '単語が見つかりません';
+
+  @override
+  String get noMasteredWords => '習得した単語はまだありません';
+
+  @override
+  String get hanja => '漢字';
+
+  @override
+  String get exampleSentence => '例文';
+
+  @override
+  String get mastered => '習得済み';
+
+  @override
+  String get completedLessons => '完了したレッスン';
+
+  @override
+  String get noCompletedLessons => '完了したレッスンはありません';
+
+  @override
+  String get startFirstLesson => '最初のレッスンを始めましょう！';
+
+  @override
+  String get masteredWords => '習得した単語';
+
+  @override
+  String get download => 'ダウンロード';
 }

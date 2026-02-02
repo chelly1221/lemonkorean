@@ -356,6 +356,19 @@ bash scripts/monitoring/dashboard.sh
 - ✅ 일일 활성 사용자 (DAU)
 - ✅ 레슨 완료율
 - ✅ 평균 세션 시간
+- ✅ 온보딩 완료율 (퍼널 분석)
+- ✅ 주간 목표 달성률
+
+### Nginx 캐시
+- ✅ 캐시 히트율 (X-Cache-Status 헤더)
+- ✅ 캐시 디스크 사용량 (10GB 제한)
+- ✅ 캐시 권한 오류 모니터링 (UID 1000)
+
+### 웹 앱 (Flutter Web)
+- ✅ 번들 크기 (< 20MB 목표)
+- ✅ 로딩 시간 (First Contentful Paint)
+- ✅ localStorage 사용량 (5-10MB 제한)
+- ✅ JavaScript 에러율 (브라우저 콘솔)
 
 ## 문제 해결
 

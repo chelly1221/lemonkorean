@@ -3,8 +3,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/progress_provider.dart';
-import '../../widgets/bilingual_text.dart';
 import '../../widgets/convertible_text.dart';
 
 /// Screen showing all mastered vocabulary words
@@ -28,6 +28,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final progressProvider = Provider.of<ProgressProvider>(context);
     var words = progressProvider.getMasteredWords();
 
@@ -46,10 +47,9 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const BilingualText(
-          chinese: '已掌握单词',
-          korean: '습득한 단어',
-          chineseStyle: TextStyle(
+        title: Text(
+          l10n.masteredWords,
+          style: const TextStyle(
             fontSize: AppConstants.fontSizeLarge,
             fontWeight: FontWeight.bold,
           ),
@@ -57,7 +57,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.sort),
-            tooltip: '排序',
+            tooltip: l10n.sort,
             onSelected: (value) {
               setState(() {
                 _sortBy = value;
@@ -73,7 +73,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                       size: 18,
                     ),
                     const SizedBox(width: 8),
-                    const Text('按课程'),
+                    Text(l10n.sortByLesson),
                   ],
                 ),
               ),
@@ -86,7 +86,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                       size: 18,
                     ),
                     const SizedBox(width: 8),
-                    const Text('按韩语'),
+                    Text(l10n.sortByKorean),
                   ],
                 ),
               ),
@@ -99,7 +99,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                       size: 18,
                     ),
                     const SizedBox(width: 8),
-                    const Text('按中文'),
+                    Text(l10n.sortByChinese),
                   ],
                 ),
               ),
@@ -114,7 +114,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             child: TextField(
               decoration: InputDecoration(
-                hintText: '搜索单词... / 단어 검색...',
+                hintText: l10n.searchWords,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
@@ -151,7 +151,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    '${words.length} 个单词 / ${words.length}개 단어',
+                    l10n.wordCount(words.length),
                     style: const TextStyle(
                       fontSize: AppConstants.fontSizeSmall,
                       fontWeight: FontWeight.bold,
@@ -167,14 +167,14 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
           // Word list
           Expanded(
             child: words.isEmpty
-                ? _buildEmptyState()
+                ? _buildEmptyState(l10n)
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppConstants.paddingMedium,
                     ),
                     itemCount: words.length,
                     itemBuilder: (context, index) {
-                      return _buildWordCard(words[index]);
+                      return _buildWordCard(words[index], l10n);
                     },
                   ),
           ),
@@ -202,7 +202,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
     return words;
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(AppLocalizations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -213,10 +213,9 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
             color: Colors.grey.shade400,
           ),
           const SizedBox(height: AppConstants.paddingMedium),
-          BilingualText(
-            chinese: _searchQuery.isNotEmpty ? '未找到相关单词' : '暂无掌握的单词',
-            korean: _searchQuery.isNotEmpty ? '검색 결과 없음' : '습득한 단어가 없습니다',
-            chineseStyle: const TextStyle(
+          Text(
+            _searchQuery.isNotEmpty ? l10n.noWordsFound : l10n.noMasteredWords,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeMedium,
               color: AppConstants.textSecondary,
             ),
@@ -226,7 +225,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
     );
   }
 
-  Widget _buildWordCard(Map<String, dynamic> word) {
+  Widget _buildWordCard(Map<String, dynamic> word, AppLocalizations l10n) {
     final korean = word['korean'] as String? ?? '';
     final chinese = word['chinese'] as String? ?? '';
     final pinyin = word['pinyin'] as String? ?? '';
@@ -236,7 +235,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
       child: InkWell(
-        onTap: () => _showWordDetail(word),
+        onTap: () => _showWordDetail(word, l10n),
         borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
         child: Padding(
           padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -257,7 +256,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                     ),
                     if (lessonId != null)
                       Text(
-                        '第 $lessonId 课',
+                        l10n.lessonId(lessonId),
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeSmall,
                           color: Colors.grey.shade500,
@@ -307,7 +306,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
     );
   }
 
-  void _showWordDetail(Map<String, dynamic> word) {
+  void _showWordDetail(Map<String, dynamic> word, AppLocalizations l10n) {
     final korean = word['korean'] as String? ?? '';
     final chinese = word['chinese'] as String? ?? '';
     final pinyin = word['pinyin'] as String? ?? '';
@@ -386,12 +385,12 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
 
               if (hanja != null && hanja.isNotEmpty) ...[
                 const SizedBox(height: AppConstants.paddingLarge),
-                _buildDetailRow('汉字 / 한자', hanja),
+                _buildDetailRow(l10n.hanja, hanja),
               ],
 
               if (example != null && example.isNotEmpty) ...[
                 const SizedBox(height: AppConstants.paddingLarge),
-                _buildDetailRow('例句 / 예문', example),
+                _buildDetailRow(l10n.exampleSentence, example),
                 if (exampleTranslation != null)
                   Padding(
                     padding: const EdgeInsets.only(
@@ -424,15 +423,13 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                       color: AppConstants.successColor,
                     ),
                     const SizedBox(width: AppConstants.paddingSmall),
-                    const Expanded(
-                      child: BilingualText(
-                        chinese: '已掌握',
-                        korean: '습득 완료',
-                        chineseStyle: TextStyle(
+                    Expanded(
+                      child: Text(
+                        l10n.mastered,
+                        style: const TextStyle(
                           color: AppConstants.successColor,
                           fontWeight: FontWeight.bold,
                         ),
-                        textAlign: TextAlign.left,
                       ),
                     ),
                   ],

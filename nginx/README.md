@@ -48,6 +48,7 @@ nginx/
 | `/media/*` | media-service | 3004 | 이미지/오디오/비디오 |
 | `/api/analytics/*` | analytics-service | 3005 | 로그 분석 |
 | `/api/admin/*` | admin-service | 3006 | 관리자 대시보드 |
+| `/app/*` | static files | - | Flutter 웹 앱 (온보딩 포함) |
 
 ---
 

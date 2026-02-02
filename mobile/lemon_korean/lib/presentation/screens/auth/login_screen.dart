@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: '${context.l10n.email} / 이메일',
+                    labelText: context.l10n.email,
                     hintText: context.l10n.enterEmail,
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
-                    labelText: '${context.l10n.password} / 비밀번호',
+                    labelText: context.l10n.password,
                     hintText: context.l10n.enterPassword,
                     prefixIcon: const Icon(Icons.lock_outlined),
                     suffixIcon: Semantics(
@@ -249,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             )
                           : Text(
-                              '${context.l10n.login} / 로그인',
+                              context.l10n.login,
                               style: const TextStyle(
                                 fontSize: AppConstants.fontSizeLarge,
                                 fontWeight: FontWeight.bold,
@@ -266,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${context.l10n.noAccount} / 계정이 없으신가요?',
+                      context.l10n.noAccount,
                       style: const TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: AppConstants.textSecondary,
@@ -281,7 +281,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: Text(
-                        '${context.l10n.registerNow} / 회원가입',
+                        context.l10n.registerNow,
                         style: const TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,

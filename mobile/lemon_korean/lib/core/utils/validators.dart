@@ -31,17 +31,17 @@ class Validators {
   /// Validate email address
   static ValidationResult validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return const ValidationResult.invalid('请输入邮箱');
+      return const ValidationResult.invalid('이메일을 입력하세요');
     }
 
     final trimmed = value.trim();
 
     if (trimmed.length > 254) {
-      return const ValidationResult.invalid('邮箱地址过长');
+      return const ValidationResult.invalid('이메일 주소가 너무 깁니다');
     }
 
     if (!_emailPattern.hasMatch(trimmed)) {
-      return const ValidationResult.invalid('请输入有效的邮箱地址');
+      return const ValidationResult.invalid('유효한 이메일 주소를 입력하세요');
     }
 
     return const ValidationResult.valid();
@@ -68,12 +68,12 @@ class Validators {
   /// Validate password (login - basic check)
   static ValidationResult validatePasswordBasic(String? value) {
     if (value == null || value.isEmpty) {
-      return const ValidationResult.invalid('请输入密码');
+      return const ValidationResult.invalid('비밀번호를 입력하세요');
     }
 
     if (value.length < AppConstants.minPasswordLength) {
       return ValidationResult.invalid(
-        '密码至少需要${AppConstants.minPasswordLength}个字符',
+        '비밀번호는 최소 ${AppConstants.minPasswordLength}자 이상이어야 합니다',
       );
     }
 
@@ -90,11 +90,11 @@ class Validators {
 
     // Must contain letter and number
     if (!_hasLetter.hasMatch(value!)) {
-      return const ValidationResult.invalid('密码必须包含字母');
+      return const ValidationResult.invalid('비밀번호에 문자가 포함되어야 합니다');
     }
 
     if (!_hasNumber.hasMatch(value)) {
-      return const ValidationResult.invalid('密码必须包含数字');
+      return const ValidationResult.invalid('비밀번호에 숫자가 포함되어야 합니다');
     }
 
     return const ValidationResult.valid();
@@ -111,11 +111,11 @@ class Validators {
     }
 
     if (requireSpecial && !_hasSpecial.hasMatch(value!)) {
-      return const ValidationResult.invalid('密码必须包含特殊字符');
+      return const ValidationResult.invalid('비밀번호에 특수문자가 포함되어야 합니다');
     }
 
     if (value!.length > 128) {
-      return const ValidationResult.invalid('密码过长');
+      return const ValidationResult.invalid('비밀번호가 너무 깁니다');
     }
 
     return const ValidationResult.valid();
@@ -137,10 +137,10 @@ class Validators {
   ) {
     return (String? value) {
       if (value == null || value.isEmpty) {
-        return '请再次输入密码';
+        return '비밀번호를 다시 입력하세요';
       }
       if (value != getPassword()) {
-        return '两次输入的密码不一致';
+        return '비밀번호가 일치하지 않습니다';
       }
       return null;
     };
@@ -160,22 +160,22 @@ class Validators {
     int maxLength = 20,
   }) {
     if (value == null || value.trim().isEmpty) {
-      return const ValidationResult.invalid('请输入用户名');
+      return const ValidationResult.invalid('사용자명을 입력하세요');
     }
 
     final trimmed = value.trim();
 
     if (trimmed.length < minLength) {
-      return ValidationResult.invalid('用户名至少需要$minLength个字符');
+      return ValidationResult.invalid('사용자명은 최소 $minLength자 이상이어야 합니다');
     }
 
     if (trimmed.length > maxLength) {
-      return ValidationResult.invalid('用户名不能超过$maxLength个字符');
+      return ValidationResult.invalid('사용자명은 $maxLength자를 초과할 수 없습니다');
     }
 
     // Check for valid characters
     if (!_usernamePattern.hasMatch(trimmed)) {
-      return const ValidationResult.invalid('用户名只能包含字母、数字、下划线和中文');
+      return const ValidationResult.invalid('사용자명은 문자, 숫자, 밑줄만 포함할 수 있습니다');
     }
 
     return const ValidationResult.valid();
@@ -193,7 +193,7 @@ class Validators {
   /// Validate required field
   static ValidationResult validateRequired(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return ValidationResult.invalid('请输入$fieldName');
+      return ValidationResult.invalid('$fieldName을(를) 입력하세요');
     }
     return const ValidationResult.valid();
   }
@@ -212,7 +212,7 @@ class Validators {
     String fieldName,
   ) {
     if (value == null || value.length < minLength) {
-      return ValidationResult.invalid('$fieldName至少需要$minLength个字符');
+      return ValidationResult.invalid('$fieldName은(는) 최소 $minLength자 이상이어야 합니다');
     }
     return const ValidationResult.valid();
   }
@@ -224,7 +224,7 @@ class Validators {
     String fieldName,
   ) {
     if (value != null && value.length > maxLength) {
-      return ValidationResult.invalid('$fieldName不能超过$maxLength个字符');
+      return ValidationResult.invalid('$fieldName은(는) $maxLength자를 초과할 수 없습니다');
     }
     return const ValidationResult.valid();
   }
@@ -232,10 +232,10 @@ class Validators {
   /// Validate numeric input
   static ValidationResult validateNumeric(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
-      return ValidationResult.invalid('请输入$fieldName');
+      return ValidationResult.invalid('$fieldName을(를) 입력하세요');
     }
     if (int.tryParse(value) == null) {
-      return ValidationResult.invalid('$fieldName必须是数字');
+      return ValidationResult.invalid('$fieldName은(는) 숫자여야 합니다');
     }
     return const ValidationResult.valid();
   }

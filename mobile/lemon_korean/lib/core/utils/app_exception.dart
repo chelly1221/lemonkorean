@@ -28,7 +28,7 @@ class AppException implements Exception {
 /// Network-related exceptions
 class NetworkException extends AppException {
   const NetworkException({
-    String message = '网络连接失败，请检查您的网络设置',
+    String message = '네트워크 연결 실패. 네트워크 설정을 확인하세요',
     String code = ErrorCodes.networkError,
     dynamic originalError,
     StackTrace? stackTrace,
@@ -45,7 +45,7 @@ class ServerException extends AppException {
   final int? statusCode;
 
   const ServerException({
-    String message = '服务器错误，请稍后重试',
+    String message = '서버 오류. 나중에 다시 시도하세요',
     String code = ErrorCodes.serverError,
     this.statusCode,
     dynamic originalError,
@@ -61,7 +61,7 @@ class ServerException extends AppException {
 /// Authentication-related exceptions
 class AuthException extends AppException {
   const AuthException({
-    String message = '认证失败，请重新登录',
+    String message = '인증 실패. 다시 로그인하세요',
     String code = ErrorCodes.authError,
     dynamic originalError,
     StackTrace? stackTrace,
@@ -76,7 +76,7 @@ class AuthException extends AppException {
 /// Resource not found exceptions
 class NotFoundException extends AppException {
   const NotFoundException({
-    String message = '请求的资源不存在',
+    String message = '요청한 리소스가 존재하지 않습니다',
     String code = ErrorCodes.notFound,
     dynamic originalError,
     StackTrace? stackTrace,
@@ -93,7 +93,7 @@ class ValidationException extends AppException {
   final Map<String, String>? fieldErrors;
 
   const ValidationException({
-    String message = '请求参数错误',
+    String message = '요청 파라미터 오류',
     String code = ErrorCodes.validationError,
     this.fieldErrors,
     dynamic originalError,
@@ -109,7 +109,7 @@ class ValidationException extends AppException {
 /// Parse/Decode exceptions
 class ParseException extends AppException {
   const ParseException({
-    String message = '数据解析错误',
+    String message = '데이터 파싱 오류',
     String code = ErrorCodes.parseError,
     dynamic originalError,
     StackTrace? stackTrace,
@@ -135,7 +135,7 @@ class ExceptionHandler {
 
     if (error is FormatException) {
       return ParseException(
-        message: '数据格式错误',
+        message: '데이터 형식 오류',
         originalError: error,
         stackTrace: stackTrace,
       );
@@ -156,7 +156,7 @@ class ExceptionHandler {
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
         return NetworkException(
-          message: '连接超时，请检查网络',
+          message: '연결 시간 초과. 네트워크를 확인하세요',
           code: ErrorCodes.timeout,
           originalError: error,
           stackTrace: stackTrace,
@@ -171,7 +171,7 @@ class ExceptionHandler {
 
       case DioExceptionType.cancel:
         return AppException(
-          message: '请求已取消',
+          message: '요청이 취소되었습니다',
           code: ErrorCodes.cancelled,
           originalError: error,
           stackTrace: stackTrace,
@@ -210,7 +210,7 @@ class ExceptionHandler {
     switch (statusCode) {
       case 400:
         return ValidationException(
-          message: message ?? '请求参数错误',
+          message: message ?? '요청 파라미터 오류',
           originalError: error,
           stackTrace: stackTrace,
         );
@@ -224,7 +224,7 @@ class ExceptionHandler {
 
       case 403:
         return AuthException(
-          message: message ?? '没有权限访问',
+          message: message ?? '접근 권한이 없습니다',
           code: 'FORBIDDEN',
           originalError: error,
           stackTrace: stackTrace,
@@ -232,14 +232,14 @@ class ExceptionHandler {
 
       case 404:
         return NotFoundException(
-          message: message ?? '请求的资源不存在',
+          message: message ?? '요청한 리소스가 존재하지 않습니다',
           originalError: error,
           stackTrace: stackTrace,
         );
 
       case 429:
         return ServerException(
-          message: '请求过于频繁，请稍后重试',
+          message: '요청이 너무 많습니다. 나중에 다시 시도하세요',
           code: 'RATE_LIMITED',
           statusCode: statusCode,
           originalError: error,

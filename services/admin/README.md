@@ -69,7 +69,13 @@ GET /api/admin/users/:id
 
 # Update user
 PUT /api/admin/users/:id
-Body: { "subscription_type": "premium", "name": "New Name" }
+Body: {
+  "subscription_type": "premium",
+  "name": "New Name",
+  "weekly_goal": "regular",         # 온보딩에서 설정 (light/regular/intensive/pro)
+  "weekly_goal_target": 15,         # 분 단위 일일 목표
+  "user_level": "elementary"        # 온보딩에서 설정 (beginner/elementary/intermediate/advanced)
+}
 
 # Ban/unban user
 PUT /api/admin/users/:id/ban

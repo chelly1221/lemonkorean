@@ -51,13 +51,13 @@ class AuthRepository {
           user: user,
           token: data['accessToken'] as String?,
           refreshToken: data['refreshToken'] as String?,
-          message: '注册成功',
+          message: '회원가입 성공',
         );
       }
 
       return AuthResult(
         success: false,
-        message: response.data['message'] ?? '注册失败',
+        message: response.data['message'] ?? '회원가입 실패',
       );
     } catch (e) {
       return AuthResult(
@@ -95,7 +95,7 @@ class AuthRepository {
           print('[AuthRepository] Response data: $data');
           return AuthResult(
             success: false,
-            message: '服务器返回数据格式错误 (no user object)',
+            message: '서버 응답 데이터 형식 오류 (no user object)',
           );
         }
 
@@ -109,7 +109,7 @@ class AuthRepository {
           print('[AuthRepository] Error: Missing user ID');
           return AuthResult(
             success: false,
-            message: '用户数据缺少ID',
+            message: '사용자 데이터에 ID가 없습니다',
           );
         }
 
@@ -117,7 +117,7 @@ class AuthRepository {
           print('[AuthRepository] Error: Missing or empty email');
           return AuthResult(
             success: false,
-            message: '用户数据缺少邮箱',
+            message: '사용자 데이터에 이메일이 없습니다',
           );
         }
 
@@ -132,7 +132,7 @@ class AuthRepository {
           print('[AuthRepository] User JSON: ${data['user']}');
           return AuthResult(
             success: false,
-            message: '解析用户数据失败: ${e.toString()}',
+            message: '사용자 데이터 파싱 실패: ${e.toString()}',
           );
         }
 
@@ -148,13 +148,13 @@ class AuthRepository {
           user: user,
           token: data['accessToken'] as String?,
           refreshToken: data['refreshToken'] as String?,
-          message: '登录成功',
+          message: '로그인 성공',
         );
       }
 
       return AuthResult(
         success: false,
-        message: response.data['message'] ?? '登录失败',
+        message: response.data['message'] ?? '로그인 실패',
       );
     } catch (e) {
       // Add debug context for troubleshooting
@@ -282,16 +282,16 @@ class AuthRepository {
 
     if (errorString.contains('network') ||
         errorString.contains('SocketException')) {
-      return '网络连接失败，请检查网络设置';
+      return '네트워크 연결 실패. 네트워크 설정을 확인하세요';
     } else if (errorString.contains('401')) {
-      return '邮箱或密码错误';
+      return '이메일 또는 비밀번호가 잘못되었습니다';
     } else if (errorString.contains('409')) {
-      return '邮箱已被注册';
+      return '이미 등록된 이메일입니다';
     } else if (errorString.contains('timeout')) {
-      return '请求超时，请重试';
+      return '요청 시간 초과. 다시 시도하세요';
     }
 
-    return '操作失败，请稍后重试';
+    return '작업 실패. 나중에 다시 시도하세요';
   }
 }
 

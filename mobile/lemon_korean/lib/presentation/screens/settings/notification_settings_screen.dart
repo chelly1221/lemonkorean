@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
 
 /// Notification Settings Screen
@@ -12,10 +13,11 @@ class NotificationSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('通知设置 / 알림 설정'),
+        title: Text(l10n.notificationSettings),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -30,16 +32,16 @@ class NotificationSettingsScreen extends StatelessWidget {
             ),
             child: SwitchListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              title: const Text(
-                '启用通知 / 알림 활성화',
-                style: TextStyle(
+              title: Text(
+                l10n.enableNotifications,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: const Text(
-                '开启后可以接收学习提醒\n활성화하면 학습 알림을 받을 수 있습니다',
-                style: TextStyle(fontSize: 13, height: 1.5),
+              subtitle: Text(
+                l10n.enableNotificationsDesc,
+                style: const TextStyle(fontSize: 13, height: 1.5),
               ),
               value: settings.notificationsEnabled,
               activeColor: AppConstants.primaryColor,
@@ -47,11 +49,9 @@ class NotificationSettingsScreen extends StatelessWidget {
                 final success = await settings.toggleNotifications(value);
                 if (!success && context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        '请在系统设置中允许通知权限\n시스템 설정에서 알림 권한을 허용해주세요',
-                      ),
-                      duration: Duration(seconds: 3),
+                    SnackBar(
+                      content: Text(l10n.permissionRequired),
+                      duration: const Duration(seconds: 3),
                     ),
                   );
                 }
@@ -65,7 +65,7 @@ class NotificationSettingsScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              '每日学习提醒 / 매일 학습 알림',
+              l10n.dailyLearningReminder,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -85,13 +85,13 @@ class NotificationSettingsScreen extends StatelessWidget {
               children: [
                 SwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  title: const Text(
-                    '每日提醒 / 매일 알림',
-                    style: TextStyle(fontSize: 15),
+                  title: Text(
+                    l10n.dailyReminder,
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  subtitle: const Text(
-                    '每天固定时间提醒学习\n매일 정해진 시간에 알림',
-                    style: TextStyle(fontSize: 12, height: 1.5),
+                  subtitle: Text(
+                    l10n.dailyReminderDesc,
+                    style: const TextStyle(fontSize: 12, height: 1.5),
                   ),
                   value: settings.dailyReminderEnabled,
                   activeColor: AppConstants.primaryColor,
@@ -110,9 +110,9 @@ class NotificationSettingsScreen extends StatelessWidget {
                           ? AppConstants.primaryColor
                           : Colors.grey,
                     ),
-                    title: const Text(
-                      '提醒时间 / 알림 시간',
-                      style: TextStyle(fontSize: 14),
+                    title: Text(
+                      l10n.reminderTime,
+                      style: const TextStyle(fontSize: 14),
                     ),
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -153,7 +153,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      '提醒时间已设置为 ${time.format(context)}\n알림 시간이 ${time.format(context)}(으)로 설정되었습니다',
+                                      l10n.reminderTimeSet(time.format(context)),
                                     ),
                                     duration: const Duration(seconds: 2),
                                   ),
@@ -179,13 +179,13 @@ class NotificationSettingsScreen extends StatelessWidget {
             ),
             child: SwitchListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              title: const Text(
-                '复习提醒 / 복습 알림',
-                style: TextStyle(fontSize: 15),
+              title: Text(
+                l10n.reviewReminder,
+                style: const TextStyle(fontSize: 15),
               ),
-              subtitle: const Text(
-                '根据记忆曲线提醒复习\n기억 곡선에 따라 복습 알림',
-                style: TextStyle(fontSize: 12, height: 1.5),
+              subtitle: Text(
+                l10n.reviewReminderDesc,
+                style: const TextStyle(fontSize: 12, height: 1.5),
               ),
               value: settings.reviewRemindersEnabled,
               activeColor: AppConstants.primaryColor,
@@ -213,18 +213,27 @@ class NotificationSettingsScreen extends StatelessWidget {
                 Icon(Icons.info_outline, color: Colors.orange[700], size: 24),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    '提示：\n'
-                    '• 复习提醒会在完成课程后自动安排\n'
-                    '• 部分手机需要在系统设置中关闭省电模式才能正常接收通知\n\n'
-                    '팁:\n'
-                    '• 복습 알림은 레슨 완료 후 자동으로 예약됩니다\n'
-                    '• 일부 기기에서는 시스템 설정에서 절전 모드를 해제해야 알림을 정상적으로 받을 수 있습니다',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.orange[900],
-                      height: 1.5,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.notificationTip,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange[900],
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.notificationTipContent,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.orange[900],
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

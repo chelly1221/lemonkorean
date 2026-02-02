@@ -30,13 +30,32 @@ class SettingsKeys {
   static const String reviewRemindersEnabled = 'review_reminders_enabled';
 
   // ================================================================
+  // ONBOARDING SETTINGS
+  // ================================================================
+
+  /// Onboarding completed flag
+  static const String onboardingCompleted = 'onboarding_completed';
+
+  /// User's selected Korean level
+  /// Values: 'beginner', 'elementary', 'intermediate', 'advanced'
+  static const String userLevel = 'user_level';
+
+  /// User's weekly goal setting
+  /// Values: 'casual', 'regular', 'serious', 'intensive'
+  static const String weeklyGoal = 'weekly_goal';
+
+  /// User's weekly goal target (number of lessons per week)
+  static const String weeklyGoalTarget = 'weekly_goal_target';
+
+  // ================================================================
   // DEFAULT VALUES
   // ================================================================
 
   static const String defaultChineseVariant = 'simplified';
-  static const String defaultAppLanguage = 'zh_CN';
+  static const String defaultAppLanguage = 'ko';
   static const bool defaultNotificationsEnabled = false;
   static const bool defaultDailyReminderEnabled = true;
   static const String defaultDailyReminderTime = '20:00';
   static const bool defaultReviewRemindersEnabled = true;
+  static const bool defaultOnboardingCompleted = false;
 }

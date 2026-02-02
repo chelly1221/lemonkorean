@@ -716,5 +716,278 @@
   },
 
   "user": "Usuario",
-  "@user": {"description": "Default user name"}
+  "@user": {"description": "Default user name"},
+
+  "onboardingSkip": "Saltar",
+  "@onboardingSkip": {"description": "Onboarding skip button"},
+
+  "onboardingLanguageTitle": "Lemon Korean",
+  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
+
+  "onboardingLanguagePrompt": "Elige tu idioma preferido",
+  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
+
+  "onboardingNext": "Siguiente",
+  "@onboardingNext": {"description": "Onboarding next button"},
+
+  "onboardingWelcome": "¡Hola! Soy Limón de Lemon Korean 🍋\n¿Quieres aprender coreano juntos?",
+  "@onboardingWelcome": {"description": "Onboarding welcome message"},
+
+  "onboardingLevelQuestion": "¿Cuál es tu nivel actual de coreano?",
+  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
+
+  "onboardingStart": "Comenzar",
+  "@onboardingStart": {"description": "Onboarding start button"},
+
+  "onboardingStartWithoutLevel": "Saltar y Comenzar",
+  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
+
+  "levelBeginner": "Principiante",
+  "@levelBeginner": {"description": "Beginner level"},
+
+  "levelBeginnerDesc": "¡No te preocupes! Empecemos desde Hangul",
+  "@levelBeginnerDesc": {"description": "Beginner level description"},
+
+  "levelElementary": "Elemental",
+  "@levelElementary": {"description": "Elementary level"},
+
+  "levelElementaryDesc": "¡Practiquemos conversaciones básicas!",
+  "@levelElementaryDesc": {"description": "Elementary level description"},
+
+  "levelIntermediate": "Intermedio",
+  "@levelIntermediate": {"description": "Intermediate level"},
+
+  "levelIntermediateDesc": "¡Hablemos más naturalmente!",
+  "@levelIntermediateDesc": {"description": "Intermediate level description"},
+
+  "levelAdvanced": "Avanzado",
+  "@levelAdvanced": {"description": "Advanced level"},
+
+  "levelAdvancedDesc": "¡Dominemos expresiones detalladas!",
+  "@levelAdvancedDesc": {"description": "Advanced level description"},
+
+  "onboardingWelcomeTitle": "¡Bienvenido a Lemon Coreano!",
+  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
+
+  "onboardingWelcomeSubtitle": "Tu camino hacia la fluidez comienza aquí",
+  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
+
+  "onboardingFeature1Title": "Aprende sin conexión en cualquier momento",
+  "@onboardingFeature1Title": {"description": "Feature 1 title"},
+
+  "onboardingFeature1Desc": "Descarga lecciones y estudia sin internet",
+  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
+
+  "onboardingFeature2Title": "Sistema de repaso inteligente",
+  "@onboardingFeature2Title": {"description": "Feature 2 title"},
+
+  "onboardingFeature2Desc": "Repetición espaciada con IA para mejor retención",
+  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
+
+  "onboardingFeature3Title": "Camino de aprendizaje de 7 etapas",
+  "@onboardingFeature3Title": {"description": "Feature 3 title"},
+
+  "onboardingFeature3Desc": "Currículum estructurado de principiante a avanzado",
+  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
+
+  "onboardingLevelTitle": "¿Cuál es tu nivel de coreano?",
+  "@onboardingLevelTitle": {"description": "Level selection title"},
+
+  "onboardingLevelSubtitle": "Personalizaremos tu experiencia",
+  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
+
+  "onboardingGoalTitle": "Establece tu meta semanal",
+  "@onboardingGoalTitle": {"description": "Goal selection title"},
+
+  "onboardingGoalSubtitle": "¿Cuánto tiempo puedes dedicar?",
+  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
+
+  "goalCasual": "Casual",
+  "@goalCasual": {"description": "Casual goal option"},
+
+  "goalCasualDesc": "1-2 lecciones por semana",
+  "@goalCasualDesc": {"description": "Casual goal description"},
+
+  "goalCasualTime": "~10-20 min/semana",
+  "@goalCasualTime": {"description": "Casual goal time"},
+
+  "goalCasualHelper": "Perfecto para horarios ocupados",
+  "@goalCasualHelper": {"description": "Casual goal helper text"},
+
+  "goalRegular": "Regular",
+  "@goalRegular": {"description": "Regular goal option"},
+
+  "goalRegularDesc": "3-4 lecciones por semana",
+  "@goalRegularDesc": {"description": "Regular goal description"},
+
+  "goalRegularTime": "~30-40 min/semana",
+  "@goalRegularTime": {"description": "Regular goal time"},
+
+  "goalRegularHelper": "Progreso constante sin presión",
+  "@goalRegularHelper": {"description": "Regular goal helper text"},
+
+  "goalSerious": "Serio",
+  "@goalSerious": {"description": "Serious goal option"},
+
+  "goalSeriousDesc": "5-6 lecciones por semana",
+  "@goalSeriousDesc": {"description": "Serious goal description"},
+
+  "goalSeriousTime": "~50-60 min/semana",
+  "@goalSeriousTime": {"description": "Serious goal time"},
+
+  "goalSeriousHelper": "Comprometido con mejora rápida",
+  "@goalSeriousHelper": {"description": "Serious goal helper text"},
+
+  "goalIntensive": "Intensivo",
+  "@goalIntensive": {"description": "Intensive goal option"},
+
+  "goalIntensiveDesc": "Práctica diaria",
+  "@goalIntensiveDesc": {"description": "Intensive goal description"},
+
+  "goalIntensiveTime": "60+ min/semana",
+  "@goalIntensiveTime": {"description": "Intensive goal time"},
+
+  "goalIntensiveHelper": "Velocidad máxima de aprendizaje",
+  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
+
+  "onboardingCompleteTitle": "¡Todo listo!",
+  "@onboardingCompleteTitle": {"description": "Completion screen title"},
+
+  "onboardingCompleteSubtitle": "Comencemos tu viaje de aprendizaje",
+  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
+
+  "onboardingSummaryLanguage": "Idioma de interfaz",
+  "@onboardingSummaryLanguage": {"description": "Summary language label"},
+
+  "onboardingSummaryLevel": "Nivel de coreano",
+  "@onboardingSummaryLevel": {"description": "Summary level label"},
+
+  "onboardingSummaryGoal": "Meta semanal",
+  "@onboardingSummaryGoal": {"description": "Summary goal label"},
+
+  "onboardingStartLearning": "Comenzar a aprender",
+  "@onboardingStartLearning": {"description": "Start learning button"},
+
+  "onboardingBack": "Atrás",
+  "@onboardingBack": {"description": "Back button"},
+
+  "levelTopik": "TOPIK {level}",
+  "@levelTopik": {
+    "description": "TOPIK level indicator",
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+
+  "appLanguage": "Idioma de la aplicación",
+  "@appLanguage": {"description": "App language section title"},
+
+  "appLanguageDesc": "Selecciona el idioma para la interfaz de la aplicación.",
+  "@appLanguageDesc": {"description": "App language description"},
+
+  "languageSelected": "{language} seleccionado",
+  "@languageSelected": {
+    "description": "Language selected message",
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+
+  "sort": "Ordenar",
+  "@sort": {"description": "Sort button tooltip"},
+
+  "notificationTipContent": "• Los recordatorios de repaso se programan automáticamente después de completar una lección\n• Algunos dispositivos pueden necesitar desactivar el ahorro de batería en la configuración del sistema para recibir notificaciones correctamente",
+  "yesterday": "Ayer",
+  "@yesterday": {"description": "Yesterday"},
+
+  "daysAgo": "Hace {count} días",
+  "@daysAgo": {
+    "description": "Days ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dateFormat": "{day}/{month}",
+  "@dateFormat": {
+    "description": "Date format",
+    "placeholders": {
+      "month": {"type": "int"},
+      "day": {"type": "int"}
+    }
+  },
+  "downloadManager": "Gestor de descargas",
+  "storageInfo": "Información de almacenamiento",
+  "clearAllDownloads": "Borrar todo",
+  "downloadedTab": "Descargado",
+  "availableTab": "Disponible",
+  "downloadedLessons": "Lecciones descargadas",
+  "mediaFiles": "Archivos multimedia",
+  "usedStorage": "En uso",
+  "cacheStorage": "Caché",
+  "totalStorage": "Total",
+  "allDownloadsCleared": "Todas las descargas eliminadas",
+  "availableStorage": "Disponible",
+  "noDownloadedLessons": "No hay lecciones descargadas",
+  "goToAvailableTab": "Ve a la pestaña \"Disponible\" para descargar lecciones",
+  "allLessonsDownloaded": "Todas las lecciones descargadas",
+  "deleteDownload": "Eliminar descarga",
+  "confirmDeleteDownload": "¿Seguro que quieres eliminar \"{title}\"?",
+  "@confirmDeleteDownload": {
+    "description": "Confirm delete download",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "confirmClearAllDownloads": "¿Seguro que quieres eliminar las {count} descargas?",
+  "@confirmClearAllDownloads": {
+    "description": "Confirm clear all downloads",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "downloadingCount": "Descargando ({count})",
+  "@downloadingCount": {
+    "description": "Downloading count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "preparing": "Preparando...",
+  "@preparing": {"description": "Preparing status"},
+
+  "lessonId": "Lección {id}",
+  "@lessonId": {
+    "description": "Lesson ID",
+    "placeholders": {
+      "id": {"type": "int"}
+    }
+  },
+
+  "searchWords": "Buscar palabras...",
+  "@searchWords": {"description": "Search words placeholder"},
+
+  "wordCount": "{count} palabras",
+  "@wordCount": {
+    "description": "Word count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "sortByLesson": "Por lección",
+  "sortByKorean": "Por coreano",
+  "sortByChinese": "Por chino",
+  "noWordsFound": "No se encontraron palabras",
+  "noMasteredWords": "Aún no hay palabras dominadas",
+  "hanja": "Hanja",
+  "exampleSentence": "Ejemplo",
+  "mastered": "Dominado",
+  "completedLessons": "Lecciones completadas",
+  "noCompletedLessons": "No hay lecciones completadas",
+  "startFirstLesson": "¡Comienza tu primera lección!",
+  "masteredWords": "Palabras dominadas",
+  "download": "Descargar"
 }
