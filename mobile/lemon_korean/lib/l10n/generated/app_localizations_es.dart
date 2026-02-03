@@ -877,6 +877,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingBack => 'Atrás';
 
   @override
+  String get onboardingAccountTitle => '¿Listo para empezar?';
+
+  @override
+  String get onboardingAccountSubtitle =>
+      'Inicia sesión o crea una cuenta para guardar tu progreso';
+
+  @override
   String levelTopik(String level) {
     return 'TOPIK $level';
   }

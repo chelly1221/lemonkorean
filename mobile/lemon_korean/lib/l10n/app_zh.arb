@@ -871,6 +871,12 @@
   "onboardingBack": "返回",
   "@onboardingBack": {"description": "Back button"},
 
+  "onboardingAccountTitle": "准备好了吗？",
+  "@onboardingAccountTitle": {"description": "Account choice screen title"},
+
+  "onboardingAccountSubtitle": "登录或创建账户以保存学习进度",
+  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
+
   "levelTopik": "TOPIK {level}",
   "@levelTopik": {
     "description": "TOPIK level indicator",

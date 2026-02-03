@@ -76,12 +76,13 @@ lib/
 │   │   ├── stats/                  # 통계 화면 (2개)
 │   │   ├── vocabulary_book/        # 단어장 (2개)
 │   │   ├── vocabulary_browser/     # 단어 검색
-│   │   └── onboarding/             # 온보딩 화면 (15개 파일)
+│   │   └── onboarding/             # 온보딩 화면 (16개 파일)
 │   │       ├── language_selection_screen.dart
+│   │       ├── welcome_introduction_screen.dart
 │   │       ├── level_selection_screen.dart
 │   │       ├── weekly_goal_screen.dart
 │   │       ├── personalization_complete_screen.dart
-│   │       ├── welcome_introduction_screen.dart
+│   │       ├── account_choice_screen.dart
 │   │       ├── welcome_level_screen.dart
 │   │       ├── utils/              # 디자인 시스템 (2개)
 │   │       └── widgets/            # 재사용 위젯 (7개)
@@ -98,7 +99,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 131개 (소스 + 생성 + l10n + 온보딩 15개)
+**총 Dart 파일 수**: 132개 (소스 + 생성 + l10n + 온보딩 16개)
 
 ---
 
@@ -143,9 +144,9 @@ flutter run -d chrome
 
 ## 핵심 기능
 
-### 0. 온보딩 플로우 (2026-02-02 추가)
+### 0. 온보딩 플로우 (2026-02-03 업데이트)
 
-앱을 처음 실행하면 5단계 개인화 온보딩이 시작됩니다:
+앱을 처음 실행하면 6단계 개인화 온보딩이 시작됩니다:
 
 1. **언어 선택** (`language_selection_screen.dart`)
    - 6개 언어 중 선택 (중국어 간체/번체, 한국어, 영어, 일본어, 스페인어)
@@ -164,8 +165,12 @@ flutter run -d chrome
    - 일일 학습 시간 목표 설정
 
 5. **개인화 완료** (`personalization_complete_screen.dart`)
-   - 설정 요약 표시
-   - 학습 시작 버튼
+   - 설정 요약 표시 (언어, 레벨, 목표)
+   - 다음 단계로 이동 버튼
+
+6. **계정 선택** (`account_choice_screen.dart`)
+   - 로그인 또는 회원가입 선택
+   - 기존 계정이 있으면 로그인, 없으면 새 계정 생성
 
 **디자인 시스템:**
 - `utils/onboarding_colors.dart` - 토스 스타일 컬러 팔레트

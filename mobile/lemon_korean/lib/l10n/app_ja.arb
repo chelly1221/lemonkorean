@@ -871,6 +871,12 @@
   "onboardingBack": "戻る",
   "@onboardingBack": {"description": "Back button"},
 
+  "onboardingAccountTitle": "準備はできましたか？",
+  "@onboardingAccountTitle": {"description": "Account choice screen title"},
+
+  "onboardingAccountSubtitle": "ログインまたはアカウントを作成して学習進捗を保存しましょう",
+  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
+
   "levelTopik": "TOPIK {level}",
   "@levelTopik": {
     "description": "TOPIK level indicator",

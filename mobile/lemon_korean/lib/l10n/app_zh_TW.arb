@@ -276,6 +276,13 @@
   "onboardingSummaryGoal": "每週目標",
   "onboardingStartLearning": "開始學習",
   "onboardingBack": "返回",
+
+  "onboardingAccountTitle": "準備好了嗎？",
+  "@onboardingAccountTitle": {"description": "Account choice screen title"},
+
+  "onboardingAccountSubtitle": "登入或建立帳號以儲存學習進度",
+  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
+
   "levelTopik": "TOPIK {level}",
 
   "appLanguage": "應用語言",

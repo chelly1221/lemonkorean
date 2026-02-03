@@ -848,6 +848,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingBack => '返回';
 
   @override
+  String get onboardingAccountTitle => '准备好了吗？';
+
+  @override
+  String get onboardingAccountSubtitle => '登录或创建账户以保存学习进度';
+
+  @override
   String levelTopik(String level) {
     return 'TOPIK $level';
   }
@@ -1844,6 +1850,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get onboardingBack => '返回';
+
+  @override
+  String get onboardingAccountTitle => '準備好了嗎？';
+
+  @override
+  String get onboardingAccountSubtitle => '登入或建立帳號以儲存學習進度';
 
   @override
   String levelTopik(String level) {

@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
-import '../auth/login_screen.dart';
+import 'account_choice_screen.dart';
 import 'utils/onboarding_colors.dart';
 import 'utils/onboarding_text_styles.dart';
 import 'widgets/lemon_character.dart';
@@ -11,7 +11,7 @@ import 'widgets/onboarding_button.dart';
 import 'widgets/summary_card.dart';
 
 /// Screen 5: Personalization Complete
-/// Shows summary of user's selections and completes onboarding
+/// Shows summary of user's selections and navigates to account choice
 class PersonalizationCompleteScreen extends StatelessWidget {
   const PersonalizationCompleteScreen({super.key});
 
@@ -82,7 +82,7 @@ class PersonalizationCompleteScreen extends StatelessWidget {
 
     // Get language display text
     final languageText = settingsProvider.appLanguage.nativeName;
-    final languageEmoji = '🌐';
+    const languageEmoji = '🌐';
 
     return Scaffold(
       backgroundColor: OnboardingColors.backgroundYellow,
@@ -171,39 +171,30 @@ class PersonalizationCompleteScreen extends StatelessWidget {
 
               const Spacer(),
 
-              // Start learning button
+              // Continue button - navigates to Account Choice
               OnboardingButton(
-                text: l10n.onboardingStartLearning,
-                onPressed: () async {
-                  // Mark onboarding as completed
-                  await settingsProvider.completeOnboarding();
-
-                  if (!context.mounted) return;
-
-                  // Navigate to login screen (replace entire stack)
-                  Navigator.pushAndRemoveUntil(
+                text: l10n.onboardingNext,
+                onPressed: () {
+                  Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LoginScreen(),
-                      transitionDuration: const Duration(milliseconds: 400),
+                          const AccountChoiceScreen(),
+                      transitionDuration: const Duration(milliseconds: 300),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
-                        final fadeAnimation = Tween<double>(
-                          begin: 0.0,
-                          end: 1.0,
-                        ).animate(CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeOut,
-                        ));
-
-                        return FadeTransition(
-                          opacity: fadeAnimation,
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(1.0, 0.0),
+                            end: Offset.zero,
+                          ).animate(CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOut,
+                          )),
                           child: child,
                         );
                       },
                     ),
-                    (route) => false,
                   );
                 },
               )

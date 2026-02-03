@@ -871,6 +871,12 @@
   "onboardingBack": "Atrás",
   "@onboardingBack": {"description": "Back button"},
 
+  "onboardingAccountTitle": "¿Listo para empezar?",
+  "@onboardingAccountTitle": {"description": "Account choice screen title"},
+
+  "onboardingAccountSubtitle": "Inicia sesión o crea una cuenta para guardar tu progreso",
+  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
+
   "levelTopik": "TOPIK {level}",
   "@levelTopik": {
     "description": "TOPIK level indicator",

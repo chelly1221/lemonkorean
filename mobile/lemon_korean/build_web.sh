@@ -1,46 +1,22 @@
 #!/bin/bash
-# Web build script with correct base-href
+# Flutter Web Build & Deploy Script
+# Builds web app and syncs to NAS for nginx deployment
 
 set -e
 
-echo "🍋 Building Lemon Korean Web App..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NAS_WEB_DIR="/mnt/nas/lemon/flutter-build/build/web"
 
-# Navigate to Flutter app directory
-cd "$(dirname "$0")"
+cd "$SCRIPT_DIR"
 
-# Clean previous build
-echo "🧹 Cleaning previous build..."
-flutter clean
+echo "Building Flutter web app..."
+flutter build web --release
 
-# Get dependencies
-echo "📦 Getting dependencies..."
-flutter pub get
+echo "Syncing to NAS deployment directory..."
+rsync -av --delete build/web/ "$NAS_WEB_DIR/"
 
-# Build for web with correct base-href
-echo "🔨 Building web app..."
-flutter build web \
-  --release \
-  --base-href=/ \
-  --dart-define=API_URL=https://lemon.3chan.kr \
-  --dart-define=ENVIRONMENT=production
+echo "Restarting nginx..."
+cd /home/sanchan/lemonkorean
+docker compose restart nginx
 
-# Check build output
-if [ -d "build/web" ]; then
-  BUILD_SIZE=$(du -sh build/web | cut -f1)
-  echo "✅ Build complete: $BUILD_SIZE"
-  echo "📂 Output: build/web/"
-
-  # Sync to NAS for nginx deployment
-  echo ""
-  echo "📤 Syncing to NAS..."
-  rsync -av --delete build/web/ /mnt/nas/lemon/flutter-build/build/web/
-  echo "✅ Synced to NAS"
-
-  echo ""
-  echo "Next steps:"
-  echo "1. Validate: ../../scripts/validate_web_build.sh"
-  echo "2. Deploy: cd ../.. && docker compose restart nginx"
-else
-  echo "❌ Build failed!"
-  exit 1
-fi
+echo "Done! Web app deployed to https://lemon.3chan.kr/app/"

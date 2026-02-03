@@ -1731,6 +1731,18 @@ abstract class AppLocalizations {
   /// **'返回'**
   String get onboardingBack;
 
+  /// Account choice screen title
+  ///
+  /// In zh, this message translates to:
+  /// **'准备好了吗？'**
+  String get onboardingAccountTitle;
+
+  /// Account choice screen subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'登录或创建账户以保存学习进度'**
+  String get onboardingAccountSubtitle;
+
   /// TOPIK level indicator
   ///
   /// In zh, this message translates to:

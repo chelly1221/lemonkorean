@@ -854,6 +854,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onboardingBack => '뒤로';
 
   @override
+  String get onboardingAccountTitle => '시작할 준비가 되셨나요?';
+
+  @override
+  String get onboardingAccountSubtitle => '로그인하거나 계정을 만들어 학습 진도를 저장하세요';
+
+  @override
   String levelTopik(String level) {
     return 'TOPIK $level';
   }

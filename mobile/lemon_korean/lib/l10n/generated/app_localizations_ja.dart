@@ -854,6 +854,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingBack => '戻る';
 
   @override
+  String get onboardingAccountTitle => '準備はできましたか？';
+
+  @override
+  String get onboardingAccountSubtitle => 'ログインまたはアカウントを作成して学習進捗を保存しましょう';
+
+  @override
   String levelTopik(String level) {
     return 'TOPIK $level';
   }

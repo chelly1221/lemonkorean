@@ -3,16 +3,24 @@ import 'package:flutter/services.dart';
 import '../utils/onboarding_colors.dart';
 import '../utils/onboarding_text_styles.dart';
 
+/// Button variant for styling
+enum OnboardingButtonVariant {
+  primary,   // Filled yellow background
+  secondary, // Outlined with border
+}
+
 /// Professional primary button for onboarding with gradient and animations
 class OnboardingButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isEnabled;
+  final OnboardingButtonVariant variant;
 
   const OnboardingButton({
     super.key,
     required this.text,
     this.onPressed,
+    this.variant = OnboardingButtonVariant.primary,
     this.isEnabled = true,
   });
 
@@ -81,19 +89,33 @@ class _OnboardingButtonState extends State<OnboardingButton>
           width: double.infinity,
           height: 54,
           decoration: BoxDecoration(
-            // Toss-style: solid color, no gradient, no shadow
-            color: widget.isEnabled
-                ? OnboardingColors.primaryYellow
-                : const Color(0xFFE5E8EB),  // Disabled gray
+            // Primary: solid yellow, Secondary: outlined
+            color: widget.variant == OnboardingButtonVariant.primary
+                ? (widget.isEnabled
+                    ? OnboardingColors.primaryYellow
+                    : const Color(0xFFE5E8EB))  // Disabled gray
+                : Colors.transparent,  // Secondary: transparent background
             borderRadius: BorderRadius.circular(14),  // Slightly larger radius
+            border: widget.variant == OnboardingButtonVariant.secondary
+                ? Border.all(
+                    color: widget.isEnabled
+                        ? OnboardingColors.textSecondary
+                        : const Color(0xFFE5E8EB),
+                    width: 1.5,
+                  )
+                : null,
           ),
           child: Center(
             child: Text(
               widget.text,
               style: OnboardingTextStyles.buttonLarge.copyWith(
-                color: widget.isEnabled
-                    ? OnboardingColors.textPrimary  // Dark text on yellow
-                    : OnboardingColors.textTertiary,
+                color: widget.variant == OnboardingButtonVariant.primary
+                    ? (widget.isEnabled
+                        ? OnboardingColors.textPrimary  // Dark text on yellow
+                        : OnboardingColors.textTertiary)
+                    : (widget.isEnabled
+                        ? OnboardingColors.textPrimary  // Dark text for secondary
+                        : OnboardingColors.textTertiary),
               ),
             ),
           ),
