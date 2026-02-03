@@ -14,43 +14,44 @@ class VocabularyModel {
   final String? hanja;
 
   @HiveField(3)
-  final String chinese;
+  final String translation; // Localized translation (was chinese)
 
   @HiveField(4)
-  final String? pinyin;
+  final String? pronunciation; // Localized pronunciation (was pinyin)
 
   @HiveField(5)
-  final String? pronunciation;
-
-  @HiveField(6)
   final String partOfSpeech;
 
-  @HiveField(7)
+  @HiveField(6)
   final int level;
 
-  @HiveField(8)
+  @HiveField(7)
   final double? similarityScore;
 
-  @HiveField(9)
+  @HiveField(8)
   final String? audioUrl;
 
-  @HiveField(10)
+  @HiveField(9)
   final String? imageUrl;
 
-  @HiveField(11)
+  @HiveField(10)
   final List<String>? exampleSentences;
 
-  @HiveField(12)
+  @HiveField(11)
   final List<String>? tags;
 
-  @HiveField(13)
+  @HiveField(12)
   final DateTime createdAt;
+
+  @HiveField(13)
+  final String? contentLanguage; // Language code of the content
 
   VocabularyModel({
     required this.id,
     required this.korean,
-    required this.chinese, required this.createdAt, this.hanja,
-    this.pinyin,
+    required this.translation,
+    required this.createdAt,
+    this.hanja,
     this.pronunciation,
     this.partOfSpeech = 'noun',
     this.level = 1,
@@ -59,6 +60,7 @@ class VocabularyModel {
     this.imageUrl,
     this.exampleSentences,
     this.tags,
+    this.contentLanguage,
   });
 
   // From JSON
@@ -67,9 +69,10 @@ class VocabularyModel {
       id: json['id'] as int,
       korean: json['korean'] as String,
       hanja: json['hanja'] as String?,
-      chinese: json['chinese'] as String,
-      pinyin: json['pinyin'] as String?,
-      pronunciation: json['pronunciation'] as String?,
+      // Support both new 'translation' field and legacy 'chinese' for backwards compatibility
+      translation: json['translation'] as String? ?? json['chinese'] as String,
+      // Support both new 'pronunciation' field and legacy 'pinyin' for backwards compatibility
+      pronunciation: json['pronunciation'] as String? ?? json['pinyin'] as String?,
       partOfSpeech: json['part_of_speech'] as String? ?? 'noun',
       level: json['level'] as int? ?? 1,
       similarityScore: json['similarity_score'] != null
@@ -86,6 +89,7 @@ class VocabularyModel {
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'] as String)
           : DateTime.now(),
+      contentLanguage: json['content_language'] as String?,
     );
   }
 
@@ -95,8 +99,7 @@ class VocabularyModel {
       'id': id,
       'korean': korean,
       'hanja': hanja,
-      'chinese': chinese,
-      'pinyin': pinyin,
+      'translation': translation,
       'pronunciation': pronunciation,
       'part_of_speech': partOfSpeech,
       'level': level,
@@ -106,6 +109,7 @@ class VocabularyModel {
       'example_sentences': exampleSentences,
       'tags': tags,
       'created_at': createdAt.toIso8601String(),
+      'content_language': contentLanguage,
     };
   }
 
@@ -114,8 +118,7 @@ class VocabularyModel {
     int? id,
     String? korean,
     String? hanja,
-    String? chinese,
-    String? pinyin,
+    String? translation,
     String? pronunciation,
     String? partOfSpeech,
     int? level,
@@ -125,13 +128,13 @@ class VocabularyModel {
     List<String>? exampleSentences,
     List<String>? tags,
     DateTime? createdAt,
+    String? contentLanguage,
   }) {
     return VocabularyModel(
       id: id ?? this.id,
       korean: korean ?? this.korean,
       hanja: hanja ?? this.hanja,
-      chinese: chinese ?? this.chinese,
-      pinyin: pinyin ?? this.pinyin,
+      translation: translation ?? this.translation,
       pronunciation: pronunciation ?? this.pronunciation,
       partOfSpeech: partOfSpeech ?? this.partOfSpeech,
       level: level ?? this.level,
@@ -141,6 +144,7 @@ class VocabularyModel {
       exampleSentences: exampleSentences ?? this.exampleSentences,
       tags: tags ?? this.tags,
       createdAt: createdAt ?? this.createdAt,
+      contentLanguage: contentLanguage ?? this.contentLanguage,
     );
   }
 
@@ -150,9 +154,12 @@ class VocabularyModel {
   bool get hasImage => imageUrl != null && imageUrl!.isNotEmpty;
   bool get hasExamples =>
       exampleSentences != null && exampleSentences!.isNotEmpty;
+  bool get hasPronunciation => pronunciation != null && pronunciation!.isNotEmpty;
 
   String get displayWord => hasHanja ? '$korean ($hanja)' : korean;
 
+  /// Part of speech display - returns localized text based on content language
+  /// Falls back to Chinese for backwards compatibility
   String get partOfSpeechDisplay {
     switch (partOfSpeech) {
       case 'noun':
@@ -181,7 +188,7 @@ class VocabularyModel {
 
   @override
   String toString() {
-    return 'VocabularyModel(id: $id, korean: $korean, chinese: $chinese)';
+    return 'VocabularyModel(id: $id, korean: $korean, translation: $translation)';
   }
 
   @override

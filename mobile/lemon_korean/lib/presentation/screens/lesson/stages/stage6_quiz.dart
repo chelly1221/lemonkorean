@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/convertible_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Vocabulary result from quiz
 class VocabularyQuizResult {
@@ -242,14 +242,16 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     final question = _quizQuestions[_currentQuestionIndex];
     final selectedAnswer = _userAnswers[_currentQuestionIndex];
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '测验',
-            style: TextStyle(
+          Text(
+            l10n.stageQuiz,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -279,7 +281,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  '已答 ${_userAnswers.length}/${_quizQuestions.length}',
+                  l10n.answeredCount(_userAnswers.length, _quizQuestions.length),
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.primaryColor,
@@ -436,38 +438,48 @@ class _Stage6QuizState extends State<Stage6Quiz> {
             children: [
               // Previous Button
               if (_currentQuestionIndex > 0)
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _previousQuestion,
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppConstants.paddingMedium,
+                Builder(
+                  builder: (context) {
+                    final l10n = AppLocalizations.of(context)!;
+                    return Expanded(
+                      child: OutlinedButton(
+                        onPressed: _previousQuestion,
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppConstants.paddingMedium,
+                          ),
+                        ),
+                        child: Text(l10n.previousQuestion),
                       ),
-                    ),
-                    child: const ConvertibleText('上一题'),
-                  ),
+                    );
+                  },
                 ),
 
               if (_currentQuestionIndex > 0) const SizedBox(width: 16),
 
               // Next/Submit Button
-              Expanded(
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: selectedAnswer != null ? _nextQuestion : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppConstants.primaryColor,
-                    foregroundColor: Colors.black87,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppConstants.paddingMedium,
+              Builder(
+                builder: (context) {
+                  final l10n = AppLocalizations.of(context)!;
+                  return Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: selectedAnswer != null ? _nextQuestion : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppConstants.primaryColor,
+                        foregroundColor: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: AppConstants.paddingMedium,
+                        ),
+                      ),
+                      child: Text(
+                        _currentQuestionIndex < _quizQuestions.length - 1
+                            ? l10n.nextQuestionBtn
+                            : l10n.submit,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    _currentQuestionIndex < _quizQuestions.length - 1
-                        ? '下一题'
-                        : '提交',
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),
@@ -477,6 +489,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
   }
 
   Widget _buildResultScreen() {
+    final l10n = AppLocalizations.of(context)!;
     final score = _calculateScore();
     final percentage = _calculatePercentage();
     final isPassed = percentage >= 80;
@@ -509,7 +522,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
 
           // Result Title
           Text(
-            isPassed ? '太棒了！' : '继续加油！',
+            isPassed ? l10n.excellent : l10n.keepGoing,
             style: TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.bold,
@@ -523,7 +536,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
 
           // Score
           Text(
-            '得分：$score / ${_quizQuestions.length}',
+            l10n.scoreDisplay(score, _quizQuestions.length),
             style: const TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -556,9 +569,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Text(
-              isPassed
-                  ? '你已经很好地掌握了本课内容！'
-                  : '建议复习一下课程内容，再来挑战吧！',
+              isPassed ? l10n.masteredContent : l10n.reviewSuggestion,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
@@ -584,9 +595,9 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                   vertical: AppConstants.paddingLarge,
                 ),
               ),
-              child: const Text(
-                '继续',
-                style: TextStyle(
+              child: Text(
+                l10n.continueBtn,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeXLarge,
                   fontWeight: FontWeight.bold,
                 ),
@@ -612,15 +623,16 @@ class _Stage6QuizState extends State<Stage6Quiz> {
   }
 
   String _getQuestionTypeLabel(String type) {
+    final l10n = AppLocalizations.of(context)!;
     switch (type) {
       case 'vocabulary':
-        return '词汇';
+        return l10n.stageVocabulary;
       case 'grammar':
-        return '语法';
+        return l10n.stageGrammar;
       case 'dialogue':
-        return '对话';
+        return l10n.stageDialogue;
       default:
-        return '综合';
+        return l10n.comprehensive;
     }
   }
 }

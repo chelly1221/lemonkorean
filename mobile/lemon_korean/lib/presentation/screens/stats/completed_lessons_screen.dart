@@ -75,7 +75,7 @@ class CompletedLessonsScreen extends StatelessWidget {
   Widget _buildLessonCard(BuildContext context, Map<String, dynamic> lesson, AppLocalizations l10n) {
     final lessonId = lesson['lesson_id'] as int;
     final titleKo = lesson['title_ko'] as String? ?? '레슨 $lessonId';
-    final titleZh = lesson['title_zh'] as String? ?? '课程 $lessonId';
+    final titleZh = lesson['title_zh'] as String? ?? 'Lesson $lessonId';
     final level = lesson['level'] as int? ?? 1;
     final quizScore = lesson['quiz_score'] as int? ?? 0;
     final completedAt = lesson['completed_at'] != null
@@ -95,7 +95,7 @@ class CompletedLessonsScreen extends StatelessWidget {
                   id: lessonId,
                   level: level,
                   titleKo: titleKo,
-                  titleZh: titleZh,
+                  title: titleZh,
                   description: '',
                   version: '1.0.0',
                   status: 'published',

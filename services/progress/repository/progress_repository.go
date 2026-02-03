@@ -907,3 +907,319 @@ func (r *ProgressRepository) syncVocabularyPractice(ctx context.Context, item *m
 
 	return r.RecordVocabularyPractice(ctx, req, srsData)
 }
+
+// ================================================================
+// HANGUL (Korean Alphabet) OPERATIONS
+// ================================================================
+
+// GetHangulProgress retrieves all hangul progress for a user
+func (r *ProgressRepository) GetHangulProgress(ctx context.Context, userID int64) ([]models.HangulProgress, *models.HangulStats, error) {
+	query := `
+		SELECT
+			hp.id, hp.user_id, hp.character_id,
+			hc.character, hc.character_type,
+			hp.mastery_level, hp.correct_count, hp.wrong_count, hp.streak_count,
+			hp.last_practiced, hp.next_review, hp.ease_factor, hp.interval_days,
+			hp.created_at, hp.updated_at
+		FROM hangul_progress hp
+		JOIN hangul_characters hc ON hp.character_id = hc.id
+		WHERE hp.user_id = $1
+		ORDER BY hc.character_type, hc.display_order
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, userID)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to query hangul progress: %w", err)
+	}
+	defer rows.Close()
+
+	var progressList []models.HangulProgress
+	for rows.Next() {
+		var p models.HangulProgress
+		err := rows.Scan(
+			&p.ID, &p.UserID, &p.CharacterID,
+			&p.Character, &p.CharacterType,
+			&p.MasteryLevel, &p.CorrectCount, &p.WrongCount, &p.StreakCount,
+			&p.LastPracticed, &p.NextReview, &p.EasinessFactor, &p.IntervalDays,
+			&p.CreatedAt, &p.UpdatedAt,
+		)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to scan hangul progress: %w", err)
+		}
+		progressList = append(progressList, p)
+	}
+
+	// Get hangul stats
+	stats, err := r.getHangulStats(ctx, userID)
+	if err != nil {
+		return progressList, nil, nil
+	}
+
+	return progressList, stats, nil
+}
+
+// getHangulStats calculates hangul learning statistics
+func (r *ProgressRepository) getHangulStats(ctx context.Context, userID int64) (*models.HangulStats, error) {
+	query := `
+		SELECT
+			(SELECT COUNT(*) FROM hangul_characters WHERE status = 'published') as total_characters,
+			COUNT(DISTINCT hp.character_id) FILTER (WHERE hp.mastery_level >= 1) as learned,
+			COUNT(DISTINCT hp.character_id) FILTER (WHERE hp.mastery_level >= 3) as mastered,
+			COUNT(DISTINCT hp.character_id) FILTER (WHERE hp.mastery_level = 5) as perfected,
+			COALESCE(SUM(hp.correct_count), 0) as total_correct,
+			COALESCE(SUM(hp.wrong_count), 0) as total_wrong,
+			COUNT(DISTINCT hp.character_id) FILTER (WHERE hp.next_review <= NOW()) as due_for_review
+		FROM hangul_progress hp
+		WHERE hp.user_id = $1
+	`
+
+	var stats models.HangulStats
+	err := r.db.QueryRowContext(ctx, query, userID).Scan(
+		&stats.TotalCharacters,
+		&stats.CharactersLearned,
+		&stats.CharactersMastered,
+		&stats.CharactersPerfected,
+		&stats.TotalCorrect,
+		&stats.TotalWrong,
+		&stats.DueForReview,
+	)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get hangul stats: %w", err)
+	}
+
+	// Calculate accuracy
+	total := stats.TotalCorrect + stats.TotalWrong
+	if total > 0 {
+		stats.AccuracyPercent = float64(stats.TotalCorrect) * 100.0 / float64(total)
+	}
+
+	return &stats, nil
+}
+
+// GetHangulCharacterProgress retrieves progress for a specific hangul character
+func (r *ProgressRepository) GetHangulCharacterProgress(ctx context.Context, userID, characterID int64) (*models.HangulProgress, error) {
+	query := `
+		SELECT
+			id, user_id, character_id, mastery_level, correct_count, wrong_count,
+			streak_count, last_practiced, next_review, ease_factor, interval_days,
+			created_at, updated_at
+		FROM hangul_progress
+		WHERE user_id = $1 AND character_id = $2
+	`
+
+	var p models.HangulProgress
+	err := r.db.QueryRowContext(ctx, query, userID, characterID).Scan(
+		&p.ID, &p.UserID, &p.CharacterID, &p.MasteryLevel, &p.CorrectCount, &p.WrongCount,
+		&p.StreakCount, &p.LastPracticed, &p.NextReview, &p.EasinessFactor, &p.IntervalDays,
+		&p.CreatedAt, &p.UpdatedAt,
+	)
+
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, fmt.Errorf("failed to get hangul character progress: %w", err)
+	}
+
+	return &p, nil
+}
+
+// UpdateHangulProgress updates progress for a hangul character
+func (r *ProgressRepository) UpdateHangulProgress(ctx context.Context, userID, characterID int64, isCorrect bool, srs interface{}) error {
+	now := time.Now()
+
+	// Type assert srs to get values
+	type SRSResult struct {
+		MasteryLevel    int       `json:"mastery_level"`
+		EasinessFactor  float64   `json:"easiness_factor"`
+		IntervalDays    int       `json:"interval_days"`
+		RepetitionCount int       `json:"repetition_count"`
+		NextReviewAt    time.Time `json:"next_review_at"`
+	}
+
+	var srsResult SRSResult
+
+	// Handle different types
+	switch v := srs.(type) {
+	case *SRSResult:
+		srsResult = *v
+	case SRSResult:
+		srsResult = v
+	default:
+		// Try to use reflection for the utils.SRSResult type
+		// Use default values if type assertion fails
+		srsResult = SRSResult{
+			MasteryLevel:   1,
+			EasinessFactor: 2.5,
+			IntervalDays:   1,
+			NextReviewAt:   now.Add(24 * time.Hour),
+		}
+	}
+
+	// Try to extract values from interface if it has the expected fields
+	if srsMap, ok := srs.(interface {
+		GetMasteryLevel() int
+		GetEasinessFactor() float64
+		GetIntervalDays() int
+		GetNextReviewAt() time.Time
+	}); ok {
+		srsResult.MasteryLevel = srsMap.GetMasteryLevel()
+		srsResult.EasinessFactor = srsMap.GetEasinessFactor()
+		srsResult.IntervalDays = srsMap.GetIntervalDays()
+		srsResult.NextReviewAt = srsMap.GetNextReviewAt()
+	}
+
+	correctIncr := 0
+	wrongIncr := 0
+	streakReset := "streak_count + 1"
+	if isCorrect {
+		correctIncr = 1
+	} else {
+		wrongIncr = 1
+		streakReset = "0"
+	}
+
+	query := fmt.Sprintf(`
+		INSERT INTO hangul_progress (
+			user_id, character_id, mastery_level, correct_count, wrong_count,
+			streak_count, last_practiced, next_review, ease_factor, interval_days,
+			created_at, updated_at
+		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $11)
+		ON CONFLICT (user_id, character_id)
+		DO UPDATE SET
+			mastery_level = $3,
+			correct_count = hangul_progress.correct_count + $4,
+			wrong_count = hangul_progress.wrong_count + $5,
+			streak_count = %s,
+			last_practiced = $7,
+			next_review = $8,
+			ease_factor = $9,
+			interval_days = $10,
+			updated_at = $11
+	`, streakReset)
+
+	_, err := r.db.ExecContext(ctx, query,
+		userID, characterID, srsResult.MasteryLevel, correctIncr, wrongIncr,
+		1, now, srsResult.NextReviewAt, srsResult.EasinessFactor, srsResult.IntervalDays,
+		now,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to update hangul progress: %w", err)
+	}
+
+	return nil
+}
+
+// GetHangulReviewSchedule retrieves hangul characters due for review
+func (r *ProgressRepository) GetHangulReviewSchedule(ctx context.Context, userID int64, limit int) ([]models.HangulReviewItem, error) {
+	query := `
+		SELECT
+			hc.id as character_id,
+			hc.character,
+			hc.character_type,
+			hc.romanization,
+			COALESCE(hp.mastery_level, 0) as mastery_level,
+			hp.next_review,
+			COALESCE(hp.interval_days, 0) as interval_days,
+			COALESCE(hp.correct_count, 0) as correct_count,
+			COALESCE(hp.wrong_count, 0) as wrong_count
+		FROM hangul_characters hc
+		LEFT JOIN hangul_progress hp ON hc.id = hp.character_id AND hp.user_id = $1
+		WHERE hc.status = 'published'
+		  AND (hp.next_review IS NULL OR hp.next_review <= NOW())
+		ORDER BY
+			hp.next_review NULLS FIRST,
+			hc.character_type,
+			hc.display_order
+		LIMIT $2
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, userID, limit)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query hangul review schedule: %w", err)
+	}
+	defer rows.Close()
+
+	var items []models.HangulReviewItem
+	for rows.Next() {
+		var item models.HangulReviewItem
+		err := rows.Scan(
+			&item.CharacterID,
+			&item.Character,
+			&item.CharacterType,
+			&item.Romanization,
+			&item.MasteryLevel,
+			&item.NextReview,
+			&item.IntervalDays,
+			&item.CorrectCount,
+			&item.WrongCount,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan hangul review item: %w", err)
+		}
+		items = append(items, item)
+	}
+
+	return items, nil
+}
+
+// RecordHangulBatch records batch hangul practice results
+func (r *ProgressRepository) RecordHangulBatch(ctx context.Context, req *models.HangulBatchRequest) (int, int, error) {
+	successCount := 0
+	failCount := 0
+
+	for _, result := range req.Results {
+		// Get current progress
+		currentProgress, _ := r.GetHangulCharacterProgress(ctx, req.UserID, result.CharacterID)
+
+		// Initialize SRS values
+		masteryLevel := 1
+		easeFactor := 2.5
+		intervalDays := 1
+		nextReview := time.Now().Add(24 * time.Hour)
+
+		if currentProgress != nil {
+			// Simple SRS update
+			if result.IsCorrect {
+				masteryLevel = currentProgress.MasteryLevel + 1
+				if masteryLevel > 5 {
+					masteryLevel = 5
+				}
+				intervalDays = currentProgress.IntervalDays * 2
+				if intervalDays < 1 {
+					intervalDays = 1
+				}
+			} else {
+				masteryLevel = currentProgress.MasteryLevel - 1
+				if masteryLevel < 0 {
+					masteryLevel = 0
+				}
+				intervalDays = 1
+			}
+			nextReview = time.Now().Add(time.Duration(intervalDays) * 24 * time.Hour)
+		}
+
+		srs := struct {
+			MasteryLevel   int
+			EasinessFactor float64
+			IntervalDays   int
+			NextReviewAt   time.Time
+		}{
+			MasteryLevel:   masteryLevel,
+			EasinessFactor: easeFactor,
+			IntervalDays:   intervalDays,
+			NextReviewAt:   nextReview,
+		}
+
+		err := r.UpdateHangulProgress(ctx, req.UserID, result.CharacterID, result.IsCorrect, srs)
+		if err != nil {
+			failCount++
+		} else {
+			successCount++
+		}
+	}
+
+	return successCount, failCount, nil
+}

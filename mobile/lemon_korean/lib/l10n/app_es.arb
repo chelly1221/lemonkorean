@@ -995,5 +995,583 @@
   "noCompletedLessons": "No hay lecciones completadas",
   "startFirstLesson": "¡Comienza tu primera lección!",
   "masteredWords": "Palabras dominadas",
-  "download": "Descargar"
+  "download": "Descargar",
+
+  "hangulLearning": "Alfabeto Coreano",
+  "@hangulLearning": {"description": "Hangul learning section title"},
+
+  "hangulLearningSubtitle": "Aprende 40 letras del alfabeto coreano",
+  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
+
+  "editNotes": "Editar notas",
+  "@editNotes": {"description": "Edit notes dialog title"},
+
+  "notes": "Notas",
+  "@notes": {"description": "Notes field label"},
+
+  "notesHint": "¿Por qué guardas esta palabra?",
+  "@notesHint": {"description": "Notes hint text"},
+
+  "sortBy": "Ordenar por",
+  "@sortBy": {"description": "Sort by title"},
+
+  "sortNewest": "Más reciente",
+  "@sortNewest": {"description": "Sort by newest"},
+
+  "sortOldest": "Más antiguo",
+  "@sortOldest": {"description": "Sort by oldest"},
+
+  "sortKorean": "Por coreano",
+  "@sortKorean": {"description": "Sort by Korean"},
+
+  "sortChinese": "Por chino",
+  "@sortChinese": {"description": "Sort by Chinese"},
+
+  "sortMastery": "Por dominio",
+  "@sortMastery": {"description": "Sort by mastery"},
+
+  "filterAll": "Todos",
+  "@filterAll": {"description": "Filter all"},
+
+  "filterNew": "Nuevas (nivel 0)",
+  "@filterNew": {"description": "Filter new words"},
+
+  "filterBeginner": "Principiante (nivel 1)",
+  "@filterBeginner": {"description": "Filter beginner"},
+
+  "filterIntermediate": "Intermedio (nivel 2-3)",
+  "@filterIntermediate": {"description": "Filter intermediate"},
+
+  "filterAdvanced": "Avanzado (nivel 4-5)",
+  "@filterAdvanced": {"description": "Filter advanced"},
+
+  "searchWordsNotesChinese": "Buscar palabras, chino o notas...",
+  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
+
+  "startReviewCount": "Comenzar repaso ({count})",
+  "@startReviewCount": {
+    "description": "Start review button with count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "remove": "Eliminar",
+  "@remove": {"description": "Remove button"},
+
+  "confirmRemove": "Confirmar eliminación",
+  "@confirmRemove": {"description": "Confirm remove dialog title"},
+
+  "confirmRemoveWord": "¿Eliminar「{word}」del libro de vocabulario?",
+  "@confirmRemoveWord": {
+    "description": "Confirm remove word message",
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+
+  "noBookmarkedWords": "No hay palabras guardadas",
+  "@noBookmarkedWords": {"description": "No bookmarked words message"},
+
+  "bookmarkHint": "Toca el ícono de marcador en las tarjetas de palabras durante el estudio",
+  "@bookmarkHint": {"description": "Bookmark hint"},
+
+  "noMatchingWords": "No hay palabras coincidentes",
+  "@noMatchingWords": {"description": "No matching words message"},
+
+  "weeksAgo": "Hace {count} semanas",
+  "@weeksAgo": {
+    "description": "Weeks ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "reviewComplete": "¡Repaso completado!",
+  "@reviewComplete": {"description": "Review complete title"},
+
+  "reviewCompleteCount": "{count} palabras repasadas",
+  "@reviewCompleteCount": {
+    "description": "Review complete message",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "correct": "Correcto",
+  "@correct": {"description": "Correct label"},
+
+  "wrong": "Incorrecto",
+  "@wrong": {"description": "Wrong label"},
+
+  "accuracy": "Precisión",
+  "@accuracy": {"description": "Accuracy label"},
+
+  "vocabularyBookReview": "Repaso del vocabulario",
+  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
+
+  "noWordsToReview": "No hay palabras para repasar",
+  "@noWordsToReview": {"description": "No words to review message"},
+
+  "bookmarkWordsToReview": "Guarda palabras para comenzar a repasar",
+  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
+
+  "returnToVocabularyBook": "Volver al vocabulario",
+  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
+
+  "exit": "Salir",
+  "@exit": {"description": "Exit button"},
+
+  "showAnswer": "Mostrar respuesta",
+  "@showAnswer": {"description": "Show answer button"},
+
+  "didYouRemember": "¿La recordaste?",
+  "@didYouRemember": {"description": "Did you remember question"},
+
+  "forgot": "Olvidé",
+  "@forgot": {"description": "Forgot rating"},
+
+  "hard": "Difícil",
+  "@hard": {"description": "Hard rating"},
+
+  "remembered": "Recordé",
+  "@remembered": {"description": "Remembered rating"},
+
+  "easy": "Fácil",
+  "@easy": {"description": "Easy rating"},
+
+  "addedToVocabularyBook": "Agregado al vocabulario",
+  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
+
+  "addFailed": "Error al agregar",
+  "@addFailed": {"description": "Add failed message"},
+
+  "removedFromVocabularyBook": "Eliminado del vocabulario",
+  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
+
+  "removeFailed": "Error al eliminar",
+  "@removeFailed": {"description": "Remove failed message"},
+
+  "addToVocabularyBook": "Agregar al vocabulario",
+  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
+
+  "notesOptional": "Notas (opcional)",
+  "@notesOptional": {"description": "Notes optional label"},
+
+  "add": "Agregar",
+  "@add": {"description": "Add button"},
+
+  "bookmarked": "Guardado",
+  "@bookmarked": {"description": "Bookmarked label"},
+
+  "bookmark": "Guardar",
+  "@bookmark": {"description": "Bookmark label"},
+
+  "removeFromVocabularyBook": "Eliminar del vocabulario",
+  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
+
+  "similarityPercent": "Similitud: {percent}%",
+  "@similarityPercent": {
+    "description": "Similarity percentage",
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+
+  "addedOrRemoved": "{added, select, true{Agregado al vocabulario} other{Marcador eliminado}}",
+  "@addedOrRemoved": {
+    "description": "Added or removed message",
+    "placeholders": {
+      "added": {"type": "String"}
+    }
+  },
+
+  "days": "días",
+  "@days": {"description": "Days unit"},
+
+  "lessonsCompletedCount": "{count} completadas",
+  "@lessonsCompletedCount": {
+    "description": "Lessons completed count short",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dailyGoalComplete": "¡Meta diaria cumplida!",
+  "@dailyGoalComplete": {"description": "Daily goal complete message"},
+
+  "hangulAlphabet": "Hangul",
+  "@hangulAlphabet": {"description": "Hangul alphabet"},
+
+  "alphabetTable": "Tabla de alfabeto",
+  "@alphabetTable": {"description": "Alphabet table tab"},
+
+  "learn": "Aprender",
+  "@learn": {"description": "Learn tab"},
+
+  "practice": "Practicar",
+  "@practice": {"description": "Practice tab"},
+
+  "learningProgress": "Progreso de aprendizaje",
+  "@learningProgress": {"description": "Learning progress title"},
+
+  "dueForReviewCount": "{count} para repasar",
+  "@dueForReviewCount": {
+    "description": "Due for review count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "completion": "Completado",
+  "@completion": {"description": "Completion label"},
+
+  "totalCharacters": "Total de caracteres",
+  "@totalCharacters": {"description": "Total characters label"},
+
+  "learned": "Aprendido",
+  "@learned": {"description": "Learned label"},
+
+  "dueForReview": "Para repasar",
+  "@dueForReview": {"description": "Due for review label"},
+
+  "overallAccuracy": "Precisión general: {percent}%",
+  "@overallAccuracy": {
+    "description": "Overall accuracy",
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+
+  "charactersCount": "{count} caracteres",
+  "@charactersCount": {
+    "description": "Characters count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "lesson1Title": "Lección 1: Consonantes básicas (1)",
+  "@lesson1Title": {"description": "Lesson 1 title"},
+
+  "lesson1Desc": "Aprende las 7 consonantes más usadas",
+  "@lesson1Desc": {"description": "Lesson 1 description"},
+
+  "lesson2Title": "Lección 2: Consonantes básicas (2)",
+  "@lesson2Title": {"description": "Lesson 2 title"},
+
+  "lesson2Desc": "Aprende las 7 consonantes restantes",
+  "@lesson2Desc": {"description": "Lesson 2 description"},
+
+  "lesson3Title": "Lección 3: Vocales básicas (1)",
+  "@lesson3Title": {"description": "Lesson 3 title"},
+
+  "lesson3Desc": "Aprende 5 vocales básicas",
+  "@lesson3Desc": {"description": "Lesson 3 description"},
+
+  "lesson4Title": "Lección 4: Vocales básicas (2)",
+  "@lesson4Title": {"description": "Lesson 4 title"},
+
+  "lesson4Desc": "Aprende las 5 vocales restantes",
+  "@lesson4Desc": {"description": "Lesson 4 description"},
+
+  "lesson5Title": "Lección 5: Consonantes dobles",
+  "@lesson5Title": {"description": "Lesson 5 title"},
+
+  "lesson5Desc": "Aprende 5 consonantes dobles - sonidos fuertes",
+  "@lesson5Desc": {"description": "Lesson 5 description"},
+
+  "lesson6Title": "Lección 6: Vocales compuestas (1)",
+  "@lesson6Title": {"description": "Lesson 6 title"},
+
+  "lesson6Desc": "Aprende 6 vocales compuestas",
+  "@lesson6Desc": {"description": "Lesson 6 description"},
+
+  "lesson7Title": "Lección 7: Vocales compuestas (2)",
+  "@lesson7Title": {"description": "Lesson 7 title"},
+
+  "lesson7Desc": "Aprende las vocales compuestas restantes",
+  "@lesson7Desc": {"description": "Lesson 7 description"},
+
+  "loadAlphabetFirst": "Primero carga los datos del alfabeto",
+  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
+
+  "noContentForLesson": "No hay contenido para esta lección",
+  "@noContentForLesson": {"description": "No content for lesson"},
+
+  "exampleWords": "Palabras de ejemplo",
+  "@exampleWords": {"description": "Example words label"},
+
+  "thisLessonCharacters": "Caracteres de esta lección",
+  "@thisLessonCharacters": {"description": "This lesson characters label"},
+
+  "congratsLessonComplete": "¡Completaste {title}!",
+  "@congratsLessonComplete": {
+    "description": "Congratulations lesson complete",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "continuePractice": "Continuar practicando",
+  "@continuePractice": {"description": "Continue practice button"},
+
+  "nextLesson": "Siguiente lección",
+  "@nextLesson": {"description": "Next lesson button"},
+
+  "basicConsonants": "Consonantes básicas",
+  "@basicConsonants": {"description": "Basic consonants"},
+
+  "doubleConsonants": "Consonantes dobles",
+  "@doubleConsonants": {"description": "Double consonants"},
+
+  "basicVowels": "Vocales básicas",
+  "@basicVowels": {"description": "Basic vowels"},
+
+  "compoundVowels": "Vocales compuestas",
+  "@compoundVowels": {"description": "Compound vowels"},
+
+  "dailyLearningReminderTitle": "Recordatorio diario",
+  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
+
+  "dailyLearningReminderBody": "¡Completa tu estudio de coreano de hoy~",
+  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
+
+  "reviewReminderTitle": "¡Hora de repasar!",
+  "@reviewReminderTitle": {"description": "Review reminder notification title"},
+
+  "reviewReminderBody": "Es hora de repasar「{title}」~",
+  "@reviewReminderBody": {
+    "description": "Review reminder notification body",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "korean": "한국어",
+  "@korean": {"description": "Korean language"},
+
+  "english": "English",
+  "@english": {"description": "English language"},
+
+  "japanese": "日本語",
+  "@japanese": {"description": "Japanese language"},
+
+  "spanish": "Español",
+  "@spanish": {"description": "Spanish language"},
+
+  "strokeOrder": "Orden de trazos",
+  "@strokeOrder": {"description": "Stroke order"},
+
+  "reset": "Reiniciar",
+  "@reset": {"description": "Reset button"},
+
+  "pronunciationGuide": "Guía de pronunciación",
+  "@pronunciationGuide": {"description": "Pronunciation guide"},
+
+  "play": "Reproducir",
+  "@play": {"description": "Play button"},
+
+  "pause": "Pausar",
+  "@pause": {"description": "Pause button"},
+
+  "loadingFailed": "Error al cargar: {error}",
+  "@loadingFailed": {
+    "description": "Loading failed message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "learnedCount": "Aprendidos: {count}",
+  "@learnedCount": {
+    "description": "Learned count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "hangulPractice": "Práctica de Hangul",
+  "charactersNeedReview": "{count} caracteres necesitan repaso",
+  "charactersAvailable": "{count} caracteres disponibles",
+  "selectPracticeMode": "Seleccionar modo de práctica",
+  "characterRecognition": "Reconocimiento de caracteres",
+  "characterRecognitionDesc": "Ve el carácter, elige la pronunciación correcta",
+  "pronunciationPractice": "Práctica de pronunciación",
+  "pronunciationPracticeDesc": "Ve la pronunciación, elige el carácter correcto",
+  "writingPractice": "Práctica de escritura",
+  "writingPracticeDesc": "Ve la pronunciación, escribe el carácter correcto",
+  "startPractice": "Iniciar práctica",
+  "learnSomeCharactersFirst": "Por favor, aprende algunos caracteres en el alfabeto primero",
+  "practiceComplete": "¡Práctica completada!",
+  "back": "Volver",
+  "tryAgain": "Intentar de nuevo",
+  "howToReadThis": "¿Cómo se lee este carácter?",
+  "selectCorrectCharacter": "Selecciona el carácter correcto",
+  "writeCharacterForPronunciation": "Escribe el carácter para esta pronunciación",
+  "writeHere": "Escribe aquí\n(En desarrollo)",
+  "dontKnow": "No sé",
+  "checkAnswer": "Ver respuesta",
+  "didYouWriteCorrectly": "¿Lo escribiste correctamente?",
+  "wrongAnswer": "Incorrecto",
+  "correctAnswer": "Correcto",
+  "correctExclamation": "¡Correcto!",
+  "incorrectExclamation": "Incorrecto",
+  "correctAnswerLabel": "Respuesta correcta: ",
+  "nextQuestionBtn": "Siguiente pregunta",
+  "viewResults": "Ver resultados",
+  "share": "Compartir",
+  "mnemonics": "Trucos de memoria",
+  "nextReviewLabel": "Próximo repaso: {date}",
+  "expired": "Vencido",
+  "practiceFunctionDeveloping": "Función de práctica en desarrollo",
+  "romanization": "Romanización: ",
+  "pronunciationLabel": "Pronunciación: ",
+  "playPronunciation": "Reproducir pronunciación",
+  "strokesCount": "{count} trazos",
+  "perfectCount": "Perfecto",
+  "loadFailed": "Error al cargar",
+  "countUnit": "{count}",
+  "basicConsonantsKo": "기본 자음",
+  "doubleConsonantsKo": "쌍자음",
+  "basicVowelsKo": "기본 모음",
+  "compoundVowelsKo": "복합 모음",
+  "lesson1TitleKo": "Lección 1: Consonantes básicas (1)",
+  "lesson2TitleKo": "Lección 2: Consonantes básicas (2)",
+  "lesson3TitleKo": "Lección 3: Vocales básicas (1)",
+  "lesson4TitleKo": "Lección 4: Vocales básicas (2)",
+  "lesson5TitleKo": "Lección 5: Consonantes dobles",
+  "lesson6TitleKo": "Lección 6: Vocales compuestas (1)",
+  "lesson7TitleKo": "Lección 7: Vocales compuestas (2)",
+
+  "exitLesson": "Salir de la lección",
+  "exitLessonConfirm": "¿Seguro que quieres salir? Tu progreso se guardará.",
+  "continueLearning": "Continuar aprendiendo",
+  "exitBtn": "Salir",
+  "lessonComplete": "¡Lección completada! Progreso guardado",
+  "loadingLesson": "Cargando {title}...",
+  "cannotLoadContent": "No se puede cargar el contenido de la lección",
+  "noLessonContent": "No hay contenido disponible para esta lección",
+  "stageProgress": "Etapa {current} / {total}",
+  "unknownStageType": "Tipo de etapa desconocido: {type}",
+  "wordsCount": "{count} palabras",
+  "startLearning": "Comenzar a aprender",
+  "vocabularyLearning": "Aprendizaje de vocabulario",
+  "noImage": "Sin imagen",
+  "previousItem": "Anterior",
+  "nextItem": "Siguiente",
+  "continueBtn": "Continuar",
+  "previousQuestion": "Pregunta anterior",
+  "playingAudio": "Reproduciendo...",
+  "playAll": "Reproducir todo",
+  "audioPlayFailed": "Error de reproducción de audio: {error}",
+  "stopBtn": "Detener",
+  "playAudioBtn": "Reproducir audio",
+  "playingAudioShort": "Reproduciendo audio...",
+  "pronunciation": "Pronunciación",
+  "grammarPattern": "Gramática · {pattern}",
+  "grammarExplanation": "Explicación gramatical",
+  "conjugationRule": "Regla de conjugación",
+  "comparisonWithChinese": "Comparación con el chino",
+  "exampleSentences": "Oraciones de ejemplo",
+  "dialogueTitle": "Práctica de diálogo",
+  "dialogueExplanation": "Análisis del diálogo",
+  "speaker": "Hablante {name}",
+  "practiceTitle": "Práctica",
+  "practiceInstructions": "Completa los siguientes ejercicios",
+  "fillBlank": "Llenar el espacio",
+  "checkAnswerBtn": "Verificar respuesta",
+  "correctAnswerIs": "Respuesta correcta: {answer}",
+  "quizTitle": "Examen",
+  "quizResult": "Resultado del examen",
+  "quizScoreDisplay": "{correct}/{total}",
+  "quizAccuracy": "Precisión: {percent}%",
+  "summaryTitle": "Resumen de la lección",
+  "vocabLearned": "Vocabulario aprendido",
+  "grammarLearned": "Gramática aprendida",
+  "finishLesson": "Terminar lección",
+  "reviewVocab": "Revisar vocabulario",
+  "similarity": "Similitud: {percent}%",
+  "partOfSpeechNoun": "Sustantivo",
+  "partOfSpeechVerb": "Verbo",
+  "partOfSpeechAdjective": "Adjetivo",
+  "partOfSpeechAdverb": "Adverbio",
+  "partOfSpeechPronoun": "Pronombre",
+  "partOfSpeechParticle": "Partícula",
+  "partOfSpeechConjunction": "Conjunción",
+  "partOfSpeechInterjection": "Interjección",
+  "noVocabulary": "Sin datos de vocabulario",
+  "noGrammar": "Sin datos de gramática",
+  "noPractice": "Sin ejercicios de práctica",
+  "noDialogue": "Sin contenido de diálogo",
+  "noQuiz": "Sin preguntas de examen",
+
+  "tapToFlip": "Toca para voltear",
+  "listeningQuestion": "Escucha",
+  "submit": "Enviar",
+  "timeStudied": "Tiempo estudiado {time}",
+
+  "statusNotStarted": "No iniciado",
+  "statusInProgress": "En progreso",
+  "statusCompleted": "Completado",
+  "statusFailed": "No aprobado",
+  "masteryNew": "Nuevo",
+  "masteryLearning": "Aprendiendo",
+  "masteryFamiliar": "Familiar",
+  "masteryMastered": "Dominado",
+  "masteryExpert": "Experto",
+  "masteryPerfect": "Perfecto",
+  "masteryUnknown": "Desconocido",
+  "dueForReviewNow": "Revisar ahora",
+  "similarityHigh": "Alta similitud",
+  "similarityMedium": "Similitud media",
+  "similarityLow": "Baja similitud",
+  "typeBasicConsonant": "Consonante básica",
+  "typeDoubleConsonant": "Consonante doble",
+  "typeBasicVowel": "Vocal básica",
+  "typeCompoundVowel": "Vocal compuesta",
+  "typeFinalConsonant": "Consonante final",
+
+  "dailyReminderChannel": "Recordatorio diario de estudio",
+  "dailyReminderChannelDesc": "Te recuerda estudiar coreano a una hora fija cada día",
+  "reviewReminderChannel": "Recordatorio de repaso",
+  "reviewReminderChannelDesc": "Recordatorios de repaso basados en repetición espaciada",
+  "notificationStudyTime": "¡Hora de estudiar!",
+  "notificationStudyReminder": "No olvides completar tu práctica diaria de coreano~",
+  "notificationReviewTime": "¡Hora de repasar!",
+  "notificationReviewReminder": "Repasemos lo que has aprendido antes~",
+  "notificationReviewLesson": "¡Es hora de repasar \"{lessonTitle}\"~",
+
+  "keepGoing": "¡Sigue adelante!",
+  "scoreDisplay": "Puntuación: {correct} / {total}",
+  "loadDataError": "Error al cargar datos: {error}",
+  "downloadError": "Error de descarga: {error}",
+  "deleteError": "Error al eliminar: {error}",
+  "clearAllError": "Error al borrar todo: {error}",
+  "cleanupError": "Error de limpieza: {error}",
+  "downloadLessonFailed": "Descarga fallida: {title}",
+
+  "comprehensive": "Integral",
+  "answeredCount": "Respondidas {answered}/{total}",
+
+  "hanjaWord": "Palabra Hanja",
+  "tapToFlipBack": "Toca para voltear",
+  "similarityWithChinese": "Similitud con chino",
+  "hanjaWordSimilarPronunciation": "Palabra Hanja, pronunciación similar",
+  "sameEtymologyEasyToRemember": "Misma etimología, fácil de recordar",
+  "someConnection": "Alguna conexión",
+  "nativeWordNeedsMemorization": "Palabra nativa, requiere memorización",
+  "rules": "Reglas",
+  "koreanLanguage": "🇰🇷 Coreano",
+  "chineseLanguage": "🇨🇳 Chino",
+  "exampleNumber": "Ej. {number}",
+  "fillInBlankPrompt": "Rellenar espacio:",
+  "correctFeedback": "¡Excelente! ¡Correcto!",
+  "incorrectFeedback": "No del todo, intenta de nuevo",
+  "allStagesPassed": "Las 7 etapas completadas",
+  "continueToLearnMore": "Continúa aprendiendo más",
+
+  "timeFormatHMS": "{hours}h {minutes}m {seconds}s",
+  "timeFormatMS": "{minutes}m {seconds}s",
+  "timeFormatS": "{seconds}s"
 }

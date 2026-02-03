@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/convertible_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 // Import split quiz components
 import 'quiz/quiz.dart';
@@ -283,34 +283,39 @@ class _QuizStageState extends State<QuizStage> {
   }
 
   Widget _buildNavigation(bool hasAnswered) {
-    return Row(
-      children: [
-        if (_currentQuestionIndex > 0)
-          Expanded(
-            child: OutlinedButton(
-              onPressed: _previousQuestion,
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingMedium),
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Row(
+          children: [
+            if (_currentQuestionIndex > 0)
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: _previousQuestion,
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingMedium),
+                  ),
+                  child: Text(l10n.previousQuestion),
+                ),
               ),
-              child: const ConvertibleText('上一题'),
+            if (_currentQuestionIndex > 0) const SizedBox(width: 16),
+            Expanded(
+              flex: 2,
+              child: ElevatedButton(
+                onPressed: hasAnswered ? _nextQuestion : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppConstants.primaryColor,
+                  foregroundColor: Colors.black87,
+                  padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingMedium),
+                ),
+                child: Text(
+                  _currentQuestionIndex < _questions.length - 1 ? l10n.nextQuestionBtn : l10n.finish,
+                ),
+              ),
             ),
-          ),
-        if (_currentQuestionIndex > 0) const SizedBox(width: 16),
-        Expanded(
-          flex: 2,
-          child: ElevatedButton(
-            onPressed: hasAnswered ? _nextQuestion : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppConstants.primaryColor,
-              foregroundColor: Colors.black87,
-              padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingMedium),
-            ),
-            child: Text(
-              _currentQuestionIndex < _questions.length - 1 ? '下一题' : '完成',
-            ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 
@@ -357,6 +362,7 @@ class _QuizStageState extends State<QuizStage> {
   }
 
   Widget _buildResultScreen() {
+    final l10n = AppLocalizations.of(context)!;
     final percentage = (_score / _questions.length) * 100;
     final isPassed = percentage >= 80;
 
@@ -398,7 +404,7 @@ class _QuizStageState extends State<QuizStage> {
           const SizedBox(height: 30),
 
           Text(
-            isPassed ? '太棒了！' : '继续加油！',
+            isPassed ? l10n.excellent : l10n.keepGoing,
             style: TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.bold,
@@ -409,7 +415,7 @@ class _QuizStageState extends State<QuizStage> {
           const SizedBox(height: 16),
 
           Text(
-            '得分：$_score / ${_questions.length}',
+            l10n.scoreDisplay(_score, _questions.length),
             style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
 
@@ -443,7 +449,7 @@ class _QuizStageState extends State<QuizStage> {
                   const Icon(Icons.timer_outlined),
                   const SizedBox(width: 8),
                   Text(
-                    '用时: ${_formatTime(AppConstants.quizTimeLimitSeconds - _remainingSeconds)}',
+                    l10n.timeUsed(_formatTime(AppConstants.quizTimeLimitSeconds - _remainingSeconds)),
                     style: const TextStyle(fontSize: AppConstants.fontSizeMedium),
                   ),
                 ],
@@ -461,7 +467,7 @@ class _QuizStageState extends State<QuizStage> {
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Text(
-              isPassed ? '你已经很好地掌握了本课内容！' : '建议复习一下课程内容，再来挑战吧！',
+              isPassed ? l10n.masteredContent : l10n.reviewSuggestion,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
@@ -482,9 +488,9 @@ class _QuizStageState extends State<QuizStage> {
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingLarge),
               ),
-              child: const Text(
-                '继续',
-                style: TextStyle(fontSize: AppConstants.fontSizeXLarge, fontWeight: FontWeight.bold),
+              child: Text(
+                l10n.continueBtn,
+                style: const TextStyle(fontSize: AppConstants.fontSizeXLarge, fontWeight: FontWeight.bold),
               ),
             ),
           ).animate().fadeIn(delay: 1400.ms, duration: 600.ms).slideY(

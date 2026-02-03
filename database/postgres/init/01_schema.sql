@@ -12,7 +12,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     name VARCHAR(100),
-    language_preference VARCHAR(10) DEFAULT 'zh' CHECK (language_preference IN ('zh', 'en', 'ko')),
+    language_preference VARCHAR(10) DEFAULT 'zh' CHECK (language_preference IN ('ko', 'en', 'es', 'ja', 'zh', 'zh_TW')),
     subscription_type VARCHAR(20) DEFAULT 'free' CHECK (subscription_type IN ('free', 'premium', 'lifetime')),
     subscription_expires_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -27,7 +27,7 @@ CREATE INDEX idx_users_subscription ON users(subscription_type, subscription_exp
 CREATE INDEX idx_users_created_at ON users(created_at DESC);
 
 COMMENT ON TABLE users IS '사용자 계정 정보';
-COMMENT ON COLUMN users.language_preference IS '인터페이스 언어 (zh: 중국어, en: 영어, ko: 한국어)';
+COMMENT ON COLUMN users.language_preference IS '콘텐츠 언어 (ko, en, es, ja, zh, zh_TW)';
 COMMENT ON COLUMN users.subscription_type IS '구독 유형 (free: 무료, premium: 유료, lifetime: 평생)';
 
 -- ==================== Sessions Table ====================
@@ -53,15 +53,18 @@ COMMENT ON TABLE sessions IS '사용자 세션 및 토큰 관리';
 COMMENT ON COLUMN sessions.device_info IS 'JSON: {device_type, os, app_version, device_id}';
 
 -- ==================== Lessons Table ====================
+-- NOTE: title_zh, description_zh columns are DEPRECATED
+-- Use lesson_translations table for localized content (see migrations/001_add_translations.sql)
+-- These columns are kept for backwards compatibility during transition
 CREATE TABLE lessons (
     id SERIAL PRIMARY KEY,
     level INTEGER NOT NULL CHECK (level BETWEEN 1 AND 6),
     week INTEGER NOT NULL CHECK (week >= 1),
     order_num INTEGER NOT NULL,
     title_ko VARCHAR(255) NOT NULL,
-    title_zh VARCHAR(255) NOT NULL,
+    title_zh VARCHAR(255) NOT NULL, -- DEPRECATED: Use lesson_translations table
     description_ko TEXT,
-    description_zh TEXT,
+    description_zh TEXT, -- DEPRECATED: Use lesson_translations table
     duration_minutes INTEGER DEFAULT 30,
     difficulty VARCHAR(20) CHECK (difficulty IN ('beginner', 'elementary', 'intermediate', 'advanced')),
     thumbnail_url TEXT,
@@ -87,12 +90,15 @@ COMMENT ON COLUMN lessons.level IS 'TOPIK 레벨 (1-6)';
 COMMENT ON COLUMN lessons.prerequisites IS '선수 레슨 ID 배열';
 
 -- ==================== Vocabulary Table ====================
+-- NOTE: chinese, pinyin, example_sentence_zh columns are DEPRECATED
+-- Use vocabulary_translations table for localized content (see migrations/001_add_translations.sql)
+-- These columns are kept for backwards compatibility during transition
 CREATE TABLE vocabulary (
     id SERIAL PRIMARY KEY,
     korean VARCHAR(100) NOT NULL,
     hanja VARCHAR(100),
-    chinese VARCHAR(100) NOT NULL,
-    pinyin VARCHAR(200),
+    chinese VARCHAR(100) NOT NULL, -- DEPRECATED: Use vocabulary_translations table
+    pinyin VARCHAR(200), -- DEPRECATED: Use vocabulary_translations table
     part_of_speech VARCHAR(20) CHECK (part_of_speech IN ('noun', 'verb', 'adjective', 'adverb', 'particle', 'conjunction', 'interjection', 'pronoun')),
     level INTEGER CHECK (level BETWEEN 1 AND 6),
     similarity_score DECIMAL(3, 2) CHECK (similarity_score BETWEEN 0 AND 1),
@@ -100,8 +106,8 @@ CREATE TABLE vocabulary (
     audio_url_male TEXT,
     audio_url_female TEXT,
     example_sentence_ko TEXT,
-    example_sentence_zh TEXT,
-    notes TEXT,
+    example_sentence_zh TEXT, -- DEPRECATED: Use vocabulary_translations table
+    notes TEXT, -- DEPRECATED: Use vocabulary_translations table
     frequency_rank INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -119,15 +125,18 @@ COMMENT ON COLUMN vocabulary.similarity_score IS '한자어 유사도 (0.0-1.0)'
 COMMENT ON COLUMN vocabulary.hanja IS '한국어 단어의 한자 표기';
 
 -- ==================== Grammar Rules Table ====================
+-- NOTE: name_zh, chinese_comparison columns are DEPRECATED
+-- Use grammar_translations table for localized content (see migrations/001_add_translations.sql)
+-- These columns are kept for backwards compatibility during transition
 CREATE TABLE grammar_rules (
     id SERIAL PRIMARY KEY,
     name_ko VARCHAR(255) NOT NULL,
-    name_zh VARCHAR(255) NOT NULL,
+    name_zh VARCHAR(255) NOT NULL, -- DEPRECATED: Use grammar_translations table
     category VARCHAR(50),
     level INTEGER CHECK (level BETWEEN 1 AND 6),
     difficulty VARCHAR(20) CHECK (difficulty IN ('beginner', 'elementary', 'intermediate', 'advanced')),
-    description TEXT,
-    chinese_comparison TEXT,
+    description TEXT, -- DEPRECATED: Use grammar_translations table
+    chinese_comparison TEXT, -- DEPRECATED: Use grammar_translations table
     examples JSONB NOT NULL DEFAULT '[]',
     usage_notes TEXT,
     common_mistakes TEXT,

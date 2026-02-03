@@ -7,9 +7,9 @@ import '../../../core/storage/local_storage.dart'
 import '../../../data/models/bookmark_model.dart';
 import '../../../data/models/vocabulary_model.dart';
 import '../../../data/repositories/content_repository.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/bookmark_provider.dart';
-import '../../widgets/bilingual_text.dart';
 import '../../widgets/convertible_text.dart';
 
 /// Vocabulary Book Review Screen
@@ -71,7 +71,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载失败: $e')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.loadingFailed(e.toString()))),
         );
       }
     }
@@ -157,6 +157,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
   }
 
   void _showCompletionDialog() {
+    final l10n = AppLocalizations.of(context)!;
     final totalReviewed = _reviewItems.length;
     final accuracy = totalReviewed > 0
         ? ((_correctCount / totalReviewed) * 100).round()
@@ -166,10 +167,9 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const BilingualText(
-          chinese: '复习完成！',
-          korean: '복습 완료!',
-          chineseStyle: TextStyle(
+        title: Text(
+          l10n.reviewComplete,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -183,8 +183,8 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
               color: AppConstants.successColor,
             ),
             const SizedBox(height: 16),
-            ConvertibleText(
-              '已完成 $totalReviewed 个单词的复习',
+            Text(
+              l10n.reviewCompleteCount(totalReviewed),
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 12),
@@ -192,17 +192,17 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildStatBadge(
-                  '正确',
+                  l10n.correct,
                   '$_correctCount',
                   AppConstants.successColor,
                 ),
                 _buildStatBadge(
-                  '错误',
+                  l10n.wrong,
                   '$_wrongCount',
                   AppConstants.errorColor,
                 ),
                 _buildStatBadge(
-                  '准确率',
+                  l10n.accuracy,
                   '$accuracy%',
                   Colors.blue,
                 ),
@@ -216,10 +216,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
               Navigator.pop(context); // Close dialog
               Navigator.pop(context); // Close review screen
             },
-            child: const InlineBilingualText(
-              chinese: '完成',
-              korean: '완료',
-            ),
+            child: Text(l10n.finish),
           ),
         ],
       ),
@@ -238,7 +235,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
           ),
         ),
         const SizedBox(height: 4),
-        ConvertibleText(
+        Text(
           label,
           style: const TextStyle(
             fontSize: 12,
@@ -251,13 +248,14 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: const BilingualText(
-            chinese: '单词本复习',
-            korean: '단어장 복습',
-            chineseStyle: TextStyle(fontWeight: FontWeight.bold),
+          title: Text(
+            l10n.vocabularyBookReview,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         body: const Center(child: CircularProgressIndicator()),
@@ -267,10 +265,9 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
     if (_reviewItems.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: const BilingualText(
-            chinese: '单词本复习',
-            korean: '단어장 복습',
-            chineseStyle: TextStyle(fontWeight: FontWeight.bold),
+          title: Text(
+            l10n.vocabularyBookReview,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         body: Center(
@@ -283,17 +280,17 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
                 color: Colors.grey.shade300,
               ),
               const SizedBox(height: 16),
-              const ConvertibleText(
-                '暂无需要复习的单词',
-                style: TextStyle(
+              Text(
+                l10n.noWordsToReview,
+                style: const TextStyle(
                   fontSize: 18,
                   color: AppConstants.textSecondary,
                 ),
               ),
               const SizedBox(height: 8),
-              const ConvertibleText(
-                '在学习过程中收藏单词后开始复习',
-                style: TextStyle(
+              Text(
+                l10n.bookmarkWordsToReview,
+                style: const TextStyle(
                   fontSize: 14,
                   color: AppConstants.textHint,
                 ),
@@ -302,7 +299,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
               ElevatedButton.icon(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_back),
-                label: const ConvertibleText('返回单词本'),
+                label: Text(l10n.returnToVocabularyBook),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppConstants.primaryColor,
                   foregroundColor: Colors.black87,
@@ -330,8 +327,8 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: ConvertibleText(
-          '单词本复习 ${_currentIndex + 1}/${_reviewItems.length}',
+        title: Text(
+          '${l10n.vocabularyBookReview} ${_currentIndex + 1}/${_reviewItems.length}',
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -362,10 +359,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
             ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const InlineBilingualText(
-              chinese: '退出',
-              korean: '나가기',
-            ),
+            child: Text(l10n.exit),
           ),
         ],
       ),
@@ -470,10 +464,9 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
                                     vertical: 16,
                                   ),
                                 ),
-                                child: const InlineBilingualText(
-                                  chinese: '显示答案',
-                                  korean: '답 보기',
-                                  style: TextStyle(
+                                child: Text(
+                                  l10n.showAnswer,
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black87,
                                   ),
@@ -482,9 +475,9 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
                             else
                               Column(
                                 children: [
-                                  // Chinese Translation
+                                  // Translation
                                   ConvertibleText(
-                                    vocabulary.chinese,
+                                    vocabulary.translation,
                                     style: const TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold,
@@ -493,11 +486,11 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
                                     textAlign: TextAlign.center,
                                   ),
 
-                                  if (vocabulary.pinyin != null)
+                                  if (vocabulary.pronunciation != null)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 8),
                                       child: Text(
-                                        vocabulary.pinyin!,
+                                        vocabulary.pronunciation!,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontStyle: FontStyle.italic,
@@ -515,10 +508,9 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
                     // Rating Buttons (shown after answer is revealed)
                     if (_showAnswer) ...[
                       const SizedBox(height: 32),
-                      const BilingualText(
-                        chinese: '你记住了吗？',
-                        korean: '기억하셨나요?',
-                        chineseStyle: TextStyle(
+                      Text(
+                        l10n.didYouRemember,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -528,29 +520,25 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           _buildRatingButton(
-                            '忘记了',
-                            '까먹음',
+                            l10n.forgot,
                             Icons.close,
                             AppConstants.errorColor,
                             ReviewRating.forgot,
                           ),
                           _buildRatingButton(
-                            '困难',
-                            '어려움',
+                            l10n.hard,
                             Icons.sentiment_dissatisfied,
                             Colors.orange,
                             ReviewRating.hard,
                           ),
                           _buildRatingButton(
-                            '记得',
-                            '기억함',
+                            l10n.remembered,
                             Icons.sentiment_satisfied,
                             Colors.blue,
                             ReviewRating.good,
                           ),
                           _buildRatingButton(
-                            '简单',
-                            '쉬움',
+                            l10n.easy,
                             Icons.sentiment_very_satisfied,
                             AppConstants.successColor,
                             ReviewRating.easy,
@@ -569,8 +557,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
   }
 
   Widget _buildRatingButton(
-    String chinese,
-    String korean,
+    String label,
     IconData icon,
     Color color,
     ReviewRating rating,
@@ -594,9 +581,8 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
             children: [
               Icon(icon, size: 28),
               const SizedBox(height: 4),
-              InlineBilingualText(
-                chinese: chinese,
-                korean: korean,
+              Text(
+                label,
                 style: const TextStyle(fontSize: 12),
               ),
             ],

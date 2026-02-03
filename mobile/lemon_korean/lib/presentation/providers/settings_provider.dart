@@ -80,6 +80,25 @@ class SettingsProvider extends ChangeNotifier {
   int get weeklyGoalTarget => _weeklyGoalTarget;
   bool get isInitialized => _isInitialized;
 
+  /// Get the content language code for API requests
+  /// Maps AppLanguage enum to API-compatible language codes
+  String get contentLanguageCode {
+    switch (_appLanguage) {
+      case AppLanguage.ko:
+        return 'ko';
+      case AppLanguage.en:
+        return 'en';
+      case AppLanguage.es:
+        return 'es';
+      case AppLanguage.ja:
+        return 'ja';
+      case AppLanguage.zhCN:
+        return 'zh';
+      case AppLanguage.zhTW:
+        return 'zh_TW';
+    }
+  }
+
   // ================================================================
   // INITIALIZATION
   // ================================================================

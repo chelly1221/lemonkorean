@@ -1,19 +1,38 @@
 const { query } = require('../config/database');
+const { getFallbackChain } = require('../middleware/language.middleware');
 
 class Vocabulary {
   /**
-   * Get all vocabulary
-   * @param {Object} filters - Filter options
-   * @returns {Array} Vocabulary array
+   * Get all vocabulary with translations
+   * @param {Object} filters - Filter options including language
+   * @returns {Array} Vocabulary array with localized content
    */
   static async findAll(filters = {}) {
-    const { level, part_of_speech, limit = 100, offset = 0, search } = filters;
+    const { level, part_of_speech, limit = 100, offset = 0, search, language = 'zh' } = filters;
+
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
 
     let sql = `
-      SELECT id, korean, hanja, chinese, pinyin, part_of_speech,
-             level, similarity_score, image_url, audio_url_male, audio_url_female,
-             example_sentence_ko, example_sentence_zh, frequency_rank, created_at
-      FROM vocabulary
+      SELECT v.id, v.korean, v.hanja,
+             COALESCE(vt.translation, v.chinese) as translation,
+             COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
+             v.part_of_speech,
+             v.level, v.similarity_score, v.image_url, v.audio_url_male, v.audio_url_female,
+             v.example_sentence_ko,
+             COALESCE(vt.example_sentence, v.example_sentence_zh) as example_sentence,
+             v.frequency_rank, v.created_at,
+             COALESCE(vt.language_code, 'zh') as content_language
+      FROM vocabulary v
+      LEFT JOIN LATERAL (
+        SELECT translation, pronunciation, example_sentence, language_code
+        FROM vocabulary_translations
+        WHERE vocabulary_id = v.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) vt ON true
       WHERE 1=1
     `;
 
@@ -33,7 +52,7 @@ class Vocabulary {
     }
 
     if (search) {
-      sql += ` AND (korean ILIKE $${paramCount} OR chinese ILIKE $${paramCount})`;
+      sql += ` AND (v.korean ILIKE $${paramCount} OR COALESCE(vt.translation, v.chinese) ILIKE $${paramCount})`;
       params.push(`%${search}%`);
       paramCount++;
     }
@@ -47,18 +66,37 @@ class Vocabulary {
   }
 
   /**
-   * Get vocabulary by ID
+   * Get vocabulary by ID with translations
    * @param {Number} id - Vocabulary ID
-   * @returns {Object|null} Vocabulary object
+   * @param {String} language - Language code (default: 'zh')
+   * @returns {Object|null} Vocabulary object with localized content
    */
-  static async findById(id) {
+  static async findById(id, language = 'zh') {
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
     const sql = `
-      SELECT id, korean, hanja, chinese, pinyin, part_of_speech,
-             level, similarity_score, image_url, audio_url_male, audio_url_female,
-             example_sentence_ko, example_sentence_zh, notes, frequency_rank,
-             created_at, updated_at
-      FROM vocabulary
-      WHERE id = $1
+      SELECT v.id, v.korean, v.hanja,
+             COALESCE(vt.translation, v.chinese) as translation,
+             COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
+             v.part_of_speech,
+             v.level, v.similarity_score, v.image_url, v.audio_url_male, v.audio_url_female,
+             v.example_sentence_ko,
+             COALESCE(vt.example_sentence, v.example_sentence_zh) as example_sentence,
+             COALESCE(vt.notes, v.notes) as notes,
+             v.frequency_rank, v.created_at, v.updated_at,
+             COALESCE(vt.language_code, 'zh') as content_language
+      FROM vocabulary v
+      LEFT JOIN LATERAL (
+        SELECT translation, pronunciation, example_sentence, notes, language_code
+        FROM vocabulary_translations
+        WHERE vocabulary_id = v.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) vt ON true
+      WHERE v.id = $1
     `;
 
     const result = await query(sql, [id]);
@@ -66,26 +104,42 @@ class Vocabulary {
   }
 
   /**
-   * Search vocabulary
+   * Search vocabulary with translations
    * @param {String} searchTerm - Search term
    * @param {Number} limit - Result limit
-   * @returns {Array} Vocabulary array
+   * @param {String} language - Language code (default: 'zh')
+   * @returns {Array} Vocabulary array with localized content
    */
-  static async search(searchTerm, limit = 20) {
+  static async search(searchTerm, limit = 20, language = 'zh') {
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
     const sql = `
-      SELECT id, korean, hanja, chinese, pinyin, part_of_speech,
-             level, similarity_score
-      FROM vocabulary
-      WHERE korean ILIKE $1 OR chinese ILIKE $1 OR pinyin ILIKE $1
+      SELECT v.id, v.korean, v.hanja,
+             COALESCE(vt.translation, v.chinese) as translation,
+             COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
+             v.part_of_speech, v.level, v.similarity_score,
+             COALESCE(vt.language_code, 'zh') as content_language
+      FROM vocabulary v
+      LEFT JOIN LATERAL (
+        SELECT translation, pronunciation, language_code
+        FROM vocabulary_translations
+        WHERE vocabulary_id = v.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) vt ON true
+      WHERE v.korean ILIKE $1 OR COALESCE(vt.translation, v.chinese) ILIKE $1 OR COALESCE(vt.pronunciation, v.pinyin) ILIKE $1
       ORDER BY
         CASE
-          WHEN korean = $2 THEN 1
-          WHEN chinese = $2 THEN 2
-          WHEN korean ILIKE $1 THEN 3
-          WHEN chinese ILIKE $1 THEN 4
+          WHEN v.korean = $2 THEN 1
+          WHEN COALESCE(vt.translation, v.chinese) = $2 THEN 2
+          WHEN v.korean ILIKE $1 THEN 3
+          WHEN COALESCE(vt.translation, v.chinese) ILIKE $1 THEN 4
           ELSE 5
         END,
-        frequency_rank NULLS LAST
+        v.frequency_rank NULLS LAST
       LIMIT $3
     `;
 
@@ -94,17 +148,33 @@ class Vocabulary {
   }
 
   /**
-   * Get vocabulary by level
+   * Get vocabulary by level with translations
    * @param {Number} level - TOPIK level (1-6)
-   * @returns {Array} Vocabulary array
+   * @param {String} language - Language code (default: 'zh')
+   * @returns {Array} Vocabulary array with localized content
    */
-  static async findByLevel(level) {
+  static async findByLevel(level, language = 'zh') {
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
     const sql = `
-      SELECT id, korean, hanja, chinese, pinyin, part_of_speech,
-             similarity_score, image_url
-      FROM vocabulary
-      WHERE level = $1
-      ORDER BY frequency_rank NULLS LAST, korean
+      SELECT v.id, v.korean, v.hanja,
+             COALESCE(vt.translation, v.chinese) as translation,
+             COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
+             v.part_of_speech, v.similarity_score, v.image_url,
+             COALESCE(vt.language_code, 'zh') as content_language
+      FROM vocabulary v
+      LEFT JOIN LATERAL (
+        SELECT translation, pronunciation, language_code
+        FROM vocabulary_translations
+        WHERE vocabulary_id = v.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) vt ON true
+      WHERE v.level = $1
+      ORDER BY v.frequency_rank NULLS LAST, v.korean
     `;
 
     const result = await query(sql, [level]);
@@ -112,17 +182,34 @@ class Vocabulary {
   }
 
   /**
-   * Get high-similarity Hanja words (한자어)
+   * Get high-similarity Hanja words (한자어) with translations
    * @param {Number} minSimilarity - Minimum similarity score (0-1)
    * @param {Number} limit - Result limit
-   * @returns {Array} Vocabulary array
+   * @param {String} language - Language code (default: 'zh')
+   * @returns {Array} Vocabulary array with localized content
    */
-  static async findHighSimilarity(minSimilarity = 0.8, limit = 100) {
+  static async findHighSimilarity(minSimilarity = 0.8, limit = 100, language = 'zh') {
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
     const sql = `
-      SELECT id, korean, hanja, chinese, pinyin, similarity_score, level
-      FROM vocabulary
-      WHERE similarity_score >= $1
-      ORDER BY similarity_score DESC, frequency_rank NULLS LAST
+      SELECT v.id, v.korean, v.hanja,
+             COALESCE(vt.translation, v.chinese) as translation,
+             COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
+             v.similarity_score, v.level,
+             COALESCE(vt.language_code, 'zh') as content_language
+      FROM vocabulary v
+      LEFT JOIN LATERAL (
+        SELECT translation, pronunciation, language_code
+        FROM vocabulary_translations
+        WHERE vocabulary_id = v.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) vt ON true
+      WHERE v.similarity_score >= $1
+      ORDER BY v.similarity_score DESC, v.frequency_rank NULLS LAST
       LIMIT $2
     `;
 

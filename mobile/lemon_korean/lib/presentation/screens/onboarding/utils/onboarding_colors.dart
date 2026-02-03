@@ -11,7 +11,7 @@ class OnboardingColors {
   static const cardSelected = Color(0xFFFFF9E3);         // Selected card background (subtle yellow)
 
   // === Primary Accent Colors ===
-  static const primaryYellow = Color(0xFFFFC107);        // Button yellow (Toss-style)
+  static const primaryYellow = Color(0xFFFFEF5F);        // Button yellow (Toss-style)
   static const primaryYellowLight = Color(0xFFFFF3D6);   // Subtle yellow for icons
   static const accentOrange = Color(0xFFFF9F43);         // Accent orange
   static const accentGreen = Color(0xFF26D882);          // Modern green

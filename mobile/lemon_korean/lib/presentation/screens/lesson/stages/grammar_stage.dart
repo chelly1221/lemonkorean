@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/convertible_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Grammar Stage with Interactive Exercises
 /// Animated grammar explanations with Chinese comparisons and practice
@@ -228,14 +228,15 @@ class _GrammarStageState extends State<GrammarStage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '语法讲解',
-            style: TextStyle(
+          Text(
+            l10n.grammarExplanation,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -287,6 +288,7 @@ class _GrammarStageState extends State<GrammarStage> {
                 return _buildGrammarPoint(
                   _mockGrammarPoints[index],
                   index,
+                  l10n,
                 );
               },
             ),
@@ -299,38 +301,48 @@ class _GrammarStageState extends State<GrammarStage> {
             children: [
               // Previous Button
               if (_currentPointIndex > 0)
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _previousPoint,
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppConstants.paddingMedium,
+                Builder(
+                  builder: (context) {
+                    final l10n = AppLocalizations.of(context)!;
+                    return Expanded(
+                      child: OutlinedButton(
+                        onPressed: _previousPoint,
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppConstants.paddingMedium,
+                          ),
+                        ),
+                        child: Text(l10n.previousItem),
                       ),
-                    ),
-                    child: const ConvertibleText('上一个'),
-                  ),
+                    );
+                  },
                 ),
 
               if (_currentPointIndex > 0) const SizedBox(width: 16),
 
               // Next Button
-              Expanded(
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: _nextPoint,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppConstants.primaryColor,
-                    foregroundColor: Colors.black87,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppConstants.paddingMedium,
+              Builder(
+                builder: (context) {
+                  final l10n = AppLocalizations.of(context)!;
+                  return Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: _nextPoint,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppConstants.primaryColor,
+                        foregroundColor: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: AppConstants.paddingMedium,
+                        ),
+                      ),
+                      child: Text(
+                        _currentPointIndex < _mockGrammarPoints.length - 1
+                            ? l10n.nextItem
+                            : l10n.continueBtn,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    _currentPointIndex < _mockGrammarPoints.length - 1
-                        ? '下一个'
-                        : '继续',
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),
@@ -339,7 +351,7 @@ class _GrammarStageState extends State<GrammarStage> {
     );
   }
 
-  Widget _buildGrammarPoint(Map<String, dynamic> point, int pointIndex) {
+  Widget _buildGrammarPoint(Map<String, dynamic> point, int pointIndex, AppLocalizations l10n) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,7 +365,7 @@ class _GrammarStageState extends State<GrammarStage> {
           const SizedBox(height: 24),
 
           // Rule Section
-          _buildRuleSection(point)
+          _buildRuleSection(point, l10n)
               .animate()
               .fadeIn(delay: 200.ms, duration: 500.ms)
               .slideX(begin: -0.2, end: 0, delay: 200.ms),
@@ -361,7 +373,7 @@ class _GrammarStageState extends State<GrammarStage> {
           const SizedBox(height: 24),
 
           // Chinese Comparison Section
-          _buildChineseComparisonSection(point)
+          _buildChineseComparisonSection(point, l10n)
               .animate()
               .fadeIn(delay: 300.ms, duration: 500.ms)
               .slideX(begin: -0.2, end: 0, delay: 300.ms),
@@ -369,7 +381,7 @@ class _GrammarStageState extends State<GrammarStage> {
           const SizedBox(height: 24),
 
           // Examples Section
-          _buildExamplesSection(point)
+          _buildExamplesSection(point, l10n)
               .animate()
               .fadeIn(delay: 400.ms, duration: 500.ms)
               .slideY(begin: 0.2, end: 0, delay: 400.ms),
@@ -377,7 +389,7 @@ class _GrammarStageState extends State<GrammarStage> {
           const SizedBox(height: 24),
 
           // Exercise Section
-          _buildExerciseSection(point, pointIndex)
+          _buildExerciseSection(point, pointIndex, l10n)
               .animate()
               .fadeIn(delay: 500.ms, duration: 500.ms)
               .slideY(begin: 0.2, end: 0, delay: 500.ms),
@@ -429,7 +441,7 @@ class _GrammarStageState extends State<GrammarStage> {
     );
   }
 
-  Widget _buildRuleSection(Map<String, dynamic> point) {
+  Widget _buildRuleSection(Map<String, dynamic> point, AppLocalizations l10n) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -453,7 +465,7 @@ class _GrammarStageState extends State<GrammarStage> {
               ),
               const SizedBox(width: 8),
               Text(
-                '规则',
+                l10n.rules,
                 style: TextStyle(
                   fontSize: AppConstants.fontSizeLarge,
                   fontWeight: FontWeight.bold,
@@ -475,7 +487,7 @@ class _GrammarStageState extends State<GrammarStage> {
     );
   }
 
-  Widget _buildChineseComparisonSection(Map<String, dynamic> point) {
+  Widget _buildChineseComparisonSection(Map<String, dynamic> point, AppLocalizations l10n) {
     final comparison = point['chinese_comparison'] as Map<String, dynamic>;
 
     return Container(
@@ -522,9 +534,9 @@ class _GrammarStageState extends State<GrammarStage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '🇰🇷 韩语',
-                  style: TextStyle(
+                Text(
+                  l10n.koreanLanguage,
+                  style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.textSecondary,
                   ),
@@ -553,9 +565,9 @@ class _GrammarStageState extends State<GrammarStage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '🇨🇳 中文',
-                  style: TextStyle(
+                Text(
+                  l10n.chineseLanguage,
+                  style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.textSecondary,
                   ),
@@ -588,15 +600,15 @@ class _GrammarStageState extends State<GrammarStage> {
     );
   }
 
-  Widget _buildExamplesSection(Map<String, dynamic> point) {
+  Widget _buildExamplesSection(Map<String, dynamic> point, AppLocalizations l10n) {
     final examples = point['examples'] as List;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '例句',
-          style: TextStyle(
+        Text(
+          l10n.exampleSentences,
+          style: const TextStyle(
             fontSize: AppConstants.fontSizeLarge,
             fontWeight: FontWeight.bold,
           ),
@@ -604,13 +616,13 @@ class _GrammarStageState extends State<GrammarStage> {
         const SizedBox(height: 12),
         ...List.generate(
           examples.length,
-          (index) => _buildExampleCard(examples[index], index),
+          (index) => _buildExampleCard(examples[index], index, l10n),
         ),
       ],
     );
   }
 
-  Widget _buildExampleCard(Map<String, dynamic> example, int index) {
+  Widget _buildExampleCard(Map<String, dynamic> example, int index, AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -637,7 +649,7 @@ class _GrammarStageState extends State<GrammarStage> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              '例 ${index + 1}',
+              l10n.exampleNumber(index + 1),
               style: const TextStyle(
                 fontSize: AppConstants.fontSizeSmall,
                 fontWeight: FontWeight.bold,
@@ -697,7 +709,7 @@ class _GrammarStageState extends State<GrammarStage> {
     );
   }
 
-  Widget _buildExerciseSection(Map<String, dynamic> point, int pointIndex) {
+  Widget _buildExerciseSection(Map<String, dynamic> point, int pointIndex, AppLocalizations l10n) {
     final exercise = point['exercise'] as Map<String, dynamic>;
     final userAnswer = _userAnswers[pointIndex];
     final showFeedback = _showExerciseFeedback[pointIndex] ?? false;
@@ -733,7 +745,7 @@ class _GrammarStageState extends State<GrammarStage> {
               ),
               const SizedBox(width: 8),
               Text(
-                '练习',
+                l10n.practice,
                 style: TextStyle(
                   fontSize: AppConstants.fontSizeLarge,
                   fontWeight: FontWeight.bold,
@@ -747,7 +759,7 @@ class _GrammarStageState extends State<GrammarStage> {
 
           // Question
           Text(
-            '填空：',
+            l10n.fillInBlankPrompt,
             style: TextStyle(
               fontSize: AppConstants.fontSizeMedium,
               color: Colors.green.shade700,
@@ -888,7 +900,7 @@ class _GrammarStageState extends State<GrammarStage> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        isCorrect ? '太棒了！' : '正确答案是: ${exercise['correct']}',
+                        isCorrect ? l10n.excellent : l10n.correctAnswerIs(exercise['correct']),
                         style: TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,

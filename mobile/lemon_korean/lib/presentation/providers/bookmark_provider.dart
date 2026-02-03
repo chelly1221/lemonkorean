@@ -206,7 +206,7 @@ class BookmarkProvider with ChangeNotifier {
       if (vocabulary == null) return false;
 
       return vocabulary.korean.toLowerCase().contains(lowerQuery) ||
-          vocabulary.chinese.toLowerCase().contains(lowerQuery) ||
+          vocabulary.translation.toLowerCase().contains(lowerQuery) ||
           (bookmark.notes?.toLowerCase().contains(lowerQuery) ?? false);
     }).toList();
   }
@@ -250,8 +250,8 @@ class BookmarkProvider with ChangeNotifier {
         break;
       case BookmarkSortType.chinese:
         sorted.sort((a, b) {
-          final aChinese = a.vocabulary?.chinese ?? '';
-          final bChinese = b.vocabulary?.chinese ?? '';
+          final aChinese = a.vocabulary?.translation ?? '';
+          final bChinese = b.vocabulary?.translation ?? '';
           return aChinese.compareTo(bChinese);
         });
         break;

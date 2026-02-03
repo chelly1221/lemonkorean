@@ -11,6 +11,7 @@ import 'l10n/generated/app_localizations.dart';
 import 'presentation/providers/auth_provider.dart';
 import 'presentation/providers/bookmark_provider.dart';
 import 'presentation/providers/download_provider.dart';
+import 'presentation/providers/hangul_provider.dart';
 import 'presentation/providers/lesson_provider.dart';
 import 'presentation/providers/progress_provider.dart';
 import 'presentation/providers/settings_provider.dart';
@@ -121,6 +122,7 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProgressProvider()),
         ChangeNotifierProvider(create: (_) => BookmarkProvider()),
         ChangeNotifierProvider(create: (_) => VocabularyBrowserProvider()),
+        ChangeNotifierProvider(create: (_) => HangulProvider()),
         ChangeNotifierProvider<SettingsProvider>.value(value: settingsProvider),
         ChangeNotifierProvider(create: (_) => SyncProvider()),
         // Download provider only on mobile (web doesn't support file downloads)

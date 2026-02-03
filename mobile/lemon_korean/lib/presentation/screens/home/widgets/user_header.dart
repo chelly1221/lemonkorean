@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/user_model.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// User Header Widget
 /// Displays user greeting and streak information
@@ -17,15 +18,16 @@ class UserHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final hour = DateTime.now().hour;
     String greeting;
 
     if (hour < 12) {
-      greeting = '早上好';
+      greeting = l10n.goodMorning;
     } else if (hour < 18) {
-      greeting = '下午好';
+      greeting = l10n.goodAfternoon;
     } else {
-      greeting = '晚上好';
+      greeting = l10n.goodEvening;
     }
 
     return Container(
@@ -57,7 +59,7 @@ class UserHeader extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  user?.username ?? '用户',
+                  user?.username ?? l10n.user,
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeXLarge,
                     fontWeight: FontWeight.bold,
@@ -104,9 +106,9 @@ class UserHeader extends StatelessWidget {
                         color: Colors.orange,
                       ),
                     ),
-                    const Text(
-                      '天',
-                      style: TextStyle(
+                    Text(
+                      l10n.days,
+                      style: const TextStyle(
                         fontSize: AppConstants.fontSizeSmall,
                         color: AppConstants.textSecondary,
                       ),

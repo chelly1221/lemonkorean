@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_constants.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import 'quiz_shared.dart';
 
 /// Translation Question Widget
@@ -25,10 +26,12 @@ class TranslationQuestion extends StatelessWidget {
     final options = question['options'] as List;
     final correct = question['correct'] as String;
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       children: [
-        const QuestionTypeBadge(
-          label: '翻译',
+        QuestionTypeBadge(
+          label: l10n.translation,
           icon: Icons.translate,
           color: Colors.purple,
         ),

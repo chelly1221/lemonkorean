@@ -334,7 +334,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lowSimilarity => '낮은 유사도';
 
   @override
-  String get lessonComplete => '강의 완료!';
+  String get lessonComplete => '과정 완료! 진행 상황이 저장되었습니다';
 
   @override
   String get learningComplete => '학습 완료';
@@ -491,7 +491,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get correctOrderIs => '올바른 순서:';
 
   @override
-  String get correctAnswerIs => '정답:';
+  String correctAnswerIs(String answer) {
+    return '정답: $answer';
+  }
 
   @override
   String get previousQuestion => '이전 문제';
@@ -587,7 +589,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profile => '내 정보';
 
   @override
-  String get continueLearning => '계속 학습';
+  String get continueLearning => '학습 계속';
 
   @override
   String get dailyGoal => '일일 목표';
@@ -1012,4 +1014,919 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get download => '다운로드';
+
+  @override
+  String get hangulLearning => '한글 학습';
+
+  @override
+  String get hangulLearningSubtitle => '한글 자모 40자 배우기';
+
+  @override
+  String get editNotes => '메모 수정';
+
+  @override
+  String get notes => '메모';
+
+  @override
+  String get notesHint => '이 단어를 저장하는 이유는?';
+
+  @override
+  String get sortBy => '정렬 방식';
+
+  @override
+  String get sortNewest => '최신순';
+
+  @override
+  String get sortOldest => '오래된순';
+
+  @override
+  String get sortKorean => '한국어순';
+
+  @override
+  String get sortChinese => '중국어순';
+
+  @override
+  String get sortMastery => '숙달도순';
+
+  @override
+  String get filterAll => '전체';
+
+  @override
+  String get filterNew => '새 단어 (0레벨)';
+
+  @override
+  String get filterBeginner => '초급 (1레벨)';
+
+  @override
+  String get filterIntermediate => '중급 (2-3레벨)';
+
+  @override
+  String get filterAdvanced => '고급 (4-5레벨)';
+
+  @override
+  String get searchWordsNotesChinese => '단어, 중국어 또는 메모 검색...';
+
+  @override
+  String startReviewCount(int count) {
+    return '복습 시작 ($count)';
+  }
+
+  @override
+  String get remove => '삭제';
+
+  @override
+  String get confirmRemove => '삭제 확인';
+
+  @override
+  String confirmRemoveWord(String word) {
+    return '단어장에서 「$word」를 삭제하시겠습니까?';
+  }
+
+  @override
+  String get noBookmarkedWords => '저장된 단어가 없습니다';
+
+  @override
+  String get bookmarkHint => '학습 중 단어 카드의 북마크 아이콘을 탭하세요';
+
+  @override
+  String get noMatchingWords => '일치하는 단어가 없습니다';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count주 전';
+  }
+
+  @override
+  String get reviewComplete => '복습 완료!';
+
+  @override
+  String reviewCompleteCount(int count) {
+    return '$count개 단어 복습 완료';
+  }
+
+  @override
+  String get correct => '정답';
+
+  @override
+  String get wrong => '오답';
+
+  @override
+  String get accuracy => '정확도';
+
+  @override
+  String get vocabularyBookReview => '단어장 복습';
+
+  @override
+  String get noWordsToReview => '복습할 단어가 없습니다';
+
+  @override
+  String get bookmarkWordsToReview => '단어를 저장한 후 복습을 시작하세요';
+
+  @override
+  String get returnToVocabularyBook => '단어장으로 돌아가기';
+
+  @override
+  String get exit => '나가기';
+
+  @override
+  String get showAnswer => '정답 보기';
+
+  @override
+  String get didYouRemember => '기억했나요?';
+
+  @override
+  String get forgot => '잊었음';
+
+  @override
+  String get hard => '어려움';
+
+  @override
+  String get remembered => '기억함';
+
+  @override
+  String get easy => '쉬움';
+
+  @override
+  String get addedToVocabularyBook => '단어장에 추가됨';
+
+  @override
+  String get addFailed => '추가 실패';
+
+  @override
+  String get removedFromVocabularyBook => '단어장에서 삭제됨';
+
+  @override
+  String get removeFailed => '삭제 실패';
+
+  @override
+  String get addToVocabularyBook => '단어장에 추가';
+
+  @override
+  String get notesOptional => '메모 (선택사항)';
+
+  @override
+  String get add => '추가';
+
+  @override
+  String get bookmarked => '저장됨';
+
+  @override
+  String get bookmark => '저장';
+
+  @override
+  String get removeFromVocabularyBook => '단어장에서 삭제';
+
+  @override
+  String similarityPercent(int percent) {
+    return '유사도: $percent%';
+  }
+
+  @override
+  String addedOrRemoved(String added) {
+    String _temp0 = intl.Intl.selectLogic(
+      added,
+      {
+        'true': '단어장에 추가됨',
+        'other': '북마크 취소됨',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get days => '일';
+
+  @override
+  String lessonsCompletedCount(int count) {
+    return '$count개 완료';
+  }
+
+  @override
+  String get dailyGoalComplete => '오늘의 목표 달성!';
+
+  @override
+  String get hangulAlphabet => '한글';
+
+  @override
+  String get alphabetTable => '자모표';
+
+  @override
+  String get learn => '학습';
+
+  @override
+  String get practice => '연습';
+
+  @override
+  String get learningProgress => '학습 진도';
+
+  @override
+  String dueForReviewCount(int count) {
+    return '$count개 복습 필요';
+  }
+
+  @override
+  String get completion => '완성도';
+
+  @override
+  String get totalCharacters => '전체 글자';
+
+  @override
+  String get learned => '학습됨';
+
+  @override
+  String get dueForReview => '복습 필요';
+
+  @override
+  String overallAccuracy(String percent) {
+    return '전체 정확도: $percent%';
+  }
+
+  @override
+  String charactersCount(int count) {
+    return '$count개 글자';
+  }
+
+  @override
+  String get lesson1Title => '1과: 기본 자음 (상)';
+
+  @override
+  String get lesson1Desc => '가장 많이 쓰이는 자음 7개 학습';
+
+  @override
+  String get lesson2Title => '2과: 기본 자음 (하)';
+
+  @override
+  String get lesson2Desc => '나머지 기본 자음 7개 학습';
+
+  @override
+  String get lesson3Title => '3과: 기본 모음 (상)';
+
+  @override
+  String get lesson3Desc => '기본 모음 5개 학습';
+
+  @override
+  String get lesson4Title => '4과: 기본 모음 (하)';
+
+  @override
+  String get lesson4Desc => '나머지 기본 모음 5개 학습';
+
+  @override
+  String get lesson5Title => '5과: 쌍자음';
+
+  @override
+  String get lesson5Desc => '쌍자음 5개 학습 - 된소리';
+
+  @override
+  String get lesson6Title => '6과: 복합 모음 (상)';
+
+  @override
+  String get lesson6Desc => '복합 모음 6개 학습';
+
+  @override
+  String get lesson7Title => '7과: 복합 모음 (하)';
+
+  @override
+  String get lesson7Desc => '나머지 복합 모음 학습';
+
+  @override
+  String get loadAlphabetFirst => '먼저 자모표 데이터를 로드하세요';
+
+  @override
+  String get noContentForLesson => '이 과에 내용이 없습니다';
+
+  @override
+  String get exampleWords => '예시 단어';
+
+  @override
+  String get thisLessonCharacters => '이 과의 글자';
+
+  @override
+  String congratsLessonComplete(String title) {
+    return '$title 완료를 축하합니다!';
+  }
+
+  @override
+  String get continuePractice => '연습 계속하기';
+
+  @override
+  String get nextLesson => '다음 과';
+
+  @override
+  String get basicConsonants => '기본 자음';
+
+  @override
+  String get doubleConsonants => '쌍자음';
+
+  @override
+  String get basicVowels => '기본 모음';
+
+  @override
+  String get compoundVowels => '복합 모음';
+
+  @override
+  String get dailyLearningReminderTitle => '매일 학습 알림';
+
+  @override
+  String get dailyLearningReminderBody => '오늘의 한국어 학습을 완료하세요~';
+
+  @override
+  String get reviewReminderTitle => '복습 시간입니다!';
+
+  @override
+  String reviewReminderBody(String title) {
+    return '「$title」을(를) 복습할 시간입니다~';
+  }
+
+  @override
+  String get korean => '한국어';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get japanese => '日本語';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get strokeOrder => '획순';
+
+  @override
+  String get reset => '초기화';
+
+  @override
+  String get pronunciationGuide => '발음 가이드';
+
+  @override
+  String get play => '재생';
+
+  @override
+  String get pause => '일시정지';
+
+  @override
+  String loadingFailed(String error) {
+    return '로드 실패: $error';
+  }
+
+  @override
+  String learnedCount(int count) {
+    return '학습: $count';
+  }
+
+  @override
+  String get hangulPractice => '한글 연습';
+
+  @override
+  String charactersNeedReview(int count) {
+    return '$count개 글자 복습 필요';
+  }
+
+  @override
+  String charactersAvailable(int count) {
+    return '$count개 글자 연습 가능';
+  }
+
+  @override
+  String get selectPracticeMode => '연습 모드 선택';
+
+  @override
+  String get characterRecognition => '글자 인식';
+
+  @override
+  String get characterRecognitionDesc => '글자를 보고 올바른 발음을 선택하세요';
+
+  @override
+  String get pronunciationPractice => '발음 연습';
+
+  @override
+  String get pronunciationPracticeDesc => '발음을 보고 올바른 글자를 선택하세요';
+
+  @override
+  String get writingPractice => '쓰기 연습';
+
+  @override
+  String get writingPracticeDesc => '발음을 보고 글자를 써보세요';
+
+  @override
+  String get startPractice => '연습 시작';
+
+  @override
+  String get learnSomeCharactersFirst => '먼저 자모표에서 글자를 학습하세요';
+
+  @override
+  String get practiceComplete => '연습 완료!';
+
+  @override
+  String get back => '뒤로';
+
+  @override
+  String get tryAgain => '다시 하기';
+
+  @override
+  String get howToReadThis => '이 글자의 발음은?';
+
+  @override
+  String get selectCorrectCharacter => '올바른 글자를 선택하세요';
+
+  @override
+  String get writeCharacterForPronunciation => '이 발음에 해당하는 글자를 쓰세요';
+
+  @override
+  String get writeHere => '여기에 쓰세요\n(개발 중)';
+
+  @override
+  String get dontKnow => '모르겠어요';
+
+  @override
+  String get checkAnswer => '정답 확인';
+
+  @override
+  String get didYouWriteCorrectly => '올바르게 썼나요?';
+
+  @override
+  String get wrongAnswer => '틀렸어요';
+
+  @override
+  String get correctAnswer => '맞았어요';
+
+  @override
+  String get correctExclamation => '정답!';
+
+  @override
+  String get incorrectExclamation => '오답';
+
+  @override
+  String get correctAnswerLabel => '정답: ';
+
+  @override
+  String get nextQuestionBtn => '다음 문제';
+
+  @override
+  String get viewResults => '결과 보기';
+
+  @override
+  String get share => '공유';
+
+  @override
+  String get mnemonics => '암기 요령';
+
+  @override
+  String nextReviewLabel(String date) {
+    return '다음 복습: $date';
+  }
+
+  @override
+  String get expired => '기한 지남';
+
+  @override
+  String get practiceFunctionDeveloping => '연습 기능 개발 중';
+
+  @override
+  String get romanization => '로마자: ';
+
+  @override
+  String get pronunciationLabel => '발음: ';
+
+  @override
+  String get playPronunciation => '발음 재생';
+
+  @override
+  String strokesCount(int count) {
+    return '$count획';
+  }
+
+  @override
+  String get perfectCount => '완벽';
+
+  @override
+  String get loadFailed => '로드 실패';
+
+  @override
+  String countUnit(int count) {
+    return '$count개';
+  }
+
+  @override
+  String get basicConsonantsKo => '기본 자음';
+
+  @override
+  String get doubleConsonantsKo => '쌍자음';
+
+  @override
+  String get basicVowelsKo => '기본 모음';
+
+  @override
+  String get compoundVowelsKo => '복합 모음';
+
+  @override
+  String get lesson1TitleKo => '1과: 기본 자음 (상)';
+
+  @override
+  String get lesson2TitleKo => '2과: 기본 자음 (하)';
+
+  @override
+  String get lesson3TitleKo => '3과: 기본 모음 (상)';
+
+  @override
+  String get lesson4TitleKo => '4과: 기본 모음 (하)';
+
+  @override
+  String get lesson5TitleKo => '5과: 쌍자음';
+
+  @override
+  String get lesson6TitleKo => '6과: 복합 모음 (상)';
+
+  @override
+  String get lesson7TitleKo => '7과: 복합 모음 (하)';
+
+  @override
+  String get exitLesson => '학습 종료';
+
+  @override
+  String get exitLessonConfirm => '정말 현재 과정을 종료하시겠습니까? 진행 상황은 저장됩니다.';
+
+  @override
+  String get exitBtn => '종료';
+
+  @override
+  String loadingLesson(String title) {
+    return '$title 로딩 중...';
+  }
+
+  @override
+  String get cannotLoadContent => '레슨 콘텐츠를 불러올 수 없습니다';
+
+  @override
+  String get noLessonContent => '이 과정에는 아직 콘텐츠가 없습니다';
+
+  @override
+  String stageProgress(int current, int total) {
+    return '$current단계 / $total단계';
+  }
+
+  @override
+  String unknownStageType(String type) {
+    return '알 수 없는 단계 유형: $type';
+  }
+
+  @override
+  String wordsCount(int count) {
+    return '단어 $count개';
+  }
+
+  @override
+  String get startLearning => '학습 시작';
+
+  @override
+  String get vocabularyLearning => '어휘 학습';
+
+  @override
+  String get noImage => '이미지 없음';
+
+  @override
+  String get previousItem => '이전';
+
+  @override
+  String get nextItem => '다음';
+
+  @override
+  String get playingAudio => '재생 중...';
+
+  @override
+  String get playAll => '전체 재생';
+
+  @override
+  String audioPlayFailed(String error) {
+    return '오디오 재생 실패: $error';
+  }
+
+  @override
+  String get stopBtn => '정지';
+
+  @override
+  String get playAudioBtn => '오디오 재생';
+
+  @override
+  String get playingAudioShort => '오디오 재생 중...';
+
+  @override
+  String grammarPattern(String pattern) {
+    return '문법 · $pattern';
+  }
+
+  @override
+  String get conjugationRule => '활용 규칙';
+
+  @override
+  String get comparisonWithChinese => '중국어와 비교';
+
+  @override
+  String get dialogueTitle => '대화 연습';
+
+  @override
+  String get dialogueExplanation => '대화 해설';
+
+  @override
+  String speaker(String name) {
+    return '화자 $name';
+  }
+
+  @override
+  String get practiceTitle => '연습';
+
+  @override
+  String get practiceInstructions => '다음 연습 문제를 완료하세요';
+
+  @override
+  String get checkAnswerBtn => '정답 확인';
+
+  @override
+  String get quizTitle => '퀴즈';
+
+  @override
+  String get quizResult => '퀴즈 결과';
+
+  @override
+  String quizScoreDisplay(int correct, int total) {
+    return '$correct/$total';
+  }
+
+  @override
+  String quizAccuracy(int percent) {
+    return '정확도: $percent%';
+  }
+
+  @override
+  String get summaryTitle => '과정 요약';
+
+  @override
+  String get vocabLearned => '학습한 단어';
+
+  @override
+  String get grammarLearned => '학습한 문법';
+
+  @override
+  String get finishLesson => '과정 완료';
+
+  @override
+  String get reviewVocab => '단어 복습';
+
+  @override
+  String similarity(int percent) {
+    return '유사도: $percent%';
+  }
+
+  @override
+  String get partOfSpeechNoun => '명사';
+
+  @override
+  String get partOfSpeechVerb => '동사';
+
+  @override
+  String get partOfSpeechAdjective => '형용사';
+
+  @override
+  String get partOfSpeechAdverb => '부사';
+
+  @override
+  String get partOfSpeechPronoun => '대명사';
+
+  @override
+  String get partOfSpeechParticle => '조사';
+
+  @override
+  String get partOfSpeechConjunction => '접속사';
+
+  @override
+  String get partOfSpeechInterjection => '감탄사';
+
+  @override
+  String get noVocabulary => '단어 데이터가 없습니다';
+
+  @override
+  String get noGrammar => '문법 데이터가 없습니다';
+
+  @override
+  String get noPractice => '연습 문제가 없습니다';
+
+  @override
+  String get noDialogue => '대화 콘텐츠가 없습니다';
+
+  @override
+  String get noQuiz => '퀴즈 문제가 없습니다';
+
+  @override
+  String get tapToFlip => '탭하여 뒤집기';
+
+  @override
+  String get listeningQuestion => '듣기';
+
+  @override
+  String get submit => '제출';
+
+  @override
+  String timeStudied(String time) {
+    return '학습 시간 $time';
+  }
+
+  @override
+  String get statusNotStarted => '시작 안 함';
+
+  @override
+  String get statusInProgress => '진행 중';
+
+  @override
+  String get statusCompleted => '완료됨';
+
+  @override
+  String get statusFailed => '불합격';
+
+  @override
+  String get masteryNew => '새로움';
+
+  @override
+  String get masteryLearning => '학습 중';
+
+  @override
+  String get masteryFamiliar => '익숙함';
+
+  @override
+  String get masteryMastered => '숙달됨';
+
+  @override
+  String get masteryExpert => '능숙함';
+
+  @override
+  String get masteryPerfect => '완벽함';
+
+  @override
+  String get masteryUnknown => '알 수 없음';
+
+  @override
+  String get dueForReviewNow => '복습 필요';
+
+  @override
+  String get similarityHigh => '높은 유사도';
+
+  @override
+  String get similarityMedium => '중간 유사도';
+
+  @override
+  String get similarityLow => '낮은 유사도';
+
+  @override
+  String get typeBasicConsonant => '기본 자음';
+
+  @override
+  String get typeDoubleConsonant => '쌍자음';
+
+  @override
+  String get typeBasicVowel => '기본 모음';
+
+  @override
+  String get typeCompoundVowel => '복합 모음';
+
+  @override
+  String get typeFinalConsonant => '받침';
+
+  @override
+  String get dailyReminderChannel => '매일 학습 알림';
+
+  @override
+  String get dailyReminderChannelDesc => '매일 정해진 시간에 한국어 학습을 알려줍니다';
+
+  @override
+  String get reviewReminderChannel => '복습 알림';
+
+  @override
+  String get reviewReminderChannelDesc => '간격 반복 알고리즘 기반 복습 알림';
+
+  @override
+  String get notificationStudyTime => '학습 시간이에요!';
+
+  @override
+  String get notificationStudyReminder => '오늘의 한국어 학습을 완료하세요~';
+
+  @override
+  String get notificationReviewTime => '복습할 시간이에요!';
+
+  @override
+  String get notificationReviewReminder => '이전에 배운 내용을 복습해보세요~';
+
+  @override
+  String notificationReviewLesson(String lessonTitle) {
+    return '「$lessonTitle」을(를) 복습할 시간이에요~';
+  }
+
+  @override
+  String get keepGoing => '계속 화이팅!';
+
+  @override
+  String scoreDisplay(int correct, int total) {
+    return '점수: $correct / $total';
+  }
+
+  @override
+  String loadDataError(String error) {
+    return '데이터 로드 실패: $error';
+  }
+
+  @override
+  String downloadError(String error) {
+    return '다운로드 오류: $error';
+  }
+
+  @override
+  String deleteError(String error) {
+    return '삭제 실패: $error';
+  }
+
+  @override
+  String clearAllError(String error) {
+    return '전체 삭제 실패: $error';
+  }
+
+  @override
+  String cleanupError(String error) {
+    return '정리 실패: $error';
+  }
+
+  @override
+  String downloadLessonFailed(String title) {
+    return '다운로드 실패: $title';
+  }
+
+  @override
+  String get comprehensive => '종합';
+
+  @override
+  String answeredCount(int answered, int total) {
+    return '답변 $answered/$total';
+  }
+
+  @override
+  String get hanjaWord => '한자어';
+
+  @override
+  String get tapToFlipBack => '뒤집으려면 탭하세요';
+
+  @override
+  String get similarityWithChinese => '중국어 유사도';
+
+  @override
+  String get hanjaWordSimilarPronunciation => '한자어, 발음이 비슷함';
+
+  @override
+  String get sameEtymologyEasyToRemember => '어원이 같아서 외우기 쉬움';
+
+  @override
+  String get someConnection => '어느 정도 연관됨';
+
+  @override
+  String get nativeWordNeedsMemorization => '고유어, 암기 필요';
+
+  @override
+  String get rules => '규칙';
+
+  @override
+  String get koreanLanguage => '🇰🇷 한국어';
+
+  @override
+  String get chineseLanguage => '🇨🇳 중국어';
+
+  @override
+  String exampleNumber(int number) {
+    return '예 $number';
+  }
+
+  @override
+  String get fillInBlankPrompt => '빈칸 채우기:';
+
+  @override
+  String get correctFeedback => '훌륭해요! 정답!';
+
+  @override
+  String get incorrectFeedback => '다시 생각해 보세요';
+
+  @override
+  String get allStagesPassed => '7단계 모두 통과';
+
+  @override
+  String get continueToLearnMore => '더 많은 내용 학습';
+
+  @override
+  String timeFormatHMS(int hours, int minutes, int seconds) {
+    return '$hours시간 $minutes분 $seconds초';
+  }
+
+  @override
+  String timeFormatMS(int minutes, int seconds) {
+    return '$minutes분 $seconds초';
+  }
+
+  @override
+  String timeFormatS(int seconds) {
+    return '$seconds초';
+  }
 }

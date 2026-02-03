@@ -4,9 +4,8 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../../data/models/vocabulary_model.dart';
-import '../../../widgets/bilingual_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../widgets/bookmark_button.dart';
-import '../../../widgets/convertible_text.dart';
 
 /// Stage 2: Vocabulary
 /// Learn new words with flashcards and examples
@@ -103,8 +102,8 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
     return VocabularyModel(
       id: word['id'] ?? 0,
       korean: word['korean'] ?? '',
-      chinese: word['chinese'] ?? '',
-      pinyin: word['pinyin'],
+      translation: word['translation'] ?? word['chinese'] ?? '',
+      pronunciation: word['pronunciation'] ?? word['pinyin'],
       partOfSpeech: word['part_of_speech'] ?? 'noun',
       level: widget.lesson.level,
       imageUrl: word['image_url'],
@@ -113,21 +112,22 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
     );
   }
 
-  Widget _buildImagePlaceholder() {
+  Widget _buildImagePlaceholder(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       color: AppConstants.primaryColor.withOpacity(0.05),
-      child: const Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.image_outlined,
               size: 80,
               color: AppConstants.textHint,
             ),
-            SizedBox(height: 8),
-            ConvertibleText(
-              '暂无图片',
+            const SizedBox(height: 8),
+            Text(
+              l10n.noImage,
               style: const TextStyle(
                 fontSize: AppConstants.fontSizeSmall,
                 color: AppConstants.textHint,
@@ -141,6 +141,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final word = _words[_currentWordIndex];
 
     return Container(
@@ -148,10 +149,9 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
       child: Column(
         children: [
           // Stage Title
-          const BilingualText(
-            chinese: '词汇学习',
-            korean: '단어 학습',
-            chineseStyle: TextStyle(
+          Text(
+            l10n.vocabularyLearning,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -209,10 +209,10 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                             width: 200,
                             height: 200,
                             fit: BoxFit.cover,
-                            placeholder: _buildImagePlaceholder(),
-                            errorWidget: _buildImagePlaceholder(),
+                            placeholder: _buildImagePlaceholder(context),
+                            errorWidget: _buildImagePlaceholder(context),
                           )
-                        : _buildImagePlaceholder(),
+                        : _buildImagePlaceholder(context),
                   ),
                 ),
 
@@ -230,7 +230,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                 const SizedBox(height: 20),
 
                 // Chinese
-                ConvertibleText(
+                Text(
                   word['chinese']!,
                   style: const TextStyle(
                     fontSize: 32,
@@ -280,10 +280,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const InlineBilingualText(
-                      chinese: '上一个',
-                      korean: '이전',
-                    ),
+                    child: Text(l10n.previousItem),
                   ),
                 ),
 
@@ -301,13 +298,10 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: InlineBilingualText(
-                    chinese: _currentWordIndex < _words.length - 1
-                        ? '下一个'
-                        : '继续',
-                    korean: _currentWordIndex < _words.length - 1
-                        ? '다음'
-                        : '계속',
+                  child: Text(
+                    _currentWordIndex < _words.length - 1
+                        ? l10n.nextItem
+                        : l10n.continueBtn,
                   ),
                 ),
               ),

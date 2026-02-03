@@ -20,27 +20,27 @@ class ContentRepository {
   // LESSONS
   // ================================================================
 
-  /// Get all lessons (with optional level filter)
+  /// Get all lessons (with optional level filter and language)
   /// Returns Result type for better error handling
-  Future<Result<List<LessonModel>>> getLessonsResult({int? level}) async {
+  Future<Result<List<LessonModel>>> getLessonsResult({int? level, String? language}) async {
     try {
       // Try remote first
-      final response = await _apiClient.getLessons(level: level);
+      final response = await _apiClient.getLessons(level: level, language: language);
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['lessons'];
         final lessons = data.map((json) => LessonModel.fromJson(json)).toList();
 
-        // Save to local storage
+        // Save to local storage with language suffix
         for (final lesson in lessons) {
-          await LocalStorage.saveLesson(lesson.toJson());
+          await LocalStorage.saveLesson(lesson.toJson(), language: language);
         }
 
         return Success(lessons, isFromCache: false);
       }
 
       // If status not 200, fallback to local with error indication
-      final cachedLessons = await _getLocalLessons(level: level);
+      final cachedLessons = await _getLocalLessons(level: level, language: language);
       return Error(
         'Server returned status ${response.statusCode}',
         code: ErrorCodes.serverError,
@@ -50,7 +50,7 @@ class ContentRepository {
       AppLogger.w('getLessons error', tag: 'ContentRepository', error: e);
 
       // Return cached data with error
-      final cachedLessons = await _getLocalLessons(level: level);
+      final cachedLessons = await _getLocalLessons(level: level, language: language);
       final exception = ExceptionHandler.handle(e, stackTrace);
       return Error(
         exception.message,
@@ -61,22 +61,22 @@ class ContentRepository {
   }
 
   /// Get all lessons (legacy method - kept for backwards compatibility)
-  Future<List<LessonModel>> getLessons({int? level}) async {
-    final result = await getLessonsResult(level: level);
+  Future<List<LessonModel>> getLessons({int? level, String? language}) async {
+    final result = await getLessonsResult(level: level, language: language);
     return result.when(
       success: (data, _) => data,
       error: (_, __, cachedData) => cachedData ?? [],
     );
   }
 
-  /// Get single lesson by ID
-  Future<LessonModel?> getLesson(int id) async {
+  /// Get single lesson by ID with optional language
+  Future<LessonModel?> getLesson(int id, {String? language}) async {
     try {
       // Check local first for better UX
-      final localLesson = LocalStorage.getLesson(id);
+      final localLesson = LocalStorage.getLesson(id, language: language);
 
       // Try to fetch fresh data in background
-      final response = await _apiClient.getLesson(id);
+      final response = await _apiClient.getLesson(id, language: language);
 
       if (response.statusCode == 200) {
         // API returns {"success": true, "lesson": {...}}
@@ -88,8 +88,8 @@ class ContentRepository {
 
         final lesson = LessonModel.fromJson(lessonData);
 
-        // Update local storage
-        await LocalStorage.saveLesson(lesson.toJson());
+        // Update local storage with language suffix
+        await LocalStorage.saveLesson(lesson.toJson(), language: language);
 
         return lesson;
       }
@@ -99,15 +99,15 @@ class ContentRepository {
     } catch (e) {
       AppLogger.w('[ContentRepository] getLesson error: $e');
       // Return local data
-      final local = LocalStorage.getLesson(id);
+      final local = LocalStorage.getLesson(id, language: language);
       return local != null ? LessonModel.fromJson(local) : null;
     }
   }
 
-  /// Download lesson package (full content + media URLs)
-  Future<LessonModel?> downloadLessonPackage(int id) async {
+  /// Download lesson package (full content + media URLs) with optional language
+  Future<LessonModel?> downloadLessonPackage(int id, {String? language}) async {
     try {
-      final response = await _apiClient.downloadLessonPackage(id);
+      final response = await _apiClient.downloadLessonPackage(id, language: language);
 
       if (response.statusCode == 200) {
         final packageData = response.data as Map<String, dynamic>;
@@ -116,8 +116,8 @@ class ContentRepository {
         packageData['is_downloaded'] = true;
         packageData['downloaded_at'] = DateTime.now().toIso8601String();
 
-        // 원본 데이터 직접 저장 (vocabulary, grammar 포함)
-        await LocalStorage.saveLesson(packageData);
+        // 원본 데이터 직접 저장 (vocabulary, grammar 포함) with language suffix
+        await LocalStorage.saveLesson(packageData, language: language);
 
         return LessonModel.fromJson(packageData);
       }
@@ -171,54 +171,54 @@ class ContentRepository {
   // VOCABULARY
   // ================================================================
 
-  /// Get vocabulary by lesson ID
-  Future<List<VocabularyModel>> getVocabularyByLesson(int lessonId) async {
+  /// Get vocabulary by lesson ID with optional language
+  Future<List<VocabularyModel>> getVocabularyByLesson(int lessonId, {String? language}) async {
     try {
-      final response = await _apiClient.getVocabularyByLesson(lessonId);
+      final response = await _apiClient.getVocabularyByLesson(lessonId, language: language);
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['vocabulary'];
         final vocabulary =
             data.map((json) => VocabularyModel.fromJson(json)).toList();
 
-        // Save to local storage
+        // Save to local storage with language suffix
         for (final word in vocabulary) {
-          await LocalStorage.saveVocabulary(word.toJson());
+          await LocalStorage.saveVocabulary(word.toJson(), language: language);
         }
 
         return vocabulary;
       }
 
       // Fallback to local
-      return _getLocalVocabulary(lessonId: lessonId);
+      return _getLocalVocabulary(lessonId: lessonId, language: language);
     } catch (e) {
       AppLogger.w('[ContentRepository] getVocabularyByLesson error: $e');
-      return _getLocalVocabulary(lessonId: lessonId);
+      return _getLocalVocabulary(lessonId: lessonId, language: language);
     }
   }
 
-  /// Get vocabulary by level
-  Future<List<VocabularyModel>> getVocabularyByLevel(int level) async {
+  /// Get vocabulary by level with optional language
+  Future<List<VocabularyModel>> getVocabularyByLevel(int level, {String? language}) async {
     try {
-      final response = await _apiClient.getVocabularyByLevel(level);
+      final response = await _apiClient.getVocabularyByLevel(level, language: language);
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['vocabulary'];
         final vocabulary =
             data.map((json) => VocabularyModel.fromJson(json)).toList();
 
-        // Save to local storage
+        // Save to local storage with language suffix
         for (final word in vocabulary) {
-          await LocalStorage.saveVocabulary(word.toJson());
+          await LocalStorage.saveVocabulary(word.toJson(), language: language);
         }
 
         return vocabulary;
       }
 
-      return _getLocalVocabulary(level: level);
+      return _getLocalVocabulary(level: level, language: language);
     } catch (e) {
       AppLogger.w('[ContentRepository] getVocabularyByLevel error: $e');
-      return _getLocalVocabulary(level: level);
+      return _getLocalVocabulary(level: level, language: language);
     }
   }
 
@@ -231,9 +231,9 @@ class ContentRepository {
     final lowerQuery = query.toLowerCase();
     return allVocabulary.where((word) {
       return word.korean.toLowerCase().contains(lowerQuery) ||
-          word.chinese.toLowerCase().contains(lowerQuery) ||
+          word.translation.toLowerCase().contains(lowerQuery) ||
           (word.hanja?.toLowerCase().contains(lowerQuery) ?? false) ||
-          (word.pinyin?.toLowerCase().contains(lowerQuery) ?? false);
+          (word.pronunciation?.toLowerCase().contains(lowerQuery) ?? false);
     }).toList();
   }
 
@@ -282,8 +282,8 @@ class ContentRepository {
   // PRIVATE HELPERS
   // ================================================================
 
-  Future<List<LessonModel>> _getLocalLessons({int? level}) async {
-    final allLessons = LocalStorage.getAllLessons()
+  Future<List<LessonModel>> _getLocalLessons({int? level, String? language}) async {
+    final allLessons = LocalStorage.getAllLessons(language: language)
         .map((json) => LessonModel.fromJson(json))
         .toList();
 
@@ -297,8 +297,9 @@ class ContentRepository {
   Future<List<VocabularyModel>> _getLocalVocabulary({
     int? lessonId,
     int? level,
+    String? language,
   }) async {
-    final allVocabulary = LocalStorage.getAllVocabulary()
+    final allVocabulary = LocalStorage.getAllVocabulary(language: language)
         .map((json) => VocabularyModel.fromJson(json))
         .toList();
 

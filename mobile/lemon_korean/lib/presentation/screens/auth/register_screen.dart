@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
-  String _selectedLanguage = '简体中文'; // Default language
+  String _selectedLanguage = 'zh_CN'; // Default language code
 
   @override
   void initState() {
@@ -247,11 +247,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         underline: const SizedBox(),
                         items: [
                           DropdownMenuItem(
-                            value: '简体中文',
+                            value: 'zh_CN',
                             child: Text(context.l10n.simplifiedChinese),
                           ),
                           DropdownMenuItem(
-                            value: '繁體中文',
+                            value: 'zh_TW',
                             child: Text(context.l10n.traditionalChinese),
                           ),
                         ],

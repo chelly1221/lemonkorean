@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_constants.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import 'quiz_shared.dart';
 
 /// Fill in Blank Question Widget
@@ -25,10 +26,12 @@ class FillInBlankQuestion extends StatelessWidget {
     final options = question['options'] as List;
     final correct = question['correct'] as String;
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       children: [
-        const QuestionTypeBadge(
-          label: '填空',
+        QuestionTypeBadge(
+          label: l10n.fillInBlank,
           icon: Icons.edit_note,
           color: Colors.green,
         ),

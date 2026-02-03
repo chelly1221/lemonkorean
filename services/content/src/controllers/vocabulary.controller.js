@@ -1,5 +1,6 @@
 const Vocabulary = require('../models/vocabulary.model');
 const { cacheHelpers } = require('../config/redis');
+const { buildLanguageCacheKey } = require('../middleware/language.middleware');
 
 /**
  * ================================================================
@@ -29,18 +30,20 @@ const buildPaginationMeta = (total, page, limit) => {
  * ================================================================
  * GET /api/content/vocabulary
  * ================================================================
- * Get all vocabulary with filtering and pagination
+ * Get all vocabulary with filtering, pagination, and translations
  * @query level - Filter by TOPIK level (0-6)
  * @query part_of_speech - Filter by POS (noun, verb, adjective, etc.)
- * @query search - Search in Korean/Chinese/Pinyin
+ * @query search - Search in Korean/translation
  * @query page - Page number (default: 1)
  * @query limit - Items per page (default: 50, max: 100)
+ * @query language - Content language (from middleware)
  */
 const getVocabulary = async (req, res) => {
   try {
     console.log('[VOCABULARY] GET /api/content/vocabulary', req.query);
 
     const { level, part_of_speech, search, page = 1, limit = 50 } = req.query;
+    const language = req.language || 'zh';
 
     // Validate pagination
     const pageNum = Math.max(1, parseInt(page) || 1);
@@ -58,8 +61,8 @@ const getVocabulary = async (req, res) => {
       }
     }
 
-    // Build cache key
-    const cacheKey = `vocabulary:list:${level||'all'}:${part_of_speech||'all'}:${search||'none'}:${pageNum}:${limitNum}`;
+    // Build cache key with language
+    const cacheKey = buildLanguageCacheKey(`vocabulary:list:${level||'all'}:${part_of_speech||'all'}:${search||'none'}:${pageNum}:${limitNum}`, language);
 
     // Check cache
     const cached = await cacheHelpers.get(cacheKey);
@@ -99,13 +102,14 @@ const getVocabulary = async (req, res) => {
     const countResult = await query(countSql, countParams);
     const total = parseInt(countResult.rows[0].total);
 
-    // Fetch vocabulary
+    // Fetch vocabulary with translations
     const vocabulary = await Vocabulary.findAll({
       level: level ? parseInt(level) : undefined,
       part_of_speech,
       search,
       limit: limitNum,
-      offset
+      offset,
+      language
     });
 
     const response = {
@@ -137,12 +141,13 @@ const getVocabulary = async (req, res) => {
  * ================================================================
  * GET /api/content/vocabulary/:id
  * ================================================================
- * Get vocabulary by ID
+ * Get vocabulary by ID with translations
  */
 const getVocabularyById = async (req, res) => {
   try {
     const vocabId = parseInt(req.params.id);
-    console.log('[VOCABULARY] GET /api/content/vocabulary/:id', vocabId);
+    const language = req.language || 'zh';
+    console.log('[VOCABULARY] GET /api/content/vocabulary/:id', vocabId, 'language:', language);
 
     // Validate ID
     if (isNaN(vocabId) || vocabId < 1) {
@@ -152,8 +157,8 @@ const getVocabularyById = async (req, res) => {
       });
     }
 
-    // Check cache
-    const cacheKey = `vocabulary:${vocabId}`;
+    // Check cache with language
+    const cacheKey = buildLanguageCacheKey(`vocabulary:${vocabId}`, language);
     const cached = await cacheHelpers.get(cacheKey);
     if (cached) {
       console.log('[VOCABULARY] Cache hit:', cacheKey);
@@ -164,8 +169,8 @@ const getVocabularyById = async (req, res) => {
       });
     }
 
-    // Fetch from database
-    const vocabulary = await Vocabulary.findById(vocabId);
+    // Fetch from database with translations
+    const vocabulary = await Vocabulary.findById(vocabId, language);
 
     if (!vocabulary) {
       return res.status(404).json({
@@ -177,7 +182,7 @@ const getVocabularyById = async (req, res) => {
     // Cache for 1 hour
     await cacheHelpers.set(cacheKey, vocabulary, 3600);
 
-    console.log('[VOCABULARY] Found:', vocabulary.korean, '-', vocabulary.chinese);
+    console.log('[VOCABULARY] Found:', vocabulary.korean, '-', vocabulary.translation);
 
     res.json({
       success: true,
@@ -198,14 +203,16 @@ const getVocabularyById = async (req, res) => {
  * ================================================================
  * GET /api/content/vocabulary/search
  * ================================================================
- * Search vocabulary by Korean/Chinese/Pinyin
+ * Search vocabulary by Korean/translation with multi-language support
  * @query q - Search term (required)
  * @query limit - Result limit (default: 20, max: 100)
+ * @query language - Content language (from middleware)
  */
 const searchVocabulary = async (req, res) => {
   try {
     const { q: searchTerm, limit = 20 } = req.query;
-    console.log('[VOCABULARY] GET /api/content/vocabulary/search', { searchTerm, limit });
+    const language = req.language || 'zh';
+    console.log('[VOCABULARY] GET /api/content/vocabulary/search', { searchTerm, limit, language });
 
     // Validate search term
     if (!searchTerm || searchTerm.trim().length === 0) {
@@ -218,8 +225,8 @@ const searchVocabulary = async (req, res) => {
     // Validate limit
     const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
 
-    // Build cache key
-    const cacheKey = `vocabulary:search:${searchTerm.trim()}:${limitNum}`;
+    // Build cache key with language
+    const cacheKey = buildLanguageCacheKey(`vocabulary:search:${searchTerm.trim()}:${limitNum}`, language);
 
     // Check cache
     const cached = await cacheHelpers.get(cacheKey);
@@ -232,8 +239,8 @@ const searchVocabulary = async (req, res) => {
       });
     }
 
-    // Search in database
-    const results = await Vocabulary.search(searchTerm.trim(), limitNum);
+    // Search in database with translations
+    const results = await Vocabulary.search(searchTerm.trim(), limitNum, language);
 
     const response = {
       search_term: searchTerm.trim(),
@@ -317,12 +324,13 @@ const getVocabularyStats = async (req, res) => {
  * ================================================================
  * GET /api/content/vocabulary/level/:level
  * ================================================================
- * Get vocabulary by TOPIK level
+ * Get vocabulary by TOPIK level with translations
  */
 const getVocabularyByLevel = async (req, res) => {
   try {
     const level = parseInt(req.params.level);
-    console.log('[VOCABULARY] GET /api/content/vocabulary/level/:level', level);
+    const language = req.language || 'zh';
+    console.log('[VOCABULARY] GET /api/content/vocabulary/level/:level', level, 'language:', language);
 
     // Validate level
     if (isNaN(level) || level < 0 || level > 6) {
@@ -332,7 +340,7 @@ const getVocabularyByLevel = async (req, res) => {
       });
     }
 
-    const cacheKey = `vocabulary:level:${level}`;
+    const cacheKey = buildLanguageCacheKey(`vocabulary:level:${level}`, language);
 
     // Check cache
     const cached = await cacheHelpers.get(cacheKey);
@@ -345,8 +353,8 @@ const getVocabularyByLevel = async (req, res) => {
       });
     }
 
-    // Fetch from database
-    const vocabulary = await Vocabulary.findByLevel(level);
+    // Fetch from database with translations
+    const vocabulary = await Vocabulary.findByLevel(level, language);
 
     const response = {
       level,
@@ -378,14 +386,16 @@ const getVocabularyByLevel = async (req, res) => {
  * ================================================================
  * GET /api/content/vocabulary/high-similarity
  * ================================================================
- * Get vocabulary with high Hanja similarity
+ * Get vocabulary with high Hanja similarity with translations
  * @query min_similarity - Minimum similarity score (default: 0.8)
  * @query limit - Result limit (default: 100, max: 500)
+ * @query language - Content language (from middleware)
  */
 const getHighSimilarityVocabulary = async (req, res) => {
   try {
     const { min_similarity = 0.8, limit = 100 } = req.query;
-    console.log('[VOCABULARY] GET /api/content/vocabulary/high-similarity', { min_similarity, limit });
+    const language = req.language || 'zh';
+    console.log('[VOCABULARY] GET /api/content/vocabulary/high-similarity', { min_similarity, limit, language });
 
     // Validate min_similarity
     const minSimilarity = parseFloat(min_similarity);
@@ -399,7 +409,7 @@ const getHighSimilarityVocabulary = async (req, res) => {
     // Validate limit
     const limitNum = Math.min(500, Math.max(1, parseInt(limit) || 100));
 
-    const cacheKey = `vocabulary:high-similarity:${minSimilarity}:${limitNum}`;
+    const cacheKey = buildLanguageCacheKey(`vocabulary:high-similarity:${minSimilarity}:${limitNum}`, language);
 
     // Check cache
     const cached = await cacheHelpers.get(cacheKey);
@@ -412,8 +422,8 @@ const getHighSimilarityVocabulary = async (req, res) => {
       });
     }
 
-    // Fetch from database
-    const vocabulary = await Vocabulary.findHighSimilarity(minSimilarity, limitNum);
+    // Fetch from database with translations
+    const vocabulary = await Vocabulary.findHighSimilarity(minSimilarity, limitNum, language);
 
     const response = {
       min_similarity: minSimilarity,

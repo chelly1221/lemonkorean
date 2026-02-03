@@ -328,7 +328,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lowSimilarity => '低相似度';
 
   @override
-  String get lessonComplete => '课程完成！';
+  String get lessonComplete => '课程完成！进度已保存';
 
   @override
   String get learningComplete => '学习完成';
@@ -362,7 +362,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get dialogues => '对话';
 
   @override
-  String get grammarExplanation => '语法讲解';
+  String get grammarExplanation => '语法解释';
 
   @override
   String get exampleSentences => '例句';
@@ -485,7 +485,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get correctOrderIs => '正确顺序是:';
 
   @override
-  String get correctAnswerIs => '正确答案是:';
+  String correctAnswerIs(String answer) {
+    return '正确答案: $answer';
+  }
 
   @override
   String get previousQuestion => '上一题';
@@ -1006,6 +1008,921 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get download => '下载';
+
+  @override
+  String get hangulLearning => '韩文字母学习';
+
+  @override
+  String get hangulLearningSubtitle => '学习韩文字母表 40个字母';
+
+  @override
+  String get editNotes => '编辑笔记';
+
+  @override
+  String get notes => '笔记';
+
+  @override
+  String get notesHint => '为什么要收藏这个单词？';
+
+  @override
+  String get sortBy => '排序方式';
+
+  @override
+  String get sortNewest => '最新收藏';
+
+  @override
+  String get sortOldest => '最早收藏';
+
+  @override
+  String get sortKorean => '韩文排序';
+
+  @override
+  String get sortChinese => '中文排序';
+
+  @override
+  String get sortMastery => '掌握程度';
+
+  @override
+  String get filterAll => '全部';
+
+  @override
+  String get filterNew => '新学 (0级)';
+
+  @override
+  String get filterBeginner => '初级 (1级)';
+
+  @override
+  String get filterIntermediate => '中级 (2-3级)';
+
+  @override
+  String get filterAdvanced => '高级 (4-5级)';
+
+  @override
+  String get searchWordsNotesChinese => '搜索单词、中文或笔记...';
+
+  @override
+  String startReviewCount(int count) {
+    return '开始复习 ($count)';
+  }
+
+  @override
+  String get remove => '移除';
+
+  @override
+  String get confirmRemove => '确认移除';
+
+  @override
+  String confirmRemoveWord(String word) {
+    return '确定要从单词本移除「$word」吗？';
+  }
+
+  @override
+  String get noBookmarkedWords => '还没有收藏的单词';
+
+  @override
+  String get bookmarkHint => '在学习过程中点击单词卡片上的书签图标';
+
+  @override
+  String get noMatchingWords => '没有找到匹配的单词';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count周前';
+  }
+
+  @override
+  String get reviewComplete => '复习完成！';
+
+  @override
+  String reviewCompleteCount(int count) {
+    return '已完成 $count 个单词的复习';
+  }
+
+  @override
+  String get correct => '正确';
+
+  @override
+  String get wrong => '错误';
+
+  @override
+  String get accuracy => '准确率';
+
+  @override
+  String get vocabularyBookReview => '单词本复习';
+
+  @override
+  String get noWordsToReview => '暂无需要复习的单词';
+
+  @override
+  String get bookmarkWordsToReview => '在学习过程中收藏单词后开始复习';
+
+  @override
+  String get returnToVocabularyBook => '返回单词本';
+
+  @override
+  String get exit => '退出';
+
+  @override
+  String get showAnswer => '显示答案';
+
+  @override
+  String get didYouRemember => '你记住了吗？';
+
+  @override
+  String get forgot => '忘记了';
+
+  @override
+  String get hard => '困难';
+
+  @override
+  String get remembered => '记得';
+
+  @override
+  String get easy => '简单';
+
+  @override
+  String get addedToVocabularyBook => '已添加到单词本';
+
+  @override
+  String get addFailed => '添加失败';
+
+  @override
+  String get removedFromVocabularyBook => '已从单词本移除';
+
+  @override
+  String get removeFailed => '移除失败';
+
+  @override
+  String get addToVocabularyBook => '添加到单词本';
+
+  @override
+  String get notesOptional => '笔记（可选）';
+
+  @override
+  String get add => '添加';
+
+  @override
+  String get bookmarked => '已收藏';
+
+  @override
+  String get bookmark => '收藏';
+
+  @override
+  String get removeFromVocabularyBook => '从单词本移除';
+
+  @override
+  String similarityPercent(int percent) {
+    return '相似度: $percent%';
+  }
+
+  @override
+  String addedOrRemoved(String added) {
+    String _temp0 = intl.Intl.selectLogic(
+      added,
+      {
+        'true': '已添加到单词本',
+        'other': '已取消收藏',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get days => '天';
+
+  @override
+  String lessonsCompletedCount(int count) {
+    return '$count 课完成';
+  }
+
+  @override
+  String get dailyGoalComplete => '太棒了！今日目标已完成！';
+
+  @override
+  String get hangulAlphabet => '韩文字母';
+
+  @override
+  String get alphabetTable => '字母表';
+
+  @override
+  String get learn => '学习';
+
+  @override
+  String get practice => '练习';
+
+  @override
+  String get learningProgress => '学习进度';
+
+  @override
+  String dueForReviewCount(int count) {
+    return '$count 个待复习';
+  }
+
+  @override
+  String get completion => '完成度';
+
+  @override
+  String get totalCharacters => '总字母';
+
+  @override
+  String get learned => '已学习';
+
+  @override
+  String get dueForReview => '待复习';
+
+  @override
+  String overallAccuracy(String percent) {
+    return '整体准确率: $percent%';
+  }
+
+  @override
+  String charactersCount(int count) {
+    return '$count个字母';
+  }
+
+  @override
+  String get lesson1Title => '第1课：基本辅音 (上)';
+
+  @override
+  String get lesson1Desc => '学习韩语最常用的7个辅音字母';
+
+  @override
+  String get lesson2Title => '第2课：基本辅音 (下)';
+
+  @override
+  String get lesson2Desc => '继续学习剩余的7个基本辅音';
+
+  @override
+  String get lesson3Title => '第3课：基本元音 (上)';
+
+  @override
+  String get lesson3Desc => '学习韩语的5个基本元音';
+
+  @override
+  String get lesson4Title => '第4课：基本元音 (下)';
+
+  @override
+  String get lesson4Desc => '学习剩余的5个基本元音';
+
+  @override
+  String get lesson5Title => '第5课：双辅音';
+
+  @override
+  String get lesson5Desc => '学习5个双辅音 - 紧音字母';
+
+  @override
+  String get lesson6Title => '第6课：复合元音 (上)';
+
+  @override
+  String get lesson6Desc => '学习前6个复合元音';
+
+  @override
+  String get lesson7Title => '第7课：复合元音 (下)';
+
+  @override
+  String get lesson7Desc => '学习剩余的复合元音';
+
+  @override
+  String get loadAlphabetFirst => '请先加载字母表数据';
+
+  @override
+  String get noContentForLesson => '本课无内容';
+
+  @override
+  String get exampleWords => '例词';
+
+  @override
+  String get thisLessonCharacters => '本课字母';
+
+  @override
+  String congratsLessonComplete(String title) {
+    return '恭喜你完成了 $title！';
+  }
+
+  @override
+  String get continuePractice => '继续练习';
+
+  @override
+  String get nextLesson => '下一课';
+
+  @override
+  String get basicConsonants => '基本辅音';
+
+  @override
+  String get doubleConsonants => '双辅音';
+
+  @override
+  String get basicVowels => '基本元音';
+
+  @override
+  String get compoundVowels => '复合元音';
+
+  @override
+  String get dailyLearningReminderTitle => '每日学习提醒';
+
+  @override
+  String get dailyLearningReminderBody => '今天的韩语学习还没完成哦~';
+
+  @override
+  String get reviewReminderTitle => '复习时间到了！';
+
+  @override
+  String reviewReminderBody(String title) {
+    return '该复习「$title」了~';
+  }
+
+  @override
+  String get korean => '한국어';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get japanese => '日本語';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get strokeOrder => '笔画顺序';
+
+  @override
+  String get reset => '重置';
+
+  @override
+  String get pronunciationGuide => '发音指南';
+
+  @override
+  String get play => '播放';
+
+  @override
+  String get pause => '暂停';
+
+  @override
+  String loadingFailed(String error) {
+    return '加载失败: $error';
+  }
+
+  @override
+  String learnedCount(int count) {
+    return '已学习: $count';
+  }
+
+  @override
+  String get hangulPractice => '韩文字母练习';
+
+  @override
+  String charactersNeedReview(int count) {
+    return '$count 个字母需要复习';
+  }
+
+  @override
+  String charactersAvailable(int count) {
+    return '$count 个字母可练习';
+  }
+
+  @override
+  String get selectPracticeMode => '选择练习模式';
+
+  @override
+  String get characterRecognition => '字母识别';
+
+  @override
+  String get characterRecognitionDesc => '看到字母选择正确的发音';
+
+  @override
+  String get pronunciationPractice => '发音练习';
+
+  @override
+  String get pronunciationPracticeDesc => '看到发音选择正确的字母';
+
+  @override
+  String get writingPractice => '书写练习';
+
+  @override
+  String get writingPracticeDesc => '看到发音写出正确的字母';
+
+  @override
+  String get startPractice => '开始练习';
+
+  @override
+  String get learnSomeCharactersFirst => '请先在字母表中学习一些字母';
+
+  @override
+  String get practiceComplete => '练习完成！';
+
+  @override
+  String get back => '返回';
+
+  @override
+  String get tryAgain => '再来一次';
+
+  @override
+  String get howToReadThis => '这个字母怎么读？';
+
+  @override
+  String get selectCorrectCharacter => '选择正确的字母';
+
+  @override
+  String get writeCharacterForPronunciation => '写出这个发音对应的字母';
+
+  @override
+  String get writeHere => '在此处书写\n(功能开发中)';
+
+  @override
+  String get dontKnow => '不知道';
+
+  @override
+  String get checkAnswer => '查看答案';
+
+  @override
+  String get didYouWriteCorrectly => '你写对了吗？';
+
+  @override
+  String get wrongAnswer => '错了';
+
+  @override
+  String get correctAnswer => '对了';
+
+  @override
+  String get correctExclamation => '正确！';
+
+  @override
+  String get incorrectExclamation => '错误';
+
+  @override
+  String get correctAnswerLabel => '正确答案: ';
+
+  @override
+  String get nextQuestionBtn => '下一题';
+
+  @override
+  String get viewResults => '查看结果';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get mnemonics => '记忆技巧';
+
+  @override
+  String nextReviewLabel(String date) {
+    return '下次复习: $date';
+  }
+
+  @override
+  String get expired => '已到期';
+
+  @override
+  String get practiceFunctionDeveloping => '练习功能开发中';
+
+  @override
+  String get romanization => '罗马字: ';
+
+  @override
+  String get pronunciationLabel => '发音: ';
+
+  @override
+  String get playPronunciation => '播放发音';
+
+  @override
+  String strokesCount(int count) {
+    return '$count画';
+  }
+
+  @override
+  String get perfectCount => '完美';
+
+  @override
+  String get loadFailed => '加载失败';
+
+  @override
+  String countUnit(int count) {
+    return '$count个';
+  }
+
+  @override
+  String get basicConsonantsKo => '기본 자음';
+
+  @override
+  String get doubleConsonantsKo => '쌍자음';
+
+  @override
+  String get basicVowelsKo => '기본 모음';
+
+  @override
+  String get compoundVowelsKo => '복합 모음';
+
+  @override
+  String get lesson1TitleKo => '1과: 기본 자음 (상)';
+
+  @override
+  String get lesson2TitleKo => '2과: 기본 자음 (하)';
+
+  @override
+  String get lesson3TitleKo => '3과: 기본 모음 (상)';
+
+  @override
+  String get lesson4TitleKo => '4과: 기본 모음 (하)';
+
+  @override
+  String get lesson5TitleKo => '5과: 쌍자음';
+
+  @override
+  String get lesson6TitleKo => '6과: 복합 모음 (상)';
+
+  @override
+  String get lesson7TitleKo => '7과: 복합 모음 (하)';
+
+  @override
+  String get exitLesson => '退出学习';
+
+  @override
+  String get exitLessonConfirm => '确定要退出当前课程吗？进度将会保存。';
+
+  @override
+  String get exitBtn => '退出';
+
+  @override
+  String loadingLesson(String title) {
+    return '$title 불러오는 중...';
+  }
+
+  @override
+  String get cannotLoadContent => '레슨 콘텐츠를 불러올 수 없습니다';
+
+  @override
+  String get noLessonContent => '此课程暂无内容';
+
+  @override
+  String stageProgress(int current, int total) {
+    return '第 $current 阶段 / $total';
+  }
+
+  @override
+  String unknownStageType(String type) {
+    return '未知阶段类型: $type';
+  }
+
+  @override
+  String wordsCount(int count) {
+    return '$count 个单词';
+  }
+
+  @override
+  String get startLearning => '开始学习';
+
+  @override
+  String get vocabularyLearning => '词汇学习';
+
+  @override
+  String get noImage => '暂无图片';
+
+  @override
+  String get previousItem => '上一个';
+
+  @override
+  String get nextItem => '下一个';
+
+  @override
+  String get playingAudio => '播放中...';
+
+  @override
+  String get playAll => '播放全部';
+
+  @override
+  String audioPlayFailed(String error) {
+    return '音频播放失败: $error';
+  }
+
+  @override
+  String get stopBtn => '停止';
+
+  @override
+  String get playAudioBtn => '播放音频';
+
+  @override
+  String get playingAudioShort => '播放音频...';
+
+  @override
+  String grammarPattern(String pattern) {
+    return '语法 · $pattern';
+  }
+
+  @override
+  String get conjugationRule => '活用规则';
+
+  @override
+  String get comparisonWithChinese => '与中文对比';
+
+  @override
+  String get dialogueTitle => '对话练习';
+
+  @override
+  String get dialogueExplanation => '对话解析';
+
+  @override
+  String speaker(String name) {
+    return '发言人 $name';
+  }
+
+  @override
+  String get practiceTitle => '练习';
+
+  @override
+  String get practiceInstructions => '请完成以下练习题';
+
+  @override
+  String get checkAnswerBtn => '检查答案';
+
+  @override
+  String get quizTitle => '测验';
+
+  @override
+  String get quizResult => '测验结果';
+
+  @override
+  String quizScoreDisplay(int correct, int total) {
+    return '$correct/$total';
+  }
+
+  @override
+  String quizAccuracy(int percent) {
+    return '准确率: $percent%';
+  }
+
+  @override
+  String get summaryTitle => '课程总结';
+
+  @override
+  String get vocabLearned => '学习单词';
+
+  @override
+  String get grammarLearned => '学习语法';
+
+  @override
+  String get finishLesson => '完成课程';
+
+  @override
+  String get reviewVocab => '复习单词';
+
+  @override
+  String similarity(int percent) {
+    return '相似度: $percent%';
+  }
+
+  @override
+  String get partOfSpeechNoun => '名词';
+
+  @override
+  String get partOfSpeechVerb => '动词';
+
+  @override
+  String get partOfSpeechAdjective => '形容词';
+
+  @override
+  String get partOfSpeechAdverb => '副词';
+
+  @override
+  String get partOfSpeechPronoun => '代词';
+
+  @override
+  String get partOfSpeechParticle => '助词';
+
+  @override
+  String get partOfSpeechConjunction => '连词';
+
+  @override
+  String get partOfSpeechInterjection => '感叹词';
+
+  @override
+  String get noVocabulary => '暂无单词数据';
+
+  @override
+  String get noGrammar => '暂无语法数据';
+
+  @override
+  String get noPractice => '暂无练习题';
+
+  @override
+  String get noDialogue => '暂无对话内容';
+
+  @override
+  String get noQuiz => '暂无测验题目';
+
+  @override
+  String get tapToFlip => '点击翻转';
+
+  @override
+  String get listeningQuestion => '听力';
+
+  @override
+  String get submit => '提交';
+
+  @override
+  String timeStudied(String time) {
+    return '已学习 $time';
+  }
+
+  @override
+  String get statusNotStarted => '未开始';
+
+  @override
+  String get statusInProgress => '进行中';
+
+  @override
+  String get statusCompleted => '已完成';
+
+  @override
+  String get statusFailed => '未通过';
+
+  @override
+  String get masteryNew => '新';
+
+  @override
+  String get masteryLearning => '学习中';
+
+  @override
+  String get masteryFamiliar => '熟悉';
+
+  @override
+  String get masteryMastered => '掌握';
+
+  @override
+  String get masteryExpert => '精通';
+
+  @override
+  String get masteryPerfect => '完美';
+
+  @override
+  String get masteryUnknown => '未知';
+
+  @override
+  String get dueForReviewNow => '该复习了';
+
+  @override
+  String get similarityHigh => '高相似度';
+
+  @override
+  String get similarityMedium => '中等相似度';
+
+  @override
+  String get similarityLow => '低相似度';
+
+  @override
+  String get typeBasicConsonant => '基本辅音';
+
+  @override
+  String get typeDoubleConsonant => '双辅音';
+
+  @override
+  String get typeBasicVowel => '基本元音';
+
+  @override
+  String get typeCompoundVowel => '复合元音';
+
+  @override
+  String get typeFinalConsonant => '收音';
+
+  @override
+  String get dailyReminderChannel => '每日学习提醒';
+
+  @override
+  String get dailyReminderChannelDesc => '每天固定时间提醒你学习韩语';
+
+  @override
+  String get reviewReminderChannel => '复习提醒';
+
+  @override
+  String get reviewReminderChannelDesc => '基于间隔重复算法的复习提醒';
+
+  @override
+  String get notificationStudyTime => '学习时间到了！';
+
+  @override
+  String get notificationStudyReminder => '今天的韩语学习还没完成哦~';
+
+  @override
+  String get notificationReviewTime => '该复习了！';
+
+  @override
+  String get notificationReviewReminder => '复习一下之前学过的内容吧~';
+
+  @override
+  String notificationReviewLesson(String lessonTitle) {
+    return '该复习「$lessonTitle」了~';
+  }
+
+  @override
+  String get keepGoing => '继续加油！';
+
+  @override
+  String scoreDisplay(int correct, int total) {
+    return '得分：$correct / $total';
+  }
+
+  @override
+  String loadDataError(String error) {
+    return '加载数据失败: $error';
+  }
+
+  @override
+  String downloadError(String error) {
+    return '下载错误: $error';
+  }
+
+  @override
+  String deleteError(String error) {
+    return '删除失败: $error';
+  }
+
+  @override
+  String clearAllError(String error) {
+    return '清空失败: $error';
+  }
+
+  @override
+  String cleanupError(String error) {
+    return '清理失败: $error';
+  }
+
+  @override
+  String downloadLessonFailed(String title) {
+    return '下载失败: $title';
+  }
+
+  @override
+  String get comprehensive => '综合';
+
+  @override
+  String answeredCount(int answered, int total) {
+    return '已答 $answered/$total';
+  }
+
+  @override
+  String get hanjaWord => '汉字词';
+
+  @override
+  String get tapToFlipBack => '点击返回';
+
+  @override
+  String get similarityWithChinese => '与中文相似度';
+
+  @override
+  String get hanjaWordSimilarPronunciation => '汉字词，发音相似';
+
+  @override
+  String get sameEtymologyEasyToRemember => '词源相同，便于记忆';
+
+  @override
+  String get someConnection => '有一定联系';
+
+  @override
+  String get nativeWordNeedsMemorization => '固有词，需要记忆';
+
+  @override
+  String get rules => '规则';
+
+  @override
+  String get koreanLanguage => '🇰🇷 韩语';
+
+  @override
+  String get chineseLanguage => '🇨🇳 中文';
+
+  @override
+  String exampleNumber(int number) {
+    return '例 $number';
+  }
+
+  @override
+  String get fillInBlankPrompt => '填空：';
+
+  @override
+  String get correctFeedback => '太棒了！答对了！';
+
+  @override
+  String get incorrectFeedback => '不对哦，再想想看';
+
+  @override
+  String get allStagesPassed => '7个阶段全部通过';
+
+  @override
+  String get continueToLearnMore => '继续学习更多内容';
+
+  @override
+  String timeFormatHMS(int hours, int minutes, int seconds) {
+    return '$hours时$minutes分$seconds秒';
+  }
+
+  @override
+  String timeFormatMS(int minutes, int seconds) {
+    return '$minutes分$seconds秒';
+  }
+
+  @override
+  String timeFormatS(int seconds) {
+    return '$seconds秒';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -1332,7 +2249,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get lowSimilarity => '低相似度';
 
   @override
-  String get lessonComplete => '課程完成！';
+  String get lessonComplete => '課程完成！進度已保存';
 
   @override
   String get learningComplete => '學習完成';
@@ -1366,7 +2283,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get dialogues => '對話';
 
   @override
-  String get grammarExplanation => '語法講解';
+  String get grammarExplanation => '語法解釋';
 
   @override
   String get exampleSentences => '例句';
@@ -1489,7 +2406,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get correctOrderIs => '正確順序是:';
 
   @override
-  String get correctAnswerIs => '正確答案是:';
+  String correctAnswerIs(String answer) {
+    return '正確答案: $answer';
+  }
 
   @override
   String get previousQuestion => '上一題';
@@ -2010,4 +2929,919 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get download => '下載';
+
+  @override
+  String get hangulLearning => '韓文字母學習';
+
+  @override
+  String get hangulLearningSubtitle => '學習韓文字母表 40個字母';
+
+  @override
+  String get editNotes => '編輯筆記';
+
+  @override
+  String get notes => '筆記';
+
+  @override
+  String get notesHint => '為什麼要收藏這個單詞？';
+
+  @override
+  String get sortBy => '排序方式';
+
+  @override
+  String get sortNewest => '最新收藏';
+
+  @override
+  String get sortOldest => '最早收藏';
+
+  @override
+  String get sortKorean => '韓文排序';
+
+  @override
+  String get sortChinese => '中文排序';
+
+  @override
+  String get sortMastery => '掌握程度';
+
+  @override
+  String get filterAll => '全部';
+
+  @override
+  String get filterNew => '新學 (0級)';
+
+  @override
+  String get filterBeginner => '初級 (1級)';
+
+  @override
+  String get filterIntermediate => '中級 (2-3級)';
+
+  @override
+  String get filterAdvanced => '高級 (4-5級)';
+
+  @override
+  String get searchWordsNotesChinese => '搜索單詞、中文或筆記...';
+
+  @override
+  String startReviewCount(int count) {
+    return '開始複習 ($count)';
+  }
+
+  @override
+  String get remove => '移除';
+
+  @override
+  String get confirmRemove => '確認移除';
+
+  @override
+  String confirmRemoveWord(String word) {
+    return '確定要從單詞本移除「$word」嗎？';
+  }
+
+  @override
+  String get noBookmarkedWords => '還沒有收藏的單詞';
+
+  @override
+  String get bookmarkHint => '在學習過程中點擊單詞卡片上的書籤圖標';
+
+  @override
+  String get noMatchingWords => '沒有找到匹配的單詞';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count週前';
+  }
+
+  @override
+  String get reviewComplete => '複習完成！';
+
+  @override
+  String reviewCompleteCount(int count) {
+    return '已完成 $count 個單詞的複習';
+  }
+
+  @override
+  String get correct => '正確';
+
+  @override
+  String get wrong => '錯誤';
+
+  @override
+  String get accuracy => '準確率';
+
+  @override
+  String get vocabularyBookReview => '單詞本複習';
+
+  @override
+  String get noWordsToReview => '暫無需要複習的單詞';
+
+  @override
+  String get bookmarkWordsToReview => '在學習過程中收藏單詞後開始複習';
+
+  @override
+  String get returnToVocabularyBook => '返回單詞本';
+
+  @override
+  String get exit => '退出';
+
+  @override
+  String get showAnswer => '顯示答案';
+
+  @override
+  String get didYouRemember => '你記住了嗎？';
+
+  @override
+  String get forgot => '忘記了';
+
+  @override
+  String get hard => '困難';
+
+  @override
+  String get remembered => '記得';
+
+  @override
+  String get easy => '簡單';
+
+  @override
+  String get addedToVocabularyBook => '已添加到單詞本';
+
+  @override
+  String get addFailed => '添加失敗';
+
+  @override
+  String get removedFromVocabularyBook => '已從單詞本移除';
+
+  @override
+  String get removeFailed => '移除失敗';
+
+  @override
+  String get addToVocabularyBook => '添加到單詞本';
+
+  @override
+  String get notesOptional => '筆記（可選）';
+
+  @override
+  String get add => '添加';
+
+  @override
+  String get bookmarked => '已收藏';
+
+  @override
+  String get bookmark => '收藏';
+
+  @override
+  String get removeFromVocabularyBook => '從單詞本移除';
+
+  @override
+  String similarityPercent(int percent) {
+    return '相似度: $percent%';
+  }
+
+  @override
+  String addedOrRemoved(String added) {
+    String _temp0 = intl.Intl.selectLogic(
+      added,
+      {
+        'true': '已添加到單詞本',
+        'other': '已取消收藏',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get days => '天';
+
+  @override
+  String lessonsCompletedCount(int count) {
+    return '$count 課完成';
+  }
+
+  @override
+  String get dailyGoalComplete => '太棒了！今日目標已完成！';
+
+  @override
+  String get hangulAlphabet => '韓文字母';
+
+  @override
+  String get alphabetTable => '字母表';
+
+  @override
+  String get learn => '學習';
+
+  @override
+  String get practice => '練習';
+
+  @override
+  String get learningProgress => '學習進度';
+
+  @override
+  String dueForReviewCount(int count) {
+    return '$count 個待複習';
+  }
+
+  @override
+  String get completion => '完成度';
+
+  @override
+  String get totalCharacters => '總字母';
+
+  @override
+  String get learned => '已學習';
+
+  @override
+  String get dueForReview => '待複習';
+
+  @override
+  String overallAccuracy(String percent) {
+    return '整體準確率: $percent%';
+  }
+
+  @override
+  String charactersCount(int count) {
+    return '$count個字母';
+  }
+
+  @override
+  String get lesson1Title => '第1課：基本輔音 (上)';
+
+  @override
+  String get lesson1Desc => '學習韓語最常用的7個輔音字母';
+
+  @override
+  String get lesson2Title => '第2課：基本輔音 (下)';
+
+  @override
+  String get lesson2Desc => '繼續學習剩餘的7個基本輔音';
+
+  @override
+  String get lesson3Title => '第3課：基本元音 (上)';
+
+  @override
+  String get lesson3Desc => '學習韓語的5個基本元音';
+
+  @override
+  String get lesson4Title => '第4課：基本元音 (下)';
+
+  @override
+  String get lesson4Desc => '學習剩餘的5個基本元音';
+
+  @override
+  String get lesson5Title => '第5課：雙輔音';
+
+  @override
+  String get lesson5Desc => '學習5個雙輔音 - 緊音字母';
+
+  @override
+  String get lesson6Title => '第6課：複合元音 (上)';
+
+  @override
+  String get lesson6Desc => '學習前6個複合元音';
+
+  @override
+  String get lesson7Title => '第7課：複合元音 (下)';
+
+  @override
+  String get lesson7Desc => '學習剩餘的複合元音';
+
+  @override
+  String get loadAlphabetFirst => '請先加載字母表數據';
+
+  @override
+  String get noContentForLesson => '本課無內容';
+
+  @override
+  String get exampleWords => '例詞';
+
+  @override
+  String get thisLessonCharacters => '本課字母';
+
+  @override
+  String congratsLessonComplete(String title) {
+    return '恭喜你完成了 $title！';
+  }
+
+  @override
+  String get continuePractice => '繼續練習';
+
+  @override
+  String get nextLesson => '下一課';
+
+  @override
+  String get basicConsonants => '基本輔音';
+
+  @override
+  String get doubleConsonants => '雙輔音';
+
+  @override
+  String get basicVowels => '基本元音';
+
+  @override
+  String get compoundVowels => '複合元音';
+
+  @override
+  String get dailyLearningReminderTitle => '每日學習提醒';
+
+  @override
+  String get dailyLearningReminderBody => '今天的韓語學習還沒完成哦~';
+
+  @override
+  String get reviewReminderTitle => '複習時間到了！';
+
+  @override
+  String reviewReminderBody(String title) {
+    return '該複習「$title」了~';
+  }
+
+  @override
+  String get korean => '한국어';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get japanese => '日本語';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get strokeOrder => '筆畫順序';
+
+  @override
+  String get reset => '重置';
+
+  @override
+  String get pronunciationGuide => '發音指南';
+
+  @override
+  String get play => '播放';
+
+  @override
+  String get pause => '暫停';
+
+  @override
+  String loadingFailed(String error) {
+    return '加載失敗: $error';
+  }
+
+  @override
+  String learnedCount(int count) {
+    return '已學習: $count';
+  }
+
+  @override
+  String get hangulPractice => '韓文字母練習';
+
+  @override
+  String charactersNeedReview(int count) {
+    return '$count 個字母需要複習';
+  }
+
+  @override
+  String charactersAvailable(int count) {
+    return '$count 個字母可練習';
+  }
+
+  @override
+  String get selectPracticeMode => '選擇練習模式';
+
+  @override
+  String get characterRecognition => '字母識別';
+
+  @override
+  String get characterRecognitionDesc => '看到字母選擇正確的發音';
+
+  @override
+  String get pronunciationPractice => '發音練習';
+
+  @override
+  String get pronunciationPracticeDesc => '看到發音選擇正確的字母';
+
+  @override
+  String get writingPractice => '書寫練習';
+
+  @override
+  String get writingPracticeDesc => '看到發音寫出正確的字母';
+
+  @override
+  String get startPractice => '開始練習';
+
+  @override
+  String get learnSomeCharactersFirst => '請先在字母表中學習一些字母';
+
+  @override
+  String get practiceComplete => '練習完成！';
+
+  @override
+  String get back => '返回';
+
+  @override
+  String get tryAgain => '再來一次';
+
+  @override
+  String get howToReadThis => '這個字母怎麼讀？';
+
+  @override
+  String get selectCorrectCharacter => '選擇正確的字母';
+
+  @override
+  String get writeCharacterForPronunciation => '寫出這個發音對應的字母';
+
+  @override
+  String get writeHere => '在此處書寫\n(功能開發中)';
+
+  @override
+  String get dontKnow => '不知道';
+
+  @override
+  String get checkAnswer => '查看答案';
+
+  @override
+  String get didYouWriteCorrectly => '你寫對了嗎？';
+
+  @override
+  String get wrongAnswer => '錯了';
+
+  @override
+  String get correctAnswer => '對了';
+
+  @override
+  String get correctExclamation => '正確！';
+
+  @override
+  String get incorrectExclamation => '錯誤';
+
+  @override
+  String get correctAnswerLabel => '正確答案: ';
+
+  @override
+  String get nextQuestionBtn => '下一題';
+
+  @override
+  String get viewResults => '查看結果';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get mnemonics => '記憶技巧';
+
+  @override
+  String nextReviewLabel(String date) {
+    return '下次複習: $date';
+  }
+
+  @override
+  String get expired => '已到期';
+
+  @override
+  String get practiceFunctionDeveloping => '練習功能開發中';
+
+  @override
+  String get romanization => '羅馬字: ';
+
+  @override
+  String get pronunciationLabel => '發音: ';
+
+  @override
+  String get playPronunciation => '播放發音';
+
+  @override
+  String strokesCount(int count) {
+    return '$count畫';
+  }
+
+  @override
+  String get perfectCount => '完美';
+
+  @override
+  String get loadFailed => '加載失敗';
+
+  @override
+  String countUnit(int count) {
+    return '$count個';
+  }
+
+  @override
+  String get basicConsonantsKo => '기본 자음';
+
+  @override
+  String get doubleConsonantsKo => '쌍자음';
+
+  @override
+  String get basicVowelsKo => '기본 모음';
+
+  @override
+  String get compoundVowelsKo => '복합 모음';
+
+  @override
+  String get lesson1TitleKo => '1과: 기본 자음 (상)';
+
+  @override
+  String get lesson2TitleKo => '2과: 기본 자음 (하)';
+
+  @override
+  String get lesson3TitleKo => '3과: 기본 모음 (상)';
+
+  @override
+  String get lesson4TitleKo => '4과: 기본 모음 (하)';
+
+  @override
+  String get lesson5TitleKo => '5과: 쌍자음';
+
+  @override
+  String get lesson6TitleKo => '6과: 복합 모음 (상)';
+
+  @override
+  String get lesson7TitleKo => '7과: 복합 모음 (하)';
+
+  @override
+  String get exitLesson => '退出學習';
+
+  @override
+  String get exitLessonConfirm => '確定要退出當前課程嗎？進度將會保存。';
+
+  @override
+  String get exitBtn => '退出';
+
+  @override
+  String loadingLesson(String title) {
+    return '$title 載入中...';
+  }
+
+  @override
+  String get cannotLoadContent => '無法載入課程內容';
+
+  @override
+  String get noLessonContent => '此課程暫無內容';
+
+  @override
+  String stageProgress(int current, int total) {
+    return '第 $current 階段 / $total';
+  }
+
+  @override
+  String unknownStageType(String type) {
+    return '未知階段類型: $type';
+  }
+
+  @override
+  String wordsCount(int count) {
+    return '$count 個單詞';
+  }
+
+  @override
+  String get startLearning => '開始學習';
+
+  @override
+  String get vocabularyLearning => '詞彙學習';
+
+  @override
+  String get noImage => '暫無圖片';
+
+  @override
+  String get previousItem => '上一個';
+
+  @override
+  String get nextItem => '下一個';
+
+  @override
+  String get playingAudio => '播放中...';
+
+  @override
+  String get playAll => '播放全部';
+
+  @override
+  String audioPlayFailed(String error) {
+    return '音頻播放失敗: $error';
+  }
+
+  @override
+  String get stopBtn => '停止';
+
+  @override
+  String get playAudioBtn => '播放音頻';
+
+  @override
+  String get playingAudioShort => '播放音頻...';
+
+  @override
+  String grammarPattern(String pattern) {
+    return '語法 · $pattern';
+  }
+
+  @override
+  String get conjugationRule => '活用規則';
+
+  @override
+  String get comparisonWithChinese => '與中文對比';
+
+  @override
+  String get dialogueTitle => '對話練習';
+
+  @override
+  String get dialogueExplanation => '對話解析';
+
+  @override
+  String speaker(String name) {
+    return '發言人 $name';
+  }
+
+  @override
+  String get practiceTitle => '練習';
+
+  @override
+  String get practiceInstructions => '請完成以下練習題';
+
+  @override
+  String get checkAnswerBtn => '檢查答案';
+
+  @override
+  String get quizTitle => '測驗';
+
+  @override
+  String get quizResult => '測驗結果';
+
+  @override
+  String quizScoreDisplay(int correct, int total) {
+    return '$correct/$total';
+  }
+
+  @override
+  String quizAccuracy(int percent) {
+    return '準確率: $percent%';
+  }
+
+  @override
+  String get summaryTitle => '課程總結';
+
+  @override
+  String get vocabLearned => '學習單詞';
+
+  @override
+  String get grammarLearned => '學習語法';
+
+  @override
+  String get finishLesson => '完成課程';
+
+  @override
+  String get reviewVocab => '複習單詞';
+
+  @override
+  String similarity(int percent) {
+    return '相似度: $percent%';
+  }
+
+  @override
+  String get partOfSpeechNoun => '名詞';
+
+  @override
+  String get partOfSpeechVerb => '動詞';
+
+  @override
+  String get partOfSpeechAdjective => '形容詞';
+
+  @override
+  String get partOfSpeechAdverb => '副詞';
+
+  @override
+  String get partOfSpeechPronoun => '代詞';
+
+  @override
+  String get partOfSpeechParticle => '助詞';
+
+  @override
+  String get partOfSpeechConjunction => '連詞';
+
+  @override
+  String get partOfSpeechInterjection => '感嘆詞';
+
+  @override
+  String get noVocabulary => '暫無單詞資料';
+
+  @override
+  String get noGrammar => '暫無語法資料';
+
+  @override
+  String get noPractice => '暫無練習題';
+
+  @override
+  String get noDialogue => '暫無對話內容';
+
+  @override
+  String get noQuiz => '暫無測驗題目';
+
+  @override
+  String get tapToFlip => '點擊翻轉';
+
+  @override
+  String get listeningQuestion => '聽力';
+
+  @override
+  String get submit => '提交';
+
+  @override
+  String timeStudied(String time) {
+    return '已學習 $time';
+  }
+
+  @override
+  String get statusNotStarted => '未開始';
+
+  @override
+  String get statusInProgress => '進行中';
+
+  @override
+  String get statusCompleted => '已完成';
+
+  @override
+  String get statusFailed => '未通過';
+
+  @override
+  String get masteryNew => '新';
+
+  @override
+  String get masteryLearning => '學習中';
+
+  @override
+  String get masteryFamiliar => '熟悉';
+
+  @override
+  String get masteryMastered => '掌握';
+
+  @override
+  String get masteryExpert => '精通';
+
+  @override
+  String get masteryPerfect => '完美';
+
+  @override
+  String get masteryUnknown => '未知';
+
+  @override
+  String get dueForReviewNow => '該複習了';
+
+  @override
+  String get similarityHigh => '高相似度';
+
+  @override
+  String get similarityMedium => '中等相似度';
+
+  @override
+  String get similarityLow => '低相似度';
+
+  @override
+  String get typeBasicConsonant => '基本輔音';
+
+  @override
+  String get typeDoubleConsonant => '雙輔音';
+
+  @override
+  String get typeBasicVowel => '基本元音';
+
+  @override
+  String get typeCompoundVowel => '複合元音';
+
+  @override
+  String get typeFinalConsonant => '收音';
+
+  @override
+  String get dailyReminderChannel => '每日學習提醒';
+
+  @override
+  String get dailyReminderChannelDesc => '每天固定時間提醒你學習韓語';
+
+  @override
+  String get reviewReminderChannel => '複習提醒';
+
+  @override
+  String get reviewReminderChannelDesc => '基於間隔重複演算法的複習提醒';
+
+  @override
+  String get notificationStudyTime => '學習時間到了！';
+
+  @override
+  String get notificationStudyReminder => '今天的韓語學習還沒完成哦~';
+
+  @override
+  String get notificationReviewTime => '該複習了！';
+
+  @override
+  String get notificationReviewReminder => '複習一下之前學過的內容吧~';
+
+  @override
+  String notificationReviewLesson(String lessonTitle) {
+    return '該複習「$lessonTitle」了~';
+  }
+
+  @override
+  String get keepGoing => '繼續加油！';
+
+  @override
+  String scoreDisplay(int correct, int total) {
+    return '得分：$correct / $total';
+  }
+
+  @override
+  String loadDataError(String error) {
+    return '載入資料失敗: $error';
+  }
+
+  @override
+  String downloadError(String error) {
+    return '下載錯誤: $error';
+  }
+
+  @override
+  String deleteError(String error) {
+    return '刪除失敗: $error';
+  }
+
+  @override
+  String clearAllError(String error) {
+    return '清空失敗: $error';
+  }
+
+  @override
+  String cleanupError(String error) {
+    return '清理失敗: $error';
+  }
+
+  @override
+  String downloadLessonFailed(String title) {
+    return '下載失敗: $title';
+  }
+
+  @override
+  String get comprehensive => '綜合';
+
+  @override
+  String answeredCount(int answered, int total) {
+    return '已答 $answered/$total';
+  }
+
+  @override
+  String get hanjaWord => '漢字詞';
+
+  @override
+  String get tapToFlipBack => '點擊返回';
+
+  @override
+  String get similarityWithChinese => '與中文相似度';
+
+  @override
+  String get hanjaWordSimilarPronunciation => '漢字詞，發音相似';
+
+  @override
+  String get sameEtymologyEasyToRemember => '詞源相同，便於記憶';
+
+  @override
+  String get someConnection => '有一定聯繫';
+
+  @override
+  String get nativeWordNeedsMemorization => '固有詞，需要記憶';
+
+  @override
+  String get rules => '規則';
+
+  @override
+  String get koreanLanguage => '🇰🇷 韓語';
+
+  @override
+  String get chineseLanguage => '🇨🇳 中文';
+
+  @override
+  String exampleNumber(int number) {
+    return '例 $number';
+  }
+
+  @override
+  String get fillInBlankPrompt => '填空：';
+
+  @override
+  String get correctFeedback => '太棒了！答對了！';
+
+  @override
+  String get incorrectFeedback => '不對哦，再想想看';
+
+  @override
+  String get allStagesPassed => '7個階段全部通過';
+
+  @override
+  String get continueToLearnMore => '繼續學習更多內容';
+
+  @override
+  String timeFormatHMS(int hours, int minutes, int seconds) {
+    return '$hours時$minutes分$seconds秒';
+  }
+
+  @override
+  String timeFormatMS(int minutes, int seconds) {
+    return '$minutes分$seconds秒';
+  }
+
+  @override
+  String timeFormatS(int seconds) {
+    return '$seconds秒';
+  }
 }

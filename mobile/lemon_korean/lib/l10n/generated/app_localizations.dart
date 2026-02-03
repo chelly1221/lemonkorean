@@ -723,10 +723,10 @@ abstract class AppLocalizations {
   /// **'低相似度'**
   String get lowSimilarity;
 
-  /// Lesson complete message
+  /// Lesson completion message
   ///
   /// In zh, this message translates to:
-  /// **'课程完成！'**
+  /// **'课程完成！进度已保存'**
   String get lessonComplete;
 
   /// Learning complete title
@@ -783,13 +783,13 @@ abstract class AppLocalizations {
   /// **'对话'**
   String get dialogues;
 
-  /// Grammar explanation title
+  /// Grammar explanation section
   ///
   /// In zh, this message translates to:
-  /// **'语法讲解'**
+  /// **'语法解释'**
   String get grammarExplanation;
 
-  /// Example sentences label
+  /// Example sentences section
   ///
   /// In zh, this message translates to:
   /// **'例句'**
@@ -993,7 +993,7 @@ abstract class AppLocalizations {
   /// **'听力'**
   String get listening;
 
-  /// Fill in blank question type
+  /// Fill in the blank
   ///
   /// In zh, this message translates to:
   /// **'填空'**
@@ -1011,7 +1011,7 @@ abstract class AppLocalizations {
   /// **'排序'**
   String get wordOrder;
 
-  /// Pronunciation question type
+  /// Pronunciation label
   ///
   /// In zh, this message translates to:
   /// **'发音'**
@@ -1029,11 +1029,11 @@ abstract class AppLocalizations {
   /// **'正确顺序是:'**
   String get correctOrderIs;
 
-  /// Correct answer is prefix
+  /// Correct answer display
   ///
   /// In zh, this message translates to:
-  /// **'正确答案是:'**
-  String get correctAnswerIs;
+  /// **'正确答案: {answer}'**
+  String correctAnswerIs(String answer);
 
   /// Previous question button
   ///
@@ -2012,6 +2012,1650 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'下载'**
   String get download;
+
+  /// Hangul learning section title
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文字母学习'**
+  String get hangulLearning;
+
+  /// Hangul learning subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'学习韩文字母表 40个字母'**
+  String get hangulLearningSubtitle;
+
+  /// Edit notes dialog title
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑笔记'**
+  String get editNotes;
+
+  /// Notes field label
+  ///
+  /// In zh, this message translates to:
+  /// **'笔记'**
+  String get notes;
+
+  /// Notes hint text
+  ///
+  /// In zh, this message translates to:
+  /// **'为什么要收藏这个单词？'**
+  String get notesHint;
+
+  /// Sort by title
+  ///
+  /// In zh, this message translates to:
+  /// **'排序方式'**
+  String get sortBy;
+
+  /// Sort by newest
+  ///
+  /// In zh, this message translates to:
+  /// **'最新收藏'**
+  String get sortNewest;
+
+  /// Sort by oldest
+  ///
+  /// In zh, this message translates to:
+  /// **'最早收藏'**
+  String get sortOldest;
+
+  /// Sort by Korean
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文排序'**
+  String get sortKorean;
+
+  /// Sort by Chinese
+  ///
+  /// In zh, this message translates to:
+  /// **'中文排序'**
+  String get sortChinese;
+
+  /// Sort by mastery
+  ///
+  /// In zh, this message translates to:
+  /// **'掌握程度'**
+  String get sortMastery;
+
+  /// Filter all
+  ///
+  /// In zh, this message translates to:
+  /// **'全部'**
+  String get filterAll;
+
+  /// Filter new words
+  ///
+  /// In zh, this message translates to:
+  /// **'新学 (0级)'**
+  String get filterNew;
+
+  /// Filter beginner
+  ///
+  /// In zh, this message translates to:
+  /// **'初级 (1级)'**
+  String get filterBeginner;
+
+  /// Filter intermediate
+  ///
+  /// In zh, this message translates to:
+  /// **'中级 (2-3级)'**
+  String get filterIntermediate;
+
+  /// Filter advanced
+  ///
+  /// In zh, this message translates to:
+  /// **'高级 (4-5级)'**
+  String get filterAdvanced;
+
+  /// Search placeholder for vocabulary book
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索单词、中文或笔记...'**
+  String get searchWordsNotesChinese;
+
+  /// Start review button with count
+  ///
+  /// In zh, this message translates to:
+  /// **'开始复习 ({count})'**
+  String startReviewCount(int count);
+
+  /// Remove button
+  ///
+  /// In zh, this message translates to:
+  /// **'移除'**
+  String get remove;
+
+  /// Confirm remove dialog title
+  ///
+  /// In zh, this message translates to:
+  /// **'确认移除'**
+  String get confirmRemove;
+
+  /// Confirm remove word message
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要从单词本移除「{word}」吗？'**
+  String confirmRemoveWord(String word);
+
+  /// No bookmarked words message
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有收藏的单词'**
+  String get noBookmarkedWords;
+
+  /// Bookmark hint
+  ///
+  /// In zh, this message translates to:
+  /// **'在学习过程中点击单词卡片上的书签图标'**
+  String get bookmarkHint;
+
+  /// No matching words message
+  ///
+  /// In zh, this message translates to:
+  /// **'没有找到匹配的单词'**
+  String get noMatchingWords;
+
+  /// Weeks ago
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}周前'**
+  String weeksAgo(int count);
+
+  /// Review complete title
+  ///
+  /// In zh, this message translates to:
+  /// **'复习完成！'**
+  String get reviewComplete;
+
+  /// Review complete message
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成 {count} 个单词的复习'**
+  String reviewCompleteCount(int count);
+
+  /// Correct label
+  ///
+  /// In zh, this message translates to:
+  /// **'正确'**
+  String get correct;
+
+  /// Wrong label
+  ///
+  /// In zh, this message translates to:
+  /// **'错误'**
+  String get wrong;
+
+  /// Accuracy label
+  ///
+  /// In zh, this message translates to:
+  /// **'准确率'**
+  String get accuracy;
+
+  /// Vocabulary book review title
+  ///
+  /// In zh, this message translates to:
+  /// **'单词本复习'**
+  String get vocabularyBookReview;
+
+  /// No words to review message
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无需要复习的单词'**
+  String get noWordsToReview;
+
+  /// Bookmark words hint
+  ///
+  /// In zh, this message translates to:
+  /// **'在学习过程中收藏单词后开始复习'**
+  String get bookmarkWordsToReview;
+
+  /// Return to vocabulary book button
+  ///
+  /// In zh, this message translates to:
+  /// **'返回单词本'**
+  String get returnToVocabularyBook;
+
+  /// Exit button
+  ///
+  /// In zh, this message translates to:
+  /// **'退出'**
+  String get exit;
+
+  /// Show answer button
+  ///
+  /// In zh, this message translates to:
+  /// **'显示答案'**
+  String get showAnswer;
+
+  /// Did you remember question
+  ///
+  /// In zh, this message translates to:
+  /// **'你记住了吗？'**
+  String get didYouRemember;
+
+  /// Forgot rating
+  ///
+  /// In zh, this message translates to:
+  /// **'忘记了'**
+  String get forgot;
+
+  /// Hard rating
+  ///
+  /// In zh, this message translates to:
+  /// **'困难'**
+  String get hard;
+
+  /// Remembered rating
+  ///
+  /// In zh, this message translates to:
+  /// **'记得'**
+  String get remembered;
+
+  /// Easy rating
+  ///
+  /// In zh, this message translates to:
+  /// **'简单'**
+  String get easy;
+
+  /// Added to vocabulary book message
+  ///
+  /// In zh, this message translates to:
+  /// **'已添加到单词本'**
+  String get addedToVocabularyBook;
+
+  /// Add failed message
+  ///
+  /// In zh, this message translates to:
+  /// **'添加失败'**
+  String get addFailed;
+
+  /// Removed from vocabulary book message
+  ///
+  /// In zh, this message translates to:
+  /// **'已从单词本移除'**
+  String get removedFromVocabularyBook;
+
+  /// Remove failed message
+  ///
+  /// In zh, this message translates to:
+  /// **'移除失败'**
+  String get removeFailed;
+
+  /// Add to vocabulary book title
+  ///
+  /// In zh, this message translates to:
+  /// **'添加到单词本'**
+  String get addToVocabularyBook;
+
+  /// Notes optional label
+  ///
+  /// In zh, this message translates to:
+  /// **'笔记（可选）'**
+  String get notesOptional;
+
+  /// Add button
+  ///
+  /// In zh, this message translates to:
+  /// **'添加'**
+  String get add;
+
+  /// Bookmarked label
+  ///
+  /// In zh, this message translates to:
+  /// **'已收藏'**
+  String get bookmarked;
+
+  /// Bookmark label
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏'**
+  String get bookmark;
+
+  /// Remove from vocabulary book tooltip
+  ///
+  /// In zh, this message translates to:
+  /// **'从单词本移除'**
+  String get removeFromVocabularyBook;
+
+  /// Similarity percentage
+  ///
+  /// In zh, this message translates to:
+  /// **'相似度: {percent}%'**
+  String similarityPercent(int percent);
+
+  /// Added or removed message
+  ///
+  /// In zh, this message translates to:
+  /// **'{added, select, true{已添加到单词本} other{已取消收藏}}'**
+  String addedOrRemoved(String added);
+
+  /// Days unit
+  ///
+  /// In zh, this message translates to:
+  /// **'天'**
+  String get days;
+
+  /// Lessons completed count short
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 课完成'**
+  String lessonsCompletedCount(int count);
+
+  /// Daily goal complete message
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！今日目标已完成！'**
+  String get dailyGoalComplete;
+
+  /// Hangul alphabet
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文字母'**
+  String get hangulAlphabet;
+
+  /// Alphabet table tab
+  ///
+  /// In zh, this message translates to:
+  /// **'字母表'**
+  String get alphabetTable;
+
+  /// Learn tab
+  ///
+  /// In zh, this message translates to:
+  /// **'学习'**
+  String get learn;
+
+  /// Practice tab
+  ///
+  /// In zh, this message translates to:
+  /// **'练习'**
+  String get practice;
+
+  /// Learning progress title
+  ///
+  /// In zh, this message translates to:
+  /// **'学习进度'**
+  String get learningProgress;
+
+  /// Due for review count
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 个待复习'**
+  String dueForReviewCount(int count);
+
+  /// Completion label
+  ///
+  /// In zh, this message translates to:
+  /// **'完成度'**
+  String get completion;
+
+  /// Total characters label
+  ///
+  /// In zh, this message translates to:
+  /// **'总字母'**
+  String get totalCharacters;
+
+  /// Learned label
+  ///
+  /// In zh, this message translates to:
+  /// **'已学习'**
+  String get learned;
+
+  /// Due for review label
+  ///
+  /// In zh, this message translates to:
+  /// **'待复习'**
+  String get dueForReview;
+
+  /// Overall accuracy
+  ///
+  /// In zh, this message translates to:
+  /// **'整体准确率: {percent}%'**
+  String overallAccuracy(String percent);
+
+  /// Characters count
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}个字母'**
+  String charactersCount(int count);
+
+  /// Lesson 1 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第1课：基本辅音 (上)'**
+  String get lesson1Title;
+
+  /// Lesson 1 description
+  ///
+  /// In zh, this message translates to:
+  /// **'学习韩语最常用的7个辅音字母'**
+  String get lesson1Desc;
+
+  /// Lesson 2 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第2课：基本辅音 (下)'**
+  String get lesson2Title;
+
+  /// Lesson 2 description
+  ///
+  /// In zh, this message translates to:
+  /// **'继续学习剩余的7个基本辅音'**
+  String get lesson2Desc;
+
+  /// Lesson 3 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第3课：基本元音 (上)'**
+  String get lesson3Title;
+
+  /// Lesson 3 description
+  ///
+  /// In zh, this message translates to:
+  /// **'学习韩语的5个基本元音'**
+  String get lesson3Desc;
+
+  /// Lesson 4 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第4课：基本元音 (下)'**
+  String get lesson4Title;
+
+  /// Lesson 4 description
+  ///
+  /// In zh, this message translates to:
+  /// **'学习剩余的5个基本元音'**
+  String get lesson4Desc;
+
+  /// Lesson 5 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第5课：双辅音'**
+  String get lesson5Title;
+
+  /// Lesson 5 description
+  ///
+  /// In zh, this message translates to:
+  /// **'学习5个双辅音 - 紧音字母'**
+  String get lesson5Desc;
+
+  /// Lesson 6 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第6课：复合元音 (上)'**
+  String get lesson6Title;
+
+  /// Lesson 6 description
+  ///
+  /// In zh, this message translates to:
+  /// **'学习前6个复合元音'**
+  String get lesson6Desc;
+
+  /// Lesson 7 title
+  ///
+  /// In zh, this message translates to:
+  /// **'第7课：复合元音 (下)'**
+  String get lesson7Title;
+
+  /// Lesson 7 description
+  ///
+  /// In zh, this message translates to:
+  /// **'学习剩余的复合元音'**
+  String get lesson7Desc;
+
+  /// Load alphabet first message
+  ///
+  /// In zh, this message translates to:
+  /// **'请先加载字母表数据'**
+  String get loadAlphabetFirst;
+
+  /// No content for lesson
+  ///
+  /// In zh, this message translates to:
+  /// **'本课无内容'**
+  String get noContentForLesson;
+
+  /// Example words label
+  ///
+  /// In zh, this message translates to:
+  /// **'例词'**
+  String get exampleWords;
+
+  /// This lesson characters label
+  ///
+  /// In zh, this message translates to:
+  /// **'本课字母'**
+  String get thisLessonCharacters;
+
+  /// Congratulations lesson complete
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜你完成了 {title}！'**
+  String congratsLessonComplete(String title);
+
+  /// Continue practice button
+  ///
+  /// In zh, this message translates to:
+  /// **'继续练习'**
+  String get continuePractice;
+
+  /// Next lesson button
+  ///
+  /// In zh, this message translates to:
+  /// **'下一课'**
+  String get nextLesson;
+
+  /// Basic consonants
+  ///
+  /// In zh, this message translates to:
+  /// **'基本辅音'**
+  String get basicConsonants;
+
+  /// Double consonants
+  ///
+  /// In zh, this message translates to:
+  /// **'双辅音'**
+  String get doubleConsonants;
+
+  /// Basic vowels
+  ///
+  /// In zh, this message translates to:
+  /// **'基本元音'**
+  String get basicVowels;
+
+  /// Compound vowels
+  ///
+  /// In zh, this message translates to:
+  /// **'复合元音'**
+  String get compoundVowels;
+
+  /// Daily learning reminder notification title
+  ///
+  /// In zh, this message translates to:
+  /// **'每日学习提醒'**
+  String get dailyLearningReminderTitle;
+
+  /// Daily learning reminder notification body
+  ///
+  /// In zh, this message translates to:
+  /// **'今天的韩语学习还没完成哦~'**
+  String get dailyLearningReminderBody;
+
+  /// Review reminder notification title
+  ///
+  /// In zh, this message translates to:
+  /// **'复习时间到了！'**
+  String get reviewReminderTitle;
+
+  /// Review reminder notification body
+  ///
+  /// In zh, this message translates to:
+  /// **'该复习「{title}」了~'**
+  String reviewReminderBody(String title);
+
+  /// Korean language
+  ///
+  /// In zh, this message translates to:
+  /// **'한국어'**
+  String get korean;
+
+  /// English language
+  ///
+  /// In zh, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// Japanese language
+  ///
+  /// In zh, this message translates to:
+  /// **'日本語'**
+  String get japanese;
+
+  /// Spanish language
+  ///
+  /// In zh, this message translates to:
+  /// **'Español'**
+  String get spanish;
+
+  /// Stroke order
+  ///
+  /// In zh, this message translates to:
+  /// **'笔画顺序'**
+  String get strokeOrder;
+
+  /// Reset button
+  ///
+  /// In zh, this message translates to:
+  /// **'重置'**
+  String get reset;
+
+  /// Pronunciation guide
+  ///
+  /// In zh, this message translates to:
+  /// **'发音指南'**
+  String get pronunciationGuide;
+
+  /// Play button
+  ///
+  /// In zh, this message translates to:
+  /// **'播放'**
+  String get play;
+
+  /// Pause button
+  ///
+  /// In zh, this message translates to:
+  /// **'暂停'**
+  String get pause;
+
+  /// Loading failed message
+  ///
+  /// In zh, this message translates to:
+  /// **'加载失败: {error}'**
+  String loadingFailed(String error);
+
+  /// Learned count
+  ///
+  /// In zh, this message translates to:
+  /// **'已学习: {count}'**
+  String learnedCount(int count);
+
+  /// Hangul practice title
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文字母练习'**
+  String get hangulPractice;
+
+  /// Characters need review
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 个字母需要复习'**
+  String charactersNeedReview(int count);
+
+  /// Characters available for practice
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 个字母可练习'**
+  String charactersAvailable(int count);
+
+  /// Select practice mode
+  ///
+  /// In zh, this message translates to:
+  /// **'选择练习模式'**
+  String get selectPracticeMode;
+
+  /// Character recognition mode
+  ///
+  /// In zh, this message translates to:
+  /// **'字母识别'**
+  String get characterRecognition;
+
+  /// Character recognition description
+  ///
+  /// In zh, this message translates to:
+  /// **'看到字母选择正确的发音'**
+  String get characterRecognitionDesc;
+
+  /// Pronunciation practice mode
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get pronunciationPractice;
+
+  /// Pronunciation practice description
+  ///
+  /// In zh, this message translates to:
+  /// **'看到发音选择正确的字母'**
+  String get pronunciationPracticeDesc;
+
+  /// Writing practice mode
+  ///
+  /// In zh, this message translates to:
+  /// **'书写练习'**
+  String get writingPractice;
+
+  /// Writing practice description
+  ///
+  /// In zh, this message translates to:
+  /// **'看到发音写出正确的字母'**
+  String get writingPracticeDesc;
+
+  /// Start practice button
+  ///
+  /// In zh, this message translates to:
+  /// **'开始练习'**
+  String get startPractice;
+
+  /// Learn some characters first message
+  ///
+  /// In zh, this message translates to:
+  /// **'请先在字母表中学习一些字母'**
+  String get learnSomeCharactersFirst;
+
+  /// Practice complete title
+  ///
+  /// In zh, this message translates to:
+  /// **'练习完成！'**
+  String get practiceComplete;
+
+  /// Back button
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get back;
+
+  /// Try again button
+  ///
+  /// In zh, this message translates to:
+  /// **'再来一次'**
+  String get tryAgain;
+
+  /// How to read this question
+  ///
+  /// In zh, this message translates to:
+  /// **'这个字母怎么读？'**
+  String get howToReadThis;
+
+  /// Select correct character instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'选择正确的字母'**
+  String get selectCorrectCharacter;
+
+  /// Write character for pronunciation instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'写出这个发音对应的字母'**
+  String get writeCharacterForPronunciation;
+
+  /// Write here placeholder
+  ///
+  /// In zh, this message translates to:
+  /// **'在此处书写\n(功能开发中)'**
+  String get writeHere;
+
+  /// Don't know button
+  ///
+  /// In zh, this message translates to:
+  /// **'不知道'**
+  String get dontKnow;
+
+  /// Check answer button
+  ///
+  /// In zh, this message translates to:
+  /// **'查看答案'**
+  String get checkAnswer;
+
+  /// Did you write correctly question
+  ///
+  /// In zh, this message translates to:
+  /// **'你写对了吗？'**
+  String get didYouWriteCorrectly;
+
+  /// Wrong answer button
+  ///
+  /// In zh, this message translates to:
+  /// **'错了'**
+  String get wrongAnswer;
+
+  /// Correct answer button
+  ///
+  /// In zh, this message translates to:
+  /// **'对了'**
+  String get correctAnswer;
+
+  /// Correct feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'正确！'**
+  String get correctExclamation;
+
+  /// Incorrect feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'错误'**
+  String get incorrectExclamation;
+
+  /// Correct answer label
+  ///
+  /// In zh, this message translates to:
+  /// **'正确答案: '**
+  String get correctAnswerLabel;
+
+  /// Next question button
+  ///
+  /// In zh, this message translates to:
+  /// **'下一题'**
+  String get nextQuestionBtn;
+
+  /// View results button
+  ///
+  /// In zh, this message translates to:
+  /// **'查看结果'**
+  String get viewResults;
+
+  /// Share button
+  ///
+  /// In zh, this message translates to:
+  /// **'分享'**
+  String get share;
+
+  /// Mnemonics section
+  ///
+  /// In zh, this message translates to:
+  /// **'记忆技巧'**
+  String get mnemonics;
+
+  /// Next review label
+  ///
+  /// In zh, this message translates to:
+  /// **'下次复习: {date}'**
+  String nextReviewLabel(String date);
+
+  /// Expired status
+  ///
+  /// In zh, this message translates to:
+  /// **'已到期'**
+  String get expired;
+
+  /// Practice function developing message
+  ///
+  /// In zh, this message translates to:
+  /// **'练习功能开发中'**
+  String get practiceFunctionDeveloping;
+
+  /// Romanization label
+  ///
+  /// In zh, this message translates to:
+  /// **'罗马字: '**
+  String get romanization;
+
+  /// Pronunciation label
+  ///
+  /// In zh, this message translates to:
+  /// **'发音: '**
+  String get pronunciationLabel;
+
+  /// Play pronunciation tooltip
+  ///
+  /// In zh, this message translates to:
+  /// **'播放发音'**
+  String get playPronunciation;
+
+  /// Strokes count
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}画'**
+  String strokesCount(int count);
+
+  /// Perfect count label
+  ///
+  /// In zh, this message translates to:
+  /// **'完美'**
+  String get perfectCount;
+
+  /// Load failed message
+  ///
+  /// In zh, this message translates to:
+  /// **'加载失败'**
+  String get loadFailed;
+
+  /// Count unit
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}个'**
+  String countUnit(int count);
+
+  /// Basic consonants in Korean
+  ///
+  /// In zh, this message translates to:
+  /// **'기본 자음'**
+  String get basicConsonantsKo;
+
+  /// Double consonants in Korean
+  ///
+  /// In zh, this message translates to:
+  /// **'쌍자음'**
+  String get doubleConsonantsKo;
+
+  /// Basic vowels in Korean
+  ///
+  /// In zh, this message translates to:
+  /// **'기본 모음'**
+  String get basicVowelsKo;
+
+  /// Compound vowels in Korean
+  ///
+  /// In zh, this message translates to:
+  /// **'복합 모음'**
+  String get compoundVowelsKo;
+
+  /// Lesson 1 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'1과: 기본 자음 (상)'**
+  String get lesson1TitleKo;
+
+  /// Lesson 2 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'2과: 기본 자음 (하)'**
+  String get lesson2TitleKo;
+
+  /// Lesson 3 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'3과: 기본 모음 (상)'**
+  String get lesson3TitleKo;
+
+  /// Lesson 4 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'4과: 기본 모음 (하)'**
+  String get lesson4TitleKo;
+
+  /// Lesson 5 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'5과: 쌍자음'**
+  String get lesson5TitleKo;
+
+  /// Lesson 6 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'6과: 복합 모음 (상)'**
+  String get lesson6TitleKo;
+
+  /// Lesson 7 Korean title
+  ///
+  /// In zh, this message translates to:
+  /// **'7과: 복합 모음 (하)'**
+  String get lesson7TitleKo;
+
+  /// Exit lesson dialog title
+  ///
+  /// In zh, this message translates to:
+  /// **'退出学习'**
+  String get exitLesson;
+
+  /// Exit lesson confirmation message
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要退出当前课程吗？进度将会保存。'**
+  String get exitLessonConfirm;
+
+  /// Exit button
+  ///
+  /// In zh, this message translates to:
+  /// **'退出'**
+  String get exitBtn;
+
+  /// Loading lesson message
+  ///
+  /// In zh, this message translates to:
+  /// **'{title} 불러오는 중...'**
+  String loadingLesson(String title);
+
+  /// Cannot load lesson content error
+  ///
+  /// In zh, this message translates to:
+  /// **'레슨 콘텐츠를 불러올 수 없습니다'**
+  String get cannotLoadContent;
+
+  /// No lesson content message
+  ///
+  /// In zh, this message translates to:
+  /// **'此课程暂无内容'**
+  String get noLessonContent;
+
+  /// Stage progress indicator
+  ///
+  /// In zh, this message translates to:
+  /// **'第 {current} 阶段 / {total}'**
+  String stageProgress(int current, int total);
+
+  /// Unknown stage type error
+  ///
+  /// In zh, this message translates to:
+  /// **'未知阶段类型: {type}'**
+  String unknownStageType(String type);
+
+  /// Words count display
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 个单词'**
+  String wordsCount(int count);
+
+  /// Start learning button
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习'**
+  String get startLearning;
+
+  /// Vocabulary learning section title
+  ///
+  /// In zh, this message translates to:
+  /// **'词汇学习'**
+  String get vocabularyLearning;
+
+  /// No image placeholder
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无图片'**
+  String get noImage;
+
+  /// Previous item button
+  ///
+  /// In zh, this message translates to:
+  /// **'上一个'**
+  String get previousItem;
+
+  /// Next item button
+  ///
+  /// In zh, this message translates to:
+  /// **'下一个'**
+  String get nextItem;
+
+  /// Playing audio status
+  ///
+  /// In zh, this message translates to:
+  /// **'播放中...'**
+  String get playingAudio;
+
+  /// Play all button
+  ///
+  /// In zh, this message translates to:
+  /// **'播放全部'**
+  String get playAll;
+
+  /// Audio playback failed
+  ///
+  /// In zh, this message translates to:
+  /// **'音频播放失败: {error}'**
+  String audioPlayFailed(String error);
+
+  /// Stop button
+  ///
+  /// In zh, this message translates to:
+  /// **'停止'**
+  String get stopBtn;
+
+  /// Play audio button
+  ///
+  /// In zh, this message translates to:
+  /// **'播放音频'**
+  String get playAudioBtn;
+
+  /// Playing audio short message
+  ///
+  /// In zh, this message translates to:
+  /// **'播放音频...'**
+  String get playingAudioShort;
+
+  /// Grammar pattern title
+  ///
+  /// In zh, this message translates to:
+  /// **'语法 · {pattern}'**
+  String grammarPattern(String pattern);
+
+  /// Conjugation rule section
+  ///
+  /// In zh, this message translates to:
+  /// **'活用规则'**
+  String get conjugationRule;
+
+  /// Comparison with Chinese section
+  ///
+  /// In zh, this message translates to:
+  /// **'与中文对比'**
+  String get comparisonWithChinese;
+
+  /// Dialogue practice title
+  ///
+  /// In zh, this message translates to:
+  /// **'对话练习'**
+  String get dialogueTitle;
+
+  /// Dialogue explanation section
+  ///
+  /// In zh, this message translates to:
+  /// **'对话解析'**
+  String get dialogueExplanation;
+
+  /// Speaker label
+  ///
+  /// In zh, this message translates to:
+  /// **'发言人 {name}'**
+  String speaker(String name);
+
+  /// Practice section title
+  ///
+  /// In zh, this message translates to:
+  /// **'练习'**
+  String get practiceTitle;
+
+  /// Practice instructions
+  ///
+  /// In zh, this message translates to:
+  /// **'请完成以下练习题'**
+  String get practiceInstructions;
+
+  /// Check answer button
+  ///
+  /// In zh, this message translates to:
+  /// **'检查答案'**
+  String get checkAnswerBtn;
+
+  /// Quiz section title
+  ///
+  /// In zh, this message translates to:
+  /// **'测验'**
+  String get quizTitle;
+
+  /// Quiz result title
+  ///
+  /// In zh, this message translates to:
+  /// **'测验结果'**
+  String get quizResult;
+
+  /// Quiz score display
+  ///
+  /// In zh, this message translates to:
+  /// **'{correct}/{total}'**
+  String quizScoreDisplay(int correct, int total);
+
+  /// Quiz accuracy percentage
+  ///
+  /// In zh, this message translates to:
+  /// **'准确率: {percent}%'**
+  String quizAccuracy(int percent);
+
+  /// Lesson summary title
+  ///
+  /// In zh, this message translates to:
+  /// **'课程总结'**
+  String get summaryTitle;
+
+  /// Vocabulary learned label
+  ///
+  /// In zh, this message translates to:
+  /// **'学习单词'**
+  String get vocabLearned;
+
+  /// Grammar learned label
+  ///
+  /// In zh, this message translates to:
+  /// **'学习语法'**
+  String get grammarLearned;
+
+  /// Finish lesson button
+  ///
+  /// In zh, this message translates to:
+  /// **'完成课程'**
+  String get finishLesson;
+
+  /// Review vocabulary button
+  ///
+  /// In zh, this message translates to:
+  /// **'复习单词'**
+  String get reviewVocab;
+
+  /// Similarity percentage
+  ///
+  /// In zh, this message translates to:
+  /// **'相似度: {percent}%'**
+  String similarity(int percent);
+
+  /// Part of speech: noun
+  ///
+  /// In zh, this message translates to:
+  /// **'名词'**
+  String get partOfSpeechNoun;
+
+  /// Part of speech: verb
+  ///
+  /// In zh, this message translates to:
+  /// **'动词'**
+  String get partOfSpeechVerb;
+
+  /// Part of speech: adjective
+  ///
+  /// In zh, this message translates to:
+  /// **'形容词'**
+  String get partOfSpeechAdjective;
+
+  /// Part of speech: adverb
+  ///
+  /// In zh, this message translates to:
+  /// **'副词'**
+  String get partOfSpeechAdverb;
+
+  /// Part of speech: pronoun
+  ///
+  /// In zh, this message translates to:
+  /// **'代词'**
+  String get partOfSpeechPronoun;
+
+  /// Part of speech: particle
+  ///
+  /// In zh, this message translates to:
+  /// **'助词'**
+  String get partOfSpeechParticle;
+
+  /// Part of speech: conjunction
+  ///
+  /// In zh, this message translates to:
+  /// **'连词'**
+  String get partOfSpeechConjunction;
+
+  /// Part of speech: interjection
+  ///
+  /// In zh, this message translates to:
+  /// **'感叹词'**
+  String get partOfSpeechInterjection;
+
+  /// No vocabulary data
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无单词数据'**
+  String get noVocabulary;
+
+  /// No grammar data
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无语法数据'**
+  String get noGrammar;
+
+  /// No practice questions
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无练习题'**
+  String get noPractice;
+
+  /// No dialogue content
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无对话内容'**
+  String get noDialogue;
+
+  /// No quiz questions
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无测验题目'**
+  String get noQuiz;
+
+  /// Tap to flip card hint
+  ///
+  /// In zh, this message translates to:
+  /// **'点击翻转'**
+  String get tapToFlip;
+
+  /// Listening question type
+  ///
+  /// In zh, this message translates to:
+  /// **'听力'**
+  String get listeningQuestion;
+
+  /// Submit button
+  ///
+  /// In zh, this message translates to:
+  /// **'提交'**
+  String get submit;
+
+  /// Time studied display
+  ///
+  /// In zh, this message translates to:
+  /// **'已学习 {time}'**
+  String timeStudied(String time);
+
+  /// Progress status: not started
+  ///
+  /// In zh, this message translates to:
+  /// **'未开始'**
+  String get statusNotStarted;
+
+  /// Progress status: in progress
+  ///
+  /// In zh, this message translates to:
+  /// **'进行中'**
+  String get statusInProgress;
+
+  /// Progress status: completed
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成'**
+  String get statusCompleted;
+
+  /// Progress status: failed
+  ///
+  /// In zh, this message translates to:
+  /// **'未通过'**
+  String get statusFailed;
+
+  /// Mastery level: new
+  ///
+  /// In zh, this message translates to:
+  /// **'新'**
+  String get masteryNew;
+
+  /// Mastery level: learning
+  ///
+  /// In zh, this message translates to:
+  /// **'学习中'**
+  String get masteryLearning;
+
+  /// Mastery level: familiar
+  ///
+  /// In zh, this message translates to:
+  /// **'熟悉'**
+  String get masteryFamiliar;
+
+  /// Mastery level: mastered
+  ///
+  /// In zh, this message translates to:
+  /// **'掌握'**
+  String get masteryMastered;
+
+  /// Mastery level: expert
+  ///
+  /// In zh, this message translates to:
+  /// **'精通'**
+  String get masteryExpert;
+
+  /// Mastery level: perfect
+  ///
+  /// In zh, this message translates to:
+  /// **'完美'**
+  String get masteryPerfect;
+
+  /// Mastery level: unknown
+  ///
+  /// In zh, this message translates to:
+  /// **'未知'**
+  String get masteryUnknown;
+
+  /// Due for review now
+  ///
+  /// In zh, this message translates to:
+  /// **'该复习了'**
+  String get dueForReviewNow;
+
+  /// High similarity
+  ///
+  /// In zh, this message translates to:
+  /// **'高相似度'**
+  String get similarityHigh;
+
+  /// Medium similarity
+  ///
+  /// In zh, this message translates to:
+  /// **'中等相似度'**
+  String get similarityMedium;
+
+  /// Low similarity
+  ///
+  /// In zh, this message translates to:
+  /// **'低相似度'**
+  String get similarityLow;
+
+  /// Hangul type: basic consonant
+  ///
+  /// In zh, this message translates to:
+  /// **'基本辅音'**
+  String get typeBasicConsonant;
+
+  /// Hangul type: double consonant
+  ///
+  /// In zh, this message translates to:
+  /// **'双辅音'**
+  String get typeDoubleConsonant;
+
+  /// Hangul type: basic vowel
+  ///
+  /// In zh, this message translates to:
+  /// **'基本元音'**
+  String get typeBasicVowel;
+
+  /// Hangul type: compound vowel
+  ///
+  /// In zh, this message translates to:
+  /// **'复合元音'**
+  String get typeCompoundVowel;
+
+  /// Hangul type: final consonant
+  ///
+  /// In zh, this message translates to:
+  /// **'收音'**
+  String get typeFinalConsonant;
+
+  /// Daily reminder notification channel name
+  ///
+  /// In zh, this message translates to:
+  /// **'每日学习提醒'**
+  String get dailyReminderChannel;
+
+  /// Daily reminder channel description
+  ///
+  /// In zh, this message translates to:
+  /// **'每天固定时间提醒你学习韩语'**
+  String get dailyReminderChannelDesc;
+
+  /// Review reminder notification channel name
+  ///
+  /// In zh, this message translates to:
+  /// **'复习提醒'**
+  String get reviewReminderChannel;
+
+  /// Review reminder channel description
+  ///
+  /// In zh, this message translates to:
+  /// **'基于间隔重复算法的复习提醒'**
+  String get reviewReminderChannelDesc;
+
+  /// Notification title for study time
+  ///
+  /// In zh, this message translates to:
+  /// **'学习时间到了！'**
+  String get notificationStudyTime;
+
+  /// Notification body for study reminder
+  ///
+  /// In zh, this message translates to:
+  /// **'今天的韩语学习还没完成哦~'**
+  String get notificationStudyReminder;
+
+  /// Notification title for review time
+  ///
+  /// In zh, this message translates to:
+  /// **'该复习了！'**
+  String get notificationReviewTime;
+
+  /// Notification body for review reminder
+  ///
+  /// In zh, this message translates to:
+  /// **'复习一下之前学过的内容吧~'**
+  String get notificationReviewReminder;
+
+  /// Notification body for review reminder with lesson title
+  ///
+  /// In zh, this message translates to:
+  /// **'该复习「{lessonTitle}」了~'**
+  String notificationReviewLesson(String lessonTitle);
+
+  /// Encouraging message when quiz is not passed
+  ///
+  /// In zh, this message translates to:
+  /// **'继续加油！'**
+  String get keepGoing;
+
+  /// Quiz score display
+  ///
+  /// In zh, this message translates to:
+  /// **'得分：{correct} / {total}'**
+  String scoreDisplay(int correct, int total);
+
+  /// Error loading data
+  ///
+  /// In zh, this message translates to:
+  /// **'加载数据失败: {error}'**
+  String loadDataError(String error);
+
+  /// Download error message
+  ///
+  /// In zh, this message translates to:
+  /// **'下载错误: {error}'**
+  String downloadError(String error);
+
+  /// Delete error message
+  ///
+  /// In zh, this message translates to:
+  /// **'删除失败: {error}'**
+  String deleteError(String error);
+
+  /// Clear all error message
+  ///
+  /// In zh, this message translates to:
+  /// **'清空失败: {error}'**
+  String clearAllError(String error);
+
+  /// Cleanup error message
+  ///
+  /// In zh, this message translates to:
+  /// **'清理失败: {error}'**
+  String cleanupError(String error);
+
+  /// Download lesson failed message
+  ///
+  /// In zh, this message translates to:
+  /// **'下载失败: {title}'**
+  String downloadLessonFailed(String title);
+
+  /// Comprehensive quiz type
+  ///
+  /// In zh, this message translates to:
+  /// **'综合'**
+  String get comprehensive;
+
+  /// Answered count display
+  ///
+  /// In zh, this message translates to:
+  /// **'已答 {answered}/{total}'**
+  String answeredCount(int answered, int total);
+
+  /// Hanja (Chinese-origin) word label
+  ///
+  /// In zh, this message translates to:
+  /// **'汉字词'**
+  String get hanjaWord;
+
+  /// Tap to flip card back
+  ///
+  /// In zh, this message translates to:
+  /// **'点击返回'**
+  String get tapToFlipBack;
+
+  /// Similarity with Chinese label
+  ///
+  /// In zh, this message translates to:
+  /// **'与中文相似度'**
+  String get similarityWithChinese;
+
+  /// Hanja word with similar pronunciation hint
+  ///
+  /// In zh, this message translates to:
+  /// **'汉字词，发音相似'**
+  String get hanjaWordSimilarPronunciation;
+
+  /// Same etymology easy to remember hint
+  ///
+  /// In zh, this message translates to:
+  /// **'词源相同，便于记忆'**
+  String get sameEtymologyEasyToRemember;
+
+  /// Some connection hint
+  ///
+  /// In zh, this message translates to:
+  /// **'有一定联系'**
+  String get someConnection;
+
+  /// Native Korean word needs memorization hint
+  ///
+  /// In zh, this message translates to:
+  /// **'固有词，需要记忆'**
+  String get nativeWordNeedsMemorization;
+
+  /// Rules label
+  ///
+  /// In zh, this message translates to:
+  /// **'规则'**
+  String get rules;
+
+  /// Korean language label with flag
+  ///
+  /// In zh, this message translates to:
+  /// **'🇰🇷 韩语'**
+  String get koreanLanguage;
+
+  /// Chinese language label with flag
+  ///
+  /// In zh, this message translates to:
+  /// **'🇨🇳 中文'**
+  String get chineseLanguage;
+
+  /// Example number label
+  ///
+  /// In zh, this message translates to:
+  /// **'例 {number}'**
+  String exampleNumber(int number);
+
+  /// Fill in blank prompt
+  ///
+  /// In zh, this message translates to:
+  /// **'填空：'**
+  String get fillInBlankPrompt;
+
+  /// Correct answer feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！答对了！'**
+  String get correctFeedback;
+
+  /// Incorrect answer feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'不对哦，再想想看'**
+  String get incorrectFeedback;
+
+  /// All stages passed message
+  ///
+  /// In zh, this message translates to:
+  /// **'7个阶段全部通过'**
+  String get allStagesPassed;
+
+  /// Continue to learn more content
+  ///
+  /// In zh, this message translates to:
+  /// **'继续学习更多内容'**
+  String get continueToLearnMore;
+
+  /// Time format with hours, minutes, seconds
+  ///
+  /// In zh, this message translates to:
+  /// **'{hours}时{minutes}分{seconds}秒'**
+  String timeFormatHMS(int hours, int minutes, int seconds);
+
+  /// Time format with minutes and seconds
+  ///
+  /// In zh, this message translates to:
+  /// **'{minutes}分{seconds}秒'**
+  String timeFormatMS(int minutes, int seconds);
+
+  /// Time format with seconds only
+  ///
+  /// In zh, this message translates to:
+  /// **'{seconds}秒'**
+  String timeFormatS(int seconds);
 }
 
 class _AppLocalizationsDelegate

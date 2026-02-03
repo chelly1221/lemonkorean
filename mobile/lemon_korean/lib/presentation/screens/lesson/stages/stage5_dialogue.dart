@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_helper.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/bilingual_text.dart';
-import '../../../widgets/convertible_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Stage 5: Dialogue
 /// Practice conversations with audio playback
@@ -198,6 +197,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final dialogue = _mockDialogues[_currentDialogueIndex];
     final lines = dialogue['lines'] as List;
 
@@ -206,10 +206,9 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
       child: Column(
         children: [
           // Stage Title
-          const BilingualText(
-            chinese: '对话练习',
-            korean: '대화 연습',
-            chineseStyle: TextStyle(
+          Text(
+            l10n.dialogueTitle,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -267,7 +266,12 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
               icon: Icon(
                 _playingLineIndex != null ? Icons.pause : Icons.play_arrow,
               ),
-              label: ConvertibleText(_playingLineIndex != null ? '播放中...' : '播放全部'),
+              label: Builder(
+                builder: (context) {
+                  final l10n = AppLocalizations.of(context)!;
+                  return Text(_playingLineIndex != null ? l10n.playingAudio : l10n.playAll);
+                },
+              ),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppConstants.paddingMedium,
@@ -427,7 +431,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const Text('上一个'),
+                    child: Text(l10n.previousItem),
                   ),
                 ),
 
@@ -445,13 +449,10 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: InlineBilingualText(
-                    chinese: _currentDialogueIndex < _mockDialogues.length - 1
-                        ? '下一个'
-                        : '继续',
-                    korean: _currentDialogueIndex < _mockDialogues.length - 1
-                        ? '다음'
-                        : '계속',
+                  child: Text(
+                    _currentDialogueIndex < _mockDialogues.length - 1
+                        ? l10n.nextItem
+                        : l10n.continueBtn,
                   ),
                 ),
               ),

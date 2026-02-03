@@ -1,5 +1,6 @@
 const { query } = require('../config/database');
 const { cacheHelpers } = require('../config/redis');
+const { getFallbackChain, buildLanguageCacheKey } = require('../middleware/language.middleware');
 
 /**
  * ================================================================
@@ -29,17 +30,19 @@ const buildPaginationMeta = (total, page, limit) => {
  * ================================================================
  * GET /api/content/grammar
  * ================================================================
- * Get all grammar rules with filtering and pagination
+ * Get all grammar rules with filtering, pagination, and translations
  * @query level - Filter by TOPIK level (0-6)
  * @query category - Filter by category
  * @query page - Page number (default: 1)
  * @query limit - Items per page (default: 50, max: 200)
+ * @query language - Content language (default from middleware)
  */
 const getGrammarRules = async (req, res) => {
   try {
     console.log('[GRAMMAR] GET /api/content/grammar', req.query);
 
     const { level, category, page = 1, limit = 50 } = req.query;
+    const language = req.language || 'zh';
 
     // Validate pagination
     const pageNum = Math.max(1, parseInt(page) || 1);
@@ -57,8 +60,8 @@ const getGrammarRules = async (req, res) => {
       }
     }
 
-    // Build cache key
-    const cacheKey = `grammar:list:${level||'all'}:${category||'all'}:${pageNum}:${limitNum}`;
+    // Build cache key with language
+    const cacheKey = buildLanguageCacheKey(`grammar:list:${level||'all'}:${category||'all'}:${pageNum}:${limitNum}`, language);
 
     // Check cache
     const cached = await cacheHelpers.get(cacheKey);
@@ -91,12 +94,30 @@ const getGrammarRules = async (req, res) => {
     const countResult = await query(countSql, countParams);
     const total = parseInt(countResult.rows[0].total);
 
-    // Fetch grammar rules
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
+    // Fetch grammar rules with translations
     let sql = `
-      SELECT id, name_ko, name_zh, category, level, difficulty,
-             description, chinese_comparison, examples, usage_notes,
-             created_at
-      FROM grammar_rules
+      SELECT g.id, g.name_ko,
+             COALESCE(gt.name, g.name_zh) as name,
+             g.category, g.level, g.difficulty,
+             COALESCE(gt.description, g.description) as description,
+             COALESCE(gt.language_comparison, g.chinese_comparison) as language_comparison,
+             g.examples,
+             COALESCE(gt.usage_notes, g.usage_notes) as usage_notes,
+             g.created_at,
+             COALESCE(gt.language_code, 'zh') as content_language
+      FROM grammar_rules g
+      LEFT JOIN LATERAL (
+        SELECT name, description, language_comparison, usage_notes, language_code
+        FROM grammar_translations
+        WHERE grammar_id = g.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) gt ON true
       WHERE 1=1
     `;
 
@@ -104,18 +125,18 @@ const getGrammarRules = async (req, res) => {
     paramCount = 1;
 
     if (level !== undefined) {
-      sql += ` AND level = $${paramCount}`;
+      sql += ` AND g.level = $${paramCount}`;
       params.push(parseInt(level));
       paramCount++;
     }
 
     if (category) {
-      sql += ` AND category = $${paramCount}`;
+      sql += ` AND g.category = $${paramCount}`;
       params.push(category);
       paramCount++;
     }
 
-    sql += ` ORDER BY level, id`;
+    sql += ` ORDER BY g.level, g.id`;
     sql += ` LIMIT $${paramCount} OFFSET $${paramCount + 1}`;
     params.push(limitNum, offset);
 
@@ -150,12 +171,13 @@ const getGrammarRules = async (req, res) => {
  * ================================================================
  * GET /api/content/grammar/:id
  * ================================================================
- * Get grammar rule by ID
+ * Get grammar rule by ID with translations
  */
 const getGrammarById = async (req, res) => {
   try {
     const grammarId = parseInt(req.params.id);
-    console.log('[GRAMMAR] GET /api/content/grammar/:id', grammarId);
+    const language = req.language || 'zh';
+    console.log('[GRAMMAR] GET /api/content/grammar/:id', grammarId, 'language:', language);
 
     // Validate ID
     if (isNaN(grammarId) || grammarId < 1) {
@@ -165,8 +187,8 @@ const getGrammarById = async (req, res) => {
       });
     }
 
-    // Check cache
-    const cacheKey = `grammar:${grammarId}`;
+    // Check cache with language
+    const cacheKey = buildLanguageCacheKey(`grammar:${grammarId}`, language);
     const cached = await cacheHelpers.get(cacheKey);
     if (cached) {
       console.log('[GRAMMAR] Cache hit:', cacheKey);
@@ -177,14 +199,33 @@ const getGrammarById = async (req, res) => {
       });
     }
 
-    // Fetch from database
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
+    // Fetch from database with translations
     const sql = `
-      SELECT id, name_ko, name_zh, category, level, difficulty,
-             description, chinese_comparison, examples, usage_notes,
-             common_mistakes, related_grammar, version,
-             created_at, updated_at
-      FROM grammar_rules
-      WHERE id = $1
+      SELECT g.id, g.name_ko,
+             COALESCE(gt.name, g.name_zh) as name,
+             g.category, g.level, g.difficulty,
+             COALESCE(gt.description, g.description) as description,
+             COALESCE(gt.language_comparison, g.chinese_comparison) as language_comparison,
+             g.examples,
+             COALESCE(gt.usage_notes, g.usage_notes) as usage_notes,
+             COALESCE(gt.common_mistakes, g.common_mistakes) as common_mistakes,
+             g.related_grammar, g.version,
+             g.created_at, g.updated_at,
+             COALESCE(gt.language_code, 'zh') as content_language
+      FROM grammar_rules g
+      LEFT JOIN LATERAL (
+        SELECT name, description, language_comparison, usage_notes, common_mistakes, language_code
+        FROM grammar_translations
+        WHERE grammar_id = g.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) gt ON true
+      WHERE g.id = $1
     `;
 
     const result = await query(sql, [grammarId]);
@@ -201,7 +242,7 @@ const getGrammarById = async (req, res) => {
     // Cache for 1 hour
     await cacheHelpers.set(cacheKey, grammar, 3600);
 
-    console.log('[GRAMMAR] Found:', grammar.name_ko, '-', grammar.name_zh);
+    console.log('[GRAMMAR] Found:', grammar.name_ko, '-', grammar.name);
 
     res.json({
       success: true,
@@ -275,12 +316,13 @@ const getGrammarCategories = async (req, res) => {
  * ================================================================
  * GET /api/content/grammar/level/:level
  * ================================================================
- * Get grammar rules by TOPIK level
+ * Get grammar rules by TOPIK level with translations
  */
 const getGrammarByLevel = async (req, res) => {
   try {
     const level = parseInt(req.params.level);
-    console.log('[GRAMMAR] GET /api/content/grammar/level/:level', level);
+    const language = req.language || 'zh';
+    console.log('[GRAMMAR] GET /api/content/grammar/level/:level', level, 'language:', language);
 
     // Validate level
     if (isNaN(level) || level < 0 || level > 6) {
@@ -290,7 +332,7 @@ const getGrammarByLevel = async (req, res) => {
       });
     }
 
-    const cacheKey = `grammar:level:${level}`;
+    const cacheKey = buildLanguageCacheKey(`grammar:level:${level}`, language);
 
     // Check cache
     const cached = await cacheHelpers.get(cacheKey);
@@ -303,13 +345,29 @@ const getGrammarByLevel = async (req, res) => {
       });
     }
 
-    // Fetch from database
+    // Get fallback chain for the requested language
+    const fallbackChain = getFallbackChain(language);
+    const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
+
+    // Fetch from database with translations
     const sql = `
-      SELECT id, name_ko, name_zh, category, level, difficulty,
-             description, chinese_comparison
-      FROM grammar_rules
-      WHERE level = $1
-      ORDER BY category, id
+      SELECT g.id, g.name_ko,
+             COALESCE(gt.name, g.name_zh) as name,
+             g.category, g.level, g.difficulty,
+             COALESCE(gt.description, g.description) as description,
+             COALESCE(gt.language_comparison, g.chinese_comparison) as language_comparison,
+             COALESCE(gt.language_code, 'zh') as content_language
+      FROM grammar_rules g
+      LEFT JOIN LATERAL (
+        SELECT name, description, language_comparison, language_code
+        FROM grammar_translations
+        WHERE grammar_id = g.id
+          AND language_code IN (${fallbackList})
+        ORDER BY array_position(ARRAY[${fallbackList}]::varchar[], language_code)
+        LIMIT 1
+      ) gt ON true
+      WHERE g.level = $1
+      ORDER BY g.category, g.id
     `;
 
     const result = await query(sql, [level]);

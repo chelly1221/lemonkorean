@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../data/models/vocabulary_model.dart';
 import '../providers/bookmark_provider.dart';
 import '../../core/utils/media_helper.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class VocabularyCard extends StatelessWidget {
@@ -65,10 +66,11 @@ class VocabularyCard extends StatelessWidget {
                         onPressed: () async {
                           final result = await bookmarkProvider.toggleBookmark(vocabulary);
                           if (context.mounted) {
+                            final l10n = AppLocalizations.of(context)!;
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  result ? '已添加到单词本' : '已取消收藏',
+                                  result ? l10n.addedToVocabularyBook : l10n.removedFromVocabularyBook,
                                 ),
                                 duration: const Duration(seconds: 1),
                               ),
@@ -91,12 +93,12 @@ class VocabularyCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          vocabulary.chinese,
+                          vocabulary.translation,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        if (vocabulary.pinyin != null)
+                        if (vocabulary.pronunciation != null)
                           Text(
-                            vocabulary.pinyin!,
+                            vocabulary.pronunciation!,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Colors.grey[600],
                             ),
@@ -120,12 +122,12 @@ class VocabularyCard extends StatelessWidget {
                 spacing: 8,
                 children: [
                   Chip(
-                    label: Text(vocabulary.partOfSpeechDisplay, style: const TextStyle(fontSize: 12)),
+                    label: Text(_getLocalizedPartOfSpeech(context, vocabulary.partOfSpeech), style: const TextStyle(fontSize: 12)),
                     backgroundColor: Colors.blue[50],
                   ),
                   if (vocabulary.similarityScore != null)
                     Chip(
-                      label: Text('相似度: ${(vocabulary.similarityScore! * 100).toStringAsFixed(0)}%', style: const TextStyle(fontSize: 12)),
+                      label: Text(AppLocalizations.of(context)!.similarityPercent((vocabulary.similarityScore! * 100).toInt()), style: const TextStyle(fontSize: 12)),
                       backgroundColor: Colors.green[50],
                     ),
                   Chip(
@@ -148,6 +150,30 @@ class VocabularyCard extends StatelessWidget {
       await audioPlayer.play(UrlSource(mediaPath));
     } catch (e) {
       print('Audio playback error: $e');
+    }
+  }
+
+  String _getLocalizedPartOfSpeech(BuildContext context, String partOfSpeech) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (partOfSpeech) {
+      case 'noun':
+        return l10n.partOfSpeechNoun;
+      case 'verb':
+        return l10n.partOfSpeechVerb;
+      case 'adjective':
+        return l10n.partOfSpeechAdjective;
+      case 'adverb':
+        return l10n.partOfSpeechAdverb;
+      case 'pronoun':
+        return l10n.partOfSpeechPronoun;
+      case 'particle':
+        return l10n.partOfSpeechParticle;
+      case 'conjunction':
+        return l10n.partOfSpeechConjunction;
+      case 'interjection':
+        return l10n.partOfSpeechInterjection;
+      default:
+        return partOfSpeech;
     }
   }
 }

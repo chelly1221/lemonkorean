@@ -545,7 +545,7 @@ class _DownloadedTab extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.deleteDownload),
-        content: Text(l10n.confirmDeleteDownload(lesson.titleZh)),
+        content: Text(l10n.confirmDeleteDownload(lesson.title)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -602,7 +602,7 @@ class _DownloadedLessonCard extends StatelessWidget {
           ),
         ),
         title: Text(
-          lesson.titleZh,
+          lesson.title,
           style: const TextStyle(
             fontSize: AppConstants.fontSizeMedium,
             fontWeight: FontWeight.bold,
@@ -732,7 +732,7 @@ class _AvailableLessonCard extends StatelessWidget {
           ),
         ),
         title: Text(
-          lesson.titleZh,
+          lesson.title,
           style: const TextStyle(
             fontSize: AppConstants.fontSizeMedium,
             fontWeight: FontWeight.bold,

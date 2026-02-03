@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Stage 1: Introduction
 /// Shows lesson overview and objectives
@@ -20,6 +21,8 @@ class Stage1Intro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
       child: Column(
@@ -81,7 +84,7 @@ class Stage1Intro extends StatelessWidget {
 
           // Chinese Title
           Text(
-            lesson.titleZh,
+            lesson.title,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 24,
@@ -125,7 +128,7 @@ class Stage1Intro extends StatelessWidget {
               const SizedBox(width: 16),
               _buildInfoChip(
                 Icons.translate,
-                '${lesson.vocabularyCount} 个单词',
+                l10n.wordsCount(lesson.vocabularyCount ?? 0),
               ),
             ],
           ).animate().fadeIn(delay: 1000.ms, duration: 600.ms),
@@ -150,9 +153,9 @@ class Stage1Intro extends StatelessWidget {
                 ),
                 elevation: 0,
               ),
-              child: const Text(
-                '开始学习',
-                style: TextStyle(
+              child: Text(
+                l10n.startLearning,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeXLarge,
                   fontWeight: FontWeight.bold,
                 ),

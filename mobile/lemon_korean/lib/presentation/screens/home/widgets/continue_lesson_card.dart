@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../../data/models/progress_model.dart';
-import '../../../widgets/convertible_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
+import '../../../utils/localized_display.dart';
 
 /// Continue Lesson Card Widget
 /// Shows current lesson with progress
@@ -72,8 +73,8 @@ class ContinueLessonCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
-                        ConvertibleText(
-                          lesson.titleZh,
+                        Text(
+                          lesson.title,
                           style: const TextStyle(
                             fontSize: AppConstants.fontSizeMedium,
                             color: AppConstants.textSecondary,
@@ -110,12 +111,17 @@ class ContinueLessonCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        progress.statusDisplay,
-                        style: const TextStyle(
-                          fontSize: AppConstants.fontSizeSmall,
-                          color: AppConstants.textSecondary,
-                        ),
+                      Builder(
+                        builder: (context) {
+                          final l10n = AppLocalizations.of(context)!;
+                          return Text(
+                            _getLocalizedStatus(l10n, progress.status),
+                            style: const TextStyle(
+                              fontSize: AppConstants.fontSizeSmall,
+                              color: AppConstants.textSecondary,
+                            ),
+                          );
+                        },
                       ),
                       Text(
                         '${progress.progressPercentage}%',
@@ -155,12 +161,17 @@ class ContinueLessonCard extends StatelessWidget {
                     color: AppConstants.textSecondary,
                   ),
                   const SizedBox(width: 4),
-                  ConvertibleText(
-                    '已学习 ${progress.timeSpentFormatted}',
-                    style: const TextStyle(
-                      fontSize: AppConstants.fontSizeSmall,
-                      color: AppConstants.textSecondary,
-                    ),
+                  Builder(
+                    builder: (context) {
+                      final l10n = AppLocalizations.of(context)!;
+                      return Text(
+                        l10n.timeStudied(progress.getTimeSpentDisplay(l10n)),
+                        style: const TextStyle(
+                          fontSize: AppConstants.fontSizeSmall,
+                          color: AppConstants.textSecondary,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -169,5 +180,20 @@ class ContinueLessonCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _getLocalizedStatus(AppLocalizations l10n, String status) {
+    switch (status) {
+      case 'not_started':
+        return l10n.statusNotStarted;
+      case 'in_progress':
+        return l10n.statusInProgress;
+      case 'completed':
+        return l10n.statusCompleted;
+      case 'failed':
+        return l10n.statusFailed;
+      default:
+        return l10n.statusNotStarted;
+    }
   }
 }

@@ -340,7 +340,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lowSimilarity => 'Low Similarity';
 
   @override
-  String get lessonComplete => 'Lesson Complete!';
+  String get lessonComplete => 'Lesson complete! Progress saved';
 
   @override
   String get learningComplete => 'Learning Complete';
@@ -480,7 +480,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get listening => 'Listening';
 
   @override
-  String get fillBlank => 'Fill in the Blank';
+  String get fillBlank => 'Fill in the blank';
 
   @override
   String get translation => 'Translation';
@@ -498,7 +498,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get correctOrderIs => 'Correct order:';
 
   @override
-  String get correctAnswerIs => 'Correct answer:';
+  String correctAnswerIs(String answer) {
+    return 'Correct answer: $answer';
+  }
 
   @override
   String get previousQuestion => 'Previous Question';
@@ -1025,4 +1027,934 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get download => 'Download';
+
+  @override
+  String get hangulLearning => 'Korean Alphabet';
+
+  @override
+  String get hangulLearningSubtitle => 'Learn 40 Korean alphabet letters';
+
+  @override
+  String get editNotes => 'Edit Notes';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get notesHint => 'Why are you bookmarking this word?';
+
+  @override
+  String get sortBy => 'Sort by';
+
+  @override
+  String get sortNewest => 'Newest first';
+
+  @override
+  String get sortOldest => 'Oldest first';
+
+  @override
+  String get sortKorean => 'Korean';
+
+  @override
+  String get sortChinese => 'Chinese';
+
+  @override
+  String get sortMastery => 'Mastery level';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterNew => 'New (Level 0)';
+
+  @override
+  String get filterBeginner => 'Beginner (Level 1)';
+
+  @override
+  String get filterIntermediate => 'Intermediate (Level 2-3)';
+
+  @override
+  String get filterAdvanced => 'Advanced (Level 4-5)';
+
+  @override
+  String get searchWordsNotesChinese => 'Search words, Chinese, or notes...';
+
+  @override
+  String startReviewCount(int count) {
+    return 'Start Review ($count)';
+  }
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get confirmRemove => 'Confirm Remove';
+
+  @override
+  String confirmRemoveWord(String word) {
+    return 'Remove \"$word\" from vocabulary book?';
+  }
+
+  @override
+  String get noBookmarkedWords => 'No bookmarked words yet';
+
+  @override
+  String get bookmarkHint =>
+      'Tap the bookmark icon on word cards while learning';
+
+  @override
+  String get noMatchingWords => 'No matching words found';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count weeks ago';
+  }
+
+  @override
+  String get reviewComplete => 'Review Complete!';
+
+  @override
+  String reviewCompleteCount(int count) {
+    return 'Reviewed $count words';
+  }
+
+  @override
+  String get correct => 'Correct';
+
+  @override
+  String get wrong => 'Wrong';
+
+  @override
+  String get accuracy => 'Accuracy';
+
+  @override
+  String get vocabularyBookReview => 'Vocabulary Book Review';
+
+  @override
+  String get noWordsToReview => 'No words to review';
+
+  @override
+  String get bookmarkWordsToReview =>
+      'Bookmark words during learning to start reviewing';
+
+  @override
+  String get returnToVocabularyBook => 'Return to Vocabulary Book';
+
+  @override
+  String get exit => 'Exit';
+
+  @override
+  String get showAnswer => 'Show Answer';
+
+  @override
+  String get didYouRemember => 'Did you remember?';
+
+  @override
+  String get forgot => 'Forgot';
+
+  @override
+  String get hard => 'Hard';
+
+  @override
+  String get remembered => 'Remembered';
+
+  @override
+  String get easy => 'Easy';
+
+  @override
+  String get addedToVocabularyBook => 'Added to vocabulary book';
+
+  @override
+  String get addFailed => 'Failed to add';
+
+  @override
+  String get removedFromVocabularyBook => 'Removed from vocabulary book';
+
+  @override
+  String get removeFailed => 'Failed to remove';
+
+  @override
+  String get addToVocabularyBook => 'Add to Vocabulary Book';
+
+  @override
+  String get notesOptional => 'Notes (optional)';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get bookmarked => 'Bookmarked';
+
+  @override
+  String get bookmark => 'Bookmark';
+
+  @override
+  String get removeFromVocabularyBook => 'Remove from vocabulary book';
+
+  @override
+  String similarityPercent(int percent) {
+    return 'Similarity: $percent%';
+  }
+
+  @override
+  String addedOrRemoved(String added) {
+    String _temp0 = intl.Intl.selectLogic(
+      added,
+      {
+        'true': 'Added to vocabulary book',
+        'other': 'Bookmark removed',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get days => 'days';
+
+  @override
+  String lessonsCompletedCount(int count) {
+    return '$count completed';
+  }
+
+  @override
+  String get dailyGoalComplete => 'Daily goal achieved!';
+
+  @override
+  String get hangulAlphabet => 'Hangul';
+
+  @override
+  String get alphabetTable => 'Table';
+
+  @override
+  String get learn => 'Learn';
+
+  @override
+  String get practice => 'Practice';
+
+  @override
+  String get learningProgress => 'Learning Progress';
+
+  @override
+  String dueForReviewCount(int count) {
+    return '$count due for review';
+  }
+
+  @override
+  String get completion => 'Completion';
+
+  @override
+  String get totalCharacters => 'Total';
+
+  @override
+  String get learned => 'Learned';
+
+  @override
+  String get dueForReview => 'Due for Review';
+
+  @override
+  String overallAccuracy(String percent) {
+    return 'Overall accuracy: $percent%';
+  }
+
+  @override
+  String charactersCount(int count) {
+    return '$count characters';
+  }
+
+  @override
+  String get lesson1Title => 'Lesson 1: Basic Consonants (1)';
+
+  @override
+  String get lesson1Desc => 'Learn 7 most common consonants';
+
+  @override
+  String get lesson2Title => 'Lesson 2: Basic Consonants (2)';
+
+  @override
+  String get lesson2Desc => 'Learn remaining 7 basic consonants';
+
+  @override
+  String get lesson3Title => 'Lesson 3: Basic Vowels (1)';
+
+  @override
+  String get lesson3Desc => 'Learn 5 basic vowels';
+
+  @override
+  String get lesson4Title => 'Lesson 4: Basic Vowels (2)';
+
+  @override
+  String get lesson4Desc => 'Learn remaining 5 basic vowels';
+
+  @override
+  String get lesson5Title => 'Lesson 5: Double Consonants';
+
+  @override
+  String get lesson5Desc => 'Learn 5 double consonants - tense sounds';
+
+  @override
+  String get lesson6Title => 'Lesson 6: Compound Vowels (1)';
+
+  @override
+  String get lesson6Desc => 'Learn 6 compound vowels';
+
+  @override
+  String get lesson7Title => 'Lesson 7: Compound Vowels (2)';
+
+  @override
+  String get lesson7Desc => 'Learn remaining compound vowels';
+
+  @override
+  String get loadAlphabetFirst => 'Please load alphabet data first';
+
+  @override
+  String get noContentForLesson => 'No content for this lesson';
+
+  @override
+  String get exampleWords => 'Example Words';
+
+  @override
+  String get thisLessonCharacters => 'Characters in this lesson';
+
+  @override
+  String congratsLessonComplete(String title) {
+    return 'Congratulations on completing $title!';
+  }
+
+  @override
+  String get continuePractice => 'Continue Practice';
+
+  @override
+  String get nextLesson => 'Next Lesson';
+
+  @override
+  String get basicConsonants => 'Basic Consonants';
+
+  @override
+  String get doubleConsonants => 'Double Consonants';
+
+  @override
+  String get basicVowels => 'Basic Vowels';
+
+  @override
+  String get compoundVowels => 'Compound Vowels';
+
+  @override
+  String get dailyLearningReminderTitle => 'Daily Learning Reminder';
+
+  @override
+  String get dailyLearningReminderBody =>
+      'Time to complete today\'s Korean study~';
+
+  @override
+  String get reviewReminderTitle => 'Time to Review!';
+
+  @override
+  String reviewReminderBody(String title) {
+    return 'Time to review \"$title\"~';
+  }
+
+  @override
+  String get korean => '한국어';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get japanese => '日本語';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get strokeOrder => 'Stroke Order';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get pronunciationGuide => 'Pronunciation Guide';
+
+  @override
+  String get play => 'Play';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String loadingFailed(String error) {
+    return 'Loading failed: $error';
+  }
+
+  @override
+  String learnedCount(int count) {
+    return 'Learned: $count';
+  }
+
+  @override
+  String get hangulPractice => 'Hangul Practice';
+
+  @override
+  String charactersNeedReview(int count) {
+    return '$count characters need review';
+  }
+
+  @override
+  String charactersAvailable(int count) {
+    return '$count characters available';
+  }
+
+  @override
+  String get selectPracticeMode => 'Select Practice Mode';
+
+  @override
+  String get characterRecognition => 'Character Recognition';
+
+  @override
+  String get characterRecognitionDesc =>
+      'See the character, choose the correct pronunciation';
+
+  @override
+  String get pronunciationPractice => 'Pronunciation Practice';
+
+  @override
+  String get pronunciationPracticeDesc =>
+      'See the pronunciation, choose the correct character';
+
+  @override
+  String get writingPractice => 'Writing Practice';
+
+  @override
+  String get writingPracticeDesc =>
+      'See the pronunciation, write the correct character';
+
+  @override
+  String get startPractice => 'Start Practice';
+
+  @override
+  String get learnSomeCharactersFirst =>
+      'Please learn some characters in the alphabet first';
+
+  @override
+  String get practiceComplete => 'Practice Complete!';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get howToReadThis => 'How do you read this character?';
+
+  @override
+  String get selectCorrectCharacter => 'Select the correct character';
+
+  @override
+  String get writeCharacterForPronunciation =>
+      'Write the character for this pronunciation';
+
+  @override
+  String get writeHere => 'Write here\n(Under development)';
+
+  @override
+  String get dontKnow => 'Don\'t Know';
+
+  @override
+  String get checkAnswer => 'Check Answer';
+
+  @override
+  String get didYouWriteCorrectly => 'Did you write it correctly?';
+
+  @override
+  String get wrongAnswer => 'Wrong';
+
+  @override
+  String get correctAnswer => 'Correct';
+
+  @override
+  String get correctExclamation => 'Correct!';
+
+  @override
+  String get incorrectExclamation => 'Incorrect';
+
+  @override
+  String get correctAnswerLabel => 'Correct answer: ';
+
+  @override
+  String get nextQuestionBtn => 'Next Question';
+
+  @override
+  String get viewResults => 'View Results';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get mnemonics => 'Memory Tips';
+
+  @override
+  String nextReviewLabel(String date) {
+    return 'Next review: $date';
+  }
+
+  @override
+  String get expired => 'Expired';
+
+  @override
+  String get practiceFunctionDeveloping =>
+      'Practice function under development';
+
+  @override
+  String get romanization => 'Romanization: ';
+
+  @override
+  String get pronunciationLabel => 'Pronunciation: ';
+
+  @override
+  String get playPronunciation => 'Play pronunciation';
+
+  @override
+  String strokesCount(int count) {
+    return '$count strokes';
+  }
+
+  @override
+  String get perfectCount => 'Perfect';
+
+  @override
+  String get loadFailed => 'Load failed';
+
+  @override
+  String countUnit(int count) {
+    return '$count';
+  }
+
+  @override
+  String get basicConsonantsKo => '기본 자음';
+
+  @override
+  String get doubleConsonantsKo => '쌍자음';
+
+  @override
+  String get basicVowelsKo => '기본 모음';
+
+  @override
+  String get compoundVowelsKo => '복합 모음';
+
+  @override
+  String get lesson1TitleKo => 'Lesson 1: Basic Consonants (1)';
+
+  @override
+  String get lesson2TitleKo => 'Lesson 2: Basic Consonants (2)';
+
+  @override
+  String get lesson3TitleKo => 'Lesson 3: Basic Vowels (1)';
+
+  @override
+  String get lesson4TitleKo => 'Lesson 4: Basic Vowels (2)';
+
+  @override
+  String get lesson5TitleKo => 'Lesson 5: Double Consonants';
+
+  @override
+  String get lesson6TitleKo => 'Lesson 6: Compound Vowels (1)';
+
+  @override
+  String get lesson7TitleKo => 'Lesson 7: Compound Vowels (2)';
+
+  @override
+  String get exitLesson => 'Exit Lesson';
+
+  @override
+  String get exitLessonConfirm =>
+      'Are you sure you want to exit? Your progress will be saved.';
+
+  @override
+  String get exitBtn => 'Exit';
+
+  @override
+  String loadingLesson(String title) {
+    return 'Loading $title...';
+  }
+
+  @override
+  String get cannotLoadContent => 'Cannot load lesson content';
+
+  @override
+  String get noLessonContent => 'No content available for this lesson';
+
+  @override
+  String stageProgress(int current, int total) {
+    return 'Stage $current / $total';
+  }
+
+  @override
+  String unknownStageType(String type) {
+    return 'Unknown stage type: $type';
+  }
+
+  @override
+  String wordsCount(int count) {
+    return '$count words';
+  }
+
+  @override
+  String get startLearning => 'Start Learning';
+
+  @override
+  String get vocabularyLearning => 'Vocabulary Learning';
+
+  @override
+  String get noImage => 'No image';
+
+  @override
+  String get previousItem => 'Previous';
+
+  @override
+  String get nextItem => 'Next';
+
+  @override
+  String get playingAudio => 'Playing...';
+
+  @override
+  String get playAll => 'Play All';
+
+  @override
+  String audioPlayFailed(String error) {
+    return 'Audio playback failed: $error';
+  }
+
+  @override
+  String get stopBtn => 'Stop';
+
+  @override
+  String get playAudioBtn => 'Play Audio';
+
+  @override
+  String get playingAudioShort => 'Playing audio...';
+
+  @override
+  String grammarPattern(String pattern) {
+    return 'Grammar · $pattern';
+  }
+
+  @override
+  String get conjugationRule => 'Conjugation Rule';
+
+  @override
+  String get comparisonWithChinese => 'Comparison with Chinese';
+
+  @override
+  String get dialogueTitle => 'Dialogue Practice';
+
+  @override
+  String get dialogueExplanation => 'Dialogue Analysis';
+
+  @override
+  String speaker(String name) {
+    return 'Speaker $name';
+  }
+
+  @override
+  String get practiceTitle => 'Practice';
+
+  @override
+  String get practiceInstructions => 'Complete the following exercises';
+
+  @override
+  String get checkAnswerBtn => 'Check Answer';
+
+  @override
+  String get quizTitle => 'Quiz';
+
+  @override
+  String get quizResult => 'Quiz Result';
+
+  @override
+  String quizScoreDisplay(int correct, int total) {
+    return '$correct/$total';
+  }
+
+  @override
+  String quizAccuracy(int percent) {
+    return 'Accuracy: $percent%';
+  }
+
+  @override
+  String get summaryTitle => 'Lesson Summary';
+
+  @override
+  String get vocabLearned => 'Vocabulary Learned';
+
+  @override
+  String get grammarLearned => 'Grammar Learned';
+
+  @override
+  String get finishLesson => 'Finish Lesson';
+
+  @override
+  String get reviewVocab => 'Review Vocabulary';
+
+  @override
+  String similarity(int percent) {
+    return 'Similarity: $percent%';
+  }
+
+  @override
+  String get partOfSpeechNoun => 'Noun';
+
+  @override
+  String get partOfSpeechVerb => 'Verb';
+
+  @override
+  String get partOfSpeechAdjective => 'Adjective';
+
+  @override
+  String get partOfSpeechAdverb => 'Adverb';
+
+  @override
+  String get partOfSpeechPronoun => 'Pronoun';
+
+  @override
+  String get partOfSpeechParticle => 'Particle';
+
+  @override
+  String get partOfSpeechConjunction => 'Conjunction';
+
+  @override
+  String get partOfSpeechInterjection => 'Interjection';
+
+  @override
+  String get noVocabulary => 'No vocabulary data';
+
+  @override
+  String get noGrammar => 'No grammar data';
+
+  @override
+  String get noPractice => 'No practice questions';
+
+  @override
+  String get noDialogue => 'No dialogue content';
+
+  @override
+  String get noQuiz => 'No quiz questions';
+
+  @override
+  String get tapToFlip => 'Tap to flip';
+
+  @override
+  String get listeningQuestion => 'Listening';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String timeStudied(String time) {
+    return 'Studied $time';
+  }
+
+  @override
+  String get statusNotStarted => 'Not Started';
+
+  @override
+  String get statusInProgress => 'In Progress';
+
+  @override
+  String get statusCompleted => 'Completed';
+
+  @override
+  String get statusFailed => 'Failed';
+
+  @override
+  String get masteryNew => 'New';
+
+  @override
+  String get masteryLearning => 'Learning';
+
+  @override
+  String get masteryFamiliar => 'Familiar';
+
+  @override
+  String get masteryMastered => 'Mastered';
+
+  @override
+  String get masteryExpert => 'Expert';
+
+  @override
+  String get masteryPerfect => 'Perfect';
+
+  @override
+  String get masteryUnknown => 'Unknown';
+
+  @override
+  String get dueForReviewNow => 'Due for review';
+
+  @override
+  String get similarityHigh => 'High similarity';
+
+  @override
+  String get similarityMedium => 'Medium similarity';
+
+  @override
+  String get similarityLow => 'Low similarity';
+
+  @override
+  String get typeBasicConsonant => 'Basic Consonant';
+
+  @override
+  String get typeDoubleConsonant => 'Double Consonant';
+
+  @override
+  String get typeBasicVowel => 'Basic Vowel';
+
+  @override
+  String get typeCompoundVowel => 'Compound Vowel';
+
+  @override
+  String get typeFinalConsonant => 'Final Consonant';
+
+  @override
+  String get dailyReminderChannel => 'Daily Study Reminder';
+
+  @override
+  String get dailyReminderChannelDesc =>
+      'Reminds you to study Korean at a set time daily';
+
+  @override
+  String get reviewReminderChannel => 'Review Reminder';
+
+  @override
+  String get reviewReminderChannelDesc =>
+      'Spaced repetition based review reminders';
+
+  @override
+  String get notificationStudyTime => 'Time to study!';
+
+  @override
+  String get notificationStudyReminder =>
+      'Don\'t forget to complete your daily Korean practice~';
+
+  @override
+  String get notificationReviewTime => 'Time to review!';
+
+  @override
+  String get notificationReviewReminder =>
+      'Let\'s review what you\'ve learned before~';
+
+  @override
+  String notificationReviewLesson(String lessonTitle) {
+    return 'Time to review \"$lessonTitle\"~';
+  }
+
+  @override
+  String get keepGoing => 'Keep going!';
+
+  @override
+  String scoreDisplay(int correct, int total) {
+    return 'Score: $correct / $total';
+  }
+
+  @override
+  String loadDataError(String error) {
+    return 'Failed to load data: $error';
+  }
+
+  @override
+  String downloadError(String error) {
+    return 'Download error: $error';
+  }
+
+  @override
+  String deleteError(String error) {
+    return 'Delete failed: $error';
+  }
+
+  @override
+  String clearAllError(String error) {
+    return 'Clear all failed: $error';
+  }
+
+  @override
+  String cleanupError(String error) {
+    return 'Cleanup failed: $error';
+  }
+
+  @override
+  String downloadLessonFailed(String title) {
+    return 'Download failed: $title';
+  }
+
+  @override
+  String get comprehensive => 'Comprehensive';
+
+  @override
+  String answeredCount(int answered, int total) {
+    return 'Answered $answered/$total';
+  }
+
+  @override
+  String get hanjaWord => 'Hanja word';
+
+  @override
+  String get tapToFlipBack => 'Tap to flip back';
+
+  @override
+  String get similarityWithChinese => 'Similarity with Chinese';
+
+  @override
+  String get hanjaWordSimilarPronunciation =>
+      'Hanja word, similar pronunciation';
+
+  @override
+  String get sameEtymologyEasyToRemember => 'Same etymology, easy to remember';
+
+  @override
+  String get someConnection => 'Some connection';
+
+  @override
+  String get nativeWordNeedsMemorization => 'Native word, needs memorization';
+
+  @override
+  String get rules => 'Rules';
+
+  @override
+  String get koreanLanguage => '🇰🇷 Korean';
+
+  @override
+  String get chineseLanguage => '🇨🇳 Chinese';
+
+  @override
+  String exampleNumber(int number) {
+    return 'Ex. $number';
+  }
+
+  @override
+  String get fillInBlankPrompt => 'Fill in blank:';
+
+  @override
+  String get correctFeedback => 'Excellent! Correct!';
+
+  @override
+  String get incorrectFeedback => 'Not quite, try again';
+
+  @override
+  String get allStagesPassed => 'All 7 stages passed';
+
+  @override
+  String get continueToLearnMore => 'Continue learning more';
+
+  @override
+  String timeFormatHMS(int hours, int minutes, int seconds) {
+    return '${hours}h ${minutes}m ${seconds}s';
+  }
+
+  @override
+  String timeFormatMS(int minutes, int seconds) {
+    return '${minutes}m ${seconds}s';
+  }
+
+  @override
+  String timeFormatS(int seconds) {
+    return '${seconds}s';
+  }
 }

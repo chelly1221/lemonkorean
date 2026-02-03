@@ -165,3 +165,71 @@ type WeeklyStats struct {
 	AverageScore     float64 `json:"average_score"`
 	DaysActive       int     `json:"days_active"`
 }
+
+// ================================================================
+// HANGUL (Korean Alphabet) MODELS
+// ================================================================
+
+// HangulProgress represents progress on a hangul character
+type HangulProgress struct {
+	ID              int64      `json:"id" db:"id"`
+	UserID          int64      `json:"user_id" db:"user_id"`
+	CharacterID     int64      `json:"character_id" db:"character_id"`
+	Character       string     `json:"character,omitempty" db:"character"`
+	CharacterType   string     `json:"character_type,omitempty" db:"character_type"`
+	MasteryLevel    int        `json:"mastery_level" db:"mastery_level"`
+	CorrectCount    int        `json:"correct_count" db:"correct_count"`
+	WrongCount      int        `json:"wrong_count" db:"wrong_count"`
+	StreakCount     int        `json:"streak_count" db:"streak_count"`
+	LastPracticed   *time.Time `json:"last_practiced,omitempty" db:"last_practiced"`
+	NextReview      *time.Time `json:"next_review,omitempty" db:"next_review"`
+	EasinessFactor  float64    `json:"easiness_factor" db:"ease_factor"`
+	IntervalDays    int        `json:"interval_days" db:"interval_days"`
+	RepetitionCount int        `json:"repetition_count,omitempty"`
+	CreatedAt       time.Time  `json:"created_at" db:"created_at"`
+	UpdatedAt       time.Time  `json:"updated_at" db:"updated_at"`
+}
+
+// HangulPracticeRequest represents a hangul practice result
+type HangulPracticeRequest struct {
+	IsCorrect    bool `json:"is_correct"`
+	ResponseTime int  `json:"response_time"` // milliseconds
+}
+
+// HangulCharacterResult represents a single character result in batch
+type HangulCharacterResult struct {
+	CharacterID  int64 `json:"character_id" binding:"required"`
+	IsCorrect    bool  `json:"is_correct"`
+	ResponseTime int   `json:"response_time,omitempty"` // milliseconds
+}
+
+// HangulBatchRequest represents a batch hangul progress update
+type HangulBatchRequest struct {
+	UserID  int64                   `json:"user_id" binding:"required"`
+	Results []HangulCharacterResult `json:"results" binding:"required"`
+}
+
+// HangulReviewItem represents a hangul character due for review
+type HangulReviewItem struct {
+	CharacterID   int64      `json:"character_id"`
+	Character     string     `json:"character"`
+	CharacterType string     `json:"character_type"`
+	Romanization  string     `json:"romanization"`
+	MasteryLevel  int        `json:"mastery_level"`
+	NextReview    *time.Time `json:"next_review,omitempty"`
+	IntervalDays  int        `json:"interval_days"`
+	CorrectCount  int        `json:"correct_count"`
+	WrongCount    int        `json:"wrong_count"`
+}
+
+// HangulStats represents hangul learning statistics
+type HangulStats struct {
+	TotalCharacters      int     `json:"total_characters"`
+	CharactersLearned    int     `json:"characters_learned"`
+	CharactersMastered   int     `json:"characters_mastered"`
+	CharactersPerfected  int     `json:"characters_perfected"`
+	TotalCorrect         int     `json:"total_correct"`
+	TotalWrong           int     `json:"total_wrong"`
+	AccuracyPercent      float64 `json:"accuracy_percent"`
+	DueForReview         int     `json:"due_for_review"`
+}

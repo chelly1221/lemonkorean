@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/bookmark_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/bookmark_provider.dart';
 import '../../widgets/convertible_text.dart';
 import 'vocabulary_book_review_screen.dart';
@@ -40,17 +41,18 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
 
   void _showEditNotesDialog(BookmarkModel bookmark) {
     final controller = TextEditingController(text: bookmark.notes ?? '');
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const ConvertibleText('编辑笔记'),
+        title: Text(l10n.editNotes),
         content: TextField(
           controller: controller,
-          decoration: const InputDecoration(
-            labelText: '笔记',
-            hintText: '为什么要收藏这个单词？',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: l10n.notes,
+            hintText: l10n.notesHint,
+            border: const OutlineInputBorder(),
           ),
           maxLines: 3,
           maxLength: 200,
@@ -58,7 +60,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const ConvertibleText('取消'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -68,7 +70,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
                   );
               Navigator.pop(context);
             },
-            child: const ConvertibleText('保存'),
+            child: Text(l10n.save),
           ),
         ],
       ),
@@ -76,6 +78,8 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
   }
 
   void _showSortOptions() {
+    final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
       builder: (context) => SafeArea(
@@ -83,7 +87,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const ConvertibleText('排序方式'),
+              title: Text(l10n.sortBy),
               trailing: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () => Navigator.pop(context),
@@ -91,27 +95,27 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
             ),
             const Divider(),
             _buildSortOption(
-              '最新收藏',
+              l10n.sortNewest,
               BookmarkSortType.dateNewest,
               Icons.access_time,
             ),
             _buildSortOption(
-              '最早收藏',
+              l10n.sortOldest,
               BookmarkSortType.dateOldest,
               Icons.history,
             ),
             _buildSortOption(
-              '韩文排序',
+              l10n.sortKorean,
               BookmarkSortType.korean,
               Icons.sort_by_alpha,
             ),
             _buildSortOption(
-              '中文排序',
+              l10n.sortChinese,
               BookmarkSortType.chinese,
               Icons.translate,
             ),
             _buildSortOption(
-              '掌握程度',
+              l10n.sortMastery,
               BookmarkSortType.mastery,
               Icons.bar_chart,
             ),
@@ -126,7 +130,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
 
     return ListTile(
       leading: Icon(icon, color: isSelected ? AppConstants.primaryColor : null),
-      title: ConvertibleText(
+      title: Text(
         label,
         style: TextStyle(
           color: isSelected ? AppConstants.primaryColor : null,
@@ -142,6 +146,8 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
   }
 
   void _showFilterOptions() {
+    final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
       builder: (context) => SafeArea(
@@ -149,18 +155,18 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const ConvertibleText('筛选'),
+              title: Text(l10n.filter),
               trailing: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () => Navigator.pop(context),
               ),
             ),
             const Divider(),
-            _buildFilterOption('全部', null),
-            _buildFilterOption('新学 (0级)', 0),
-            _buildFilterOption('初级 (1级)', 1),
-            _buildFilterOption('中级 (2-3级)', 2),
-            _buildFilterOption('高级 (4-5级)', 4),
+            _buildFilterOption(l10n.filterAll, null),
+            _buildFilterOption(l10n.filterNew, 0),
+            _buildFilterOption(l10n.filterBeginner, 1),
+            _buildFilterOption(l10n.filterIntermediate, 2),
+            _buildFilterOption(l10n.filterAdvanced, 4),
           ],
         ),
       ),
@@ -171,7 +177,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
     final isSelected = _filterMastery == mastery;
 
     return ListTile(
-      title: ConvertibleText(
+      title: Text(
         label,
         style: TextStyle(
           color: isSelected ? AppConstants.primaryColor : null,
@@ -188,19 +194,21 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const ConvertibleText('我的单词本'),
+        title: Text(l10n.myVocabularyBook),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
             onPressed: _showFilterOptions,
-            tooltip: '筛选',
+            tooltip: l10n.filter,
           ),
           IconButton(
             icon: const Icon(Icons.sort),
             onPressed: _showSortOptions,
-            tooltip: '排序',
+            tooltip: l10n.sort,
           ),
         ],
       ),
@@ -212,7 +220,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: '搜索单词、中文或笔记...',
+                hintText: l10n.searchWordsNotesChinese,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(
@@ -305,7 +313,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
               });
             },
             icon: const Icon(Icons.school),
-            label: ConvertibleText('开始复习 ($dueCount)'),
+            label: Text(AppLocalizations.of(context)!.startReviewCount(dueCount)),
             backgroundColor: AppConstants.primaryColor,
             foregroundColor: Colors.black87,
           );
@@ -345,20 +353,20 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        // Chinese + Pinyin
+                        // Translation + Pronunciation
                         Row(
                           children: [
                             ConvertibleText(
-                              vocabulary.chinese,
+                              vocabulary.translation,
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: AppConstants.textSecondary,
                               ),
                             ),
-                            if (vocabulary.pinyin != null) ...[
+                            if (vocabulary.pronunciation != null) ...[
                               const SizedBox(width: 8),
                               Text(
-                                vocabulary.pinyin!,
+                                vocabulary.pronunciation!,
                                 style: const TextStyle(
                                   fontSize: 14,
                                   color: AppConstants.textHint,
@@ -450,9 +458,9 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
                       TextButton.icon(
                         onPressed: () => _showEditNotesDialog(bookmark),
                         icon: const Icon(Icons.edit, size: 16),
-                        label: const ConvertibleText(
-                          '编辑',
-                          style: TextStyle(fontSize: 12),
+                        label: Text(
+                          AppLocalizations.of(context)!.edit,
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ),
 
@@ -465,9 +473,9 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
                           }
                         },
                         icon: const Icon(Icons.delete, size: 16, color: Colors.red),
-                        label: const ConvertibleText(
-                          '移除',
-                          style: TextStyle(fontSize: 12, color: Colors.red),
+                        label: Text(
+                          AppLocalizations.of(context)!.remove,
+                          style: const TextStyle(fontSize: 12, color: Colors.red),
                         ),
                       ),
                     ],
@@ -489,26 +497,29 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
   }
 
   String _formatDate(DateTime date) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final diff = now.difference(date);
 
-    if (diff.inDays == 0) return '今天';
-    if (diff.inDays == 1) return '昨天';
-    if (diff.inDays < 7) return '${diff.inDays}天前';
-    if (diff.inDays < 30) return '${(diff.inDays / 7).floor()}周前';
-    return '${date.month}月${date.day}日';
+    if (diff.inDays == 0) return l10n.today;
+    if (diff.inDays == 1) return l10n.yesterday;
+    if (diff.inDays < 7) return l10n.daysAgo(diff.inDays);
+    if (diff.inDays < 30) return l10n.weeksAgo((diff.inDays / 7).floor());
+    return l10n.dateFormat(date.month, date.day);
   }
 
   Future<bool?> _showRemoveConfirmation(String korean) async {
+    final l10n = AppLocalizations.of(context)!;
+
     return showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const ConvertibleText('确认移除'),
-        content: ConvertibleText('确定要从单词本移除「$korean」吗？'),
+        title: Text(l10n.confirmRemove),
+        content: Text(l10n.confirmRemoveWord(korean)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const ConvertibleText('取消'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
@@ -516,7 +527,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: const ConvertibleText('移除'),
+            child: Text(l10n.remove),
           ),
         ],
       ),
@@ -524,6 +535,8 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
   }
 
   Widget _buildEmptyState() {
+    final l10n = AppLocalizations.of(context)!;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -534,17 +547,17 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
             color: Colors.grey[300],
           ),
           const SizedBox(height: 16),
-          const ConvertibleText(
-            '还没有收藏的单词',
-            style: TextStyle(
+          Text(
+            l10n.noBookmarkedWords,
+            style: const TextStyle(
               fontSize: 18,
               color: AppConstants.textSecondary,
             ),
           ),
           const SizedBox(height: 8),
-          const ConvertibleText(
-            '在学习过程中点击单词卡片上的书签图标',
-            style: TextStyle(
+          Text(
+            l10n.bookmarkHint,
+            style: const TextStyle(
               fontSize: 14,
               color: AppConstants.textHint,
             ),
@@ -565,9 +578,9 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
             color: Colors.grey[300],
           ),
           const SizedBox(height: 16),
-          const ConvertibleText(
-            '没有找到匹配的单词',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.noMatchingWords,
+            style: const TextStyle(
               fontSize: 18,
               color: AppConstants.textSecondary,
             ),
@@ -599,7 +612,7 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: _loadBookmarks,
-            child: const ConvertibleText('重试'),
+            child: Text(AppLocalizations.of(context)!.retry),
           ),
         ],
       ),

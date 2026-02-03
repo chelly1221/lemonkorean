@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Daily Goal Card Widget
 /// Shows daily learning progress
@@ -15,6 +16,7 @@ class DailyGoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final percentage = (progress * 100).toInt();
     final isCompleted = progress >= 1.0;
 
@@ -52,9 +54,9 @@ class DailyGoalCard extends StatelessWidget {
                       size: 20,
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      '今日目标',
-                      style: TextStyle(
+                    Text(
+                      l10n.dailyGoal,
+                      style: const TextStyle(
                         fontSize: AppConstants.fontSizeLarge,
                         fontWeight: FontWeight.bold,
                       ),
@@ -94,7 +96,7 @@ class DailyGoalCard extends StatelessWidget {
 
             // Progress Text
             Text(
-              '$completedLessons/$targetLessons 课完成',
+              l10n.lessonsCompletedCount(completedLessons),
               style: const TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 color: AppConstants.textSecondary,
@@ -103,17 +105,17 @@ class DailyGoalCard extends StatelessWidget {
 
             if (isCompleted) ...[
               const SizedBox(height: AppConstants.paddingSmall),
-              const Row(
+              Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.celebration,
                     size: 16,
                     color: AppConstants.primaryColor,
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
-                    '太棒了！今日目标已完成！',
-                    style: TextStyle(
+                    l10n.dailyGoalComplete,
+                    style: const TextStyle(
                       fontSize: AppConstants.fontSizeSmall,
                       color: AppConstants.primaryColor,
                       fontWeight: FontWeight.bold,

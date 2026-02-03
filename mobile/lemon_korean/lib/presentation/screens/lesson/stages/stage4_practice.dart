@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/bilingual_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Stage 4: Practice
 /// Interactive exercises to practice vocabulary and grammar
@@ -123,6 +123,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final question = _questions[_currentQuestionIndex];
     final isCorrect = _selectedAnswer == question['correctAnswer'];
 
@@ -131,10 +132,9 @@ class _Stage4PracticeState extends State<Stage4Practice> {
       child: Column(
         children: [
           // Stage Title
-          const BilingualText(
-            chinese: '练习',
-            korean: '연습',
-            chineseStyle: TextStyle(
+          Text(
+            l10n.practice,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -341,7 +341,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      isCorrect ? '太棒了！答对了！' : '不对哦，再想想看',
+                      isCorrect ? l10n.correctFeedback : l10n.incorrectFeedback,
                       style: TextStyle(
                         fontSize: AppConstants.fontSizeMedium,
                         color: isCorrect
@@ -368,10 +368,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const InlineBilingualText(
-                      chinese: '上一题',
-                      korean: '이전',
-                    ),
+                    child: Text(l10n.previousQuestion),
                   ),
                 ),
 
@@ -389,17 +386,12 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                       vertical: AppConstants.paddingMedium,
                     ),
                   ),
-                  child: InlineBilingualText(
-                    chinese: _showResult
+                  child: Text(
+                    _showResult
                         ? (_currentQuestionIndex < _questions.length - 1
-                            ? '下一题'
-                            : '继续')
-                        : '检查答案',
-                    korean: _showResult
-                        ? (_currentQuestionIndex < _questions.length - 1
-                            ? '다음'
-                            : '계속')
-                        : '답안 확인',
+                            ? l10n.nextQuestionBtn
+                            : l10n.continueBtn)
+                        : l10n.checkAnswer,
                   ),
                 ),
               ),

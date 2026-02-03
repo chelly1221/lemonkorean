@@ -349,7 +349,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lowSimilarity => 'Baja similitud';
 
   @override
-  String get lessonComplete => '¡Lección completada!';
+  String get lessonComplete => '¡Lección completada! Progreso guardado';
 
   @override
   String get learningComplete => 'Aprendizaje completado';
@@ -383,7 +383,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dialogues => 'Diálogos';
 
   @override
-  String get grammarExplanation => 'Explicación de gramática';
+  String get grammarExplanation => 'Explicación gramatical';
 
   @override
   String get exampleSentences => 'Oraciones de ejemplo';
@@ -489,7 +489,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get listening => 'Escucha';
 
   @override
-  String get fillBlank => 'Llenar espacios';
+  String get fillBlank => 'Llenar el espacio';
 
   @override
   String get translation => 'Traducción';
@@ -507,7 +507,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get correctOrderIs => 'Orden correcto:';
 
   @override
-  String get correctAnswerIs => 'Respuesta correcta:';
+  String correctAnswerIs(String answer) {
+    return 'Respuesta correcta: $answer';
+  }
 
   @override
   String get previousQuestion => 'Pregunta anterior';
@@ -1038,4 +1040,935 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get download => 'Descargar';
+
+  @override
+  String get hangulLearning => 'Alfabeto Coreano';
+
+  @override
+  String get hangulLearningSubtitle => 'Aprende 40 letras del alfabeto coreano';
+
+  @override
+  String get editNotes => 'Editar notas';
+
+  @override
+  String get notes => 'Notas';
+
+  @override
+  String get notesHint => '¿Por qué guardas esta palabra?';
+
+  @override
+  String get sortBy => 'Ordenar por';
+
+  @override
+  String get sortNewest => 'Más reciente';
+
+  @override
+  String get sortOldest => 'Más antiguo';
+
+  @override
+  String get sortKorean => 'Por coreano';
+
+  @override
+  String get sortChinese => 'Por chino';
+
+  @override
+  String get sortMastery => 'Por dominio';
+
+  @override
+  String get filterAll => 'Todos';
+
+  @override
+  String get filterNew => 'Nuevas (nivel 0)';
+
+  @override
+  String get filterBeginner => 'Principiante (nivel 1)';
+
+  @override
+  String get filterIntermediate => 'Intermedio (nivel 2-3)';
+
+  @override
+  String get filterAdvanced => 'Avanzado (nivel 4-5)';
+
+  @override
+  String get searchWordsNotesChinese => 'Buscar palabras, chino o notas...';
+
+  @override
+  String startReviewCount(int count) {
+    return 'Comenzar repaso ($count)';
+  }
+
+  @override
+  String get remove => 'Eliminar';
+
+  @override
+  String get confirmRemove => 'Confirmar eliminación';
+
+  @override
+  String confirmRemoveWord(String word) {
+    return '¿Eliminar「$word」del libro de vocabulario?';
+  }
+
+  @override
+  String get noBookmarkedWords => 'No hay palabras guardadas';
+
+  @override
+  String get bookmarkHint =>
+      'Toca el ícono de marcador en las tarjetas de palabras durante el estudio';
+
+  @override
+  String get noMatchingWords => 'No hay palabras coincidentes';
+
+  @override
+  String weeksAgo(int count) {
+    return 'Hace $count semanas';
+  }
+
+  @override
+  String get reviewComplete => '¡Repaso completado!';
+
+  @override
+  String reviewCompleteCount(int count) {
+    return '$count palabras repasadas';
+  }
+
+  @override
+  String get correct => 'Correcto';
+
+  @override
+  String get wrong => 'Incorrecto';
+
+  @override
+  String get accuracy => 'Precisión';
+
+  @override
+  String get vocabularyBookReview => 'Repaso del vocabulario';
+
+  @override
+  String get noWordsToReview => 'No hay palabras para repasar';
+
+  @override
+  String get bookmarkWordsToReview => 'Guarda palabras para comenzar a repasar';
+
+  @override
+  String get returnToVocabularyBook => 'Volver al vocabulario';
+
+  @override
+  String get exit => 'Salir';
+
+  @override
+  String get showAnswer => 'Mostrar respuesta';
+
+  @override
+  String get didYouRemember => '¿La recordaste?';
+
+  @override
+  String get forgot => 'Olvidé';
+
+  @override
+  String get hard => 'Difícil';
+
+  @override
+  String get remembered => 'Recordé';
+
+  @override
+  String get easy => 'Fácil';
+
+  @override
+  String get addedToVocabularyBook => 'Agregado al vocabulario';
+
+  @override
+  String get addFailed => 'Error al agregar';
+
+  @override
+  String get removedFromVocabularyBook => 'Eliminado del vocabulario';
+
+  @override
+  String get removeFailed => 'Error al eliminar';
+
+  @override
+  String get addToVocabularyBook => 'Agregar al vocabulario';
+
+  @override
+  String get notesOptional => 'Notas (opcional)';
+
+  @override
+  String get add => 'Agregar';
+
+  @override
+  String get bookmarked => 'Guardado';
+
+  @override
+  String get bookmark => 'Guardar';
+
+  @override
+  String get removeFromVocabularyBook => 'Eliminar del vocabulario';
+
+  @override
+  String similarityPercent(int percent) {
+    return 'Similitud: $percent%';
+  }
+
+  @override
+  String addedOrRemoved(String added) {
+    String _temp0 = intl.Intl.selectLogic(
+      added,
+      {
+        'true': 'Agregado al vocabulario',
+        'other': 'Marcador eliminado',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get days => 'días';
+
+  @override
+  String lessonsCompletedCount(int count) {
+    return '$count completadas';
+  }
+
+  @override
+  String get dailyGoalComplete => '¡Meta diaria cumplida!';
+
+  @override
+  String get hangulAlphabet => 'Hangul';
+
+  @override
+  String get alphabetTable => 'Tabla de alfabeto';
+
+  @override
+  String get learn => 'Aprender';
+
+  @override
+  String get practice => 'Practicar';
+
+  @override
+  String get learningProgress => 'Progreso de aprendizaje';
+
+  @override
+  String dueForReviewCount(int count) {
+    return '$count para repasar';
+  }
+
+  @override
+  String get completion => 'Completado';
+
+  @override
+  String get totalCharacters => 'Total de caracteres';
+
+  @override
+  String get learned => 'Aprendido';
+
+  @override
+  String get dueForReview => 'Para repasar';
+
+  @override
+  String overallAccuracy(String percent) {
+    return 'Precisión general: $percent%';
+  }
+
+  @override
+  String charactersCount(int count) {
+    return '$count caracteres';
+  }
+
+  @override
+  String get lesson1Title => 'Lección 1: Consonantes básicas (1)';
+
+  @override
+  String get lesson1Desc => 'Aprende las 7 consonantes más usadas';
+
+  @override
+  String get lesson2Title => 'Lección 2: Consonantes básicas (2)';
+
+  @override
+  String get lesson2Desc => 'Aprende las 7 consonantes restantes';
+
+  @override
+  String get lesson3Title => 'Lección 3: Vocales básicas (1)';
+
+  @override
+  String get lesson3Desc => 'Aprende 5 vocales básicas';
+
+  @override
+  String get lesson4Title => 'Lección 4: Vocales básicas (2)';
+
+  @override
+  String get lesson4Desc => 'Aprende las 5 vocales restantes';
+
+  @override
+  String get lesson5Title => 'Lección 5: Consonantes dobles';
+
+  @override
+  String get lesson5Desc => 'Aprende 5 consonantes dobles - sonidos fuertes';
+
+  @override
+  String get lesson6Title => 'Lección 6: Vocales compuestas (1)';
+
+  @override
+  String get lesson6Desc => 'Aprende 6 vocales compuestas';
+
+  @override
+  String get lesson7Title => 'Lección 7: Vocales compuestas (2)';
+
+  @override
+  String get lesson7Desc => 'Aprende las vocales compuestas restantes';
+
+  @override
+  String get loadAlphabetFirst => 'Primero carga los datos del alfabeto';
+
+  @override
+  String get noContentForLesson => 'No hay contenido para esta lección';
+
+  @override
+  String get exampleWords => 'Palabras de ejemplo';
+
+  @override
+  String get thisLessonCharacters => 'Caracteres de esta lección';
+
+  @override
+  String congratsLessonComplete(String title) {
+    return '¡Completaste $title!';
+  }
+
+  @override
+  String get continuePractice => 'Continuar practicando';
+
+  @override
+  String get nextLesson => 'Siguiente lección';
+
+  @override
+  String get basicConsonants => 'Consonantes básicas';
+
+  @override
+  String get doubleConsonants => 'Consonantes dobles';
+
+  @override
+  String get basicVowels => 'Vocales básicas';
+
+  @override
+  String get compoundVowels => 'Vocales compuestas';
+
+  @override
+  String get dailyLearningReminderTitle => 'Recordatorio diario';
+
+  @override
+  String get dailyLearningReminderBody =>
+      '¡Completa tu estudio de coreano de hoy~';
+
+  @override
+  String get reviewReminderTitle => '¡Hora de repasar!';
+
+  @override
+  String reviewReminderBody(String title) {
+    return 'Es hora de repasar「$title」~';
+  }
+
+  @override
+  String get korean => '한국어';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get japanese => '日本語';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get strokeOrder => 'Orden de trazos';
+
+  @override
+  String get reset => 'Reiniciar';
+
+  @override
+  String get pronunciationGuide => 'Guía de pronunciación';
+
+  @override
+  String get play => 'Reproducir';
+
+  @override
+  String get pause => 'Pausar';
+
+  @override
+  String loadingFailed(String error) {
+    return 'Error al cargar: $error';
+  }
+
+  @override
+  String learnedCount(int count) {
+    return 'Aprendidos: $count';
+  }
+
+  @override
+  String get hangulPractice => 'Práctica de Hangul';
+
+  @override
+  String charactersNeedReview(int count) {
+    return '$count caracteres necesitan repaso';
+  }
+
+  @override
+  String charactersAvailable(int count) {
+    return '$count caracteres disponibles';
+  }
+
+  @override
+  String get selectPracticeMode => 'Seleccionar modo de práctica';
+
+  @override
+  String get characterRecognition => 'Reconocimiento de caracteres';
+
+  @override
+  String get characterRecognitionDesc =>
+      'Ve el carácter, elige la pronunciación correcta';
+
+  @override
+  String get pronunciationPractice => 'Práctica de pronunciación';
+
+  @override
+  String get pronunciationPracticeDesc =>
+      'Ve la pronunciación, elige el carácter correcto';
+
+  @override
+  String get writingPractice => 'Práctica de escritura';
+
+  @override
+  String get writingPracticeDesc =>
+      'Ve la pronunciación, escribe el carácter correcto';
+
+  @override
+  String get startPractice => 'Iniciar práctica';
+
+  @override
+  String get learnSomeCharactersFirst =>
+      'Por favor, aprende algunos caracteres en el alfabeto primero';
+
+  @override
+  String get practiceComplete => '¡Práctica completada!';
+
+  @override
+  String get back => 'Volver';
+
+  @override
+  String get tryAgain => 'Intentar de nuevo';
+
+  @override
+  String get howToReadThis => '¿Cómo se lee este carácter?';
+
+  @override
+  String get selectCorrectCharacter => 'Selecciona el carácter correcto';
+
+  @override
+  String get writeCharacterForPronunciation =>
+      'Escribe el carácter para esta pronunciación';
+
+  @override
+  String get writeHere => 'Escribe aquí\n(En desarrollo)';
+
+  @override
+  String get dontKnow => 'No sé';
+
+  @override
+  String get checkAnswer => 'Ver respuesta';
+
+  @override
+  String get didYouWriteCorrectly => '¿Lo escribiste correctamente?';
+
+  @override
+  String get wrongAnswer => 'Incorrecto';
+
+  @override
+  String get correctAnswer => 'Correcto';
+
+  @override
+  String get correctExclamation => '¡Correcto!';
+
+  @override
+  String get incorrectExclamation => 'Incorrecto';
+
+  @override
+  String get correctAnswerLabel => 'Respuesta correcta: ';
+
+  @override
+  String get nextQuestionBtn => 'Siguiente pregunta';
+
+  @override
+  String get viewResults => 'Ver resultados';
+
+  @override
+  String get share => 'Compartir';
+
+  @override
+  String get mnemonics => 'Trucos de memoria';
+
+  @override
+  String nextReviewLabel(String date) {
+    return 'Próximo repaso: $date';
+  }
+
+  @override
+  String get expired => 'Vencido';
+
+  @override
+  String get practiceFunctionDeveloping => 'Función de práctica en desarrollo';
+
+  @override
+  String get romanization => 'Romanización: ';
+
+  @override
+  String get pronunciationLabel => 'Pronunciación: ';
+
+  @override
+  String get playPronunciation => 'Reproducir pronunciación';
+
+  @override
+  String strokesCount(int count) {
+    return '$count trazos';
+  }
+
+  @override
+  String get perfectCount => 'Perfecto';
+
+  @override
+  String get loadFailed => 'Error al cargar';
+
+  @override
+  String countUnit(int count) {
+    return '$count';
+  }
+
+  @override
+  String get basicConsonantsKo => '기본 자음';
+
+  @override
+  String get doubleConsonantsKo => '쌍자음';
+
+  @override
+  String get basicVowelsKo => '기본 모음';
+
+  @override
+  String get compoundVowelsKo => '복합 모음';
+
+  @override
+  String get lesson1TitleKo => 'Lección 1: Consonantes básicas (1)';
+
+  @override
+  String get lesson2TitleKo => 'Lección 2: Consonantes básicas (2)';
+
+  @override
+  String get lesson3TitleKo => 'Lección 3: Vocales básicas (1)';
+
+  @override
+  String get lesson4TitleKo => 'Lección 4: Vocales básicas (2)';
+
+  @override
+  String get lesson5TitleKo => 'Lección 5: Consonantes dobles';
+
+  @override
+  String get lesson6TitleKo => 'Lección 6: Vocales compuestas (1)';
+
+  @override
+  String get lesson7TitleKo => 'Lección 7: Vocales compuestas (2)';
+
+  @override
+  String get exitLesson => 'Salir de la lección';
+
+  @override
+  String get exitLessonConfirm =>
+      '¿Seguro que quieres salir? Tu progreso se guardará.';
+
+  @override
+  String get exitBtn => 'Salir';
+
+  @override
+  String loadingLesson(String title) {
+    return 'Cargando $title...';
+  }
+
+  @override
+  String get cannotLoadContent =>
+      'No se puede cargar el contenido de la lección';
+
+  @override
+  String get noLessonContent => 'No hay contenido disponible para esta lección';
+
+  @override
+  String stageProgress(int current, int total) {
+    return 'Etapa $current / $total';
+  }
+
+  @override
+  String unknownStageType(String type) {
+    return 'Tipo de etapa desconocido: $type';
+  }
+
+  @override
+  String wordsCount(int count) {
+    return '$count palabras';
+  }
+
+  @override
+  String get startLearning => 'Comenzar a aprender';
+
+  @override
+  String get vocabularyLearning => 'Aprendizaje de vocabulario';
+
+  @override
+  String get noImage => 'Sin imagen';
+
+  @override
+  String get previousItem => 'Anterior';
+
+  @override
+  String get nextItem => 'Siguiente';
+
+  @override
+  String get playingAudio => 'Reproduciendo...';
+
+  @override
+  String get playAll => 'Reproducir todo';
+
+  @override
+  String audioPlayFailed(String error) {
+    return 'Error de reproducción de audio: $error';
+  }
+
+  @override
+  String get stopBtn => 'Detener';
+
+  @override
+  String get playAudioBtn => 'Reproducir audio';
+
+  @override
+  String get playingAudioShort => 'Reproduciendo audio...';
+
+  @override
+  String grammarPattern(String pattern) {
+    return 'Gramática · $pattern';
+  }
+
+  @override
+  String get conjugationRule => 'Regla de conjugación';
+
+  @override
+  String get comparisonWithChinese => 'Comparación con el chino';
+
+  @override
+  String get dialogueTitle => 'Práctica de diálogo';
+
+  @override
+  String get dialogueExplanation => 'Análisis del diálogo';
+
+  @override
+  String speaker(String name) {
+    return 'Hablante $name';
+  }
+
+  @override
+  String get practiceTitle => 'Práctica';
+
+  @override
+  String get practiceInstructions => 'Completa los siguientes ejercicios';
+
+  @override
+  String get checkAnswerBtn => 'Verificar respuesta';
+
+  @override
+  String get quizTitle => 'Examen';
+
+  @override
+  String get quizResult => 'Resultado del examen';
+
+  @override
+  String quizScoreDisplay(int correct, int total) {
+    return '$correct/$total';
+  }
+
+  @override
+  String quizAccuracy(int percent) {
+    return 'Precisión: $percent%';
+  }
+
+  @override
+  String get summaryTitle => 'Resumen de la lección';
+
+  @override
+  String get vocabLearned => 'Vocabulario aprendido';
+
+  @override
+  String get grammarLearned => 'Gramática aprendida';
+
+  @override
+  String get finishLesson => 'Terminar lección';
+
+  @override
+  String get reviewVocab => 'Revisar vocabulario';
+
+  @override
+  String similarity(int percent) {
+    return 'Similitud: $percent%';
+  }
+
+  @override
+  String get partOfSpeechNoun => 'Sustantivo';
+
+  @override
+  String get partOfSpeechVerb => 'Verbo';
+
+  @override
+  String get partOfSpeechAdjective => 'Adjetivo';
+
+  @override
+  String get partOfSpeechAdverb => 'Adverbio';
+
+  @override
+  String get partOfSpeechPronoun => 'Pronombre';
+
+  @override
+  String get partOfSpeechParticle => 'Partícula';
+
+  @override
+  String get partOfSpeechConjunction => 'Conjunción';
+
+  @override
+  String get partOfSpeechInterjection => 'Interjección';
+
+  @override
+  String get noVocabulary => 'Sin datos de vocabulario';
+
+  @override
+  String get noGrammar => 'Sin datos de gramática';
+
+  @override
+  String get noPractice => 'Sin ejercicios de práctica';
+
+  @override
+  String get noDialogue => 'Sin contenido de diálogo';
+
+  @override
+  String get noQuiz => 'Sin preguntas de examen';
+
+  @override
+  String get tapToFlip => 'Toca para voltear';
+
+  @override
+  String get listeningQuestion => 'Escucha';
+
+  @override
+  String get submit => 'Enviar';
+
+  @override
+  String timeStudied(String time) {
+    return 'Tiempo estudiado $time';
+  }
+
+  @override
+  String get statusNotStarted => 'No iniciado';
+
+  @override
+  String get statusInProgress => 'En progreso';
+
+  @override
+  String get statusCompleted => 'Completado';
+
+  @override
+  String get statusFailed => 'No aprobado';
+
+  @override
+  String get masteryNew => 'Nuevo';
+
+  @override
+  String get masteryLearning => 'Aprendiendo';
+
+  @override
+  String get masteryFamiliar => 'Familiar';
+
+  @override
+  String get masteryMastered => 'Dominado';
+
+  @override
+  String get masteryExpert => 'Experto';
+
+  @override
+  String get masteryPerfect => 'Perfecto';
+
+  @override
+  String get masteryUnknown => 'Desconocido';
+
+  @override
+  String get dueForReviewNow => 'Revisar ahora';
+
+  @override
+  String get similarityHigh => 'Alta similitud';
+
+  @override
+  String get similarityMedium => 'Similitud media';
+
+  @override
+  String get similarityLow => 'Baja similitud';
+
+  @override
+  String get typeBasicConsonant => 'Consonante básica';
+
+  @override
+  String get typeDoubleConsonant => 'Consonante doble';
+
+  @override
+  String get typeBasicVowel => 'Vocal básica';
+
+  @override
+  String get typeCompoundVowel => 'Vocal compuesta';
+
+  @override
+  String get typeFinalConsonant => 'Consonante final';
+
+  @override
+  String get dailyReminderChannel => 'Recordatorio diario de estudio';
+
+  @override
+  String get dailyReminderChannelDesc =>
+      'Te recuerda estudiar coreano a una hora fija cada día';
+
+  @override
+  String get reviewReminderChannel => 'Recordatorio de repaso';
+
+  @override
+  String get reviewReminderChannelDesc =>
+      'Recordatorios de repaso basados en repetición espaciada';
+
+  @override
+  String get notificationStudyTime => '¡Hora de estudiar!';
+
+  @override
+  String get notificationStudyReminder =>
+      'No olvides completar tu práctica diaria de coreano~';
+
+  @override
+  String get notificationReviewTime => '¡Hora de repasar!';
+
+  @override
+  String get notificationReviewReminder =>
+      'Repasemos lo que has aprendido antes~';
+
+  @override
+  String notificationReviewLesson(String lessonTitle) {
+    return '¡Es hora de repasar \"$lessonTitle\"~';
+  }
+
+  @override
+  String get keepGoing => '¡Sigue adelante!';
+
+  @override
+  String scoreDisplay(int correct, int total) {
+    return 'Puntuación: $correct / $total';
+  }
+
+  @override
+  String loadDataError(String error) {
+    return 'Error al cargar datos: $error';
+  }
+
+  @override
+  String downloadError(String error) {
+    return 'Error de descarga: $error';
+  }
+
+  @override
+  String deleteError(String error) {
+    return 'Error al eliminar: $error';
+  }
+
+  @override
+  String clearAllError(String error) {
+    return 'Error al borrar todo: $error';
+  }
+
+  @override
+  String cleanupError(String error) {
+    return 'Error de limpieza: $error';
+  }
+
+  @override
+  String downloadLessonFailed(String title) {
+    return 'Descarga fallida: $title';
+  }
+
+  @override
+  String get comprehensive => 'Integral';
+
+  @override
+  String answeredCount(int answered, int total) {
+    return 'Respondidas $answered/$total';
+  }
+
+  @override
+  String get hanjaWord => 'Palabra Hanja';
+
+  @override
+  String get tapToFlipBack => 'Toca para voltear';
+
+  @override
+  String get similarityWithChinese => 'Similitud con chino';
+
+  @override
+  String get hanjaWordSimilarPronunciation =>
+      'Palabra Hanja, pronunciación similar';
+
+  @override
+  String get sameEtymologyEasyToRemember =>
+      'Misma etimología, fácil de recordar';
+
+  @override
+  String get someConnection => 'Alguna conexión';
+
+  @override
+  String get nativeWordNeedsMemorization =>
+      'Palabra nativa, requiere memorización';
+
+  @override
+  String get rules => 'Reglas';
+
+  @override
+  String get koreanLanguage => '🇰🇷 Coreano';
+
+  @override
+  String get chineseLanguage => '🇨🇳 Chino';
+
+  @override
+  String exampleNumber(int number) {
+    return 'Ej. $number';
+  }
+
+  @override
+  String get fillInBlankPrompt => 'Rellenar espacio:';
+
+  @override
+  String get correctFeedback => '¡Excelente! ¡Correcto!';
+
+  @override
+  String get incorrectFeedback => 'No del todo, intenta de nuevo';
+
+  @override
+  String get allStagesPassed => 'Las 7 etapas completadas';
+
+  @override
+  String get continueToLearnMore => 'Continúa aprendiendo más';
+
+  @override
+  String timeFormatHMS(int hours, int minutes, int seconds) {
+    return '${hours}h ${minutes}m ${seconds}s';
+  }
+
+  @override
+  String timeFormatMS(int minutes, int seconds) {
+    return '${minutes}m ${seconds}s';
+  }
+
+  @override
+  String timeFormatS(int seconds) {
+    return '${seconds}s';
+  }
 }

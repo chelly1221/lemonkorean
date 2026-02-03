@@ -144,9 +144,15 @@ class NotificationService {
   // ================================================================
 
   /// Schedule daily learning reminder
+  /// [channelName] and [channelDescription] should be localized strings
+  /// [notificationTitle] and [notificationBody] should be localized strings
   Future<void> scheduleDailyReminder({
     required int hour,
     required int minute,
+    String channelName = 'Daily Study Reminder',
+    String channelDescription = 'Reminds you to study Korean at a set time daily',
+    String notificationTitle = 'Time to study!',
+    String notificationBody = 'Don\'t forget your daily Korean practice~',
   }) async {
     if (!_isInitialized) {
       await init();
@@ -172,10 +178,10 @@ class NotificationService {
         scheduledDate = scheduledDate.add(const Duration(days: 1));
       }
 
-      const androidDetails = AndroidNotificationDetails(
+      final androidDetails = AndroidNotificationDetails(
         'daily_reminder',
-        '每日学习提醒',
-        channelDescription: '每天固定时间提醒你学习韩语',
+        channelName,
+        channelDescription: channelDescription,
         importance: Importance.high,
         priority: Priority.high,
         icon: '@mipmap/ic_launcher',
@@ -187,15 +193,15 @@ class NotificationService {
         presentSound: true,
       );
 
-      const details = NotificationDetails(
+      final details = NotificationDetails(
         android: androidDetails,
         iOS: iosDetails,
       );
 
       await _notifications.zonedSchedule(
         dailyReminderNotificationId,
-        '📚 学习时间到了！',
-        '今天的韩语学习还没完成哦~ / 오늘의 한국어 학습을 완료하세요~',
+        notificationTitle,
+        notificationBody,
         scheduledDate,
         details,
         uiLocalNotificationDateInterpretation:
@@ -236,10 +242,17 @@ class NotificationService {
   // ================================================================
 
   /// Schedule review reminder for a lesson
+  /// [channelName] and [channelDescription] should be localized strings
+  /// [notificationTitle] and [notificationBody] should be localized strings
+  /// Use {lessonTitle} placeholder in notificationBody for the lesson title
   Future<void> scheduleReviewReminder({
     required int lessonId,
     required DateTime reviewDate,
     required String lessonTitle,
+    String channelName = 'Review Reminder',
+    String channelDescription = 'Spaced repetition review reminders',
+    String notificationTitle = 'Time to review!',
+    String notificationBody = 'Time to review "{lessonTitle}"',
   }) async {
     if (!_isInitialized) {
       await init();
@@ -259,10 +272,10 @@ class NotificationService {
         return;
       }
 
-      const androidDetails = AndroidNotificationDetails(
+      final androidDetails = AndroidNotificationDetails(
         'review_reminder',
-        '复习提醒',
-        channelDescription: '基于间隔重复算法的复习提醒',
+        channelName,
+        channelDescription: channelDescription,
         importance: Importance.high,
         priority: Priority.high,
         icon: '@mipmap/ic_launcher',
@@ -274,15 +287,18 @@ class NotificationService {
         presentSound: true,
       );
 
-      const details = NotificationDetails(
+      final details = NotificationDetails(
         android: androidDetails,
         iOS: iosDetails,
       );
 
+      // Replace {lessonTitle} placeholder with actual lesson title
+      final body = notificationBody.replaceAll('{lessonTitle}', lessonTitle);
+
       await _notifications.zonedSchedule(
         notificationId,
-        '🔄 复习时间到了！',
-        '该复习「$lessonTitle」了~ / 「$lessonTitle」을(를) 복습할 시간입니다~',
+        notificationTitle,
+        body,
         scheduledDate,
         details,
         uiLocalNotificationDateInterpretation:

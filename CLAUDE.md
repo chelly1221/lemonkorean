@@ -1,11 +1,11 @@
 # 柠檬韩语 (Lemon Korean) - 프로젝트 가이드
 
 ## 프로젝트 개요
-중국어 화자를 위한 한국어 학습 앱. 오프라인 학습 지원, 마이크로서비스 아키텍처, 자체 호스팅.
+다국어 한국어 학습 앱. 오프라인 학습 지원, 마이크로서비스 아키텍처, 자체 호스팅. 전 세계 학습자를 위한 6개 언어 콘텐츠 제공.
 
 **상태**: ✅ **프로덕션 준비 완료** (100%, 6/6 서비스)
 
-**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 간체/번체 자동 변환, 6개 언어 지원
+**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환
 
 ---
 
@@ -17,8 +17,8 @@ cp .env.example .env && docker-compose up -d
 # Flutter 앱
 cd mobile/lemon_korean && flutter pub get && flutter run
 
-# 웹 빌드
-flutter build web && docker compose restart nginx
+# 웹 빌드 (build_web.sh 사용 필수)
+cd mobile/lemon_korean && ./build_web.sh
 # 접속: https://lemon.3chan.kr/app/
 ```
 

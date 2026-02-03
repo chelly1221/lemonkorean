@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const grammarController = require('../controllers/grammar.controller');
+const { languageMiddleware } = require('../middleware/language.middleware');
+
+// Apply language middleware to all grammar routes
+router.use(languageMiddleware);
 
 /**
  * @route   GET /api/content/grammar

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const lessonsController = require('../controllers/lessons.controller');
+const { languageMiddleware } = require('../middleware/language.middleware');
+
+// Apply language middleware to all lesson routes
+router.use(languageMiddleware);
 
 /**
  * @route   GET /api/content/lessons

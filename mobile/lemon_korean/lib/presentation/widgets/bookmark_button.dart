@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/models/vocabulary_model.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../providers/bookmark_provider.dart';
 
 /// Reusable Bookmark Button Widget
@@ -81,10 +82,10 @@ class _BookmarkButtonState extends State<BookmarkButton>
         await _animationController.reverse();
 
         // Show success message
-        _showSnackBar('已添加到单词本', isSuccess: true);
+        _showSnackBar(AppLocalizations.of(context)!.addedToVocabularyBook, isSuccess: true);
         widget.onBookmarked?.call();
       } else if (mounted) {
-        _showSnackBar('添加失败', isSuccess: false);
+        _showSnackBar(AppLocalizations.of(context)!.addFailed, isSuccess: false);
       }
     } else {
       // Remove bookmark (with confirmation)
@@ -102,10 +103,10 @@ class _BookmarkButtonState extends State<BookmarkButton>
         await _animationController.reverse();
 
         // Show success message
-        _showSnackBar('已从单词本移除', isSuccess: true);
+        _showSnackBar(AppLocalizations.of(context)!.removedFromVocabularyBook, isSuccess: true);
         widget.onUnbookmarked?.call();
       } else if (mounted) {
-        _showSnackBar('移除失败', isSuccess: false);
+        _showSnackBar(AppLocalizations.of(context)!.removeFailed, isSuccess: false);
       }
     }
 
@@ -116,17 +117,18 @@ class _BookmarkButtonState extends State<BookmarkButton>
 
   Future<String?> _showNotesDialog() async {
     final controller = TextEditingController();
+    final l10n = AppLocalizations.of(context)!;
 
     return showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('添加到单词本'),
+        title: Text(l10n.addToVocabularyBook),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${widget.vocabulary.korean} (${widget.vocabulary.chinese})',
+              '${widget.vocabulary.korean} (${widget.vocabulary.translation})',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -135,10 +137,10 @@ class _BookmarkButtonState extends State<BookmarkButton>
             const SizedBox(height: 16),
             TextField(
               controller: controller,
-              decoration: const InputDecoration(
-                labelText: '笔记（可选）',
-                hintText: '为什么要收藏这个单词？',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.notesOptional,
+                hintText: l10n.notesHint,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 3,
               maxLength: 200,
@@ -148,11 +150,11 @@ class _BookmarkButtonState extends State<BookmarkButton>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('取消'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, controller.text.trim()),
-            child: const Text('添加'),
+            child: Text(l10n.add),
           ),
         ],
       ),
@@ -160,15 +162,17 @@ class _BookmarkButtonState extends State<BookmarkButton>
   }
 
   Future<bool?> _showRemoveConfirmation() async {
+    final l10n = AppLocalizations.of(context)!;
+
     return showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('确认移除'),
-        content: Text('确定要从单词本移除「${widget.vocabulary.korean}」吗？'),
+        title: Text(l10n.confirmRemove),
+        content: Text(l10n.confirmRemoveWord(widget.vocabulary.korean)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('取消'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
@@ -176,7 +180,7 @@ class _BookmarkButtonState extends State<BookmarkButton>
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: const Text('移除'),
+            child: Text(l10n.remove),
           ),
         ],
       ),
@@ -234,7 +238,7 @@ class _BookmarkButtonState extends State<BookmarkButton>
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        isBookmarked ? '已收藏' : '收藏',
+                        isBookmarked ? AppLocalizations.of(context)!.bookmarked : AppLocalizations.of(context)!.bookmark,
                         style: TextStyle(
                           color: effectiveColor,
                           fontSize: 14,
@@ -256,7 +260,7 @@ class _BookmarkButtonState extends State<BookmarkButton>
                   color: _isProcessing ? Colors.grey : effectiveColor,
                 ),
               ),
-              tooltip: isBookmarked ? '从单词本移除' : '添加到单词本',
+              tooltip: isBookmarked ? AppLocalizations.of(context)!.removeFromVocabularyBook : AppLocalizations.of(context)!.addToVocabularyBook,
             );
           },
         );

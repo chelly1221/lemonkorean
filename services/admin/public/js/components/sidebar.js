@@ -34,6 +34,11 @@ const Sidebar = (() => {
       label: '단어 관리',
     },
     {
+      path: '/hangul',
+      icon: 'fa-font',
+      label: '한글 자모',
+    },
+    {
       path: '/media',
       icon: 'fa-images',
       label: '미디어 관리',

@@ -37,8 +37,8 @@ class VocabularyBrowserProvider with ChangeNotifier {
       filtered = words.where((word) {
         final query = _searchQuery.toLowerCase();
         return word.korean.toLowerCase().contains(query) ||
-               word.chinese.toLowerCase().contains(query) ||
-               (word.pinyin?.toLowerCase().contains(query) ?? false);
+               word.translation.toLowerCase().contains(query) ||
+               (word.pronunciation?.toLowerCase().contains(query) ?? false);
       }).toList();
     }
 

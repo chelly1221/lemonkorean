@@ -18,6 +18,7 @@ import '../review/review_screen.dart';
 import '../settings/settings_menu_screen.dart';
 import '../stats/completed_lessons_screen.dart';
 import '../stats/mastered_words_screen.dart';
+import '../hangul/hangul_main_screen.dart';
 import '../vocabulary_book/vocabulary_book_screen.dart';
 import '../vocabulary_browser/vocabulary_browser_screen.dart';
 import 'widgets/user_header.dart';
@@ -290,8 +291,8 @@ class _HomeTabState extends State<_HomeTab> {
               id: i,
               level: (i - 1) ~/ 4 + 1,
               titleKo: '한국어 레슨 $i',
-              titleZh: '韩语课程 $i',
-              description: '这是第 $i 课的描述',
+              title: 'Korean Lesson $i',
+              description: 'Description for lesson $i',
               version: '1.0.0',
               status: 'published',
               estimatedMinutes: 30 + (i * 5),
@@ -337,6 +338,31 @@ class _HomeTabState extends State<_HomeTab> {
               progress: _todayProgress,
               completedLessons: _completedToday,
               targetLessons: _targetLessons,
+            ).animate().fadeIn(duration: 400.ms).slideY(
+                  begin: 0.2,
+                  end: 0,
+                  duration: 400.ms,
+                  curve: Curves.easeOut,
+                ),
+          ),
+        ),
+
+        // Hangul Learning Card
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
+            ),
+            child: _HangulLearningCard(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HangulMainScreen(),
+                  ),
+                );
+              },
             ).animate().fadeIn(duration: 400.ms).slideY(
                   begin: 0.2,
                   end: 0,
@@ -898,6 +924,101 @@ class _ProfileTabState extends State<_ProfileTab> {
         title: Text(label),
         trailing: const Icon(Icons.chevron_right, size: 20),
         onTap: onTap,
+      ),
+    );
+  }
+}
+
+// ================================================================
+// HANGUL LEARNING CARD
+// ================================================================
+
+/// Special card for accessing Korean alphabet (Hangul) learning section
+class _HangulLearningCard extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _HangulLearningCard({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(AppConstants.paddingMedium),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.blue.shade400,
+              Colors.blue.shade600,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.withOpacity(0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Icon section
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Center(
+                child: Text(
+                  '한글',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: AppConstants.paddingMedium),
+            // Text section
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n?.hangulLearning ?? 'Hangul Learning',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    l10n?.hangulLearningSubtitle ?? 'Learn Korean alphabet - 40 letters',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Arrow
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white.withOpacity(0.8),
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const vocabularyController = require('../controllers/vocabulary.controller');
 const { requireAuth } = require('../middleware/auth.middleware');
+const { languageMiddleware } = require('../middleware/language.middleware');
+
+// Apply language middleware to all vocabulary routes
+router.use(languageMiddleware);
 
 /**
  * ================================================================

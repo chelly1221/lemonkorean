@@ -810,6 +810,98 @@ const API = (() => {
     },
   };
 
+  // =============================================================================
+  // Hangul API
+  // =============================================================================
+
+  const hangulAPI = {
+    /**
+     * 한글 자모 목록 조회
+     *
+     * @param {Object} params - 쿼리 파라미터
+     * @param {number} params.page - 페이지 번호
+     * @param {number} params.limit - 페이지당 항목 수
+     * @param {string} params.type - 유형 필터 (basic_consonant, double_consonant, basic_vowel, compound_vowel)
+     * @param {string} params.status - 상태 필터 (published, draft, archived)
+     * @returns {Promise<{data: Array, pagination: Object}>} 자모 목록 및 페이지네이션
+     */
+    async list(params = {}) {
+      const queryString = buildQueryString(params);
+      return request(`/api/admin/hangul${queryString}`);
+    },
+
+    /**
+     * 한글 자모 상세 조회
+     *
+     * @param {number} characterId - 자모 ID
+     * @returns {Promise<Object>} 자모 상세 정보
+     */
+    async getById(characterId) {
+      return request(`/api/admin/hangul/${characterId}`);
+    },
+
+    /**
+     * 한글 자모 생성
+     *
+     * @param {Object} data - 자모 데이터
+     * @returns {Promise<Object>} 생성된 자모
+     */
+    async create(data) {
+      return request('/api/admin/hangul', {
+        method: 'POST',
+        body: data,
+      });
+    },
+
+    /**
+     * 한글 자모 수정
+     *
+     * @param {number} characterId - 자모 ID
+     * @param {Object} data - 수정할 데이터
+     * @returns {Promise<Object>} 수정된 자모
+     */
+    async update(characterId, data) {
+      return request(`/api/admin/hangul/${characterId}`, {
+        method: 'PUT',
+        body: data,
+      });
+    },
+
+    /**
+     * 한글 자모 삭제
+     *
+     * @param {number} characterId - 자모 ID
+     * @returns {Promise<Object>} 성공 메시지
+     */
+    async delete(characterId) {
+      return request(`/api/admin/hangul/${characterId}`, {
+        method: 'DELETE',
+      });
+    },
+
+    /**
+     * 한글 통계 조회
+     *
+     * @returns {Promise<Object>} 한글 자모 통계
+     */
+    async getStats() {
+      return request('/api/admin/hangul/stats');
+    },
+
+    /**
+     * 한글 자모 일괄 시드
+     *
+     * @param {Array} characters - 자모 배열
+     * @returns {Promise<Object>} 시드 결과
+     */
+    async bulkSeed(characters) {
+      return request('/api/admin/hangul/bulk', {
+        method: 'POST',
+        body: { characters },
+      });
+    },
+  };
+
   // Public API 반환
   return {
     auth: authAPI,
@@ -821,5 +913,6 @@ const API = (() => {
     system: systemAPI,
     docs: docsAPI,
     devNotes: devNotesAPI,
+    hangul: hangulAPI,
   };
 })();

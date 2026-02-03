@@ -387,7 +387,7 @@ class ProgressProvider with ChangeNotifier {
       final reviewDate = DateTime.now().add(Duration(days: days));
 
       // Schedule notification
-      final title = lessonTitle ?? '第 $lessonId 课';
+      final title = lessonTitle ?? 'Lesson $lessonId';
       await NotificationService.instance.scheduleReviewReminder(
         lessonId: lessonId,
         reviewDate: reviewDate,
@@ -441,7 +441,7 @@ class ProgressProvider with ChangeNotifier {
       return {
         ...progress,
         'title_ko': lessonData?['title_ko'] ?? '레슨 $lessonId',
-        'title_zh': lessonData?['title_zh'] ?? '课程 $lessonId',
+        'title_zh': lessonData?['title_zh'] ?? 'Lesson $lessonId',
         'level': lessonData?['level'] ?? 1,
         'vocabulary_count': lessonData?['vocabulary_count'] ?? 0,
       };

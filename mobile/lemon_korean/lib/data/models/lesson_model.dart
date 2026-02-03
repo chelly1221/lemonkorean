@@ -14,10 +14,10 @@ class LessonModel {
   final String titleKo;
 
   @HiveField(3)
-  final String titleZh;
+  final String title; // Localized title (was titleZh)
 
   @HiveField(4)
-  final String? description;
+  final String? description; // Localized description
 
   @HiveField(5)
   final String? thumbnailUrl;
@@ -52,12 +52,17 @@ class LessonModel {
   @HiveField(15)
   final DateTime updatedAt;
 
+  @HiveField(16)
+  final String? contentLanguage; // Language code of the content
+
   LessonModel({
     required this.id,
     required this.level,
     required this.titleKo,
-    required this.titleZh,
-    required this.createdAt, required this.updatedAt, this.description,
+    required this.title,
+    required this.createdAt,
+    required this.updatedAt,
+    this.description,
     this.thumbnailUrl,
     this.version = '1.0.0',
     this.status = 'published',
@@ -67,6 +72,7 @@ class LessonModel {
     this.vocabularyCount,
     this.isDownloaded = false,
     this.downloadedAt,
+    this.contentLanguage,
   });
 
   // From JSON
@@ -75,8 +81,9 @@ class LessonModel {
       id: json['id'] as int,
       level: json['level'] as int,
       titleKo: json['title_ko'] as String,
-      titleZh: json['title_zh'] as String,
-      description: json['description'] as String?,
+      // Support both new 'title' field and legacy 'title_zh' for backwards compatibility
+      title: json['title'] as String? ?? json['title_zh'] as String,
+      description: json['description'] as String? ?? json['description_zh'] as String?,
       thumbnailUrl: json['thumbnail_url'] as String?,
       version: json['version'] as String? ?? '1.0.0',
       status: json['status'] as String? ?? 'published',
@@ -96,6 +103,7 @@ class LessonModel {
       updatedAt: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'] as String)
           : DateTime.now(),
+      contentLanguage: json['content_language'] as String?,
     );
   }
 
@@ -105,7 +113,7 @@ class LessonModel {
       'id': id,
       'level': level,
       'title_ko': titleKo,
-      'title_zh': titleZh,
+      'title': title,
       'description': description,
       'thumbnail_url': thumbnailUrl,
       'version': version,
@@ -118,6 +126,7 @@ class LessonModel {
       'downloaded_at': downloadedAt?.toIso8601String(),
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
+      'content_language': contentLanguage,
     };
   }
 
@@ -126,7 +135,7 @@ class LessonModel {
     int? id,
     int? level,
     String? titleKo,
-    String? titleZh,
+    String? title,
     String? description,
     String? thumbnailUrl,
     String? version,
@@ -139,12 +148,13 @@ class LessonModel {
     DateTime? downloadedAt,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? contentLanguage,
   }) {
     return LessonModel(
       id: id ?? this.id,
       level: level ?? this.level,
       titleKo: titleKo ?? this.titleKo,
-      titleZh: titleZh ?? this.titleZh,
+      title: title ?? this.title,
       description: description ?? this.description,
       thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
       version: version ?? this.version,
@@ -157,6 +167,7 @@ class LessonModel {
       downloadedAt: downloadedAt ?? this.downloadedAt,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      contentLanguage: contentLanguage ?? this.contentLanguage,
     );
   }
 
@@ -164,7 +175,8 @@ class LessonModel {
   bool get isPublished => status == 'published';
   bool get isDraft => status == 'draft';
 
-  String get displayTitle => '$titleKo ($titleZh)';
+  /// Display title - uses localized title with Korean as fallback
+  String get displayTitle => '$titleKo ($title)';
 
   String get estimatedTime {
     if (estimatedMinutes == null) return '';

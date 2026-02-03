@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/repositories/content_repository.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/progress_provider.dart';
-import '../../widgets/convertible_text.dart';
 import 'stages/stage1_intro.dart';
 import 'stages/stage2_vocabulary.dart';
 import 'stages/stage3_grammar.dart';
@@ -193,22 +193,23 @@ class _LessonScreenState extends State<LessonScreen> {
 
   /// Show exit confirmation dialog
   Future<void> _showExitDialog() async {
+    final l10n = AppLocalizations.of(context)!;
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const ConvertibleText('退出学习'),
-        content: const ConvertibleText('确定要退出当前课程吗？进度将会保存。'),
+        title: Text(l10n.exitLesson),
+        content: Text(l10n.exitLessonConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const ConvertibleText('继续学习'),
+            child: Text(l10n.continueLearning),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(
               foregroundColor: AppConstants.errorColor,
             ),
-            child: const ConvertibleText('退出'),
+            child: Text(l10n.exitBtn),
           ),
         ],
       ),
@@ -255,11 +256,12 @@ class _LessonScreenState extends State<LessonScreen> {
 
     if (mounted) {
       // Show success message
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: ConvertibleText('课程完成！进度已保存'),
+        SnackBar(
+          content: Text(l10n.lessonComplete),
           backgroundColor: AppConstants.successColor,
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
 
@@ -283,6 +285,8 @@ class _LessonScreenState extends State<LessonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     // Show loading state
     if (_isLoadingContent) {
       return Scaffold(
@@ -295,8 +299,8 @@ class _LessonScreenState extends State<LessonScreen> {
                 valueColor: AlwaysStoppedAnimation<Color>(AppConstants.primaryColor),
               ),
               const SizedBox(height: 16),
-              ConvertibleText(
-                '${widget.lesson.titleZh} 불러오는 중...',
+              Text(
+                l10n.loadingLesson(widget.lesson.title),
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                   color: AppConstants.textSecondary,
@@ -313,7 +317,7 @@ class _LessonScreenState extends State<LessonScreen> {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: ConvertibleText(widget.lesson.titleZh),
+          title: Text(widget.lesson.title),
           backgroundColor: Colors.white,
           foregroundColor: AppConstants.textPrimary,
           elevation: 0,
@@ -340,7 +344,7 @@ class _LessonScreenState extends State<LessonScreen> {
               ElevatedButton.icon(
                 onPressed: _loadLessonContent,
                 icon: const Icon(Icons.refresh),
-                label: const ConvertibleText('다시 시도'),
+                label: Text(l10n.retry),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppConstants.primaryColor,
                   foregroundColor: Colors.white,
@@ -394,6 +398,7 @@ class _LessonScreenState extends State<LessonScreen> {
   }
 
   Widget _buildTopBar() {
+    final l10n = AppLocalizations.of(context)!;
     final progress = _totalStages > 0 ? (_currentStage + 1) / _totalStages : 0.0;
 
     return Container(
@@ -407,7 +412,7 @@ class _LessonScreenState extends State<LessonScreen> {
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: _showExitDialog,
-            tooltip: '退出',
+            tooltip: l10n.exitBtn,
           ),
 
           const SizedBox(width: 8),
@@ -419,7 +424,7 @@ class _LessonScreenState extends State<LessonScreen> {
               children: [
                 // Stage indicator
                 Text(
-                  '第 ${_currentStage + 1} 阶段 / $_totalStages',
+                  l10n.stageProgress(_currentStage + 1, _totalStages),
                   style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.textSecondary,
@@ -523,9 +528,10 @@ class _LessonScreenState extends State<LessonScreen> {
           onPrevious: isFirst ? null : _previousStage,
         );
       default:
+        final l10n = AppLocalizations.of(context)!;
         return Center(
           child: Text(
-            '未知阶段类型: $type',
+            l10n.unknownStageType(type),
             style: const TextStyle(color: Colors.red),
           ),
         );
@@ -534,6 +540,7 @@ class _LessonScreenState extends State<LessonScreen> {
 
   /// Build empty state when no stages
   Widget _buildEmptyState() {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -544,9 +551,9 @@ class _LessonScreenState extends State<LessonScreen> {
             color: Colors.grey.shade400,
           ),
           const SizedBox(height: 16),
-          const ConvertibleText(
-            '此课程暂无内容',
-            style: TextStyle(
+          Text(
+            l10n.noLessonContent,
+            style: const TextStyle(
               fontSize: 18,
               color: AppConstants.textSecondary,
             ),
@@ -554,7 +561,7 @@ class _LessonScreenState extends State<LessonScreen> {
           const SizedBox(height: 32),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
-            child: const ConvertibleText('返回'),
+            child: Text(l10n.back),
           ),
         ],
       ),

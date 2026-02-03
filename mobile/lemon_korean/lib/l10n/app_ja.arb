@@ -995,5 +995,583 @@
   "noCompletedLessons": "完了したレッスンはありません",
   "startFirstLesson": "最初のレッスンを始めましょう！",
   "masteredWords": "習得した単語",
-  "download": "ダウンロード"
+  "download": "ダウンロード",
+
+  "hangulLearning": "ハングル学習",
+  "@hangulLearning": {"description": "Hangul learning section title"},
+
+  "hangulLearningSubtitle": "ハングル40文字を学ぶ",
+  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
+
+  "editNotes": "メモを編集",
+  "@editNotes": {"description": "Edit notes dialog title"},
+
+  "notes": "メモ",
+  "@notes": {"description": "Notes field label"},
+
+  "notesHint": "なぜこの単語を保存するのですか？",
+  "@notesHint": {"description": "Notes hint text"},
+
+  "sortBy": "並び替え",
+  "@sortBy": {"description": "Sort by title"},
+
+  "sortNewest": "最新順",
+  "@sortNewest": {"description": "Sort by newest"},
+
+  "sortOldest": "古い順",
+  "@sortOldest": {"description": "Sort by oldest"},
+
+  "sortKorean": "韓国語順",
+  "@sortKorean": {"description": "Sort by Korean"},
+
+  "sortChinese": "中国語順",
+  "@sortChinese": {"description": "Sort by Chinese"},
+
+  "sortMastery": "習熟度順",
+  "@sortMastery": {"description": "Sort by mastery"},
+
+  "filterAll": "すべて",
+  "@filterAll": {"description": "Filter all"},
+
+  "filterNew": "新しい単語 (レベル0)",
+  "@filterNew": {"description": "Filter new words"},
+
+  "filterBeginner": "初級 (レベル1)",
+  "@filterBeginner": {"description": "Filter beginner"},
+
+  "filterIntermediate": "中級 (レベル2-3)",
+  "@filterIntermediate": {"description": "Filter intermediate"},
+
+  "filterAdvanced": "上級 (レベル4-5)",
+  "@filterAdvanced": {"description": "Filter advanced"},
+
+  "searchWordsNotesChinese": "単語、中国語、メモを検索...",
+  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
+
+  "startReviewCount": "復習を始める ({count})",
+  "@startReviewCount": {
+    "description": "Start review button with count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "remove": "削除",
+  "@remove": {"description": "Remove button"},
+
+  "confirmRemove": "削除の確認",
+  "@confirmRemove": {"description": "Confirm remove dialog title"},
+
+  "confirmRemoveWord": "単語帳から「{word}」を削除しますか？",
+  "@confirmRemoveWord": {
+    "description": "Confirm remove word message",
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+
+  "noBookmarkedWords": "保存した単語がありません",
+  "@noBookmarkedWords": {"description": "No bookmarked words message"},
+
+  "bookmarkHint": "学習中に単語カードのブックマークアイコンをタップしてください",
+  "@bookmarkHint": {"description": "Bookmark hint"},
+
+  "noMatchingWords": "一致する単語がありません",
+  "@noMatchingWords": {"description": "No matching words message"},
+
+  "weeksAgo": "{count}週間前",
+  "@weeksAgo": {
+    "description": "Weeks ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "reviewComplete": "復習完了！",
+  "@reviewComplete": {"description": "Review complete title"},
+
+  "reviewCompleteCount": "{count}個の単語を復習しました",
+  "@reviewCompleteCount": {
+    "description": "Review complete message",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "correct": "正解",
+  "@correct": {"description": "Correct label"},
+
+  "wrong": "不正解",
+  "@wrong": {"description": "Wrong label"},
+
+  "accuracy": "正確率",
+  "@accuracy": {"description": "Accuracy label"},
+
+  "vocabularyBookReview": "単語帳復習",
+  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
+
+  "noWordsToReview": "復習する単語がありません",
+  "@noWordsToReview": {"description": "No words to review message"},
+
+  "bookmarkWordsToReview": "単語を保存して復習を開始してください",
+  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
+
+  "returnToVocabularyBook": "単語帳に戻る",
+  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
+
+  "exit": "終了",
+  "@exit": {"description": "Exit button"},
+
+  "showAnswer": "答えを見る",
+  "@showAnswer": {"description": "Show answer button"},
+
+  "didYouRemember": "覚えていましたか？",
+  "@didYouRemember": {"description": "Did you remember question"},
+
+  "forgot": "忘れた",
+  "@forgot": {"description": "Forgot rating"},
+
+  "hard": "難しい",
+  "@hard": {"description": "Hard rating"},
+
+  "remembered": "覚えていた",
+  "@remembered": {"description": "Remembered rating"},
+
+  "easy": "簡単",
+  "@easy": {"description": "Easy rating"},
+
+  "addedToVocabularyBook": "単語帳に追加しました",
+  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
+
+  "addFailed": "追加に失敗しました",
+  "@addFailed": {"description": "Add failed message"},
+
+  "removedFromVocabularyBook": "単語帳から削除しました",
+  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
+
+  "removeFailed": "削除に失敗しました",
+  "@removeFailed": {"description": "Remove failed message"},
+
+  "addToVocabularyBook": "単語帳に追加",
+  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
+
+  "notesOptional": "メモ（任意）",
+  "@notesOptional": {"description": "Notes optional label"},
+
+  "add": "追加",
+  "@add": {"description": "Add button"},
+
+  "bookmarked": "保存済み",
+  "@bookmarked": {"description": "Bookmarked label"},
+
+  "bookmark": "保存",
+  "@bookmark": {"description": "Bookmark label"},
+
+  "removeFromVocabularyBook": "単語帳から削除",
+  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
+
+  "similarityPercent": "類似度: {percent}%",
+  "@similarityPercent": {
+    "description": "Similarity percentage",
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+
+  "addedOrRemoved": "{added, select, true{単語帳に追加しました} other{ブックマークを解除しました}}",
+  "@addedOrRemoved": {
+    "description": "Added or removed message",
+    "placeholders": {
+      "added": {"type": "String"}
+    }
+  },
+
+  "days": "日",
+  "@days": {"description": "Days unit"},
+
+  "lessonsCompletedCount": "{count}個完了",
+  "@lessonsCompletedCount": {
+    "description": "Lessons completed count short",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dailyGoalComplete": "今日の目標達成！",
+  "@dailyGoalComplete": {"description": "Daily goal complete message"},
+
+  "hangulAlphabet": "ハングル",
+  "@hangulAlphabet": {"description": "Hangul alphabet"},
+
+  "alphabetTable": "五十音表",
+  "@alphabetTable": {"description": "Alphabet table tab"},
+
+  "learn": "学習",
+  "@learn": {"description": "Learn tab"},
+
+  "practice": "練習",
+  "@practice": {"description": "Practice tab"},
+
+  "learningProgress": "学習進度",
+  "@learningProgress": {"description": "Learning progress title"},
+
+  "dueForReviewCount": "{count}個復習待ち",
+  "@dueForReviewCount": {
+    "description": "Due for review count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "completion": "完成度",
+  "@completion": {"description": "Completion label"},
+
+  "totalCharacters": "全文字",
+  "@totalCharacters": {"description": "Total characters label"},
+
+  "learned": "学習済み",
+  "@learned": {"description": "Learned label"},
+
+  "dueForReview": "復習待ち",
+  "@dueForReview": {"description": "Due for review label"},
+
+  "overallAccuracy": "全体正確率: {percent}%",
+  "@overallAccuracy": {
+    "description": "Overall accuracy",
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+
+  "charactersCount": "{count}文字",
+  "@charactersCount": {
+    "description": "Characters count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "lesson1Title": "第1課：基本子音（上）",
+  "@lesson1Title": {"description": "Lesson 1 title"},
+
+  "lesson1Desc": "よく使われる子音7つを学ぶ",
+  "@lesson1Desc": {"description": "Lesson 1 description"},
+
+  "lesson2Title": "第2課：基本子音（下）",
+  "@lesson2Title": {"description": "Lesson 2 title"},
+
+  "lesson2Desc": "残りの基本子音7つを学ぶ",
+  "@lesson2Desc": {"description": "Lesson 2 description"},
+
+  "lesson3Title": "第3課：基本母音（上）",
+  "@lesson3Title": {"description": "Lesson 3 title"},
+
+  "lesson3Desc": "基本母音5つを学ぶ",
+  "@lesson3Desc": {"description": "Lesson 3 description"},
+
+  "lesson4Title": "第4課：基本母音（下）",
+  "@lesson4Title": {"description": "Lesson 4 title"},
+
+  "lesson4Desc": "残りの基本母音5つを学ぶ",
+  "@lesson4Desc": {"description": "Lesson 4 description"},
+
+  "lesson5Title": "第5課：濃音",
+  "@lesson5Title": {"description": "Lesson 5 title"},
+
+  "lesson5Desc": "濃音5つを学ぶ - 強い音",
+  "@lesson5Desc": {"description": "Lesson 5 description"},
+
+  "lesson6Title": "第6課：合成母音（上）",
+  "@lesson6Title": {"description": "Lesson 6 title"},
+
+  "lesson6Desc": "合成母音6つを学ぶ",
+  "@lesson6Desc": {"description": "Lesson 6 description"},
+
+  "lesson7Title": "第7課：合成母音（下）",
+  "@lesson7Title": {"description": "Lesson 7 title"},
+
+  "lesson7Desc": "残りの合成母音を学ぶ",
+  "@lesson7Desc": {"description": "Lesson 7 description"},
+
+  "loadAlphabetFirst": "まず五十音表データを読み込んでください",
+  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
+
+  "noContentForLesson": "この課には内容がありません",
+  "@noContentForLesson": {"description": "No content for lesson"},
+
+  "exampleWords": "例単語",
+  "@exampleWords": {"description": "Example words label"},
+
+  "thisLessonCharacters": "この課の文字",
+  "@thisLessonCharacters": {"description": "This lesson characters label"},
+
+  "congratsLessonComplete": "{title}を完了しました！",
+  "@congratsLessonComplete": {
+    "description": "Congratulations lesson complete",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "continuePractice": "練習を続ける",
+  "@continuePractice": {"description": "Continue practice button"},
+
+  "nextLesson": "次の課",
+  "@nextLesson": {"description": "Next lesson button"},
+
+  "basicConsonants": "基本子音",
+  "@basicConsonants": {"description": "Basic consonants"},
+
+  "doubleConsonants": "濃音",
+  "@doubleConsonants": {"description": "Double consonants"},
+
+  "basicVowels": "基本母音",
+  "@basicVowels": {"description": "Basic vowels"},
+
+  "compoundVowels": "合成母音",
+  "@compoundVowels": {"description": "Compound vowels"},
+
+  "dailyLearningReminderTitle": "毎日の学習リマインダー",
+  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
+
+  "dailyLearningReminderBody": "今日の韓国語学習を完了しましょう～",
+  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
+
+  "reviewReminderTitle": "復習の時間です！",
+  "@reviewReminderTitle": {"description": "Review reminder notification title"},
+
+  "reviewReminderBody": "「{title}」を復習する時間です～",
+  "@reviewReminderBody": {
+    "description": "Review reminder notification body",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "korean": "한국어",
+  "@korean": {"description": "Korean language"},
+
+  "english": "English",
+  "@english": {"description": "English language"},
+
+  "japanese": "日本語",
+  "@japanese": {"description": "Japanese language"},
+
+  "spanish": "Español",
+  "@spanish": {"description": "Spanish language"},
+
+  "strokeOrder": "書き順",
+  "@strokeOrder": {"description": "Stroke order"},
+
+  "reset": "リセット",
+  "@reset": {"description": "Reset button"},
+
+  "pronunciationGuide": "発音ガイド",
+  "@pronunciationGuide": {"description": "Pronunciation guide"},
+
+  "play": "再生",
+  "@play": {"description": "Play button"},
+
+  "pause": "一時停止",
+  "@pause": {"description": "Pause button"},
+
+  "loadingFailed": "読み込み失敗: {error}",
+  "@loadingFailed": {
+    "description": "Loading failed message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "learnedCount": "学習済み: {count}",
+  "@learnedCount": {
+    "description": "Learned count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "hangulPractice": "ハングル練習",
+  "charactersNeedReview": "{count}文字復習が必要",
+  "charactersAvailable": "{count}文字練習可能",
+  "selectPracticeMode": "練習モードを選択",
+  "characterRecognition": "文字認識",
+  "characterRecognitionDesc": "文字を見て正しい発音を選択",
+  "pronunciationPractice": "発音練習",
+  "pronunciationPracticeDesc": "発音を見て正しい文字を選択",
+  "writingPractice": "書き練習",
+  "writingPracticeDesc": "発音を見て正しい文字を書く",
+  "startPractice": "練習開始",
+  "learnSomeCharactersFirst": "先に字母表で文字を学んでください",
+  "practiceComplete": "練習完了！",
+  "back": "戻る",
+  "tryAgain": "もう一度",
+  "howToReadThis": "この文字の読み方は？",
+  "selectCorrectCharacter": "正しい文字を選択してください",
+  "writeCharacterForPronunciation": "この発音の文字を書いてください",
+  "writeHere": "ここに書いてください\n(開発中)",
+  "dontKnow": "わからない",
+  "checkAnswer": "答えを確認",
+  "didYouWriteCorrectly": "正しく書けましたか？",
+  "wrongAnswer": "間違い",
+  "correctAnswer": "正解",
+  "correctExclamation": "正解！",
+  "incorrectExclamation": "不正解",
+  "correctAnswerLabel": "正解: ",
+  "nextQuestionBtn": "次の問題",
+  "viewResults": "結果を見る",
+  "share": "共有",
+  "mnemonics": "記憶のコツ",
+  "nextReviewLabel": "次の復習: {date}",
+  "expired": "期限切れ",
+  "practiceFunctionDeveloping": "練習機能開発中",
+  "romanization": "ローマ字: ",
+  "pronunciationLabel": "発音: ",
+  "playPronunciation": "発音を再生",
+  "strokesCount": "{count}画",
+  "perfectCount": "完璧",
+  "loadFailed": "読み込み失敗",
+  "countUnit": "{count}個",
+  "basicConsonantsKo": "기본 자음",
+  "doubleConsonantsKo": "쌍자음",
+  "basicVowelsKo": "기본 모음",
+  "compoundVowelsKo": "복합 모음",
+  "lesson1TitleKo": "1과: 기본 자음 (상)",
+  "lesson2TitleKo": "2과: 기본 자음 (하)",
+  "lesson3TitleKo": "3과: 기본 모음 (상)",
+  "lesson4TitleKo": "4과: 기본 모음 (하)",
+  "lesson5TitleKo": "5과: 쌍자음",
+  "lesson6TitleKo": "6과: 복합 모음 (상)",
+  "lesson7TitleKo": "7과: 복합 모음 (하)",
+
+  "exitLesson": "学習終了",
+  "exitLessonConfirm": "本当に終了しますか？進捗は保存されます。",
+  "continueLearning": "学習を続ける",
+  "exitBtn": "終了",
+  "lessonComplete": "レッスン完了！進捗が保存されました",
+  "loadingLesson": "{title} を読み込み中...",
+  "cannotLoadContent": "レッスンコンテンツを読み込めません",
+  "noLessonContent": "このレッスンにはコンテンツがありません",
+  "stageProgress": "ステージ {current} / {total}",
+  "unknownStageType": "不明なステージタイプ: {type}",
+  "wordsCount": "{count} 単語",
+  "startLearning": "学習を始める",
+  "vocabularyLearning": "語彙学習",
+  "noImage": "画像なし",
+  "previousItem": "前へ",
+  "nextItem": "次へ",
+  "continueBtn": "続ける",
+  "previousQuestion": "前の問題",
+  "playingAudio": "再生中...",
+  "playAll": "全て再生",
+  "audioPlayFailed": "オーディオ再生失敗: {error}",
+  "stopBtn": "停止",
+  "playAudioBtn": "オーディオ再生",
+  "playingAudioShort": "オーディオ再生中...",
+  "pronunciation": "発音",
+  "grammarPattern": "文法 · {pattern}",
+  "grammarExplanation": "文法説明",
+  "conjugationRule": "活用ルール",
+  "comparisonWithChinese": "中国語との比較",
+  "exampleSentences": "例文",
+  "dialogueTitle": "会話練習",
+  "dialogueExplanation": "会話解説",
+  "speaker": "話者 {name}",
+  "practiceTitle": "練習",
+  "practiceInstructions": "以下の練習問題を完成させてください",
+  "fillBlank": "空欄を埋める",
+  "checkAnswerBtn": "答え合わせ",
+  "correctAnswerIs": "正解: {answer}",
+  "quizTitle": "クイズ",
+  "quizResult": "クイズ結果",
+  "quizScoreDisplay": "{correct}/{total}",
+  "quizAccuracy": "正答率: {percent}%",
+  "summaryTitle": "レッスンまとめ",
+  "vocabLearned": "学習した単語",
+  "grammarLearned": "学習した文法",
+  "finishLesson": "レッスン完了",
+  "reviewVocab": "単語を復習",
+  "similarity": "類似度: {percent}%",
+  "partOfSpeechNoun": "名詞",
+  "partOfSpeechVerb": "動詞",
+  "partOfSpeechAdjective": "形容詞",
+  "partOfSpeechAdverb": "副詞",
+  "partOfSpeechPronoun": "代名詞",
+  "partOfSpeechParticle": "助詞",
+  "partOfSpeechConjunction": "接続詞",
+  "partOfSpeechInterjection": "感嘆詞",
+  "noVocabulary": "語彙データがありません",
+  "noGrammar": "文法データがありません",
+  "noPractice": "練習問題がありません",
+  "noDialogue": "会話コンテンツがありません",
+  "noQuiz": "クイズ問題がありません",
+
+  "tapToFlip": "タップで裏返す",
+  "listeningQuestion": "リスニング",
+  "submit": "提出",
+  "timeStudied": "学習時間 {time}",
+
+  "statusNotStarted": "未開始",
+  "statusInProgress": "進行中",
+  "statusCompleted": "完了",
+  "statusFailed": "不合格",
+  "masteryNew": "新規",
+  "masteryLearning": "学習中",
+  "masteryFamiliar": "習得中",
+  "masteryMastered": "習得済み",
+  "masteryExpert": "熟練",
+  "masteryPerfect": "完璧",
+  "masteryUnknown": "不明",
+  "dueForReviewNow": "復習が必要",
+  "similarityHigh": "高い類似度",
+  "similarityMedium": "中程度の類似度",
+  "similarityLow": "低い類似度",
+  "typeBasicConsonant": "基本子音",
+  "typeDoubleConsonant": "濃音",
+  "typeBasicVowel": "基本母音",
+  "typeCompoundVowel": "複合母音",
+  "typeFinalConsonant": "パッチム",
+
+  "dailyReminderChannel": "毎日の学習リマインダー",
+  "dailyReminderChannelDesc": "毎日決まった時間に韓国語学習をお知らせします",
+  "reviewReminderChannel": "復習リマインダー",
+  "reviewReminderChannelDesc": "間隔反復アルゴリズムに基づく復習通知",
+  "notificationStudyTime": "学習の時間です！",
+  "notificationStudyReminder": "今日の韓国語学習を完了しましょう〜",
+  "notificationReviewTime": "復習の時間です！",
+  "notificationReviewReminder": "以前学んだ内容を復習しましょう〜",
+  "notificationReviewLesson": "「{lessonTitle}」を復習しましょう〜",
+
+  "keepGoing": "頑張って！",
+  "scoreDisplay": "スコア：{correct} / {total}",
+  "loadDataError": "データの読み込みに失敗しました: {error}",
+  "downloadError": "ダウンロードエラー: {error}",
+  "deleteError": "削除に失敗しました: {error}",
+  "clearAllError": "全削除に失敗しました: {error}",
+  "cleanupError": "クリーンアップに失敗しました: {error}",
+  "downloadLessonFailed": "ダウンロード失敗: {title}",
+
+  "comprehensive": "総合",
+  "answeredCount": "回答 {answered}/{total}",
+
+  "hanjaWord": "漢字語",
+  "tapToFlipBack": "タップして裏返す",
+  "similarityWithChinese": "中国語との類似度",
+  "hanjaWordSimilarPronunciation": "漢字語、発音が似ている",
+  "sameEtymologyEasyToRemember": "語源が同じで覚えやすい",
+  "someConnection": "ある程度の関連性あり",
+  "nativeWordNeedsMemorization": "固有語、暗記が必要",
+  "rules": "ルール",
+  "koreanLanguage": "🇰🇷 韓国語",
+  "chineseLanguage": "🇨🇳 中国語",
+  "exampleNumber": "例 {number}",
+  "fillInBlankPrompt": "空欄を埋める：",
+  "correctFeedback": "素晴らしい！正解！",
+  "incorrectFeedback": "もう一度考えてみてください",
+  "allStagesPassed": "7段階すべてクリア",
+  "continueToLearnMore": "もっと学習を続ける",
+
+  "timeFormatHMS": "{hours}時間{minutes}分{seconds}秒",
+  "timeFormatMS": "{minutes}分{seconds}秒",
+  "timeFormatS": "{seconds}秒"
 }

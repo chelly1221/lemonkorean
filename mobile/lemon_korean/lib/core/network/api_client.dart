@@ -123,6 +123,7 @@ class ApiClient {
     int? level,
     int? page,
     int? limit,
+    String? language,
   }) async {
     // Use contentUrl for lesson data
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
@@ -133,18 +134,29 @@ class ApiClient {
         if (level != null) 'level': level,
         if (page != null) 'page': page,
         if (limit != null) 'limit': limit,
+        if (language != null) 'language': language,
       },
     );
   }
 
-  Future<Response> getLesson(int lessonId) async {
+  Future<Response> getLesson(int lessonId, {String? language}) async {
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
-    return await contentDio.get('/api/content/lessons/$lessonId');
+    return await contentDio.get(
+      '/api/content/lessons/$lessonId',
+      queryParameters: {
+        if (language != null) 'language': language,
+      },
+    );
   }
 
-  Future<Response> downloadLessonPackage(int lessonId) async {
+  Future<Response> downloadLessonPackage(int lessonId, {String? language}) async {
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
-    return await contentDio.get('/api/content/lessons/$lessonId/download');
+    return await contentDio.get(
+      '/api/content/lessons/$lessonId/download',
+      queryParameters: {
+        if (language != null) 'language': language,
+      },
+    );
   }
 
   Future<Response> checkUpdates(List<Map<String, dynamic>> lessons) async {
@@ -162,30 +174,73 @@ class ApiClient {
     );
   }
 
-  Future<Response> getVocabularyByLesson(int lessonId) async {
+  Future<Response> getVocabularyByLesson(int lessonId, {String? language}) async {
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
-    return await contentDio.get('/api/content/vocabulary?lesson_id=$lessonId');
+    return await contentDio.get(
+      '/api/content/vocabulary',
+      queryParameters: {
+        'lesson_id': lessonId,
+        if (language != null) 'language': language,
+      },
+    );
   }
 
-  Future<Response> getVocabularyByLevel(int level) async {
+  Future<Response> getVocabularyByLevel(int level, {String? language}) async {
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
-    return await contentDio.get('/api/content/vocabulary?level=$level');
+    return await contentDio.get(
+      '/api/content/vocabulary',
+      queryParameters: {
+        'level': level,
+        if (language != null) 'language': language,
+      },
+    );
   }
 
-  Future<Response> getVocabularyByIds(List<int> ids) async {
+  Future<Response> getVocabularyByIds(List<int> ids, {String? language}) async {
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.post(
       '/api/content/vocabulary/batch',
       data: {'ids': ids},
+      queryParameters: {
+        if (language != null) 'language': language,
+      },
     );
   }
 
   Future<Response> getSimilarVocabulary(
-      String korean, {double minScore = 0.7}) async {
+      String korean, {double minScore = 0.7, String? language}) async {
     final contentDio = await _createServiceDio(AppConstants.contentUrl);
     return await contentDio.get(
       '/api/content/vocabulary/similar',
-      queryParameters: {'korean': korean, 'min_score': minScore},
+      queryParameters: {
+        'korean': korean,
+        'min_score': minScore,
+        if (language != null) 'language': language,
+      },
+    );
+  }
+
+  /// Get grammar rules with optional language
+  Future<Response> getGrammar({int? level, String? category, String? language}) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.get(
+      '/api/content/grammar',
+      queryParameters: {
+        if (level != null) 'level': level,
+        if (category != null) 'category': category,
+        if (language != null) 'language': language,
+      },
+    );
+  }
+
+  /// Get grammar rule by ID with optional language
+  Future<Response> getGrammarById(int id, {String? language}) async {
+    final contentDio = await _createServiceDio(AppConstants.contentUrl);
+    return await contentDio.get(
+      '/api/content/grammar/$id',
+      queryParameters: {
+        if (language != null) 'language': language,
+      },
     );
   }
 

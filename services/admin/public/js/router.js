@@ -233,6 +233,7 @@ const Router = (() => {
     register('/lessons/:id/content', LessonContentEditor.render, true);
     register('/lessons/:id', LessonsPage.renderEdit, true);
     register('/vocabulary', VocabularyPage.render, true);
+    register('/hangul', HangulPage.render, true);
     register('/media', MediaPage.render, true);
     register('/services', ServicesPage.render, true);
     register('/system', SystemPage.render, true);

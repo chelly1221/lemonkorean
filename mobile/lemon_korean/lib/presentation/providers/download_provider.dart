@@ -92,7 +92,7 @@ class DownloadProvider extends ChangeNotifier {
       _clearError();
       _setLoading(false);
     } catch (e) {
-      _setError('加载数据失败: $e');
+      _setError('Load data failed: $e');
       _setLoading(false);
     }
   }
@@ -119,10 +119,10 @@ class DownloadProvider extends ChangeNotifier {
       final success = await _downloadManager.downloadLesson(lesson.id);
 
       if (!success) {
-        _setError('下载失败: ${lesson.titleZh}');
+        _setError('Download failed: ${lesson.title}');
       }
     } catch (e) {
-      _setError('下载错误: $e');
+      _setError('Download error: $e');
     }
   }
 
@@ -147,7 +147,7 @@ class DownloadProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      _setError('删除失败: $e');
+      _setError('Delete failed: $e');
     }
   }
 
@@ -165,7 +165,7 @@ class DownloadProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      _setError('清空失败: $e');
+      _setError('Clear all failed: $e');
     }
   }
 
@@ -221,7 +221,7 @@ class DownloadProvider extends ChangeNotifier {
       _storageStats = await _offlineRepository.getStorageStats();
       notifyListeners();
     } catch (e) {
-      _setError('清理失败: $e');
+      _setError('Cleanup failed: $e');
     }
   }
 

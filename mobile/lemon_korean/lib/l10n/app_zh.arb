@@ -995,5 +995,1084 @@
   "noCompletedLessons": "暂无完成的课程",
   "startFirstLesson": "开始学习第一课吧！",
   "masteredWords": "已掌握单词",
-  "download": "下载"
+  "download": "下载",
+
+  "hangulLearning": "韩文字母学习",
+  "@hangulLearning": {"description": "Hangul learning section title"},
+
+  "hangulLearningSubtitle": "学习韩文字母表 40个字母",
+  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
+
+  "editNotes": "编辑笔记",
+  "@editNotes": {"description": "Edit notes dialog title"},
+
+  "notes": "笔记",
+  "@notes": {"description": "Notes field label"},
+
+  "notesHint": "为什么要收藏这个单词？",
+  "@notesHint": {"description": "Notes hint text"},
+
+  "sortBy": "排序方式",
+  "@sortBy": {"description": "Sort by title"},
+
+  "sortNewest": "最新收藏",
+  "@sortNewest": {"description": "Sort by newest"},
+
+  "sortOldest": "最早收藏",
+  "@sortOldest": {"description": "Sort by oldest"},
+
+  "sortKorean": "韩文排序",
+  "@sortKorean": {"description": "Sort by Korean"},
+
+  "sortChinese": "中文排序",
+  "@sortChinese": {"description": "Sort by Chinese"},
+
+  "sortMastery": "掌握程度",
+  "@sortMastery": {"description": "Sort by mastery"},
+
+  "filterAll": "全部",
+  "@filterAll": {"description": "Filter all"},
+
+  "filterNew": "新学 (0级)",
+  "@filterNew": {"description": "Filter new words"},
+
+  "filterBeginner": "初级 (1级)",
+  "@filterBeginner": {"description": "Filter beginner"},
+
+  "filterIntermediate": "中级 (2-3级)",
+  "@filterIntermediate": {"description": "Filter intermediate"},
+
+  "filterAdvanced": "高级 (4-5级)",
+  "@filterAdvanced": {"description": "Filter advanced"},
+
+  "searchWordsNotesChinese": "搜索单词、中文或笔记...",
+  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
+
+  "startReviewCount": "开始复习 ({count})",
+  "@startReviewCount": {
+    "description": "Start review button with count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "remove": "移除",
+  "@remove": {"description": "Remove button"},
+
+  "confirmRemove": "确认移除",
+  "@confirmRemove": {"description": "Confirm remove dialog title"},
+
+  "confirmRemoveWord": "确定要从单词本移除「{word}」吗？",
+  "@confirmRemoveWord": {
+    "description": "Confirm remove word message",
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+
+  "noBookmarkedWords": "还没有收藏的单词",
+  "@noBookmarkedWords": {"description": "No bookmarked words message"},
+
+  "bookmarkHint": "在学习过程中点击单词卡片上的书签图标",
+  "@bookmarkHint": {"description": "Bookmark hint"},
+
+  "noMatchingWords": "没有找到匹配的单词",
+  "@noMatchingWords": {"description": "No matching words message"},
+
+  "weeksAgo": "{count}周前",
+  "@weeksAgo": {
+    "description": "Weeks ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "reviewComplete": "复习完成！",
+  "@reviewComplete": {"description": "Review complete title"},
+
+  "reviewCompleteCount": "已完成 {count} 个单词的复习",
+  "@reviewCompleteCount": {
+    "description": "Review complete message",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "correct": "正确",
+  "@correct": {"description": "Correct label"},
+
+  "wrong": "错误",
+  "@wrong": {"description": "Wrong label"},
+
+  "accuracy": "准确率",
+  "@accuracy": {"description": "Accuracy label"},
+
+  "vocabularyBookReview": "单词本复习",
+  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
+
+  "noWordsToReview": "暂无需要复习的单词",
+  "@noWordsToReview": {"description": "No words to review message"},
+
+  "bookmarkWordsToReview": "在学习过程中收藏单词后开始复习",
+  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
+
+  "returnToVocabularyBook": "返回单词本",
+  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
+
+  "exit": "退出",
+  "@exit": {"description": "Exit button"},
+
+  "showAnswer": "显示答案",
+  "@showAnswer": {"description": "Show answer button"},
+
+  "didYouRemember": "你记住了吗？",
+  "@didYouRemember": {"description": "Did you remember question"},
+
+  "forgot": "忘记了",
+  "@forgot": {"description": "Forgot rating"},
+
+  "hard": "困难",
+  "@hard": {"description": "Hard rating"},
+
+  "remembered": "记得",
+  "@remembered": {"description": "Remembered rating"},
+
+  "easy": "简单",
+  "@easy": {"description": "Easy rating"},
+
+  "addedToVocabularyBook": "已添加到单词本",
+  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
+
+  "addFailed": "添加失败",
+  "@addFailed": {"description": "Add failed message"},
+
+  "removedFromVocabularyBook": "已从单词本移除",
+  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
+
+  "removeFailed": "移除失败",
+  "@removeFailed": {"description": "Remove failed message"},
+
+  "addToVocabularyBook": "添加到单词本",
+  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
+
+  "notesOptional": "笔记（可选）",
+  "@notesOptional": {"description": "Notes optional label"},
+
+  "add": "添加",
+  "@add": {"description": "Add button"},
+
+  "bookmarked": "已收藏",
+  "@bookmarked": {"description": "Bookmarked label"},
+
+  "bookmark": "收藏",
+  "@bookmark": {"description": "Bookmark label"},
+
+  "removeFromVocabularyBook": "从单词本移除",
+  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
+
+  "similarityPercent": "相似度: {percent}%",
+  "@similarityPercent": {
+    "description": "Similarity percentage",
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+
+  "addedOrRemoved": "{added, select, true{已添加到单词本} other{已取消收藏}}",
+  "@addedOrRemoved": {
+    "description": "Added or removed message",
+    "placeholders": {
+      "added": {"type": "String"}
+    }
+  },
+
+  "days": "天",
+  "@days": {"description": "Days unit"},
+
+  "lessonsCompletedCount": "{count} 课完成",
+  "@lessonsCompletedCount": {
+    "description": "Lessons completed count short",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dailyGoalComplete": "太棒了！今日目标已完成！",
+  "@dailyGoalComplete": {"description": "Daily goal complete message"},
+
+  "hangulAlphabet": "韩文字母",
+  "@hangulAlphabet": {"description": "Hangul alphabet"},
+
+  "alphabetTable": "字母表",
+  "@alphabetTable": {"description": "Alphabet table tab"},
+
+  "learn": "学习",
+  "@learn": {"description": "Learn tab"},
+
+  "practice": "练习",
+  "@practice": {"description": "Practice tab"},
+
+  "learningProgress": "学习进度",
+  "@learningProgress": {"description": "Learning progress title"},
+
+  "dueForReviewCount": "{count} 个待复习",
+  "@dueForReviewCount": {
+    "description": "Due for review count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "completion": "完成度",
+  "@completion": {"description": "Completion label"},
+
+  "totalCharacters": "总字母",
+  "@totalCharacters": {"description": "Total characters label"},
+
+  "learned": "已学习",
+  "@learned": {"description": "Learned label"},
+
+  "dueForReview": "待复习",
+  "@dueForReview": {"description": "Due for review label"},
+
+  "overallAccuracy": "整体准确率: {percent}%",
+  "@overallAccuracy": {
+    "description": "Overall accuracy",
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+
+  "charactersCount": "{count}个字母",
+  "@charactersCount": {
+    "description": "Characters count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "lesson1Title": "第1课：基本辅音 (上)",
+  "@lesson1Title": {"description": "Lesson 1 title"},
+
+  "lesson1Desc": "学习韩语最常用的7个辅音字母",
+  "@lesson1Desc": {"description": "Lesson 1 description"},
+
+  "lesson2Title": "第2课：基本辅音 (下)",
+  "@lesson2Title": {"description": "Lesson 2 title"},
+
+  "lesson2Desc": "继续学习剩余的7个基本辅音",
+  "@lesson2Desc": {"description": "Lesson 2 description"},
+
+  "lesson3Title": "第3课：基本元音 (上)",
+  "@lesson3Title": {"description": "Lesson 3 title"},
+
+  "lesson3Desc": "学习韩语的5个基本元音",
+  "@lesson3Desc": {"description": "Lesson 3 description"},
+
+  "lesson4Title": "第4课：基本元音 (下)",
+  "@lesson4Title": {"description": "Lesson 4 title"},
+
+  "lesson4Desc": "学习剩余的5个基本元音",
+  "@lesson4Desc": {"description": "Lesson 4 description"},
+
+  "lesson5Title": "第5课：双辅音",
+  "@lesson5Title": {"description": "Lesson 5 title"},
+
+  "lesson5Desc": "学习5个双辅音 - 紧音字母",
+  "@lesson5Desc": {"description": "Lesson 5 description"},
+
+  "lesson6Title": "第6课：复合元音 (上)",
+  "@lesson6Title": {"description": "Lesson 6 title"},
+
+  "lesson6Desc": "学习前6个复合元音",
+  "@lesson6Desc": {"description": "Lesson 6 description"},
+
+  "lesson7Title": "第7课：复合元音 (下)",
+  "@lesson7Title": {"description": "Lesson 7 title"},
+
+  "lesson7Desc": "学习剩余的复合元音",
+  "@lesson7Desc": {"description": "Lesson 7 description"},
+
+  "loadAlphabetFirst": "请先加载字母表数据",
+  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
+
+  "noContentForLesson": "本课无内容",
+  "@noContentForLesson": {"description": "No content for lesson"},
+
+  "exampleWords": "例词",
+  "@exampleWords": {"description": "Example words label"},
+
+  "thisLessonCharacters": "本课字母",
+  "@thisLessonCharacters": {"description": "This lesson characters label"},
+
+  "congratsLessonComplete": "恭喜你完成了 {title}！",
+  "@congratsLessonComplete": {
+    "description": "Congratulations lesson complete",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "continuePractice": "继续练习",
+  "@continuePractice": {"description": "Continue practice button"},
+
+  "nextLesson": "下一课",
+  "@nextLesson": {"description": "Next lesson button"},
+
+  "basicConsonants": "基本辅音",
+  "@basicConsonants": {"description": "Basic consonants"},
+
+  "doubleConsonants": "双辅音",
+  "@doubleConsonants": {"description": "Double consonants"},
+
+  "basicVowels": "基本元音",
+  "@basicVowels": {"description": "Basic vowels"},
+
+  "compoundVowels": "复合元音",
+  "@compoundVowels": {"description": "Compound vowels"},
+
+  "dailyLearningReminderTitle": "每日学习提醒",
+  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
+
+  "dailyLearningReminderBody": "今天的韩语学习还没完成哦~",
+  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
+
+  "reviewReminderTitle": "复习时间到了！",
+  "@reviewReminderTitle": {"description": "Review reminder notification title"},
+
+  "reviewReminderBody": "该复习「{title}」了~",
+  "@reviewReminderBody": {
+    "description": "Review reminder notification body",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "korean": "한국어",
+  "@korean": {"description": "Korean language"},
+
+  "english": "English",
+  "@english": {"description": "English language"},
+
+  "japanese": "日本語",
+  "@japanese": {"description": "Japanese language"},
+
+  "spanish": "Español",
+  "@spanish": {"description": "Spanish language"},
+
+  "strokeOrder": "笔画顺序",
+  "@strokeOrder": {"description": "Stroke order"},
+
+  "reset": "重置",
+  "@reset": {"description": "Reset button"},
+
+  "pronunciationGuide": "发音指南",
+  "@pronunciationGuide": {"description": "Pronunciation guide"},
+
+  "play": "播放",
+  "@play": {"description": "Play button"},
+
+  "pause": "暂停",
+  "@pause": {"description": "Pause button"},
+
+  "loadingFailed": "加载失败: {error}",
+  "@loadingFailed": {
+    "description": "Loading failed message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "learnedCount": "已学习: {count}",
+  "@learnedCount": {
+    "description": "Learned count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "hangulPractice": "韩文字母练习",
+  "@hangulPractice": {"description": "Hangul practice title"},
+
+  "charactersNeedReview": "{count} 个字母需要复习",
+  "@charactersNeedReview": {
+    "description": "Characters need review",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "charactersAvailable": "{count} 个字母可练习",
+  "@charactersAvailable": {
+    "description": "Characters available for practice",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "selectPracticeMode": "选择练习模式",
+  "@selectPracticeMode": {"description": "Select practice mode"},
+
+  "characterRecognition": "字母识别",
+  "@characterRecognition": {"description": "Character recognition mode"},
+
+  "characterRecognitionDesc": "看到字母选择正确的发音",
+  "@characterRecognitionDesc": {"description": "Character recognition description"},
+
+  "pronunciationPractice": "发音练习",
+  "@pronunciationPractice": {"description": "Pronunciation practice mode"},
+
+  "pronunciationPracticeDesc": "看到发音选择正确的字母",
+  "@pronunciationPracticeDesc": {"description": "Pronunciation practice description"},
+
+  "writingPractice": "书写练习",
+  "@writingPractice": {"description": "Writing practice mode"},
+
+  "writingPracticeDesc": "看到发音写出正确的字母",
+  "@writingPracticeDesc": {"description": "Writing practice description"},
+
+  "startPractice": "开始练习",
+  "@startPractice": {"description": "Start practice button"},
+
+  "learnSomeCharactersFirst": "请先在字母表中学习一些字母",
+  "@learnSomeCharactersFirst": {"description": "Learn some characters first message"},
+
+  "practiceComplete": "练习完成！",
+  "@practiceComplete": {"description": "Practice complete title"},
+
+  "back": "返回",
+  "@back": {"description": "Back button"},
+
+  "tryAgain": "再来一次",
+  "@tryAgain": {"description": "Try again button"},
+
+  "howToReadThis": "这个字母怎么读？",
+  "@howToReadThis": {"description": "How to read this question"},
+
+  "selectCorrectCharacter": "选择正确的字母",
+  "@selectCorrectCharacter": {"description": "Select correct character instruction"},
+
+  "writeCharacterForPronunciation": "写出这个发音对应的字母",
+  "@writeCharacterForPronunciation": {"description": "Write character for pronunciation instruction"},
+
+  "writeHere": "在此处书写\n(功能开发中)",
+  "@writeHere": {"description": "Write here placeholder"},
+
+  "dontKnow": "不知道",
+  "@dontKnow": {"description": "Don't know button"},
+
+  "checkAnswer": "查看答案",
+  "@checkAnswer": {"description": "Check answer button"},
+
+  "didYouWriteCorrectly": "你写对了吗？",
+  "@didYouWriteCorrectly": {"description": "Did you write correctly question"},
+
+  "wrongAnswer": "错了",
+  "@wrongAnswer": {"description": "Wrong answer button"},
+
+  "correctAnswer": "对了",
+  "@correctAnswer": {"description": "Correct answer button"},
+
+  "correctExclamation": "正确！",
+  "@correctExclamation": {"description": "Correct feedback"},
+
+  "incorrectExclamation": "错误",
+  "@incorrectExclamation": {"description": "Incorrect feedback"},
+
+  "correctAnswerLabel": "正确答案: ",
+  "@correctAnswerLabel": {"description": "Correct answer label"},
+
+  "nextQuestionBtn": "下一题",
+  "@nextQuestionBtn": {"description": "Next question button"},
+
+  "viewResults": "查看结果",
+  "@viewResults": {"description": "View results button"},
+
+  "share": "分享",
+  "@share": {"description": "Share button"},
+
+  "mnemonics": "记忆技巧",
+  "@mnemonics": {"description": "Mnemonics section"},
+
+  "nextReviewLabel": "下次复习: {date}",
+  "@nextReviewLabel": {
+    "description": "Next review label",
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+
+  "expired": "已到期",
+  "@expired": {"description": "Expired status"},
+
+  "practiceFunctionDeveloping": "练习功能开发中",
+  "@practiceFunctionDeveloping": {"description": "Practice function developing message"},
+
+  "romanization": "罗马字: ",
+  "@romanization": {"description": "Romanization label"},
+
+  "pronunciationLabel": "发音: ",
+  "@pronunciationLabel": {"description": "Pronunciation label"},
+
+  "playPronunciation": "播放发音",
+  "@playPronunciation": {"description": "Play pronunciation tooltip"},
+
+  "strokesCount": "{count}画",
+  "@strokesCount": {
+    "description": "Strokes count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "perfectCount": "完美",
+  "@perfectCount": {"description": "Perfect count label"},
+
+  "loadFailed": "加载失败",
+  "@loadFailed": {"description": "Load failed message"},
+
+  "countUnit": "{count}个",
+  "@countUnit": {
+    "description": "Count unit",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "basicConsonantsKo": "기본 자음",
+  "@basicConsonantsKo": {"description": "Basic consonants in Korean"},
+
+  "doubleConsonantsKo": "쌍자음",
+  "@doubleConsonantsKo": {"description": "Double consonants in Korean"},
+
+  "basicVowelsKo": "기본 모음",
+  "@basicVowelsKo": {"description": "Basic vowels in Korean"},
+
+  "compoundVowelsKo": "복합 모음",
+  "@compoundVowelsKo": {"description": "Compound vowels in Korean"},
+
+  "lesson1TitleKo": "1과: 기본 자음 (상)",
+  "@lesson1TitleKo": {"description": "Lesson 1 Korean title"},
+
+  "lesson2TitleKo": "2과: 기본 자음 (하)",
+  "@lesson2TitleKo": {"description": "Lesson 2 Korean title"},
+
+  "lesson3TitleKo": "3과: 기본 모음 (상)",
+  "@lesson3TitleKo": {"description": "Lesson 3 Korean title"},
+
+  "lesson4TitleKo": "4과: 기본 모음 (하)",
+  "@lesson4TitleKo": {"description": "Lesson 4 Korean title"},
+
+  "lesson5TitleKo": "5과: 쌍자음",
+  "@lesson5TitleKo": {"description": "Lesson 5 Korean title"},
+
+  "lesson6TitleKo": "6과: 복합 모음 (상)",
+  "@lesson6TitleKo": {"description": "Lesson 6 Korean title"},
+
+  "lesson7TitleKo": "7과: 복합 모음 (하)",
+  "@lesson7TitleKo": {"description": "Lesson 7 Korean title"},
+
+  "exitLesson": "退出学习",
+  "@exitLesson": {"description": "Exit lesson dialog title"},
+
+  "exitLessonConfirm": "确定要退出当前课程吗？进度将会保存。",
+  "@exitLessonConfirm": {"description": "Exit lesson confirmation message"},
+
+  "continueLearning": "继续学习",
+  "@continueLearning": {"description": "Continue learning button"},
+
+  "exitBtn": "退出",
+  "@exitBtn": {"description": "Exit button"},
+
+  "lessonComplete": "课程完成！进度已保存",
+  "@lessonComplete": {"description": "Lesson completion message"},
+
+  "loadingLesson": "{title} 불러오는 중...",
+  "@loadingLesson": {
+    "description": "Loading lesson message",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "cannotLoadContent": "레슨 콘텐츠를 불러올 수 없습니다",
+  "@cannotLoadContent": {"description": "Cannot load lesson content error"},
+
+  "noLessonContent": "此课程暂无内容",
+  "@noLessonContent": {"description": "No lesson content message"},
+
+  "stageProgress": "第 {current} 阶段 / {total}",
+  "@stageProgress": {
+    "description": "Stage progress indicator",
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "unknownStageType": "未知阶段类型: {type}",
+  "@unknownStageType": {
+    "description": "Unknown stage type error",
+    "placeholders": {
+      "type": {"type": "String"}
+    }
+  },
+
+  "wordsCount": "{count} 个单词",
+  "@wordsCount": {
+    "description": "Words count display",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "startLearning": "开始学习",
+  "@startLearning": {"description": "Start learning button"},
+
+  "vocabularyLearning": "词汇学习",
+  "@vocabularyLearning": {"description": "Vocabulary learning section title"},
+
+  "noImage": "暂无图片",
+  "@noImage": {"description": "No image placeholder"},
+
+  "previousItem": "上一个",
+  "@previousItem": {"description": "Previous item button"},
+
+  "nextItem": "下一个",
+  "@nextItem": {"description": "Next item button"},
+
+  "continueBtn": "继续",
+  "@continueBtn": {"description": "Continue button"},
+
+  "previousQuestion": "上一题",
+  "@previousQuestion": {"description": "Previous question button"},
+
+  "playingAudio": "播放中...",
+  "@playingAudio": {"description": "Playing audio status"},
+
+  "playAll": "播放全部",
+  "@playAll": {"description": "Play all button"},
+
+  "audioPlayFailed": "音频播放失败: {error}",
+  "@audioPlayFailed": {
+    "description": "Audio playback failed",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "stopBtn": "停止",
+  "@stopBtn": {"description": "Stop button"},
+
+  "playAudioBtn": "播放音频",
+  "@playAudioBtn": {"description": "Play audio button"},
+
+  "playingAudioShort": "播放音频...",
+  "@playingAudioShort": {"description": "Playing audio short message"},
+
+  "pronunciation": "发音",
+  "@pronunciation": {"description": "Pronunciation label"},
+
+  "grammarPattern": "语法 · {pattern}",
+  "@grammarPattern": {
+    "description": "Grammar pattern title",
+    "placeholders": {
+      "pattern": {"type": "String"}
+    }
+  },
+
+  "grammarExplanation": "语法解释",
+  "@grammarExplanation": {"description": "Grammar explanation section"},
+
+  "conjugationRule": "活用规则",
+  "@conjugationRule": {"description": "Conjugation rule section"},
+
+  "comparisonWithChinese": "与中文对比",
+  "@comparisonWithChinese": {"description": "Comparison with Chinese section"},
+
+  "exampleSentences": "例句",
+  "@exampleSentences": {"description": "Example sentences section"},
+
+  "dialogueTitle": "对话练习",
+  "@dialogueTitle": {"description": "Dialogue practice title"},
+
+  "dialogueExplanation": "对话解析",
+  "@dialogueExplanation": {"description": "Dialogue explanation section"},
+
+  "speaker": "发言人 {name}",
+  "@speaker": {
+    "description": "Speaker label",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+
+  "practiceTitle": "练习",
+  "@practiceTitle": {"description": "Practice section title"},
+
+  "practiceInstructions": "请完成以下练习题",
+  "@practiceInstructions": {"description": "Practice instructions"},
+
+  "fillBlank": "填空",
+  "@fillBlank": {"description": "Fill in the blank"},
+
+  "checkAnswerBtn": "检查答案",
+  "@checkAnswerBtn": {"description": "Check answer button"},
+
+  "correctAnswerIs": "正确答案: {answer}",
+  "@correctAnswerIs": {
+    "description": "Correct answer display",
+    "placeholders": {
+      "answer": {"type": "String"}
+    }
+  },
+
+  "quizTitle": "测验",
+  "@quizTitle": {"description": "Quiz section title"},
+
+  "quizResult": "测验结果",
+  "@quizResult": {"description": "Quiz result title"},
+
+  "quizScoreDisplay": "{correct}/{total}",
+  "@quizScoreDisplay": {
+    "description": "Quiz score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "quizAccuracy": "准确率: {percent}%",
+  "@quizAccuracy": {
+    "description": "Quiz accuracy percentage",
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+
+  "summaryTitle": "课程总结",
+  "@summaryTitle": {"description": "Lesson summary title"},
+
+  "vocabLearned": "学习单词",
+  "@vocabLearned": {"description": "Vocabulary learned label"},
+
+  "grammarLearned": "学习语法",
+  "@grammarLearned": {"description": "Grammar learned label"},
+
+  "finishLesson": "完成课程",
+  "@finishLesson": {"description": "Finish lesson button"},
+
+  "reviewVocab": "复习单词",
+  "@reviewVocab": {"description": "Review vocabulary button"},
+
+  "similarity": "相似度: {percent}%",
+  "@similarity": {
+    "description": "Similarity percentage",
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+
+  "partOfSpeechNoun": "名词",
+  "@partOfSpeechNoun": {"description": "Part of speech: noun"},
+
+  "partOfSpeechVerb": "动词",
+  "@partOfSpeechVerb": {"description": "Part of speech: verb"},
+
+  "partOfSpeechAdjective": "形容词",
+  "@partOfSpeechAdjective": {"description": "Part of speech: adjective"},
+
+  "partOfSpeechAdverb": "副词",
+  "@partOfSpeechAdverb": {"description": "Part of speech: adverb"},
+
+  "partOfSpeechPronoun": "代词",
+  "@partOfSpeechPronoun": {"description": "Part of speech: pronoun"},
+
+  "partOfSpeechParticle": "助词",
+  "@partOfSpeechParticle": {"description": "Part of speech: particle"},
+
+  "partOfSpeechConjunction": "连词",
+  "@partOfSpeechConjunction": {"description": "Part of speech: conjunction"},
+
+  "partOfSpeechInterjection": "感叹词",
+  "@partOfSpeechInterjection": {"description": "Part of speech: interjection"},
+
+  "noVocabulary": "暂无单词数据",
+  "@noVocabulary": {"description": "No vocabulary data"},
+
+  "noGrammar": "暂无语法数据",
+  "@noGrammar": {"description": "No grammar data"},
+
+  "noPractice": "暂无练习题",
+  "@noPractice": {"description": "No practice questions"},
+
+  "noDialogue": "暂无对话内容",
+  "@noDialogue": {"description": "No dialogue content"},
+
+  "noQuiz": "暂无测验题目",
+  "@noQuiz": {"description": "No quiz questions"},
+
+  "tapToFlip": "点击翻转",
+  "@tapToFlip": {"description": "Tap to flip card hint"},
+
+  "listeningQuestion": "听力",
+  "@listeningQuestion": {"description": "Listening question type"},
+
+  "submit": "提交",
+  "@submit": {"description": "Submit button"},
+
+  "timeStudied": "已学习 {time}",
+  "@timeStudied": {
+    "description": "Time studied display",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+
+  "statusNotStarted": "未开始",
+  "@statusNotStarted": {"description": "Progress status: not started"},
+
+  "statusInProgress": "进行中",
+  "@statusInProgress": {"description": "Progress status: in progress"},
+
+  "statusCompleted": "已完成",
+  "@statusCompleted": {"description": "Progress status: completed"},
+
+  "statusFailed": "未通过",
+  "@statusFailed": {"description": "Progress status: failed"},
+
+  "masteryNew": "新",
+  "@masteryNew": {"description": "Mastery level: new"},
+
+  "masteryLearning": "学习中",
+  "@masteryLearning": {"description": "Mastery level: learning"},
+
+  "masteryFamiliar": "熟悉",
+  "@masteryFamiliar": {"description": "Mastery level: familiar"},
+
+  "masteryMastered": "掌握",
+  "@masteryMastered": {"description": "Mastery level: mastered"},
+
+  "masteryExpert": "精通",
+  "@masteryExpert": {"description": "Mastery level: expert"},
+
+  "masteryPerfect": "完美",
+  "@masteryPerfect": {"description": "Mastery level: perfect"},
+
+  "masteryUnknown": "未知",
+  "@masteryUnknown": {"description": "Mastery level: unknown"},
+
+  "dueForReviewNow": "该复习了",
+  "@dueForReviewNow": {"description": "Due for review now"},
+
+  "similarityHigh": "高相似度",
+  "@similarityHigh": {"description": "High similarity"},
+
+  "similarityMedium": "中等相似度",
+  "@similarityMedium": {"description": "Medium similarity"},
+
+  "similarityLow": "低相似度",
+  "@similarityLow": {"description": "Low similarity"},
+
+  "typeBasicConsonant": "基本辅音",
+  "@typeBasicConsonant": {"description": "Hangul type: basic consonant"},
+
+  "typeDoubleConsonant": "双辅音",
+  "@typeDoubleConsonant": {"description": "Hangul type: double consonant"},
+
+  "typeBasicVowel": "基本元音",
+  "@typeBasicVowel": {"description": "Hangul type: basic vowel"},
+
+  "typeCompoundVowel": "复合元音",
+  "@typeCompoundVowel": {"description": "Hangul type: compound vowel"},
+
+  "typeFinalConsonant": "收音",
+  "@typeFinalConsonant": {"description": "Hangul type: final consonant"},
+
+  "dailyReminderChannel": "每日学习提醒",
+  "@dailyReminderChannel": {"description": "Daily reminder notification channel name"},
+
+  "dailyReminderChannelDesc": "每天固定时间提醒你学习韩语",
+  "@dailyReminderChannelDesc": {"description": "Daily reminder channel description"},
+
+  "reviewReminderChannel": "复习提醒",
+  "@reviewReminderChannel": {"description": "Review reminder notification channel name"},
+
+  "reviewReminderChannelDesc": "基于间隔重复算法的复习提醒",
+  "@reviewReminderChannelDesc": {"description": "Review reminder channel description"},
+
+  "notificationStudyTime": "学习时间到了！",
+  "@notificationStudyTime": {"description": "Notification title for study time"},
+
+  "notificationStudyReminder": "今天的韩语学习还没完成哦~",
+  "@notificationStudyReminder": {"description": "Notification body for study reminder"},
+
+  "notificationReviewTime": "该复习了！",
+  "@notificationReviewTime": {"description": "Notification title for review time"},
+
+  "notificationReviewReminder": "复习一下之前学过的内容吧~",
+  "@notificationReviewReminder": {"description": "Notification body for review reminder"},
+
+  "notificationReviewLesson": "该复习「{lessonTitle}」了~",
+  "@notificationReviewLesson": {
+    "description": "Notification body for review reminder with lesson title",
+    "placeholders": {
+      "lessonTitle": {
+        "type": "String",
+        "example": "第1课"
+      }
+    }
+  },
+
+  "keepGoing": "继续加油！",
+  "@keepGoing": {"description": "Encouraging message when quiz is not passed"},
+
+  "scoreDisplay": "得分：{correct} / {total}",
+  "@scoreDisplay": {
+    "description": "Quiz score display",
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "loadDataError": "加载数据失败: {error}",
+  "@loadDataError": {
+    "description": "Error loading data",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "downloadError": "下载错误: {error}",
+  "@downloadError": {
+    "description": "Download error message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "deleteError": "删除失败: {error}",
+  "@deleteError": {
+    "description": "Delete error message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "clearAllError": "清空失败: {error}",
+  "@clearAllError": {
+    "description": "Clear all error message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "cleanupError": "清理失败: {error}",
+  "@cleanupError": {
+    "description": "Cleanup error message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "downloadLessonFailed": "下载失败: {title}",
+  "@downloadLessonFailed": {
+    "description": "Download lesson failed message",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "comprehensive": "综合",
+  "@comprehensive": {"description": "Comprehensive quiz type"},
+
+  "answeredCount": "已答 {answered}/{total}",
+  "@answeredCount": {
+    "description": "Answered count display",
+    "placeholders": {
+      "answered": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "hanjaWord": "汉字词",
+  "@hanjaWord": {"description": "Hanja (Chinese-origin) word label"},
+
+  "tapToFlipBack": "点击返回",
+  "@tapToFlipBack": {"description": "Tap to flip card back"},
+
+  "similarityWithChinese": "与中文相似度",
+  "@similarityWithChinese": {"description": "Similarity with Chinese label"},
+
+  "hanjaWordSimilarPronunciation": "汉字词，发音相似",
+  "@hanjaWordSimilarPronunciation": {"description": "Hanja word with similar pronunciation hint"},
+
+  "sameEtymologyEasyToRemember": "词源相同，便于记忆",
+  "@sameEtymologyEasyToRemember": {"description": "Same etymology easy to remember hint"},
+
+  "someConnection": "有一定联系",
+  "@someConnection": {"description": "Some connection hint"},
+
+  "nativeWordNeedsMemorization": "固有词，需要记忆",
+  "@nativeWordNeedsMemorization": {"description": "Native Korean word needs memorization hint"},
+
+  "rules": "规则",
+  "@rules": {"description": "Rules label"},
+
+  "koreanLanguage": "🇰🇷 韩语",
+  "@koreanLanguage": {"description": "Korean language label with flag"},
+
+  "chineseLanguage": "🇨🇳 中文",
+  "@chineseLanguage": {"description": "Chinese language label with flag"},
+
+  "exampleNumber": "例 {number}",
+  "@exampleNumber": {
+    "description": "Example number label",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "fillInBlankPrompt": "填空：",
+  "@fillInBlankPrompt": {"description": "Fill in blank prompt"},
+
+  "correctFeedback": "太棒了！答对了！",
+  "@correctFeedback": {"description": "Correct answer feedback"},
+
+  "incorrectFeedback": "不对哦，再想想看",
+  "@incorrectFeedback": {"description": "Incorrect answer feedback"},
+
+  "allStagesPassed": "7个阶段全部通过",
+  "@allStagesPassed": {"description": "All stages passed message"},
+
+  "continueToLearnMore": "继续学习更多内容",
+  "@continueToLearnMore": {"description": "Continue to learn more content"},
+
+  "timeFormatHMS": "{hours}时{minutes}分{seconds}秒",
+  "@timeFormatHMS": {
+    "description": "Time format with hours, minutes, seconds",
+    "placeholders": {
+      "hours": {"type": "int"},
+      "minutes": {"type": "int"},
+      "seconds": {"type": "int"}
+    }
+  },
+
+  "timeFormatMS": "{minutes}分{seconds}秒",
+  "@timeFormatMS": {
+    "description": "Time format with minutes and seconds",
+    "placeholders": {
+      "minutes": {"type": "int"},
+      "seconds": {"type": "int"}
+    }
+  },
+
+  "timeFormatS": "{seconds}秒",
+  "@timeFormatS": {
+    "description": "Time format with seconds only",
+    "placeholders": {
+      "seconds": {"type": "int"}
+    }
+  }
 }

@@ -33,7 +33,7 @@ class NotificationServiceImpl implements INotificationService {
     if (_permissionGranted) {
       html.Notification(
         title ?? 'Lemon Korean',
-        body: body ?? '학습 시간입니다!',
+        body: body ?? 'Time to study!',
       );
     }
   }

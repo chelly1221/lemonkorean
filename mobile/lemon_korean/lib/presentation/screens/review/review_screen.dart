@@ -6,8 +6,8 @@ import '../../../core/storage/local_storage.dart'
     if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../../data/models/vocabulary_model.dart';
 import '../../../data/repositories/content_repository.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
-import '../../widgets/bilingual_text.dart';
 
 /// Review Screen
 /// Spaced Repetition System (SRS) for vocabulary review
@@ -71,8 +71,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
     } catch (e) {
       setState(() => _isLoading = false);
       if (mounted) {
+        final l10n = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载失败: $e')),
+          SnackBar(content: Text('${l10n?.loadFailed ?? "Load failed"}: $e')),
         );
       }
     }
@@ -142,14 +143,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
   }
 
   void _showCompletionDialog() {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const BilingualText(
-          chinese: '复习完成！',
-          korean: '복습 완료!',
-          chineseStyle: TextStyle(
+        title: Text(
+          l10n.reviewComplete,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -163,10 +164,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               color: AppConstants.successColor,
             ),
             const SizedBox(height: 16),
-            BilingualText(
-              chinese: '已完成 ${_reviewItems.length} 个单词的复习',
-              korean: '${_reviewItems.length}개 단어 복습 완료',
-              chineseStyle: const TextStyle(fontSize: 16),
+            Text(
+              l10n.reviewCompleteCount(_reviewItems.length),
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
@@ -176,10 +176,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
               Navigator.pop(context); // Close dialog
               Navigator.pop(context); // Close review screen
             },
-            child: const InlineBilingualText(
-              chinese: '完成',
-              korean: '완료',
-            ),
+            child: Text(l10n.finish),
           ),
         ],
       ),
@@ -188,13 +185,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: const InlineBilingualText(
-            chinese: '复习',
-            korean: '복습',
-          ),
+          title: Text(l10n.review),
         ),
         body: const Center(child: CircularProgressIndicator()),
       );
@@ -203,10 +199,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     if (_reviewItems.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: const InlineBilingualText(
-            chinese: '复习',
-            korean: '복습',
-          ),
+          title: Text(l10n.review),
         ),
         body: Center(
           child: Column(
@@ -218,10 +211,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 color: Colors.grey.shade400,
               ),
               const SizedBox(height: 16),
-              const BilingualText(
-                chinese: '暂无需要复习的内容',
-                korean: '복습할 내용이 없습니다',
-                chineseStyle: TextStyle(
+              Text(
+                l10n.noWordsToReview,
+                style: const TextStyle(
                   fontSize: 18,
                   color: Colors.grey,
                 ),
@@ -237,14 +229,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('복습 复习 ${_currentIndex + 1}/${_reviewItems.length}'),
+        title: Text('${l10n.review} ${_currentIndex + 1}/${_reviewItems.length}'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const InlineBilingualText(
-              chinese: '退出',
-              korean: '나가기',
-            ),
+            child: Text(l10n.exit),
           ),
         ],
       ),
@@ -315,10 +304,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                     vertical: 16,
                                   ),
                                 ),
-                                child: const InlineBilingualText(
-                                  chinese: '显示答案',
-                                  korean: '답 보기',
-                                  style: TextStyle(
+                                child: Text(
+                                  l10n.showAnswer,
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black87,
                                   ),
@@ -327,9 +315,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             else
                               Column(
                                 children: [
-                                  // Chinese Translation
+                                  // Translation
                                   Text(
-                                    currentItem.chinese,
+                                    currentItem.translation,
                                     style: const TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold,
@@ -338,11 +326,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                     textAlign: TextAlign.center,
                                   ),
 
-                                  if (currentItem.pinyin != null)
+                                  if (currentItem.pronunciation != null)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 8),
                                       child: Text(
-                                        currentItem.pinyin!,
+                                        currentItem.pronunciation!,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.grey.shade600,
@@ -359,10 +347,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     // Rating Buttons (shown after answer is revealed)
                     if (_showAnswer) ...[
                       const SizedBox(height: 32),
-                      const BilingualText(
-                        chinese: '你记住了吗？',
-                        korean: '기억하셨나요?',
-                        chineseStyle: TextStyle(
+                      Text(
+                        l10n.didYouRemember,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -372,29 +359,25 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           _buildRatingButton(
-                            '忘记了',
-                            '까먹음',
+                            l10n.forgot,
                             Icons.close,
                             AppConstants.errorColor,
                             ReviewRating.forgot,
                           ),
                           _buildRatingButton(
-                            '困难',
-                            '어려움',
+                            l10n.hard,
                             Icons.sentiment_dissatisfied,
                             Colors.orange,
                             ReviewRating.hard,
                           ),
                           _buildRatingButton(
-                            '记得',
-                            '기억함',
+                            l10n.remembered,
                             Icons.sentiment_satisfied,
                             Colors.blue,
                             ReviewRating.good,
                           ),
                           _buildRatingButton(
-                            '简单',
-                            '쉬움',
+                            l10n.easy,
                             Icons.sentiment_very_satisfied,
                             AppConstants.successColor,
                             ReviewRating.easy,
@@ -413,8 +396,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   }
 
   Widget _buildRatingButton(
-    String chinese,
-    String korean,
+    String label,
     IconData icon,
     Color color,
     ReviewRating rating,
@@ -438,9 +420,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
             children: [
               Icon(icon, size: 28),
               const SizedBox(height: 4),
-              InlineBilingualText(
-                chinese: chinese,
-                korean: korean,
+              Text(
+                label,
                 style: const TextStyle(fontSize: 12),
               ),
             ],

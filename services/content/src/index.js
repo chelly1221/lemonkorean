@@ -9,6 +9,7 @@ const { connectRedis, testRedisConnection } = require('./config/redis');
 const lessonsRoutes = require('./routes/lessons.routes');
 const vocabularyRoutes = require('./routes/vocabulary.routes');
 const grammarRoutes = require('./routes/grammar.routes');
+const hangulRoutes = require('./routes/hangul.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 app.use('/api/content/lessons', lessonsRoutes);
 app.use('/api/content/vocabulary', vocabularyRoutes);
 app.use('/api/content/grammar', grammarRoutes);
+app.use('/api/content/hangul', hangulRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -65,7 +67,8 @@ app.get('/', (req, res) => {
       health: '/health',
       lessons: '/api/content/lessons',
       vocabulary: '/api/content/vocabulary',
-      grammar: '/api/content/grammar'
+      grammar: '/api/content/grammar',
+      hangul: '/api/content/hangul'
     }
   });
 });

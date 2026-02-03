@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../../core/constants/app_constants.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 
 /// Shared components for quiz questions
 
@@ -82,17 +83,22 @@ class QuestionFeedback extends StatelessWidget {
                     : AppConstants.errorColor,
               ),
               const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  isCorrect ? '太棒了！' : '正确答案是: $correctAnswer',
-                  style: TextStyle(
-                    fontSize: AppConstants.fontSizeMedium,
-                    fontWeight: FontWeight.bold,
-                    color: isCorrect
-                        ? AppConstants.successColor
-                        : AppConstants.errorColor,
-                  ),
-                ),
+              Builder(
+                builder: (context) {
+                  final l10n = AppLocalizations.of(context)!;
+                  return Expanded(
+                    child: Text(
+                      isCorrect ? l10n.excellent : l10n.correctAnswerIs(correctAnswer),
+                      style: TextStyle(
+                        fontSize: AppConstants.fontSizeMedium,
+                        fontWeight: FontWeight.bold,
+                        color: isCorrect
+                            ? AppConstants.successColor
+                            : AppConstants.errorColor,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

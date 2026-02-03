@@ -60,6 +60,7 @@ func main() {
 	// Initialize handlers
 	progressHandler := handlers.NewProgressHandler(progressRepo)
 	syncHandler := handlers.NewSyncHandler(progressRepo)
+	hangulHandler := handlers.NewHangulHandler(progressRepo)
 
 	// Initialize middleware
 	authMiddleware := middleware.NewAuthMiddleware()
@@ -113,6 +114,12 @@ func main() {
 		// Statistics
 		api.GET("/stats/:userId", progressHandler.GetUserStats)
 		api.GET("/stats/weekly/:userId", progressHandler.GetWeeklyStats)
+
+		// Hangul (Korean alphabet) progress
+		api.GET("/hangul/:userId", hangulHandler.GetHangulProgress)
+		api.POST("/hangul/:userId/:characterId", hangulHandler.UpdateHangulProgress)
+		api.GET("/hangul/review/:userId", hangulHandler.GetHangulReviewSchedule)
+		api.POST("/hangul/batch", hangulHandler.RecordHangulBatch)
 	}
 
 	// Start server

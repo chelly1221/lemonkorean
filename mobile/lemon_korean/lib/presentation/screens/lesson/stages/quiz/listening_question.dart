@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/utils/media_loader.dart';
-import '../../../../widgets/convertible_text.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import 'quiz_shared.dart';
 
 /// Listening Question Widget
@@ -69,9 +69,10 @@ class _ListeningQuestionState extends State<ListeningQuestion> {
         }
       } catch (e) {
         if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: ConvertibleText('音频播放失败: $e'),
+              content: Text(l10n.audioPlayFailed(e.toString())),
               backgroundColor: AppConstants.errorColor,
             ),
           );
@@ -86,10 +87,12 @@ class _ListeningQuestionState extends State<ListeningQuestion> {
     final options = widget.question['options'] as List;
     final correct = widget.question['correct'] as String;
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       children: [
-        const QuestionTypeBadge(
-          label: '听力',
+        QuestionTypeBadge(
+          label: l10n.listening,
           icon: Icons.headphones,
           color: Colors.blue,
         ),
@@ -129,18 +132,23 @@ class _ListeningQuestionState extends State<ListeningQuestion> {
                 color: Colors.blue.shade700,
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: _playAudio,
-                icon: Icon(_isPlaying ? Icons.stop : Icons.play_arrow),
-                label: ConvertibleText(_isPlaying ? '停止' : '播放音频'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade700,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
-                ),
+              Builder(
+                builder: (context) {
+                  final l10n = AppLocalizations.of(context)!;
+                  return ElevatedButton.icon(
+                    onPressed: _playAudio,
+                    icon: Icon(_isPlaying ? Icons.stop : Icons.play_arrow),
+                    label: Text(_isPlaying ? l10n.stopBtn : l10n.playAudioBtn),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade700,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

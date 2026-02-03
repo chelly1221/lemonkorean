@@ -16,10 +16,11 @@ class NotificationServiceImpl implements INotificationService {
     String? title,
     String? body,
   }) {
-    // The underlying service doesn't support custom title/body for daily reminders
     return _service.scheduleDailyReminder(
       hour: hour,
       minute: minute,
+      notificationTitle: title ?? 'Time to study!',
+      notificationBody: body ?? "Don't forget your daily Korean practice~",
     );
   }
 

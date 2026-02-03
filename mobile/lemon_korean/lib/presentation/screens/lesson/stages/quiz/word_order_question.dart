@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../../core/constants/app_constants.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import 'quiz_shared.dart';
 
 /// Word Order Question Widget
@@ -64,10 +65,12 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
     final hasAnswered = widget.userAnswer != null;
     final correctOrder = widget.question['correct'] as List;
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       children: [
-        const QuestionTypeBadge(
-          label: '排序',
+        QuestionTypeBadge(
+          label: l10n.wordOrder,
           icon: Icons.reorder,
           color: Colors.orange,
         ),
@@ -197,6 +200,8 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
   }
 
   Widget _buildFeedback(List correctOrder) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingMedium),
       decoration: BoxDecoration(
@@ -220,7 +225,7 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
               ),
               const SizedBox(width: 12),
               Text(
-                (widget.isCorrect ?? false) ? '太棒了！' : '正确顺序是:',
+                (widget.isCorrect ?? false) ? l10n.excellent : l10n.correctOrderIs,
                 style: TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                   fontWeight: FontWeight.bold,

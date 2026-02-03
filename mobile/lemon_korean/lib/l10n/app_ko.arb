@@ -1056,5 +1056,594 @@
   "@masteredWords": {"description": "Mastered words title"},
 
   "download": "다운로드",
-  "@download": {"description": "Download button"}
+  "@download": {"description": "Download button"},
+
+  "hangulLearning": "한글 학습",
+  "@hangulLearning": {"description": "Hangul learning section title"},
+
+  "hangulLearningSubtitle": "한글 자모 40자 배우기",
+  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
+
+  "editNotes": "메모 수정",
+  "@editNotes": {"description": "Edit notes dialog title"},
+
+  "notes": "메모",
+  "@notes": {"description": "Notes field label"},
+
+  "notesHint": "이 단어를 저장하는 이유는?",
+  "@notesHint": {"description": "Notes hint text"},
+
+  "sortBy": "정렬 방식",
+  "@sortBy": {"description": "Sort by title"},
+
+  "sortNewest": "최신순",
+  "@sortNewest": {"description": "Sort by newest"},
+
+  "sortOldest": "오래된순",
+  "@sortOldest": {"description": "Sort by oldest"},
+
+  "sortKorean": "한국어순",
+  "@sortKorean": {"description": "Sort by Korean"},
+
+  "sortChinese": "중국어순",
+  "@sortChinese": {"description": "Sort by Chinese"},
+
+  "sortMastery": "숙달도순",
+  "@sortMastery": {"description": "Sort by mastery"},
+
+  "filterAll": "전체",
+  "@filterAll": {"description": "Filter all"},
+
+  "filterNew": "새 단어 (0레벨)",
+  "@filterNew": {"description": "Filter new words"},
+
+  "filterBeginner": "초급 (1레벨)",
+  "@filterBeginner": {"description": "Filter beginner"},
+
+  "filterIntermediate": "중급 (2-3레벨)",
+  "@filterIntermediate": {"description": "Filter intermediate"},
+
+  "filterAdvanced": "고급 (4-5레벨)",
+  "@filterAdvanced": {"description": "Filter advanced"},
+
+  "searchWordsNotesChinese": "단어, 중국어 또는 메모 검색...",
+  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
+
+  "startReviewCount": "복습 시작 ({count})",
+  "@startReviewCount": {
+    "description": "Start review button with count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "remove": "삭제",
+  "@remove": {"description": "Remove button"},
+
+  "confirmRemove": "삭제 확인",
+  "@confirmRemove": {"description": "Confirm remove dialog title"},
+
+  "confirmRemoveWord": "단어장에서 「{word}」를 삭제하시겠습니까?",
+  "@confirmRemoveWord": {
+    "description": "Confirm remove word message",
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+
+  "noBookmarkedWords": "저장된 단어가 없습니다",
+  "@noBookmarkedWords": {"description": "No bookmarked words message"},
+
+  "bookmarkHint": "학습 중 단어 카드의 북마크 아이콘을 탭하세요",
+  "@bookmarkHint": {"description": "Bookmark hint"},
+
+  "noMatchingWords": "일치하는 단어가 없습니다",
+  "@noMatchingWords": {"description": "No matching words message"},
+
+  "weeksAgo": "{count}주 전",
+  "@weeksAgo": {
+    "description": "Weeks ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "reviewComplete": "복습 완료!",
+  "@reviewComplete": {"description": "Review complete title"},
+
+  "reviewCompleteCount": "{count}개 단어 복습 완료",
+  "@reviewCompleteCount": {
+    "description": "Review complete message",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "correct": "정답",
+  "@correct": {"description": "Correct label"},
+
+  "wrong": "오답",
+  "@wrong": {"description": "Wrong label"},
+
+  "accuracy": "정확도",
+  "@accuracy": {"description": "Accuracy label"},
+
+  "vocabularyBookReview": "단어장 복습",
+  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
+
+  "noWordsToReview": "복습할 단어가 없습니다",
+  "@noWordsToReview": {"description": "No words to review message"},
+
+  "bookmarkWordsToReview": "단어를 저장한 후 복습을 시작하세요",
+  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
+
+  "returnToVocabularyBook": "단어장으로 돌아가기",
+  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
+
+  "exit": "나가기",
+  "@exit": {"description": "Exit button"},
+
+  "showAnswer": "정답 보기",
+  "@showAnswer": {"description": "Show answer button"},
+
+  "didYouRemember": "기억했나요?",
+  "@didYouRemember": {"description": "Did you remember question"},
+
+  "forgot": "잊었음",
+  "@forgot": {"description": "Forgot rating"},
+
+  "hard": "어려움",
+  "@hard": {"description": "Hard rating"},
+
+  "remembered": "기억함",
+  "@remembered": {"description": "Remembered rating"},
+
+  "easy": "쉬움",
+  "@easy": {"description": "Easy rating"},
+
+  "addedToVocabularyBook": "단어장에 추가됨",
+  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
+
+  "addFailed": "추가 실패",
+  "@addFailed": {"description": "Add failed message"},
+
+  "removedFromVocabularyBook": "단어장에서 삭제됨",
+  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
+
+  "removeFailed": "삭제 실패",
+  "@removeFailed": {"description": "Remove failed message"},
+
+  "addToVocabularyBook": "단어장에 추가",
+  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
+
+  "notesOptional": "메모 (선택사항)",
+  "@notesOptional": {"description": "Notes optional label"},
+
+  "add": "추가",
+  "@add": {"description": "Add button"},
+
+  "bookmarked": "저장됨",
+  "@bookmarked": {"description": "Bookmarked label"},
+
+  "bookmark": "저장",
+  "@bookmark": {"description": "Bookmark label"},
+
+  "removeFromVocabularyBook": "단어장에서 삭제",
+  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
+
+  "similarityPercent": "유사도: {percent}%",
+  "@similarityPercent": {
+    "description": "Similarity percentage",
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+
+  "addedOrRemoved": "{added, select, true{단어장에 추가됨} other{북마크 취소됨}}",
+  "@addedOrRemoved": {
+    "description": "Added or removed message",
+    "placeholders": {
+      "added": {"type": "String"}
+    }
+  },
+
+  "days": "일",
+  "@days": {"description": "Days unit"},
+
+  "lessonsCompletedCount": "{count}개 완료",
+  "@lessonsCompletedCount": {
+    "description": "Lessons completed count short",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "dailyGoalComplete": "오늘의 목표 달성!",
+  "@dailyGoalComplete": {"description": "Daily goal complete message"},
+
+  "hangulAlphabet": "한글",
+  "@hangulAlphabet": {"description": "Hangul alphabet"},
+
+  "alphabetTable": "자모표",
+  "@alphabetTable": {"description": "Alphabet table tab"},
+
+  "learn": "학습",
+  "@learn": {"description": "Learn tab"},
+
+  "practice": "연습",
+  "@practice": {"description": "Practice tab"},
+
+  "learningProgress": "학습 진도",
+  "@learningProgress": {"description": "Learning progress title"},
+
+  "dueForReviewCount": "{count}개 복습 필요",
+  "@dueForReviewCount": {
+    "description": "Due for review count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "completion": "완성도",
+  "@completion": {"description": "Completion label"},
+
+  "totalCharacters": "전체 글자",
+  "@totalCharacters": {"description": "Total characters label"},
+
+  "learned": "학습됨",
+  "@learned": {"description": "Learned label"},
+
+  "dueForReview": "복습 필요",
+  "@dueForReview": {"description": "Due for review label"},
+
+  "overallAccuracy": "전체 정확도: {percent}%",
+  "@overallAccuracy": {
+    "description": "Overall accuracy",
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+
+  "lessonNumber": "{number}과",
+  "@lessonNumber": {
+    "description": "Lesson number",
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+
+  "charactersCount": "{count}개 글자",
+  "@charactersCount": {
+    "description": "Characters count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "lesson1Title": "1과: 기본 자음 (상)",
+  "@lesson1Title": {"description": "Lesson 1 title"},
+
+  "lesson1Desc": "가장 많이 쓰이는 자음 7개 학습",
+  "@lesson1Desc": {"description": "Lesson 1 description"},
+
+  "lesson2Title": "2과: 기본 자음 (하)",
+  "@lesson2Title": {"description": "Lesson 2 title"},
+
+  "lesson2Desc": "나머지 기본 자음 7개 학습",
+  "@lesson2Desc": {"description": "Lesson 2 description"},
+
+  "lesson3Title": "3과: 기본 모음 (상)",
+  "@lesson3Title": {"description": "Lesson 3 title"},
+
+  "lesson3Desc": "기본 모음 5개 학습",
+  "@lesson3Desc": {"description": "Lesson 3 description"},
+
+  "lesson4Title": "4과: 기본 모음 (하)",
+  "@lesson4Title": {"description": "Lesson 4 title"},
+
+  "lesson4Desc": "나머지 기본 모음 5개 학습",
+  "@lesson4Desc": {"description": "Lesson 4 description"},
+
+  "lesson5Title": "5과: 쌍자음",
+  "@lesson5Title": {"description": "Lesson 5 title"},
+
+  "lesson5Desc": "쌍자음 5개 학습 - 된소리",
+  "@lesson5Desc": {"description": "Lesson 5 description"},
+
+  "lesson6Title": "6과: 복합 모음 (상)",
+  "@lesson6Title": {"description": "Lesson 6 title"},
+
+  "lesson6Desc": "복합 모음 6개 학습",
+  "@lesson6Desc": {"description": "Lesson 6 description"},
+
+  "lesson7Title": "7과: 복합 모음 (하)",
+  "@lesson7Title": {"description": "Lesson 7 title"},
+
+  "lesson7Desc": "나머지 복합 모음 학습",
+  "@lesson7Desc": {"description": "Lesson 7 description"},
+
+  "loadAlphabetFirst": "먼저 자모표 데이터를 로드하세요",
+  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
+
+  "noContentForLesson": "이 과에 내용이 없습니다",
+  "@noContentForLesson": {"description": "No content for lesson"},
+
+  "exampleWords": "예시 단어",
+  "@exampleWords": {"description": "Example words label"},
+
+  "thisLessonCharacters": "이 과의 글자",
+  "@thisLessonCharacters": {"description": "This lesson characters label"},
+
+  "lessonComplete": "과 완료!",
+  "@lessonComplete": {"description": "Lesson complete title"},
+
+  "congratsLessonComplete": "{title} 완료를 축하합니다!",
+  "@congratsLessonComplete": {
+    "description": "Congratulations lesson complete",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "continuePractice": "연습 계속하기",
+  "@continuePractice": {"description": "Continue practice button"},
+
+  "nextLesson": "다음 과",
+  "@nextLesson": {"description": "Next lesson button"},
+
+  "basicConsonants": "기본 자음",
+  "@basicConsonants": {"description": "Basic consonants"},
+
+  "doubleConsonants": "쌍자음",
+  "@doubleConsonants": {"description": "Double consonants"},
+
+  "basicVowels": "기본 모음",
+  "@basicVowels": {"description": "Basic vowels"},
+
+  "compoundVowels": "복합 모음",
+  "@compoundVowels": {"description": "Compound vowels"},
+
+  "dailyLearningReminderTitle": "매일 학습 알림",
+  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
+
+  "dailyLearningReminderBody": "오늘의 한국어 학습을 완료하세요~",
+  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
+
+  "reviewReminderTitle": "복습 시간입니다!",
+  "@reviewReminderTitle": {"description": "Review reminder notification title"},
+
+  "reviewReminderBody": "「{title}」을(를) 복습할 시간입니다~",
+  "@reviewReminderBody": {
+    "description": "Review reminder notification body",
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "korean": "한국어",
+  "@korean": {"description": "Korean language"},
+
+  "english": "English",
+  "@english": {"description": "English language"},
+
+  "japanese": "日本語",
+  "@japanese": {"description": "Japanese language"},
+
+  "spanish": "Español",
+  "@spanish": {"description": "Spanish language"},
+
+  "strokeOrder": "획순",
+  "@strokeOrder": {"description": "Stroke order"},
+
+  "reset": "초기화",
+  "@reset": {"description": "Reset button"},
+
+  "pronunciationGuide": "발음 가이드",
+  "@pronunciationGuide": {"description": "Pronunciation guide"},
+
+  "play": "재생",
+  "@play": {"description": "Play button"},
+
+  "pause": "일시정지",
+  "@pause": {"description": "Pause button"},
+
+  "loadingFailed": "로드 실패: {error}",
+  "@loadingFailed": {
+    "description": "Loading failed message",
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "learnedCount": "학습: {count}",
+  "@learnedCount": {
+    "description": "Learned count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "hangulPractice": "한글 연습",
+  "charactersNeedReview": "{count}개 글자 복습 필요",
+  "charactersAvailable": "{count}개 글자 연습 가능",
+  "selectPracticeMode": "연습 모드 선택",
+  "characterRecognition": "글자 인식",
+  "characterRecognitionDesc": "글자를 보고 올바른 발음을 선택하세요",
+  "pronunciationPractice": "발음 연습",
+  "pronunciationPracticeDesc": "발음을 보고 올바른 글자를 선택하세요",
+  "writingPractice": "쓰기 연습",
+  "writingPracticeDesc": "발음을 보고 글자를 써보세요",
+  "startPractice": "연습 시작",
+  "learnSomeCharactersFirst": "먼저 자모표에서 글자를 학습하세요",
+  "practiceComplete": "연습 완료!",
+  "back": "뒤로",
+  "tryAgain": "다시 하기",
+  "howToReadThis": "이 글자의 발음은?",
+  "selectCorrectCharacter": "올바른 글자를 선택하세요",
+  "writeCharacterForPronunciation": "이 발음에 해당하는 글자를 쓰세요",
+  "writeHere": "여기에 쓰세요\n(개발 중)",
+  "dontKnow": "모르겠어요",
+  "checkAnswer": "정답 확인",
+  "didYouWriteCorrectly": "올바르게 썼나요?",
+  "wrongAnswer": "틀렸어요",
+  "correctAnswer": "맞았어요",
+  "correctExclamation": "정답!",
+  "incorrectExclamation": "오답",
+  "correctAnswerLabel": "정답: ",
+  "nextQuestionBtn": "다음 문제",
+  "viewResults": "결과 보기",
+  "share": "공유",
+  "mnemonics": "암기 요령",
+  "nextReviewLabel": "다음 복습: {date}",
+  "expired": "기한 지남",
+  "practiceFunctionDeveloping": "연습 기능 개발 중",
+  "romanization": "로마자: ",
+  "pronunciationLabel": "발음: ",
+  "playPronunciation": "발음 재생",
+  "strokesCount": "{count}획",
+  "perfectCount": "완벽",
+  "loadFailed": "로드 실패",
+  "countUnit": "{count}개",
+  "basicConsonantsKo": "기본 자음",
+  "doubleConsonantsKo": "쌍자음",
+  "basicVowelsKo": "기본 모음",
+  "compoundVowelsKo": "복합 모음",
+  "lesson1TitleKo": "1과: 기본 자음 (상)",
+  "lesson2TitleKo": "2과: 기본 자음 (하)",
+  "lesson3TitleKo": "3과: 기본 모음 (상)",
+  "lesson4TitleKo": "4과: 기본 모음 (하)",
+  "lesson5TitleKo": "5과: 쌍자음",
+  "lesson6TitleKo": "6과: 복합 모음 (상)",
+  "lesson7TitleKo": "7과: 복합 모음 (하)",
+
+  "exitLesson": "학습 종료",
+  "exitLessonConfirm": "정말 현재 과정을 종료하시겠습니까? 진행 상황은 저장됩니다.",
+  "continueLearning": "학습 계속",
+  "exitBtn": "종료",
+  "lessonComplete": "과정 완료! 진행 상황이 저장되었습니다",
+  "loadingLesson": "{title} 로딩 중...",
+  "cannotLoadContent": "레슨 콘텐츠를 불러올 수 없습니다",
+  "noLessonContent": "이 과정에는 아직 콘텐츠가 없습니다",
+  "stageProgress": "{current}단계 / {total}단계",
+  "unknownStageType": "알 수 없는 단계 유형: {type}",
+  "wordsCount": "단어 {count}개",
+  "startLearning": "학습 시작",
+  "vocabularyLearning": "어휘 학습",
+  "noImage": "이미지 없음",
+  "previousItem": "이전",
+  "nextItem": "다음",
+  "continueBtn": "계속",
+  "previousQuestion": "이전 문제",
+  "playingAudio": "재생 중...",
+  "playAll": "전체 재생",
+  "audioPlayFailed": "오디오 재생 실패: {error}",
+  "stopBtn": "정지",
+  "playAudioBtn": "오디오 재생",
+  "playingAudioShort": "오디오 재생 중...",
+  "pronunciation": "발음",
+  "grammarPattern": "문법 · {pattern}",
+  "grammarExplanation": "문법 설명",
+  "conjugationRule": "활용 규칙",
+  "comparisonWithChinese": "중국어와 비교",
+  "exampleSentences": "예문",
+  "dialogueTitle": "대화 연습",
+  "dialogueExplanation": "대화 해설",
+  "speaker": "화자 {name}",
+  "practiceTitle": "연습",
+  "practiceInstructions": "다음 연습 문제를 완료하세요",
+  "fillBlank": "빈칸 채우기",
+  "checkAnswerBtn": "정답 확인",
+  "correctAnswerIs": "정답: {answer}",
+  "quizTitle": "퀴즈",
+  "quizResult": "퀴즈 결과",
+  "quizScoreDisplay": "{correct}/{total}",
+  "quizAccuracy": "정확도: {percent}%",
+  "summaryTitle": "과정 요약",
+  "vocabLearned": "학습한 단어",
+  "grammarLearned": "학습한 문법",
+  "finishLesson": "과정 완료",
+  "reviewVocab": "단어 복습",
+  "similarity": "유사도: {percent}%",
+  "partOfSpeechNoun": "명사",
+  "partOfSpeechVerb": "동사",
+  "partOfSpeechAdjective": "형용사",
+  "partOfSpeechAdverb": "부사",
+  "partOfSpeechPronoun": "대명사",
+  "partOfSpeechParticle": "조사",
+  "partOfSpeechConjunction": "접속사",
+  "partOfSpeechInterjection": "감탄사",
+  "noVocabulary": "단어 데이터가 없습니다",
+  "noGrammar": "문법 데이터가 없습니다",
+  "noPractice": "연습 문제가 없습니다",
+  "noDialogue": "대화 콘텐츠가 없습니다",
+  "noQuiz": "퀴즈 문제가 없습니다",
+
+  "tapToFlip": "탭하여 뒤집기",
+  "listeningQuestion": "듣기",
+  "submit": "제출",
+  "timeStudied": "학습 시간 {time}",
+
+  "statusNotStarted": "시작 안 함",
+  "statusInProgress": "진행 중",
+  "statusCompleted": "완료됨",
+  "statusFailed": "불합격",
+  "masteryNew": "새로움",
+  "masteryLearning": "학습 중",
+  "masteryFamiliar": "익숙함",
+  "masteryMastered": "숙달됨",
+  "masteryExpert": "능숙함",
+  "masteryPerfect": "완벽함",
+  "masteryUnknown": "알 수 없음",
+  "dueForReviewNow": "복습 필요",
+  "similarityHigh": "높은 유사도",
+  "similarityMedium": "중간 유사도",
+  "similarityLow": "낮은 유사도",
+  "typeBasicConsonant": "기본 자음",
+  "typeDoubleConsonant": "쌍자음",
+  "typeBasicVowel": "기본 모음",
+  "typeCompoundVowel": "복합 모음",
+  "typeFinalConsonant": "받침",
+
+  "dailyReminderChannel": "매일 학습 알림",
+  "dailyReminderChannelDesc": "매일 정해진 시간에 한국어 학습을 알려줍니다",
+  "reviewReminderChannel": "복습 알림",
+  "reviewReminderChannelDesc": "간격 반복 알고리즘 기반 복습 알림",
+  "notificationStudyTime": "학습 시간이에요!",
+  "notificationStudyReminder": "오늘의 한국어 학습을 완료하세요~",
+  "notificationReviewTime": "복습할 시간이에요!",
+  "notificationReviewReminder": "이전에 배운 내용을 복습해보세요~",
+  "notificationReviewLesson": "「{lessonTitle}」을(를) 복습할 시간이에요~",
+
+  "keepGoing": "계속 화이팅!",
+  "scoreDisplay": "점수: {correct} / {total}",
+  "loadDataError": "데이터 로드 실패: {error}",
+  "downloadError": "다운로드 오류: {error}",
+  "deleteError": "삭제 실패: {error}",
+  "clearAllError": "전체 삭제 실패: {error}",
+  "cleanupError": "정리 실패: {error}",
+  "downloadLessonFailed": "다운로드 실패: {title}",
+
+  "comprehensive": "종합",
+  "answeredCount": "답변 {answered}/{total}",
+
+  "hanjaWord": "한자어",
+  "tapToFlipBack": "뒤집으려면 탭하세요",
+  "similarityWithChinese": "중국어 유사도",
+  "hanjaWordSimilarPronunciation": "한자어, 발음이 비슷함",
+  "sameEtymologyEasyToRemember": "어원이 같아서 외우기 쉬움",
+  "someConnection": "어느 정도 연관됨",
+  "nativeWordNeedsMemorization": "고유어, 암기 필요",
+  "rules": "규칙",
+  "koreanLanguage": "🇰🇷 한국어",
+  "chineseLanguage": "🇨🇳 중국어",
+  "exampleNumber": "예 {number}",
+  "fillInBlankPrompt": "빈칸 채우기:",
+  "correctFeedback": "훌륭해요! 정답!",
+  "incorrectFeedback": "다시 생각해 보세요",
+  "allStagesPassed": "7단계 모두 통과",
+  "continueToLearnMore": "더 많은 내용 학습",
+
+  "timeFormatHMS": "{hours}시간 {minutes}분 {seconds}초",
+  "timeFormatMS": "{minutes}분 {seconds}초",
+  "timeFormatS": "{seconds}초"
 }

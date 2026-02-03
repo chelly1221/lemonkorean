@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/convertible_text.dart';
 
 /// Lesson Grid Item Widget
 /// Displays lesson card in grid view
@@ -157,8 +156,8 @@ class LessonGridItem extends StatelessWidget {
                     const SizedBox(height: 4),
 
                     // Chinese Title
-                    ConvertibleText(
-                      lesson.titleZh,
+                    Text(
+                      lesson.title,
                       style: const TextStyle(
                         fontSize: AppConstants.fontSizeSmall,
                         color: AppConstants.textSecondary,

@@ -3,6 +3,7 @@ const Lesson = require('../models/lesson.model');
 const LessonPackagerService = require('../services/lesson-packager.service');
 const { cacheHelpers } = require('../config/redis');
 const { query } = require('../config/database');
+const { buildLanguageCacheKey } = require('../middleware/language.middleware');
 
 // ==================== Helper Functions ====================
 
@@ -38,12 +39,13 @@ const buildPaginationMeta = (total, page, limit) => {
 // ==================== Controller Functions ====================
 
 /**
- * Get all lessons with pagination
+ * Get all lessons with pagination and translations
  * GET /api/content/lessons
  * @query {Number} level - TOPIK level (0-6)
  * @query {String} status - Lesson status (published/draft/archived)
  * @query {Number} page - Page number (default: 1)
  * @query {Number} limit - Items per page (default: 20, max: 100)
+ * @query {String} language - Content language (from middleware)
  */
 const getLessons = async (req, res) => {
   try {
@@ -53,16 +55,17 @@ const getLessons = async (req, res) => {
       page = 1,
       limit = 20
     } = req.query;
+    const language = req.language || 'zh';
 
     // Validate parameters
     const pageNum = Math.max(1, parseInt(page) || 1);
     const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
     const offset = (pageNum - 1) * limitNum;
 
-    console.log(`[LESSONS] Fetching lessons - level: ${level}, status: ${status}, page: ${pageNum}, limit: ${limitNum}`);
+    console.log(`[LESSONS] Fetching lessons - level: ${level}, status: ${status}, page: ${pageNum}, limit: ${limitNum}, language: ${language}`);
 
-    // Build cache key
-    const cacheKey = `lessons:list:${level || 'all'}:${status}:${pageNum}:${limitNum}`;
+    // Build cache key with language
+    const cacheKey = buildLanguageCacheKey(`lessons:list:${level || 'all'}:${status}:${pageNum}:${limitNum}`, language);
     const cached = await cacheHelpers.get(cacheKey);
 
     if (cached) {
@@ -93,12 +96,13 @@ const getLessons = async (req, res) => {
     const countResult = await query(countSql, countParams);
     const total = parseInt(countResult.rows[0].total);
 
-    // Fetch lessons
+    // Fetch lessons with translations
     const lessons = await Lesson.findAll({
       level,
       status,
       limit: limitNum,
-      offset
+      offset,
+      language
     });
 
     // Build response
@@ -127,15 +131,17 @@ const getLessons = async (req, res) => {
 };
 
 /**
- * Get lesson by ID (metadata from PostgreSQL + content from MongoDB)
+ * Get lesson by ID with translations (metadata from PostgreSQL + content from MongoDB)
  * GET /api/content/lessons/:id
  * @param {Number} id - Lesson ID
+ * @query {String} language - Content language (from middleware)
  */
 const getLessonById = async (req, res) => {
   try {
     const { id } = req.params;
+    const language = req.language || 'zh';
 
-    console.log(`[LESSONS] Fetching lesson ${id}`);
+    console.log(`[LESSONS] Fetching lesson ${id}, language: ${language}`);
 
     // Validate ID
     const lessonId = parseInt(id);
@@ -146,8 +152,8 @@ const getLessonById = async (req, res) => {
       });
     }
 
-    // Try cache
-    const cacheKey = `lesson:full:${id}`;
+    // Try cache with language
+    const cacheKey = buildLanguageCacheKey(`lesson:full:${id}`, language);
     const cached = await cacheHelpers.get(cacheKey);
 
     if (cached) {
@@ -159,8 +165,8 @@ const getLessonById = async (req, res) => {
       });
     }
 
-    // 1. Get metadata from PostgreSQL
-    const metadata = await Lesson.findById(lessonId);
+    // 1. Get metadata from PostgreSQL with translations
+    const metadata = await Lesson.findById(lessonId, language);
 
     if (!metadata) {
       return res.status(404).json({
@@ -179,11 +185,11 @@ const getLessonById = async (req, res) => {
       // Continue without content if MongoDB fails
     }
 
-    // 3. Get vocabulary
-    const vocabulary = await Lesson.getVocabulary(lessonId);
+    // 3. Get vocabulary with translations
+    const vocabulary = await Lesson.getVocabulary(lessonId, language);
 
-    // 4. Get grammar
-    const grammar = await Lesson.getGrammar(lessonId);
+    // 4. Get grammar with translations
+    const grammar = await Lesson.getGrammar(lessonId, language);
 
     // 5. Calculate vocabulary count from content stages
     let vocabularyCount = 0;
@@ -194,16 +200,15 @@ const getLessonById = async (req, res) => {
       }
     }
 
-    // 6. Build complete lesson object
+    // 6. Build complete lesson object with localized fields
     const lesson = {
       id: metadata.id,
       level: metadata.level,
       week: metadata.week,
       order_num: metadata.order_num,
       title_ko: metadata.title_ko,
-      title_zh: metadata.title_zh,
-      description_ko: metadata.description_ko,
-      description_zh: metadata.description_zh,
+      title: metadata.title, // Localized title
+      description: metadata.description, // Localized description
       duration_minutes: metadata.duration_minutes,
       estimated_minutes: metadata.duration_minutes,
       difficulty: metadata.difficulty,
@@ -216,30 +221,33 @@ const getLessonById = async (req, res) => {
       view_count: metadata.view_count,
       completion_count: metadata.completion_count,
       vocabulary_count: vocabularyCount,
+      content_language: metadata.content_language,
       content: content,
       vocabulary: vocabulary.map(v => ({
         id: v.id,
         korean: v.korean,
         hanja: v.hanja,
-        chinese: v.chinese,
-        pinyin: v.pinyin,
+        translation: v.translation, // Localized
+        pronunciation: v.pronunciation, // Localized
         part_of_speech: v.part_of_speech,
         similarity_score: v.similarity_score,
         image_url: v.image_url,
         audio_url_male: v.audio_url_male,
         audio_url_female: v.audio_url_female,
-        is_primary: v.is_primary
+        is_primary: v.is_primary,
+        content_language: v.content_language
       })),
       grammar: grammar.map(g => ({
         id: g.id,
         name_ko: g.name_ko,
-        name_zh: g.name_zh,
+        name: g.name, // Localized
         category: g.category,
         difficulty: g.difficulty,
-        description: g.description,
-        chinese_comparison: g.chinese_comparison,
+        description: g.description, // Localized
+        language_comparison: g.language_comparison, // Localized
         examples: g.examples,
-        is_primary: g.is_primary
+        is_primary: g.is_primary,
+        content_language: g.content_language
       }))
     };
 
@@ -599,13 +607,15 @@ const downloadLessonZip = async (req, res) => {
 };
 
 /**
- * Get lessons by level
+ * Get lessons by level with translations
  * GET /api/content/lessons/level/:level
  * @param {Number} level - TOPIK level (0-6)
+ * @query {String} language - Content language (from middleware)
  */
 const getLessonsByLevel = async (req, res) => {
   try {
     const { level } = req.params;
+    const language = req.language || 'zh';
 
     const levelNum = parseInt(level);
     if (isNaN(levelNum) || levelNum < 0 || levelNum > 6) {
@@ -615,10 +625,10 @@ const getLessonsByLevel = async (req, res) => {
       });
     }
 
-    console.log(`[LESSONS] Fetching lessons for level ${level}`);
+    console.log(`[LESSONS] Fetching lessons for level ${level}, language: ${language}`);
 
-    // Try cache
-    const cacheKey = `lessons:level:${level}`;
+    // Try cache with language
+    const cacheKey = buildLanguageCacheKey(`lessons:level:${level}`, language);
     const cached = await cacheHelpers.get(cacheKey);
 
     if (cached) {
@@ -632,7 +642,7 @@ const getLessonsByLevel = async (req, res) => {
       });
     }
 
-    const lessons = await Lesson.findByLevel(levelNum);
+    const lessons = await Lesson.findByLevel(levelNum, language);
 
     // Cache for 1 hour
     await cacheHelpers.set(cacheKey, lessons, 3600);

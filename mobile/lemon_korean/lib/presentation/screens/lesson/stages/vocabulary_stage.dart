@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_loader.dart';
 import '../../../../data/models/lesson_model.dart';
-import '../../../widgets/convertible_text.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Vocabulary Stage with Flip Card Animation
 /// Shows vocabulary cards with images, audio, and Chinese translations
@@ -196,18 +196,20 @@ class _VocabularyStageState extends State<VocabularyStage>
 
         // Show feedback
         if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: ConvertibleText('播放音频...'),
-              duration: Duration(seconds: 1),
+            SnackBar(
+              content: Text(l10n.playingAudioShort),
+              duration: const Duration(seconds: 1),
             ),
           );
         }
       } catch (e) {
         if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: ConvertibleText('音频播放失败: $e'),
+              content: Text(l10n.audioPlayFailed(e.toString())),
               backgroundColor: AppConstants.errorColor,
             ),
           );
@@ -218,6 +220,7 @@ class _VocabularyStageState extends State<VocabularyStage>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final word = _mockWords[_currentCardIndex];
 
     return Container(
@@ -225,9 +228,9 @@ class _VocabularyStageState extends State<VocabularyStage>
       child: Column(
         children: [
           // Stage Title
-          const Text(
-            '词汇学习',
-            style: TextStyle(
+          Text(
+            l10n.vocabularyLearning,
+            style: const TextStyle(
               fontSize: AppConstants.fontSizeXLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -258,16 +261,16 @@ class _VocabularyStageState extends State<VocabularyStage>
                     color: AppConstants.primaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.touch_app,
                         size: 16,
                         color: AppConstants.primaryColor,
                       ),
-                      SizedBox(width: 4),
-                      ConvertibleText(
-                        '点击翻转',
+                      const SizedBox(width: 4),
+                      Text(
+                        l10n.tapToFlip,
                         style: const TextStyle(
                           fontSize: AppConstants.fontSizeSmall,
                           color: AppConstants.primaryColor,
@@ -315,7 +318,7 @@ class _VocabularyStageState extends State<VocabularyStage>
                         ? Transform(
                             alignment: Alignment.center,
                             transform: Matrix4.identity()..rotateY(math.pi),
-                            child: _buildBackCard(word),
+                            child: _buildBackCard(word, l10n),
                           )
                         : _buildFrontCard(word),
                   );
@@ -339,7 +342,7 @@ class _VocabularyStageState extends State<VocabularyStage>
                         vertical: AppConstants.paddingMedium,
                       ),
                     ),
-                    child: const ConvertibleText('上一个'),
+                    child: Text(l10n.previousItem),
                   ),
                 ),
 
@@ -359,8 +362,8 @@ class _VocabularyStageState extends State<VocabularyStage>
                   ),
                   child: Text(
                     _currentCardIndex < _mockWords.length - 1
-                        ? '下一个'
-                        : '继续',
+                        ? l10n.nextItem
+                        : l10n.continueBtn,
                   ),
                 ),
               ),
@@ -478,18 +481,23 @@ class _VocabularyStageState extends State<VocabularyStage>
                 const SizedBox(height: 20),
 
                 // Audio Button
-                ElevatedButton.icon(
-                  onPressed: _playAudio,
-                  icon: const Icon(Icons.volume_up),
-                  label: const ConvertibleText('发音'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppConstants.primaryColor,
-                    foregroundColor: Colors.black87,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
+                Builder(
+                  builder: (context) {
+                    final l10n = AppLocalizations.of(context)!;
+                    return ElevatedButton.icon(
+                      onPressed: _playAudio,
+                      icon: const Icon(Icons.volume_up),
+                      label: Text(l10n.pronunciation),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppConstants.primaryColor,
+                        foregroundColor: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -500,7 +508,7 @@ class _VocabularyStageState extends State<VocabularyStage>
   }
 
   /// Build back side of the card (Chinese)
-  Widget _buildBackCard(Map<String, dynamic> word) {
+  Widget _buildBackCard(Map<String, dynamic> word, AppLocalizations l10n) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -526,7 +534,7 @@ class _VocabularyStageState extends State<VocabularyStage>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Chinese Translation
-          ConvertibleText(
+          Text(
             word['chinese'],
             textAlign: TextAlign.center,
             style: const TextStyle(
@@ -564,9 +572,9 @@ class _VocabularyStageState extends State<VocabularyStage>
               ),
               child: Column(
                 children: [
-                  const Text(
-                    '汉字词',
-                    style: TextStyle(
+                  Text(
+                    l10n.hanjaWord,
+                    style: const TextStyle(
                       fontSize: AppConstants.fontSizeSmall,
                       color: AppConstants.textSecondary,
                     ),
@@ -587,7 +595,7 @@ class _VocabularyStageState extends State<VocabularyStage>
           ],
 
           // Similarity Score
-          _buildSimilarityBar(word['similarity'] as int),
+          _buildSimilarityBar(word['similarity'] as int, l10n),
 
           const Spacer(),
 
@@ -601,18 +609,18 @@ class _VocabularyStageState extends State<VocabularyStage>
               color: AppConstants.textHint.withOpacity(0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.touch_app,
                   size: 16,
                   color: AppConstants.textHint,
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
-                  '点击返回',
-                  style: TextStyle(
+                  l10n.tapToFlipBack,
+                  style: const TextStyle(
                     fontSize: AppConstants.fontSizeSmall,
                     color: AppConstants.textHint,
                   ),
@@ -626,7 +634,7 @@ class _VocabularyStageState extends State<VocabularyStage>
   }
 
   /// Build similarity progress bar
-  Widget _buildSimilarityBar(int similarity) {
+  Widget _buildSimilarityBar(int similarity, AppLocalizations l10n) {
     Color barColor;
     if (similarity >= 80) {
       barColor = AppConstants.successColor;
@@ -648,9 +656,9 @@ class _VocabularyStageState extends State<VocabularyStage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '与中文相似度',
-                style: TextStyle(
+              Text(
+                l10n.similarityWithChinese,
+                style: const TextStyle(
                   fontSize: AppConstants.fontSizeSmall,
                   color: AppConstants.textSecondary,
                 ),
@@ -678,7 +686,7 @@ class _VocabularyStageState extends State<VocabularyStage>
           const SizedBox(height: 8),
           // Similarity hint
           Text(
-            _getSimilarityHint(similarity),
+            _getSimilarityHint(similarity, l10n),
             style: TextStyle(
               fontSize: AppConstants.fontSizeSmall,
               color: barColor,
@@ -690,15 +698,15 @@ class _VocabularyStageState extends State<VocabularyStage>
     );
   }
 
-  String _getSimilarityHint(int similarity) {
+  String _getSimilarityHint(int similarity, AppLocalizations l10n) {
     if (similarity >= 90) {
-      return '汉字词，发音相似';
+      return l10n.hanjaWordSimilarPronunciation;
     } else if (similarity >= 70) {
-      return '词源相同，便于记忆';
+      return l10n.sameEtymologyEasyToRemember;
     } else if (similarity >= 50) {
-      return '有一定联系';
+      return l10n.someConnection;
     } else {
-      return '固有词，需要记忆';
+      return l10n.nativeWordNeedsMemorization;
     }
   }
 
