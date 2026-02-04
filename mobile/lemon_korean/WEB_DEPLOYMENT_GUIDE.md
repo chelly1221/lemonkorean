@@ -252,6 +252,96 @@ jobs:
 
 ---
 
+## Automated Web Deployment (2026-02-04)
+
+Admin Dashboard includes one-click automated web deployment.
+
+### Deployment UI
+
+**Access**: Admin Dashboard → Web Deployment (`#/deploy`)
+
+**Features**:
+- **Start Deployment**: Single button to trigger full build process
+- **Real-time Progress**: 0-100% progress bar with stage indicators
+  - Stages: pending → building → syncing → restarting → validating → completed
+- **Live Logs**: VS Code-style terminal with auto-scroll
+- **Deployment History**: Past 20 deployments with pagination
+- **Status Badges**: Visual indicators (running, completed, failed, cancelled)
+- **Cancel**: Abort running deployment
+
+### Deployment Process
+
+1. **Git Pull**: Fetch latest changes from repository
+2. **Install Dependencies**: Run `flutter pub get`
+3. **Build**: Execute `flutter build web --release --base-href=/app/`
+4. **Sync**: Copy `build/web/` to nginx directory
+5. **Restart**: Restart nginx service
+6. **Validate**: HTTP health check to verify deployment
+7. **Record**: Log deployment to database with status
+
+**Duration**: ~9-10 minutes
+
+### API Endpoints
+
+Admin Service provides 5 deployment endpoints:
+
+- **POST** `/api/admin/deploy/web/start` - Start new deployment
+- **GET** `/api/admin/deploy/web/status/:id` - Get deployment status
+- **GET** `/api/admin/deploy/web/logs/:id` - Stream deployment logs
+- **GET** `/api/admin/deploy/web/history` - List past deployments
+- **DELETE** `/api/admin/deploy/web/:id` - Cancel running deployment
+
+### Concurrency Control
+
+- **Redis Lock**: Prevents simultaneous deployments
+- **TTL**: 15-minute auto-expiration
+- **User Feedback**: Friendly error message if deployment already running
+
+### Database Tables
+
+- `web_deployments`: Deployment records (id, status, progress, git_commit, etc.)
+- `web_deployment_logs`: Real-time log messages (deployment_id, message, timestamp)
+
+### Backend Implementation
+
+- **Service**: `/services/admin/src/services/web-deploy.service.js` (542 lines)
+- **Controller**: `/services/admin/src/controllers/deploy.controller.js` (389 lines)
+- **Routes**: `/services/admin/src/routes/deploy.routes.js`
+- **Frontend**: `/services/admin/public/js/pages/deploy.js`
+
+### Security
+
+- **Admin Auth Required**: All endpoints except status check
+- **Audit Logging**: All deployment actions logged
+- **Safe Cancellation**: Graceful cleanup on abort
+
+### Troubleshooting
+
+**Deployment Stuck**:
+```bash
+# Check Redis lock
+docker exec lemon-redis redis-cli GET deployment:web:lock
+
+# Force unlock (emergency only)
+docker exec lemon-redis redis-cli DEL deployment:web:lock
+```
+
+**Build Failed**:
+- Check deployment logs in Admin Dashboard
+- Verify git repository is clean
+- Check disk space: `df -h`
+
+**Nginx Not Restarting**:
+```bash
+# Manual restart
+docker compose restart nginx
+
+# Check nginx logs
+docker compose logs nginx
+```
+
+---
+
 ## 참고 자료
 
 ### 프로젝트 문서
@@ -266,7 +356,7 @@ jobs:
 
 ---
 
-**마지막 업데이트**: 2026-02-03
+**마지막 업데이트**: 2026-02-05
 **담당**: Claude Opus 4.5
 
 ---

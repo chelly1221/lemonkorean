@@ -3,7 +3,6 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import 'widgets/pronunciation_player.dart';
 
 /// Batchim (final consonant) information
 class BatchimInfo {
@@ -277,9 +276,9 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
           const SizedBox(height: 24),
 
           // 7 sound groups
-          Text(
+          const Text(
             '7가지 대표음',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -574,9 +573,9 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
                 const SizedBox(height: 16),
 
                 // Examples
-                Text(
+                const Text(
                   '예시 단어',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -593,9 +592,9 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
                 const SizedBox(height: 24),
 
                 // Related batchims in same group
-                Text(
+                const Text(
                   '같은 소리로 발음되는 받침',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

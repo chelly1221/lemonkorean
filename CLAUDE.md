@@ -37,15 +37,15 @@ Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 6 Microservices ↔ Post
 | Progress | 3003 | Go | 진도/SRS |
 | Media | 3004 | Go | 미디어 서빙 |
 | Analytics | 3005 | Python | 통계 |
-| Admin | 3006 | Node.js | 관리자 대시보드 |
+| Admin | 3006 | Node.js | 관리자 대시보드, 앱 테마 설정 |
 
 ---
 
 ## 주요 디렉토리
 ```
 services/           # 백엔드 마이크로서비스
-mobile/lemon_korean/lib/  # Flutter 앱 (115 Dart 파일)
-database/postgres/  # PostgreSQL 스키마 (15개 테이블)
+mobile/lemon_korean/lib/  # Flutter 앱 (134 Dart 파일)
+database/postgres/  # PostgreSQL 스키마 (21개 테이블)
 config/             # DB/서비스 설정 파일
 nginx/              # Nginx 설정
 scripts/            # 백업, 최적화 스크립트
@@ -174,4 +174,4 @@ sudo lsof -i :5432
 
 ---
 
-**마지막 업데이트**: 2026-02-03
+**마지막 업데이트**: 2026-02-05

@@ -45,8 +45,8 @@ class LessonGridItem extends StatelessWidget {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        _getLevelColor(lesson.level).withOpacity(0.3),
-                        _getLevelColor(lesson.level).withOpacity(0.1),
+                        _getLevelColor(lesson.level).withValues(alpha: 0.3),
+                        _getLevelColor(lesson.level).withValues(alpha: 0.1),
                       ],
                     ),
                     borderRadius: const BorderRadius.only(
@@ -101,7 +101,7 @@ class LessonGridItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 4,
                           ),
                         ],

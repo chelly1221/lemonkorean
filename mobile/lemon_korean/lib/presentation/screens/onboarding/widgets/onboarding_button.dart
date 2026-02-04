@@ -17,11 +17,11 @@ class OnboardingButton extends StatefulWidget {
   final OnboardingButtonVariant variant;
 
   const OnboardingButton({
-    super.key,
     required this.text,
     this.onPressed,
     this.variant = OnboardingButtonVariant.primary,
     this.isEnabled = true,
+    super.key,
   });
 
   @override

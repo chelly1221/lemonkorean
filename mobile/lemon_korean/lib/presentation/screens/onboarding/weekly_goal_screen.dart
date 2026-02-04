@@ -231,6 +231,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
                         // Save goal to settings
                         final settingsProvider =
                             context.read<SettingsProvider>();
+                        final navigator = Navigator.of(context);
                         final selectedGoalData = _goals.firstWhere(
                           (g) => g['id'] == _selectedGoal,
                         );
@@ -242,8 +243,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
                         if (!mounted) return;
 
                         // Navigate to next screen
-                        Navigator.push(
-                          context,
+                        navigator.push(
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>

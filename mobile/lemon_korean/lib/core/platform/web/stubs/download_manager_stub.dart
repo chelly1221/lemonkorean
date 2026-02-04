@@ -1,5 +1,6 @@
 /// Download Manager - Web Stub
 /// Web platform doesn't support offline downloads - always operates in online mode
+library;
 
 /// Download Manager
 /// Stub implementation for web - no actual downloads, always online mode
@@ -16,7 +17,7 @@ class DownloadManager {
   DownloadManager._init();
 
   /// Download lesson (stub - immediately returns success)
-  Future<bool> downloadLesson(int lessonId) async {
+  Future<bool> downloadLesson(int lessonId, {String? language}) async {
     // Create progress entry
     _progressMap[lessonId] = DownloadProgress(
       lessonId: lessonId,
@@ -87,9 +88,9 @@ class DownloadManager {
   }
 
   /// Download multiple lessons (stub)
-  Future<void> downloadLessons(List<int> lessonIds) async {
+  Future<void> downloadLessons(List<int> lessonIds, {String? language}) async {
     for (final lessonId in lessonIds) {
-      await downloadLesson(lessonId);
+      await downloadLesson(lessonId, language: language);
     }
   }
 

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../constants/app_constants.dart';
 import '../platform/platform_factory.dart';
@@ -499,6 +498,17 @@ class ApiClient {
         responseType: ResponseType.bytes,
       ),
     );
+  }
+
+  // ================================================================
+  // THEME
+  // ================================================================
+
+  /// Get app theme settings from admin API
+  /// This is a public endpoint (no authentication required)
+  Future<Response> getAppTheme() async {
+    await ensureInitialized();
+    return await _dio.get('/admin/app-theme/settings');
   }
 }
 

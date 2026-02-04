@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import '../utils/app_logger.dart';
 
 /// Notification Service
 /// Handles all notification scheduling and management
@@ -58,13 +59,13 @@ class NotificationService {
       _isInitialized = initialized ?? false;
 
       if (kDebugMode) {
-        print('[NotificationService] Initialized: $_isInitialized');
+        AppLogger.d('Initialized: $_isInitialized', tag: 'NotificationService');
       }
 
       return _isInitialized;
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Init error: $e');
+        AppLogger.d('Init error: $e', tag: 'NotificationService');
       }
       return false;
     }
@@ -73,7 +74,7 @@ class NotificationService {
   /// Handle notification tap
   void _onNotificationTapped(NotificationResponse response) {
     if (kDebugMode) {
-      print('[NotificationService] Notification tapped: ${response.payload}');
+      AppLogger.d('Notification tapped: ${response.payload}', tag: 'NotificationService');
     }
     // TODO: Navigate to appropriate screen based on payload
   }
@@ -96,7 +97,7 @@ class NotificationService {
     if (androidImplementation != null) {
       final granted = await androidImplementation.requestNotificationsPermission();
       if (kDebugMode) {
-        print('[NotificationService] Permission granted: $granted');
+        AppLogger.d('Permission granted: $granted', tag: 'NotificationService');
       }
       return granted ?? false;
     }
@@ -113,7 +114,7 @@ class NotificationService {
         sound: true,
       );
       if (kDebugMode) {
-        print('[NotificationService] iOS permission granted: $granted');
+        AppLogger.d('iOS permission granted: $granted', tag: 'NotificationService');
       }
       return granted ?? false;
     }
@@ -211,12 +212,12 @@ class NotificationService {
       );
 
       if (kDebugMode) {
-        print('[NotificationService] Daily reminder scheduled at $hour:$minute');
-        print('[NotificationService] Next notification: $scheduledDate');
+        AppLogger.d('Daily reminder scheduled at $hour:$minute', tag: 'NotificationService');
+        AppLogger.d('Next notification: $scheduledDate', tag: 'NotificationService');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error scheduling daily reminder: $e');
+        AppLogger.d('Error scheduling daily reminder: $e', tag: 'NotificationService');
       }
     }
   }
@@ -228,11 +229,11 @@ class NotificationService {
     try {
       await _notifications.cancel(dailyReminderNotificationId);
       if (kDebugMode) {
-        print('[NotificationService] Daily reminder cancelled');
+        AppLogger.d('Daily reminder cancelled', tag: 'NotificationService');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error cancelling daily reminder: $e');
+        AppLogger.d('Error cancelling daily reminder: $e', tag: 'NotificationService');
       }
     }
   }
@@ -267,7 +268,7 @@ class NotificationService {
       // Don't schedule if the date is in the past
       if (scheduledDate.isBefore(tz.TZDateTime.now(tz.local))) {
         if (kDebugMode) {
-          print('[NotificationService] Review date in past, skipping: $reviewDate');
+          AppLogger.d('Review date in past, skipping: $reviewDate', tag: 'NotificationService');
         }
         return;
       }
@@ -308,13 +309,13 @@ class NotificationService {
       );
 
       if (kDebugMode) {
-        print('[NotificationService] Review reminder scheduled:');
-        print('  - Lesson: $lessonTitle (ID: $lessonId)');
-        print('  - Date: $scheduledDate');
+        AppLogger.d('Review reminder scheduled:', tag: 'NotificationService');
+        AppLogger.d('  - Lesson: $lessonTitle (ID: $lessonId)', tag: 'NotificationService');
+        AppLogger.d('  - Date: $scheduledDate', tag: 'NotificationService');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error scheduling review reminder: $e');
+        AppLogger.d('Error scheduling review reminder: $e', tag: 'NotificationService');
       }
     }
   }
@@ -328,11 +329,11 @@ class NotificationService {
       await _notifications.cancel(notificationId);
 
       if (kDebugMode) {
-        print('[NotificationService] Review reminder cancelled for lesson $lessonId');
+        AppLogger.d('Review reminder cancelled for lesson $lessonId', tag: 'NotificationService');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error cancelling review reminder: $e');
+        AppLogger.d('Error cancelling review reminder: $e', tag: 'NotificationService');
       }
     }
   }
@@ -348,11 +349,11 @@ class NotificationService {
     try {
       await _notifications.cancelAll();
       if (kDebugMode) {
-        print('[NotificationService] All notifications cancelled');
+        AppLogger.d('All notifications cancelled', tag: 'NotificationService');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error cancelling all notifications: $e');
+        AppLogger.d('Error cancelling all notifications: $e', tag: 'NotificationService');
       }
     }
   }
@@ -366,7 +367,7 @@ class NotificationService {
       return pending.length;
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error getting pending notifications: $e');
+        AppLogger.d('Error getting pending notifications: $e', tag: 'NotificationService');
       }
       return 0;
     }
@@ -380,7 +381,7 @@ class NotificationService {
       return await _notifications.pendingNotificationRequests();
     } catch (e) {
       if (kDebugMode) {
-        print('[NotificationService] Error getting pending notifications: $e');
+        AppLogger.d('Error getting pending notifications: $e', tag: 'NotificationService');
       }
       return [];
     }

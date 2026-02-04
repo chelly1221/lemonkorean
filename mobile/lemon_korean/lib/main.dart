@@ -16,6 +16,7 @@ import 'presentation/providers/lesson_provider.dart';
 import 'presentation/providers/progress_provider.dart';
 import 'presentation/providers/settings_provider.dart';
 import 'presentation/providers/sync_provider.dart';
+import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/vocabulary_browser_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
@@ -87,7 +88,14 @@ void main() async {
   final settingsProvider = SettingsProvider();
   await settingsProvider.init();
 
-  runApp(LemonKoreanApp(settingsProvider: settingsProvider));
+  // Pre-initialize ThemeProvider to load theme from cache/API
+  final themeProvider = ThemeProvider();
+  await themeProvider.initialize();
+
+  runApp(LemonKoreanApp(
+    settingsProvider: settingsProvider,
+    themeProvider: themeProvider,
+  ));
 }
 
 /// Convert AppLanguage to Locale
@@ -110,8 +118,13 @@ Locale _getLocaleFromLanguage(AppLanguage language) {
 
 class LemonKoreanApp extends StatelessWidget {
   final SettingsProvider settingsProvider;
+  final ThemeProvider themeProvider;
 
-  const LemonKoreanApp({super.key, required this.settingsProvider});
+  const LemonKoreanApp({
+    required this.settingsProvider,
+    required this.themeProvider,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -124,12 +137,13 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => VocabularyBrowserProvider()),
         ChangeNotifierProvider(create: (_) => HangulProvider()),
         ChangeNotifierProvider<SettingsProvider>.value(value: settingsProvider),
+        ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
         ChangeNotifierProvider(create: (_) => SyncProvider()),
         // Download provider only on mobile (web doesn't support file downloads)
         if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),
       ],
-      child: Consumer<SettingsProvider>(
-        builder: (context, settings, child) {
+      child: Consumer2<SettingsProvider, ThemeProvider>(
+        builder: (context, settings, theme, child) {
           // Determine locale based on app language setting
           final locale = _getLocaleFromLanguage(settings.appLanguage);
 
@@ -140,21 +154,8 @@ class LemonKoreanApp extends StatelessWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             locale: locale,
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: AppConstants.primaryColor,
-                brightness: Brightness.light,
-              ),
-              fontFamily: 'NotoSansKR',
-              scaffoldBackgroundColor: Colors.white,
-              appBarTheme: const AppBarTheme(
-                centerTitle: true,
-                elevation: 0,
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black87,
-              ),
-            ),
+            // Use theme from ThemeProvider (loaded from admin API)
+            theme: theme.lightTheme,
             home: const SplashScreen(),
           );
         },
@@ -210,7 +211,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       // Logged in: Sync lessons + progress (3 second timeout)
       await Future.wait([
-        lessonProvider.fetchLessons(),
+        lessonProvider.fetchLessons(language: settingsProvider.contentLanguageCode),
         progressProvider.syncWithServer(userId).timeout(
           const Duration(seconds: 3),
           onTimeout: () {
@@ -220,7 +221,7 @@ class _SplashScreenState extends State<SplashScreen> {
       ]);
     } else {
       // Not logged in: Prefetch lessons only
-      await lessonProvider.fetchLessons();
+      await lessonProvider.fetchLessons(language: settingsProvider.contentLanguageCode);
     }
 
     if (!mounted) return;
@@ -236,15 +237,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppConstants.primaryColor,
-              AppConstants.primaryColor.withOpacity(0.8),
-            ],
-          ),
+        decoration: const BoxDecoration(
+          color: AppConstants.primaryColor,
         ),
         child: Center(
           child: Column(
@@ -259,7 +253,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),

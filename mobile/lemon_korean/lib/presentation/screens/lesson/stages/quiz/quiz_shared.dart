@@ -24,7 +24,7 @@ class QuestionTypeBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: color, width: 2),
       ),
@@ -67,8 +67,8 @@ class QuestionFeedback extends StatelessWidget {
       padding: const EdgeInsets.all(AppConstants.paddingMedium),
       decoration: BoxDecoration(
         color: isCorrect
-            ? AppConstants.successColor.withOpacity(0.1)
-            : AppConstants.errorColor.withOpacity(0.1),
+            ? AppConstants.successColor.withValues(alpha: 0.1)
+            : AppConstants.errorColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
       ),
       child: Column(
@@ -147,14 +147,14 @@ class OptionTile extends StatelessWidget {
 
     if (hasAnswered) {
       if (isCorrect) {
-        backgroundColor = AppConstants.successColor.withOpacity(0.1);
+        backgroundColor = AppConstants.successColor.withValues(alpha: 0.1);
         borderColor = AppConstants.successColor;
       } else if (isSelected) {
-        backgroundColor = AppConstants.errorColor.withOpacity(0.1);
+        backgroundColor = AppConstants.errorColor.withValues(alpha: 0.1);
         borderColor = AppConstants.errorColor;
       }
     } else if (isSelected) {
-      backgroundColor = AppConstants.primaryColor.withOpacity(0.1);
+      backgroundColor = AppConstants.primaryColor.withValues(alpha: 0.1);
       borderColor = AppConstants.primaryColor;
     }
 

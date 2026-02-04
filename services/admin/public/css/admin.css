@@ -130,12 +130,39 @@ body {
 }
 
 .sidebar-menu {
-  padding: 1rem 0;
+  padding: 0.5rem 0;
+}
+
+/* Menu Section */
+.sidebar-section {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-section-header {
+  padding: 0.35rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #95a5a6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.sidebar-section-header i {
+  font-size: 0.7rem;
+}
+
+/* Indent items within sections */
+.sidebar-section .sidebar-menu-item {
+  padding-left: 2rem;
 }
 
 .sidebar-menu-item {
   display: block;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   color: var(--sidebar-text);
   text-decoration: none;
   transition: all 0.2s;

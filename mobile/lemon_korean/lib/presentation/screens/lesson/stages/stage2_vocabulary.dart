@@ -17,8 +17,8 @@ class Stage2Vocabulary extends StatefulWidget {
 
   const Stage2Vocabulary({
     required this.lesson,
-    this.stageData,
     required this.onNext,
+    this.stageData,
     this.onPrevious,
     super.key,
   });
@@ -132,7 +132,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
   Widget _buildImagePlaceholder(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Container(
-      color: AppConstants.primaryColor.withOpacity(0.05),
+      color: AppConstants.primaryColor.withValues(alpha: 0.05),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -204,7 +204,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                   borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -217,10 +217,10 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                   height: 200,
                   width: 200,
                   decoration: BoxDecoration(
-                    color: AppConstants.primaryColor.withOpacity(0.1),
+                    color: AppConstants.primaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
                     border: Border.all(
-                      color: AppConstants.primaryColor.withOpacity(0.3),
+                      color: AppConstants.primaryColor.withValues(alpha: 0.3),
                       width: 2,
                     ),
                   ),

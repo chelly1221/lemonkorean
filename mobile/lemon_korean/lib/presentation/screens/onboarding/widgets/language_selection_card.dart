@@ -10,11 +10,11 @@ class LanguageSelectionCard extends StatefulWidget {
   final VoidCallback onTap;
 
   const LanguageSelectionCard({
-    super.key,
     required this.flagEmoji,
     required this.nativeName,
     required this.isSelected,
     required this.onTap,
+    super.key,
   });
 
   @override
@@ -90,11 +90,11 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
               width: widget.isSelected ? 2 : 1,
             ),
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: OnboardingColors.cardShadow,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),

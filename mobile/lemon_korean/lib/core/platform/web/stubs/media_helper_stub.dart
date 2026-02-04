@@ -1,5 +1,6 @@
 /// Media Helper - Web Stub
 /// Web platform: all media served from CDN, no local files
+library;
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';

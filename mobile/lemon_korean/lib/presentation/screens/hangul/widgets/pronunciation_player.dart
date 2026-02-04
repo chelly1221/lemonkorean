@@ -309,7 +309,7 @@ class _PronunciationPlayerState extends State<PronunciationPlayer> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.repeat,
                   size: 14,
                   color: AppConstants.primaryColor,

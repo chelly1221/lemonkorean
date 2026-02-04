@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_constants.dart';
 import '../../storage/database_helper.dart';
+import '../../utils/app_logger.dart';
 import '../media_loader_interface.dart';
 
 /// Mobile implementation of IMediaLoader
@@ -27,7 +28,7 @@ class MediaLoaderImpl implements IMediaLoader {
       }
     } catch (e) {
       // If database query fails, fall back to remote
-      print('[MediaLoaderIO] Error getting local path: $e');
+      AppLogger.e('Error getting local path', error: e, tag: 'MediaLoaderIO');
     }
 
     // Return remote URL if local file not found
@@ -69,7 +70,7 @@ class MediaLoaderImpl implements IMediaLoader {
         await _audioPlayer.play(DeviceFileSource(url));
       }
     } catch (e) {
-      print('[MediaLoaderIO] Error playing audio: $e');
+      AppLogger.e('Error playing audio', error: e, tag: 'MediaLoaderIO');
       rethrow;
     }
   }

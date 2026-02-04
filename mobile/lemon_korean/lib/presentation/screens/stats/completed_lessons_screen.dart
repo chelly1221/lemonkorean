@@ -119,7 +119,7 @@ class CompletedLessonsScreen extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: AppConstants.successColor.withOpacity(0.2),
+                  color: AppConstants.successColor.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
                 ),
                 child: Stack(
@@ -200,7 +200,7 @@ class CompletedLessonsScreen extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: _getScoreColor(quizScore).withOpacity(0.1),
+                      color: _getScoreColor(quizScore).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(

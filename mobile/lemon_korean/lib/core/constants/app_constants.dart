@@ -162,4 +162,24 @@ class AppConstants {
   static const bool enableAutoSync = true;
   static const bool enableAnalytics = true;
   static const bool enableDebugMode = false; // Set to false in production
+
+  // ================================================================
+  // RUNTIME THEME INITIALIZATION
+  // ================================================================
+  // The following method allows runtime theme customization from admin API
+  // while keeping compile-time defaults as fallback
+
+  /// Initialize theme colors from AppThemeModel
+  ///
+  /// This method is called by ThemeProvider after fetching theme from API.
+  /// It doesn't actually modify the const values above (which are compile-time),
+  /// but ThemeProvider's lightTheme getter uses the theme model directly.
+  ///
+  /// This method exists for future extensibility if we need to apply
+  /// theme to non-ThemeData parts of the app.
+  static void initializeTheme(dynamic themeModel) {
+    // Currently, theme is applied via ThemeProvider.lightTheme
+    // This method is a placeholder for future theme initialization needs
+    // (e.g., updating platform-specific UI, custom painters, etc.)
+  }
 }

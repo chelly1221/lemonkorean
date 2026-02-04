@@ -227,7 +227,7 @@ class _QuizStageState extends State<QuizStage> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: AppConstants.successColor.withOpacity(0.1),
+                  color: AppConstants.successColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -251,8 +251,8 @@ class _QuizStageState extends State<QuizStage> {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: _remainingSeconds < AppConstants.quizWarningThresholdSeconds
-                      ? AppConstants.errorColor.withOpacity(0.1)
-                      : AppConstants.primaryColor.withOpacity(0.1),
+                      ? AppConstants.errorColor.withValues(alpha: 0.1)
+                      : AppConstants.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -393,13 +393,13 @@ class _QuizStageState extends State<QuizStage> {
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 colors: isPassed
-                    ? [AppConstants.successColor, AppConstants.successColor.withOpacity(0.7)]
-                    : [AppConstants.errorColor, AppConstants.errorColor.withOpacity(0.7)],
+                    ? [AppConstants.successColor, AppConstants.successColor.withValues(alpha: 0.7)]
+                    : [AppConstants.errorColor, AppConstants.errorColor.withValues(alpha: 0.7)],
               ),
               boxShadow: [
                 BoxShadow(
                   color: (isPassed ? AppConstants.successColor : AppConstants.errorColor)
-                      .withOpacity(0.3),
+                      .withValues(alpha: 0.3),
                   blurRadius: 30,
                   offset: const Offset(0, 10),
                 ),
@@ -455,7 +455,7 @@ class _QuizStageState extends State<QuizStage> {
             Container(
               padding: const EdgeInsets.all(AppConstants.paddingMedium),
               decoration: BoxDecoration(
-                color: AppConstants.primaryColor.withOpacity(0.1),
+                color: AppConstants.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
               ),
               child: Row(
@@ -477,8 +477,8 @@ class _QuizStageState extends State<QuizStage> {
             padding: const EdgeInsets.all(AppConstants.paddingLarge),
             decoration: BoxDecoration(
               color: isPassed
-                  ? AppConstants.successColor.withOpacity(0.1)
-                  : AppConstants.errorColor.withOpacity(0.1),
+                  ? AppConstants.successColor.withValues(alpha: 0.1)
+                  : AppConstants.errorColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Text(

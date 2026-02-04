@@ -665,6 +665,15 @@
   "error": "An error occurred",
   "@error": {"description": "Error title"},
 
+  "errorOccurred": "An error occurred",
+  "@errorOccurred": {"description": "Generic error message"},
+
+  "reload": "Reload",
+  "@reload": {"description": "Reload button"},
+
+  "noCharactersAvailable": "No characters available",
+  "@noCharactersAvailable": {"description": "No characters message"},
+
   "success": "Success",
   "@success": {"description": "Success title"},
 

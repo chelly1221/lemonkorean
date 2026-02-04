@@ -14,8 +14,8 @@ class Stage1Intro extends StatelessWidget {
 
   const Stage1Intro({
     required this.lesson,
-    this.stageData,
     required this.onNext,
+    this.stageData,
     super.key,
   });
 
@@ -39,13 +39,13 @@ class Stage1Intro extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   AppConstants.primaryColor,
-                  AppConstants.primaryColor.withOpacity(0.7),
+                  AppConstants.primaryColor.withValues(alpha: 0.7),
                 ],
               ),
               borderRadius: BorderRadius.circular(50),
               boxShadow: [
                 BoxShadow(
-                  color: AppConstants.primaryColor.withOpacity(0.3),
+                  color: AppConstants.primaryColor.withValues(alpha: 0.3),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -100,7 +100,7 @@ class Stage1Intro extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(AppConstants.paddingLarge),
               decoration: BoxDecoration(
-                color: AppConstants.primaryColor.withOpacity(0.1),
+                color: AppConstants.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(
                   AppConstants.radiusMedium,
                 ),

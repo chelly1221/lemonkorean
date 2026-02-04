@@ -19,14 +19,14 @@ class LessonProvider with ChangeNotifier {
   String? get errorMessage => _errorMessage;
 
   /// Fetch lessons from API or local storage
-  Future<void> fetchLessons({int? level}) async {
+  Future<void> fetchLessons({int? level, String? language}) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
       // Try to fetch from API
-      final response = await _apiClient.getLessons(level: level);
+      final response = await _apiClient.getLessons(level: level, language: language);
 
       if (response.statusCode == 200) {
         _lessons = List<Map<String, dynamic>>.from(response.data['lessons']);
@@ -52,7 +52,7 @@ class LessonProvider with ChangeNotifier {
   }
 
   /// Get lesson by ID
-  Future<void> getLesson(int lessonId) async {
+  Future<void> getLesson(int lessonId, {String? language}) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
@@ -69,7 +69,7 @@ class LessonProvider with ChangeNotifier {
       }
 
       // Fetch from API
-      final response = await _apiClient.getLesson(lessonId);
+      final response = await _apiClient.getLesson(lessonId, language: language);
 
       if (response.statusCode == 200) {
         _currentLesson = response.data;
@@ -88,13 +88,13 @@ class LessonProvider with ChangeNotifier {
   }
 
   /// Download lesson package
-  Future<bool> downloadLessonPackage(int lessonId) async {
+  Future<bool> downloadLessonPackage(int lessonId, {String? language}) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      final response = await _apiClient.downloadLessonPackage(lessonId);
+      final response = await _apiClient.downloadLessonPackage(lessonId, language: language);
 
       if (response.statusCode == 200) {
         final package = response.data;

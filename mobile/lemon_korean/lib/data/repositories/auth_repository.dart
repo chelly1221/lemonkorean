@@ -77,22 +77,22 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      print('[AuthRepository] Attempting login for: $email');
+      AppLogger.d('Attempting login for: $email', tag: _tag);
 
       final response = await _apiClient.login(
         email: email,
         password: password,
       );
 
-      print('[AuthRepository] Login response status: ${response.statusCode}');
+      AppLogger.d('Login response status: ${response.statusCode}', tag: _tag);
 
       if (response.statusCode == 200) {
         final data = response.data;
 
         // Validate response structure
         if (data == null || data['user'] == null) {
-          print('[AuthRepository] Error: Invalid response structure');
-          print('[AuthRepository] Response data: $data');
+          AppLogger.e('Error: Invalid response structure', tag: _tag);
+          AppLogger.e('Response data: $data', tag: _tag);
           return AuthResult(
             success: false,
             message: '서버 응답 데이터 형식 오류 (no user object)',
@@ -102,11 +102,11 @@ class AuthRepository {
         final userJson = data['user'];
 
         // Log the user data for debugging
-        print('[AuthRepository] User data received: $userJson');
+        AppLogger.d('User data received: $userJson', tag: _tag);
 
         // Validate required fields with detailed logging
         if (userJson['id'] == null) {
-          print('[AuthRepository] Error: Missing user ID');
+          AppLogger.e('Error: Missing user ID', tag: _tag);
           return AuthResult(
             success: false,
             message: '사용자 데이터에 ID가 없습니다',
@@ -114,7 +114,7 @@ class AuthRepository {
         }
 
         if (userJson['email'] == null || userJson['email'].toString().isEmpty) {
-          print('[AuthRepository] Error: Missing or empty email');
+          AppLogger.e('Error: Missing or empty email', tag: _tag);
           return AuthResult(
             success: false,
             message: '사용자 데이터에 이메일이 없습니다',
@@ -125,11 +125,11 @@ class AuthRepository {
         UserModel user;
         try {
           user = UserModel.fromJson(data['user']);
-          print('[AuthRepository] User parsed successfully: ${user.email}');
+          AppLogger.d('User parsed successfully: ${user.email}', tag: _tag);
         } catch (e, stackTrace) {
-          print('[AuthRepository] Failed to parse user model: $e');
-          print('[AuthRepository] Stack trace: $stackTrace');
-          print('[AuthRepository] User JSON: ${data['user']}');
+          AppLogger.e('Failed to parse user model: $e', tag: _tag, error: e);
+          AppLogger.e('Stack trace: $stackTrace', tag: _tag);
+          AppLogger.e('User JSON: ${data['user']}', tag: _tag);
           return AuthResult(
             success: false,
             message: '사용자 데이터 파싱 실패: ${e.toString()}',
@@ -158,13 +158,13 @@ class AuthRepository {
       );
     } catch (e) {
       // Add debug context for troubleshooting
-      print('[AuthRepository] Login failed: $e');
+      AppLogger.e('Login failed: $e', tag: _tag, error: e);
       if (e is DioException) {
-        print('[AuthRepository] Request URL: ${e.requestOptions.uri}');
-        print('[AuthRepository] Request method: ${e.requestOptions.method}');
-        print('[AuthRepository] Response status: ${e.response?.statusCode}');
-        print('[AuthRepository] Response data: ${e.response?.data}');
-        print('[AuthRepository] Error type: ${e.type}');
+        AppLogger.e('Request URL: ${e.requestOptions.uri}', tag: _tag);
+        AppLogger.e('Request method: ${e.requestOptions.method}', tag: _tag);
+        AppLogger.e('Response status: ${e.response?.statusCode}', tag: _tag);
+        AppLogger.e('Response data: ${e.response?.data}', tag: _tag);
+        AppLogger.e('Error type: ${e.type}', tag: _tag);
       }
 
       return AuthResult(

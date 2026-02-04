@@ -665,6 +665,15 @@
   "error": "오류가 발생했습니다",
   "@error": {"description": "Error title"},
 
+  "errorOccurred": "오류가 발생했습니다",
+  "@errorOccurred": {"description": "Generic error message"},
+
+  "reload": "다시 불러오기",
+  "@reload": {"description": "Reload button"},
+
+  "noCharactersAvailable": "사용 가능한 문자가 없습니다",
+  "@noCharactersAvailable": {"description": "No characters message"},
+
   "success": "성공",
   "@success": {"description": "Success title"},
 

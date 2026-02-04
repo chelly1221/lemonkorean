@@ -107,7 +107,7 @@ class SettingsMenuScreen extends StatelessWidget {
           const SizedBox(height: AppConstants.paddingSmall),
 
           Card(
-            color: AppConstants.errorColor.withOpacity(0.1),
+            color: AppConstants.errorColor.withValues(alpha: 0.1),
             child: ListTile(
               leading: const Icon(
                 Icons.logout,

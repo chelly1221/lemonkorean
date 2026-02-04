@@ -240,6 +240,63 @@ Comprehensive Korean alphabet learning system with 8 practice modes.
 
 ---
 
+### App Theme System (2026-02-04)
+
+Dynamic theme loading from backend API for complete app customization.
+
+**Files**:
+- `lib/data/models/app_theme_model.dart` (282 lines) - Theme data model
+- `lib/presentation/providers/theme_provider.dart` - Theme state management
+
+**Features**:
+- 🎨 **Dynamic Color Scheme**: 20+ colors loaded from API
+  - Brand colors (primary, secondary, accent)
+  - Status colors (error, success, warning, info)
+  - Text colors (primary, secondary, hint)
+  - Background colors (light, dark, card)
+  - Lesson stage colors (7 stages)
+- 🖼️ **Remote Logo Loading**: Splash, login, and favicon from server
+- 📝 **Custom Font Support**: Google Fonts + custom uploads
+- 💾 **Offline Caching**: Hive-based local storage
+- 🔄 **Version-Based Cache Invalidation**: Auto-update on theme changes
+
+**Architecture**:
+```dart
+// Fetch theme from API (public endpoint, no auth)
+final theme = await apiClient.getAppTheme();
+
+// Cache locally in Hive
+await LocalStorage.saveAppTheme(theme);
+
+// Apply to MaterialApp
+ThemeProvider.loadTheme();
+```
+
+**Backend Integration**:
+- **API Endpoint**: GET `/api/admin/app-theme` (public, no auth required)
+- **Cache Storage**: Hive box `appTheme`
+- **Update Detection**: Version number comparison
+- **Fallback**: Built-in default theme if API unavailable
+
+**Admin Configuration**:
+- Managed via Admin Dashboard at `#/app-theme`
+- 8 API endpoints for color, logo, and font management
+- Real-time preview and version control
+
+**Provider Usage**:
+```dart
+// Load theme on app start
+await ThemeProvider.loadTheme();
+
+// Check for updates
+await ThemeProvider.checkForUpdates();
+
+// Access current theme
+final theme = ThemeProvider.currentTheme;
+```
+
+---
+
 ### 1. 오프라인 우선 아키텍처
 
 ```dart

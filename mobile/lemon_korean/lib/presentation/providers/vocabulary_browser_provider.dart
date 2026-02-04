@@ -3,6 +3,7 @@ import '../../data/models/vocabulary_model.dart';
 import '../../data/repositories/content_repository.dart';
 import '../../core/storage/local_storage.dart'
     if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/utils/app_logger.dart';
 
 enum VocabSortType {
   level,          // Sort by level (lowest first)
@@ -14,7 +15,7 @@ class VocabularyBrowserProvider with ChangeNotifier {
   final ContentRepository _repository = ContentRepository();
 
   // State
-  Map<int, List<VocabularyModel>> _vocabularyByLevel = {};
+  final Map<int, List<VocabularyModel>> _vocabularyByLevel = {};
   int _currentLevel = 1;
   String _searchQuery = '';
   VocabSortType _sortType = VocabSortType.alphabetical;
@@ -53,7 +54,7 @@ class VocabularyBrowserProvider with ChangeNotifier {
   }
 
   // Methods
-  Future<void> loadVocabularyForLevel(int level) async {
+  Future<void> loadVocabularyForLevel(int level, {String? language}) async {
     if (_vocabularyByLevel.containsKey(level)) {
       // Already loaded
       _currentLevel = level;
@@ -81,7 +82,7 @@ class VocabularyBrowserProvider with ChangeNotifier {
       }
 
       // Fetch from API
-      final words = await _repository.getVocabularyByLevel(level);
+      final words = await _repository.getVocabularyByLevel(level, language: language);
       if (words != null && words.isNotEmpty) {
         _vocabularyByLevel[level] = words;
         // Save to cache - convert to JSON
@@ -91,7 +92,7 @@ class VocabularyBrowserProvider with ChangeNotifier {
       }
     } catch (e) {
       _errorMessage = e.toString();
-      print('Error loading vocabulary for level $level: $e');
+      AppLogger.e('Error loading vocabulary for level $level', error: e, tag: 'VocabularyBrowserProvider');
     } finally {
       _isLoading = false;
       notifyListeners();

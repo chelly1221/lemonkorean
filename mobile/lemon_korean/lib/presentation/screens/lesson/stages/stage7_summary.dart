@@ -15,8 +15,8 @@ class Stage7Summary extends StatelessWidget {
 
   const Stage7Summary({
     required this.lesson,
-    this.stageData,
     required this.onComplete,
+    this.stageData,
     this.onPrevious,
     super.key,
   });
@@ -42,12 +42,12 @@ class Stage7Summary extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   AppConstants.primaryColor,
-                  AppConstants.primaryColor.withOpacity(0.7),
+                  AppConstants.primaryColor.withValues(alpha: 0.7),
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: AppConstants.primaryColor.withOpacity(0.3),
+                  color: AppConstants.primaryColor.withValues(alpha: 0.3),
                   blurRadius: 30,
                   offset: const Offset(0, 10),
                 ),
@@ -134,7 +134,7 @@ class Stage7Summary extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(AppConstants.paddingLarge),
             decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withOpacity(0.1),
+              color: AppConstants.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Column(
@@ -187,7 +187,7 @@ class Stage7Summary extends StatelessWidget {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: AppConstants.primaryColor.withOpacity(0.1),
+                    color: AppConstants.primaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(
                       AppConstants.radiusSmall,
                     ),
@@ -295,7 +295,7 @@ class Stage7Summary extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
             ),
             child: Icon(

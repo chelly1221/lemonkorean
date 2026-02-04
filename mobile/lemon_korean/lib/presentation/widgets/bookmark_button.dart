@@ -17,14 +17,14 @@ class BookmarkButton extends StatefulWidget {
   final bool showLabel;
 
   const BookmarkButton({
-    Key? key,
     required this.vocabulary,
     this.onBookmarked,
     this.onUnbookmarked,
     this.size = 24.0,
     this.color,
     this.showLabel = false,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<BookmarkButton> createState() => _BookmarkButtonState();
@@ -77,15 +77,48 @@ class _BookmarkButtonState extends State<BookmarkButton>
       );
 
       if (success && mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        final messenger = ScaffoldMessenger.of(context);
+
         // Animate
         await _animationController.forward();
         await _animationController.reverse();
 
+        if (!mounted) return;
+
         // Show success message
-        _showSnackBar(AppLocalizations.of(context)!.addedToVocabularyBook, isSuccess: true);
+        messenger.showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 8),
+                Text(l10n.addedToVocabularyBook),
+              ],
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
         widget.onBookmarked?.call();
       } else if (mounted) {
-        _showSnackBar(AppLocalizations.of(context)!.addFailed, isSuccess: false);
+        final l10n = AppLocalizations.of(context)!;
+        final messenger = ScaffoldMessenger.of(context);
+        messenger.showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error, color: Colors.white),
+                const SizedBox(width: 8),
+                Text(l10n.addFailed),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     } else {
       // Remove bookmark (with confirmation)
@@ -98,15 +131,48 @@ class _BookmarkButtonState extends State<BookmarkButton>
       final success = await bookmarkProvider.toggleBookmark(widget.vocabulary);
 
       if (!success && mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        final messenger = ScaffoldMessenger.of(context);
+
         // Animate
         await _animationController.forward();
         await _animationController.reverse();
 
+        if (!mounted) return;
+
         // Show success message
-        _showSnackBar(AppLocalizations.of(context)!.removedFromVocabularyBook, isSuccess: true);
+        messenger.showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 8),
+                Text(l10n.removedFromVocabularyBook),
+              ],
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
         widget.onUnbookmarked?.call();
       } else if (mounted) {
-        _showSnackBar(AppLocalizations.of(context)!.removeFailed, isSuccess: false);
+        final l10n = AppLocalizations.of(context)!;
+        final messenger = ScaffoldMessenger.of(context);
+        messenger.showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error, color: Colors.white),
+                const SizedBox(width: 8),
+                Text(l10n.removeFailed),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     }
 
@@ -183,28 +249,6 @@ class _BookmarkButtonState extends State<BookmarkButton>
             child: Text(l10n.remove),
           ),
         ],
-      ),
-    );
-  }
-
-  void _showSnackBar(String message, {required bool isSuccess}) {
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Icon(
-              isSuccess ? Icons.check_circle : Icons.error,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 8),
-            Text(message),
-          ],
-        ),
-        backgroundColor: isSuccess ? Colors.green : Colors.red,
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
       ),
     );
   }

@@ -62,7 +62,7 @@ class _LemonPainter extends CustomPainter {
 
     // Draw more visible shadow beneath for better contrast
     final shadowPaint = Paint()
-      ..color = Colors.black.withOpacity(0.15)
+      ..color = Colors.black.withValues(alpha: 0.15)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
     canvas.drawOval(
       Rect.fromCenter(

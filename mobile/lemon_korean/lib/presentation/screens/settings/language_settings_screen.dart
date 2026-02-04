@@ -100,7 +100,7 @@ class LanguageSettingsScreen extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: isSelected
-                ? AppConstants.primaryColor.withOpacity(0.1)
+                ? AppConstants.primaryColor.withValues(alpha: 0.1)
                 : Colors.grey[100],
             borderRadius: BorderRadius.circular(8),
           ),
@@ -123,7 +123,7 @@ class LanguageSettingsScreen extends StatelessWidget {
           style: TextStyle(fontSize: 13, color: Colors.grey[600]),
         ),
         trailing: isSelected
-            ? Icon(
+            ? const Icon(
                 Icons.check_circle,
                 color: AppConstants.primaryColor,
                 size: 28,

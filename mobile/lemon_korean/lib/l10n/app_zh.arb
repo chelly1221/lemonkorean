@@ -665,6 +665,15 @@
   "error": "出错了",
   "@error": {"description": "Error title"},
 
+  "errorOccurred": "出错了",
+  "@errorOccurred": {"description": "Generic error message"},
+
+  "reload": "重新加载",
+  "@reload": {"description": "Reload button"},
+
+  "noCharactersAvailable": "暂无可用字符",
+  "@noCharactersAvailable": {"description": "No characters message"},
+
   "success": "成功",
   "@success": {"description": "Success title"},
 

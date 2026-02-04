@@ -23,7 +23,7 @@ class DailyGoalCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: isCompleted
-          ? AppConstants.primaryColor.withOpacity(0.1)
+          ? AppConstants.primaryColor.withValues(alpha: 0.1)
           : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
@@ -87,7 +87,7 @@ class DailyGoalCard extends StatelessWidget {
                 valueColor: AlwaysStoppedAnimation<Color>(
                   isCompleted
                       ? AppConstants.primaryColor
-                      : AppConstants.primaryColor.withOpacity(0.7),
+                      : AppConstants.primaryColor.withValues(alpha: 0.7),
                 ),
               ),
             ),

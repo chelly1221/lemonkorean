@@ -665,6 +665,15 @@
   "error": "エラーが発生しました",
   "@error": {"description": "Error title"},
 
+  "errorOccurred": "エラーが発生しました",
+  "@errorOccurred": {"description": "Generic error message"},
+
+  "reload": "再読み込み",
+  "@reload": {"description": "Reload button"},
+
+  "noCharactersAvailable": "文字がありません",
+  "@noCharactersAvailable": {"description": "No characters message"},
+
   "success": "成功",
   "@success": {"description": "Success title"},
 

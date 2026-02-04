@@ -647,6 +647,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get error => '出错了';
 
   @override
+  String get errorOccurred => '出错了';
+
+  @override
+  String get reload => '重新加载';
+
+  @override
+  String get noCharactersAvailable => '暂无可用字符';
+
+  @override
   String get success => '成功';
 
   @override
@@ -2733,6 +2742,15 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get error => '出錯了';
+
+  @override
+  String get errorOccurred => '出錯了';
+
+  @override
+  String get reload => '重新載入';
+
+  @override
+  String get noCharactersAvailable => '暫無可用字符';
 
   @override
   String get success => '成功';

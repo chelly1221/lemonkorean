@@ -1,0 +1,230 @@
+Analyzing lemon_korean...                                       
+
+   info • 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead • lib/core/platform/web/media_loader_web.dart:1:1 • deprecated_member_use
+   info • Don't use web-only libraries outside Flutter web plugins • lib/core/platform/web/media_loader_web.dart:1:1 • avoid_web_libraries_in_flutter
+   info • 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead • lib/core/platform/web/notification_web.dart:1:1 • deprecated_member_use
+   info • Don't use web-only libraries outside Flutter web plugins • lib/core/platform/web/notification_web.dart:1:1 • avoid_web_libraries_in_flutter
+   info • 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead • lib/core/platform/web/secure_storage_web.dart:1:1 • deprecated_member_use
+   info • Don't use web-only libraries outside Flutter web plugins • lib/core/platform/web/secure_storage_web.dart:1:1 • avoid_web_libraries_in_flutter
+   info • 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead • lib/core/platform/web/stubs/database_helper_stub.dart:5:1 • deprecated_member_use
+   info • Don't use web-only libraries outside Flutter web plugins • lib/core/platform/web/stubs/database_helper_stub.dart:5:1 • avoid_web_libraries_in_flutter
+   info • 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead • lib/core/platform/web/stubs/local_storage_stub.dart:6:1 • deprecated_member_use
+   info • Don't use web-only libraries outside Flutter web plugins • lib/core/platform/web/stubs/local_storage_stub.dart:6:1 • avoid_web_libraries_in_flutter
+   info • Unnecessary braces in a string interpolation • lib/core/platform/web/stubs/local_storage_stub.dart:334:35 • unnecessary_brace_in_string_interps
+   info • 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead • lib/core/platform/web/stubs/storage_utils_stub.dart:5:1 • deprecated_member_use
+   info • Don't use web-only libraries outside Flutter web plugins • lib/core/platform/web/stubs/storage_utils_stub.dart:5:1 • avoid_web_libraries_in_flutter
+warning • Unnecessary cast • lib/core/platform/web/stubs/storage_utils_stub.dart:36:18 • unnecessary_cast
+warning • Unnecessary cast • lib/core/platform/web/stubs/storage_utils_stub.dart:66:22 • unnecessary_cast
+warning • Unnecessary cast • lib/core/platform/web/stubs/storage_utils_stub.dart:70:29 • unnecessary_cast
+   info • Unnecessary braces in a string interpolation • lib/core/storage/local_storage.dart:271:33 • unnecessary_brace_in_string_interps
+   info • Use 'const' with the constructor to improve performance • lib/core/utils/validators.dart:76:14 • prefer_const_constructors
+   info • Required named parameters should be before optional named parameters • lib/data/models/bookmark_model.dart:33:19 • always_put_required_named_parameters_first
+   info • Use 'const' with the constructor to improve performance • lib/data/repositories/bookmark_repository.dart:211:14 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/data/repositories/bookmark_repository.dart:266:12 • prefer_const_constructors
+warning • The declaration '_mergeBookmarks' isn't referenced • lib/data/repositories/bookmark_repository.dart:294:16 • unused_element
+warning • The left operand can't be null, so the right operand is never executed • lib/data/repositories/progress_repository.dart:213:43 • dead_null_aware_expression
+   info • Required named parameters should be before optional named parameters • lib/main.dart:114:50 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/main.dart:245:41 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/main.dart:262:43 • deprecated_member_use
+   info • The private field _vocabularyByLevel could be 'final' • lib/presentation/providers/vocabulary_browser_provider.dart:18:35 • prefer_final_fields
+warning • The operand can't be 'null', so the condition is always 'true' • lib/presentation/providers/vocabulary_browser_provider.dart:86:17 • unnecessary_null_comparison
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/auth/login_screen.dart:88:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/auth/login_screen.dart:192:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/auth/login_screen.dart:197:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/download/download_manager_screen.dart:238:40 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/download/download_manager_screen.dart:599:46 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/hangul_batchim_screen.dart:279:11 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/hangul_batchim_screen.dart:576:17 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/hangul_batchim_screen.dart:595:17 • prefer_const_constructors
+   info • The private field _totalQuestions could be 'final' • lib/presentation/screens/hangul/hangul_discrimination_screen.dart:118:7 • prefer_final_fields
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/hangul_discrimination_screen.dart:667:17 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/hangul_discrimination_screen.dart:675:17 • prefer_const_constructors
+  error • Undefined name '_recordingPath' • lib/presentation/screens/hangul/hangul_shadowing_screen.dart:117:7 • undefined_identifier
+  error • Undefined name '_recordingPath' • lib/presentation/screens/hangul/hangul_shadowing_screen.dart:140:9 • undefined_identifier
+  error • Undefined name '_recordingPath' • lib/presentation/screens/hangul/hangul_shadowing_screen.dart:223:7 • undefined_identifier
+   info • The import of 'package:flutter/foundation.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/presentation/screens/hangul/widgets/pronunciation_player.dart:1:8 • unnecessary_import
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/widgets/pronunciation_player.dart:312:17 • prefer_const_constructors
+   info • Use 'const' for final variables initialized to a constant value • lib/presentation/screens/hangul/widgets/pronunciation_player.dart:443:5 • prefer_const_declarations
+   info • Use 'const' for final variables initialized to a constant value • lib/presentation/screens/hangul/widgets/writing_canvas.dart:146:5 • prefer_const_declarations
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/hangul/widgets/writing_canvas.dart:290:21 • prefer_const_constructors
+   info • The private field _targetLessons could be 'final' • lib/presentation/screens/home/home_screen.dart:105:7 • prefer_final_fields
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:530:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:603:66 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:700:45 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/home/home_screen.dart:868:23 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:880:50 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:965:34 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:978:37 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:1011:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/home_screen.dart:1020:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/continue_lesson_card.dart:42:56 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/daily_goal_card.dart:26:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/daily_goal_card.dart:90:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/lesson_grid_item.dart:48:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/lesson_grid_item.dart:49:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/lesson_grid_item.dart:104:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/user_header.dart:40:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/user_header.dart:41:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/home/widgets/user_header.dart:83:39 • deprecated_member_use
+   info • 'WillPopScope' is deprecated and shouldn't be used. Use PopScope instead. The Android predictive back feature will not work with WillPopScope. This feature was deprecated after v3.12.0-1.0.pre • lib/presentation/screens/lesson/lesson_screen.dart:369:12 • deprecated_member_use
+  error • Undefined name '_initialized' • lib/presentation/screens/lesson/stages/grammar_stage.dart:54:5 • undefined_identifier
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:326:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:327:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:549:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:562:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:609:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:725:63 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:729:61 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:734:61 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:799:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/grammar_stage.dart:800:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/fill_in_blank_question.dart:98:61 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/fill_in_blank_question.dart:101:59 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/fill_in_blank_question.dart:105:59 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/pronunciation_question.dart:106:53 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/pronunciation_question.dart:109:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/pronunciation_question.dart:113:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/quiz_shared.dart:27:22 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/quiz_shared.dart:70:41 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/quiz_shared.dart:71:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/quiz_shared.dart:150:53 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/quiz_shared.dart:153:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/quiz_shared.dart:157:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/word_order_question.dart:117:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/word_order_question.dart:118:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/word_order_question.dart:142:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/word_order_question.dart:209:41 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz/word_order_question.dart:210:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:230:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:254:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:255:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:396:77 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:397:73 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:402:24 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:458:50 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:480:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/quiz_stage.dart:481:45 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage1_intro.dart:18:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage1_intro.dart:42:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage1_intro.dart:48:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage1_intro.dart:103:50 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage2_vocabulary.dart:21:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage2_vocabulary.dart:135:40 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage2_vocabulary.dart:207:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage2_vocabulary.dart:220:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage2_vocabulary.dart:223:56 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage3_grammar.dart:18:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage3_grammar.dart:164:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage3_grammar.dart:199:56 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage3_grammar.dart:208:58 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage4_practice.dart:18:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:191:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:223:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:254:65 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:258:63 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:263:63 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:357:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage4_practice.dart:358:47 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:19:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:216:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:303:63 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:461:41 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:465:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:488:39 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage6_quiz.dart:33:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:298:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:339:64 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:360:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:391:55 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:527:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:528:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:585:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage6_quiz.dart:586:45 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage7_summary.dart:19:19 • always_put_required_named_parameters_first
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage7_summary.dart:45:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage7_summary.dart:50:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage7_summary.dart:137:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage7_summary.dart:190:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/stage7_summary.dart:298:28 • deprecated_member_use
+  error • Undefined name '_initialized' • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:82:5 • undefined_identifier
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:246:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:373:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:379:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:505:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:512:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:594:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:702:42 • deprecated_member_use
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/presentation/screens/onboarding/level_selection_screen.dart:188:27 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/presentation/screens/onboarding/weekly_goal_screen.dart:246:27 • use_build_context_synchronously
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/feature_card.dart:13:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/feature_card.dart:14:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/feature_card.dart:15:19 • always_put_required_named_parameters_first
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/screens/onboarding/widgets/feature_card.dart:30:20 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/feature_card.dart:31:11 • prefer_const_constructors
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:20:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:22:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:23:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:24:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:25:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:26:19 • always_put_required_named_parameters_first
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:98:24 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:99:15 • prefer_const_constructors
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:14:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:15:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:16:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:17:19 • always_put_required_named_parameters_first
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:93:24 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:94:15 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/onboarding/widgets/lemon_character.dart:65:30 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:17:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:18:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:20:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:22:19 • always_put_required_named_parameters_first
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:94:24 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:95:15 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:141:62 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/onboarding_button.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:20:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:22:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:23:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:24:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:25:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:26:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:27:19 • always_put_required_named_parameters_first
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/screens/onboarding/widgets/summary_card.dart:42:20 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/summary_card.dart:43:11 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/summary_card.dart:53:11 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/onboarding/widgets/summary_card.dart:58:11 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/review/review_screen.dart:411:36 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/settings/app_info_screen.dart:34:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/settings/language_settings_screen.dart:103:45 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/settings/language_settings_screen.dart:126:15 • prefer_const_constructors
+   info • 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre • lib/presentation/screens/settings/notification_settings_screen.dart:47:15 • deprecated_member_use
+   info • 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre • lib/presentation/screens/settings/notification_settings_screen.dart:97:19 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/settings/notification_settings_screen.dart:120:58 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/settings/notification_settings_screen.dart:125:32 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/settings/notification_settings_screen.dart:141:50 • prefer_const_constructors
+   info • 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre • lib/presentation/screens/settings/notification_settings_screen.dart:191:15 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/settings/settings_menu_screen.dart:110:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/stats/completed_lessons_screen.dart:122:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/stats/completed_lessons_screen.dart:203:56 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/stats/mastered_words_screen.dart:150:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/stats/mastered_words_screen.dart:416:52 • deprecated_member_use
+   info • The private field _results could be 'final' • lib/presentation/screens/vocabulary_book/vocabulary_book_review_screen.dart:34:26 • prefer_final_fields
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/screens/vocabulary_book/vocabulary_book_review_screen.dart:570:36 • deprecated_member_use
+   info • Don't use 'BuildContext's across async gaps • lib/presentation/screens/vocabulary_book/vocabulary_book_screen.dart:472:29 • use_build_context_synchronously
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/bilingual_text.dart:103:63 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/bilingual_text.dart:224:57 • deprecated_member_use
+   info • Required named parameters should be before optional named parameters • lib/presentation/widgets/bookmark_button.dart:21:19 • always_put_required_named_parameters_first
+   info • Don't use 'BuildContext's across async gaps • lib/presentation/widgets/bookmark_button.dart:85:43 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps • lib/presentation/widgets/bookmark_button.dart:106:43 • use_build_context_synchronously
+   info • Required named parameters should be before optional named parameters • lib/presentation/widgets/vocabulary_card.dart:16:19 • always_put_required_named_parameters_first
+   info • Use 'const' for final variables initialized to a constant value • test/core/constants/app_constants_test.dart:12:9 • prefer_const_declarations
+
+226 issues found. (ran in 10.6s)

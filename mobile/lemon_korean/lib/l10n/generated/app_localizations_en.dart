@@ -661,6 +661,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'An error occurred';
 
   @override
+  String get errorOccurred => 'An error occurred';
+
+  @override
+  String get reload => 'Reload';
+
+  @override
+  String get noCharactersAvailable => 'No characters available';
+
+  @override
   String get success => 'Success';
 
   @override

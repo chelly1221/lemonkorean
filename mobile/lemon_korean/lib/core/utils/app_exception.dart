@@ -28,16 +28,11 @@ class AppException implements Exception {
 /// Network-related exceptions
 class NetworkException extends AppException {
   const NetworkException({
-    String message = '네트워크 연결 실패. 네트워크 설정을 확인하세요',
-    String code = ErrorCodes.networkError,
-    dynamic originalError,
-    StackTrace? stackTrace,
-  }) : super(
-          message: message,
-          code: code,
-          originalError: originalError,
-          stackTrace: stackTrace,
-        );
+    super.message = '네트워크 연결 실패. 네트워크 설정을 확인하세요',
+    super.code = ErrorCodes.networkError,
+    super.originalError,
+    super.stackTrace,
+  });
 }
 
 /// Server-related exceptions
@@ -45,47 +40,32 @@ class ServerException extends AppException {
   final int? statusCode;
 
   const ServerException({
-    String message = '서버 오류. 나중에 다시 시도하세요',
-    String code = ErrorCodes.serverError,
+    super.message = '서버 오류. 나중에 다시 시도하세요',
+    super.code = ErrorCodes.serverError,
     this.statusCode,
-    dynamic originalError,
-    StackTrace? stackTrace,
-  }) : super(
-          message: message,
-          code: code,
-          originalError: originalError,
-          stackTrace: stackTrace,
-        );
+    super.originalError,
+    super.stackTrace,
+  });
 }
 
 /// Authentication-related exceptions
 class AuthException extends AppException {
   const AuthException({
-    String message = '인증 실패. 다시 로그인하세요',
-    String code = ErrorCodes.authError,
-    dynamic originalError,
-    StackTrace? stackTrace,
-  }) : super(
-          message: message,
-          code: code,
-          originalError: originalError,
-          stackTrace: stackTrace,
-        );
+    super.message = '인증 실패. 다시 로그인하세요',
+    super.code = ErrorCodes.authError,
+    super.originalError,
+    super.stackTrace,
+  });
 }
 
 /// Resource not found exceptions
 class NotFoundException extends AppException {
   const NotFoundException({
-    String message = '요청한 리소스가 존재하지 않습니다',
-    String code = ErrorCodes.notFound,
-    dynamic originalError,
-    StackTrace? stackTrace,
-  }) : super(
-          message: message,
-          code: code,
-          originalError: originalError,
-          stackTrace: stackTrace,
-        );
+    super.message = '요청한 리소스가 존재하지 않습니다',
+    super.code = ErrorCodes.notFound,
+    super.originalError,
+    super.stackTrace,
+  });
 }
 
 /// Validation exceptions
@@ -93,32 +73,22 @@ class ValidationException extends AppException {
   final Map<String, String>? fieldErrors;
 
   const ValidationException({
-    String message = '요청 파라미터 오류',
-    String code = ErrorCodes.validationError,
+    super.message = '요청 파라미터 오류',
+    super.code = ErrorCodes.validationError,
     this.fieldErrors,
-    dynamic originalError,
-    StackTrace? stackTrace,
-  }) : super(
-          message: message,
-          code: code,
-          originalError: originalError,
-          stackTrace: stackTrace,
-        );
+    super.originalError,
+    super.stackTrace,
+  });
 }
 
 /// Parse/Decode exceptions
 class ParseException extends AppException {
   const ParseException({
-    String message = '데이터 파싱 오류',
-    String code = ErrorCodes.parseError,
-    dynamic originalError,
-    StackTrace? stackTrace,
-  }) : super(
-          message: message,
-          code: code,
-          originalError: originalError,
-          stackTrace: stackTrace,
-        );
+    super.message = '데이터 파싱 오류',
+    super.code = ErrorCodes.parseError,
+    super.originalError,
+    super.stackTrace,
+  });
 }
 
 /// Utility class for handling exceptions

@@ -39,7 +39,7 @@ class ContinueLessonCard extends StatelessWidget {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: AppConstants.primaryColor.withOpacity(0.2),
+                      color: AppConstants.primaryColor.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(
                         AppConstants.radiusMedium,
                       ),

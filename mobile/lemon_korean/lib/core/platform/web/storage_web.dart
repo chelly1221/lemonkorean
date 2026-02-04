@@ -1,4 +1,3 @@
-import 'dart:html' as html;
 import 'package:idb_shim/idb_browser.dart';
 
 import '../storage_interface.dart';

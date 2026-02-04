@@ -77,7 +77,7 @@ class LocalStorageImpl implements ILocalStorage {
 
   @override
   Future<void> clearProgress() async {
-    await legacy.LocalStorage.getAllProgress();
+    legacy.LocalStorage.getAllProgress();
     // No clearProgress in legacy, would need to clear the box
     // Skipping for now as it's not critical
   }

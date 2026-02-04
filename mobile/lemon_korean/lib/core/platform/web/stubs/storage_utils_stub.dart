@@ -1,11 +1,25 @@
 /// Storage Utilities - Web Stub
 /// Web platform: localStorage capacity estimation
+library;
 
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
+import '../../../utils/app_logger.dart';
 
 /// Storage Utilities - Web Implementation
 /// Estimates browser localStorage capacity and usage
 class StorageUtils {
+  /// Helper to get all keys from localStorage
+  static List<String> _getAllKeys(web.Storage storage) {
+    final keys = <String>[];
+    for (var i = 0; i < storage.length; i++) {
+      final key = storage.key(i);
+      if (key != null) {
+        keys.add(key);
+      }
+    }
+    return keys;
+  }
+
   /// Get available storage space (estimated for web)
   static Future<int> getAvailableStorageBytes() async {
     // Most browsers have 5-10MB localStorage limit
@@ -25,8 +39,8 @@ class StorageUtils {
 
     try {
       // Calculate localStorage usage for lk_* keys
-      final storage = html.window.localStorage;
-      final keys = storage.keys.where((key) => key.startsWith('lk_'));
+      final storage = web.window.localStorage;
+      final keys = _getAllKeys(storage).where((key) => key.startsWith('lk_'));
 
       for (final key in keys) {
         final value = storage[key] ?? '';
@@ -34,7 +48,7 @@ class StorageUtils {
         total += ((key.length + value.length) * 2) as int;
       }
     } catch (e) {
-      print('[StorageUtils] Error calculating localStorage usage: $e');
+      AppLogger.e('Error calculating localStorage usage', error: e, tag: 'StorageUtils');
       return 0;
     }
 
@@ -56,8 +70,8 @@ class StorageUtils {
     final breakdown = <String, int>{};
 
     try {
-      final storage = html.window.localStorage;
-      final keys = storage.keys.where((key) => key.startsWith('lk_'));
+      final storage = web.window.localStorage;
+      final keys = _getAllKeys(storage).where((key) => key.startsWith('lk_'));
 
       for (final key in keys) {
         final value = storage[key] ?? '';
@@ -68,7 +82,7 @@ class StorageUtils {
         breakdown[prefix] = ((breakdown[prefix] ?? 0) + size) as int;
       }
     } catch (e) {
-      print('[StorageUtils] Error getting localStorage breakdown: $e');
+      AppLogger.e('Error getting localStorage breakdown', error: e, tag: 'StorageUtils');
     }
 
     return breakdown;

@@ -1,13 +1,14 @@
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants.dart';
+import '../../utils/app_logger.dart';
 import '../media_loader_interface.dart';
 
 /// Web implementation of IMediaLoader
 /// Always streams media from remote server (no local caching)
 class MediaLoaderImpl implements IMediaLoader {
-  html.AudioElement? _audioElement;
+  web.AudioElement? _audioElement;
 
   @override
   Future<String> getMediaPath(String remoteKey) async {
@@ -46,10 +47,11 @@ class MediaLoaderImpl implements IMediaLoader {
       await stopAudio();
 
       // Create new audio element
-      _audioElement = html.AudioElement(url);
+      _audioElement = web.HTMLAudioElement()
+        ..src = url;
       _audioElement!.play();
     } catch (e) {
-      print('[MediaLoaderWeb] Error playing audio: $e');
+      AppLogger.e('Error playing audio', error: e, tag: 'MediaLoaderWeb');
       rethrow;
     }
   }

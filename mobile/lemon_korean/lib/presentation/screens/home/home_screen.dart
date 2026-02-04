@@ -12,6 +12,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/bookmark_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../providers/progress_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../download/download_manager_screen.dart';
 import '../lesson/lesson_screen.dart';
 import '../review/review_screen.dart';
@@ -101,7 +102,7 @@ class _HomeTabState extends State<_HomeTab> {
   int _streakDays = 0;
   double _todayProgress = 0.0;
   int _completedToday = 0;
-  int _targetLessons = 3;
+  final int _targetLessons = 3;
 
   @override
   void initState() {
@@ -143,7 +144,6 @@ class _HomeTabState extends State<_HomeTab> {
 
     // Count consecutive days
     int streakDays = 1;
-    DateTime previousDate = mostRecentDate;
 
     // Get unique completion dates
     final uniqueDates = <DateTime>{};
@@ -214,10 +214,13 @@ class _HomeTabState extends State<_HomeTab> {
     ProgressProvider progressProvider,
     AuthProvider authProvider,
   ) async {
+    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+    final language = settingsProvider.contentLanguageCode;
+
     // Parallel fetch: lessons, progress, and stats at the same time
     if (authProvider.currentUser != null) {
       await Future.wait([
-        lessonProvider.fetchLessons(),
+        lessonProvider.fetchLessons(language: language),
         progressProvider.fetchProgress(authProvider.currentUser!.id),
         progressProvider.fetchUserStats(authProvider.currentUser!.id),
       ]);
@@ -226,7 +229,7 @@ class _HomeTabState extends State<_HomeTab> {
       _updateProgressStats(progressProvider);
     } else {
       // No user logged in, just fetch lessons
-      await lessonProvider.fetchLessons();
+      await lessonProvider.fetchLessons(language: language);
     }
 
     // Update lessons from provider
@@ -524,7 +527,7 @@ class _ReviewTab extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             child: Card(
-              color: AppConstants.primaryColor.withOpacity(0.1),
+              color: AppConstants.primaryColor.withValues(alpha: 0.1),
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.paddingLarge),
                 child: Column(
@@ -597,7 +600,7 @@ class _ReviewTab extends StatelessWidget {
                   ),
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: AppConstants.primaryColor.withOpacity(0.2),
+                      backgroundColor: AppConstants.primaryColor.withValues(alpha: 0.2),
                       child: Text(
                         '${counts[index]}',
                         style: const TextStyle(
@@ -694,7 +697,7 @@ class _ProfileTabState extends State<_ProfileTab> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppConstants.primaryColor.withOpacity(0.3),
+                  AppConstants.primaryColor.withValues(alpha: 0.3),
                   Colors.transparent,
                 ],
               ),
@@ -861,8 +864,8 @@ class _ProfileTabState extends State<_ProfileTab> {
 
   Widget _buildStatCard({
     required String label,
-    String? value,
     required IconData icon,
+    String? value,
     VoidCallback? onTap,
   }) {
     final card = Card(
@@ -874,7 +877,7 @@ class _ProfileTabState extends State<_ProfileTab> {
             Container(
               padding: const EdgeInsets.all(AppConstants.paddingSmall),
               decoration: BoxDecoration(
-                color: AppConstants.primaryColor.withOpacity(0.2),
+                color: AppConstants.primaryColor.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
               ),
               child: Icon(icon, color: AppConstants.primaryColor),
@@ -959,7 +962,7 @@ class _HangulLearningCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
           boxShadow: [
             BoxShadow(
-              color: Colors.blue.withOpacity(0.3),
+              color: Colors.blue.withValues(alpha: 0.3),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -972,7 +975,7 @@ class _HangulLearningCard extends StatelessWidget {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Center(
@@ -1005,7 +1008,7 @@ class _HangulLearningCard extends StatelessWidget {
                     l10n?.hangulLearningSubtitle ?? 'Learn Korean alphabet - 40 letters',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                     ),
                   ),
                 ],
@@ -1014,7 +1017,7 @@ class _HangulLearningCard extends StatelessWidget {
             // Arrow
             Icon(
               Icons.arrow_forward_ios,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               size: 20,
             ),
           ],

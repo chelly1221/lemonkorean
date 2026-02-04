@@ -564,14 +564,13 @@ class NativeComparisonCard extends StatefulWidget {
 }
 
 class _NativeComparisonCardState extends State<NativeComparisonCard> {
-  String _selectedLanguage = 'zh';
+  late String _selectedLanguage;
 
   @override
   void initState() {
     super.initState();
-    if (widget.userLanguage != null) {
-      _selectedLanguage = widget.userLanguage!;
-    }
+    // Use user's preferred language or default to Korean
+    _selectedLanguage = widget.userLanguage ?? 'ko';
   }
 
   Map<String, List<NativeComparison>> get _comparisons =>

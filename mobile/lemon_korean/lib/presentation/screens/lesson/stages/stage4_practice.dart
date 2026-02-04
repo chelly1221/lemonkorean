@@ -14,8 +14,8 @@ class Stage4Practice extends StatefulWidget {
 
   const Stage4Practice({
     required this.lesson,
-    this.stageData,
     required this.onNext,
+    this.stageData,
     this.onPrevious,
     super.key,
   });
@@ -188,7 +188,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: AppConstants.successColor.withOpacity(0.1),
+                  color: AppConstants.successColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -220,7 +220,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
             width: double.infinity,
             padding: const EdgeInsets.all(AppConstants.paddingLarge),
             decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withOpacity(0.1),
+              color: AppConstants.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
             ),
             child: Text(
@@ -251,16 +251,16 @@ class _Stage4PracticeState extends State<Stage4Practice> {
 
                 if (_showResult) {
                   if (isCorrectOption) {
-                    backgroundColor = AppConstants.successColor.withOpacity(0.1);
+                    backgroundColor = AppConstants.successColor.withValues(alpha: 0.1);
                     borderColor = AppConstants.successColor;
                     textColor = AppConstants.successColor;
                   } else if (isSelected && !isCorrectOption) {
-                    backgroundColor = AppConstants.errorColor.withOpacity(0.1);
+                    backgroundColor = AppConstants.errorColor.withValues(alpha: 0.1);
                     borderColor = AppConstants.errorColor;
                     textColor = AppConstants.errorColor;
                   }
                 } else if (isSelected) {
-                  backgroundColor = AppConstants.primaryColor.withOpacity(0.1);
+                  backgroundColor = AppConstants.primaryColor.withValues(alpha: 0.1);
                   borderColor = AppConstants.primaryColor;
                 }
 
@@ -354,8 +354,8 @@ class _Stage4PracticeState extends State<Stage4Practice> {
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
                 color: isCorrect
-                    ? AppConstants.successColor.withOpacity(0.1)
-                    : AppConstants.errorColor.withOpacity(0.1),
+                    ? AppConstants.successColor.withValues(alpha: 0.1)
+                    : AppConstants.errorColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
               ),
               child: Row(

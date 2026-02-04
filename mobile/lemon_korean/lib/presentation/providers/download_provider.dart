@@ -44,9 +44,9 @@ class DownloadProvider extends ChangeNotifier {
   // INITIALIZATION
   // ================================================================
 
-  Future<void> init() async {
+  Future<void> init({String? language}) async {
     await _offlineRepository.init();
-    await loadData();
+    await loadData(language: language);
     _startProgressMonitoring();
   }
 
@@ -60,7 +60,7 @@ class DownloadProvider extends ChangeNotifier {
   // DATA LOADING
   // ================================================================
 
-  Future<void> loadData() async {
+  Future<void> loadData({String? language}) async {
     _setLoading(true);
 
     try {
@@ -68,7 +68,7 @@ class DownloadProvider extends ChangeNotifier {
       _downloadedLessons = await _offlineRepository.getOfflineLessons();
 
       // Load all lessons
-      final allLessons = await _contentRepository.getLessons();
+      final allLessons = await _contentRepository.getLessons(language: language);
 
       // Filter available lessons (not downloaded)
       _availableLessons = allLessons
@@ -102,7 +102,7 @@ class DownloadProvider extends ChangeNotifier {
   // ================================================================
 
   /// Download a lesson
-  Future<void> downloadLesson(LessonModel lesson) async {
+  Future<void> downloadLesson(LessonModel lesson, {String? language}) async {
     try {
       // Set callbacks
       _downloadManager.onProgress = (lessonId, progress) {
@@ -116,7 +116,7 @@ class DownloadProvider extends ChangeNotifier {
         _onDownloadComplete(lessonId);
       };
 
-      final success = await _downloadManager.downloadLesson(lesson.id);
+      final success = await _downloadManager.downloadLesson(lesson.id, language: language);
 
       if (!success) {
         _setError('Download failed: ${lesson.title}');

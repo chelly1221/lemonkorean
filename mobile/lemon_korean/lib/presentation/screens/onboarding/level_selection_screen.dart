@@ -179,13 +179,14 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
                         // Save level to settings
                         final settingsProvider =
                             context.read<SettingsProvider>();
+                        final navigator = Navigator.of(context);
+
                         await settingsProvider.setUserLevel(_selectedLevel!);
 
                         if (!mounted) return;
 
                         // Navigate to next screen
-                        Navigator.push(
-                          context,
+                        navigator.push(
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>

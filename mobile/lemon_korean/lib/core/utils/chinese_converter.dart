@@ -144,7 +144,6 @@ class ChineseConverter {
     if (texts.isEmpty) return texts;
 
     final results = List<String?>.filled(texts.length, null);
-    final futures = <Future<void>>[];
 
     // Limit concurrent conversions to avoid overwhelming the system
     const maxConcurrent = 5;

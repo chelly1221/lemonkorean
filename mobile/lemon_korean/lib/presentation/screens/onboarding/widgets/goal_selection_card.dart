@@ -15,7 +15,6 @@ class GoalSelectionCard extends StatefulWidget {
   final VoidCallback onTap;
 
   const GoalSelectionCard({
-    super.key,
     required this.emoji,
     required this.title,
     required this.description,
@@ -24,6 +23,7 @@ class GoalSelectionCard extends StatefulWidget {
     required this.accentColor,
     required this.isSelected,
     required this.onTap,
+    super.key,
   });
 
   @override
@@ -95,11 +95,11 @@ class _GoalSelectionCardState extends State<GoalSelectionCard>
               width: widget.isSelected ? 2 : 1,
             ),
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: OnboardingColors.cardShadow,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),

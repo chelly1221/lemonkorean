@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: AppConstants.primaryColor.withOpacity(0.1),
+                        color: AppConstants.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
                       ),
                       child: const Center(
@@ -189,12 +189,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         padding: const EdgeInsets.all(AppConstants.paddingMedium),
                         decoration: BoxDecoration(
-                          color: AppConstants.errorColor.withOpacity(0.1),
+                          color: AppConstants.errorColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(
                             AppConstants.radiusMedium,
                           ),
                           border: Border.all(
-                            color: AppConstants.errorColor.withOpacity(0.3),
+                            color: AppConstants.errorColor.withValues(alpha: 0.3),
                           ),
                         ),
                         child: Row(

@@ -71,6 +71,9 @@ dependencies:
   # Web Storage (IndexedDB wrapper for cross-platform support)
   idb_shim: ^2.4.1
 
+  # Web platform support
+  web: ^1.0.0
+
   # Environment Configuration
   flutter_dotenv: ^5.1.0
 

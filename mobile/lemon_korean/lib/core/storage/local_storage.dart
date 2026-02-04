@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import '../constants/app_constants.dart';
+import '../utils/app_logger.dart';
 
 /// Local Storage using Hive
 /// Handles offline-first data storage
@@ -174,7 +175,7 @@ class LocalStorage {
 
       return (data as List).map((item) => Map<String, dynamic>.from(item as Map)).toList();
     } catch (e) {
-      print('Error getting vocabulary cache for level $level: $e');
+      AppLogger.e('Error getting vocabulary cache for level $level', error: e, tag: 'LocalStorage');
       return null;
     }
   }
@@ -186,7 +187,7 @@ class LocalStorage {
       await box.put('level_$level', words);
       await box.put('level_${level}_timestamp', DateTime.now().toIso8601String());
     } catch (e) {
-      print('Error saving vocabulary cache for level $level: $e');
+      AppLogger.e('Error saving vocabulary cache for level $level', error: e, tag: 'LocalStorage');
     }
   }
 
@@ -200,7 +201,7 @@ class LocalStorage {
       final timestamp = DateTime.parse(timestampStr as String);
       return DateTime.now().difference(timestamp);
     } catch (e) {
-      print('Error getting cache age for level $level: $e');
+      AppLogger.e('Error getting cache age for level $level', error: e, tag: 'LocalStorage');
       return null;
     }
   }

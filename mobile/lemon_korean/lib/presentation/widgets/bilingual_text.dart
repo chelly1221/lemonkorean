@@ -100,7 +100,7 @@ class _BilingualTextState extends State<BilingualText> {
     final defaultKoreanStyle = widget.koreanStyle ??
         TextStyle(
           fontSize: (defaultChineseStyle?.fontSize ?? 14) * widget.koreanFontSizeRatio,
-          color: (defaultChineseStyle?.color ?? Colors.black).withOpacity(0.6),
+          color: (defaultChineseStyle?.color ?? Colors.black).withValues(alpha: 0.6),
         );
 
     return Column(
@@ -221,7 +221,7 @@ class _InlineBilingualTextState extends State<InlineBilingualText> {
             text: '\n${widget.korean}',
             style: TextStyle(
               fontSize: baseFontSize * widget.koreanFontSizeRatio,
-              color: (baseStyle?.color ?? Colors.black).withOpacity(0.6),
+              color: (baseStyle?.color ?? Colors.black).withValues(alpha: 0.6),
               height: 1.2,
             ),
           ),

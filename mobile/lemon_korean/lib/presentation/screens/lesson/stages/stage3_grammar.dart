@@ -14,8 +14,8 @@ class Stage3Grammar extends StatefulWidget {
 
   const Stage3Grammar({
     required this.lesson,
-    this.stageData,
     required this.onNext,
+    this.stageData,
     this.onPrevious,
     super.key,
   });
@@ -161,7 +161,7 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                   borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -196,7 +196,7 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                     // Divider
                     Container(
                       height: 2,
-                      color: AppConstants.primaryColor.withOpacity(0.2),
+                      color: AppConstants.primaryColor.withValues(alpha: 0.2),
                     ),
 
                     const SizedBox(height: 24),
@@ -205,7 +205,7 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                     Container(
                       padding: const EdgeInsets.all(AppConstants.paddingMedium),
                       decoration: BoxDecoration(
-                        color: AppConstants.primaryColor.withOpacity(0.1),
+                        color: AppConstants.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(
                           AppConstants.radiusMedium,
                         ),

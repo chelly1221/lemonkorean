@@ -10,25 +10,28 @@
   /**
    * 앱 초기화
    */
-  function init() {
+  async function init() {
     console.log('[App] Lemon Korean Admin Dashboard 초기화');
 
-    // 1. 라우터 초기화
+    // 1. Clear legacy design settings from sessionStorage
+    sessionStorage.removeItem('admin_logo_url');
+
+    // 2. 라우터 초기화
     Router.init();
 
-    // 2. 토큰 자동 갱신 (30분마다)
+    // 3. 토큰 자동 갱신 (30분마다)
     setInterval(() => {
       if (Auth.isAuthenticated()) {
         Auth.refreshTokenIfNeeded();
       }
     }, 30 * 60 * 1000);
 
-    // 3. 전역 에러 핸들러
+    // 4. 전역 에러 핸들러
     window.addEventListener('error', (event) => {
       console.error('[App] 전역 에러:', event.error);
     });
 
-    // 4. 전역 Promise rejection 핸들러
+    // 5. 전역 Promise rejection 핸들러
     window.addEventListener('unhandledrejection', (event) => {
       console.error('[App] Unhandled Promise Rejection:', event.reason);
     });

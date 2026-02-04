@@ -213,7 +213,7 @@ class _HangulMainScreenState extends State<HangulMainScreen>
         );
         break;
       case 'writing':
-        // Show character selection dialog first
+        // Show character selection dialog with smart state handling
         _showWritingCharacterDialog();
         break;
       case 'shadowing':
@@ -229,65 +229,174 @@ class _HangulMainScreenState extends State<HangulMainScreen>
 
   void _showWritingCharacterDialog() {
     final l10n = AppLocalizations.of(context)!;
-    final provider = Provider.of<HangulProvider>(context, listen: false);
-    final characters = provider.allCharacters;
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.writingPractice),
-        content: SizedBox(
-          width: double.maxFinite,
-          height: 300,
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-            ),
-            itemCount: characters.length,
-            itemBuilder: (context, index) {
-              final char = characters[index];
-              return InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => HangulWritingScreen(
-                        character: char.character,
-                        guideImageUrl: char.strokeOrderUrl,
+      barrierDismissible: false,
+      builder: (dialogContext) => Consumer<HangulProvider>(
+        builder: (context, provider, child) {
+          // Determine dialog content based on loading state
+          Widget dialogContent;
+          List<Widget> dialogActions;
+
+          if (provider.isLoading) {
+            // Loading state
+            dialogContent = SizedBox(
+              width: double.maxFinite,
+              height: 200,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
+                    Text(
+                      l10n.loading,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: AppConstants.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+            dialogActions = [];
+          } else if (provider.loadingState == HangulLoadingState.error) {
+            // Error state
+            dialogContent = SizedBox(
+              width: double.maxFinite,
+              height: 200,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.error_outline,
+                      size: 48,
+                      color: Colors.red,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      provider.errorMessage ?? l10n.errorOccurred,
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+            dialogActions = [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(l10n.cancel),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await provider.loadAlphabetTable();
+                },
+                child: Text(l10n.retry),
+              ),
+            ];
+          } else if (provider.allCharacters.isEmpty) {
+            // Empty state
+            dialogContent = SizedBox(
+              width: double.maxFinite,
+              height: 200,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.folder_open,
+                      size: 48,
+                      color: AppConstants.textSecondary,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      l10n.noCharactersAvailable,
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+            dialogActions = [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(l10n.cancel),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await provider.loadAlphabetTable();
+                },
+                child: Text(l10n.reload),
+              ),
+            ];
+          } else {
+            // Loaded state - show character grid
+            final characters = provider.allCharacters;
+            dialogContent = SizedBox(
+              width: double.maxFinite,
+              height: 300,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+                itemCount: characters.length,
+                itemBuilder: (context, index) {
+                  final char = characters[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pop(dialogContext);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => HangulWritingScreen(
+                            character: char.character,
+                            guideImageUrl: char.strokeOrderUrl,
+                          ),
+                        ),
+                      );
+                    },
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: Center(
+                        child: Text(
+                          char.character,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   );
                 },
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  child: Center(
-                    child: Text(
-                      char.character,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
-          ),
-        ],
+              ),
+            );
+            dialogActions = [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(l10n.cancel),
+              ),
+            ];
+          }
+
+          return AlertDialog(
+            title: Text(l10n.writingPractice),
+            content: dialogContent,
+            actions: dialogActions,
+          );
+        },
       ),
     );
   }

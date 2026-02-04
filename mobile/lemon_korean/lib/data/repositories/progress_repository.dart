@@ -1,11 +1,13 @@
 import '../../core/network/api_client.dart';
 import '../../core/storage/local_storage.dart'
     if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/utils/app_logger.dart';
 import '../models/progress_model.dart';
 
 /// Progress Repository
 /// Handles user progress, quiz scores, and SRS reviews with offline sync
 class ProgressRepository {
+  static const String _tag = 'ProgressRepository';
   final _apiClient = ApiClient.instance;
 
   // ================================================================
@@ -33,7 +35,7 @@ class ProgressRepository {
       // Fallback to local
       return _getLocalProgress(userId);
     } catch (e) {
-      print('[ProgressRepository] getUserProgress error: $e');
+      AppLogger.e('getUserProgress error: $e', tag: _tag, error: e);
       return _getLocalProgress(userId);
     }
   }
@@ -65,7 +67,7 @@ class ProgressRepository {
       // Return local data
       return localProgress != null ? ProgressModel.fromJson(localProgress) : null;
     } catch (e) {
-      print('[ProgressRepository] getLessonProgress error: $e');
+      AppLogger.e('getLessonProgress error: $e', tag: _tag, error: e);
       final local = await LocalStorage.getLessonProgress(userId, lessonId);
       return local != null ? ProgressModel.fromJson(local) : null;
     }
@@ -114,7 +116,7 @@ class ProgressRepository {
         return updatedProgress;
       }
     } catch (e) {
-      print('[ProgressRepository] startLesson sync error: $e');
+      AppLogger.e('startLesson sync error: $e', tag: _tag, error: e);
       // Continue with local data
     }
 
@@ -186,7 +188,7 @@ class ProgressRepository {
         return updatedProgress;
       }
     } catch (e) {
-      print('[ProgressRepository] completeLesson sync error: $e');
+      AppLogger.e('completeLesson sync error: $e', tag: _tag, error: e);
     }
 
     return progressModel;
@@ -248,7 +250,7 @@ class ProgressRepository {
 
       return _getLocalReviews(userId);
     } catch (e) {
-      print('[ProgressRepository] getReviewSchedule error: $e');
+      AppLogger.e('getReviewSchedule error: $e', tag: _tag, error: e);
       return _getLocalReviews(userId);
     }
   }
@@ -324,7 +326,7 @@ class ProgressRepository {
         return syncedReview;
       }
     } catch (e) {
-      print('[ProgressRepository] submitReview sync error: $e');
+      AppLogger.e('submitReview sync error: $e', tag: _tag, error: e);
     }
 
     return reviewModel;
@@ -357,11 +359,11 @@ class ProgressRepository {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         _activeSessionId = response.data['session_id'] as int?;
-        print('[ProgressRepository] Session started: $_activeSessionId');
+        AppLogger.d('Session started: $_activeSessionId', tag: _tag);
         return _activeSessionId;
       }
     } catch (e) {
-      print('[ProgressRepository] startSession error: $e');
+      AppLogger.e('startSession error: $e', tag: _tag, error: e);
       // Session tracking is non-critical, continue without it
     }
 
@@ -377,7 +379,7 @@ class ProgressRepository {
   }) async {
     final id = sessionId ?? _activeSessionId;
     if (id == null) {
-      print('[ProgressRepository] No active session to end');
+      AppLogger.d('No active session to end', tag: _tag);
       return;
     }
 
@@ -390,11 +392,11 @@ class ProgressRepository {
       );
 
       if (response.statusCode == 200) {
-        print('[ProgressRepository] Session ended: $id');
+        AppLogger.d('Session ended: $id', tag: _tag);
         _activeSessionId = null;
       }
     } catch (e) {
-      print('[ProgressRepository] endSession error: $e');
+      AppLogger.e('endSession error: $e', tag: _tag, error: e);
       // Queue for later sync
       await LocalStorage.addToSyncQueue({
         'type': 'session_end',
@@ -419,7 +421,7 @@ class ProgressRepository {
         return response.data as Map<String, dynamic>;
       }
     } catch (e) {
-      print('[ProgressRepository] getSessionStats error: $e');
+      AppLogger.e('getSessionStats error: $e', tag: _tag, error: e);
     }
 
     return null;
@@ -480,7 +482,7 @@ class ProgressRepository {
       } catch (e) {
         failureCount++;
         errors.add('${item['type']}: $e');
-        print('[ProgressRepository] Sync error for ${item['type']}: $e');
+        AppLogger.e('Sync error for ${item['type']}: $e', tag: _tag, error: e);
       }
     }
 
@@ -505,7 +507,7 @@ class ProgressRepository {
         return response.data;
       }
     } catch (e) {
-      print('[ProgressRepository] getUserStats error: $e');
+      AppLogger.e('getUserStats error: $e', tag: _tag, error: e);
     }
 
     // Calculate from local data

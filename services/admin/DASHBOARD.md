@@ -119,7 +119,67 @@ Lemon Korean Admin Service를 위한 완전한 웹 대시보드가 구현되었�
 
 ---
 
-### 9. 웹 배포 자동화 (2026-02-04)
+### 9. App Theme 관리 (2026-02-04)
+
+Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
+
+**위치**: `#/app-theme` (사이드바: "App Theme")
+
+**기능**:
+- **색상 팔레트**: 20+ 색상 설정
+  - 브랜드 색상 (primary, secondary, accent)
+  - 상태 색상 (error, success, warning, info)
+  - 텍스트 색상 (primary, secondary, hint)
+  - 배경 색상 (light, dark, card)
+  - 레슨 단계 색상 (7단계)
+  - 색상 선택기 UI 및 Hex 검증
+  - 실시간 미리보기 패널
+
+- **로고 관리**:
+  - 스플래시 화면 로고 (PNG/JPG, 최대 2MB)
+  - 로그인 화면 로고 (PNG/JPG/SVG, 최대 2MB)
+  - Favicon (ICO/PNG, 16x16 또는 32x32)
+  - 드래그앤드롭 업로드
+  - 썸네일 미리보기
+
+- **폰트 설정**:
+  - Google Fonts 드롭다운 (50+ 폰트)
+  - 커스텀 폰트 업로드 (TTF/OTF)
+  - 시스템 기본 폰트 옵션
+  - 샘플 텍스트로 폰트 미리보기
+
+- **버전 관리**: 캐시 무효화를 위한 자동 버전 증가
+- **기본값 복원**: 원클릭 기본 테마 복원
+- **변경 이력**: 최근 20개 업데이트 및 차이 확인
+
+**API 엔드포인트** (8개):
+- GET `/api/admin/app-theme` (공개)
+- PUT `/api/admin/app-theme/colors` (관리자)
+- POST `/api/admin/app-theme/logo/upload` (관리자)
+- DELETE `/api/admin/app-theme/logo/:type` (관리자)
+- PUT `/api/admin/app-theme/font` (관리자)
+- POST `/api/admin/app-theme/font/upload` (관리자)
+- POST `/api/admin/app-theme/reset` (관리자)
+- GET `/api/admin/app-theme/history` (관리자)
+
+**백엔드 파일**:
+- `src/controllers/app-theme.controller.js` (675줄)
+- `src/routes/app-theme.routes.js` (28줄)
+- `public/js/pages/app-theme.js` (450+ 줄)
+
+**데이터베이스**: `app_theme_settings` 테이블 (단일 행, id=1)
+
+**UI 기능**:
+- 3탭 인터페이스 (색상, 로고, 폰트)
+- 실시간 색상 미리보기
+- 시각적 색상 팔레트 그리드
+- 로고 썸네일 갤러리
+- 폰트 샘플 렌더링
+- 반응형 레이아웃
+
+---
+
+### 10. 웹 배포 자동화 (2026-02-04)
 
 관리자 대시보드에서 원클릭 Flutter 웹 앱 배포.
 

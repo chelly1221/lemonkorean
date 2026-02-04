@@ -653,6 +653,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get error => 'エラーが発生しました';
 
   @override
+  String get errorOccurred => 'エラーが発生しました';
+
+  @override
+  String get reload => '再読み込み';
+
+  @override
+  String get noCharactersAvailable => '文字がありません';
+
+  @override
   String get success => '成功';
 
   @override

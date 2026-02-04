@@ -29,8 +29,8 @@ class BookmarkModel {
   BookmarkModel({
     required this.id,
     required this.vocabularyId,
-    this.notes,
     required this.createdAt,
+    this.notes,
     this.isSynced = false,
     this.vocabulary,
     this.progress,

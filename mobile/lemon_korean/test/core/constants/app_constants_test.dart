@@ -8,10 +8,6 @@ void main() {
         expect(AppConstants.appName, 'Lemon Korean');
       });
 
-      test('appNameChinese should be non-empty', () {
-        expect(AppConstants.appNameChinese, isNotEmpty);
-      });
-
       test('version should follow semver format', () {
         final version = AppConstants.version;
         final semverRegex = RegExp(r'^\d+\.\d+\.\d+$');

@@ -1,5 +1,6 @@
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 
+import '../../utils/app_logger.dart';
 import '../notification_interface.dart';
 
 /// Web implementation of INotificationService using Web Notifications API
@@ -9,15 +10,22 @@ class NotificationServiceImpl implements INotificationService {
 
   @override
   Future<bool> init() async {
-    if (!html.Notification.supported) {
-      print('[NotificationWeb] Notifications not supported in this browser');
+    try {
+      // Note: web.Notification.requestPermission() returns a sync string in modern web package
+      final permission = web.Notification.permission;
+      _permissionGranted = permission == 'granted';
+
+      // If permission is 'default', try to request it (simplified approach for web)
+      if (!_permissionGranted && permission == 'default') {
+        // Notification.requestPermission() is available but needs user interaction
+        AppLogger.i('Notification permission is default, user needs to grant permission', tag: 'NotificationWeb');
+      }
+
+      return _permissionGranted;
+    } catch (e) {
+      AppLogger.w('Notifications not supported in this browser', error: e, tag: 'NotificationWeb');
       return false;
     }
-
-    final permission = await html.Notification.requestPermission();
-    _permissionGranted = permission == 'granted';
-
-    return _permissionGranted;
   }
 
   @override
@@ -31,9 +39,9 @@ class NotificationServiceImpl implements INotificationService {
     // Could use Service Workers for background scheduling
     // For now, just show a simple notification
     if (_permissionGranted) {
-      html.Notification(
+      web.Notification(
         title ?? 'Lemon Korean',
-        body: body ?? 'Time to study!',
+        web.NotificationOptions(body: body ?? 'Time to study!'),
       );
     }
   }
@@ -56,7 +64,7 @@ class NotificationServiceImpl implements INotificationService {
     required String body,
   }) async {
     if (_permissionGranted) {
-      html.Notification(title, body: body);
+      web.Notification(title, web.NotificationOptions(body: body));
     }
   }
 }

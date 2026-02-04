@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../core/storage/local_storage.dart'
     if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../core/storage/database_helper.dart';
+import '../../core/utils/app_logger.dart';
 import '../../core/utils/download_manager.dart';
 import '../../core/utils/sync_manager.dart';
 import '../models/lesson_model.dart';
@@ -412,7 +413,7 @@ class OfflineRepository {
         }
       }
     } catch (e) {
-      print('[OfflineRepository] Error calculating directory size: $e');
+      AppLogger.e('Error calculating directory size', error: e, tag: 'OfflineRepository');
     }
 
     return totalSize;

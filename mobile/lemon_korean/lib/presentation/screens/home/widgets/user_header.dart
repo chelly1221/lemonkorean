@@ -37,8 +37,8 @@ class UserHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppConstants.primaryColor.withOpacity(0.2),
-            AppConstants.primaryColor.withOpacity(0.05),
+            AppConstants.primaryColor.withValues(alpha: 0.2),
+            AppConstants.primaryColor.withValues(alpha: 0.05),
           ],
         ),
       ),
@@ -80,7 +80,7 @@ class UserHeader extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),

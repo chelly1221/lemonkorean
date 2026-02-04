@@ -95,14 +95,14 @@ class FillInBlankQuestion extends StatelessWidget {
 
             if (hasAnswered) {
               if (isCorrectOption) {
-                backgroundColor = AppConstants.successColor.withOpacity(0.2);
+                backgroundColor = AppConstants.successColor.withValues(alpha: 0.2);
                 borderColor = AppConstants.successColor;
               } else if (isSelected) {
-                backgroundColor = AppConstants.errorColor.withOpacity(0.2);
+                backgroundColor = AppConstants.errorColor.withValues(alpha: 0.2);
                 borderColor = AppConstants.errorColor;
               }
             } else if (isSelected) {
-              backgroundColor = AppConstants.primaryColor.withOpacity(0.2);
+              backgroundColor = AppConstants.primaryColor.withValues(alpha: 0.2);
               borderColor = AppConstants.primaryColor;
             }
 

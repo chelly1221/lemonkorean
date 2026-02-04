@@ -1,5 +1,6 @@
 /// Input Validators
 /// Centralized validation logic for forms
+library;
 
 import '../constants/app_constants.dart';
 

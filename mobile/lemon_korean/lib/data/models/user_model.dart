@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 
+import '../../core/utils/app_logger.dart';
+
 part 'user_model.g.dart';
 
 @HiveType(typeId: 0)
@@ -76,7 +78,7 @@ class UserModel {
       if (str.isEmpty) return null;
       return DateTime.parse(str);
     } catch (e) {
-      print('[UserModel] Failed to parse DateTime: $value');
+      AppLogger.e('Failed to parse DateTime: $value', error: e, tag: 'UserModel');
       return null;
     }
   }

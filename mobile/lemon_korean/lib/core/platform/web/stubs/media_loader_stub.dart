@@ -1,5 +1,6 @@
 /// Media Loader - Web Stub
 /// Web platform doesn't have file system - all media served from CDN
+library;
 
 /// Media Loader Utility - Web Implementation
 /// All media is loaded directly from CDN URLs (no local storage)

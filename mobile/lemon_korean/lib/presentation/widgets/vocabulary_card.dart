@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/vocabulary_model.dart';
 import '../providers/bookmark_provider.dart';
+import '../../core/utils/app_logger.dart';
 import '../../core/utils/media_helper.dart';
 import '../../l10n/generated/app_localizations.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -11,10 +12,10 @@ class VocabularyCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const VocabularyCard({
-    Key? key,
     required this.vocabulary,
     this.onTap,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,7 @@ class VocabularyCard extends StatelessWidget {
       final mediaPath = await MediaHelper.getMediaUrl(audioUrl);
       await audioPlayer.play(UrlSource(mediaPath));
     } catch (e) {
-      print('Audio playback error: $e');
+      AppLogger.e('Audio playback error', error: e, tag: 'VocabularyCard');
     }
   }
 

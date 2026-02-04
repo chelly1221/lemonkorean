@@ -147,7 +147,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppConstants.primaryColor.withOpacity(0.2),
+                    color: AppConstants.primaryColor.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -413,7 +413,7 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
               Container(
                 padding: const EdgeInsets.all(AppConstants.paddingMedium),
                 decoration: BoxDecoration(
-                  color: AppConstants.successColor.withOpacity(0.1),
+                  color: AppConstants.successColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
                 ),
                 child: Row(

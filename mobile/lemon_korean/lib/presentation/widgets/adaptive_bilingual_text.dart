@@ -32,7 +32,7 @@ class AdaptiveBilingualText extends StatelessWidget {
 
     // Convert Chinese text based on user preference
     final convertedChinese = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(chinese)
+        ? ChineseConverter.toTraditional(chinese) as String
         : chinese;
 
     return BilingualText(
@@ -68,7 +68,7 @@ class InlineAdaptiveBilingualText extends StatelessWidget {
 
     // Convert Chinese text based on user preference
     final convertedChinese = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(chinese)
+        ? ChineseConverter.toTraditional(chinese) as String
         : chinese;
 
     return InlineBilingualText(
@@ -97,7 +97,7 @@ class ChineseTextConverter extends StatelessWidget {
     final settings = context.watch<SettingsProvider>();
 
     final convertedText = settings.chineseVariant == ChineseVariant.traditional
-        ? ChineseConverter.toTraditional(text)
+        ? ChineseConverter.toTraditional(text) as String
         : text;
 
     return Text(

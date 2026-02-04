@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../providers/hangul_provider.dart';
 import 'widgets/pronunciation_player.dart';
 
 /// Korean syllable structure helper

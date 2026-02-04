@@ -1,8 +1,10 @@
 /// Stub for DatabaseHelper (web build)
 /// This file is imported when building for web to avoid importing sqflite
+library;
 
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 import 'dart:convert';
+import '../../../utils/app_logger.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._internal();
@@ -34,7 +36,7 @@ class DatabaseHelper {
       final remoteKey = data['remote_key'] as String?;
       if (remoteKey != null) {
         // Store mapping in localStorage for reference
-        html.window.localStorage['lk_media_$remoteKey'] = json.encode({
+        web.window.localStorage['lk_media_$remoteKey'] = json.encode({
           'downloaded': true,
           'lesson_id': data['lesson_id'],
           'file_type': data['file_type'],
@@ -42,16 +44,16 @@ class DatabaseHelper {
         });
       }
     } catch (e) {
-      print('[DatabaseHelper] Failed to insert media file: $e');
+      AppLogger.e('Failed to insert media file', error: e, tag: 'DatabaseHelper');
     }
   }
 
   /// Delete media file mapping
   Future<void> deleteMediaFile(String remoteKey) async {
     try {
-      html.window.localStorage.remove('lk_media_$remoteKey');
+      web.window.localStorage.remove('lk_media_$remoteKey');
     } catch (e) {
-      print('[DatabaseHelper] Failed to delete media file: $e');
+      AppLogger.e('Failed to delete media file', error: e, tag: 'DatabaseHelper');
     }
   }
 
@@ -60,11 +62,10 @@ class DatabaseHelper {
     try {
       final keysToRemove = <String>[];
 
-      for (var i = 0; i < html.window.localStorage.length; i++) {
-        final key = html.window.localStorage.key(i);
-        if (key != null && key.startsWith('lk_media_')) {
+      for (final key in web.window.localStorage.keys) {
+        if (key.startsWith('lk_media_')) {
           try {
-            final value = html.window.localStorage[key];
+            final value = web.window.localStorage[key];
             if (value != null) {
               final data = json.decode(value) as Map<String, dynamic>;
               if (data['lesson_id'] == lessonId) {
@@ -78,17 +79,17 @@ class DatabaseHelper {
       }
 
       for (final key in keysToRemove) {
-        html.window.localStorage.remove(key);
+        web.window.localStorage.remove(key);
       }
     } catch (e) {
-      print('[DatabaseHelper] Failed to delete media files by lesson: $e');
+      AppLogger.e('Failed to delete media files by lesson', error: e, tag: 'DatabaseHelper');
     }
   }
 
   /// Get media file info
   Future<Map<String, dynamic>?> getMediaFile(String remoteKey) async {
     try {
-      final value = html.window.localStorage['lk_media_$remoteKey'];
+      final value = web.window.localStorage['lk_media_$remoteKey'];
       if (value != null) {
         final data = json.decode(value) as Map<String, dynamic>;
         return {
@@ -102,7 +103,7 @@ class DatabaseHelper {
         };
       }
     } catch (e) {
-      print('[DatabaseHelper] Failed to get media file: $e');
+      AppLogger.e('Failed to get media file', error: e, tag: 'DatabaseHelper');
     }
     return null;
   }
@@ -112,11 +113,10 @@ class DatabaseHelper {
     final results = <Map<String, dynamic>>[];
 
     try {
-      for (var i = 0; i < html.window.localStorage.length; i++) {
-        final key = html.window.localStorage.key(i);
-        if (key != null && key.startsWith('lk_media_')) {
+      for (final key in web.window.localStorage.keys) {
+        if (key.startsWith('lk_media_')) {
           try {
-            final value = html.window.localStorage[key];
+            final value = web.window.localStorage[key];
             if (value != null) {
               final data = json.decode(value) as Map<String, dynamic>;
               if (data['lesson_id'] == lessonId) {
@@ -135,7 +135,7 @@ class DatabaseHelper {
         }
       }
     } catch (e) {
-      print('[DatabaseHelper] Failed to get media files by lesson: $e');
+      AppLogger.e('Failed to get media files by lesson', error: e, tag: 'DatabaseHelper');
     }
 
     return results;
@@ -163,18 +163,17 @@ class DatabaseHelper {
     try {
       final keysToRemove = <String>[];
 
-      for (var i = 0; i < html.window.localStorage.length; i++) {
-        final key = html.window.localStorage.key(i);
-        if (key != null && key.startsWith('lk_media_')) {
+      for (final key in web.window.localStorage.keys) {
+        if (key.startsWith('lk_media_')) {
           keysToRemove.add(key);
         }
       }
 
       for (final key in keysToRemove) {
-        html.window.localStorage.remove(key);
+        web.window.localStorage.remove(key);
       }
     } catch (e) {
-      print('[DatabaseHelper] Failed to clear all: $e');
+      AppLogger.e('Failed to clear all', error: e, tag: 'DatabaseHelper');
     }
   }
 }

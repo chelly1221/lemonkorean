@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/storage/local_storage.dart'
     if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../../core/utils/app_logger.dart';
 import '../../../data/models/vocabulary_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -56,11 +57,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
             // If no items due for review, fallback to loading vocabulary by level
             if (_reviewItems.isEmpty) {
-              print('[ReviewScreen] No items due for review, loading by level');
+              AppLogger.d('No items due for review, loading by level', tag: 'ReviewScreen');
               _reviewItems = await _contentRepository.getVocabularyByLevel(1);
             }
           } catch (e) {
-            print('[ReviewScreen] Error fetching review schedule: $e');
+            AppLogger.e('Error fetching review schedule', error: e, tag: 'ReviewScreen');
             // Fallback: load vocabulary by level
             _reviewItems = await _contentRepository.getVocabularyByLevel(1);
           }
@@ -117,7 +118,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
         if (!success) {
           // If server save fails, add to sync queue for offline support
-          print('[ReviewScreen] Server save failed, adding to sync queue');
+          AppLogger.w('Server save failed, adding to sync queue', tag: 'ReviewScreen');
           await LocalStorage.addToSyncQueue({
             'type': 'review_complete',
             'data': reviewData,
@@ -126,7 +127,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
         }
       }
     } catch (e) {
-      print('[ReviewScreen] Error saving review: $e');
+      AppLogger.e('Error saving review', error: e, tag: 'ReviewScreen');
       // Continue even if save fails (will sync later or we'd add to queue)
     }
 
@@ -407,7 +408,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
         child: ElevatedButton(
           onPressed: () => _handleReview(rating),
           style: ElevatedButton.styleFrom(
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             foregroundColor: color,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(

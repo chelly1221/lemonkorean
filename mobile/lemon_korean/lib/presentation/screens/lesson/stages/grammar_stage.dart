@@ -324,8 +324,8 @@ class _GrammarStageState extends State<GrammarStage> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppConstants.primaryColor.withOpacity(0.2),
-            AppConstants.primaryColor.withOpacity(0.1),
+            AppConstants.primaryColor.withValues(alpha: 0.2),
+            AppConstants.primaryColor.withValues(alpha: 0.1),
           ],
         ),
         borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
@@ -547,7 +547,7 @@ class _GrammarStageState extends State<GrammarStage> {
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -560,7 +560,7 @@ class _GrammarStageState extends State<GrammarStage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withOpacity(0.1),
+              color: AppConstants.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -607,7 +607,7 @@ class _GrammarStageState extends State<GrammarStage> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withOpacity(0.05),
+              color: AppConstants.primaryColor.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
             ),
             child: Text(
@@ -723,16 +723,16 @@ class _GrammarStageState extends State<GrammarStage> {
 
               if (showFeedback) {
                 if (isCorrectOption) {
-                  backgroundColor = AppConstants.successColor.withOpacity(0.2);
+                  backgroundColor = AppConstants.successColor.withValues(alpha: 0.2);
                   borderColor = AppConstants.successColor;
                   textColor = AppConstants.successColor;
                 } else if (isSelected && !isCorrectOption) {
-                  backgroundColor = AppConstants.errorColor.withOpacity(0.2);
+                  backgroundColor = AppConstants.errorColor.withValues(alpha: 0.2);
                   borderColor = AppConstants.errorColor;
                   textColor = AppConstants.errorColor;
                 }
               } else if (isSelected) {
-                backgroundColor = AppConstants.primaryColor.withOpacity(0.2);
+                backgroundColor = AppConstants.primaryColor.withValues(alpha: 0.2);
                 borderColor = AppConstants.primaryColor;
                 textColor = AppConstants.primaryColor;
               }
@@ -797,8 +797,8 @@ class _GrammarStageState extends State<GrammarStage> {
               padding: const EdgeInsets.all(AppConstants.paddingMedium),
               decoration: BoxDecoration(
                 color: isCorrect
-                    ? AppConstants.successColor.withOpacity(0.1)
-                    : AppConstants.errorColor.withOpacity(0.1),
+                    ? AppConstants.successColor.withValues(alpha: 0.1)
+                    : AppConstants.errorColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
               ),
               child: Column(

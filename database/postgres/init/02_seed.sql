@@ -7,13 +7,13 @@
 -- Admin user (email: admin@lemon.com, password: admin123)
 -- bcrypt hash for "admin123": $2b$10$rKG3YK3qF6gF8mQBH0KqJ.nH6vXYYxJXqXZ0XqXqXqXqXqXqXqXqW
 INSERT INTO users (email, password_hash, name, language_preference, subscription_type, is_active, email_verified, created_at) VALUES
-('admin@lemon.com', '$2b$10$rKG3YK3qF6gF8mQBH0KqJ.nH6vXYYxJXqXZ0XqXqXqXqXqXqXqXqW', '管理员', 'zh', 'lifetime', true, true, CURRENT_TIMESTAMP);
+('admin@lemon.com', '$2b$10$rKG3YK3qF6gF8mQBH0KqJ.nH6vXYYxJXqXZ0XqXqXqXqXqXqXqXqW', '管理员', 'ko', 'lifetime', true, true, CURRENT_TIMESTAMP);
 
 -- Regular users (password: user123)
 -- bcrypt hash for "user123": $2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
 INSERT INTO users (email, password_hash, name, language_preference, subscription_type, is_active, email_verified, created_at, last_login) VALUES
-('zhang.wei@example.com', '$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '张伟', 'zh', 'premium', true, true, CURRENT_TIMESTAMP - INTERVAL '30 days', CURRENT_TIMESTAMP - INTERVAL '1 day'),
-('li.na@example.com', '$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '李娜', 'zh', 'free', true, true, CURRENT_TIMESTAMP - INTERVAL '15 days', CURRENT_TIMESTAMP - INTERVAL '3 hours');
+('zhang.wei@example.com', '$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '张伟', 'ko', 'premium', true, true, CURRENT_TIMESTAMP - INTERVAL '30 days', CURRENT_TIMESTAMP - INTERVAL '1 day'),
+('li.na@example.com', '$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '李娜', 'ko', 'free', true, true, CURRENT_TIMESTAMP - INTERVAL '15 days', CURRENT_TIMESTAMP - INTERVAL '3 hours');
 
 -- Update subscription expiry for premium user
 UPDATE users SET subscription_expires_at = CURRENT_TIMESTAMP + INTERVAL '1 year' WHERE email = 'zhang.wei@example.com';

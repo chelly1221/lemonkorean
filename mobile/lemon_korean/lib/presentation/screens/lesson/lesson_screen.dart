@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/app_logger.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/progress_provider.dart';
+import '../../providers/settings_provider.dart';
 import 'stages/stage1_intro.dart';
 import 'stages/stage2_vocabulary.dart';
 import 'stages/stage3_grammar.dart';
@@ -65,8 +67,12 @@ class _LessonScreenState extends State<LessonScreen> {
     });
 
     try {
+      // Get user's language preference
+      final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+      final language = settingsProvider.contentLanguageCode;
+
       // Fetch full lesson content from API
-      final fullLesson = await _contentRepository.getLesson(widget.lesson.id);
+      final fullLesson = await _contentRepository.getLesson(widget.lesson.id, language: language);
 
       if (fullLesson != null && fullLesson.content != null) {
         _fullLesson = fullLesson;
@@ -76,7 +82,7 @@ class _LessonScreenState extends State<LessonScreen> {
         _loadError = '레슨 콘텐츠를 불러올 수 없습니다';
       }
     } catch (e) {
-      print('[LessonScreen] Load error: $e');
+      AppLogger.e('Load error', error: e, tag: 'LessonScreen');
       _loadError = '네트워크 오류가 발생했습니다';
     } finally {
       if (mounted) {
@@ -360,10 +366,11 @@ class _LessonScreenState extends State<LessonScreen> {
       );
     }
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) return;
         await _showExitDialog();
-        return false; // Prevent default back action
       },
       child: Scaffold(
         backgroundColor: Colors.white,

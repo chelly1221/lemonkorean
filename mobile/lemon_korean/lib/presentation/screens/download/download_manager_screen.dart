@@ -5,6 +5,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/download_provider.dart';
+import '../../providers/settings_provider.dart';
 
 class DownloadManagerScreen extends StatefulWidget {
   const DownloadManagerScreen({super.key});
@@ -25,7 +26,8 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
     // Initialize download provider
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<DownloadProvider>(context, listen: false);
-      provider.init();
+      final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+      provider.init(language: settingsProvider.contentLanguageCode);
     });
   }
 
@@ -80,6 +82,9 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
             return const Center(child: CircularProgressIndicator());
           }
 
+          final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+          final language = settingsProvider.contentLanguageCode;
+
           return Column(
             children: [
               // Active Downloads Section
@@ -103,7 +108,7 @@ class _DownloadManagerScreenState extends State<DownloadManagerScreen>
                     ),
                     _AvailableTab(
                       lessons: provider.availableLessons,
-                      onDownload: provider.downloadLesson,
+                      onDownload: (lesson) => provider.downloadLesson(lesson, language: language),
                     ),
                   ],
                 ),
@@ -230,7 +235,7 @@ class _ActiveDownloadsSection extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
-      color: AppConstants.primaryColor.withOpacity(0.1),
+      color: AppConstants.primaryColor.withValues(alpha: 0.1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -522,7 +527,11 @@ class _DownloadedTab extends StatelessWidget {
           context,
           listen: false,
         );
-        await provider.loadData();
+        final settingsProvider = Provider.of<SettingsProvider>(
+          context,
+          listen: false,
+        );
+        await provider.loadData(language: settingsProvider.contentLanguageCode);
       },
       child: ListView.builder(
         padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -587,7 +596,7 @@ class _DownloadedLessonCard extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: AppConstants.primaryColor.withOpacity(0.2),
+            color: AppConstants.primaryColor.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
           ),
           child: Center(
@@ -680,7 +689,11 @@ class _AvailableTab extends StatelessWidget {
           context,
           listen: false,
         );
-        await provider.loadData();
+        final settingsProvider = Provider.of<SettingsProvider>(
+          context,
+          listen: false,
+        );
+        await provider.loadData(language: settingsProvider.contentLanguageCode);
       },
       child: ListView.builder(
         padding: const EdgeInsets.all(AppConstants.paddingMedium),

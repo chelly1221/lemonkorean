@@ -32,7 +32,6 @@ class _VocabularyStageState extends State<VocabularyStage>
   late Animation<double> _flipAnimation;
   bool _isFront = true;
   List<Map<String, dynamic>> _words = [];
-  bool _initialized = false;
 
   @override
   void initState() {
@@ -244,7 +243,7 @@ class _VocabularyStageState extends State<VocabularyStage>
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppConstants.primaryColor.withOpacity(0.1),
+                    color: AppConstants.primaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -371,13 +370,13 @@ class _VocabularyStageState extends State<VocabularyStage>
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            AppConstants.primaryColor.withOpacity(0.1),
+            AppConstants.primaryColor.withValues(alpha: 0.1),
           ],
         ),
         borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -503,14 +502,14 @@ class _VocabularyStageState extends State<VocabularyStage>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppConstants.primaryColor.withOpacity(0.1),
+            AppConstants.primaryColor.withValues(alpha: 0.1),
             Colors.white,
           ],
         ),
         borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -592,7 +591,7 @@ class _VocabularyStageState extends State<VocabularyStage>
               vertical: 6,
             ),
             decoration: BoxDecoration(
-              color: AppConstants.textHint.withOpacity(0.1),
+              color: AppConstants.textHint.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -700,7 +699,7 @@ class _VocabularyStageState extends State<VocabularyStage>
   Widget _buildPlaceholderImage() {
     return Container(
       decoration: BoxDecoration(
-        color: AppConstants.primaryColor.withOpacity(0.1),
+        color: AppConstants.primaryColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
       ),
       child: const Center(

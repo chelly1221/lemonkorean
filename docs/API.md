@@ -36,7 +36,7 @@ All content endpoints (lessons, vocabulary, grammar) support the `?language=` qu
 
 1. `?language=` query parameter
 2. `Accept-Language` HTTP header
-3. Default: `zh` (for backwards compatibility)
+3. Default: `ko` (Korean - changed from `zh` on 2026-02-04)
 
 ### Fallback Chain
 
@@ -78,7 +78,7 @@ Get all lessons with pagination.
 | `status` | string | `published` | Lesson status |
 | `page` | int | 1 | Page number |
 | `limit` | int | 20 | Items per page (max: 100) |
-| `language` | string | `zh` | Content language code |
+| `language` | string | `ko` | Content language code |
 
 **Response:**
 ```json
@@ -112,7 +112,7 @@ Get a single lesson with full content.
 **Query Parameters:**
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `language` | string | `zh` | Content language code |
+| `language` | string | `ko` | Content language code |
 
 **Response includes:**
 - Lesson metadata with localized title/description
@@ -136,7 +136,7 @@ Get all vocabulary with filtering.
 | `search` | string | - | Search in Korean/translation |
 | `page` | int | 1 | Page number |
 | `limit` | int | 50 | Items per page (max: 100) |
-| `language` | string | `zh` | Content language code |
+| `language` | string | `ko` | Content language code |
 
 **Response:**
 ```json
@@ -185,7 +185,7 @@ Get all grammar rules with filtering.
 | `category` | string | - | Filter by category |
 | `page` | int | 1 | Page number |
 | `limit` | int | 50 | Items per page (max: 200) |
-| `language` | string | `zh` | Content language code |
+| `language` | string | `ko` | Content language code |
 
 **Response:**
 ```json
@@ -339,6 +339,145 @@ Cancel running deployment (requires admin auth).
 
 ---
 
+## App Theme Configuration
+
+Admin endpoints for managing Flutter app theme settings.
+
+### GET /api/admin/app-theme
+
+Get current app theme configuration (public endpoint, no auth required).
+
+**Response**:
+```json
+{
+  "success": true,
+  "theme": {
+    "id": 1,
+    "version": 5,
+    "colors": {
+      "primary": "#FFEF5F",
+      "secondary": "#4CAF50",
+      "accent": "#FF9800",
+      "error": "#F44336",
+      "success": "#4CAF50",
+      "warning": "#FF9800",
+      "info": "#2196F3",
+      "textPrimary": "#212121",
+      "textSecondary": "#757575",
+      "textHint": "#BDBDBD",
+      "backgroundLight": "#FAFAFA",
+      "backgroundDark": "#303030",
+      "cardBackground": "#FFFFFF",
+      "stages": {
+        "stage1": "#2196F3",
+        "stage2": "#4CAF50",
+        "stage3": "#FF9800",
+        "stage4": "#9C27B0",
+        "stage5": "#F44336",
+        "stage6": "#00BCD4",
+        "stage7": "#FFC107"
+      }
+    },
+    "logos": {
+      "splashLogoUrl": "/media/logos/splash.png",
+      "loginLogoUrl": "/media/logos/login.png",
+      "faviconUrl": "/media/logos/favicon.ico"
+    },
+    "font": {
+      "family": "NotoSansKR",
+      "source": "google"
+    }
+  }
+}
+```
+
+### PUT /api/admin/app-theme/colors
+
+Update theme colors (requires admin auth).
+
+**Request Body**: JSON object with color fields (hex format)
+
+**Example**:
+```json
+{
+  "primary_color": "#FFEF5F",
+  "secondary_color": "#4CAF50",
+  "stage1_color": "#2196F3"
+}
+```
+
+### POST /api/admin/app-theme/logo/upload
+
+Upload logo file (multipart/form-data, requires admin auth).
+
+**Form Fields**:
+- `file`: Logo file (PNG, JPG, SVG)
+- `logoType`: One of (splash, login, favicon)
+
+### DELETE /api/admin/app-theme/logo/:logoType
+
+Delete logo (requires admin auth).
+
+**Parameters**:
+- `logoType`: One of (splash, login, favicon)
+
+### PUT /api/admin/app-theme/font
+
+Update font settings (requires admin auth).
+
+**Request Body**:
+```json
+{
+  "font_family": "Roboto",
+  "font_source": "google"
+}
+```
+
+### POST /api/admin/app-theme/font/upload
+
+Upload custom font file (TTF/OTF, requires admin auth).
+
+**Form Fields**:
+- `file`: Font file (TTF or OTF format)
+- `font_family`: Font family name
+
+### POST /api/admin/app-theme/reset
+
+Reset theme to default values (requires admin auth).
+
+**Response**: Returns default theme configuration
+
+### GET /api/admin/app-theme/history
+
+Get theme update history with pagination (requires admin auth).
+
+**Query Parameters**:
+- `page`: Page number (default: 1)
+- `limit`: Items per page (default: 20)
+
+**Response**:
+```json
+{
+  "success": true,
+  "history": [
+    {
+      "id": 123,
+      "updated_by": 1,
+      "admin_email": "admin@example.com",
+      "changes": {"primary_color": "#FFEF5F"},
+      "updated_at": "2026-02-04T10:30:00Z"
+    }
+  ],
+  "pagination": {
+    "total": 45,
+    "page": 1,
+    "limit": 20
+  }
+}
+```
+
+---
+
 ## Response Format Changes
 
 ### New Localized Fields
@@ -422,7 +561,7 @@ CREATE TABLE grammar_translations (
 
 ### Backwards Compatibility
 
-- Old endpoints without `?language=` still work (default: `zh`)
+- Old endpoints without `?language=` still work (default: `ko` as of 2026-02-04, previously `zh`)
 - Old field names in responses have been replaced with new generic names
 - Legacy data in `*_zh` columns is preserved and used as fallback
 

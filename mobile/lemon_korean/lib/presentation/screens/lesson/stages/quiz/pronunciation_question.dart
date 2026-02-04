@@ -103,14 +103,14 @@ class PronunciationQuestion extends StatelessWidget {
 
     if (hasAnswered) {
       if (isCorrect) {
-        backgroundColor = AppConstants.successColor.withOpacity(0.1);
+        backgroundColor = AppConstants.successColor.withValues(alpha: 0.1);
         borderColor = AppConstants.successColor;
       } else if (isSelected) {
-        backgroundColor = AppConstants.errorColor.withOpacity(0.1);
+        backgroundColor = AppConstants.errorColor.withValues(alpha: 0.1);
         borderColor = AppConstants.errorColor;
       }
     } else if (isSelected) {
-      backgroundColor = AppConstants.primaryColor.withOpacity(0.1);
+      backgroundColor = AppConstants.primaryColor.withValues(alpha: 0.1);
       borderColor = AppConstants.primaryColor;
     }
 

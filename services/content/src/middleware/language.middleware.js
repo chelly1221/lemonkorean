@@ -8,13 +8,13 @@
  * Priority order:
  * 1. ?language= query parameter
  * 2. Accept-Language header
- * 3. Default: 'zh' (for backwards compatibility)
+ * 3. Default: 'ko' (Korean is the primary learning target)
  * ================================================================
  */
 
 // Supported languages for content
 const SUPPORTED_LANGUAGES = ['ko', 'en', 'es', 'ja', 'zh', 'zh_TW'];
-const DEFAULT_LANGUAGE = 'zh';
+const DEFAULT_LANGUAGE = 'ko';
 
 /**
  * Parse Accept-Language header to extract preferred language
@@ -114,15 +114,15 @@ const languageMiddleware = (req, res, next) => {
  */
 const getFallbackChain = (language) => {
   const fallbacks = {
-    'en': ['en', 'zh', 'ko'],
-    'es': ['es', 'en', 'zh', 'ko'],
-    'ja': ['ja', 'zh', 'ko'],
+    'en': ['en', 'ko', 'zh'],
+    'es': ['es', 'en', 'ko', 'zh'],
+    'ja': ['ja', 'ko', 'zh'],
     'zh': ['zh', 'ko'],
     'zh_TW': ['zh_TW', 'zh', 'ko'],
     'ko': ['ko']
   };
 
-  return fallbacks[language] || ['zh', 'ko'];
+  return fallbacks[language] || ['ko', 'zh'];
 };
 
 /**

@@ -114,8 +114,8 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
           decoration: BoxDecoration(
             color: hasAnswered
                 ? (widget.isCorrect ?? false)
-                    ? AppConstants.successColor.withOpacity(0.1)
-                    : AppConstants.errorColor.withOpacity(0.1)
+                    ? AppConstants.successColor.withValues(alpha: 0.1)
+                    : AppConstants.errorColor.withValues(alpha: 0.1)
                 : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             border: Border.all(
@@ -139,7 +139,7 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: AppConstants.primaryColor.withOpacity(0.8),
+                    color: AppConstants.primaryColor.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
                   ),
                   child: Text(
@@ -206,8 +206,8 @@ class _WordOrderQuestionState extends State<WordOrderQuestion> {
       padding: const EdgeInsets.all(AppConstants.paddingMedium),
       decoration: BoxDecoration(
         color: (widget.isCorrect ?? false)
-            ? AppConstants.successColor.withOpacity(0.1)
-            : AppConstants.errorColor.withOpacity(0.1),
+            ? AppConstants.successColor.withValues(alpha: 0.1)
+            : AppConstants.errorColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
       ),
       child: Column(

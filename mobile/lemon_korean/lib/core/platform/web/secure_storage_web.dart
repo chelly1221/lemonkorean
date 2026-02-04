@@ -1,19 +1,20 @@
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 
+import '../../utils/app_logger.dart';
 import '../secure_storage_interface.dart';
 
 /// Web implementation of ISecureStorage using localStorage
 /// Uses localStorage for persistence across browser sessions
 class SecureStorageImpl implements ISecureStorage {
   // Use localStorage for persistence (not sessionStorage)
-  final html.Storage _storage = html.window.localStorage;
+  final web.Storage _storage = web.window.localStorage;
 
   @override
   Future<void> write({required String key, required String value}) async {
     try {
       _storage[key] = value;
     } catch (e) {
-      print('[SecureStorage.web] Error writing $key: $e');
+      AppLogger.e('Error writing $key', error: e, tag: 'SecureStorageWeb');
       // Silently fail - don't throw to avoid breaking login flow
     }
   }
@@ -23,7 +24,7 @@ class SecureStorageImpl implements ISecureStorage {
     try {
       return _storage[key];
     } catch (e) {
-      print('[SecureStorage.web] Error reading $key: $e');
+      AppLogger.e('Error reading $key', error: e, tag: 'SecureStorageWeb');
       return null;
     }
   }
@@ -31,9 +32,9 @@ class SecureStorageImpl implements ISecureStorage {
   @override
   Future<void> delete({required String key}) async {
     try {
-      _storage.remove(key);
+      _storage.removeItem(key);
     } catch (e) {
-      print('[SecureStorage.web] Error deleting $key: $e');
+      AppLogger.e('Error deleting $key', error: e, tag: 'SecureStorageWeb');
     }
   }
 
@@ -42,16 +43,16 @@ class SecureStorageImpl implements ISecureStorage {
     try {
       _storage.clear();
     } catch (e) {
-      print('[SecureStorage.web] Error clearing storage: $e');
+      AppLogger.e('Error clearing storage', error: e, tag: 'SecureStorageWeb');
     }
   }
 
   @override
   Future<bool> containsKey({required String key}) async {
     try {
-      return _storage.containsKey(key);
+      return _storage.getItem(key) != null;
     } catch (e) {
-      print('[SecureStorage.web] Error checking key $key: $e');
+      AppLogger.e('Error checking key $key', error: e, tag: 'SecureStorageWeb');
       return false;
     }
   }

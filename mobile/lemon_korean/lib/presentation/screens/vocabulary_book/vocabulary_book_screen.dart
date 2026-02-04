@@ -11,7 +11,7 @@ import 'vocabulary_book_review_screen.dart';
 /// Vocabulary Book Screen
 /// Display and manage all bookmarked vocabulary words
 class VocabularyBookScreen extends StatefulWidget {
-  const VocabularyBookScreen({Key? key}) : super(key: key);
+  const VocabularyBookScreen({super.key});
 
   @override
   State<VocabularyBookScreen> createState() => _VocabularyBookScreenState();
@@ -467,9 +467,10 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
                       // Remove
                       TextButton.icon(
                         onPressed: () async {
+                          final bookmarkProvider = context.read<BookmarkProvider>();
                           final confirm = await _showRemoveConfirmation(vocabulary.korean);
-                          if (confirm == true) {
-                            context.read<BookmarkProvider>().removeBookmark(bookmark.id);
+                          if (confirm == true && mounted) {
+                            bookmarkProvider.removeBookmark(bookmark.id);
                           }
                         },
                         icon: const Icon(Icons.delete, size: 16, color: Colors.red),

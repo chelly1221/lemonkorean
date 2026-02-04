@@ -1329,6 +1329,24 @@ abstract class AppLocalizations {
   /// **'出错了'**
   String get error;
 
+  /// Generic error message
+  ///
+  /// In zh, this message translates to:
+  /// **'出错了'**
+  String get errorOccurred;
+
+  /// Reload button
+  ///
+  /// In zh, this message translates to:
+  /// **'重新加载'**
+  String get reload;
+
+  /// No characters message
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无可用字符'**
+  String get noCharactersAvailable;
+
   /// Success title
   ///
   /// In zh, this message translates to:

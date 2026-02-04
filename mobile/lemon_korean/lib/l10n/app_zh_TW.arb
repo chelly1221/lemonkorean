@@ -206,6 +206,9 @@
   "loading": "加載中...",
   "noData": "暫無數據",
   "error": "出錯了",
+  "errorOccurred": "出錯了",
+  "reload": "重新載入",
+  "noCharactersAvailable": "暫無可用字符",
   "success": "成功",
 
   "filter": "篩選",

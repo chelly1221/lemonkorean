@@ -5,7 +5,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../data/models/hangul_character_model.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/hangul_provider.dart';
 import 'widgets/pronunciation_player.dart';
@@ -116,7 +115,7 @@ class _HangulDiscriminationScreenState
   bool _inPractice = false;
   int _currentQuestionIndex = 0;
   int _correctCount = 0;
-  int _totalQuestions = 10;
+  final int _totalQuestions = 10;
   List<_DiscriminationQuestion> _questions = [];
   String? _selectedAnswer;
   bool _showResult = false;
@@ -665,7 +664,7 @@ class _HangulDiscriminationScreenState
                 ),
               ),
               if (_showResult && option == correctAnswer)
-                Icon(
+                const Icon(
                   Icons.check_circle,
                   color: Colors.green,
                   size: 24,
@@ -673,7 +672,7 @@ class _HangulDiscriminationScreenState
               if (_showResult &&
                   option == _selectedAnswer &&
                   option != correctAnswer)
-                Icon(
+                const Icon(
                   Icons.cancel,
                   color: Colors.red,
                   size: 24,

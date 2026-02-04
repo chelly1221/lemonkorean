@@ -40,11 +40,11 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
   late AudioPlayer _audioPlayer;
   PlaybackSpeed _playbackSpeed = PlaybackSpeed.normal;
   bool _isPlaying = false;
-  String? _recordingPath;
   int _correctCount = 0;
   int _almostCount = 0;
   int _practiceCount = 0;
   bool _isSupported = false;
+  String? _recordingPath;
 
   @override
   void initState() {

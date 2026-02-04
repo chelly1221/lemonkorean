@@ -15,8 +15,8 @@ class Stage5Dialogue extends StatefulWidget {
 
   const Stage5Dialogue({
     required this.lesson,
-    this.stageData,
     required this.onNext,
+    this.stageData,
     this.onPrevious,
     super.key,
   });
@@ -213,7 +213,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
             width: double.infinity,
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withOpacity(0.1),
+              color: AppConstants.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Column(
@@ -300,7 +300,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                             decoration: BoxDecoration(
                               color: isLeft
                                   ? Colors.grey.shade200
-                                  : AppConstants.primaryColor.withOpacity(0.2),
+                                  : AppConstants.primaryColor.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.only(
                                 topLeft: const Radius.circular(20),
                                 topRight: const Radius.circular(20),
@@ -458,11 +458,11 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
         shape: BoxShape.circle,
         color: isLeft
             ? Colors.blue.shade100
-            : AppConstants.primaryColor.withOpacity(0.3),
+            : AppConstants.primaryColor.withValues(alpha: 0.3),
         border: Border.all(
           color: isLeft
               ? Colors.blue.shade300
-              : AppConstants.primaryColor.withOpacity(0.5),
+              : AppConstants.primaryColor.withValues(alpha: 0.5),
           width: 2,
         ),
       ),
@@ -485,7 +485,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     return Container(
       color: isLeft
           ? Colors.blue.shade50
-          : AppConstants.primaryColor.withOpacity(0.1),
+          : AppConstants.primaryColor.withValues(alpha: 0.1),
       child: Center(
         child: Icon(
           speaker == 'A' ? Icons.person : Icons.person_outline,

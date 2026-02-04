@@ -1,5 +1,6 @@
 /// Quiz Components
 /// Barrel file exporting all quiz-related widgets
+library;
 
 export 'quiz_shared.dart';
 export 'listening_question.dart';

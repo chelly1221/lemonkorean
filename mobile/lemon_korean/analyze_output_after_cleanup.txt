@@ -1,0 +1,218 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 67.0.0 (94.0.0 available)
+  analyzer 6.4.1 (10.0.2 available)
+  audio_session 0.1.25 (0.2.2 available)
+  audio_waveforms 1.3.0 (2.0.2 available)
+  audioplayers 5.2.1 (6.5.1 available)
+  audioplayers_android 4.0.3 (5.2.1 available)
+  audioplayers_darwin 5.0.2 (6.3.0 available)
+  audioplayers_linux 3.1.0 (4.2.1 available)
+  audioplayers_platform_interface 6.1.0 (7.1.1 available)
+  audioplayers_web 4.1.0 (5.1.1 available)
+  audioplayers_windows 3.1.0 (4.2.1 available)
+  build 2.4.1 (4.0.4 available)
+  build_config 1.1.2 (1.2.0 available)
+  build_resolvers 2.4.2 (3.0.4 available)
+  build_runner 2.4.13 (2.10.5 available)
+  build_runner_core 7.3.2 (9.3.2 available)
+  characters 1.4.0 (1.4.1 available)
+  connectivity_plus 5.0.2 (7.0.0 available)
+  connectivity_plus_platform_interface 1.2.4 (2.0.1 available)
+  dart_style 2.3.6 (3.1.5 available)
+  dio 5.9.0 (5.9.1 available)
+  flutter_dotenv 5.2.1 (6.0.0 available)
+  flutter_lints 3.0.2 (6.0.0 available)
+  flutter_local_notifications 17.2.4 (20.0.0 available)
+  flutter_local_notifications_linux 4.0.1 (7.0.0 available)
+  flutter_local_notifications_platform_interface 7.2.0 (10.0.0 available)
+  flutter_secure_storage 9.2.4 (10.0.0 available)
+  flutter_secure_storage_linux 1.2.3 (3.0.0 available)
+  flutter_secure_storage_macos 3.1.3 (4.0.0 available)
+  flutter_secure_storage_platform_interface 1.1.2 (2.0.1 available)
+  flutter_secure_storage_web 1.2.1 (2.1.0 available)
+  flutter_secure_storage_windows 3.1.2 (4.1.0 available)
+  idb_shim 2.8.2 (2.8.2+2 available)
+  js 0.6.7 (0.7.2 available)
+  json_annotation 4.9.0 (4.10.0 available)
+  just_audio 0.9.46 (0.10.5 available)
+  lints 3.0.0 (6.1.0 available)
+  matcher 0.12.17 (0.12.18 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.17.0 (1.18.1 available)
+  mime 1.0.6 (2.0.0 available)
+  mockito 5.4.4 (5.6.3 available)
+  objective_c 9.2.4 (9.2.5 available)
+  permission_handler 11.4.0 (12.0.1 available)
+  permission_handler_android 12.1.0 (13.0.1 available)
+  record 5.2.1 (6.2.0 available)
+! record_linux 1.3.0 (overridden)
+  share_plus 7.2.2 (12.0.1 available)
+  share_plus_platform_interface 3.4.0 (6.1.0 available)
+  shared_preferences_android 2.4.18 (2.4.20 available)
+  shelf_web_socket 2.0.1 (3.0.0 available)
+  source_gen 1.5.0 (4.2.0 available)
+  source_helper 1.3.5 (1.3.10 available)
+  test_api 0.7.7 (0.7.9 available)
+  timezone 0.9.4 (0.11.0 available)
+Got dependencies!
+54 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing lemon_korean...                                       
+
+   info • 'AudioElement' is deprecated and shouldn't be used. Use HTMLAudioElement instead • lib/core/platform/web/media_loader_web.dart:11:7 • deprecated_member_use
+  error • The getter 'toDart' isn't defined for the type 'JSPromise<JSString>' • lib/core/platform/web/notification_web.dart:14:69 • undefined_getter
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/secure_storage_web.dart:15:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/secure_storage_web.dart:25:14 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/secure_storage_web.dart:35:16 • undefined_method
+  error • The method 'containsKey' isn't defined for the type 'Storage' • lib/core/platform/web/secure_storage_web.dart:53:23 • undefined_method
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/database_helper_stub.dart:39:9 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/database_helper_stub.dart:54:31 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/database_helper_stub.dart:65:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/database_helper_stub.dart:68:27 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/database_helper_stub.dart:82:33 • undefined_method
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/database_helper_stub.dart:92:21 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/database_helper_stub.dart:116:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/database_helper_stub.dart:119:27 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/database_helper_stub.dart:166:49 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/database_helper_stub.dart:173:33 • undefined_method
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:39:7 • deprecated_member_use
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:43:9 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:56:25 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:62:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:76:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:86:29 • deprecated_member_use
+  error • The method 'containsKey' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:104:36 • undefined_method
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:110:29 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:115:42 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:119:31 • undefined_method
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:133:7 • deprecated_member_use
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:137:9 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:150:25 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:156:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:169:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:179:29 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:194:42 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:198:31 • undefined_method
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:206:23 • deprecated_member_use
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:222:7 • deprecated_member_use
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:223:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:234:11 • deprecated_member_use
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:259:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:269:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:281:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:283:27 • deprecated_member_use
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:322:7 • deprecated_member_use
+   info • Unnecessary braces in a string interpolation • lib/core/platform/web/stubs/local_storage_stub.dart:334:35 • unnecessary_brace_in_string_interps
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:335:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:347:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:349:27 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:363:42 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:367:31 • undefined_method
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:380:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:390:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:402:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:404:27 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:418:29 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:423:42 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:427:31 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:433:47 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:435:25 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:451:47 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:453:25 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:477:36 • undefined_getter
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:520:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:529:23 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:542:29 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:547:42 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:551:31 • undefined_method
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:564:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:573:23 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:583:29 • undefined_method
+   info • '[]=' is deprecated and shouldn't be used. Use Storage.setItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:612:7 • deprecated_member_use
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:621:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:635:49 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/local_storage_stub.dart:637:27 • deprecated_member_use
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:652:29 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:658:42 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:662:31 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:673:33 • undefined_getter
+  error • The method 'remove' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/local_storage_stub.dart:675:31 • undefined_method
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/storage_utils_stub.dart:31:28 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/storage_utils_stub.dart:34:23 • deprecated_member_use
+  error • The getter 'keys' isn't defined for the type 'Storage' • lib/core/platform/web/stubs/storage_utils_stub.dart:62:28 • undefined_getter
+   info • '[]' is deprecated and shouldn't be used. Use Storage.getItem instead • lib/core/platform/web/stubs/storage_utils_stub.dart:65:23 • deprecated_member_use
+warning • Unnecessary cast • lib/core/platform/web/stubs/storage_utils_stub.dart:70:29 • unnecessary_cast
+   info • Unnecessary braces in a string interpolation • lib/core/storage/local_storage.dart:271:33 • unnecessary_brace_in_string_interps
+   info • Use 'const' with the constructor to improve performance • lib/core/utils/validators.dart:76:14 • prefer_const_constructors
+   info • Required named parameters should be before optional named parameters • lib/data/models/bookmark_model.dart:33:19 • always_put_required_named_parameters_first
+   info • Use 'const' with the constructor to improve performance • lib/data/repositories/bookmark_repository.dart:211:14 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/data/repositories/bookmark_repository.dart:266:12 • prefer_const_constructors
+warning • The declaration '_mergeBookmarks' isn't referenced • lib/data/repositories/bookmark_repository.dart:294:16 • unused_element
+warning • The left operand can't be null, so the right operand is never executed • lib/data/repositories/progress_repository.dart:213:43 • dead_null_aware_expression
+   info • Required named parameters should be before optional named parameters • lib/main.dart:114:50 • always_put_required_named_parameters_first
+   info • The private field _vocabularyByLevel could be 'final' • lib/presentation/providers/vocabulary_browser_provider.dart:18:35 • prefer_final_fields
+warning • The operand can't be 'null', so the condition is always 'true' • lib/presentation/providers/vocabulary_browser_provider.dart:86:17 • unnecessary_null_comparison
+   info • The private field _totalQuestions could be 'final' • lib/presentation/screens/hangul/hangul_discrimination_screen.dart:118:7 • prefer_final_fields
+  error • Undefined name '_recordingPath' • lib/presentation/screens/hangul/hangul_shadowing_screen.dart:117:7 • undefined_identifier
+  error • Undefined name '_recordingPath' • lib/presentation/screens/hangul/hangul_shadowing_screen.dart:140:9 • undefined_identifier
+  error • Undefined name '_recordingPath' • lib/presentation/screens/hangul/hangul_shadowing_screen.dart:223:7 • undefined_identifier
+   info • The import of 'package:flutter/foundation.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/presentation/screens/hangul/widgets/pronunciation_player.dart:1:8 • unnecessary_import
+   info • Use 'const' for final variables initialized to a constant value • lib/presentation/screens/hangul/widgets/pronunciation_player.dart:443:5 • prefer_const_declarations
+   info • Use 'const' for final variables initialized to a constant value • lib/presentation/screens/hangul/widgets/writing_canvas.dart:146:5 • prefer_const_declarations
+  error • Invalid constant value • lib/presentation/screens/hangul/widgets/writing_canvas.dart:291:60 • invalid_constant
+   info • The private field _targetLessons could be 'final' • lib/presentation/screens/home/home_screen.dart:105:7 • prefer_final_fields
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/home/home_screen.dart:868:23 • always_put_required_named_parameters_first
+   info • 'onPopInvoked' is deprecated and shouldn't be used. Use onPopInvokedWithResult instead. This feature was deprecated after v3.22.0-12.0.pre • lib/presentation/screens/lesson/lesson_screen.dart:371:7 • deprecated_member_use
+warning • The value of the field '_initialized' isn't used • lib/presentation/screens/lesson/stages/grammar_stage.dart:29:8 • unused_field
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage1_intro.dart:18:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage2_vocabulary.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage3_grammar.dart:18:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage4_practice.dart:18:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage5_dialogue.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage6_quiz.dart:33:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/lesson/stages/stage7_summary.dart:19:19 • always_put_required_named_parameters_first
+  error • Undefined name '_initialized' • lib/presentation/screens/lesson/stages/vocabulary_stage.dart:82:5 • undefined_identifier
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/presentation/screens/onboarding/level_selection_screen.dart:188:27 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/presentation/screens/onboarding/weekly_goal_screen.dart:246:27 • use_build_context_synchronously
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/feature_card.dart:13:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/feature_card.dart:14:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/feature_card.dart:15:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:20:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:22:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:23:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:24:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:25:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/goal_selection_card.dart:26:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:14:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:15:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:16:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/language_selection_card.dart:17:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:17:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:18:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:20:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/level_selection_card.dart:22:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/onboarding_button.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:19:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:20:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:21:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:22:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:23:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:24:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:25:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:26:19 • always_put_required_named_parameters_first
+   info • Required named parameters should be before optional named parameters • lib/presentation/screens/onboarding/widgets/summary_card.dart:27:19 • always_put_required_named_parameters_first
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/settings/notification_settings_screen.dart:125:32 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/screens/settings/notification_settings_screen.dart:141:50 • prefer_const_constructors
+   info • The private field _results could be 'final' • lib/presentation/screens/vocabulary_book/vocabulary_book_review_screen.dart:34:26 • prefer_final_fields
+   info • Don't use 'BuildContext's across async gaps • lib/presentation/screens/vocabulary_book/vocabulary_book_screen.dart:472:29 • use_build_context_synchronously
+   info • Required named parameters should be before optional named parameters • lib/presentation/widgets/bookmark_button.dart:21:19 • always_put_required_named_parameters_first
+   info • Don't use 'BuildContext's across async gaps • lib/presentation/widgets/bookmark_button.dart:85:43 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps • lib/presentation/widgets/bookmark_button.dart:106:43 • use_build_context_synchronously
+   info • Required named parameters should be before optional named parameters • lib/presentation/widgets/vocabulary_card.dart:16:19 • always_put_required_named_parameters_first
+   info • Use 'const' for final variables initialized to a constant value • test/core/constants/app_constants_test.dart:12:9 • prefer_const_declarations
+

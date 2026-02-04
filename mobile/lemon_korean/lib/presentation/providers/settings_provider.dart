@@ -6,6 +6,7 @@ import '../../core/network/api_client.dart';
 import '../../core/services/notification_service.dart';
 import '../../core/storage/local_storage.dart'
     if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/utils/app_logger.dart';
 
 /// Chinese variant enum
 enum ChineseVariant {
@@ -185,19 +186,19 @@ class SettingsProvider extends ChangeNotifier {
       notifyListeners();
 
       if (kDebugMode) {
-        print('[SettingsProvider] Settings initialized:');
-        print('  - Chinese variant: ${_chineseVariant.name}');
-        print('  - App language: ${_appLanguage.code} (${_appLanguage.nativeName})');
-        print('  - Notifications: $_notificationsEnabled');
-        print('  - Daily reminder: $_dailyReminderEnabled (${_dailyReminderTime.hour}:${_dailyReminderTime.minute.toString().padLeft(2, '0')})');
-        print('  - Review reminders: $_reviewRemindersEnabled');
-        print('  - Onboarding completed: $_hasCompletedOnboarding');
-        print('  - User level: ${_userLevel ?? "not set"}');
-        print('  - Weekly goal: $_weeklyGoal ($_weeklyGoalTarget lessons/week)');
+        AppLogger.d('''Settings initialized:
+  - Chinese variant: ${_chineseVariant.name}
+  - App language: ${_appLanguage.code} (${_appLanguage.nativeName})
+  - Notifications: $_notificationsEnabled
+  - Daily reminder: $_dailyReminderEnabled (${_dailyReminderTime.hour}:${_dailyReminderTime.minute.toString().padLeft(2, '0')})
+  - Review reminders: $_reviewRemindersEnabled
+  - Onboarding completed: $_hasCompletedOnboarding
+  - User level: ${_userLevel ?? "not set"}
+  - Weekly goal: $_weeklyGoal ($_weeklyGoalTarget lessons/week)''', tag: 'SettingsProvider');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[SettingsProvider] Error initializing settings: $e');
+        AppLogger.e('Error initializing settings', tag: 'SettingsProvider', error: e);
       }
       _isInitialized = true;
       notifyListeners();
@@ -226,7 +227,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Chinese variant changed to: ${variant.name}');
+      AppLogger.d('Chinese variant changed to: ${variant.name}', tag: 'SettingsProvider');
     }
 
     // Sync to backend
@@ -261,9 +262,9 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] App language changed to: ${language.code} (${language.nativeName})');
+      AppLogger.d('App language changed to: ${language.code} (${language.nativeName})', tag: 'SettingsProvider');
       if (language == AppLanguage.zhCN || language == AppLanguage.zhTW) {
-        print('[SettingsProvider] Chinese variant auto-set to: ${_chineseVariant.name}');
+        AppLogger.d('Chinese variant auto-set to: ${_chineseVariant.name}', tag: 'SettingsProvider');
       }
     }
 
@@ -286,7 +287,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Onboarding completed');
+      AppLogger.d('Onboarding completed', tag: 'SettingsProvider');
     }
   }
 
@@ -301,7 +302,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] User level set to: $level');
+      AppLogger.d('User level set to: $level', tag: 'SettingsProvider');
     }
 
     // Sync to backend if user is logged in
@@ -324,7 +325,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Weekly goal set to: $goal ($target lessons/week)');
+      AppLogger.d('Weekly goal set to: $goal ($target lessons/week)', tag: 'SettingsProvider');
     }
 
     // Sync to backend if user is logged in
@@ -347,7 +348,7 @@ class SettingsProvider extends ChangeNotifier {
 
       if (!permissionGranted) {
         if (kDebugMode) {
-          print('[SettingsProvider] Notification permission denied');
+          AppLogger.w('Notification permission denied', tag: 'SettingsProvider');
         }
         return false;
       }
@@ -373,7 +374,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Notifications ${enabled ? 'enabled' : 'disabled'}');
+      AppLogger.d('Notifications ${enabled ? 'enabled' : 'disabled'}', tag: 'SettingsProvider');
     }
 
     // Sync to backend
@@ -409,7 +410,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Daily reminder ${enabled ? 'enabled' : 'disabled'}');
+      AppLogger.d('Daily reminder ${enabled ? 'enabled' : 'disabled'}', tag: 'SettingsProvider');
     }
 
     // Sync to backend
@@ -439,7 +440,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Daily reminder time set to: $timeStr');
+      AppLogger.d('Daily reminder time set to: $timeStr', tag: 'SettingsProvider');
     }
 
     // Sync to backend
@@ -459,7 +460,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Review reminders ${enabled ? 'enabled' : 'disabled'}');
+      AppLogger.d('Review reminders ${enabled ? 'enabled' : 'disabled'}', tag: 'SettingsProvider');
     }
 
     // Sync to backend
@@ -474,7 +475,7 @@ class SettingsProvider extends ChangeNotifier {
   Future<void> _syncPreferencesToBackend() async {
     if (_userId == null) {
       if (kDebugMode) {
-        print('[SettingsProvider] No user ID, skipping sync');
+        AppLogger.d('No user ID, skipping sync', tag: 'SettingsProvider');
       }
       return;
     }
@@ -497,7 +498,7 @@ class SettingsProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         if (kDebugMode) {
-          print('[SettingsProvider] Preferences synced to backend');
+          AppLogger.d('Preferences synced to backend', tag: 'SettingsProvider');
         }
       } else {
         // Queue for later sync
@@ -505,7 +506,7 @@ class SettingsProvider extends ChangeNotifier {
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[SettingsProvider] Error syncing preferences: $e');
+        AppLogger.e('Error syncing preferences', tag: 'SettingsProvider', error: e);
       }
       // Queue for later sync when offline
       await _queuePreferencesSync(prefs);
@@ -521,7 +522,7 @@ class SettingsProvider extends ChangeNotifier {
     });
 
     if (kDebugMode) {
-      print('[SettingsProvider] Preferences queued for sync');
+      AppLogger.d('Preferences queued for sync', tag: 'SettingsProvider');
     }
   }
 
@@ -531,7 +532,7 @@ class SettingsProvider extends ChangeNotifier {
     // For now, we trust the local storage as the source of truth
     // Server preferences would be fetched via auth/profile endpoint
     if (kDebugMode) {
-      print('[SettingsProvider] loadPreferencesFromServer called (using local for now)');
+      AppLogger.d('loadPreferencesFromServer called (using local for now)', tag: 'SettingsProvider');
     }
   }
 
@@ -553,7 +554,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
 
     if (kDebugMode) {
-      print('[SettingsProvider] Settings reset to defaults');
+      AppLogger.d('Settings reset to defaults', tag: 'SettingsProvider');
     }
   }
 }

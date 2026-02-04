@@ -13,13 +13,13 @@ class LevelSelectionCard extends StatefulWidget {
   final VoidCallback onTap;
 
   const LevelSelectionCard({
-    super.key,
     required this.emoji,
     required this.title,
     required this.description,
     required this.topikLevel,
     required this.isSelected,
     required this.onTap,
+    super.key,
   });
 
   @override
@@ -91,11 +91,11 @@ class _LevelSelectionCardState extends State<LevelSelectionCard>
               width: widget.isSelected ? 2 : 1,
             ),
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: OnboardingColors.cardShadow,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),
@@ -138,7 +138,7 @@ class _LevelSelectionCardState extends State<LevelSelectionCard>
                       ),
                       decoration: BoxDecoration(
                         color: widget.isSelected
-                            ? OnboardingColors.primaryYellow.withOpacity(0.2)
+                            ? OnboardingColors.primaryYellow.withValues(alpha: 0.2)
                             : OnboardingColors.border,
                         borderRadius: BorderRadius.circular(6),
                       ),

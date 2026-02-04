@@ -8,6 +8,7 @@ import '../network/api_client.dart';
 import '../storage/database_helper.dart';
 import '../storage/local_storage.dart'
     if (dart.library.html) '../platform/web/stubs/local_storage_stub.dart';
+import 'app_logger.dart';
 
 /// Download Manager
 /// Handles lesson package and media file downloads
@@ -31,7 +32,7 @@ class DownloadManager {
   // ================================================================
 
   /// Download complete lesson package with media files
-  Future<bool> downloadLesson(int lessonId) async {
+  Future<bool> downloadLesson(int lessonId, {String? language}) async {
     try {
       // Create cancel token
       final cancelToken = CancelToken();
@@ -50,7 +51,7 @@ class DownloadManager {
       // Step 1: Download lesson package metadata
       _updateProgress(lessonId, 0.1, 'Downloading lesson data...');
 
-      final response = await _apiClient.downloadLessonPackage(lessonId);
+      final response = await _apiClient.downloadLessonPackage(lessonId, language: language);
 
       if (response.statusCode != 200) {
         throw Exception('Failed to download lesson package');
@@ -106,7 +107,7 @@ class DownloadManager {
             );
           }
         } catch (e) {
-          print('[DownloadManager] Error downloading $remoteKey: $e');
+          AppLogger.e('Error downloading $remoteKey', error: e, tag: 'DownloadManager');
           // Continue with other files
         }
       }
@@ -168,8 +169,9 @@ class DownloadManager {
           if (total != -1) {
             // Update file progress
             final progress = received / total;
-            print(
-              '[DownloadManager] Downloading $remoteKey: ${(progress * 100).toStringAsFixed(1)}%',
+            AppLogger.d(
+              'Downloading $remoteKey: ${(progress * 100).toStringAsFixed(1)}%',
+              tag: 'DownloadManager',
             );
           }
         },
@@ -193,7 +195,7 @@ class DownloadManager {
 
       return localPath;
     } catch (e) {
-      print('[DownloadManager] Error downloading media file: $e');
+      AppLogger.e('Error downloading media file', error: e, tag: 'DownloadManager');
       return null;
     }
   }
@@ -359,12 +361,12 @@ class DownloadManager {
   }
 
   /// Get total download size for lessons
-  Future<int> estimateDownloadSize(List<int> lessonIds) async {
+  Future<int> estimateDownloadSize(List<int> lessonIds, {String? language}) async {
     int totalSize = 0;
 
     for (final lessonId in lessonIds) {
       try {
-        final response = await _apiClient.downloadLessonPackage(lessonId);
+        final response = await _apiClient.downloadLessonPackage(lessonId, language: language);
         final packageData = response.data;
 
         // Estimate size from package metadata
@@ -373,7 +375,7 @@ class DownloadManager {
         }
       } catch (e) {
         // Skip if error
-        print('[DownloadManager] Error estimating size: $e');
+        AppLogger.e('Error estimating size', error: e, tag: 'DownloadManager');
       }
     }
 

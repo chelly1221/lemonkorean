@@ -653,6 +653,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get error => '오류가 발생했습니다';
 
   @override
+  String get errorOccurred => '오류가 발생했습니다';
+
+  @override
+  String get reload => '다시 불러오기';
+
+  @override
+  String get noCharactersAvailable => '사용 가능한 문자가 없습니다';
+
+  @override
   String get success => '성공';
 
   @override

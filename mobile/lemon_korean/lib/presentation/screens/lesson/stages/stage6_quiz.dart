@@ -29,8 +29,8 @@ class Stage6Quiz extends StatefulWidget {
 
   const Stage6Quiz({
     required this.lesson,
-    this.stageData,
     required this.onNext,
+    this.stageData,
     this.onPrevious,
     this.onScoreUpdate,
     this.onVocabularyResults,
@@ -169,7 +169,6 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     });
 
     // Update quiz score
-    final score = _calculateScore();
     final percentage = _calculatePercentage();
     widget.onScoreUpdate?.call(percentage.toInt());
 
@@ -296,7 +295,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: AppConstants.primaryColor.withOpacity(0.1),
+                  color: AppConstants.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -337,7 +336,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                 vertical: 6,
               ),
               decoration: BoxDecoration(
-                color: _getQuestionTypeColor(question['type']).withOpacity(0.2),
+                color: _getQuestionTypeColor(question['type']).withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
@@ -358,7 +357,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
             width: double.infinity,
             padding: const EdgeInsets.all(AppConstants.paddingLarge),
             decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withOpacity(0.1),
+              color: AppConstants.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
             ),
             child: Text(
@@ -389,7 +388,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                     padding: const EdgeInsets.all(AppConstants.paddingMedium),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? AppConstants.primaryColor.withOpacity(0.1)
+                          ? AppConstants.primaryColor.withValues(alpha: 0.1)
                           : Colors.white,
                       borderRadius: BorderRadius.circular(
                         AppConstants.radiusMedium,
@@ -525,8 +524,8 @@ class _Stage6QuizState extends State<Stage6Quiz> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isPassed
-                  ? AppConstants.successColor.withOpacity(0.1)
-                  : AppConstants.errorColor.withOpacity(0.1),
+                  ? AppConstants.successColor.withValues(alpha: 0.1)
+                  : AppConstants.errorColor.withValues(alpha: 0.1),
             ),
             child: Icon(
               isPassed ? Icons.celebration : Icons.replay,
@@ -583,8 +582,8 @@ class _Stage6QuizState extends State<Stage6Quiz> {
             padding: const EdgeInsets.all(AppConstants.paddingLarge),
             decoration: BoxDecoration(
               color: isPassed
-                  ? AppConstants.successColor.withOpacity(0.1)
-                  : AppConstants.errorColor.withOpacity(0.1),
+                  ? AppConstants.successColor.withValues(alpha: 0.1)
+                  : AppConstants.errorColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Text(

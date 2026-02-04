@@ -5,7 +5,6 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/storage/local_storage.dart'
     if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../../data/models/bookmark_model.dart';
-import '../../../data/models/vocabulary_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
@@ -32,7 +31,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
   // Statistics
   int _correctCount = 0;
   int _wrongCount = 0;
-  Map<int, ReviewRating> _results = {}; // vocabulary_id -> rating
+  final Map<int, ReviewRating> _results = {}; // vocabulary_id -> rating
 
   @override
   void initState() {
@@ -568,7 +567,7 @@ class _VocabularyBookReviewScreenState extends State<VocabularyBookReviewScreen>
         child: ElevatedButton(
           onPressed: () => _handleReview(rating),
           style: ElevatedButton.styleFrom(
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             foregroundColor: color,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(

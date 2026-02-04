@@ -287,7 +287,7 @@ class _GridPainter extends CustomPainter {
       ..color = Colors.grey.shade100
       ..strokeWidth = 1;
 
-    canvas.drawLine(Offset(0, 0), Offset(size.width, size.height), dashedPaint);
+    canvas.drawLine(const Offset(0, 0), Offset(size.width, size.height), dashedPaint);
     canvas.drawLine(Offset(size.width, 0), Offset(0, size.height), dashedPaint);
   }
 

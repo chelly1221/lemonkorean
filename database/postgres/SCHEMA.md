@@ -4,7 +4,7 @@ PostgreSQL 15+ compatible schema documentation for the Lemon Korean learning pla
 
 ## Overview
 
-The database consists of 20+ tables organized into the following functional areas:
+The database consists of 21 tables organized into the following functional areas:
 
 - **User Management**: Users, sessions, authentication
 - **Lesson Content**: Lessons, vocabulary, grammar, dialogues
@@ -28,7 +28,7 @@ User account information with subscription and language preferences.
 | email | VARCHAR(255) | UNIQUE, NOT NULL | Email address |
 | password_hash | VARCHAR(255) | NOT NULL | bcrypt hashed password |
 | name | VARCHAR(100) | | Display name |
-| language_preference | VARCHAR(10) | DEFAULT 'zh' | Content language (ko, en, es, ja, zh, zh_TW) |
+| language_preference | VARCHAR(10) | DEFAULT 'ko' | Content language (ko, en, es, ja, zh, zh_TW) |
 | subscription_type | VARCHAR(20) | DEFAULT 'free' | Subscription tier (free, premium, lifetime) |
 | subscription_expires_at | TIMESTAMP | | Premium expiration date |
 | created_at | TIMESTAMP | DEFAULT NOW() | Account creation |
@@ -690,6 +690,56 @@ Applies to: lessons, vocabulary, grammar, hangul_characters, hangul_progress, an
 
 ---
 
+### app_theme_settings
+
+System-wide Flutter app theme configuration (single-row table, id=1).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Theme ID (always 1) |
+| primary_color | VARCHAR(7) | DEFAULT '#FFEF5F' | Brand primary color (hex) |
+| secondary_color | VARCHAR(7) | DEFAULT '#4CAF50' | Brand secondary color |
+| accent_color | VARCHAR(7) | DEFAULT '#FF9800' | Brand accent color |
+| error_color | VARCHAR(7) | DEFAULT '#F44336' | Error state color |
+| success_color | VARCHAR(7) | DEFAULT '#4CAF50' | Success state color |
+| warning_color | VARCHAR(7) | DEFAULT '#FF9800' | Warning state color |
+| info_color | VARCHAR(7) | DEFAULT '#2196F3' | Info state color |
+| text_primary | VARCHAR(7) | DEFAULT '#212121' | Primary text color |
+| text_secondary | VARCHAR(7) | DEFAULT '#757575' | Secondary text color |
+| text_hint | VARCHAR(7) | DEFAULT '#BDBDBD' | Hint text color |
+| background_light | VARCHAR(7) | DEFAULT '#FAFAFA' | Light background |
+| background_dark | VARCHAR(7) | DEFAULT '#303030' | Dark background |
+| card_background | VARCHAR(7) | DEFAULT '#FFFFFF' | Card background |
+| stage1_color | VARCHAR(7) | DEFAULT '#2196F3' | Lesson stage 1 color |
+| stage2_color | VARCHAR(7) | DEFAULT '#4CAF50' | Lesson stage 2 color |
+| stage3_color | VARCHAR(7) | DEFAULT '#FF9800' | Lesson stage 3 color |
+| stage4_color | VARCHAR(7) | DEFAULT '#9C27B0' | Lesson stage 4 color |
+| stage5_color | VARCHAR(7) | DEFAULT '#F44336' | Lesson stage 5 color |
+| stage6_color | VARCHAR(7) | DEFAULT '#00BCD4' | Lesson stage 6 color |
+| stage7_color | VARCHAR(7) | DEFAULT '#FFC107' | Lesson stage 7 color |
+| splash_logo_key | TEXT | NULLABLE | MinIO key for splash logo |
+| splash_logo_url | TEXT | NULLABLE | URL for splash logo |
+| login_logo_key | TEXT | NULLABLE | MinIO key for login logo |
+| login_logo_url | TEXT | NULLABLE | URL for login logo |
+| favicon_key | TEXT | NULLABLE | MinIO key for favicon |
+| favicon_url | TEXT | NULLABLE | URL for favicon |
+| font_family | VARCHAR(100) | DEFAULT 'NotoSansKR' | Font family name |
+| font_source | VARCHAR(20) | DEFAULT 'google' | Font source (google/custom/system) |
+| custom_font_key | TEXT | NULLABLE | MinIO key for custom font |
+| custom_font_url | TEXT | NULLABLE | URL for custom font |
+| version | INTEGER | DEFAULT 1 | Version for cache invalidation |
+| updated_by | INTEGER | FK(users.id) | Admin who last updated |
+| updated_at | TIMESTAMP | DEFAULT NOW() | Last update time |
+| created_at | TIMESTAMP | DEFAULT NOW() | Creation time |
+
+**Indexes**: `idx_app_theme_settings_updated_at` on updated_at DESC
+
+**Constraints**:
+- `valid_hex_colors` - All color columns must be valid hex (#RRGGBB)
+- `valid_font_source` - font_source must be one of (google, custom, system)
+
+---
+
 ## Migration History
 
 | Version | Date | Description |
@@ -697,6 +747,9 @@ Applies to: lessons, vocabulary, grammar, hangul_characters, hangul_progress, an
 | 001 | 2026-01-20 | Add translation tables for i18n |
 | 002 | 2026-02-03 | Add pronunciation guides, syllables, and discrimination tables |
 | 003 | 2026-02-04 | Add web deployment tracking tables |
+| 004 | 2026-02-04 | Update language defaults from Chinese to Korean |
+| 005 | 2026-02-04 | Add app_theme_settings table |
+| 006 | 2026-02-05 | Remove design_settings table (admin dashboard only) |
 
 ---
 
@@ -734,4 +787,4 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 
 ---
 
-**Last Updated:** 2026-02-04
+**Last Updated:** 2026-02-05

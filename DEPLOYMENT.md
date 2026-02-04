@@ -680,7 +680,39 @@ docker compose exec postgres psql -U lemon_admin -d lemon_korean \
 
 ## 웹 앱 배포 (Flutter Web)
 
-### 빌드 및 배포
+### 방법 1: 자동 배포 (권장) (2026-02-04)
+
+Admin Dashboard를 통한 원클릭 배포:
+
+1. **Admin Dashboard 접속**: https://lemon.3chan.kr/admin/
+2. **Web Deployment 메뉴** 클릭 (`#/deploy`)
+3. **"Start Deployment" 버튼** 클릭
+4. **실시간 진행률** 및 로그 확인 (9-10분 소요)
+5. **완료 확인** - 배포 성공 알림
+
+**자동화된 프로세스**:
+- Git pull (최신 코드)
+- Flutter pub get (의존성)
+- Flutter build web (빌드)
+- 파일 복사 (nginx 디렉토리)
+- Nginx 재시작
+- 배포 검증
+
+**장점**:
+- 웹 UI에서 원클릭 배포
+- 실시간 로그 스트리밍
+- 배포 이력 추적
+- 오류 자동 감지
+- Redis 락으로 동시 배포 방지
+
+**API 엔드포인트**:
+- POST `/api/admin/deploy/web/start`
+- GET `/api/admin/deploy/web/status/:id`
+- GET `/api/admin/deploy/web/logs/:id`
+
+### 방법 2: 수동 배포
+
+로컬 환경에서 직접 빌드:
 
 ```bash
 cd mobile/lemon_korean
@@ -695,6 +727,21 @@ flutter build web --release --base-href=/app/ --web-renderer=canvaskit
 docker compose restart nginx
 ```
 
+### 데이터베이스 마이그레이션
+
+웹 배포 관련 마이그레이션 순서:
+
+```bash
+# 1. 언어 기본값 변경 (zh → ko)
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/004_update_language_defaults_to_korean.sql
+
+# 2. 앱 테마 설정 테이블 추가
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/005_add_app_theme_settings.sql
+
+# 3. 디자인 설정 제거 (선택)
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/006_remove_design_settings.sql
+```
+
 ### 배포 URL
 - **프로덕션**: https://lemon.3chan.kr/app/
 - **로컬 테스트**: http://localhost/app/
@@ -703,6 +750,31 @@ docker compose restart nginx
 - 오프라인 다운로드 미지원 (항상 온라인)
 - localStorage 5-10MB 제한
 - 미디어 파일은 CDN에서 직접 로드
+
+### 트러블슈팅
+
+**자동 배포 실패**:
+```bash
+# Redis 락 확인
+docker exec lemon-redis redis-cli GET deployment:web:lock
+
+# 강제 언락 (긴급 시에만)
+docker exec lemon-redis redis-cli DEL deployment:web:lock
+
+# Admin 서비스 로그 확인
+docker logs lemon-admin-service
+```
+
+**수동 빌드 실패**:
+```bash
+# Flutter 캐시 정리
+cd mobile/lemon_korean
+flutter clean
+flutter pub get
+
+# 재빌드
+./build_web.sh
+```
 
 자세한 내용: `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md`
 

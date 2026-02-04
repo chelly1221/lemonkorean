@@ -12,7 +12,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     name VARCHAR(100),
-    language_preference VARCHAR(10) DEFAULT 'zh' CHECK (language_preference IN ('ko', 'en', 'es', 'ja', 'zh', 'zh_TW')),
+    language_preference VARCHAR(10) DEFAULT 'ko' CHECK (language_preference IN ('ko', 'en', 'es', 'ja', 'zh', 'zh_TW')),
     subscription_type VARCHAR(20) DEFAULT 'free' CHECK (subscription_type IN ('free', 'premium', 'lifetime')),
     subscription_expires_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

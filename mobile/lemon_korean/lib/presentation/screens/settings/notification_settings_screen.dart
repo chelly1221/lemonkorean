@@ -44,7 +44,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                 style: const TextStyle(fontSize: 13, height: 1.5),
               ),
               value: settings.notificationsEnabled,
-              activeColor: AppConstants.primaryColor,
+              activeThumbColor: AppConstants.primaryColor,
               onChanged: (value) async {
                 final success = await settings.toggleNotifications(value);
                 if (!success && context.mounted) {
@@ -94,7 +94,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 12, height: 1.5),
                   ),
                   value: settings.dailyReminderEnabled,
-                  activeColor: AppConstants.primaryColor,
+                  activeThumbColor: AppConstants.primaryColor,
                   onChanged: settings.notificationsEnabled
                       ? (value) async {
                           await settings.toggleDailyReminder(value);
@@ -117,7 +117,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
-                        color: AppConstants.primaryColor.withOpacity(0.1),
+                        color: AppConstants.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -188,7 +188,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                 style: const TextStyle(fontSize: 12, height: 1.5),
               ),
               value: settings.reviewRemindersEnabled,
-              activeColor: AppConstants.primaryColor,
+              activeThumbColor: AppConstants.primaryColor,
               onChanged: settings.notificationsEnabled
                   ? (value) async {
                       await settings.toggleReviewReminders(value);

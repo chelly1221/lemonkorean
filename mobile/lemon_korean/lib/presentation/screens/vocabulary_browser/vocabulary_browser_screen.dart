@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/vocabulary_browser_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../widgets/vocabulary_card.dart';
 
 class VocabularyBrowserScreen extends StatefulWidget {
-  const VocabularyBrowserScreen({Key? key}) : super(key: key);
+  const VocabularyBrowserScreen({super.key});
 
   @override
   State<VocabularyBrowserScreen> createState() => _VocabularyBrowserScreenState();
@@ -24,7 +25,8 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
     // Load initial level
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<VocabularyBrowserProvider>(context, listen: false);
-      provider.loadVocabularyForLevel(1);
+      final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+      provider.loadVocabularyForLevel(1, language: settingsProvider.contentLanguageCode);
     });
   }
 
@@ -32,7 +34,8 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
     if (!_tabController.indexIsChanging) {
       final level = _tabController.index + 1;
       final provider = Provider.of<VocabularyBrowserProvider>(context, listen: false);
-      provider.loadVocabularyForLevel(level);
+      final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+      provider.loadVocabularyForLevel(level, language: settingsProvider.contentLanguageCode);
     }
   }
 

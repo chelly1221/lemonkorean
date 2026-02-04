@@ -9,10 +9,10 @@ class FeatureCard extends StatelessWidget {
   final String description;
 
   const FeatureCard({
-    super.key,
     required this.icon,
     required this.title,
     required this.description,
+    super.key,
   });
 
   @override
@@ -27,11 +27,11 @@ class FeatureCard extends StatelessWidget {
           color: OnboardingColors.border,
           width: 1,
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: OnboardingColors.cardShadow,
             blurRadius: 8,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),

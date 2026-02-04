@@ -15,7 +15,6 @@ class SummaryCard extends StatelessWidget {
   final String goalValue;
 
   const SummaryCard({
-    super.key,
     required this.languageLabel,
     required this.languageEmoji,
     required this.languageValue,
@@ -25,6 +24,7 @@ class SummaryCard extends StatelessWidget {
     required this.goalLabel,
     required this.goalEmoji,
     required this.goalValue,
+    super.key,
   });
 
   @override
@@ -39,23 +39,23 @@ class SummaryCard extends StatelessWidget {
           color: OnboardingColors.border,
           width: 1,
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: OnboardingColors.cardShadow,
             blurRadius: 12,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),
       child: Column(
         children: [
           _buildRow(languageLabel, languageEmoji, languageValue),
-          Divider(
+          const Divider(
             height: OnboardingSpacing.lg,
             color: OnboardingColors.border,
           ),
           _buildRow(levelLabel, levelEmoji, levelValue),
-          Divider(
+          const Divider(
             height: OnboardingSpacing.lg,
             color: OnboardingColors.border,
           ),
