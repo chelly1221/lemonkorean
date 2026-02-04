@@ -1403,12 +1403,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pronunciationPracticeDesc => '発音を見て正しい文字を選択';
 
   @override
-  String get writingPractice => '書き練習';
-
-  @override
-  String get writingPracticeDesc => '発音を見て正しい文字を書く';
-
-  @override
   String get startPractice => '練習開始';
 
   @override
@@ -1428,27 +1422,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get selectCorrectCharacter => '正しい文字を選択してください';
-
-  @override
-  String get writeCharacterForPronunciation => 'この発音の文字を書いてください';
-
-  @override
-  String get writeHere => 'ここに書いてください\n(開発中)';
-
-  @override
-  String get dontKnow => 'わからない';
-
-  @override
-  String get checkAnswer => '答えを確認';
-
-  @override
-  String get didYouWriteCorrectly => '正しく書けましたか？';
-
-  @override
-  String get wrongAnswer => '間違い';
-
-  @override
-  String get correctAnswer => '正解';
 
   @override
   String get correctExclamation => '正解！';
@@ -1929,4 +1902,198 @@ class AppLocalizationsJa extends AppLocalizations {
   String timeFormatS(int seconds) {
     return '$seconds秒';
   }
+
+  @override
+  String get repeatEnabled => 'リピート有効';
+
+  @override
+  String get repeatDisabled => 'リピート無効';
+
+  @override
+  String get stop => '停止';
+
+  @override
+  String get playbackSpeed => '再生速度';
+
+  @override
+  String get slowSpeed => '遅い';
+
+  @override
+  String get normalSpeed => '通常';
+
+  @override
+  String get mouthShape => '口の形';
+
+  @override
+  String get tonguePosition => '舌の位置';
+
+  @override
+  String get airFlow => '気流';
+
+  @override
+  String get nativeComparison => '母語との比較';
+
+  @override
+  String get similarSounds => '似た音';
+
+  @override
+  String get soundDiscrimination => '音の聞き分け練習';
+
+  @override
+  String get listenAndSelect => '聞いて正しい文字を選んでください';
+
+  @override
+  String get similarSoundGroups => '似た音のグループ';
+
+  @override
+  String get plainSound => '平音';
+
+  @override
+  String get aspiratedSound => '激音';
+
+  @override
+  String get tenseSound => '濃音';
+
+  @override
+  String get writingPractice => '書き取り練習';
+
+  @override
+  String get watchAnimation => 'アニメーションを見る';
+
+  @override
+  String get traceWithGuide => 'ガイドに沿って書く';
+
+  @override
+  String get freehandWriting => '自由に書く';
+
+  @override
+  String get clearCanvas => 'クリア';
+
+  @override
+  String get showGuide => 'ガイド表示';
+
+  @override
+  String get hideGuide => 'ガイド非表示';
+
+  @override
+  String get writingAccuracy => '正確度';
+
+  @override
+  String get tryAgainWriting => 'もう一度';
+
+  @override
+  String get nextStep => '次のステップ';
+
+  @override
+  String strokeOrderStep(int current, int total) {
+    return 'ステップ $current/$total';
+  }
+
+  @override
+  String get syllableCombination => '音節の組み合わせ';
+
+  @override
+  String get selectConsonant => '子音を選択';
+
+  @override
+  String get selectVowel => '母音を選択';
+
+  @override
+  String get selectFinalConsonant => 'パッチムを選択（任意）';
+
+  @override
+  String get noFinalConsonant => 'パッチムなし';
+
+  @override
+  String get combinedSyllable => '組み合わせた音節';
+
+  @override
+  String get playSyllable => '音節を再生';
+
+  @override
+  String get decomposeSyllable => '音節を分解';
+
+  @override
+  String get batchimPractice => 'パッチム練習';
+
+  @override
+  String get batchimExplanation => 'パッチムの説明';
+
+  @override
+  String get recordPronunciation => '録音練習';
+
+  @override
+  String get startRecording => '録音開始';
+
+  @override
+  String get stopRecording => '録音停止';
+
+  @override
+  String get playRecording => '録音を再生';
+
+  @override
+  String get compareWithNative => 'ネイティブと比較';
+
+  @override
+  String get shadowingMode => 'シャドーイングモード';
+
+  @override
+  String get listenThenRepeat => '聞いてから繰り返す';
+
+  @override
+  String get selfEvaluation => '自己評価';
+
+  @override
+  String get accurate => '正確';
+
+  @override
+  String get almostCorrect => 'ほぼ正確';
+
+  @override
+  String get needsPractice => '練習が必要';
+
+  @override
+  String get recordingNotSupported => 'このプラットフォームでは録音がサポートされていません';
+
+  @override
+  String get showMeaning => '意味を表示';
+
+  @override
+  String get hideMeaning => '意味を隠す';
+
+  @override
+  String get exampleWord => '例単語';
+
+  @override
+  String get meaningToggle => '意味表示設定';
+
+  @override
+  String get microphonePermissionRequired => '録音にはマイクの許可が必要です';
+
+  @override
+  String get activities => 'アクティビティ';
+
+  @override
+  String get listeningAndSpeaking => 'リスニング＆スピーキング';
+
+  @override
+  String get readingAndWriting => 'リーディング＆ライティング';
+
+  @override
+  String get soundDiscriminationDesc => '似た音を聞き分ける練習';
+
+  @override
+  String get shadowingDesc => 'ネイティブの発音をまねる';
+
+  @override
+  String get syllableCombinationDesc => '子音と母音の組み合わせを学ぶ';
+
+  @override
+  String get batchimPracticeDesc => 'パッチム（終声）の練習';
+
+  @override
+  String get writingPracticeDesc => 'ハングル文字の書き練習';
+
+  @override
+  String get webNotSupported => 'ウェブでは利用不可';
 }

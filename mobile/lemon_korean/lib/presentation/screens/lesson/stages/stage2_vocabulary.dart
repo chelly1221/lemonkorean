@@ -37,7 +37,8 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
     _loadWords();
   }
 
-  /// Load words from stageData (v2) or lesson content (v1) or mock data
+  /// Load words from stageData (v2) or lesson content (v1)
+  /// Returns empty list if no data available - UI shows "no content" message
   void _loadWords() {
     if (widget.stageData != null && widget.stageData!.containsKey('words')) {
       // v2 structure: use stageData
@@ -47,34 +48,11 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
       final vocabData = widget.lesson.content!['stage2_vocabulary'];
       _words = vocabData != null
           ? List<Map<String, dynamic>>.from(vocabData['words'])
-          : _getMockWords();
+          : [];
     } else {
-      _words = _getMockWords();
+      // No data available - return empty list, UI will show appropriate message
+      _words = [];
     }
-  }
-
-  /// Get mock words for fallback
-  List<Map<String, dynamic>> _getMockWords() {
-    return [
-      {
-        'korean': '안녕하세요',
-        'chinese': '您好',
-        'pinyin': 'nín hǎo',
-        'image_url': null,
-      },
-      {
-        'korean': '감사합니다',
-        'chinese': '谢谢',
-        'pinyin': 'xiè xie',
-        'image_url': null,
-      },
-      {
-        'korean': '죄송합니다',
-        'chinese': '对不起',
-        'pinyin': 'duì bu qǐ',
-        'image_url': null,
-      },
-    ];
   }
 
   void _nextWord() {
@@ -112,6 +90,45 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
     );
   }
 
+  /// Build empty state widget when no vocabulary data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.library_books_outlined,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noVocabulary,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildImagePlaceholder(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Container(
@@ -142,6 +159,12 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    // Handle empty words case
+    if (_words.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
     final word = _words[_currentWordIndex];
 
     return Container(

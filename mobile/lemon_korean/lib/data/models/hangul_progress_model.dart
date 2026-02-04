@@ -164,6 +164,8 @@ class HangulProgressModel {
   bool get isMastered => masteryLevel >= 3;
   bool get isPerfected => masteryLevel >= 5;
 
+  /// @deprecated Use `getMasteryLevelDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns mastery level in Chinese - kept for backwards compatibility only
   String get masteryLevelName {
     switch (masteryLevel) {
       case 0:

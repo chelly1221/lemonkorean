@@ -2709,18 +2709,6 @@ abstract class AppLocalizations {
   /// **'看到发音选择正确的字母'**
   String get pronunciationPracticeDesc;
 
-  /// Writing practice mode
-  ///
-  /// In zh, this message translates to:
-  /// **'书写练习'**
-  String get writingPractice;
-
-  /// Writing practice description
-  ///
-  /// In zh, this message translates to:
-  /// **'看到发音写出正确的字母'**
-  String get writingPracticeDesc;
-
   /// Start practice button
   ///
   /// In zh, this message translates to:
@@ -2762,48 +2750,6 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'选择正确的字母'**
   String get selectCorrectCharacter;
-
-  /// Write character for pronunciation instruction
-  ///
-  /// In zh, this message translates to:
-  /// **'写出这个发音对应的字母'**
-  String get writeCharacterForPronunciation;
-
-  /// Write here placeholder
-  ///
-  /// In zh, this message translates to:
-  /// **'在此处书写\n(功能开发中)'**
-  String get writeHere;
-
-  /// Don't know button
-  ///
-  /// In zh, this message translates to:
-  /// **'不知道'**
-  String get dontKnow;
-
-  /// Check answer button
-  ///
-  /// In zh, this message translates to:
-  /// **'查看答案'**
-  String get checkAnswer;
-
-  /// Did you write correctly question
-  ///
-  /// In zh, this message translates to:
-  /// **'你写对了吗？'**
-  String get didYouWriteCorrectly;
-
-  /// Wrong answer button
-  ///
-  /// In zh, this message translates to:
-  /// **'错了'**
-  String get wrongAnswer;
-
-  /// Correct answer button
-  ///
-  /// In zh, this message translates to:
-  /// **'对了'**
-  String get correctAnswer;
 
   /// Correct feedback
   ///
@@ -3656,6 +3602,390 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'{seconds}秒'**
   String timeFormatS(int seconds);
+
+  /// Repeat enabled message
+  ///
+  /// In zh, this message translates to:
+  /// **'已开启重复'**
+  String get repeatEnabled;
+
+  /// Repeat disabled message
+  ///
+  /// In zh, this message translates to:
+  /// **'已关闭重复'**
+  String get repeatDisabled;
+
+  /// Stop button
+  ///
+  /// In zh, this message translates to:
+  /// **'停止'**
+  String get stop;
+
+  /// Playback speed label
+  ///
+  /// In zh, this message translates to:
+  /// **'播放速度'**
+  String get playbackSpeed;
+
+  /// Slow speed option
+  ///
+  /// In zh, this message translates to:
+  /// **'慢速'**
+  String get slowSpeed;
+
+  /// Normal speed option
+  ///
+  /// In zh, this message translates to:
+  /// **'正常'**
+  String get normalSpeed;
+
+  /// Mouth shape label
+  ///
+  /// In zh, this message translates to:
+  /// **'口型'**
+  String get mouthShape;
+
+  /// Tongue position label
+  ///
+  /// In zh, this message translates to:
+  /// **'舌位'**
+  String get tonguePosition;
+
+  /// Air flow label
+  ///
+  /// In zh, this message translates to:
+  /// **'气流'**
+  String get airFlow;
+
+  /// Native language comparison label
+  ///
+  /// In zh, this message translates to:
+  /// **'母语对比'**
+  String get nativeComparison;
+
+  /// Similar sounds label
+  ///
+  /// In zh, this message translates to:
+  /// **'相似音'**
+  String get similarSounds;
+
+  /// Sound discrimination practice
+  ///
+  /// In zh, this message translates to:
+  /// **'辨音练习'**
+  String get soundDiscrimination;
+
+  /// Listen and select instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选择正确的字母'**
+  String get listenAndSelect;
+
+  /// Similar sound groups
+  ///
+  /// In zh, this message translates to:
+  /// **'相似音组'**
+  String get similarSoundGroups;
+
+  /// Plain sound
+  ///
+  /// In zh, this message translates to:
+  /// **'平音'**
+  String get plainSound;
+
+  /// Aspirated sound
+  ///
+  /// In zh, this message translates to:
+  /// **'送气音'**
+  String get aspiratedSound;
+
+  /// Tense sound
+  ///
+  /// In zh, this message translates to:
+  /// **'紧音'**
+  String get tenseSound;
+
+  /// Writing practice
+  ///
+  /// In zh, this message translates to:
+  /// **'书写练习'**
+  String get writingPractice;
+
+  /// Watch animation step
+  ///
+  /// In zh, this message translates to:
+  /// **'观看动画'**
+  String get watchAnimation;
+
+  /// Trace with guide step
+  ///
+  /// In zh, this message translates to:
+  /// **'描摹练习'**
+  String get traceWithGuide;
+
+  /// Freehand writing step
+  ///
+  /// In zh, this message translates to:
+  /// **'自由书写'**
+  String get freehandWriting;
+
+  /// Clear canvas button
+  ///
+  /// In zh, this message translates to:
+  /// **'清除'**
+  String get clearCanvas;
+
+  /// Show guide button
+  ///
+  /// In zh, this message translates to:
+  /// **'显示引导'**
+  String get showGuide;
+
+  /// Hide guide button
+  ///
+  /// In zh, this message translates to:
+  /// **'隐藏引导'**
+  String get hideGuide;
+
+  /// Writing accuracy label
+  ///
+  /// In zh, this message translates to:
+  /// **'准确度'**
+  String get writingAccuracy;
+
+  /// Try again writing button
+  ///
+  /// In zh, this message translates to:
+  /// **'再试一次'**
+  String get tryAgainWriting;
+
+  /// Next step button
+  ///
+  /// In zh, this message translates to:
+  /// **'下一步'**
+  String get nextStep;
+
+  /// Stroke order step indicator
+  ///
+  /// In zh, this message translates to:
+  /// **'第 {current}/{total} 步'**
+  String strokeOrderStep(int current, int total);
+
+  /// Syllable combination
+  ///
+  /// In zh, this message translates to:
+  /// **'音节组合'**
+  String get syllableCombination;
+
+  /// Select consonant instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'选择辅音'**
+  String get selectConsonant;
+
+  /// Select vowel instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'选择元音'**
+  String get selectVowel;
+
+  /// Select final consonant instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'选择收音（可选）'**
+  String get selectFinalConsonant;
+
+  /// No final consonant option
+  ///
+  /// In zh, this message translates to:
+  /// **'无收音'**
+  String get noFinalConsonant;
+
+  /// Combined syllable label
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节'**
+  String get combinedSyllable;
+
+  /// Play syllable button
+  ///
+  /// In zh, this message translates to:
+  /// **'播放音节'**
+  String get playSyllable;
+
+  /// Decompose syllable button
+  ///
+  /// In zh, this message translates to:
+  /// **'分解音节'**
+  String get decomposeSyllable;
+
+  /// Batchim practice
+  ///
+  /// In zh, this message translates to:
+  /// **'收音练习'**
+  String get batchimPractice;
+
+  /// Batchim explanation
+  ///
+  /// In zh, this message translates to:
+  /// **'收音说明'**
+  String get batchimExplanation;
+
+  /// Record pronunciation
+  ///
+  /// In zh, this message translates to:
+  /// **'录音练习'**
+  String get recordPronunciation;
+
+  /// Start recording button
+  ///
+  /// In zh, this message translates to:
+  /// **'开始录音'**
+  String get startRecording;
+
+  /// Stop recording button
+  ///
+  /// In zh, this message translates to:
+  /// **'停止录音'**
+  String get stopRecording;
+
+  /// Play recording button
+  ///
+  /// In zh, this message translates to:
+  /// **'播放录音'**
+  String get playRecording;
+
+  /// Compare with native button
+  ///
+  /// In zh, this message translates to:
+  /// **'与原音对比'**
+  String get compareWithNative;
+
+  /// Shadowing mode
+  ///
+  /// In zh, this message translates to:
+  /// **'跟读模式'**
+  String get shadowingMode;
+
+  /// Listen then repeat instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'先听后说'**
+  String get listenThenRepeat;
+
+  /// Self evaluation
+  ///
+  /// In zh, this message translates to:
+  /// **'自我评价'**
+  String get selfEvaluation;
+
+  /// Accurate evaluation
+  ///
+  /// In zh, this message translates to:
+  /// **'准确'**
+  String get accurate;
+
+  /// Almost correct evaluation
+  ///
+  /// In zh, this message translates to:
+  /// **'接近'**
+  String get almostCorrect;
+
+  /// Needs practice evaluation
+  ///
+  /// In zh, this message translates to:
+  /// **'需要练习'**
+  String get needsPractice;
+
+  /// Recording not supported message
+  ///
+  /// In zh, this message translates to:
+  /// **'此平台不支持录音功能'**
+  String get recordingNotSupported;
+
+  /// Show meaning toggle
+  ///
+  /// In zh, this message translates to:
+  /// **'显示释义'**
+  String get showMeaning;
+
+  /// Hide meaning toggle
+  ///
+  /// In zh, this message translates to:
+  /// **'隐藏释义'**
+  String get hideMeaning;
+
+  /// Example word label
+  ///
+  /// In zh, this message translates to:
+  /// **'示例单词'**
+  String get exampleWord;
+
+  /// Meaning toggle setting
+  ///
+  /// In zh, this message translates to:
+  /// **'释义显示设置'**
+  String get meaningToggle;
+
+  /// No description provided for @microphonePermissionRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'录音需要麦克风权限'**
+  String get microphonePermissionRequired;
+
+  /// No description provided for @activities.
+  ///
+  /// In zh, this message translates to:
+  /// **'活动'**
+  String get activities;
+
+  /// No description provided for @listeningAndSpeaking.
+  ///
+  /// In zh, this message translates to:
+  /// **'听力 & 口语'**
+  String get listeningAndSpeaking;
+
+  /// No description provided for @readingAndWriting.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读 & 写作'**
+  String get readingAndWriting;
+
+  /// No description provided for @soundDiscriminationDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'训练耳朵区分相似的声音'**
+  String get soundDiscriminationDesc;
+
+  /// No description provided for @shadowingDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'跟读原生发音'**
+  String get shadowingDesc;
+
+  /// No description provided for @syllableCombinationDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习辅音和元音如何组合'**
+  String get syllableCombinationDesc;
+
+  /// No description provided for @batchimPracticeDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'练习收音发音'**
+  String get batchimPracticeDesc;
+
+  /// No description provided for @writingPracticeDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'练习书写韩文字母'**
+  String get writingPracticeDesc;
+
+  /// No description provided for @webNotSupported.
+  ///
+  /// In zh, this message translates to:
+  /// **'网页版不支持'**
+  String get webNotSupported;
 }
 
 class _AppLocalizationsDelegate

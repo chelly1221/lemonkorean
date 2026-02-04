@@ -1403,12 +1403,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pronunciationPracticeDesc => '발음을 보고 올바른 글자를 선택하세요';
 
   @override
-  String get writingPractice => '쓰기 연습';
-
-  @override
-  String get writingPracticeDesc => '발음을 보고 글자를 써보세요';
-
-  @override
   String get startPractice => '연습 시작';
 
   @override
@@ -1428,27 +1422,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get selectCorrectCharacter => '올바른 글자를 선택하세요';
-
-  @override
-  String get writeCharacterForPronunciation => '이 발음에 해당하는 글자를 쓰세요';
-
-  @override
-  String get writeHere => '여기에 쓰세요\n(개발 중)';
-
-  @override
-  String get dontKnow => '모르겠어요';
-
-  @override
-  String get checkAnswer => '정답 확인';
-
-  @override
-  String get didYouWriteCorrectly => '올바르게 썼나요?';
-
-  @override
-  String get wrongAnswer => '틀렸어요';
-
-  @override
-  String get correctAnswer => '맞았어요';
 
   @override
   String get correctExclamation => '정답!';
@@ -1929,4 +1902,198 @@ class AppLocalizationsKo extends AppLocalizations {
   String timeFormatS(int seconds) {
     return '$seconds초';
   }
+
+  @override
+  String get repeatEnabled => '반복 재생 켜짐';
+
+  @override
+  String get repeatDisabled => '반복 재생 꺼짐';
+
+  @override
+  String get stop => '정지';
+
+  @override
+  String get playbackSpeed => '재생 속도';
+
+  @override
+  String get slowSpeed => '느리게';
+
+  @override
+  String get normalSpeed => '보통';
+
+  @override
+  String get mouthShape => '입 모양';
+
+  @override
+  String get tonguePosition => '혀 위치';
+
+  @override
+  String get airFlow => '기류';
+
+  @override
+  String get nativeComparison => '모국어 비교';
+
+  @override
+  String get similarSounds => '유사음';
+
+  @override
+  String get soundDiscrimination => '소리 구분 훈련';
+
+  @override
+  String get listenAndSelect => '소리를 듣고 올바른 글자를 선택하세요';
+
+  @override
+  String get similarSoundGroups => '유사음 그룹';
+
+  @override
+  String get plainSound => '평음';
+
+  @override
+  String get aspiratedSound => '격음';
+
+  @override
+  String get tenseSound => '경음';
+
+  @override
+  String get writingPractice => '쓰기 연습';
+
+  @override
+  String get watchAnimation => '획순 애니메이션 보기';
+
+  @override
+  String get traceWithGuide => '가이드 따라 쓰기';
+
+  @override
+  String get freehandWriting => '자유 쓰기';
+
+  @override
+  String get clearCanvas => '지우기';
+
+  @override
+  String get showGuide => '가이드 표시';
+
+  @override
+  String get hideGuide => '가이드 숨기기';
+
+  @override
+  String get writingAccuracy => '정확도';
+
+  @override
+  String get tryAgainWriting => '다시 쓰기';
+
+  @override
+  String get nextStep => '다음 단계';
+
+  @override
+  String strokeOrderStep(int current, int total) {
+    return '획순 $current/$total';
+  }
+
+  @override
+  String get syllableCombination => '음절 조합';
+
+  @override
+  String get selectConsonant => '자음 선택';
+
+  @override
+  String get selectVowel => '모음 선택';
+
+  @override
+  String get selectFinalConsonant => '받침 선택 (선택사항)';
+
+  @override
+  String get noFinalConsonant => '받침 없음';
+
+  @override
+  String get combinedSyllable => '조합된 음절';
+
+  @override
+  String get playSyllable => '음절 듣기';
+
+  @override
+  String get decomposeSyllable => '음절 분해';
+
+  @override
+  String get batchimPractice => '받침 연습';
+
+  @override
+  String get batchimExplanation => '받침 설명';
+
+  @override
+  String get recordPronunciation => '발음 녹음';
+
+  @override
+  String get startRecording => '녹음 시작';
+
+  @override
+  String get stopRecording => '녹음 중지';
+
+  @override
+  String get playRecording => '녹음 재생';
+
+  @override
+  String get compareWithNative => '원어민 발음과 비교';
+
+  @override
+  String get shadowingMode => '쉐도잉 모드';
+
+  @override
+  String get listenThenRepeat => '듣고 따라 말하세요';
+
+  @override
+  String get selfEvaluation => '자기 평가';
+
+  @override
+  String get accurate => '정확함';
+
+  @override
+  String get almostCorrect => '거의 맞음';
+
+  @override
+  String get needsPractice => '연습 필요';
+
+  @override
+  String get recordingNotSupported => '이 플랫폼에서는 녹음이 지원되지 않습니다';
+
+  @override
+  String get showMeaning => '뜻 표시';
+
+  @override
+  String get hideMeaning => '뜻 숨기기';
+
+  @override
+  String get exampleWord => '예시 단어';
+
+  @override
+  String get meaningToggle => '뜻 표시 설정';
+
+  @override
+  String get microphonePermissionRequired => '녹음을 위해 마이크 권한이 필요합니다';
+
+  @override
+  String get activities => '활동';
+
+  @override
+  String get listeningAndSpeaking => '듣기 & 말하기';
+
+  @override
+  String get readingAndWriting => '읽기 & 쓰기';
+
+  @override
+  String get soundDiscriminationDesc => '비슷한 소리 구별 훈련';
+
+  @override
+  String get shadowingDesc => '원어민 발음 따라하기';
+
+  @override
+  String get syllableCombinationDesc => '자음과 모음 조합 배우기';
+
+  @override
+  String get batchimPracticeDesc => '받침 소리 연습';
+
+  @override
+  String get writingPracticeDesc => '한글 글자 쓰기 연습';
+
+  @override
+  String get webNotSupported => '웹에서 사용 불가';
 }

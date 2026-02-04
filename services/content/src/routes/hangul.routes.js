@@ -47,4 +47,36 @@ router.get('/characters/type/:type', hangulController.getCharactersByType);
  */
 router.get('/characters/:id', hangulController.getCharacterById);
 
+/**
+ * @route   GET /api/content/hangul/pronunciation-guides
+ * @desc    Get pronunciation guides for all characters
+ * @access  Public
+ */
+router.get('/pronunciation-guides', hangulController.getPronunciationGuides);
+
+/**
+ * @route   GET /api/content/hangul/pronunciation-guides/:characterId
+ * @desc    Get pronunciation guide for a specific character
+ * @access  Public
+ */
+router.get('/pronunciation-guides/:characterId', hangulController.getPronunciationGuideByCharacterId);
+
+/**
+ * @route   GET /api/content/hangul/syllables
+ * @desc    Get syllable combinations
+ * @access  Public
+ * @query   initial - Filter by initial consonant ID
+ * @query   vowel - Filter by vowel ID
+ * @query   final - Filter by final consonant ID
+ */
+router.get('/syllables', hangulController.getSyllables);
+
+/**
+ * @route   GET /api/content/hangul/similar-sounds
+ * @desc    Get similar sound groups for discrimination training
+ * @access  Public
+ * @query   category - Filter by category (consonant/vowel)
+ */
+router.get('/similar-sounds', hangulController.getSimilarSoundGroups);
+
 module.exports = router;

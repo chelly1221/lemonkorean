@@ -45,14 +45,23 @@ class _Stage6QuizState extends State<Stage6Quiz> {
   int _currentQuestionIndex = 0;
   final Map<int, String> _userAnswers = {};
   bool _quizCompleted = false;
+  bool _initialized = false;
 
-  late List<Map<String, dynamic>> _quizQuestions;
+  List<Map<String, dynamic>> _quizQuestions = [];
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initializeQuestions();
+      _initialized = true;
+    }
+  }
 
-    // Load questions from stageData or use mock data
+  /// Load questions from stageData or lesson content
+  /// Returns empty list if no data available - UI shows "no content" message
+  void _initializeQuestions() {
+    // Load questions from stageData or lesson content
     List<Map<String, dynamic>> sourceQuestions;
     if (widget.stageData != null && widget.stageData!.containsKey('questions')) {
       final rawQuestions = List<Map<String, dynamic>>.from(widget.stageData!['questions']);
@@ -84,73 +93,39 @@ class _Stage6QuizState extends State<Stage6Quiz> {
           'vocabulary_id': q['vocabulary_id'],
         };
       }).toList();
+    } else if (widget.lesson.content != null) {
+      final quizData = widget.lesson.content!['stage6_quiz'];
+      if (quizData != null && quizData['questions'] != null) {
+        final rawQuestions = List<Map<String, dynamic>>.from(quizData['questions']);
+        sourceQuestions = rawQuestions.map((q) {
+          final options = List<String>.from(q['options'] ?? []);
+          String correctAnswer;
+
+          if (q.containsKey('correct_answer') && q['correct_answer'] is int) {
+            final index = q['correct_answer'] as int;
+            correctAnswer = (index >= 0 && index < options.length)
+                ? options[index]
+                : options.isNotEmpty ? options[0] : '';
+          } else if (q.containsKey('correctAnswer')) {
+            correctAnswer = q['correctAnswer'] as String;
+          } else {
+            correctAnswer = options.isNotEmpty ? options[0] : '';
+          }
+
+          return {
+            'question': q['question'] ?? '',
+            'options': options,
+            'correctAnswer': correctAnswer,
+            'type': q['type'] ?? 'general',
+            'vocabulary_id': q['vocabulary_id'],
+          };
+        }).toList();
+      } else {
+        sourceQuestions = [];
+      }
     } else {
-      // Use mock questions
-      sourceQuestions = [
-        {
-          'question': '"안녕하세요"的意思是？',
-          'options': ['你好', '谢谢', '再见', '对不起'],
-          'correctAnswer': '你好',
-          'type': 'vocabulary',
-        },
-        {
-          'question': '"감사합니다"的中文翻译是？',
-          'options': ['你好', '谢谢', '再见', '对不起'],
-          'correctAnswer': '谢谢',
-          'type': 'vocabulary',
-        },
-        {
-          'question': '当名词以辅音结尾时，应该使用哪个主题助词？',
-          'options': ['은', '는', '이', '가'],
-          'correctAnswer': '은',
-          'type': 'grammar',
-        },
-        {
-          'question': '选择正确的句子："我是学生"',
-          'options': [
-            '저는 학생입니다',
-            '저는 학생이에요',
-            '저는 학생예요',
-            '以上都对',
-          ],
-          'correctAnswer': '以上都对',
-          'type': 'grammar',
-        },
-        {
-          'question': '"이름이 뭐예요?"的意思是？',
-          'options': [
-            '你好吗？',
-            '你叫什么名字？',
-            '你是谁？',
-            '你在哪里？',
-          ],
-          'correctAnswer': '你叫什么名字？',
-          'type': 'dialogue',
-        },
-        {
-          'question': '如何用韩语说"很高兴认识你"？',
-          'options': ['안녕하세요', '감사합니다', '반갑습니다', '죄송합니다'],
-          'correctAnswer': '반갑습니다',
-          'type': 'dialogue',
-        },
-        {
-          'question': '"학생이에요?"的意思是？',
-          'options': [
-            '你是学生',
-            '你是学生吗？',
-            '我是学生',
-            '我是学生吗？',
-          ],
-          'correctAnswer': '你是学生吗？',
-          'type': 'grammar',
-        },
-        {
-          'question': '选择"对不起"的韩语',
-          'options': ['안녕하세요', '감사합니다', '죄송합니다', '반갑습니다'],
-          'correctAnswer': '죄송합니다',
-          'type': 'vocabulary',
-        },
-      ];
+      // No data available - return empty list, UI will show appropriate message
+      sourceQuestions = [];
     }
 
     // Keep question order (no shuffle)
@@ -233,16 +208,60 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     return (_calculateScore() / _quizQuestions.length) * 100;
   }
 
+  /// Build empty state widget when no quiz data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.assignment_outlined,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noQuiz,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    // Handle empty quiz questions case
+    if (_quizQuestions.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
     if (_quizCompleted) {
       return _buildResultScreen();
     }
 
     final question = _quizQuestions[_currentQuestionIndex];
     final selectedAnswer = _userAnswers[_currentQuestionIndex];
-
-    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),

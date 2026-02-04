@@ -239,6 +239,7 @@ const Router = (() => {
     register('/system', SystemPage.render, true);
     register('/docs', DocsPage.render, true);
     register('/dev-notes', DevNotesPage.render, true);
+    register('/deploy', DeployPage.render, true);
 
     // Hash 변경 이벤트 리스너
     window.addEventListener('hashchange', handleRoute);

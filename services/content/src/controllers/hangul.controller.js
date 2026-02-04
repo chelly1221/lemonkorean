@@ -300,6 +300,228 @@ const getStats = async (req, res) => {
 
 /**
  * ================================================================
+ * GET /api/content/hangul/pronunciation-guides
+ * ================================================================
+ * Get pronunciation guides for all characters
+ */
+const getPronunciationGuides = async (req, res) => {
+  try {
+    console.log('[HANGUL] GET /api/content/hangul/pronunciation-guides');
+
+    // Check cache
+    const cacheKey = 'hangul:pronunciation-guides';
+    const cached = await cacheHelpers.get(cacheKey);
+    if (cached) {
+      console.log('[HANGUL] Cache hit:', cacheKey);
+      return res.json({
+        success: true,
+        cached: true,
+        ...cached
+      });
+    }
+
+    // Fetch pronunciation guides
+    const guides = await Hangul.getPronunciationGuides();
+
+    const response = {
+      count: guides.length,
+      guides
+    };
+
+    // Cache for 1 hour
+    await cacheHelpers.set(cacheKey, response, 3600);
+
+    console.log(`[HANGUL] Returned ${guides.length} pronunciation guides`);
+
+    res.json({
+      success: true,
+      ...response
+    });
+
+  } catch (error) {
+    console.error('[HANGUL] Error in getPronunciationGuides:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch pronunciation guides',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * GET /api/content/hangul/pronunciation-guides/:characterId
+ * ================================================================
+ * Get pronunciation guide for a specific character
+ */
+const getPronunciationGuideByCharacterId = async (req, res) => {
+  try {
+    const characterId = parseInt(req.params.characterId);
+    console.log('[HANGUL] GET /api/content/hangul/pronunciation-guides/:characterId', characterId);
+
+    if (isNaN(characterId) || characterId < 1) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid character ID'
+      });
+    }
+
+    // Check cache
+    const cacheKey = `hangul:pronunciation-guide:${characterId}`;
+    const cached = await cacheHelpers.get(cacheKey);
+    if (cached) {
+      console.log('[HANGUL] Cache hit:', cacheKey);
+      return res.json({
+        success: true,
+        cached: true,
+        guide: cached
+      });
+    }
+
+    // Fetch guide
+    const guide = await Hangul.getPronunciationGuideByCharacterId(characterId);
+
+    if (!guide) {
+      return res.status(404).json({
+        success: false,
+        error: 'Pronunciation guide not found'
+      });
+    }
+
+    // Cache for 1 hour
+    await cacheHelpers.set(cacheKey, guide, 3600);
+
+    res.json({
+      success: true,
+      guide
+    });
+
+  } catch (error) {
+    console.error('[HANGUL] Error in getPronunciationGuideByCharacterId:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch pronunciation guide',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * GET /api/content/hangul/syllables
+ * ================================================================
+ * Get syllable combinations with optional filtering
+ */
+const getSyllables = async (req, res) => {
+  try {
+    const { initial, vowel, final, limit = 100, offset = 0 } = req.query;
+    console.log('[HANGUL] GET /api/content/hangul/syllables', req.query);
+
+    // Build cache key
+    const cacheKey = `hangul:syllables:${initial || 'all'}:${vowel || 'all'}:${final || 'none'}:${limit}:${offset}`;
+
+    // Check cache
+    const cached = await cacheHelpers.get(cacheKey);
+    if (cached) {
+      console.log('[HANGUL] Cache hit:', cacheKey);
+      return res.json({
+        success: true,
+        cached: true,
+        ...cached
+      });
+    }
+
+    // Fetch syllables
+    const syllables = await Hangul.getSyllables({ initial, vowel, final, limit, offset });
+
+    const response = {
+      count: syllables.length,
+      syllables
+    };
+
+    // Cache for 1 hour
+    await cacheHelpers.set(cacheKey, response, 3600);
+
+    console.log(`[HANGUL] Returned ${syllables.length} syllables`);
+
+    res.json({
+      success: true,
+      ...response
+    });
+
+  } catch (error) {
+    console.error('[HANGUL] Error in getSyllables:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch syllables',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
+ * GET /api/content/hangul/similar-sounds
+ * ================================================================
+ * Get similar sound groups for discrimination training
+ */
+const getSimilarSoundGroups = async (req, res) => {
+  try {
+    const { category } = req.query;
+    console.log('[HANGUL] GET /api/content/hangul/similar-sounds', req.query);
+
+    // Validate category if provided
+    if (category && !['consonant', 'vowel'].includes(category)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid category. Must be "consonant" or "vowel"'
+      });
+    }
+
+    // Build cache key
+    const cacheKey = `hangul:similar-sounds:${category || 'all'}`;
+
+    // Check cache
+    const cached = await cacheHelpers.get(cacheKey);
+    if (cached) {
+      console.log('[HANGUL] Cache hit:', cacheKey);
+      return res.json({
+        success: true,
+        cached: true,
+        ...cached
+      });
+    }
+
+    // Fetch similar sound groups
+    const groups = await Hangul.getSimilarSoundGroups(category);
+
+    const response = {
+      count: groups.length,
+      groups
+    };
+
+    // Cache for 1 hour
+    await cacheHelpers.set(cacheKey, response, 3600);
+
+    console.log(`[HANGUL] Returned ${groups.length} similar sound groups`);
+
+    res.json({
+      success: true,
+      ...response
+    });
+
+  } catch (error) {
+    console.error('[HANGUL] Error in getSimilarSoundGroups:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch similar sound groups',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
+/**
+ * ================================================================
  * EXPORTS
  * ================================================================
  */
@@ -308,5 +530,9 @@ module.exports = {
   getCharacterById,
   getCharactersByType,
   getAlphabetTable,
-  getStats
+  getStats,
+  getPronunciationGuides,
+  getPronunciationGuideByCharacterId,
+  getSyllables,
+  getSimilarSoundGroups
 };

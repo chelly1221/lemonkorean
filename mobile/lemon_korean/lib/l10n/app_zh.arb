@@ -1425,11 +1425,6 @@
   "pronunciationPracticeDesc": "看到发音选择正确的字母",
   "@pronunciationPracticeDesc": {"description": "Pronunciation practice description"},
 
-  "writingPractice": "书写练习",
-  "@writingPractice": {"description": "Writing practice mode"},
-
-  "writingPracticeDesc": "看到发音写出正确的字母",
-  "@writingPracticeDesc": {"description": "Writing practice description"},
 
   "startPractice": "开始练习",
   "@startPractice": {"description": "Start practice button"},
@@ -1452,26 +1447,6 @@
   "selectCorrectCharacter": "选择正确的字母",
   "@selectCorrectCharacter": {"description": "Select correct character instruction"},
 
-  "writeCharacterForPronunciation": "写出这个发音对应的字母",
-  "@writeCharacterForPronunciation": {"description": "Write character for pronunciation instruction"},
-
-  "writeHere": "在此处书写\n(功能开发中)",
-  "@writeHere": {"description": "Write here placeholder"},
-
-  "dontKnow": "不知道",
-  "@dontKnow": {"description": "Don't know button"},
-
-  "checkAnswer": "查看答案",
-  "@checkAnswer": {"description": "Check answer button"},
-
-  "didYouWriteCorrectly": "你写对了吗？",
-  "@didYouWriteCorrectly": {"description": "Did you write correctly question"},
-
-  "wrongAnswer": "错了",
-  "@wrongAnswer": {"description": "Wrong answer button"},
-
-  "correctAnswer": "对了",
-  "@correctAnswer": {"description": "Correct answer button"},
 
   "correctExclamation": "正确！",
   "@correctExclamation": {"description": "Correct feedback"},
@@ -2074,5 +2049,185 @@
     "placeholders": {
       "seconds": {"type": "int"}
     }
-  }
+  },
+
+  "repeatEnabled": "已开启重复",
+  "@repeatEnabled": {"description": "Repeat enabled message"},
+
+  "repeatDisabled": "已关闭重复",
+  "@repeatDisabled": {"description": "Repeat disabled message"},
+
+  "stop": "停止",
+  "@stop": {"description": "Stop button"},
+
+  "playbackSpeed": "播放速度",
+  "@playbackSpeed": {"description": "Playback speed label"},
+
+  "slowSpeed": "慢速",
+  "@slowSpeed": {"description": "Slow speed option"},
+
+  "normalSpeed": "正常",
+  "@normalSpeed": {"description": "Normal speed option"},
+
+  "mouthShape": "口型",
+  "@mouthShape": {"description": "Mouth shape label"},
+
+  "tonguePosition": "舌位",
+  "@tonguePosition": {"description": "Tongue position label"},
+
+  "airFlow": "气流",
+  "@airFlow": {"description": "Air flow label"},
+
+  "nativeComparison": "母语对比",
+  "@nativeComparison": {"description": "Native language comparison label"},
+
+  "similarSounds": "相似音",
+  "@similarSounds": {"description": "Similar sounds label"},
+
+  "soundDiscrimination": "辨音练习",
+  "@soundDiscrimination": {"description": "Sound discrimination practice"},
+
+  "listenAndSelect": "听音选择正确的字母",
+  "@listenAndSelect": {"description": "Listen and select instruction"},
+
+  "similarSoundGroups": "相似音组",
+  "@similarSoundGroups": {"description": "Similar sound groups"},
+
+  "plainSound": "平音",
+  "@plainSound": {"description": "Plain sound"},
+
+  "aspiratedSound": "送气音",
+  "@aspiratedSound": {"description": "Aspirated sound"},
+
+  "tenseSound": "紧音",
+  "@tenseSound": {"description": "Tense sound"},
+
+  "writingPractice": "书写练习",
+  "@writingPractice": {"description": "Writing practice"},
+
+  "watchAnimation": "观看动画",
+  "@watchAnimation": {"description": "Watch animation step"},
+
+  "traceWithGuide": "描摹练习",
+  "@traceWithGuide": {"description": "Trace with guide step"},
+
+  "freehandWriting": "自由书写",
+  "@freehandWriting": {"description": "Freehand writing step"},
+
+  "clearCanvas": "清除",
+  "@clearCanvas": {"description": "Clear canvas button"},
+
+  "showGuide": "显示引导",
+  "@showGuide": {"description": "Show guide button"},
+
+  "hideGuide": "隐藏引导",
+  "@hideGuide": {"description": "Hide guide button"},
+
+  "writingAccuracy": "准确度",
+  "@writingAccuracy": {"description": "Writing accuracy label"},
+
+  "tryAgainWriting": "再试一次",
+  "@tryAgainWriting": {"description": "Try again writing button"},
+
+  "nextStep": "下一步",
+  "@nextStep": {"description": "Next step button"},
+
+  "strokeOrderStep": "第 {current}/{total} 步",
+  "@strokeOrderStep": {
+    "description": "Stroke order step indicator",
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
+  "syllableCombination": "音节组合",
+  "@syllableCombination": {"description": "Syllable combination"},
+
+  "selectConsonant": "选择辅音",
+  "@selectConsonant": {"description": "Select consonant instruction"},
+
+  "selectVowel": "选择元音",
+  "@selectVowel": {"description": "Select vowel instruction"},
+
+  "selectFinalConsonant": "选择收音（可选）",
+  "@selectFinalConsonant": {"description": "Select final consonant instruction"},
+
+  "noFinalConsonant": "无收音",
+  "@noFinalConsonant": {"description": "No final consonant option"},
+
+  "combinedSyllable": "组合音节",
+  "@combinedSyllable": {"description": "Combined syllable label"},
+
+  "playSyllable": "播放音节",
+  "@playSyllable": {"description": "Play syllable button"},
+
+  "decomposeSyllable": "分解音节",
+  "@decomposeSyllable": {"description": "Decompose syllable button"},
+
+  "batchimPractice": "收音练习",
+  "@batchimPractice": {"description": "Batchim practice"},
+
+  "batchimExplanation": "收音说明",
+  "@batchimExplanation": {"description": "Batchim explanation"},
+
+  "recordPronunciation": "录音练习",
+  "@recordPronunciation": {"description": "Record pronunciation"},
+
+  "startRecording": "开始录音",
+  "@startRecording": {"description": "Start recording button"},
+
+  "stopRecording": "停止录音",
+  "@stopRecording": {"description": "Stop recording button"},
+
+  "playRecording": "播放录音",
+  "@playRecording": {"description": "Play recording button"},
+
+  "compareWithNative": "与原音对比",
+  "@compareWithNative": {"description": "Compare with native button"},
+
+  "shadowingMode": "跟读模式",
+  "@shadowingMode": {"description": "Shadowing mode"},
+
+  "listenThenRepeat": "先听后说",
+  "@listenThenRepeat": {"description": "Listen then repeat instruction"},
+
+  "selfEvaluation": "自我评价",
+  "@selfEvaluation": {"description": "Self evaluation"},
+
+  "accurate": "准确",
+  "@accurate": {"description": "Accurate evaluation"},
+
+  "almostCorrect": "接近",
+  "@almostCorrect": {"description": "Almost correct evaluation"},
+
+  "needsPractice": "需要练习",
+  "@needsPractice": {"description": "Needs practice evaluation"},
+
+  "recordingNotSupported": "此平台不支持录音功能",
+  "@recordingNotSupported": {"description": "Recording not supported message"},
+
+  "showMeaning": "显示释义",
+  "@showMeaning": {"description": "Show meaning toggle"},
+
+  "hideMeaning": "隐藏释义",
+  "@hideMeaning": {"description": "Hide meaning toggle"},
+
+  "exampleWord": "示例单词",
+  "@exampleWord": {"description": "Example word label"},
+
+  "meaningToggle": "释义显示设置",
+  "@meaningToggle": {"description": "Meaning toggle setting"},
+
+  "microphonePermissionRequired": "录音需要麦克风权限",
+
+  "activities": "活动",
+  "listeningAndSpeaking": "听力 & 口语",
+  "readingAndWriting": "阅读 & 写作",
+  "soundDiscriminationDesc": "训练耳朵区分相似的声音",
+  "shadowingDesc": "跟读原生发音",
+  "syllableCombinationDesc": "学习辅音和元音如何组合",
+  "batchimPracticeDesc": "练习收音发音",
+  "writingPracticeDesc": "练习书写韩文字母",
+  "webNotSupported": "网页版不支持"
 }

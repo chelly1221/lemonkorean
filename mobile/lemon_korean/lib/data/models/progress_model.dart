@@ -159,7 +159,8 @@ class ProgressModel {
     return isInProgress ? 50 : 0;
   }
 
-  // Time spent formatted
+  /// @deprecated Use `getTimeSpentDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns time in Chinese format - kept for backwards compatibility only
   String get timeSpentFormatted {
     final hours = timeSpent ~/ 3600;
     final minutes = (timeSpent % 3600) ~/ 60;
@@ -174,7 +175,8 @@ class ProgressModel {
     }
   }
 
-  // Status display
+  /// @deprecated Use `getStatusDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns status in Chinese - kept for backwards compatibility only
   String get statusDisplay {
     switch (status) {
       case 'not_started':
@@ -341,6 +343,8 @@ class ReviewModel {
   int get daysUntilReview =>
       nextReview.difference(DateTime.now()).inDays;
 
+  /// @deprecated Use `getDueStatusDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns due status in Chinese - kept for backwards compatibility only
   String get dueStatus {
     if (isDue) return '该复习了';
     final days = daysUntilReview;

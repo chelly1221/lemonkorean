@@ -31,90 +31,8 @@ class _VocabularyStageState extends State<VocabularyStage>
   late AnimationController _flipController;
   late Animation<double> _flipAnimation;
   bool _isFront = true;
-
-  // Mock vocabulary data
-  final List<Map<String, dynamic>> _mockWords = [
-    {
-      'korean': '안녕하세요',
-      'pronunciation': 'an-nyeong-ha-se-yo',
-      'chinese': '您好',
-      'pinyin': 'nín hǎo',
-      'hanja': '安寧',
-      'similarity': 85,
-      'image': 'vocabulary/hello.jpg',
-      'audio': 'vocabulary/hello.mp3',
-    },
-    {
-      'korean': '감사합니다',
-      'pronunciation': 'gam-sa-ham-ni-da',
-      'chinese': '谢谢',
-      'pinyin': 'xiè xie',
-      'hanja': '感謝',
-      'similarity': 90,
-      'image': 'vocabulary/thank_you.jpg',
-      'audio': 'vocabulary/thank_you.mp3',
-    },
-    {
-      'korean': '죄송합니다',
-      'pronunciation': 'joe-song-ham-ni-da',
-      'chinese': '对不起',
-      'pinyin': 'duì bu qǐ',
-      'hanja': '罪悚',
-      'similarity': 75,
-      'image': 'vocabulary/sorry.jpg',
-      'audio': 'vocabulary/sorry.mp3',
-    },
-    {
-      'korean': '네',
-      'pronunciation': 'ne',
-      'chinese': '是',
-      'pinyin': 'shì',
-      'hanja': null,
-      'similarity': 60,
-      'image': 'vocabulary/yes.jpg',
-      'audio': 'vocabulary/yes.mp3',
-    },
-    {
-      'korean': '아니요',
-      'pronunciation': 'a-ni-yo',
-      'chinese': '不是',
-      'pinyin': 'bù shì',
-      'hanja': null,
-      'similarity': 50,
-      'image': 'vocabulary/no.jpg',
-      'audio': 'vocabulary/no.mp3',
-    },
-    {
-      'korean': '물',
-      'pronunciation': 'mul',
-      'chinese': '水',
-      'pinyin': 'shuǐ',
-      'hanja': '水',
-      'similarity': 100,
-      'image': 'vocabulary/water.jpg',
-      'audio': 'vocabulary/water.mp3',
-    },
-    {
-      'korean': '밥',
-      'pronunciation': 'bap',
-      'chinese': '饭',
-      'pinyin': 'fàn',
-      'hanja': null,
-      'similarity': 40,
-      'image': 'vocabulary/rice.jpg',
-      'audio': 'vocabulary/rice.mp3',
-    },
-    {
-      'korean': '학교',
-      'pronunciation': 'hak-gyo',
-      'chinese': '学校',
-      'pinyin': 'xué xiào',
-      'hanja': '學校',
-      'similarity': 100,
-      'image': 'vocabulary/school.jpg',
-      'audio': 'vocabulary/school.mp3',
-    },
-  ];
+  List<Map<String, dynamic>> _words = [];
+  bool _initialized = false;
 
   @override
   void initState() {
@@ -140,6 +58,29 @@ class _VocabularyStageState extends State<VocabularyStage>
         _flipController.reset();
       }
     });
+
+    _loadWords();
+  }
+
+  /// Load words from lesson content
+  /// Returns empty list if no data available - UI shows "no content" message
+  void _loadWords() {
+    if (widget.lesson.content != null) {
+      final vocabData = widget.lesson.content!['vocabulary'];
+      if (vocabData != null && vocabData['words'] != null) {
+        _words = List<Map<String, dynamic>>.from(vocabData['words']);
+      } else {
+        // Try alternate structure
+        final altVocabData = widget.lesson.content!['stage2_vocabulary'];
+        _words = altVocabData != null && altVocabData['words'] != null
+            ? List<Map<String, dynamic>>.from(altVocabData['words'])
+            : [];
+      }
+    } else {
+      // No data available - return empty list, UI will show appropriate message
+      _words = [];
+    }
+    _initialized = true;
   }
 
   @override
@@ -156,7 +97,7 @@ class _VocabularyStageState extends State<VocabularyStage>
   }
 
   void _nextCard() {
-    if (_currentCardIndex < _mockWords.length - 1) {
+    if (_currentCardIndex < _words.length - 1) {
       setState(() {
         _currentCardIndex++;
         _isFront = true;
@@ -176,7 +117,7 @@ class _VocabularyStageState extends State<VocabularyStage>
   }
 
   Future<void> _playAudio() async {
-    final word = _mockWords[_currentCardIndex];
+    final word = _words[_currentCardIndex];
     final audioPath = word['audio'] as String?;
 
     if (audioPath != null) {
@@ -218,10 +159,55 @@ class _VocabularyStageState extends State<VocabularyStage>
     }
   }
 
+  /// Build empty state widget when no vocabulary data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.library_books_outlined,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noVocabulary,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final word = _mockWords[_currentCardIndex];
+
+    // Handle empty words case
+    if (_words.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
+    final word = _words[_currentCardIndex];
 
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -243,7 +229,7 @@ class _VocabularyStageState extends State<VocabularyStage>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${_currentCardIndex + 1} / ${_mockWords.length}',
+                '${_currentCardIndex + 1} / ${_words.length}',
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                   color: AppConstants.textSecondary,
@@ -288,7 +274,7 @@ class _VocabularyStageState extends State<VocabularyStage>
           ClipRRect(
             borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
             child: LinearProgressIndicator(
-              value: (_currentCardIndex + 1) / _mockWords.length,
+              value: (_currentCardIndex + 1) / _words.length,
               minHeight: 8,
               backgroundColor: Colors.grey.shade200,
               valueColor: const AlwaysStoppedAnimation<Color>(
@@ -361,7 +347,7 @@ class _VocabularyStageState extends State<VocabularyStage>
                     ),
                   ),
                   child: Text(
-                    _currentCardIndex < _mockWords.length - 1
+                    _currentCardIndex < _words.length - 1
                         ? l10n.nextItem
                         : l10n.continueBtn,
                   ),

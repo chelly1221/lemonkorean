@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Tongue flat - cross-section placeholder -->
+  <path d="M10 80 Q50 20 90 80" fill="none" stroke="#DDD" stroke-width="2"/>
+  <path d="M20 75 Q40 70 55 70 Q70 70 75 75" fill="#E57373" stroke="#C62828" stroke-width="2"/>
+  <text x="50" y="95" text-anchor="middle" font-size="8" fill="#666">Flat</text>
+</svg>

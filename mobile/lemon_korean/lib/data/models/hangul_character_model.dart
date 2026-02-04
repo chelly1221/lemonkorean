@@ -94,6 +94,27 @@ class HangulCharacterModel {
   @HiveField(14)
   final DateTime updatedAt;
 
+  /// Native language comparisons for pronunciation (from hangul_pronunciation_guides)
+  /// Format: {"zh": [{"comparison": "...", "tip": "..."}], "en": [...]}
+  @HiveField(15)
+  final Map<String, dynamic>? nativeComparisons;
+
+  /// Mouth shape image URL for pronunciation guide
+  @HiveField(16)
+  final String? mouthShapeUrl;
+
+  /// Tongue position image URL for pronunciation guide
+  @HiveField(17)
+  final String? tonguePositionUrl;
+
+  /// Air flow description for pronunciation guide
+  @HiveField(18)
+  final Map<String, dynamic>? airFlowDescription;
+
+  /// Similar character IDs for comparison practice
+  @HiveField(19)
+  final List<int>? similarCharacterIds;
+
   HangulCharacterModel({
     required this.id,
     required this.character,
@@ -110,6 +131,11 @@ class HangulCharacterModel {
     this.exampleWords,
     this.mnemonicsZh,
     this.status = 'published',
+    this.nativeComparisons,
+    this.mouthShapeUrl,
+    this.tonguePositionUrl,
+    this.airFlowDescription,
+    this.similarCharacterIds,
   });
 
   factory HangulCharacterModel.fromJson(Map<String, dynamic> json) {
@@ -136,6 +162,13 @@ class HangulCharacterModel {
       exampleWords: examples,
       mnemonicsZh: json['mnemonics_zh'] as String?,
       status: json['status'] as String? ?? 'published',
+      nativeComparisons: json['native_comparisons'] as Map<String, dynamic>?,
+      mouthShapeUrl: json['mouth_shape_url'] as String?,
+      tonguePositionUrl: json['tongue_position_url'] as String?,
+      airFlowDescription: json['air_flow_description'] as Map<String, dynamic>?,
+      similarCharacterIds: json['similar_character_ids'] != null
+          ? (json['similar_character_ids'] as List).cast<int>()
+          : null,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'] as String)
           : DateTime.now(),
@@ -160,6 +193,11 @@ class HangulCharacterModel {
       'example_words': exampleWords?.map((e) => e.toJson()).toList(),
       'mnemonics_zh': mnemonicsZh,
       'status': status,
+      'native_comparisons': nativeComparisons,
+      'mouth_shape_url': mouthShapeUrl,
+      'tongue_position_url': tonguePositionUrl,
+      'air_flow_description': airFlowDescription,
+      'similar_character_ids': similarCharacterIds,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
     };
@@ -179,6 +217,11 @@ class HangulCharacterModel {
     List<HangulExampleWord>? exampleWords,
     String? mnemonicsZh,
     String? status,
+    Map<String, dynamic>? nativeComparisons,
+    String? mouthShapeUrl,
+    String? tonguePositionUrl,
+    Map<String, dynamic>? airFlowDescription,
+    List<int>? similarCharacterIds,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -196,6 +239,11 @@ class HangulCharacterModel {
       exampleWords: exampleWords ?? this.exampleWords,
       mnemonicsZh: mnemonicsZh ?? this.mnemonicsZh,
       status: status ?? this.status,
+      nativeComparisons: nativeComparisons ?? this.nativeComparisons,
+      mouthShapeUrl: mouthShapeUrl ?? this.mouthShapeUrl,
+      tonguePositionUrl: tonguePositionUrl ?? this.tonguePositionUrl,
+      airFlowDescription: airFlowDescription ?? this.airFlowDescription,
+      similarCharacterIds: similarCharacterIds ?? this.similarCharacterIds,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -213,6 +261,8 @@ class HangulCharacterModel {
   bool get isVowel =>
       characterType == 'basic_vowel' || characterType == 'compound_vowel';
 
+  /// @deprecated Use `getTypeDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns type name in Chinese - kept for backwards compatibility only
   String get typeDisplayName {
     switch (characterType) {
       case 'basic_consonant':

@@ -10,7 +10,9 @@ import '../../providers/hangul_provider.dart';
 /// Hangul Practice Screen
 /// Quiz/practice mode for Korean alphabet with SRS review
 class HangulPracticeScreen extends StatefulWidget {
-  const HangulPracticeScreen({super.key});
+  final HangulCharacterModel? focusCharacter;
+
+  const HangulPracticeScreen({this.focusCharacter, super.key});
 
   @override
   State<HangulPracticeScreen> createState() => _HangulPracticeScreenState();
@@ -52,8 +54,11 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
       await provider.loadReviewQueue(authProvider.currentUser!.id);
     }
 
-    // If no review queue, use all characters shuffled
-    if (provider.reviewQueue.isNotEmpty) {
+    // If focusCharacter is provided, create a focused practice session
+    if (widget.focusCharacter != null) {
+      // Repeat the focus character multiple times for dedicated practice
+      _practiceQueue = List.filled(5, widget.focusCharacter!);
+    } else if (provider.reviewQueue.isNotEmpty) {
       _practiceQueue = List.from(provider.reviewQueue);
     } else {
       _practiceQueue = List.from(provider.characters);
@@ -330,14 +335,6 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
             Icons.record_voice_over,
             Colors.green,
           ),
-          const SizedBox(height: 8),
-          _buildModeCard(
-            PracticeMode.writing,
-            l10n.writingPractice,
-            l10n.writingPracticeDesc,
-            Icons.edit,
-            Colors.purple,
-          ),
 
           const SizedBox(height: 32),
 
@@ -549,23 +546,6 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                             color: AppConstants.textSecondary,
                           ),
                         ),
-                      ] else ...[
-                        // Writing mode - show pronunciation
-                        Text(
-                          currentChar.pronunciationZh,
-                          style: const TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          l10n.writeCharacterForPronunciation,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: AppConstants.textSecondary,
-                          ),
-                        ),
                       ],
                     ],
                   ),
@@ -574,25 +554,22 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                 const SizedBox(height: 24),
 
                 // Options
-                if (_practiceMode != PracticeMode.writing)
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: _practiceMode == PracticeMode.recognition
-                          ? 2.5
-                          : 1.5,
-                    ),
-                    itemCount: _options.length,
-                    itemBuilder: (context, index) {
-                      return _buildOptionButton(index);
-                    },
-                  )
-                else
-                  _buildWritingArea(),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: _practiceMode == PracticeMode.recognition
+                        ? 2.5
+                        : 1.5,
+                  ),
+                  itemCount: _options.length,
+                  itemBuilder: (context, index) {
+                    return _buildOptionButton(index);
+                  },
+                ),
 
                 // Feedback and next button
                 if (_answered) ...[
@@ -737,111 +714,10 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
       ),
     );
   }
-
-  Widget _buildWritingArea() {
-    // Simplified writing area - in a real app, this would have handwriting recognition
-    final l10n = AppLocalizations.of(context)!;
-    final currentChar = _practiceQueue[_currentIndex];
-
-    return Column(
-      children: [
-        Container(
-          width: 200,
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-            border: Border.all(color: Colors.grey.shade300),
-          ),
-          child: Center(
-            child: Text(
-              l10n.writeHere,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: AppConstants.textHint),
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                setState(() {
-                  _answered = true;
-                  _isCorrect = false;
-                  _wrongCount++;
-                });
-                _recordPractice(false);
-              },
-              child: Text(l10n.dontKnow),
-            ),
-            const SizedBox(width: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Show answer
-                showDialog(
-                  context: context,
-                  builder: (dialogContext) => AlertDialog(
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          currentChar.character,
-                          style: const TextStyle(
-                            fontSize: 80,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(l10n.didYouWriteCorrectly),
-                      ],
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(dialogContext);
-                          setState(() {
-                            _answered = true;
-                            _isCorrect = false;
-                            _wrongCount++;
-                          });
-                          _recordPractice(false);
-                        },
-                        child: Text(l10n.wrongAnswer),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(dialogContext);
-                          setState(() {
-                            _answered = true;
-                            _isCorrect = true;
-                            _correctCount++;
-                          });
-                          _recordPractice(true);
-                        },
-                        child: Text(l10n.correctAnswer),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppConstants.primaryColor,
-                foregroundColor: Colors.black87,
-              ),
-              child: Text(l10n.checkAnswer),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
 }
 
 /// Practice mode types
 enum PracticeMode {
   recognition, // See character, choose pronunciation
   pronunciation, // See pronunciation, choose character
-  writing, // See pronunciation, write character
 }

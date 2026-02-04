@@ -902,6 +902,67 @@ const API = (() => {
     },
   };
 
+  /**
+   * 배포 API
+   */
+  const deployAPI = {
+    /**
+     * 웹 배포 시작
+     *
+     * @returns {Promise<Object>} 배포 ID
+     */
+    async startWeb() {
+      return request('/api/admin/deploy/web/start', {
+        method: 'POST',
+      });
+    },
+
+    /**
+     * 배포 상태 조회
+     *
+     * @param {number} deploymentId - 배포 ID
+     * @returns {Promise<Object>} 배포 상태
+     */
+    async getStatus(deploymentId) {
+      return request(`/api/admin/deploy/web/status/${deploymentId}`);
+    },
+
+    /**
+     * 배포 로그 조회
+     *
+     * @param {number} deploymentId - 배포 ID
+     * @param {number} sinceId - 이후 로그 ID (폴링용)
+     * @returns {Promise<Object>} 로그 데이터
+     */
+    async getLogs(deploymentId, sinceId = 0) {
+      const query = sinceId > 0 ? `?since=${sinceId}` : '';
+      return request(`/api/admin/deploy/web/logs/${deploymentId}${query}`);
+    },
+
+    /**
+     * 배포 이력 조회
+     *
+     * @param {Object} params - 쿼리 파라미터
+     * @returns {Promise<Object>} 배포 이력
+     */
+    async listHistory(params = {}) {
+      const query = buildQueryString(params);
+      return request(`/api/admin/deploy/web/history${query}`);
+    },
+
+    /**
+     * 배포 취소
+     *
+     * @param {number} deploymentId - 배포 ID
+     * @returns {Promise<Object>} 성공 메시지
+     */
+    async cancel(deploymentId) {
+      return request(`/api/admin/deploy/web/${deploymentId}`, {
+        method: 'DELETE',
+      });
+    },
+  };
+
   // Public API 반환
   return {
     auth: authAPI,
@@ -914,5 +975,6 @@ const API = (() => {
     docs: docsAPI,
     devNotes: devNotesAPI,
     hangul: hangulAPI,
+    deploy: deployAPI,
   };
 })();

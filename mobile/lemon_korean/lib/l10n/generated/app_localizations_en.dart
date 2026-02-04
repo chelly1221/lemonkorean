@@ -1421,13 +1421,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'See the pronunciation, choose the correct character';
 
   @override
-  String get writingPractice => 'Writing Practice';
-
-  @override
-  String get writingPracticeDesc =>
-      'See the pronunciation, write the correct character';
-
-  @override
   String get startPractice => 'Start Practice';
 
   @override
@@ -1448,28 +1441,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectCorrectCharacter => 'Select the correct character';
-
-  @override
-  String get writeCharacterForPronunciation =>
-      'Write the character for this pronunciation';
-
-  @override
-  String get writeHere => 'Write here\n(Under development)';
-
-  @override
-  String get dontKnow => 'Don\'t Know';
-
-  @override
-  String get checkAnswer => 'Check Answer';
-
-  @override
-  String get didYouWriteCorrectly => 'Did you write it correctly?';
-
-  @override
-  String get wrongAnswer => 'Wrong';
-
-  @override
-  String get correctAnswer => 'Correct';
 
   @override
   String get correctExclamation => 'Correct!';
@@ -1957,4 +1928,202 @@ class AppLocalizationsEn extends AppLocalizations {
   String timeFormatS(int seconds) {
     return '${seconds}s';
   }
+
+  @override
+  String get repeatEnabled => 'Repeat enabled';
+
+  @override
+  String get repeatDisabled => 'Repeat disabled';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get playbackSpeed => 'Playback speed';
+
+  @override
+  String get slowSpeed => 'Slow';
+
+  @override
+  String get normalSpeed => 'Normal';
+
+  @override
+  String get mouthShape => 'Mouth shape';
+
+  @override
+  String get tonguePosition => 'Tongue position';
+
+  @override
+  String get airFlow => 'Air flow';
+
+  @override
+  String get nativeComparison => 'Native language comparison';
+
+  @override
+  String get similarSounds => 'Similar sounds';
+
+  @override
+  String get soundDiscrimination => 'Sound discrimination';
+
+  @override
+  String get listenAndSelect => 'Listen and select the correct character';
+
+  @override
+  String get similarSoundGroups => 'Similar sound groups';
+
+  @override
+  String get plainSound => 'Plain';
+
+  @override
+  String get aspiratedSound => 'Aspirated';
+
+  @override
+  String get tenseSound => 'Tense';
+
+  @override
+  String get writingPractice => 'Writing practice';
+
+  @override
+  String get watchAnimation => 'Watch animation';
+
+  @override
+  String get traceWithGuide => 'Trace with guide';
+
+  @override
+  String get freehandWriting => 'Freehand writing';
+
+  @override
+  String get clearCanvas => 'Clear';
+
+  @override
+  String get showGuide => 'Show guide';
+
+  @override
+  String get hideGuide => 'Hide guide';
+
+  @override
+  String get writingAccuracy => 'Accuracy';
+
+  @override
+  String get tryAgainWriting => 'Try again';
+
+  @override
+  String get nextStep => 'Next step';
+
+  @override
+  String strokeOrderStep(int current, int total) {
+    return 'Step $current/$total';
+  }
+
+  @override
+  String get syllableCombination => 'Syllable combination';
+
+  @override
+  String get selectConsonant => 'Select consonant';
+
+  @override
+  String get selectVowel => 'Select vowel';
+
+  @override
+  String get selectFinalConsonant => 'Select final consonant (optional)';
+
+  @override
+  String get noFinalConsonant => 'No final consonant';
+
+  @override
+  String get combinedSyllable => 'Combined syllable';
+
+  @override
+  String get playSyllable => 'Play syllable';
+
+  @override
+  String get decomposeSyllable => 'Decompose syllable';
+
+  @override
+  String get batchimPractice => 'Batchim practice';
+
+  @override
+  String get batchimExplanation => 'Batchim explanation';
+
+  @override
+  String get recordPronunciation => 'Record pronunciation';
+
+  @override
+  String get startRecording => 'Start recording';
+
+  @override
+  String get stopRecording => 'Stop recording';
+
+  @override
+  String get playRecording => 'Play recording';
+
+  @override
+  String get compareWithNative => 'Compare with native';
+
+  @override
+  String get shadowingMode => 'Shadowing mode';
+
+  @override
+  String get listenThenRepeat => 'Listen then repeat';
+
+  @override
+  String get selfEvaluation => 'Self evaluation';
+
+  @override
+  String get accurate => 'Accurate';
+
+  @override
+  String get almostCorrect => 'Almost correct';
+
+  @override
+  String get needsPractice => 'Needs practice';
+
+  @override
+  String get recordingNotSupported =>
+      'Recording is not supported on this platform';
+
+  @override
+  String get showMeaning => 'Show meaning';
+
+  @override
+  String get hideMeaning => 'Hide meaning';
+
+  @override
+  String get exampleWord => 'Example word';
+
+  @override
+  String get meaningToggle => 'Meaning display setting';
+
+  @override
+  String get microphonePermissionRequired =>
+      'Microphone permission is required for recording';
+
+  @override
+  String get activities => 'Activities';
+
+  @override
+  String get listeningAndSpeaking => 'Listening & Speaking';
+
+  @override
+  String get readingAndWriting => 'Reading & Writing';
+
+  @override
+  String get soundDiscriminationDesc =>
+      'Train your ear to distinguish similar sounds';
+
+  @override
+  String get shadowingDesc => 'Listen and repeat after native speakers';
+
+  @override
+  String get syllableCombinationDesc =>
+      'Learn how consonants and vowels combine';
+
+  @override
+  String get batchimPracticeDesc => 'Practice final consonant sounds';
+
+  @override
+  String get writingPracticeDesc => 'Practice writing Korean characters';
+
+  @override
+  String get webNotSupported => 'Not available on web';
 }

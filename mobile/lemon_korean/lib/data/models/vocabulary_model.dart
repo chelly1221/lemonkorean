@@ -158,8 +158,8 @@ class VocabularyModel {
 
   String get displayWord => hasHanja ? '$korean ($hanja)' : korean;
 
-  /// Part of speech display - returns localized text based on content language
-  /// Falls back to Chinese for backwards compatibility
+  /// @deprecated Use `getPartOfSpeechDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns part of speech in Chinese - kept for backwards compatibility only
   String get partOfSpeechDisplay {
     switch (partOfSpeech) {
       case 'noun':
@@ -179,6 +179,8 @@ class VocabularyModel {
     }
   }
 
+  /// @deprecated Use `getSimilarityLevelDisplay(l10n)` from `localized_display.dart` instead
+  /// Returns similarity level in Chinese - kept for backwards compatibility only
   String get similarityLevel {
     if (similarityScore == null) return '';
     if (similarityScore! >= 0.8) return '高相似度';

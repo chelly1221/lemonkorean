@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Tongue tip back - cross-section placeholder -->
+  <path d="M10 80 Q50 20 90 80" fill="none" stroke="#DDD" stroke-width="2"/>
+  <path d="M20 75 Q40 60 55 50 Q70 45 75 75" fill="#E57373" stroke="#C62828" stroke-width="2"/>
+  <circle cx="55" cy="50" r="4" fill="#C62828"/>
+  <text x="50" y="95" text-anchor="middle" font-size="8" fill="#666">Tongue tip back</text>
+</svg>

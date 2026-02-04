@@ -1397,12 +1397,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pronunciationPracticeDesc => '看到发音选择正确的字母';
 
   @override
-  String get writingPractice => '书写练习';
-
-  @override
-  String get writingPracticeDesc => '看到发音写出正确的字母';
-
-  @override
   String get startPractice => '开始练习';
 
   @override
@@ -1422,27 +1416,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get selectCorrectCharacter => '选择正确的字母';
-
-  @override
-  String get writeCharacterForPronunciation => '写出这个发音对应的字母';
-
-  @override
-  String get writeHere => '在此处书写\n(功能开发中)';
-
-  @override
-  String get dontKnow => '不知道';
-
-  @override
-  String get checkAnswer => '查看答案';
-
-  @override
-  String get didYouWriteCorrectly => '你写对了吗？';
-
-  @override
-  String get wrongAnswer => '错了';
-
-  @override
-  String get correctAnswer => '对了';
 
   @override
   String get correctExclamation => '正确！';
@@ -1923,6 +1896,200 @@ class AppLocalizationsZh extends AppLocalizations {
   String timeFormatS(int seconds) {
     return '$seconds秒';
   }
+
+  @override
+  String get repeatEnabled => '已开启重复';
+
+  @override
+  String get repeatDisabled => '已关闭重复';
+
+  @override
+  String get stop => '停止';
+
+  @override
+  String get playbackSpeed => '播放速度';
+
+  @override
+  String get slowSpeed => '慢速';
+
+  @override
+  String get normalSpeed => '正常';
+
+  @override
+  String get mouthShape => '口型';
+
+  @override
+  String get tonguePosition => '舌位';
+
+  @override
+  String get airFlow => '气流';
+
+  @override
+  String get nativeComparison => '母语对比';
+
+  @override
+  String get similarSounds => '相似音';
+
+  @override
+  String get soundDiscrimination => '辨音练习';
+
+  @override
+  String get listenAndSelect => '听音选择正确的字母';
+
+  @override
+  String get similarSoundGroups => '相似音组';
+
+  @override
+  String get plainSound => '平音';
+
+  @override
+  String get aspiratedSound => '送气音';
+
+  @override
+  String get tenseSound => '紧音';
+
+  @override
+  String get writingPractice => '书写练习';
+
+  @override
+  String get watchAnimation => '观看动画';
+
+  @override
+  String get traceWithGuide => '描摹练习';
+
+  @override
+  String get freehandWriting => '自由书写';
+
+  @override
+  String get clearCanvas => '清除';
+
+  @override
+  String get showGuide => '显示引导';
+
+  @override
+  String get hideGuide => '隐藏引导';
+
+  @override
+  String get writingAccuracy => '准确度';
+
+  @override
+  String get tryAgainWriting => '再试一次';
+
+  @override
+  String get nextStep => '下一步';
+
+  @override
+  String strokeOrderStep(int current, int total) {
+    return '第 $current/$total 步';
+  }
+
+  @override
+  String get syllableCombination => '音节组合';
+
+  @override
+  String get selectConsonant => '选择辅音';
+
+  @override
+  String get selectVowel => '选择元音';
+
+  @override
+  String get selectFinalConsonant => '选择收音（可选）';
+
+  @override
+  String get noFinalConsonant => '无收音';
+
+  @override
+  String get combinedSyllable => '组合音节';
+
+  @override
+  String get playSyllable => '播放音节';
+
+  @override
+  String get decomposeSyllable => '分解音节';
+
+  @override
+  String get batchimPractice => '收音练习';
+
+  @override
+  String get batchimExplanation => '收音说明';
+
+  @override
+  String get recordPronunciation => '录音练习';
+
+  @override
+  String get startRecording => '开始录音';
+
+  @override
+  String get stopRecording => '停止录音';
+
+  @override
+  String get playRecording => '播放录音';
+
+  @override
+  String get compareWithNative => '与原音对比';
+
+  @override
+  String get shadowingMode => '跟读模式';
+
+  @override
+  String get listenThenRepeat => '先听后说';
+
+  @override
+  String get selfEvaluation => '自我评价';
+
+  @override
+  String get accurate => '准确';
+
+  @override
+  String get almostCorrect => '接近';
+
+  @override
+  String get needsPractice => '需要练习';
+
+  @override
+  String get recordingNotSupported => '此平台不支持录音功能';
+
+  @override
+  String get showMeaning => '显示释义';
+
+  @override
+  String get hideMeaning => '隐藏释义';
+
+  @override
+  String get exampleWord => '示例单词';
+
+  @override
+  String get meaningToggle => '释义显示设置';
+
+  @override
+  String get microphonePermissionRequired => '录音需要麦克风权限';
+
+  @override
+  String get activities => '活动';
+
+  @override
+  String get listeningAndSpeaking => '听力 & 口语';
+
+  @override
+  String get readingAndWriting => '阅读 & 写作';
+
+  @override
+  String get soundDiscriminationDesc => '训练耳朵区分相似的声音';
+
+  @override
+  String get shadowingDesc => '跟读原生发音';
+
+  @override
+  String get syllableCombinationDesc => '学习辅音和元音如何组合';
+
+  @override
+  String get batchimPracticeDesc => '练习收音发音';
+
+  @override
+  String get writingPracticeDesc => '练习书写韩文字母';
+
+  @override
+  String get webNotSupported => '网页版不支持';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -3318,12 +3485,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get pronunciationPracticeDesc => '看到發音選擇正確的字母';
 
   @override
-  String get writingPractice => '書寫練習';
-
-  @override
-  String get writingPracticeDesc => '看到發音寫出正確的字母';
-
-  @override
   String get startPractice => '開始練習';
 
   @override
@@ -3343,27 +3504,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get selectCorrectCharacter => '選擇正確的字母';
-
-  @override
-  String get writeCharacterForPronunciation => '寫出這個發音對應的字母';
-
-  @override
-  String get writeHere => '在此處書寫\n(功能開發中)';
-
-  @override
-  String get dontKnow => '不知道';
-
-  @override
-  String get checkAnswer => '查看答案';
-
-  @override
-  String get didYouWriteCorrectly => '你寫對了嗎？';
-
-  @override
-  String get wrongAnswer => '錯了';
-
-  @override
-  String get correctAnswer => '對了';
 
   @override
   String get correctExclamation => '正確！';
@@ -3844,4 +3984,198 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String timeFormatS(int seconds) {
     return '$seconds秒';
   }
+
+  @override
+  String get repeatEnabled => '已開啟重複';
+
+  @override
+  String get repeatDisabled => '已關閉重複';
+
+  @override
+  String get stop => '停止';
+
+  @override
+  String get playbackSpeed => '播放速度';
+
+  @override
+  String get slowSpeed => '慢速';
+
+  @override
+  String get normalSpeed => '正常';
+
+  @override
+  String get mouthShape => '口型';
+
+  @override
+  String get tonguePosition => '舌位';
+
+  @override
+  String get airFlow => '氣流';
+
+  @override
+  String get nativeComparison => '母語對比';
+
+  @override
+  String get similarSounds => '相似音';
+
+  @override
+  String get soundDiscrimination => '辨音練習';
+
+  @override
+  String get listenAndSelect => '聽音選擇正確的字母';
+
+  @override
+  String get similarSoundGroups => '相似音組';
+
+  @override
+  String get plainSound => '平音';
+
+  @override
+  String get aspiratedSound => '送氣音';
+
+  @override
+  String get tenseSound => '緊音';
+
+  @override
+  String get writingPractice => '書寫練習';
+
+  @override
+  String get watchAnimation => '觀看動畫';
+
+  @override
+  String get traceWithGuide => '描摹練習';
+
+  @override
+  String get freehandWriting => '自由書寫';
+
+  @override
+  String get clearCanvas => '清除';
+
+  @override
+  String get showGuide => '顯示引導';
+
+  @override
+  String get hideGuide => '隱藏引導';
+
+  @override
+  String get writingAccuracy => '準確度';
+
+  @override
+  String get tryAgainWriting => '再試一次';
+
+  @override
+  String get nextStep => '下一步';
+
+  @override
+  String strokeOrderStep(int current, int total) {
+    return '第 $current/$total 步';
+  }
+
+  @override
+  String get syllableCombination => '音節組合';
+
+  @override
+  String get selectConsonant => '選擇輔音';
+
+  @override
+  String get selectVowel => '選擇元音';
+
+  @override
+  String get selectFinalConsonant => '選擇收音（可選）';
+
+  @override
+  String get noFinalConsonant => '無收音';
+
+  @override
+  String get combinedSyllable => '組合音節';
+
+  @override
+  String get playSyllable => '播放音節';
+
+  @override
+  String get decomposeSyllable => '分解音節';
+
+  @override
+  String get batchimPractice => '收音練習';
+
+  @override
+  String get batchimExplanation => '收音說明';
+
+  @override
+  String get recordPronunciation => '錄音練習';
+
+  @override
+  String get startRecording => '開始錄音';
+
+  @override
+  String get stopRecording => '停止錄音';
+
+  @override
+  String get playRecording => '播放錄音';
+
+  @override
+  String get compareWithNative => '與原音對比';
+
+  @override
+  String get shadowingMode => '跟讀模式';
+
+  @override
+  String get listenThenRepeat => '先聽後說';
+
+  @override
+  String get selfEvaluation => '自我評價';
+
+  @override
+  String get accurate => '準確';
+
+  @override
+  String get almostCorrect => '接近';
+
+  @override
+  String get needsPractice => '需要練習';
+
+  @override
+  String get recordingNotSupported => '此平台不支援錄音功能';
+
+  @override
+  String get showMeaning => '顯示釋義';
+
+  @override
+  String get hideMeaning => '隱藏釋義';
+
+  @override
+  String get exampleWord => '示例單詞';
+
+  @override
+  String get meaningToggle => '釋義顯示設定';
+
+  @override
+  String get microphonePermissionRequired => '錄音需要麥克風權限';
+
+  @override
+  String get activities => '活動';
+
+  @override
+  String get listeningAndSpeaking => '聽力 & 口說';
+
+  @override
+  String get readingAndWriting => '閱讀 & 寫作';
+
+  @override
+  String get soundDiscriminationDesc => '訓練耳朵區分相似的聲音';
+
+  @override
+  String get shadowingDesc => '跟讀原生發音';
+
+  @override
+  String get syllableCombinationDesc => '學習子音和母音如何組合';
+
+  @override
+  String get batchimPracticeDesc => '練習收音發音';
+
+  @override
+  String get writingPracticeDesc => '練習書寫韓文字母';
+
+  @override
+  String get webNotSupported => '網頁版不支援';
 }

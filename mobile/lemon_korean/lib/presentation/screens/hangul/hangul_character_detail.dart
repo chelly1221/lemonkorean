@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/hangul_character_model.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/hangul_provider.dart';
+import 'hangul_practice_screen.dart';
+import 'widgets/native_comparison_card.dart';
 import 'widgets/pronunciation_player.dart';
 import 'widgets/stroke_order_animation.dart';
 
@@ -29,7 +32,14 @@ class HangulCharacterDetailScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
-              // TODO: Implement share functionality
+              final exampleText = character.hasExamples
+                  ? '\n${l10n.exampleWords}: ${character.exampleWords!.first.korean} - ${character.exampleWords!.first.chinese}'
+                  : '';
+              final text = '''${character.character} [${character.romanization}]
+${l10n.pronunciationLabel}${character.pronunciationZh}$exampleText
+
+#LemonKorean #${l10n.appName}''';
+              Share.share(text);
             },
             tooltip: l10n.share,
           ),
@@ -56,6 +66,16 @@ class HangulCharacterDetailScreen extends StatelessWidget {
 
                 // Stroke Order Section
                 StrokeOrderAnimation(character: character),
+
+                const SizedBox(height: 16),
+
+                // Native Language Comparison Section
+                NativeComparisonCard(
+                  character: character.character,
+                  customComparisons: character.nativeComparisons != null
+                      ? NativeComparisonParser.fromJson(character.nativeComparisons)
+                      : null,
+                ),
 
                 const SizedBox(height: 16),
 
@@ -419,11 +439,13 @@ class HangulCharacterDetailScreen extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton.icon(
         onPressed: () {
-          // TODO: Navigate to practice mode for this character
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(l10n.practiceFunctionDeveloping),
-              duration: const Duration(seconds: 1),
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => Scaffold(
+                appBar: AppBar(title: Text(l10n.practice)),
+                body: HangulPracticeScreen(focusCharacter: character),
+              ),
             ),
           );
         },

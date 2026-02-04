@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Toss-style professional color palette for onboarding screens
 class OnboardingColors {
   // === Toss-style Background Colors ===
-  static const backgroundYellow = Color(0xFFFFF8E1);     // Lemon yellow background
+  static const backgroundYellow = Color(0xFFFFEF5F);     // Bright lemon yellow background
   static const backgroundWhite = Color(0xFFFFFFFF);      // Pure white
 
   // === Card Colors ===

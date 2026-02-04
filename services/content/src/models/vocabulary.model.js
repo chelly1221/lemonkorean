@@ -20,10 +20,9 @@ class Vocabulary {
              COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
              v.part_of_speech,
              v.level, v.similarity_score, v.image_url, v.audio_url_male, v.audio_url_female,
-             v.example_sentence_ko,
-             COALESCE(vt.example_sentence, v.example_sentence_zh) as example_sentence,
+             COALESCE(vt.example_sentence, v.example_sentence_ko) as example_sentence,
              v.frequency_rank, v.created_at,
-             COALESCE(vt.language_code, 'zh') as content_language
+             COALESCE(vt.language_code, '${language}') as content_language
       FROM vocabulary v
       LEFT JOIN LATERAL (
         SELECT translation, pronunciation, example_sentence, language_code
@@ -82,11 +81,10 @@ class Vocabulary {
              COALESCE(vt.pronunciation, v.pinyin) as pronunciation,
              v.part_of_speech,
              v.level, v.similarity_score, v.image_url, v.audio_url_male, v.audio_url_female,
-             v.example_sentence_ko,
-             COALESCE(vt.example_sentence, v.example_sentence_zh) as example_sentence,
+             COALESCE(vt.example_sentence, v.example_sentence_ko) as example_sentence,
              COALESCE(vt.notes, v.notes) as notes,
              v.frequency_rank, v.created_at, v.updated_at,
-             COALESCE(vt.language_code, 'zh') as content_language
+             COALESCE(vt.language_code, '${language}') as content_language
       FROM vocabulary v
       LEFT JOIN LATERAL (
         SELECT translation, pronunciation, example_sentence, notes, language_code

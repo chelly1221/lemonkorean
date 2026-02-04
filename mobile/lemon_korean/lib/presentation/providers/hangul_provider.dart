@@ -63,6 +63,9 @@ class HangulProvider with ChangeNotifier {
           ? _reviewQueue[_currentReviewIndex]
           : null;
 
+  /// All characters (alias for characters)
+  List<HangulCharacterModel> get allCharacters => _characters;
+
   int get dueForReviewCount => _stats?.dueForReview ?? 0;
   double get overallProgress => _stats?.progressPercent ?? 0.0;
 
@@ -81,6 +84,15 @@ class HangulProvider with ChangeNotifier {
   bool isCharacterDueForReview(int characterId) {
     final progress = _progressMap[characterId];
     return progress == null || progress.isDueForReview;
+  }
+
+  /// Find character by its Korean character string
+  HangulCharacterModel? findCharacterByChar(String char) {
+    try {
+      return _characters.firstWhere((c) => c.character == char);
+    } catch (_) {
+      return null;
+    }
   }
 
   // ================================================================

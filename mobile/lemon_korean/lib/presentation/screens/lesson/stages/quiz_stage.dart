@@ -40,10 +40,11 @@ class _QuizStageState extends State<QuizStage> {
   Timer? _timer;
   int _remainingSeconds = AppConstants.quizTimeLimitSeconds;
 
-  final List<Map<String, dynamic>> _questions = [
+  // Question prompts use l10n keys, translations are content data
+  List<Map<String, dynamic>> _getQuestions(AppLocalizations l10n) => [
     {
       'type': 'listening',
-      'question': '听音频，选择正确的翻译',
+      'question': l10n.listenAndChoose,
       'audio': 'quiz/question1.mp3',
       'korean': '안녕하세요',
       'options': ['你好', '谢谢', '再见', '对不起'],
@@ -51,31 +52,31 @@ class _QuizStageState extends State<QuizStage> {
     },
     {
       'type': 'fill_in_blank',
-      'question': '填入正确的助词',
+      'question': l10n.fillInBlank,
       'sentence': '저___ 학생입니다',
       'translation': '我是学生',
       'blank_word': '저',
       'options': ['은', '는', '이', '가'],
       'correct': '는',
-      'explanation': '"저"以元音结尾，使用"는"',
+      'explanation': l10n.vowelEnding,
     },
     {
       'type': 'translation',
-      'question': '选择正确的翻译',
+      'question': l10n.chooseTranslation,
       'korean': '감사합니다',
       'options': ['你好', '谢谢', '对不起', '再见'],
       'correct': '谢谢',
     },
     {
       'type': 'word_order',
-      'question': '按正确顺序排列单词',
+      'question': l10n.arrangeWords,
       'translation': '我是学生',
       'words': ['학생', '입니다', '저는'],
       'correct': ['저는', '학생', '입니다'],
     },
     {
       'type': 'pronunciation',
-      'question': '选择正确的发音',
+      'question': l10n.choosePronunciation,
       'korean': '안녕하세요',
       'options': [
         'an-nyeong-ha-se-yo',
@@ -87,12 +88,26 @@ class _QuizStageState extends State<QuizStage> {
     },
   ];
 
+  List<Map<String, dynamic>>? _questionsCache;
+
+  List<Map<String, dynamic>> get _questions {
+    assert(_questionsCache != null, 'Questions not initialized. Call didChangeDependencies first.');
+    return _questionsCache!;
+  }
+
   @override
   void initState() {
     super.initState();
     if (widget.enableTimer) {
       _startTimer();
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Initialize questions with localized strings
+    _questionsCache ??= _getQuestions(AppLocalizations.of(context)!);
   }
 
   @override

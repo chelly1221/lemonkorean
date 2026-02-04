@@ -28,100 +28,36 @@ class Stage5Dialogue extends StatefulWidget {
 class _Stage5DialogueState extends State<Stage5Dialogue> {
   int _currentDialogueIndex = 0;
   int? _playingLineIndex;
+  List<Map<String, dynamic>> _dialogues = [];
+  bool _initialized = false;
 
-  final List<Map<String, dynamic>> _mockDialogues = [
-    {
-      'title': '初次见面',
-      'titleZh': '第一次见面',
-      'speakerA': {
-        'name': '小明',
-        'avatarUrl': null, // Will show placeholder
-      },
-      'speakerB': {
-        'name': '小红',
-        'avatarUrl': null, // Will show placeholder
-      },
-      'lines': [
-        {
-          'speaker': 'A',
-          'korean': '안녕하세요',
-          'chinese': '你好',
-          'pinyin': 'nǐ hǎo',
-        },
-        {
-          'speaker': 'B',
-          'korean': '안녕하세요',
-          'chinese': '你好',
-          'pinyin': 'nǐ hǎo',
-        },
-        {
-          'speaker': 'A',
-          'korean': '저는 민호입니다',
-          'chinese': '我叫民浩',
-          'pinyin': 'wǒ jiào mín hào',
-        },
-        {
-          'speaker': 'B',
-          'korean': '저는 수연이에요',
-          'chinese': '我是秀妍',
-          'pinyin': 'wǒ shì xiù yán',
-        },
-        {
-          'speaker': 'A',
-          'korean': '반갑습니다',
-          'chinese': '很高兴认识你',
-          'pinyin': 'hěn gāo xìng rèn shi nǐ',
-        },
-        {
-          'speaker': 'B',
-          'korean': '반갑습니다',
-          'chinese': '很高兴认识你',
-          'pinyin': 'hěn gāo xìng rèn shi nǐ',
-        },
-      ],
-    },
-    {
-      'title': '자기소개',
-      'titleZh': '自我介绍',
-      'speakerA': {
-        'name': '老师',
-        'avatarUrl': null, // Will show placeholder
-      },
-      'speakerB': {
-        'name': '学生',
-        'avatarUrl': null, // Will show placeholder
-      },
-      'lines': [
-        {
-          'speaker': 'A',
-          'korean': '이름이 뭐예요?',
-          'chinese': '你叫什么名字？',
-          'pinyin': 'nǐ jiào shén me míng zi?',
-        },
-        {
-          'speaker': 'B',
-          'korean': '저는 민수예요',
-          'chinese': '我叫民秀',
-          'pinyin': 'wǒ jiào mín xiù',
-        },
-        {
-          'speaker': 'A',
-          'korean': '학생이에요?',
-          'chinese': '你是学生吗？',
-          'pinyin': 'nǐ shì xué shēng ma?',
-        },
-        {
-          'speaker': 'B',
-          'korean': '네, 학생이에요',
-          'chinese': '是的，我是学生',
-          'pinyin': 'shì de, wǒ shì xué shēng',
-        },
-      ],
-    },
-  ];
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _loadDialogues();
+      _initialized = true;
+    }
+  }
+
+  /// Load dialogues from stageData or lesson content
+  /// Returns empty list if no data available - UI shows "no content" message
+  void _loadDialogues() {
+    if (widget.stageData != null && widget.stageData!.containsKey('dialogues')) {
+      _dialogues = List<Map<String, dynamic>>.from(widget.stageData!['dialogues']);
+    } else if (widget.lesson.content != null) {
+      final dialogueData = widget.lesson.content!['stage5_dialogue'];
+      _dialogues = dialogueData != null
+          ? List<Map<String, dynamic>>.from(dialogueData['dialogues'] ?? [])
+          : [];
+    } else {
+      // No data available - return empty list, UI will show appropriate message
+      _dialogues = [];
+    }
+  }
 
   void _nextDialogue() {
-    if (_currentDialogueIndex < _mockDialogues.length - 1) {
+    if (_currentDialogueIndex < _dialogues.length - 1) {
       setState(() {
         _currentDialogueIndex++;
         _playingLineIndex = null;
@@ -156,7 +92,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
   }
 
   void _playAll() {
-    final lines = _mockDialogues[_currentDialogueIndex]['lines'] as List;
+    final lines = _dialogues[_currentDialogueIndex]['lines'] as List;
     _playSequence(lines, 0);
   }
 
@@ -195,10 +131,55 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     }
   }
 
+  /// Build empty state widget when no dialogue data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.chat_bubble_outline,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noDialogue,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final dialogue = _mockDialogues[_currentDialogueIndex];
+
+    // Handle empty dialogues case
+    if (_dialogues.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
+    final dialogue = _dialogues[_currentDialogueIndex];
     final lines = dialogue['lines'] as List;
 
     return Container(
@@ -218,7 +199,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
 
           // Dialogue Counter
           Text(
-            '${_currentDialogueIndex + 1} / ${_mockDialogues.length}',
+            '${_currentDialogueIndex + 1} / ${_dialogues.length}',
             style: const TextStyle(
               fontSize: AppConstants.fontSizeMedium,
               color: AppConstants.textSecondary,
@@ -450,7 +431,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                     ),
                   ),
                   child: Text(
-                    _currentDialogueIndex < _mockDialogues.length - 1
+                    _currentDialogueIndex < _dialogues.length - 1
                         ? l10n.nextItem
                         : l10n.continueBtn,
                   ),

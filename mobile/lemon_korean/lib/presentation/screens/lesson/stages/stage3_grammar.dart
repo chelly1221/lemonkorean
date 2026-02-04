@@ -26,38 +26,38 @@ class Stage3Grammar extends StatefulWidget {
 
 class _Stage3GrammarState extends State<Stage3Grammar> {
   int _currentPointIndex = 0;
-  final List<Map<String, dynamic>> _mockGrammarPoints = [
-    {
-      'title': '助词 은/는',
-      'titleZh': '主题助词',
-      'explanation': '은/는 用于标记句子的主题。当前一个字以辅音结尾时使用 은，以元音结尾时使用 는。',
-      'examples': [
-        {'korean': '저는 학생입니다', 'chinese': '我是学生', 'highlight': '는'},
-        {'korean': '책은 재미있어요', 'chinese': '书很有趣', 'highlight': '은'},
-      ],
-    },
-    {
-      'title': '이에요/예요',
-      'titleZh': '敬语结尾',
-      'explanation': '이에요/예요 是"是"的敬语形式。当名词以辅音结尾时使用 이에요，以元音结尾时使用 예요。',
-      'examples': [
-        {'korean': '학생이에요', 'chinese': '是学生', 'highlight': '이에요'},
-        {'korean': '선생님이에요', 'chinese': '是老师', 'highlight': '이에요'},
-      ],
-    },
-    {
-      'title': '疑问词 뭐',
-      'titleZh': '什么',
-      'explanation': '뭐 是"什么"的口语形式，用于询问事物。正式场合使用 무엇。',
-      'examples': [
-        {'korean': '이게 뭐예요?', 'chinese': '这是什么？', 'highlight': '뭐'},
-        {'korean': '뭐 하세요?', 'chinese': '在做什么？', 'highlight': '뭐'},
-      ],
-    },
-  ];
+  List<Map<String, dynamic>> _grammarPoints = [];
+  bool _initialized = false;
+
+  List<Map<String, dynamic>> get _currentGrammarPoints => _grammarPoints;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _loadGrammarPoints();
+      _initialized = true;
+    }
+  }
+
+  /// Load grammar points from stageData or lesson content
+  /// Returns empty list if no data available - UI shows "no content" message
+  void _loadGrammarPoints() {
+    if (widget.stageData != null && widget.stageData!.containsKey('grammar_points')) {
+      _grammarPoints = List<Map<String, dynamic>>.from(widget.stageData!['grammar_points']);
+    } else if (widget.lesson.content != null) {
+      final grammarData = widget.lesson.content!['stage3_grammar'];
+      _grammarPoints = grammarData != null
+          ? List<Map<String, dynamic>>.from(grammarData['grammar_points'] ?? [])
+          : [];
+    } else {
+      // No data available - return empty list, UI will show appropriate message
+      _grammarPoints = [];
+    }
+  }
 
   void _nextPoint() {
-    if (_currentPointIndex < _mockGrammarPoints.length - 1) {
+    if (_currentPointIndex < _currentGrammarPoints.length - 1) {
       setState(() {
         _currentPointIndex++;
       });
@@ -74,10 +74,55 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
     }
   }
 
+  /// Build empty state widget when no grammar data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.menu_book_outlined,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noGrammar,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final point = _mockGrammarPoints[_currentPointIndex];
+
+    // Handle empty grammar points case
+    if (_currentGrammarPoints.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
+    final point = _currentGrammarPoints[_currentPointIndex];
 
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -96,7 +141,7 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
 
           // Grammar Point Counter
           Text(
-            '${_currentPointIndex + 1} / ${_mockGrammarPoints.length}',
+            '${_currentPointIndex + 1} / ${_currentGrammarPoints.length}',
             style: const TextStyle(
               fontSize: AppConstants.fontSizeMedium,
               color: AppConstants.textSecondary,
@@ -239,7 +284,7 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                     ),
                   ),
                   child: Text(
-                    _currentPointIndex < _mockGrammarPoints.length - 1
+                    _currentPointIndex < _currentGrammarPoints.length - 1
                         ? l10n.nextItem
                         : l10n.continueBtn,
                   ),

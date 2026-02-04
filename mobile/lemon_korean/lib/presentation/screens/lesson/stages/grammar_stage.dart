@@ -25,165 +25,35 @@ class _GrammarStageState extends State<GrammarStage> {
   int _currentPointIndex = 0;
   final Map<int, String?> _userAnswers = {};
   final Map<int, bool> _showExerciseFeedback = {};
+  List<Map<String, dynamic>> _grammarPoints = [];
+  bool _initialized = false;
 
-  final List<Map<String, dynamic>> _mockGrammarPoints = [
-    {
-      'title_ko': '은/는',
-      'title_zh': '主题助词',
-      'rule': '은/는 用于标记句子的主题。\n- 前一个字以辅音结尾时使用 은\n- 前一个字以元音结尾时使用 는',
-      'chinese_comparison': {
-        'title': '与中文对比',
-        'korean': '저는 학생입니다',
-        'chinese': '我是学生',
-        'explanation': '中文"是"表达身份，韩语用"是"+ 은/는 标记主题',
-      },
-      'examples': [
-        {
-          'korean': '저는 학생입니다',
-          'chinese': '我是学生',
-          'highlight': '는',
-          'explanation': '"저"以元音结尾，使用"는"',
-        },
-        {
-          'korean': '책은 재미있어요',
-          'chinese': '书很有趣',
-          'highlight': '은',
-          'explanation': '"책"以辅音结尾，使用"은"',
-        },
-        {
-          'korean': '선생님은 친절해요',
-          'chinese': '老师很亲切',
-          'highlight': '은',
-          'explanation': '"선생님"以辅音结尾，使用"은"',
-        },
-      ],
-      'exercise': {
-        'question': '이것___ 사과예요',
-        'question_zh': '这是苹果',
-        'blank_word': '이것',
-        'options': ['은', '는', '이', '가'],
-        'correct': '은',
-        'explanation': '"이것"以辅音 ㅅ 结尾，使用"은"',
-      },
-    },
-    {
-      'title_ko': '이/가',
-      'title_zh': '主格助词',
-      'rule': '이/가 用于标记句子的主语。\n- 前一个字以辅音结尾时使用 이\n- 前一个字以元音结尾时使用 가',
-      'chinese_comparison': {
-        'title': '与"은/는"的区别',
-        'korean': '누가 왔어요? - 민수가 왔어요',
-        'chinese': '谁来了？ - 民秀来了',
-        'explanation': '回答疑问词时用 이/가，强调新信息',
-      },
-      'examples': [
-        {
-          'korean': '비가 와요',
-          'chinese': '下雨了',
-          'highlight': '가',
-          'explanation': '"비"以元音结尾，使用"가"',
-        },
-        {
-          'korean': '꽃이 예뻐요',
-          'chinese': '花很漂亮',
-          'highlight': '이',
-          'explanation': '"꽃"以辅音结尾，使用"이"',
-        },
-        {
-          'korean': '누가 왔어요?',
-          'chinese': '谁来了？',
-          'highlight': '가',
-          'explanation': '疑问词"누구"使用"가"',
-        },
-      ],
-      'exercise': {
-        'question': '사과___ 맛있어요',
-        'question_zh': '苹果很好吃',
-        'blank_word': '사과',
-        'options': ['은', '는', '이', '가'],
-        'correct': '가',
-        'explanation': '"사과"以元音结尾，作为主语使用"가"',
-      },
-    },
-    {
-      'title_ko': '을/를',
-      'title_zh': '宾格助词',
-      'rule': '을/를 用于标记句子的宾语（动作的对象）。\n- 前一个字以辅音结尾时使用 을\n- 前一个字以元音结尾时使用 를',
-      'chinese_comparison': {
-        'title': '与中文对比',
-        'korean': '저는 한국어를 공부해요',
-        'chinese': '我学习韩语',
-        'explanation': '中文靠语序表达宾语，韩语用 을/를 标记',
-      },
-      'examples': [
-        {
-          'korean': '커피를 마셔요',
-          'chinese': '喝咖啡',
-          'highlight': '를',
-          'explanation': '"커피"以元音结尾，使用"를"',
-        },
-        {
-          'korean': '밥을 먹어요',
-          'chinese': '吃饭',
-          'highlight': '을',
-          'explanation': '"밥"以辅音结尾，使用"을"',
-        },
-        {
-          'korean': '책을 읽어요',
-          'chinese': '看书',
-          'highlight': '을',
-          'explanation': '"책"以辅音结尾，使用"을"',
-        },
-      ],
-      'exercise': {
-        'question': '친구___ 만났어요',
-        'question_zh': '见了朋友',
-        'blank_word': '친구',
-        'options': ['은', '는', '을', '를'],
-        'correct': '를',
-        'explanation': '"친구"以元音结尾，作为宾语使用"를"',
-      },
-    },
-    {
-      'title_ko': '이에요/예요',
-      'title_zh': '判断句结尾',
-      'rule': '이에요/예요 是"是"的敬语形式，用于判断句。\n- 名词以辅音结尾时使用 이에요\n- 名词以元音结尾时使用 예요',
-      'chinese_comparison': {
-        'title': '与中文对比',
-        'korean': '저는 학생이에요',
-        'chinese': '我是学生',
-        'explanation': '中文用"是"连接，韩语用 이에요/예요',
-      },
-      'examples': [
-        {
-          'korean': '이것은 사과예요',
-          'chinese': '这是苹果',
-          'highlight': '예요',
-          'explanation': '"사과"以元音结尾，使用"예요"',
-        },
-        {
-          'korean': '저는 학생이에요',
-          'chinese': '我是学生',
-          'highlight': '이에요',
-          'explanation': '"학생"以辅音结尾，使用"이에요"',
-        },
-        {
-          'korean': '오늘은 월요일이에요',
-          'chinese': '今天是星期一',
-          'highlight': '이에요',
-          'explanation': '"월요일"以辅音结尾，使用"이에요"',
-        },
-      ],
-      'exercise': {
-        'question': '이것은 물___',
-        'question_zh': '这是水',
-        'blank_word': '물',
-        'options': ['이에요', '예요', '입니다', '아니에요'],
-        'correct': '이에요',
-        'explanation': '"물"以辅音结尾，使用"이에요"',
-      },
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadGrammarPoints();
+  }
+
+  /// Load grammar points from lesson content
+  /// Returns empty list if no data available - UI shows "no content" message
+  void _loadGrammarPoints() {
+    if (widget.lesson.content != null) {
+      final grammarData = widget.lesson.content!['grammar'];
+      if (grammarData != null && grammarData['grammar_points'] != null) {
+        _grammarPoints = List<Map<String, dynamic>>.from(grammarData['grammar_points']);
+      } else {
+        // Try alternate structure
+        final altGrammarData = widget.lesson.content!['stage3_grammar'];
+        _grammarPoints = altGrammarData != null && altGrammarData['grammar_points'] != null
+            ? List<Map<String, dynamic>>.from(altGrammarData['grammar_points'])
+            : [];
+      }
+    } else {
+      // No data available - return empty list, UI will show appropriate message
+      _grammarPoints = [];
+    }
+    _initialized = true;
+  }
 
   @override
   void dispose() {
@@ -198,7 +68,7 @@ class _GrammarStageState extends State<GrammarStage> {
   }
 
   void _nextPoint() {
-    if (_currentPointIndex < _mockGrammarPoints.length - 1) {
+    if (_currentPointIndex < _grammarPoints.length - 1) {
       _pageController.animateToPage(
         _currentPointIndex + 1,
         duration: const Duration(milliseconds: 400),
@@ -226,9 +96,54 @@ class _GrammarStageState extends State<GrammarStage> {
     });
   }
 
+  /// Build empty state widget when no grammar data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.menu_book_outlined,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noGrammar,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    // Handle empty grammar points case
+    if (_grammarPoints.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingLarge),
       child: Column(
@@ -249,7 +164,7 @@ class _GrammarStageState extends State<GrammarStage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${_currentPointIndex + 1} / ${_mockGrammarPoints.length}',
+                '${_currentPointIndex + 1} / ${_grammarPoints.length}',
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
                   color: AppConstants.textSecondary,
@@ -259,7 +174,7 @@ class _GrammarStageState extends State<GrammarStage> {
               // Grammar points navigation dots
               Row(
                 children: List.generate(
-                  _mockGrammarPoints.length,
+                  _grammarPoints.length,
                   (index) => Container(
                     margin: const EdgeInsets.symmetric(horizontal: 3),
                     width: 8,
@@ -283,10 +198,10 @@ class _GrammarStageState extends State<GrammarStage> {
             child: PageView.builder(
               controller: _pageController,
               onPageChanged: _onPageChanged,
-              itemCount: _mockGrammarPoints.length,
+              itemCount: _grammarPoints.length,
               itemBuilder: (context, index) {
                 return _buildGrammarPoint(
-                  _mockGrammarPoints[index],
+                  _grammarPoints[index],
                   index,
                   l10n,
                 );
@@ -336,7 +251,7 @@ class _GrammarStageState extends State<GrammarStage> {
                         ),
                       ),
                       child: Text(
-                        _currentPointIndex < _mockGrammarPoints.length - 1
+                        _currentPointIndex < _grammarPoints.length - 1
                             ? l10n.nextItem
                             : l10n.continueBtn,
                       ),

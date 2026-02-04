@@ -16,14 +16,15 @@ class Lesson {
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
 
     let sql = `
-      SELECT l.id, l.level, l.week, l.order_num, l.title_ko,
-             COALESCE(lt.title, l.title_zh) as title,
-             COALESCE(lt.description, l.description_zh) as description,
+      SELECT l.id, l.level, l.week, l.order_num,
+             l.title_ko,
+             COALESCE(lt.title, l.title_ko) as title,
+             COALESCE(lt.description, l.description_ko) as description,
              l.duration_minutes, l.difficulty,
              l.thumbnail_url, l.version, l.status, l.published_at, l.view_count, l.completion_count,
              l.tags, l.created_at, l.updated_at,
              l.duration_minutes as estimated_minutes,
-             COALESCE(lt.language_code, 'zh') as content_language
+             COALESCE(lt.language_code, '${language}') as content_language
       FROM lessons l
       LEFT JOIN LATERAL (
         SELECT title, description, language_code
@@ -107,13 +108,14 @@ class Lesson {
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
 
     const sql = `
-      SELECT l.id, l.level, l.week, l.order_num, l.title_ko,
-             COALESCE(lt.title, l.title_zh) as title,
-             COALESCE(lt.description, l.description_zh) as description,
+      SELECT l.id, l.level, l.week, l.order_num,
+             l.title_ko,
+             COALESCE(lt.title, l.title_ko) as title,
+             COALESCE(lt.description, l.description_ko) as description,
              l.duration_minutes, l.difficulty,
              l.thumbnail_url, l.version, l.status, l.published_at, l.view_count, l.completion_count,
              l.prerequisites, l.tags, l.created_at, l.updated_at,
-             COALESCE(lt.language_code, 'zh') as content_language
+             COALESCE(lt.language_code, '${language}') as content_language
       FROM lessons l
       LEFT JOIN LATERAL (
         SELECT title, description, language_code

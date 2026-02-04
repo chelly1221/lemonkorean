@@ -190,16 +190,20 @@ User progress tracking with stage-level granularity.
 - `isNotStarted`, `isInProgress`, `isCompleted` - Status checks
 - `isPassed` - Check if quiz score >= 80
 - `progressPercentage` - 0-100 based on stages
-- `timeSpentFormatted` - "30分15秒"
-- `statusDisplay` - Chinese status display
 - `scoreGrade` - "A", "B", "C", "D", "F"
+
+**Localized Display (use `localized_display.dart`):**
+- `getTimeSpentDisplay(l10n)` - Localized time format
+- `getStatusDisplay(l10n)` - Localized status display
 
 **Usage:**
 ```dart
+import '../../presentation/utils/localized_display.dart';
+
 final progress = await progressRepo.getLessonProgress(userId, lessonId);
 
 print('Progress: ${progress.progressPercentage}%');
-print('Status: ${progress.statusDisplay}');
+print('Status: ${progress.getStatusDisplay(l10n)}');
 print('Score: ${progress.quizScore} (${progress.scoreGrade})');
 ```
 
@@ -221,15 +225,19 @@ SRS (Spaced Repetition System) review scheduling.
 **Helpers:**
 - `isDue` - Check if review is due now
 - `daysUntilReview` - Days until next review
-- `dueStatus` - "该复习了", "今天", "明天", "3天后"
+
+**Localized Display (use `localized_display.dart`):**
+- `getDueStatusDisplay(l10n)` - Localized due status
 
 **Usage:**
 ```dart
+import '../../presentation/utils/localized_display.dart';
+
 final dueReviews = await progressRepo.getDueReviews(userId);
 
 for (final review in dueReviews) {
   print('Review vocabulary ${review.vocabularyId}');
-  print('Status: ${review.dueStatus}');
+  print('Status: ${review.getDueStatusDisplay(l10n)}');
 }
 
 // Submit review result (quality: 0-5)

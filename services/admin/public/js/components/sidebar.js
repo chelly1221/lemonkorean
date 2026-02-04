@@ -54,6 +54,11 @@ const Sidebar = (() => {
       label: '시스템 모니터링',
     },
     {
+      path: '/deploy',
+      icon: 'fa-rocket',
+      label: '웹 배포',
+    },
+    {
       path: '/docs',
       icon: 'fa-book',
       label: '개발 문서',

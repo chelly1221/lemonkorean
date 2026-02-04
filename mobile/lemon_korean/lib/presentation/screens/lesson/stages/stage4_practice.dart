@@ -29,51 +29,34 @@ class _Stage4PracticeState extends State<Stage4Practice> {
   String? _selectedAnswer;
   bool _showResult = false;
   int _correctCount = 0;
+  bool _initialized = false;
 
-  late List<Map<String, dynamic>> _questions;
+  List<Map<String, dynamic>> _questions = [];
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initializeQuestions();
+      _initialized = true;
+    }
+  }
 
-    // Load questions from stageData or use mock data
+  /// Load questions from stageData or lesson content
+  /// Returns empty list if no data available - UI shows "no content" message
+  void _initializeQuestions() {
+    // Load questions from stageData or lesson content
     List<Map<String, dynamic>> sourceQuestions;
     if (widget.stageData != null && widget.stageData!.containsKey('exercises')) {
       sourceQuestions = List<Map<String, dynamic>>.from(widget.stageData!['exercises']);
+    } else if (widget.lesson.content != null) {
+      final practiceData = widget.lesson.content!['stage4_practice'];
+      sourceQuestions = practiceData != null
+          ? List<Map<String, dynamic>>.from(practiceData['exercises'] ?? [])
+          : [];
     } else {
-      // Use mock questions
-      sourceQuestions = [
-        {
-          'type': 'multiple_choice',
-          'question': '请选择正确的翻译：안녕하세요',
-          'options': ['你好', '谢谢', '再见', '对不起'],
-          'correctAnswer': '你好',
-        },
-        {
-          'type': 'multiple_choice',
-          'question': '哪个是"谢谢"的韩语？',
-          'options': ['안녕하세요', '감사합니다', '죄송합니다', '잘 가요'],
-          'correctAnswer': '감사합니다',
-        },
-        {
-          'type': 'fill_blank',
-          'question': '填空：저___ 학생입니다 (我是学生)',
-          'options': ['은', '는', '이', '가'],
-          'correctAnswer': '는',
-        },
-        {
-          'type': 'multiple_choice',
-          'question': '选择正确的助词：책___ 재미있어요',
-          'options': ['은', '는', '이', '가'],
-          'correctAnswer': '은',
-        },
-        {
-          'type': 'matching',
-          'question': '选择"对不起"的韩语',
-          'options': ['안녕하세요', '감사합니다', '죄송합니다', '반갑습니다'],
-          'correctAnswer': '죄송합니다',
-        },
-      ];
+      // No data available - return empty list, UI will show appropriate message
+      sourceQuestions = [];
     }
 
     // Keep question order (no shuffle)
@@ -121,9 +104,54 @@ class _Stage4PracticeState extends State<Stage4Practice> {
     }
   }
 
+  /// Build empty state widget when no practice data is available
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingLarge),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.quiz_outlined,
+            size: 80,
+            color: AppConstants.textHint,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.noPractice,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeLarge,
+              color: AppConstants.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: widget.onNext,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstants.primaryColor,
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40,
+                vertical: AppConstants.paddingMedium,
+              ),
+            ),
+            child: Text(l10n.continueBtn),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    // Handle empty questions case
+    if (_questions.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
+
     final question = _questions[_currentQuestionIndex];
     final isCorrect = _selectedAnswer == question['correctAnswer'];
 
@@ -391,7 +419,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                         ? (_currentQuestionIndex < _questions.length - 1
                             ? l10n.nextQuestionBtn
                             : l10n.continueBtn)
-                        : l10n.checkAnswer,
+                        : l10n.checkAnswerBtn,
                   ),
                 ),
               ),

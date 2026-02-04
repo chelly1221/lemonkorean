@@ -19,6 +19,7 @@ const testRoutes = require('./routes/test.routes');
 const docsRoutes = require('./routes/docs.routes');
 const devNotesRoutes = require('./routes/dev-notes.routes');
 const hangulRoutes = require('./routes/hangul.routes');
+const deployRoutes = require('./routes/deploy.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3006;
@@ -61,6 +62,7 @@ app.use('/api/admin/test', testRoutes);
 app.use('/api/admin/docs', docsRoutes);
 app.use('/api/admin/dev-notes', devNotesRoutes);
 app.use('/api/admin/hangul', hangulRoutes);
+app.use('/api/admin/deploy', deployRoutes);
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
