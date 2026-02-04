@@ -196,6 +196,19 @@ curl -X GET http://localhost:3002/api/content/lessons \
 - `GET /api/admin/dev-notes/:filename` - 개발노트 상세
 - `GET /health` - 헬스체크
 
+**Hangul 관리** (2026-02-03):
+- `GET /api/admin/hangul/characters` - 한글 자모 목록 (관리자)
+- `POST /api/admin/hangul/characters` - 자모 생성 (관리자)
+- `PUT /api/admin/hangul/characters/:id` - 자모 수정 (관리자)
+- `DELETE /api/admin/hangul/characters/:id` - 자모 삭제 (관리자)
+
+**웹 배포 자동화** (2026-02-04):
+- `POST /api/admin/deploy/web/start` - 배포 시작 (관리자)
+- `GET /api/admin/deploy/web/status/:id` - 배포 상태 조회
+- `GET /api/admin/deploy/web/logs/:id` - 배포 로그 조회
+- `GET /api/admin/deploy/web/history` - 배포 이력
+- `DELETE /api/admin/deploy/web/:id` - 배포 취소 (관리자)
+
 **웹 대시보드**: https://lemon.3chan.kr/admin/
 
 **문서**: [ADMIN_API.md](./ADMIN_API.md)

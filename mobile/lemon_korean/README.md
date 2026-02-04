@@ -29,6 +29,10 @@
 - `connectivity_plus`: 네트워크 상태 감지
 - `audioplayers`: 오디오 재생
 - `cached_network_image`: 이미지 캐싱
+- `just_audio`: 속도 조절 오디오 재생 (Hangul 모듈)
+- `record`: 오디오 녹음 (Hangul 모듈, 모바일 전용)
+- `audio_waveforms`: 파형 시각화 (Hangul 모듈)
+- `perfect_freehand`: 필기 렌더링 (Hangul 모듈)
 
 ---
 
@@ -181,6 +185,60 @@ flutter run -d chrome
 - `SettingsProvider.setHasCompletedOnboarding(true)` - 온보딩 완료 상태
 - `SettingsProvider.setWeeklyGoal()` - 주간 목표 저장
 - `SettingsProvider.setUserLevel()` - 사용자 레벨 저장
+
+---
+
+### Hangul Learning Module (2026-02-03)
+
+Comprehensive Korean alphabet learning system with 8 practice modes.
+
+**Location**: `lib/presentation/screens/hangul/`
+
+**Screens** (8 total):
+- `hangul_main_screen.dart` - Main hub with character grid and practice menu
+- `hangul_table_screen.dart` - Organized alphabet table (consonants/vowels)
+- `hangul_lesson_screen.dart` - Structured sequential lessons
+- `hangul_practice_screen.dart` - General character practice
+- `hangul_character_detail.dart` - Character details with pronunciation guide
+- `hangul_discrimination_screen.dart` - Sound discrimination training
+- `hangul_syllable_screen.dart` - Syllable combination practice
+- `hangul_batchim_screen.dart` - Final consonant (받침) practice
+- `hangul_shadowing_screen.dart` - Pronunciation recording (mobile only, web stub exists)
+
+**Widgets** (`lib/presentation/screens/hangul/widgets/`):
+- `pronunciation_player.dart` - Audio playback with speed control (0.5x, 0.75x, 1x, 1.5x)
+- `writing_canvas.dart` - Handwriting practice with perfect_freehand
+- `mouth_animation_widget.dart` - Mouth shape and tongue position visualization
+- `native_comparison_card.dart` - Native language pronunciation comparisons
+- `recording_widget.dart` - Audio recording for shadowing practice (mobile only)
+
+**Features**:
+- 🎵 Pronunciation guides with native language comparisons (6 languages)
+- 🎨 Visual pronunciation mechanics (mouth shapes, tongue positions, airflow)
+- 🎧 Speed-controlled audio playback (0.5x to 1.5x)
+- ✍️ Writing practice with stroke guidance (guide → trace → free-write)
+- 👂 Sound discrimination training for similar characters (ㄱ/ㅋ, ㅂ/ㅍ, etc.)
+- 🔤 Interactive syllable combination tool
+- 🗣️ Shadowing mode with self-assessment (mobile only, uses `record` package)
+- 📊 Progress tracking for all practice types
+
+**Backend Integration**:
+- **9 API endpoints** in Content Service (`/api/content/hangul/*`)
+- **6 database tables** for hangul data (characters, guides, syllables, etc.)
+- **4-language pronunciation comparisons** (Chinese, English, Japanese, Spanish)
+- **SVG assets** for visual pronunciation guides
+
+**New Packages** (2026-02-03):
+- `just_audio: ^0.9.40` - Speed-controlled audio playback
+- `record: ^5.1.2` - Audio recording (mobile platforms only)
+- `audio_waveforms: ^1.0.5` - Waveform visualization during recording
+- `perfect_freehand: ^2.2.0` - Smooth handwriting stroke rendering
+
+**Platform Support**:
+- ✅ Mobile (Android/iOS): Full support including recording
+- ✅ Web: Visual practice only (recording disabled, stub implementations)
+
+---
 
 ### 1. 오프라인 우선 아키텍처
 

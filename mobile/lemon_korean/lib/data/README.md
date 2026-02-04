@@ -893,3 +893,72 @@ testWidgets('Download and play lesson offline', (tester) async {
 3. **Build UI screens**: Use providers to bind data to widgets
 4. **Add tests**: Write unit and integration tests
 5. **Optimize sync**: Fine-tune sync intervals and batch sizes
+
+---
+
+## Model Updates (2026-02-03)
+
+### HangulCharacterModel
+
+Extended with pronunciation guide fields:
+- `nativeComparisons` (Map<String, dynamic>) - JSONB pronunciation comparisons for 6 languages
+- `mouthShapeUrl` (String) - Mouth shape diagram URL
+- `tonguePositionUrl` (String) - Tongue position diagram URL
+- `airFlowDescription` (Map<String, dynamic>) - Airflow type and description
+- `similarCharacterIds` (List<int>) - Related characters for discrimination practice
+
+**Usage:**
+```dart
+final character = await hangulRepo.getCharacter(1);
+
+// Access pronunciation comparisons
+final zhComparison = character.nativeComparisons['zh'];
+print(zhComparison['comparison']); // "类似汉语拼音的 g"
+
+// Display visual guides
+if (character.mouthShapeUrl != null) {
+  Image.network(character.mouthShapeUrl);
+}
+```
+
+### HangulProgressModel
+
+Tracks user progress across hangul learning modes:
+- Writing practice (attempts, accuracy)
+- Sound discrimination (correct count, total attempts)
+- Pronunciation recording attempts with self-ratings
+- Syllable combination completion tracking
+
+**Usage:**
+```dart
+final progress = await hangulRepo.getCharacterProgress(userId, characterId);
+
+print('Mastery: ${progress.masteryLevel}/5');
+print('Accuracy: ${progress.accuracyPercent}%');
+print('Next review: ${progress.nextReview}');
+```
+
+### Deprecated Methods (2026-02-04)
+
+Several data models have deprecated Chinese-specific getter methods:
+- `VocabularyModel.chineseWord` → Use `LocalizedDisplay.getWord(vocab, locale)`
+- `VocabularyModel.chineseTranslation` → Use `vocab.getTranslation(languageCode)`
+- `GrammarModel.chineseExplanation` → Use localization utilities
+- `ProgressModel.statusText` → Use `progress.getStatusDisplay(l10n)`
+
+**Migration:**
+```dart
+// Old (deprecated)
+final word = vocab.chineseWord;
+final status = progress.statusText;
+
+// New (recommended)
+import '../../presentation/utils/localized_display.dart';
+
+final word = LocalizedDisplay.getWord(vocab, locale);
+final status = progress.getStatusDisplay(l10n);
+```
+
+**Rationale:** These methods hardcoded Chinese language assumptions. The app now supports 6 languages (ko, en, es, ja, zh, zh_TW) and must use localization utilities for all display text.
+
+Use `lib/presentation/utils/localized_display.dart` for all localized display logic

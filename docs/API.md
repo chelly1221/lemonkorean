@@ -209,6 +209,136 @@ Get all grammar rules with filtering.
 
 ---
 
+### Hangul (Korean Alphabet)
+
+Korean alphabet learning endpoints for character details, pronunciation guides, and practice content.
+
+#### GET /api/content/hangul/characters
+
+Get all hangul characters with optional filtering.
+
+**Query Parameters:**
+- `character_type` (optional): Filter by type
+  - `basic_consonant` - Basic consonants (ㄱ, ㄴ, ㄷ, etc.)
+  - `double_consonant` - Double consonants (ㄲ, ㄸ, ㅃ, etc.)
+  - `basic_vowel` - Basic vowels (ㅏ, ㅓ, ㅗ, etc.)
+  - `compound_vowel` - Compound vowels (ㅐ, ㅔ, ㅘ, etc.)
+  - `final_consonant` - Final consonants (받침)
+
+**Response:**
+```json
+{
+  "success": true,
+  "count": 40,
+  "characters": [
+    {
+      "id": 1,
+      "character": "ㄱ",
+      "romanization": "g/k",
+      "character_type": "basic_consonant",
+      "audio_url": "/media/hangul/audio/basic_consonant_giyeok.mp3",
+      "pronunciation_guide": { ... }
+    }
+  ]
+}
+```
+
+#### GET /api/content/hangul/characters/:id
+
+Get detailed character information including pronunciation guide.
+
+#### GET /api/content/hangul/table
+
+Get organized alphabet table grouped by type (for UI display).
+
+#### GET /api/content/hangul/stats
+
+Get character statistics (counts by type).
+
+#### GET /api/content/hangul/characters/type/:type
+
+Get characters filtered by specific type (convenience endpoint).
+
+#### GET /api/content/hangul/pronunciation-guides
+
+Get pronunciation guides for all characters.
+
+**Response includes:**
+- Mouth shape diagrams
+- Tongue position diagrams
+- Airflow descriptions
+- Native language comparisons (zh, en, ja, es)
+- Similar character IDs for discrimination practice
+
+#### GET /api/content/hangul/pronunciation-guides/:characterId
+
+Get pronunciation guide for specific character.
+
+#### GET /api/content/hangul/syllables
+
+Get syllable combinations with audio.
+
+**Query Parameters:**
+- `initial`: Filter by initial consonant ID
+- `vowel`: Filter by vowel ID
+- `final`: Filter by final consonant ID
+
+#### GET /api/content/hangul/similar-sounds
+
+Get similar sound groups for discrimination training.
+
+**Query Parameters:**
+- `category`: Filter by `consonant` or `vowel`
+
+---
+
+### Web Deployment
+
+Admin-only endpoints for automated web app deployment.
+
+#### POST /api/admin/deploy/web/start
+
+Start Flutter web app deployment (requires admin auth).
+
+**Response:**
+```json
+{
+  "success": true,
+  "deployment": {
+    "id": 123,
+    "status": "running",
+    "progress": 0,
+    "started_at": "2026-02-04T10:30:00Z"
+  }
+}
+```
+
+#### GET /api/admin/deploy/web/status/:id
+
+Get real-time deployment status and progress (0-100%).
+
+#### GET /api/admin/deploy/web/logs/:id
+
+Get deployment logs (stdout/stderr) with polling support.
+
+**Query Parameters:**
+- `offset`: Log offset for pagination (default: 0)
+- `limit`: Number of logs to return (default: 100)
+
+#### GET /api/admin/deploy/web/history
+
+List deployment history with pagination.
+
+**Query Parameters:**
+- `page`: Page number (default: 1)
+- `limit`: Items per page (default: 20)
+
+#### DELETE /api/admin/deploy/web/:id
+
+Cancel running deployment (requires admin auth).
+
+---
+
 ## Response Format Changes
 
 ### New Localized Fields

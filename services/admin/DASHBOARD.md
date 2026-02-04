@@ -94,6 +94,82 @@ Lemon Korean Admin Service를 위한 완전한 웹 대시보드가 구현되었�
 - **시스템 메트릭**: 메모리 사용률, 가동 시간
 - **감사 로그**: 최근 50개 (30초 자동 새로고침)
 
+### 8. Hangul 관리 (2026-02-03)
+
+한글 학습 콘텐츠 관리 페이지.
+
+**위치**: `#/hangul`
+
+**기능**:
+- 한글 자모 전체 목록 (타입별 필터링)
+- 자모 생성/수정/삭제
+- 발음 가이드 업로드 (입모양, 혀위치)
+- 음절 조합 관리
+- 유사음 그룹 설정 (소리 구분 훈련용)
+- 시드 데이터 일괄 임포트
+
+**API 연동**:
+- Admin Service 엔드포인트 사용 (포트 3006)
+- CRUD 작업 감사 로깅
+- 자모 유효성 검사 및 중복 체크
+
+**관련 백엔드**:
+- `/services/admin/src/controllers/hangul.controller.js` - CRUD 작업
+- 데이터베이스 테이블: `hangul_characters`, `hangul_pronunciation_guides` 등
+
+---
+
+### 9. 웹 배포 자동화 (2026-02-04)
+
+관리자 대시보드에서 원클릭 Flutter 웹 앱 배포.
+
+**위치**: `#/deploy` (사이드바: "Web 배포")
+
+**기능**:
+- **배포 시작**: 버튼 클릭으로 전체 빌드 프로세스 시작
+- **실시간 진행률**: 0-100% 진행 바 및 단계 표시
+- **라이브 로그 스트리밍**: VS Code 스타일 터미널 로그 뷰어 (자동 스크롤)
+- **배포 이력**: 과거 배포 내역 페이지네이션
+- **상태 모니터링**: 상태, 소요 시간, git commit, 에러 확인
+- **취소 기능**: 실행 중인 배포 중단
+
+**UI 컴포넌트**:
+- VS Code 다크 테마 로그 뷰어 (문법 강조)
+- 완료/실패 시 토스트 알림
+- 실시간 폴링 (2초 간격)
+- 상태 배지가 있는 배포 카드
+
+**API 연동** (`/api/admin/deploy/*`):
+- `POST /web/start` - 배포 시작
+- `GET /web/status/:id` - 현재 진행률 조회
+- `GET /web/logs/:id` - 페이지네이션된 로그 조회
+- `GET /web/history` - 과거 배포 이력
+- `DELETE /web/:id` - 배포 취소
+
+**백엔드 구현**:
+- **Service**: `/services/admin/src/services/web-deploy.service.js` (542줄)
+- **Controller**: `/services/admin/src/controllers/deploy.controller.js` (389줄)
+- **Routes**: `/services/admin/src/routes/deploy.routes.js`
+- **Database**: `web_deployments`, `web_deployment_logs` 테이블
+
+**배포 프로세스**:
+1. Git pull로 최신 변경사항 가져오기
+2. 의존성 설치 (flutter pub get)
+3. 웹 앱 빌드 (flutter build web)
+4. nginx 디렉토리로 복사
+5. 배포 검증 (HTTP 헬스 체크)
+6. 로그와 함께 데이터베이스 기록
+
+**동시성 제어**:
+- Redis 락으로 동시 배포 방지
+- 15분 TTL로 자동 만료
+- 락 충돌 시 사용자 친화적 에러 메시지
+
+**보안**:
+- 관리자 인증 필수
+- 감사 미들웨어를 통한 모든 작업 로깅
+- 안전한 취소 및 정리
+
 ---
 
 ## 사용 방법

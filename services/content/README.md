@@ -82,6 +82,18 @@ npm start
 - `GET /api/content/grammar/level/:level` - 레벨별 문법 조회
 - `GET /api/content/grammar/:id` - ID로 문법 규칙 조회
 
+### Hangul 자모 (2026-02-03)
+
+- `GET /api/content/hangul/characters` - 모든 자모 조회 (타입별 필터링 가능)
+- `GET /api/content/hangul/characters/:id` - 발음 가이드를 포함한 자모 상세 조회
+- `GET /api/content/hangul/characters/type/:type` - 타입별 자모 조회
+- `GET /api/content/hangul/table` - 정리된 한글 자모표
+- `GET /api/content/hangul/stats` - 자모 통계
+- `GET /api/content/hangul/pronunciation-guides` - 모든 발음 가이드
+- `GET /api/content/hangul/pronunciation-guides/:characterId` - 특정 자모 발음 가이드
+- `GET /api/content/hangul/syllables` - 음절 조합 (초성/중성/종성 필터 가능)
+- `GET /api/content/hangul/similar-sounds` - 유사음 그룹 (소리 구분 훈련용)
+
 ## Docker
 
 ### 빌드
