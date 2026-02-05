@@ -28,4 +28,16 @@ router.get('/content', devNotesController.getDevNoteContent);
  */
 router.get('/categories', devNotesController.getCategories);
 
+/**
+ * POST /api/admin/dev-notes
+ * Create new development note
+ */
+router.post('/', devNotesController.createDevNote);
+
+/**
+ * PUT /api/admin/dev-notes/content
+ * Update existing development note
+ */
+router.put('/content', devNotesController.updateDevNote);
+
 module.exports = router;

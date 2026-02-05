@@ -478,6 +478,139 @@ Get theme update history with pagination (requires admin auth).
 
 ---
 
+## APK Build Endpoints
+
+Admin-only endpoints for Android APK build automation.
+
+### Start APK Build
+
+```http
+POST /api/admin/deploy/apk/start
+Authorization: Bearer <admin-token>
+
+Response:
+{
+  "success": true,
+  "data": {
+    "buildId": 1,
+    "message": "APK build started successfully"
+  }
+}
+```
+
+### Get Build Status
+
+```http
+GET /api/admin/deploy/apk/status/:id
+
+Response:
+{
+  "success": true,
+  "id": 1,
+  "status": "building",
+  "progress": 45,
+  "started_at": "2026-02-05T10:30:00Z",
+  "version_name": "1.0.0",
+  "version_code": 1,
+  "apk_size_bytes": 25000000,
+  "git_branch": "main",
+  "git_commit_hash": "abc123def456...",
+  "duration_seconds": 180
+}
+```
+
+**Status values:** `pending`, `building`, `signing`, `completed`, `failed`, `cancelled`
+
+### Get Build Logs
+
+```http
+GET /api/admin/deploy/apk/logs/:id?since=0
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "log_type": "info",
+      "message": "Starting APK build...",
+      "created_at": "2026-02-05T10:30:01Z"
+    },
+    {
+      "id": 2,
+      "log_type": "info",
+      "message": "Running flutter clean...",
+      "created_at": "2026-02-05T10:30:05Z"
+    }
+  ]
+}
+```
+
+**Query Parameters:**
+- `since`: Return logs with ID greater than this value (for incremental polling)
+
+### List Build History
+
+```http
+GET /api/admin/deploy/apk/history?page=1&limit=20
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "admin_email": "admin@example.com",
+      "status": "completed",
+      "progress": 100,
+      "version_name": "1.0.0",
+      "version_code": 1,
+      "apk_size_bytes": 25000000,
+      "apk_path": "lemon_korean_20260205_103000.apk",
+      "started_at": "2026-02-05T10:30:00Z",
+      "completed_at": "2026-02-05T10:35:00Z",
+      "duration_seconds": 300,
+      "git_branch": "main",
+      "git_commit_hash": "abc123def456..."
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 15,
+    "totalPages": 1
+  }
+}
+```
+
+### Download APK
+
+```http
+GET /api/admin/deploy/apk/download/:id
+
+Response: Binary APK file stream
+Content-Type: application/vnd.android.package-archive
+Content-Disposition: attachment; filename="lemon_korean_YYYYMMDD_HHMMSS.apk"
+```
+
+Downloads the compiled APK file from NAS storage.
+
+### Cancel Build
+
+```http
+DELETE /api/admin/deploy/apk/:id
+
+Response:
+{
+  "success": true,
+  "message": "APK build cancelled successfully"
+}
+```
+
+Cancels a running build by creating a cancel trigger file that the build script monitors.
+
+---
+
 ## Response Format Changes
 
 ### New Localized Fields

@@ -119,7 +119,28 @@ Lemon Korean Admin Service를 위한 완전한 웹 대시보드가 구현되었�
 
 ---
 
-### 9. App Theme 관리 (2026-02-04)
+### 9. Logs (2026-02-05)
+
+시스템 감사 로그 조회 전용 페이지.
+
+**위치**: `#/system` (사이드바: "Logs")
+
+**기능**:
+- 최근 100개 감사 로그 표시
+- 실시간 새로고침 (30초 간격)
+- 로그 레벨별 색상 코딩 (info/warning/error)
+- 타임스탬프, 액션, 리소스 타입, 상태 표시
+
+**API 연동**: GET `/api/admin/system/logs?page=1&limit=100`
+
+**UI 컴포넌트**:
+- 테이블 형식 로그 뷰어
+- 자동 새로고침 토글
+- 페이지네이션
+
+---
+
+### 10. App Theme 관리 (2026-02-04)
 
 Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
@@ -179,7 +200,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
-### 10. 웹 배포 자동화 (2026-02-04)
+### 11. 웹 배포 자동화 (2026-02-04)
 
 관리자 대시보드에서 원클릭 Flutter 웹 앱 배포.
 
@@ -229,6 +250,124 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 - 관리자 인증 필수
 - 감사 미들웨어를 통한 모든 작업 로깅
 - 안전한 취소 및 정리
+
+---
+
+### 12. APK Build Management (2026-02-05)
+
+관리자 대시보드에서 원클릭 Android APK 빌드.
+
+**위치**: `#/apk-build` (사이드바: "APK Build")
+
+**기능**:
+- **빌드 시작**: 버튼 클릭으로 전체 APK 빌드 프로세스 시작
+- **실시간 진행률**: 0-100% 진행 바 및 단계 표시 (pending, building, signing, completed)
+- **라이브 로그 스트리밍**: VS Code 스타일 터미널 로그 뷰어 (자동 스크롤)
+- **빌드 이력**: 과거 빌드 내역 페이지네이션
+- **APK 다운로드**: 완료된 빌드의 APK 파일 다운로드
+- **상태 모니터링**: 상태, 소요 시간, git commit, 에러 확인, APK 크기
+- **취소 기능**: 실행 중인 빌드 중단
+
+**UI 컴포넌트**:
+- VS Code 다크 테마 로그 뷰어 (문법 강조)
+- 완료/실패 시 토스트 알림
+- 실시간 폴링 (2초 간격)
+- 상태 배지가 있는 빌드 카드
+- APK 다운로드 버튼
+
+**API 연동** (`/api/admin/deploy/apk/*`):
+- `POST /start` - 빌드 시작
+- `GET /status/:id` - 현재 진행률 조회
+- `GET /logs/:id?since=0` - 페이지네이션된 로그 조회
+- `GET /history?page=1&limit=20` - 과거 빌드 이력
+- `GET /download/:id` - APK 파일 다운로드
+- `DELETE /:id` - 빌드 취소
+
+**백엔드 구현**:
+- **Service**: `/services/admin/src/services/apk-build.service.js`
+- **Controller**: `/services/admin/src/controllers/apk-build.controller.js`
+- **Routes**: `/services/admin/src/routes/deploy.routes.js`
+- **Database**: `apk_builds`, `apk_build_logs` 테이블
+
+**빌드 프로세스**:
+1. Git commit hash 및 branch 기록
+2. Flutter clean 및 의존성 설치
+3. APK 릴리스 빌드 (flutter build apk --release)
+4. APK 파일 크기 측정
+5. NAS 스토리지로 복사 (`/mnt/nas/lemon/apk-builds/`)
+6. 로그와 함께 데이터베이스 기록
+
+**파일 저장**:
+- **경로**: `/mnt/nas/lemon/apk-builds/lemon_korean_YYYYMMDD_HHMMSS.apk`
+- **명명**: 타임스탬프 기반 자동 명명
+- **메타데이터**: 빌드 ID, 버전, 크기, git 정보
+
+**동시성 제어**:
+- Redis 락으로 동시 빌드 방지
+- 20분 TTL로 자동 만료
+- 락 충돌 시 사용자 친화적 에러 메시지
+
+**보안**:
+- 관리자 인증 필수
+- 감사 미들웨어를 통한 모든 작업 로깅
+- 안전한 취소 및 정리
+
+---
+
+### 13. Dev-Notes Browser (2026-02-05)
+
+개발 노트 브라우저로 `/dev-notes` 디렉토리의 마크다운 파일 조회.
+
+**위치**: `#/dev-notes` (사이드바: "Dev Notes")
+
+**기능**:
+- 개발노트 목록 표시 (날짜 역순)
+- YAML frontmatter 파싱 (날짜, 카테고리, 제목, 태그)
+- 마크다운 렌더링
+- 날짜 기반 정렬
+
+**API 연동**:
+- `GET /api/admin/dev-notes` - 목록 조회
+- `GET /api/admin/dev-notes/:filename` - 내용 조회
+
+**백엔드**: `/services/admin/src/controllers/dev-notes.controller.js`
+
+**UI 컴포넌트**:
+- 카드 형식 목록
+- 카테고리 배지
+- 마크다운 뷰어
+
+---
+
+### 14. Documentation Browser (2026-02-05)
+
+프로젝트 문서 브라우저로 6개 카테고리의 문서 조회.
+
+**위치**: `#/docs` (사이드바: "Docs")
+
+**카테고리**:
+1. **Project** - `/CLAUDE.md`, `/README.md`, `/DEPLOYMENT.md`
+2. **API** - `/docs/API.md`
+3. **Database** - `/database/postgres/SCHEMA.md`
+4. **Services** - `/services/*/README.md`, `/services/*/DASHBOARD.md`
+5. **Mobile** - `/mobile/lemon_korean/README.md`, `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md`
+6. **Infrastructure** - `/scripts/*/README.md`, `/nginx/README.md`
+
+**기능**:
+- 카테고리별 문서 목록
+- 마크다운 렌더링
+- 문서 검색 (파일명)
+
+**API 연동**:
+- `GET /api/admin/docs?category=api` - 카테고리별 목록
+- `GET /api/admin/docs/:category/:filename` - 문서 내용
+
+**백엔드**: `/services/admin/src/controllers/docs.controller.js`
+
+**UI 컴포넌트**:
+- 카테고리 탭
+- 문서 카드 그리드
+- 마크다운 뷰어
 
 ---
 

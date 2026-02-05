@@ -4,7 +4,7 @@ PostgreSQL 15+ compatible schema documentation for the Lemon Korean learning pla
 
 ## Overview
 
-The database consists of 21 tables organized into the following functional areas:
+The database consists of 23 tables organized into the following functional areas:
 
 - **User Management**: Users, sessions, authentication
 - **Lesson Content**: Lessons, vocabulary, grammar, dialogues
@@ -740,6 +740,65 @@ System-wide Flutter app theme configuration (single-row table, id=1).
 
 ---
 
+---
+
+## Migration 007: APK Build Tracking (2026-02-05)
+
+### apk_builds
+
+Android APK build history and status tracking.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Build ID |
+| admin_id | INTEGER | NOT NULL, FK to users(id) | Admin who triggered build |
+| admin_email | VARCHAR(255) | NOT NULL | Admin email |
+| status | VARCHAR(20) | NOT NULL, DEFAULT 'pending' | Build status (see below) |
+| progress | INTEGER | DEFAULT 0, CHECK (0-100) | Build progress percentage |
+| version_name | VARCHAR(20) | | App version name |
+| version_code | INTEGER | | App version code |
+| apk_size_bytes | BIGINT | | APK file size in bytes |
+| apk_path | TEXT | | APK filename (relative to NAS storage) |
+| started_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Build start time |
+| completed_at | TIMESTAMP | | Build completion time |
+| duration_seconds | INTEGER | | Build duration |
+| error_message | TEXT | | Error message if failed |
+| git_commit_hash | VARCHAR(40) | | Git commit hash |
+| git_branch | VARCHAR(100) | | Git branch |
+| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Record creation time |
+
+**Status Values:**
+- `pending` - Queued, not started
+- `building` - Running flutter build apk
+- `signing` - Signing APK
+- `completed` - Successfully built
+- `failed` - Build failed
+- `cancelled` - Manually cancelled
+
+**Indexes:**
+- `idx_apk_builds_admin_id` on `admin_id`
+- `idx_apk_builds_status` on `status`
+- `idx_apk_builds_started_at` on `started_at DESC`
+
+---
+
+### apk_build_logs
+
+Real-time APK build logs with timestamps.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Log entry ID |
+| build_id | INTEGER | NOT NULL, FK to apk_builds(id) CASCADE | Build reference |
+| log_type | VARCHAR(20) | DEFAULT 'info', CHECK (info/error/warning) | Log type |
+| message | TEXT | NOT NULL | Log message |
+| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Log timestamp |
+
+**Indexes:**
+- `idx_apk_build_logs_build_id` on `(build_id, created_at)`
+
+---
+
 ## Migration History
 
 | Version | Date | Description |
@@ -750,6 +809,7 @@ System-wide Flutter app theme configuration (single-row table, id=1).
 | 004 | 2026-02-04 | Update language defaults from Chinese to Korean |
 | 005 | 2026-02-04 | Add app_theme_settings table |
 | 006 | 2026-02-05 | Remove design_settings table (admin dashboard only) |
+| 007 | 2026-02-05 | Add APK build tracking tables |
 
 ---
 

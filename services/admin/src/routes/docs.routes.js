@@ -24,4 +24,12 @@ router.get(
   docsController.getDocContent
 );
 
+// Update documentation file content
+router.put(
+  '/content',
+  requireAuth,
+  requireAdmin,
+  docsController.updateDocContent
+);
+
 module.exports = router;

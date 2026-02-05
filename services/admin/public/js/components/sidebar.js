@@ -37,8 +37,8 @@ const Sidebar = (() => {
       icon: 'fa-code',
       items: [
         { path: '/services', icon: 'fa-cubes', label: '서비스 현황' },
-        { path: '/system', icon: 'fa-cog', label: '시스템 모니터링' },
-        { path: '/deploy', icon: 'fa-rocket', label: '웹 배포' },
+        { path: '/system', icon: 'fa-file-lines', label: '로그' },
+        { path: '/deploy', icon: 'fa-rocket', label: '배포' },
         { path: '/app-theme', icon: 'fa-mobile-alt', label: '앱 테마' },
         { path: '/docs', icon: 'fa-book', label: '개발 문서' },
         { path: '/dev-notes', icon: 'fa-sticky-note', label: '개발노트' }

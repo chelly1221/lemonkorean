@@ -107,6 +107,52 @@ lib/
 
 ---
 
+## Build Scripts
+
+The project includes automated build scripts for production deployments.
+
+### Web Build (`build_web.sh`)
+
+Builds the Flutter web app and deploys to NAS storage.
+
+**Features:**
+- Flutter clean and dependency fetch
+- WebAssembly bypass for compatibility (uses JS compilation)
+- Automatic deployment to `/mnt/nas/lemon/www/app/`
+- 3-minute average build time
+- 35MB output with optimized assets
+
+**Usage:**
+```bash
+cd /home/sanchan/lemonkorean/mobile/lemon_korean
+./build_web.sh
+```
+
+**Output:** `https://lemon.3chan.kr/app/`
+
+### APK Build (`build_apk.sh`)
+
+Builds Android APK in release mode and stores on NAS.
+
+**Features:**
+- Flutter clean and dependency fetch
+- Release mode APK compilation
+- Automatic naming with timestamp
+- NAS storage at `/mnt/nas/lemon/apk-builds/`
+- File size reporting
+
+**Usage:**
+```bash
+cd /home/sanchan/lemonkorean/mobile/lemon_korean
+./build_apk.sh
+```
+
+**Output:** `lemon_korean_YYYYMMDD_HHMMSS.apk`
+
+**Note:** These scripts are also invoked by the Admin Dashboard's deployment automation.
+
+---
+
 ## 시작하기
 
 ### 1. 환경 설정

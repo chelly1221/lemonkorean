@@ -64,7 +64,7 @@ class ThemeProvider extends ChangeNotifier {
 
       _error = null;
     } catch (e) {
-      AppLogger.error('Theme initialization failed', e);
+      AppLogger.e('Theme initialization failed', error: e);
       _error = e.toString();
       // Fall back to default theme if cache and API both fail
       _currentTheme ??= AppThemeModel.defaultTheme();
@@ -83,12 +83,12 @@ class ThemeProvider extends ChangeNotifier {
       if (cachedData != null) {
         final themeMap = Map<String, dynamic>.from(cachedData);
         _currentTheme = AppThemeModel.fromJson(themeMap);
-        AppLogger.debug('Theme loaded from cache (version: ${_currentTheme!.version})');
+        AppLogger.d('Theme loaded from cache (version: ${_currentTheme!.version})');
       } else {
-        AppLogger.debug('No cached theme found, using defaults');
+        AppLogger.d('No cached theme found, using defaults');
       }
     } catch (e) {
-      AppLogger.error('Failed to load theme from cache', e);
+      AppLogger.e('Failed to load theme from cache', error: e);
     }
   }
 
@@ -97,9 +97,9 @@ class ThemeProvider extends ChangeNotifier {
     try {
       final box = await Hive.openBox(_themeBoxName);
       await box.put(_themeKey, theme.toJson());
-      AppLogger.debug('Theme saved to cache (version: ${theme.version})');
+      AppLogger.d('Theme saved to cache (version: ${theme.version})');
     } catch (e) {
-      AppLogger.error('Failed to save theme to cache', e);
+      AppLogger.e('Failed to save theme to cache', error: e);
     }
   }
 
@@ -135,12 +135,12 @@ class ThemeProvider extends ChangeNotifier {
           // Initialize AppConstants with new theme
           AppConstants.initializeTheme(newTheme);
 
-          AppLogger.info('Theme updated from API (version: ${newTheme.version})');
+          AppLogger.i('Theme updated from API (version: ${newTheme.version})');
           if (!silent) {
             notifyListeners();
           }
         } else {
-          AppLogger.debug('Theme version unchanged, skipping update');
+          AppLogger.d('Theme version unchanged, skipping update');
         }
 
         _error = null;
@@ -148,7 +148,7 @@ class ThemeProvider extends ChangeNotifier {
         throw Exception('Failed to fetch theme: ${response.statusCode}');
       }
     } catch (e) {
-      AppLogger.error('Failed to refresh theme from API', e);
+      AppLogger.e('Failed to refresh theme from API', error: e);
       _error = e.toString();
 
       // If this is first load and we have no cached theme, use default
@@ -170,10 +170,10 @@ class ThemeProvider extends ChangeNotifier {
       final box = await Hive.openBox(_themeBoxName);
       await box.delete(_themeKey);
       _currentTheme = AppThemeModel.defaultTheme();
-      AppLogger.info('Theme cache cleared');
+      AppLogger.i('Theme cache cleared');
       notifyListeners();
     } catch (e) {
-      AppLogger.error('Failed to clear theme cache', e);
+      AppLogger.e('Failed to clear theme cache', error: e);
     }
   }
 
@@ -202,7 +202,7 @@ class ThemeProvider extends ChangeNotifier {
       scaffoldBackgroundColor: theme.backgroundLightCol,
 
       // Card Theme
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: theme.cardBackgroundCol,
         elevation: 2,
         shape: RoundedRectangleBorder(

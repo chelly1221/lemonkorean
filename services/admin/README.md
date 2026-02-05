@@ -231,17 +231,72 @@ GET /api/admin/analytics/engagement?period=7d
 GET /api/admin/analytics/content
 ```
 
-### System Monitoring (`/system`)
+### Web Deployment (`/deploy`)
 
 ```bash
-# Service health checks
-GET /api/admin/system/health
+# Start web deployment
+POST /api/admin/deploy/web/start
 
-# System logs (audit trail)
+# Get deployment status
+GET /api/admin/deploy/web/status/:id
+
+# Get deployment logs
+GET /api/admin/deploy/web/logs/:id?since=0
+
+# Get deployment history
+GET /api/admin/deploy/web/history?page=1&limit=20
+
+# Cancel deployment
+DELETE /api/admin/deploy/web/:id
+```
+
+### APK Build (`/deploy/apk`)
+
+```bash
+# Start APK build
+POST /api/admin/deploy/apk/start
+
+# Get build status
+GET /api/admin/deploy/apk/status/:id
+
+# Get build logs
+GET /api/admin/deploy/apk/logs/:id?since=0
+
+# Get build history
+GET /api/admin/deploy/apk/history?page=1&limit=20
+
+# Download APK
+GET /api/admin/deploy/apk/download/:id
+
+# Cancel build
+DELETE /api/admin/deploy/apk/:id
+```
+
+### Dev-Notes Management (`/dev-notes`)
+
+```bash
+# List dev-notes
+GET /api/admin/dev-notes
+
+# Get dev-note content
+GET /api/admin/dev-notes/:filename
+```
+
+### Documentation Browser (`/docs`)
+
+```bash
+# List documentation files
+GET /api/admin/docs?category=api
+
+# Get document content
+GET /api/admin/docs/:category/:filename
+```
+
+### System Logs (`/system`)
+
+```bash
+# Get system logs (audit trail)
 GET /api/admin/system/logs?page=1&limit=50&action=lesson.create&status=success
-
-# System metrics
-GET /api/admin/system/metrics
 ```
 
 ## Architecture
@@ -498,28 +553,38 @@ services/admin/
 │   │   ├── content-management.service.js
 │   │   ├── media-upload.service.js
 │   │   ├── analytics.service.js
-│   │   └── system-monitoring.service.js
+│   │   ├── web-deploy.service.js
+│   │   └── apk-build.service.js
 │   ├── controllers/                # HTTP handlers
 │   │   ├── users.controller.js
 │   │   ├── lessons.controller.js
 │   │   ├── vocabulary.controller.js
 │   │   ├── media.controller.js
 │   │   ├── analytics.controller.js
-│   │   └── system.controller.js
+│   │   ├── system.controller.js
+│   │   ├── deploy.controller.js
+│   │   ├── apk-build.controller.js
+│   │   ├── dev-notes.controller.js
+│   │   └── docs.controller.js
 │   ├── routes/                     # Route definitions
 │   │   ├── users.routes.js
 │   │   ├── lessons.routes.js
 │   │   ├── vocabulary.routes.js
 │   │   ├── media.routes.js
 │   │   ├── analytics.routes.js
-│   │   └── system.routes.js
+│   │   ├── system.routes.js
+│   │   ├── deploy.routes.js
+│   │   ├── dev-notes.routes.js
+│   │   └── docs.routes.js
 │   ├── middleware/
 │   │   ├── auth.middleware.js      # Auth + Admin checks
 │   │   ├── audit.middleware.js     # Action logging
 │   │   └── validation.middleware.js
-│   └── utils/
-│       ├── cache-helpers.js        # Redis helpers
-│       └── cache-invalidation.js   # Cache busting
+│   ├── utils/
+│   │   ├── cache-helpers.js        # Redis helpers
+│   │   └── cache-invalidation.js   # Cache busting
+│   └── deploy-triggers/            # File-based deployment triggers
+├── public/                         # Admin Dashboard UI
 ├── package.json
 ├── Dockerfile
 └── README.md

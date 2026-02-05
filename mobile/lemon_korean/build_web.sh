@@ -10,7 +10,7 @@ NAS_WEB_DIR="/mnt/nas/lemon/flutter-build/build/web"
 cd "$SCRIPT_DIR"
 
 echo "Building Flutter web app..."
-flutter build web --release
+flutter build web --release --no-wasm-dry-run
 
 echo "Syncing to NAS deployment directory..."
 rsync -av --delete build/web/ "$NAS_WEB_DIR/"

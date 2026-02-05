@@ -716,35 +716,20 @@ const API = (() => {
 
   const systemAPI = {
     /**
-     * 시스템 헬스 체크
-     *
-     * @returns {Promise<Object>} 각 서비스의 상태 (PostgreSQL, MongoDB, Redis, MinIO)
-     */
-    async getHealth() {
-      return request('/api/admin/system/health');
-    },
-
-    /**
      * 감사 로그 조회
      *
      * @param {Object} params - 쿼리 파라미터
      * @param {number} params.page - 페이지 번호
      * @param {number} params.limit - 페이지당 항목 수
      * @param {string} params.action - 작업 필터
+     * @param {string} params.status - 상태 필터
+     * @param {string} params.startDate - 시작일 (YYYY-MM-DD)
+     * @param {string} params.endDate - 종료일 (YYYY-MM-DD)
      * @returns {Promise<{data: Array, pagination: Object}>} 감사 로그 목록
      */
     async getLogs(params = {}) {
       const queryString = buildQueryString(params);
       return request(`/api/admin/system/logs${queryString}`);
-    },
-
-    /**
-     * 시스템 메트릭 조회
-     *
-     * @returns {Promise<Object>} 메모리, CPU, 가동 시간 등 시스템 메트릭
-     */
-    async getMetrics() {
-      return request('/api/admin/system/metrics');
     },
   };
 
@@ -773,6 +758,20 @@ const API = (() => {
       const queryString = buildQueryString({ path: docPath });
       return request(`/api/admin/docs/content${queryString}`);
     },
+
+    /**
+     * 문서 내용 수정
+     *
+     * @param {string} docPath - 문서 경로
+     * @param {string} content - 새 내용
+     * @returns {Promise<{success: boolean, data: Object}>}
+     */
+    async update(docPath, content) {
+      return request('/api/admin/docs/content', {
+        method: 'PUT',
+        body: { path: docPath, content }
+      });
+    }
   };
 
   // =============================================================================
@@ -808,6 +807,33 @@ const API = (() => {
     async categories() {
       return request('/api/admin/dev-notes/categories');
     },
+
+    /**
+     * 개발노트 생성
+     *
+     * @param {Object} data - {metadata, content}
+     * @returns {Promise<{success: boolean, note: Object}>}
+     */
+    async create(data) {
+      return request('/api/admin/dev-notes', {
+        method: 'POST',
+        body: data
+      });
+    },
+
+    /**
+     * 개발노트 수정
+     *
+     * @param {string} notePath - 노트 경로
+     * @param {Object} data - {metadata, content}
+     * @returns {Promise<{success: boolean, note: Object}>}
+     */
+    async update(notePath, data) {
+      return request('/api/admin/dev-notes/content', {
+        method: 'PUT',
+        body: { path: notePath, ...data }
+      });
+    }
   };
 
   // =============================================================================
@@ -958,6 +984,73 @@ const API = (() => {
      */
     async cancel(deploymentId) {
       return request(`/api/admin/deploy/web/${deploymentId}`, {
+        method: 'DELETE',
+      });
+    },
+
+    // APK 빌드 API
+    /**
+     * APK 빌드 시작
+     *
+     * @returns {Promise<Object>} 빌드 ID
+     */
+    async startAPK() {
+      return request('/api/admin/deploy/apk/start', {
+        method: 'POST',
+      });
+    },
+
+    /**
+     * APK 빌드 상태 조회
+     *
+     * @param {number} buildId - 빌드 ID
+     * @returns {Promise<Object>} 빌드 상태
+     */
+    async getAPKStatus(buildId) {
+      return request(`/api/admin/deploy/apk/status/${buildId}`);
+    },
+
+    /**
+     * APK 빌드 로그 조회
+     *
+     * @param {number} buildId - 빌드 ID
+     * @param {number} sinceId - 이후 로그 ID (폴링용)
+     * @returns {Promise<Object>} 로그 데이터
+     */
+    async getAPKLogs(buildId, sinceId = 0) {
+      const query = sinceId > 0 ? `?since=${sinceId}` : '';
+      return request(`/api/admin/deploy/apk/logs/${buildId}${query}`);
+    },
+
+    /**
+     * APK 빌드 이력 조회
+     *
+     * @param {Object} params - 쿼리 파라미터
+     * @returns {Promise<Object>} 빌드 이력
+     */
+    async listAPKHistory(params = {}) {
+      const query = buildQueryString(params);
+      return request(`/api/admin/deploy/apk/history${query}`);
+    },
+
+    /**
+     * APK 다운로드
+     *
+     * @param {number} buildId - 빌드 ID
+     */
+    async downloadAPK(buildId) {
+      const token = Auth.getToken();
+      window.open(`${BASE_URL}/api/admin/deploy/apk/download/${buildId}?token=${token}`, '_blank');
+    },
+
+    /**
+     * APK 빌드 취소
+     *
+     * @param {number} buildId - 빌드 ID
+     * @returns {Promise<Object>} 성공 메시지
+     */
+    async cancelAPK(buildId) {
+      return request(`/api/admin/deploy/apk/${buildId}`, {
         method: 'DELETE',
       });
     },

@@ -1,95 +1,75 @@
 /**
  * System Page
  *
- * 시스템 모니터링 페이지 (헬스 체크, 메트릭, 로그)
+ * 감사 로그 페이지 (페이지네이션 및 필터링 지원)
  */
 
 const SystemPage = (() => {
-  let refreshInterval = null;
+  let currentPage = 1;
+  let currentLimit = 50;
+  let filters = {};
 
   async function render() {
     const layout = `
       <div class="app-layout">
         ${Sidebar.render()}
         <div class="main-content">
-          ${Header.render('시스템 모니터링')}
+          ${Header.render('로그')}
           <div class="content-container">
-            <!-- 헬스 상태 -->
-            <div class="row mb-4">
-              <div class="col-md-3">
-                <div class="health-card">
-                  <div class="health-item">
-                    <span>PostgreSQL</span>
-                    <div class="health-status" id="health-postgres">
-                      <div class="spinner-border spinner-border-sm"></div>
-                    </div>
-                  </div>
+            <!-- 필터바 -->
+            <div class="filter-bar">
+              <div class="row g-3 align-items-end">
+                <div class="col-md-2">
+                  <label for="filter-action" class="form-label">작업 유형</label>
+                  <select class="form-select" id="filter-action">
+                    <option value="">전체</option>
+                    <option value="CREATE">생성 (CREATE)</option>
+                    <option value="UPDATE">수정 (UPDATE)</option>
+                    <option value="DELETE">삭제 (DELETE)</option>
+                    <option value="LOGIN">로그인 (LOGIN)</option>
+                    <option value="LOGOUT">로그아웃 (LOGOUT)</option>
+                  </select>
                 </div>
-              </div>
-              <div class="col-md-3">
-                <div class="health-card">
-                  <div class="health-item">
-                    <span>MongoDB</span>
-                    <div class="health-status" id="health-mongodb">
-                      <div class="spinner-border spinner-border-sm"></div>
-                    </div>
-                  </div>
+                <div class="col-md-2">
+                  <label for="filter-status" class="form-label">상태</label>
+                  <select class="form-select" id="filter-status">
+                    <option value="">전체</option>
+                    <option value="success">성공</option>
+                    <option value="error">오류</option>
+                  </select>
                 </div>
-              </div>
-              <div class="col-md-3">
-                <div class="health-card">
-                  <div class="health-item">
-                    <span>Redis</span>
-                    <div class="health-status" id="health-redis">
-                      <div class="spinner-border spinner-border-sm"></div>
-                    </div>
-                  </div>
+                <div class="col-md-2">
+                  <label for="filter-start-date" class="form-label">시작일</label>
+                  <input type="date" class="form-control" id="filter-start-date">
                 </div>
-              </div>
-              <div class="col-md-3">
-                <div class="health-card">
-                  <div class="health-item">
-                    <span>MinIO</span>
-                    <div class="health-status" id="health-minio">
-                      <div class="spinner-border spinner-border-sm"></div>
-                    </div>
-                  </div>
+                <div class="col-md-2">
+                  <label for="filter-end-date" class="form-label">종료일</label>
+                  <input type="date" class="form-control" id="filter-end-date">
                 </div>
-              </div>
-            </div>
-
-            <!-- 시스템 메트릭 -->
-            <div class="row mb-4">
-              <div class="col-md-6">
-                <div class="table-card">
-                  <div class="card-header">
-                    <h5 class="card-title">시스템 메트릭</h5>
-                  </div>
-                  <div id="metrics-container">
-                    <div class="text-center py-4">
-                      <div class="spinner-border text-primary"></div>
-                    </div>
-                  </div>
+                <div class="col-md-2">
+                  <label for="filter-limit" class="form-label">페이지당 항목 수</label>
+                  <select class="form-select" id="filter-limit">
+                    <option value="10">10개</option>
+                    <option value="25">25개</option>
+                    <option value="50" selected>50개</option>
+                    <option value="100">100개</option>
+                  </select>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="table-card">
-                  <div class="card-header">
-                    <h5 class="card-title">프로세스 정보</h5>
-                  </div>
-                  <div id="process-info">
-                    <div class="text-center py-4">
-                      <div class="spinner-border text-primary"></div>
-                    </div>
-                  </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary w-100" id="btn-apply-filters">
+                    <i class="fas fa-search"></i> 검색
+                  </button>
+                  <button class="btn btn-secondary w-100 mt-2" id="btn-reset-filters">
+                    <i class="fas fa-redo"></i> 초기화
+                  </button>
                 </div>
               </div>
             </div>
 
-            <!-- 감사 로그 -->
+            <!-- 감사 로그 테이블 -->
             <div class="table-card">
               <div class="card-header">
-                <h5 class="card-title">감사 로그 (최근 50개)</h5>
+                <h5 class="card-title">감사 로그</h5>
               </div>
               <div class="table-responsive">
                 <table class="table">
@@ -107,6 +87,9 @@ const SystemPage = (() => {
                   </tbody>
                 </table>
               </div>
+
+              <!-- 페이지네이션 -->
+              <div id="pagination-container"></div>
             </div>
           </div>
         </div>
@@ -114,94 +97,58 @@ const SystemPage = (() => {
     `;
     Router.render(layout);
     Sidebar.updateActive();
-    await loadData();
 
-    // 30초마다 자동 새로고침
-    refreshInterval = setInterval(loadData, 30000);
+    // 이벤트 리스너 등록
+    attachEventListeners();
+
+    // 초기 데이터 로드
+    await loadData();
+  }
+
+  function attachEventListeners() {
+    // 검색 버튼
+    document.getElementById('btn-apply-filters').addEventListener('click', applyFilters);
+
+    // 초기화 버튼
+    document.getElementById('btn-reset-filters').addEventListener('click', resetFilters);
+
+    // 페이지당 항목 수 변경 시 즉시 적용
+    document.getElementById('filter-limit').addEventListener('change', (e) => {
+      currentLimit = parseInt(e.target.value);
+      currentPage = 1;
+      loadData();
+    });
+
+    // Enter 키로 검색
+    ['filter-action', 'filter-status', 'filter-start-date', 'filter-end-date'].forEach(id => {
+      document.getElementById(id).addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          applyFilters();
+        }
+      });
+    });
   }
 
   async function loadData() {
     try {
-      const [healthResponse, metricsResponse, logsResponse] = await Promise.all([
-        API.system.getHealth(),
-        API.system.getMetrics(),
-        API.system.getLogs({ limit: 50 }),
-      ]);
+      const params = {
+        page: currentPage,
+        limit: currentLimit,
+        ...filters
+      };
+
+      const response = await API.system.getLogs(params);
 
       // Unwrap data from response
-      const health = healthResponse.data || healthResponse;
-      const metrics = metricsResponse.data || metricsResponse;
-      const logs = logsResponse.data || logsResponse;
+      const logs = response.data || response;
+      const pagination = response.pagination;
 
-      updateHealthStatus(health);
-      updateMetrics(metrics);
       updateLogs(logs);
+      updatePagination(pagination);
     } catch (error) {
       console.error('[SystemPage] 데이터 로드 에러:', error);
-      Toast.error('시스템 정보를 불러올 수 없습니다.');
+      Toast.error('로그를 불러올 수 없습니다.');
     }
-  }
-
-  function updateHealthStatus(health) {
-    const services = ['postgres', 'mongodb', 'redis', 'minio'];
-
-    services.forEach((service) => {
-      const element = document.getElementById(`health-${service}`);
-      const serviceData = health.services?.[service];
-      const status = serviceData?.status || 'unknown';
-
-      if (status === 'connected' || status === 'healthy') {
-        element.innerHTML = '<i class="fas fa-check-circle"></i> 정상';
-        element.className = 'health-status healthy';
-      } else {
-        element.innerHTML = '<i class="fas fa-times-circle"></i> 오류';
-        element.className = 'health-status unhealthy';
-      }
-    });
-  }
-
-  function updateMetrics(metrics) {
-    const container = document.getElementById('metrics-container');
-    const memory = metrics.memory || {};
-    const memoryUsage = memory.heapTotal > 0
-      ? ((memory.heapUsed / memory.heapTotal) * 100).toFixed(1)
-      : 0;
-
-    // 메모리 사용률에 따른 색상 결정
-    let memoryColor = 'bg-success'; // 녹색 (안전)
-    if (memoryUsage >= 80) {
-      memoryColor = 'bg-danger'; // 빨간색 (위험)
-    } else if (memoryUsage >= 60) {
-      memoryColor = 'bg-warning'; // 노란색 (주의)
-    }
-
-    container.innerHTML = `
-      <div class="p-3">
-        <div class="mb-3">
-          <label class="form-label">메모리 사용률</label>
-          <div class="progress">
-            <div class="progress-bar ${memoryColor}" style="width: ${memoryUsage}%">${memoryUsage}%</div>
-          </div>
-          <small class="text-muted">
-            ${memory.heapUsed || 0} MB / ${memory.heapTotal || 0} MB
-          </small>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">가동 시간</label>
-          <p>${Formatters.formatDuration(Math.floor((metrics.uptime || 0) / 60))}</p>
-        </div>
-      </div>
-    `;
-
-    const processInfo = document.getElementById('process-info');
-    const proc = metrics.process || {};
-    processInfo.innerHTML = `
-      <div class="p-3">
-        <div class="mb-2"><strong>Node.js 버전:</strong> ${proc.version || '-'}</div>
-        <div class="mb-2"><strong>Platform:</strong> ${proc.platform || '-'}</div>
-        <div class="mb-2"><strong>PID:</strong> ${proc.pid || '-'}</div>
-      </div>
-    `;
   }
 
   function updateLogs(logs) {
@@ -227,15 +174,65 @@ const SystemPage = (() => {
     `).join('');
   }
 
+  function updatePagination(pagination) {
+    if (!pagination) return;
+
+    const container = document.getElementById('pagination-container');
+    const html = Pagination.render({
+      currentPage: pagination.page || 1,
+      totalPages: pagination.totalPages || 1,
+      totalItems: pagination.total || 0,
+      limit: pagination.limit || 50,
+      onPageChange: (page) => {
+        currentPage = page;
+        loadData();
+      }
+    });
+    container.innerHTML = html;
+  }
+
+  function applyFilters() {
+    const action = document.getElementById('filter-action').value;
+    const status = document.getElementById('filter-status').value;
+    const startDate = document.getElementById('filter-start-date').value;
+    const endDate = document.getElementById('filter-end-date').value;
+
+    // 날짜 유효성 검사
+    if (startDate && endDate && startDate > endDate) {
+      Toast.error('시작일은 종료일보다 이전이어야 합니다.');
+      return;
+    }
+
+    filters = {};
+    if (action) filters.action = action;
+    if (status) filters.status = status;
+    if (startDate) filters.startDate = startDate;
+    if (endDate) filters.endDate = endDate;
+
+    currentPage = 1;
+    loadData();
+  }
+
+  function resetFilters() {
+    filters = {};
+    currentPage = 1;
+    currentLimit = 50;
+
+    // 필터 입력 초기화
+    document.getElementById('filter-action').value = '';
+    document.getElementById('filter-status').value = '';
+    document.getElementById('filter-start-date').value = '';
+    document.getElementById('filter-end-date').value = '';
+    document.getElementById('filter-limit').value = '50';
+
+    loadData();
+  }
+
   // Public API 반환
   return {
     render,
-    // 페이지 떠날 때 interval 정리
     cleanup: () => {
-      if (refreshInterval) {
-        clearInterval(refreshInterval);
-        refreshInterval = null;
-      }
-    },
+      // 페이지 떠날 때 정리 (자동 갱신 없음)
+    }
   };
 })();

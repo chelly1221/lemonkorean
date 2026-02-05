@@ -37,7 +37,7 @@ Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 6 Microservices ↔ Post
 | Progress | 3003 | Go | 진도/SRS |
 | Media | 3004 | Go | 미디어 서빙 |
 | Analytics | 3005 | Python | 통계 |
-| Admin | 3006 | Node.js | 관리자 대시보드, 앱 테마 설정 |
+| Admin | 3006 | Node.js | 관리자 대시보드, 앱 테마 설정, APK 빌드 |
 
 ---
 
@@ -45,10 +45,10 @@ Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 6 Microservices ↔ Post
 ```
 services/           # 백엔드 마이크로서비스
 mobile/lemon_korean/lib/  # Flutter 앱 (134 Dart 파일)
-database/postgres/  # PostgreSQL 스키마 (21개 테이블)
+database/postgres/  # PostgreSQL 스키마 (23개 테이블)
 config/             # DB/서비스 설정 파일
 nginx/              # Nginx 설정
-scripts/            # 백업, 최적화 스크립트
+scripts/            # 백업, 최적화, 배포 트리거 스크립트
 dev-notes/          # 개발노트
 ```
 
@@ -128,6 +128,11 @@ return localPath ?? '${ApiConstants.baseUrl}/media/$remoteKey';
 - 오프라인 다운로드 불가 (항상 온라인 가정)
 - localStorage 5-10MB 제한
 
+### 배포 자동화
+- Deploy Agent는 systemd 서비스로 실행 (`deploy-agent.service`)
+- 웹/APK 빌드는 Admin Dashboard에서 트리거
+- 트리거 파일 기반 통신 (`/services/admin/src/deploy-triggers/`)
+
 ---
 
 ## 트러블슈팅
@@ -155,6 +160,7 @@ sudo lsof -i :5432
 | API 엔드포인트 | `/docs/API.md` |
 | DB 스키마 | `/database/postgres/SCHEMA.md` |
 | 배포 가이드 | `/DEPLOYMENT.md` |
+| 배포 트리거 시스템 | `/scripts/deploy-trigger/README.md` |
 | 테스트 | `/TESTING.md` |
 | 모니터링 | `/MONITORING.md` |
 | 백업 | `/scripts/backup/README.md` |

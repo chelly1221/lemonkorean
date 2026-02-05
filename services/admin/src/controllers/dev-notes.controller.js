@@ -40,6 +40,38 @@ function parseFrontmatter(content) {
 }
 
 /**
+ * Serialize metadata and content into frontmatter format
+ * @param {Object} metadata - Frontmatter metadata
+ * @param {string} content - Markdown content
+ * @returns {string} - Complete file content with frontmatter
+ */
+function serializeFrontmatter(metadata, content) {
+  const yamlStr = yaml.dump(metadata, {
+    indent: 2,
+    lineWidth: -1,
+    noRefs: true
+  });
+  return `---\n${yamlStr}---\n\n${content}`;
+}
+
+/**
+ * Generate filename from date and title
+ * @param {string} date - Date in YYYY-MM-DD format
+ * @param {string} title - Note title
+ * @returns {string} - Generated filename
+ */
+function generateFilename(date, title) {
+  // Slugify title (remove special chars, replace spaces with hyphens)
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .substring(0, 50);
+
+  return `${date}-${slug}.md`;
+}
+
+/**
  * Extract date from filename (YYYY-MM-DD-*.md pattern)
  * @param {string} filename - Filename to extract date from
  * @returns {string|null} - ISO date string or null
@@ -326,8 +358,158 @@ async function getCategories(req, res) {
   }
 }
 
+/**
+ * POST /api/admin/dev-notes
+ * Create new development note
+ */
+async function createDevNote(req, res) {
+  try {
+    const { metadata, content } = req.body;
+
+    // Validation
+    if (!metadata || !content) {
+      return res.status(400).json({
+        success: false,
+        error: 'Metadata and content are required'
+      });
+    }
+
+    // Required fields
+    if (!metadata.date || !metadata.title || !metadata.category) {
+      return res.status(400).json({
+        success: false,
+        error: 'Date, title, and category are required'
+      });
+    }
+
+    // Generate filename
+    const filename = generateFilename(metadata.date, metadata.title);
+    const filePath = path.join(DEV_NOTES_BASE_DIR, filename);
+
+    // Check if file already exists
+    try {
+      await fs.access(filePath);
+      return res.status(400).json({
+        success: false,
+        error: 'A note with this date and title already exists'
+      });
+    } catch {
+      // File doesn't exist, good to proceed
+    }
+
+    // Ensure dev-notes directory exists
+    await fs.mkdir(DEV_NOTES_BASE_DIR, { recursive: true });
+
+    // Serialize frontmatter + content
+    const fileContent = serializeFrontmatter(metadata, content);
+
+    // Write file
+    await fs.writeFile(filePath, fileContent, 'utf-8');
+
+    // Get file stats
+    const stats = await fs.stat(filePath);
+
+    res.json({
+      success: true,
+      note: {
+        filename,
+        path: `dev-notes/${filename}`,
+        size: stats.size,
+        modifiedAt: stats.mtime.toISOString()
+      }
+    });
+
+  } catch (error) {
+    console.error('Error creating dev note:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create development note'
+    });
+  }
+}
+
+/**
+ * PUT /api/admin/dev-notes/content
+ * Update existing development note
+ */
+async function updateDevNote(req, res) {
+  try {
+    const { path: notePath, metadata, content } = req.body;
+
+    // Validation
+    if (!notePath || !metadata || content === undefined) {
+      return res.status(400).json({
+        success: false,
+        error: 'Path, metadata, and content are required'
+      });
+    }
+
+    // Sanitize path
+    const sanitizedPath = sanitizePath(notePath);
+    if (!sanitizedPath) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid path'
+      });
+    }
+
+    // Check if file exists
+    try {
+      await fs.access(sanitizedPath);
+    } catch {
+      return res.status(404).json({
+        success: false,
+        error: 'Note not found'
+      });
+    }
+
+    // Create backup
+    const timestamp = Date.now();
+    const backupPath = `${sanitizedPath}.bak.${timestamp}`;
+    await fs.copyFile(sanitizedPath, backupPath);
+
+    // Cleanup old backups (keep last 5)
+    const dirPath = path.dirname(sanitizedPath);
+    const filename = path.basename(sanitizedPath);
+    const files = await fs.readdir(dirPath);
+    const backups = files
+      .filter(f => f.startsWith(`${filename}.bak.`))
+      .map(f => ({ name: f, path: path.join(dirPath, f) }))
+      .sort((a, b) => b.name.localeCompare(a.name));
+
+    for (let i = 5; i < backups.length; i++) {
+      await fs.unlink(backups[i].path).catch(() => {});
+    }
+
+    // Serialize and write
+    const fileContent = serializeFrontmatter(metadata, content);
+    await fs.writeFile(sanitizedPath, fileContent, 'utf-8');
+
+    // Get updated stats
+    const stats = await fs.stat(sanitizedPath);
+
+    res.json({
+      success: true,
+      note: {
+        path: notePath,
+        size: stats.size,
+        modifiedAt: stats.mtime.toISOString()
+      }
+    });
+
+  } catch (error) {
+    console.error('Error updating dev note:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update development note'
+    });
+  }
+}
+
 module.exports = {
   getDevNotesList,
   getDevNoteContent,
-  getCategories
+  getCategories,
+  createDevNote,
+  updateDevNote
 };

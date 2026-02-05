@@ -65,11 +65,79 @@ async function startDeployment(adminId, adminEmail) {
 }
 
 /**
+ * Update status with retry logic
+ */
+async function updateStatusWithRetry(deploymentId, status, options = {}) {
+  const maxRetries = 3;
+  const { completedAt, duration, errorMessage, progress } = options;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const updates = ['status = $1'];
+      const params = [status];
+      let paramIndex = 2;
+
+      if (progress !== undefined) {
+        updates.push(`progress = $${paramIndex++}`);
+        params.push(progress);
+      }
+      if (completedAt) {
+        updates.push(`completed_at = NOW()`);
+      }
+      if (duration !== undefined) {
+        updates.push(`duration_seconds = $${paramIndex++}`);
+        params.push(duration);
+      }
+      if (errorMessage !== undefined) {
+        updates.push(`error_message = $${paramIndex++}`);
+        params.push(errorMessage);
+      }
+
+      params.push(deploymentId);
+
+      await pool.query(
+        `UPDATE web_deployments SET ${updates.join(', ')} WHERE id = $${paramIndex}`,
+        params
+      );
+
+      return; // Success
+    } catch (err) {
+      console.error(`[DEPLOY] Status update attempt ${attempt} failed:`, err);
+
+      if (attempt === maxRetries) {
+        // Last attempt failed - write to recovery log
+        const fs = require('fs').promises;
+        const recoveryLog = '/app/src/deploy-triggers/status-update-failures.log';
+        const entry = JSON.stringify({
+          deploymentId,
+          status,
+          options,
+          timestamp: new Date().toISOString(),
+          error: err.message
+        }) + '\n';
+
+        try {
+          await fs.appendFile(recoveryLog, entry);
+        } catch (logErr) {
+          console.error('[DEPLOY] Failed to write recovery log:', logErr);
+        }
+
+        throw err;
+      }
+
+      // Exponential backoff: 1s, 2s, 4s
+      await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt - 1) * 1000));
+    }
+  }
+}
+
+/**
  * Execute deployment process
  * Runs build_web.sh, captures output, updates status
  */
 async function executeDeployment(deploymentId) {
   const startTime = Date.now();
+  let isCancelled = false;
 
   try {
     // Update status: building
@@ -117,9 +185,23 @@ async function executeDeployment(deploymentId) {
       const maxAttempts = 450; // 15 minutes
       let lastLogSize = 0;
 
-      while (attempts < maxAttempts) {
+      while (attempts < maxAttempts && !isCancelled) {
         await new Promise(resolve => setTimeout(resolve, 2000));
         attempts++;
+
+        // Check for cancellation signal
+        const cancelFile = path.join(triggerDir, `deploy-${deploymentId}.cancel`);
+        try {
+          await fs.access(cancelFile);
+          // Cancel file exists
+          isCancelled = true;
+          await fs.unlink(cancelFile).catch(() => {});
+          throw new Error('Deployment cancelled by admin');
+        } catch (err) {
+          if (err.code !== 'ENOENT' && err.message.includes('cancelled')) {
+            throw err;
+          }
+        }
 
         // Check for new logs and append them
         try {
@@ -164,7 +246,13 @@ async function executeDeployment(deploymentId) {
         await updateStatus(deploymentId, 'building', progress);
       }
 
-      throw new Error('Deployment timeout - deploy agent may not be running. Check agent status: systemctl status lemon-deploy-agent');
+      if (isCancelled) {
+        throw new Error('Deployment cancelled by admin');
+      }
+
+      if (attempts >= maxAttempts) {
+        throw new Error('Deployment timeout - deploy agent may not be running. Check agent status: systemctl status lemon-deploy-agent');
+      }
 
     } catch (error) {
       await appendLog(deploymentId, 'error', `Deployment error: ${error.message}`);
@@ -183,13 +271,11 @@ async function executeDeployment(deploymentId) {
 
     // Mark as completed
     const duration = Math.floor((Date.now() - startTime) / 1000);
-    await pool.query(
-      `UPDATE web_deployments
-       SET status = 'completed', progress = 100,
-           completed_at = NOW(), duration_seconds = $1
-       WHERE id = $2`,
-      [duration, deploymentId]
-    );
+    await updateStatusWithRetry(deploymentId, 'completed', {
+      completedAt: true,
+      duration,
+      progress: 100
+    });
 
     await appendLog(deploymentId, 'info', `✅ Deployment completed successfully in ${duration}s`);
 
@@ -197,13 +283,16 @@ async function executeDeployment(deploymentId) {
     console.error('[DEPLOY] Error:', error);
 
     const duration = Math.floor((Date.now() - startTime) / 1000);
-    await pool.query(
-      `UPDATE web_deployments
-       SET status = 'failed', completed_at = NOW(),
-           duration_seconds = $1, error_message = $2
-       WHERE id = $3`,
-      [duration, error.message, deploymentId]
-    );
+
+    try {
+      await updateStatusWithRetry(deploymentId, 'failed', {
+        completedAt: true,
+        duration,
+        errorMessage: error.message
+      });
+    } catch (updateErr) {
+      console.error('[DEPLOY] CRITICAL: Failed to update status after all retries');
+    }
 
     await appendLog(deploymentId, 'error', `❌ Deployment failed: ${error.message}`);
 
@@ -398,6 +487,18 @@ async function cancelDeployment(deploymentId) {
 
   if (result.rows.length === 0) {
     throw new Error('Deployment not found or already completed');
+  }
+
+  // Write cancel signal file
+  const fs = require('fs').promises;
+  const path = require('path');
+  const triggerDir = '/app/src/deploy-triggers';
+  const cancelFile = path.join(triggerDir, `deploy-${deploymentId}.cancel`);
+
+  try {
+    await fs.writeFile(cancelFile, 'CANCEL', 'utf8');
+  } catch (err) {
+    console.error('[DEPLOY] Failed to write cancel file:', err);
   }
 
   // Release lock

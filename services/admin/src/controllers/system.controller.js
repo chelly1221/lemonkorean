@@ -2,37 +2,12 @@ const systemService = require('../services/system-monitoring.service');
 
 /**
  * System Controller
- * Handles HTTP requests for system monitoring
+ * Handles HTTP requests for system logs
  */
-
-/**
- * GET /api/admin/system/health
- * Get health status of all services
- */
-const getHealth = async (req, res) => {
-  try {
-    const health = await systemService.checkAllServices();
-
-    // Always return 200 OK so frontend can display the data
-    // Frontend will check health.status to determine if services are healthy or degraded
-    res.status(200).json({
-      success: true,
-      data: health
-    });
-  } catch (error) {
-    console.error('[SYSTEM_CONTROLLER] Error checking health:', error);
-
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'Failed to check system health',
-      ...(process.env.NODE_ENV === 'development' && { details: error.message })
-    });
-  }
-};
 
 /**
  * GET /api/admin/system/logs
- * Get system audit logs with pagination
+ * Get system audit logs with pagination and filtering
  */
 const getLogs = async (req, res) => {
   try {
@@ -81,31 +56,6 @@ const getLogs = async (req, res) => {
   }
 };
 
-/**
- * GET /api/admin/system/metrics
- * Get system performance metrics
- */
-const getMetrics = async (req, res) => {
-  try {
-    const metrics = await systemService.getSystemMetrics();
-
-    res.json({
-      success: true,
-      data: metrics
-    });
-  } catch (error) {
-    console.error('[SYSTEM_CONTROLLER] Error getting metrics:', error);
-
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'Failed to retrieve system metrics',
-      ...(process.env.NODE_ENV === 'development' && { details: error.message })
-    });
-  }
-};
-
 module.exports = {
-  getHealth,
-  getLogs,
-  getMetrics
+  getLogs
 };

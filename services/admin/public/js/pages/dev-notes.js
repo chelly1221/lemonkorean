@@ -23,6 +23,9 @@ const DevNotesPage = (() => {
     expandedGroups: new Set(), // 펼쳐진 그룹 추적
   };
 
+  // EasyMDE instance
+  let editorInstance = null;
+
   // ==================== Main Render ====================
 
   /**
@@ -443,6 +446,16 @@ const DevNotesPage = (() => {
           text-decoration: underline;
         }
 
+        /* Edit button in metadata */
+        .card-body .btn-link {
+          font-size: 16px;
+          text-decoration: none;
+        }
+
+        .card-body .btn-link:hover {
+          opacity: 0.8;
+        }
+
         @media (max-width: 992px) {
           .dev-notes-layout {
             flex-direction: column;
@@ -479,6 +492,9 @@ const DevNotesPage = (() => {
 
           <!-- Sidebar -->
           <div class="dev-notes-sidebar">
+            <button class="btn btn-success w-100 mb-3" onclick="DevNotesPage.openCreateModal()">
+              <i class="fas fa-plus me-2"></i>새 개발노트
+            </button>
             ${renderViewToggle()}
             ${renderCategoryFilter()}
             ${renderNotesList()}
@@ -629,26 +645,25 @@ const DevNotesPage = (() => {
       <div class="card">
         <div class="card-body">
           <!-- Header -->
-          <div class="d-flex justify-content-between align-items-start mb-4">
-            <div>
-              <h3 class="mb-2">${escapeHtml(note.title)}</h3>
-              <div class="d-flex gap-2 align-items-center flex-wrap">
-                <span class="category-badge">${escapeHtml(note.category)}</span>
-                <span class="priority-badge priority-${note.priority}">${note.priority}</span>
-                ${note.tags && note.tags.length > 0 ? note.tags.map((tag) => `<span class="badge bg-light text-dark">#${escapeHtml(tag)}</span>`).join('') : ''}
-              </div>
+          <div class="mb-4">
+            <h3 class="mb-2">${escapeHtml(note.title)}</h3>
+            <div class="d-flex gap-2 align-items-center flex-wrap">
+              <span class="category-badge">${escapeHtml(note.category)}</span>
+              <span class="priority-badge priority-${note.priority}">${note.priority}</span>
+              ${note.tags && note.tags.length > 0 ? note.tags.map((tag) => `<span class="badge bg-light text-dark">#${escapeHtml(tag)}</span>`).join('') : ''}
             </div>
           </div>
 
           <!-- Metadata -->
           <div class="border-bottom pb-3 mb-4 text-muted small">
-            <div class="row">
-              <div class="col-md-6">
-                <i class="fas fa-user"></i> ${escapeHtml(note.author || 'Unknown')}
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <i class="fas fa-user me-1"></i>${escapeHtml(note.author || 'Unknown')}
+                <span class="ms-3"><i class="fas fa-calendar-alt me-1"></i>${note.date || 'N/A'}</span>
               </div>
-              <div class="col-md-6 text-md-end">
-                <i class="fas fa-calendar-alt"></i> ${note.date || 'N/A'}
-              </div>
+              <button class="btn btn-sm btn-link text-primary p-0" onclick="DevNotesPage.openEditModal()" title="편집">
+                <i class="fas fa-edit"></i>
+              </button>
             </div>
           </div>
 
@@ -849,8 +864,269 @@ const DevNotesPage = (() => {
     return div.innerHTML;
   }
 
+  // ==================== Editor Functions ====================
+
+  /**
+   * Open create modal
+   */
+  async function openCreateModal() {
+    Modal.create({
+      title: '새 개발노트 작성',
+      size: 'xl',
+      body: renderCreateModal(),
+      confirmText: '생성',
+      confirmClass: 'btn-success',
+      onConfirm: async () => await createNote(),
+      onClose: () => cleanupEditor()
+    });
+
+    setTimeout(() => initializeEditor(''), 100);
+  }
+
+  /**
+   * Render create modal HTML
+   */
+  function renderCreateModal() {
+    const today = new Date().toISOString().split('T')[0];
+
+    return `
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">제목 *</label>
+          <input type="text" class="form-control" id="note-title" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">날짜 *</label>
+          <input type="date" class="form-control" id="note-date" value="${today}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">우선순위</label>
+          <select class="form-select" id="note-priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">카테고리 *</label>
+          <select class="form-select" id="note-category" required>
+            <option value="Mobile">Mobile</option>
+            <option value="Backend">Backend</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Database">Database</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Documentation">Documentation</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">태그 (쉼표로 구분)</label>
+          <input type="text" class="form-control" id="note-tags" placeholder="feature, bugfix">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">작성자</label>
+        <input type="text" class="form-control" id="note-author" value="Claude Sonnet 4.5">
+      </div>
+      <div class="editor-container">
+        <label class="form-label">내용 (Markdown) *</label>
+        <textarea id="note-editor" style="display:none;"></textarea>
+      </div>
+    `;
+  }
+
+  /**
+   * Create new note
+   */
+  async function createNote() {
+    const title = document.getElementById('note-title')?.value.trim();
+    const date = document.getElementById('note-date')?.value;
+    const category = document.getElementById('note-category')?.value;
+    const priority = document.getElementById('note-priority')?.value;
+    const author = document.getElementById('note-author')?.value.trim();
+    const tagsInput = document.getElementById('note-tags')?.value.trim();
+    const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
+    const content = editorInstance?.value() || '';
+
+    if (!title || !date || !category || !content) {
+      Toast.error('제목, 날짜, 카테고리, 내용은 필수입니다.');
+      return false;
+    }
+
+    const metadata = {
+      date,
+      category,
+      title,
+      author: author || 'Claude Sonnet 4.5',
+      tags,
+      priority
+    };
+
+    try {
+      await API.devNotes.create({ metadata, content });
+      Toast.success('개발노트가 생성되었습니다.');
+      await loadNotes();
+      return true;
+    } catch (error) {
+      console.error('Error creating note:', error);
+      Toast.error('생성 실패: ' + (error.message || '알 수 없는 오류'));
+      return false;
+    }
+  }
+
+  /**
+   * Open edit modal for current note
+   */
+  async function openEditModal() {
+    if (!state.currentNote) return;
+
+    Modal.create({
+      title: `개발노트 편집: ${state.currentNote.title}`,
+      size: 'xl',
+      body: renderEditModal(),
+      confirmText: '저장',
+      confirmClass: 'btn-primary',
+      onConfirm: async () => await updateNote(),
+      onClose: () => cleanupEditor()
+    });
+
+    setTimeout(() => initializeEditor(state.currentNote.content || ''), 100);
+  }
+
+  /**
+   * Render edit modal HTML
+   */
+  function renderEditModal() {
+    const note = state.currentNote;
+    const tags = (note.tags || []).join(', ');
+
+    return `
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">제목 *</label>
+          <input type="text" class="form-control" id="note-title" value="${escapeHtml(note.title)}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">날짜 *</label>
+          <input type="date" class="form-control" id="note-date" value="${note.date}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">우선순위</label>
+          <select class="form-select" id="note-priority">
+            <option value="low" ${note.priority === 'low' ? 'selected' : ''}>Low</option>
+            <option value="medium" ${note.priority === 'medium' ? 'selected' : ''}>Medium</option>
+            <option value="high" ${note.priority === 'high' ? 'selected' : ''}>High</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">카테고리 *</label>
+          <select class="form-select" id="note-category" required>
+            ${['Mobile', 'Backend', 'Frontend', 'Database', 'Infrastructure', 'Documentation'].map(cat => `
+              <option value="${cat}" ${note.category === cat ? 'selected' : ''}>${cat}</option>
+            `).join('')}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">태그 (쉼표로 구분)</label>
+          <input type="text" class="form-control" id="note-tags" value="${escapeHtml(tags)}">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">작성자</label>
+        <input type="text" class="form-control" id="note-author" value="${escapeHtml(note.author || 'Claude Sonnet 4.5')}">
+      </div>
+      <div class="editor-container">
+        <label class="form-label">내용 (Markdown) *</label>
+        <textarea id="note-editor" style="display:none;"></textarea>
+      </div>
+    `;
+  }
+
+  /**
+   * Update existing note
+   */
+  async function updateNote() {
+    const title = document.getElementById('note-title')?.value.trim();
+    const date = document.getElementById('note-date')?.value;
+    const category = document.getElementById('note-category')?.value;
+    const priority = document.getElementById('note-priority')?.value;
+    const author = document.getElementById('note-author')?.value.trim();
+    const tagsInput = document.getElementById('note-tags')?.value.trim();
+    const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
+    const content = editorInstance?.value() || '';
+
+    if (!title || !date || !category || !content) {
+      Toast.error('제목, 날짜, 카테고리, 내용은 필수입니다.');
+      return false;
+    }
+
+    const metadata = {
+      date,
+      category,
+      title,
+      author: author || state.currentNote.author || 'Claude Sonnet 4.5',
+      tags,
+      priority
+    };
+
+    try {
+      await API.devNotes.update(state.currentNote.path, { metadata, content });
+      Toast.success('개발노트가 저장되었습니다.');
+      await loadNotes();
+      await loadNote(state.currentNote.path);
+      return true;
+    } catch (error) {
+      console.error('Error updating note:', error);
+      Toast.error('저장 실패: ' + (error.message || '알 수 없는 오류'));
+      return false;
+    }
+  }
+
+  /**
+   * Initialize EasyMDE editor
+   */
+  function initializeEditor(initialContent) {
+    const textarea = document.getElementById('note-editor');
+    if (!textarea) return;
+
+    textarea.value = initialContent;
+
+    editorInstance = new EasyMDE({
+      element: textarea,
+      autofocus: true,
+      spellChecker: false,
+      renderingConfig: {
+        singleLineBreaks: false,
+        codeSyntaxHighlighting: true
+      },
+      toolbar: [
+        'bold', 'italic', 'heading', '|',
+        'code', 'quote', 'unordered-list', 'ordered-list', '|',
+        'link', 'image', 'table', '|',
+        'preview', 'side-by-side', 'fullscreen', '|',
+        'guide'
+      ]
+    });
+  }
+
+  /**
+   * Cleanup editor instance
+   */
+  function cleanupEditor() {
+    if (editorInstance) {
+      editorInstance.toTextArea();
+      editorInstance = null;
+    }
+  }
+
   // Public API
   return {
     render,
+    loadNote,
+    openCreateModal,
+    openEditModal
   };
 })();

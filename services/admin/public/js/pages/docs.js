@@ -12,6 +12,9 @@ const DocsPage = (() => {
   let currentDoc = null;
   let expandedCategories = new Set(['project']); // Default expanded
 
+  // EasyMDE instance
+  let editorInstance = null;
+
   /**
    * Render the docs page
    */
@@ -341,16 +344,27 @@ const DocsPage = (() => {
         justify-content: space-between;
         margin-bottom: 1.5rem;
         padding-bottom: 1rem;
-        border-bottom: 1px solid #e9ecef;
       }
 
       .docs-header-info {
         color: #6c757d;
         font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
 
       .docs-header-info i {
         margin-right: 4px;
+      }
+
+      .docs-header-info .btn-link {
+        font-size: 16px;
+        text-decoration: none;
+      }
+
+      .docs-header-info .btn-link:hover {
+        opacity: 0.8;
       }
 
       /* Loading state */
@@ -636,7 +650,10 @@ const DocsPage = (() => {
         </div>
         <div class="docs-header-info">
           <span class="me-3"><i class="fas fa-file"></i> ${formatSize(currentDoc.size)}</span>
-          <span><i class="fas fa-clock"></i> ${formatDate(currentDoc.modifiedAt)}</span>
+          <span class="me-3"><i class="fas fa-clock"></i> ${formatDate(currentDoc.modifiedAt)}</span>
+          <button class="btn btn-sm btn-link text-primary p-0" onclick="DocsPage.openEditModal()" title="편집">
+            <i class="fas fa-edit"></i>
+          </button>
         </div>
       </div>
       <div class="markdown-body" id="markdown-content">
@@ -684,8 +701,103 @@ const DocsPage = (() => {
     return div.innerHTML;
   }
 
+  /**
+   * Open edit modal for current document
+   */
+  async function openEditModal() {
+    if (!currentDoc) return;
+
+    Modal.create({
+      title: `문서 편집: ${currentDoc.path}`,
+      size: 'xl',
+      body: renderEditorModal(),
+      confirmText: '저장',
+      confirmClass: 'btn-primary',
+      onConfirm: async () => await saveDocChanges(),
+      onClose: () => cleanupEditor()
+    });
+
+    // Initialize EasyMDE after modal is rendered
+    setTimeout(() => initializeEditor(), 100);
+  }
+
+  /**
+   * Render editor modal HTML
+   */
+  function renderEditorModal() {
+    const content = currentDoc.content || '';
+    return `
+      <div class="editor-container">
+        <textarea id="doc-editor" style="display:none;">${escapeHtml(content)}</textarea>
+        <small class="text-muted d-block mt-2">
+          <i class="fas fa-info-circle me-1"></i>
+          파일 경로: ${currentDoc.path}
+        </small>
+      </div>
+    `;
+  }
+
+  /**
+   * Initialize EasyMDE editor
+   */
+  function initializeEditor() {
+    const textarea = document.getElementById('doc-editor');
+    if (!textarea) return;
+
+    editorInstance = new EasyMDE({
+      element: textarea,
+      autofocus: true,
+      spellChecker: false,
+      renderingConfig: {
+        singleLineBreaks: false,
+        codeSyntaxHighlighting: true
+      },
+      toolbar: [
+        'bold', 'italic', 'heading', '|',
+        'code', 'quote', 'unordered-list', 'ordered-list', '|',
+        'link', 'image', 'table', '|',
+        'preview', 'side-by-side', 'fullscreen', '|',
+        'guide'
+      ]
+    });
+  }
+
+  /**
+   * Save document changes
+   */
+  async function saveDocChanges() {
+    if (!editorInstance) return false;
+
+    const content = editorInstance.value();
+
+    try {
+      await API.docs.update(currentDoc.path, content);
+      Toast.success('문서가 저장되었습니다.');
+
+      // Reload document
+      await loadDocument(currentDoc.path);
+      return true; // Close modal
+    } catch (error) {
+      console.error('Error saving document:', error);
+      Toast.error('저장 실패: ' + (error.message || '알 수 없는 오류'));
+      return false; // Keep modal open
+    }
+  }
+
+  /**
+   * Cleanup editor instance
+   */
+  function cleanupEditor() {
+    if (editorInstance) {
+      editorInstance.toTextArea();
+      editorInstance = null;
+    }
+  }
+
   // Public API
   return {
-    render
+    render,
+    loadDocument,
+    openEditModal
   };
 })();

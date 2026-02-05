@@ -23,12 +23,28 @@ const DOC_CATEGORIES = [
       { file: 'DEPLOYMENT.md', label: 'DEPLOYMENT (배포)' },
       { file: 'TESTING.md', label: 'TESTING (테스트)' },
       { file: 'MONITORING.md', label: 'MONITORING (모니터링)' },
+      { file: 'CHANGES.md', label: '변경 이력' },
+      { file: 'CLAUDE_INSTRUCTIONS.md', label: 'Claude 작업 지침' },
+      { file: 'CLAUDE_SAFETY_README.md', label: 'Claude 안전 가이드' },
+      { file: 'JWT_FIX_INSTRUCTIONS.md', label: 'JWT 수정 가이드' },
+      { file: 'TEST_REPORT.md', label: '테스트 보고서' },
+      { file: 'DATA_LOSS_ANALYSIS.md', label: '데이터 손실 분석' },
+      { file: 'VOLUME_PROTECTION_GUIDE.md', label: '볼륨 보호 가이드' },
+      { file: 'VOLUME_PROTECTION_SUMMARY.md', label: '볼륨 보호 요약' },
+      { file: 'VOLUME_CHECKLIST.md', label: '볼륨 체크리스트' },
+      { file: 'VOLUME_AUDIT_REPORT.md', label: '볼륨 감사 보고서' },
+      { file: 'WEB_BUILD_VERIFICATION.md', label: '웹 빌드 검증' },
+      { file: 'WEB_DEPLOYMENT_SUMMARY.md', label: '웹 배포 요약' },
+      { file: 'SAFETY_SYSTEM_COMPLETE.md', label: '안전 시스템 완료' },
     ]
   },
   {
     id: 'api',
     name: 'API 문서',
     icon: 'fa-code',
+    paths: [
+      { file: 'docs/API.md', label: 'API Overview (총괄)' }
+    ],
     basePath: 'docs/api',
     patterns: ['*.md']
   },
@@ -38,6 +54,7 @@ const DOC_CATEGORIES = [
     icon: 'fa-database',
     paths: [
       { file: 'database/postgres/SCHEMA.md', label: 'PostgreSQL Schema' },
+      { file: 'database/mongo/SCHEMA.md', label: 'MongoDB Schema' },
     ]
   },
   {
@@ -66,8 +83,12 @@ const DOC_CATEGORIES = [
     icon: 'fa-server',
     paths: [
       { file: 'nginx/README.md', label: 'Nginx' },
+      { file: 'nginx/CONFIGURATION.md', label: 'Nginx 설정' },
+      { file: 'nginx/QUICKSTART.md', label: 'Nginx 빠른 시작' },
+      { file: 'scripts/README.md', label: 'Scripts Overview' },
       { file: 'scripts/backup/README.md', label: 'Backup Scripts' },
       { file: 'scripts/optimization/README.md', label: 'Optimization Scripts' },
+      { file: 'kubernetes/README.md', label: 'Kubernetes 배포' },
       { file: 'monitoring/README.md', label: 'Monitoring' },
     ]
   },
@@ -296,7 +317,99 @@ const getDocContent = async (req, res) => {
   }
 };
 
+/**
+ * PUT /api/admin/docs/content
+ * Update documentation file content
+ */
+const updateDocContent = async (req, res) => {
+  try {
+    const { path: docPath, content } = req.body;
+
+    // Validation
+    if (!docPath || content === undefined) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Path and content are required'
+      });
+    }
+
+    // Sanitize path (prevent directory traversal)
+    const sanitizedPath = path.normalize(docPath).replace(/^(\.\.[\/\\])+/, '');
+
+    // Ensure it's a markdown file
+    if (!sanitizedPath.endsWith('.md')) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Only markdown files are allowed'
+      });
+    }
+
+    const fullPath = path.join(PROJECT_ROOT, sanitizedPath);
+
+    // Ensure within project root
+    if (!fullPath.startsWith(PROJECT_ROOT)) {
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Access denied'
+      });
+    }
+
+    // File size limit: 5MB
+    if (content.length > 5 * 1024 * 1024) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Content exceeds 5MB limit'
+      });
+    }
+
+    // Create backup before writing
+    if (await fileExists(fullPath)) {
+      const timestamp = Date.now();
+      const backupPath = `${fullPath}.bak.${timestamp}`;
+      await fs.copyFile(fullPath, backupPath);
+
+      // Cleanup old backups (keep last 5)
+      const dirPath = path.dirname(fullPath);
+      const filename = path.basename(fullPath);
+      const files = await fs.readdir(dirPath);
+      const backups = files
+        .filter(f => f.startsWith(`${filename}.bak.`))
+        .map(f => ({ name: f, path: path.join(dirPath, f) }))
+        .sort((a, b) => b.name.localeCompare(a.name));
+
+      // Delete backups beyond 5
+      for (let i = 5; i < backups.length; i++) {
+        await fs.unlink(backups[i].path).catch(() => {});
+      }
+    }
+
+    // Write new content
+    await fs.writeFile(fullPath, content, 'utf-8');
+
+    // Get updated stats
+    const stats = await fs.stat(fullPath);
+
+    res.json({
+      success: true,
+      data: {
+        path: sanitizedPath,
+        size: stats.size,
+        modifiedAt: stats.mtime
+      }
+    });
+
+  } catch (error) {
+    console.error('[DOCS_CONTROLLER] Error updating doc:', error);
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to update document',
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    });
+  }
+};
+
 module.exports = {
   getDocsList,
-  getDocContent
+  getDocContent,
+  updateDocContent
 };
