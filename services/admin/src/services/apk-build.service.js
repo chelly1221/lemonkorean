@@ -30,6 +30,49 @@ const BUILD_LOCK_KEY = 'deploy:apk:lock';
 const BUILD_LOCK_TTL = 1800; // 30 minutes
 const APK_STORAGE_PATH = '/mnt/nas/lemon/apk-builds';
 
+// APK build phase milestones for progress tracking
+const APK_BUILD_PHASES = [
+  // 초기화 (0-15%)
+  { pattern: /Creating build trigger/i, progress: 5, status: 'pending' },
+  { pattern: /Starting APK build/i, progress: 10, status: 'building' },
+  { pattern: /Branch:/i, progress: 12, status: 'building' },
+
+  // 빌드 준비 (15-30%)
+  { pattern: /Cleaning previous build/i, progress: 15, status: 'building' },
+  { pattern: /Deleting build\.\.\./i, progress: 16, status: 'building' },
+  { pattern: /Getting dependencies/i, progress: 20, status: 'building' },
+  { pattern: /Resolving dependencies/i, progress: 22, status: 'building' },
+  { pattern: /Downloading packages|Got dependencies/i, progress: 25, status: 'building' },
+  { pattern: /Running Gradle task/i, progress: 30, status: 'building' },
+
+  // Gradle 빌드 (30-70%) - 가장 긴 단계
+  { pattern: /Gradle task 'assembleRelease'/i, progress: 35, status: 'building' },
+  { pattern: /> Task :app:preBuild/i, progress: 40, status: 'building' },
+  { pattern: /> Task :app:compileReleaseKotlin/i, progress: 50, status: 'building' },
+  { pattern: /Running.*kernel_snapshot/i, progress: 60, status: 'building' },
+  { pattern: /Running.*gen_snapshot/i, progress: 70, status: 'building' },
+  { pattern: /BUILD SUCCESSFUL/i, progress: 75, status: 'building' },
+
+  // 최종화 (75-100%)
+  { pattern: /✓ Built.*\.apk/i, progress: 85, status: 'building' },
+  { pattern: /APK Path:/i, progress: 90, status: 'building' },
+  { pattern: /APK Size:/i, progress: 92, status: 'building' },
+  { pattern: /Filename:/i, progress: 95, status: 'building' },
+  { pattern: /APK build completed successfully/i, progress: 99, status: 'building' }
+];
+
+// Error patterns for early failure detection
+const APK_ERROR_PATTERNS = [
+  /Error: Failed to compile/i,
+  /ProcessException/i,
+  /Gradle build failed/i,
+  /FAILURE: Build failed/i,
+  /Exception:/i,
+  /fatal:/i,
+  /Could not resolve/i,
+  /Task failed/i
+];
+
 /**
  * Start APK build
  * @param {number} adminId - Admin user ID
@@ -155,6 +198,7 @@ async function updateStatusWithRetry(buildId, status, options = {}) {
 async function executeBuild(buildId) {
   const startTime = Date.now();
   let isCancelled = false;
+  let currentProgress = 0; // Track current progress for log-based updates
 
   try {
     // Update status: building
@@ -195,9 +239,9 @@ async function executeBuild(buildId) {
       await fs.writeFile(triggerFile, buildId.toString(), 'utf8');
       await appendLog(buildId, 'info', 'Trigger created, waiting for deploy agent...');
 
-      // Monitor for completion (check every 2 seconds for max 30 minutes)
+      // Monitor for completion (check every 2 seconds for max 60 minutes)
       let attempts = 0;
-      const maxAttempts = 900; // 30 minutes
+      const maxAttempts = 1800; // 60 minutes (1 hour)
       let lastLogSize = 0;
 
       while (attempts < maxAttempts && !isCancelled) {
@@ -226,11 +270,27 @@ async function executeBuild(buildId) {
             const lines = newLogs.split('\n').filter(line => line.trim());
             for (const line of lines) {
               await appendLog(buildId, 'info', line.trim());
+
+              // Log-based progress update
+              try {
+                currentProgress = await updateProgressFromLog(
+                  buildId,
+                  line.trim(),
+                  currentProgress
+                );
+              } catch (err) {
+                // Error detected in log - propagate to outer catch
+                throw err;
+              }
             }
             lastLogSize = logs.length;
           }
         } catch (err) {
-          // Log file doesn't exist yet
+          // If it's a build error, propagate it
+          if (err.message && err.message.includes('Build failed')) {
+            throw err;
+          }
+          // Otherwise, log file doesn't exist yet - ignore
         }
 
         // Check status
@@ -278,9 +338,14 @@ async function executeBuild(buildId) {
           }
         }
 
-        // Update progress
-        const progress = Math.min(15 + Math.floor((attempts / maxAttempts) * 80), 95);
-        await updateStatus(buildId, 'building', progress);
+        // Fallback progress update (only if no log-based progress detected)
+        // This prevents UI from showing 0% if logs are delayed
+        if (attempts % 30 === 0 && currentProgress < 15) {
+          const fallbackProgress = Math.min(currentProgress + 2, 14);
+          await updateStatus(buildId, 'building', fallbackProgress);
+          currentProgress = fallbackProgress;
+          console.log(`[APK_BUILD] Fallback progress update: ${fallbackProgress}%`);
+        }
       }
 
       if (isCancelled) {
@@ -384,6 +449,50 @@ async function appendLog(buildId, logType, message) {
      VALUES ($1, $2, $3)`,
     [buildId, logType, truncatedMessage]
   );
+}
+
+/**
+ * Update progress based on log line parsing
+ * @param {number} buildId - 빌드 ID
+ * @param {string} logLine - 로그 라인
+ * @param {number} currentProgress - 현재 진행률
+ * @returns {Promise<number>} 새로운 진행률
+ */
+async function updateProgressFromLog(buildId, logLine, currentProgress) {
+  let newProgress = currentProgress;
+  let newStatus = null;
+
+  // Error detection - fail fast
+  for (const errorPattern of APK_ERROR_PATTERNS) {
+    if (errorPattern.test(logLine)) {
+      throw new Error(`Build failed: ${logLine}`);
+    }
+  }
+
+  // Phase detection (역순으로 검사하여 나중 단계 우선)
+  for (let i = APK_BUILD_PHASES.length - 1; i >= 0; i--) {
+    const phase = APK_BUILD_PHASES[i];
+    if (phase.pattern.test(logLine)) {
+      // 진행률이 증가하는 경우에만 업데이트
+      if (phase.progress > currentProgress) {
+        newProgress = phase.progress;
+        newStatus = phase.status;
+        console.log(`[APK_BUILD] Phase detected: ${logLine.substring(0, 60)} → ${newProgress}%`);
+        break;
+      }
+    }
+  }
+
+  // 진행률 업데이트 (증가한 경우에만)
+  if (newProgress > currentProgress) {
+    await pool.query(
+      `UPDATE apk_builds SET progress = $1, status = $2
+       WHERE id = $3 AND progress < $1`,
+      [newProgress, newStatus || 'building', buildId]
+    );
+  }
+
+  return newProgress;
 }
 
 /**

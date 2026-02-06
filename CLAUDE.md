@@ -119,6 +119,9 @@ return localPath ?? '${ApiConstants.baseUrl}/media/$remoteKey';
 ### 보안
 - JWT는 flutter_secure_storage에만 저장
 - bcrypt 해싱, Rate Limiting 적용
+- **인증 문제 해결 시**: 백엔드 미들웨어보다 **프론트엔드 수정을 우선**
+  - ✅ 프론트엔드: fetch() + Authorization 헤더 사용 (보안 권장)
+  - ❌ 미들웨어: 쿼리 파라미터 토큰 허용 (로그 노출 위험)
 
 ### 설정 변경
 - ❌ docker-compose.yml 직접 수정 금지

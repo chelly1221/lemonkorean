@@ -333,7 +333,8 @@ const DeployPage = (() => {
       }
 
       try {
-        const status = await API.deploy.getStatus(currentDeploymentId);
+        const response = await API.deploy.getStatus(currentDeploymentId);
+        const status = response.data || response;  // API 응답 구조 처리
         updateWebProgressUI(status);
 
         if (webDeployStartTime) {
@@ -610,7 +611,8 @@ const DeployPage = (() => {
       }
 
       try {
-        const status = await API.deploy.getAPKStatus(currentBuildId);
+        const response = await API.deploy.getAPKStatus(currentBuildId);
+        const status = response.data || response;  // API 응답 구조 처리
         updateAPKProgressUI(status);
 
         if (apkBuildStartTime) {
@@ -798,9 +800,15 @@ const DeployPage = (() => {
     }
   }
 
-  function downloadAPK(buildId) {
-    API.deploy.downloadAPK(buildId);
-    Toast.info('APK 다운로드를 시작합니다.');
+  async function downloadAPK(buildId) {
+    try {
+      Toast.info('APK 다운로드를 시작합니다.');
+      await API.deploy.downloadAPK(buildId);
+      // Toast.success will be shown automatically when download completes
+    } catch (error) {
+      console.error('APK download failed:', error);
+      Toast.error(error.message || 'APK 다운로드 실패');
+    }
   }
 
   // ============================================================================

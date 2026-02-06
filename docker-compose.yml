@@ -390,6 +390,7 @@ services:
       - ./.env:/app/.env
       - /var/run/docker.sock:/var/run/docker.sock
       - ./:/project:ro  # Project root for docs (read-only)
+      - /mnt/nas/lemon/apk-builds:/mnt/nas/lemon/apk-builds:ro  # APK storage (read-only)
     depends_on:
       postgres:
         condition: service_healthy

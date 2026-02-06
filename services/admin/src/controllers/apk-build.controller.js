@@ -154,32 +154,61 @@ async function downloadAPK(req, res) {
     }
 
     const build = await apkBuildService.getBuildStatus(buildId);
+    console.log(`[APK_DOWNLOAD] Build ID ${buildId}: status=${build.status}, apk_path=${build.apk_path}`);
 
     if (build.status !== 'completed') {
+      const statusMessages = {
+        'pending': 'Build is pending - not started yet',
+        'building': `Build is in progress (${build.progress || 0}%)`,
+        'signing': 'Build is being signed',
+        'failed': `Build failed: ${build.error_message || 'Unknown error'}`,
+        'cancelled': 'Build was cancelled by admin'
+      };
+
       return res.status(400).json({
         success: false,
-        error: 'Build not completed yet'
+        error: statusMessages[build.status] || `Build status: ${build.status}`,
+        details: {
+          buildId,
+          status: build.status,
+          progress: build.progress
+        }
       });
     }
 
     if (!build.apk_path) {
+      console.error(`[APK_DOWNLOAD] Build ${buildId} completed but apk_path is NULL/empty`);
       return res.status(404).json({
         success: false,
-        error: 'APK file not found'
+        error: 'APK file path not recorded in database',
+        details: {
+          buildId,
+          status: build.status,
+          suggestion: 'The build may have completed but failed to record the APK filename. Check build logs.'
+        }
       });
     }
 
     const apkPath = apkBuildService.getAPKPath(buildId, build.apk_path);
+    console.log(`[APK_DOWNLOAD] Checking APK file at: ${apkPath}`);
 
     // Check if file exists
     if (!fs.existsSync(apkPath)) {
+      console.error(`[APK_DOWNLOAD] APK file not found at path: ${apkPath}`);
       return res.status(404).json({
         success: false,
-        error: 'APK file not found on disk'
+        error: 'APK file not found on disk',
+        details: {
+          buildId,
+          expectedPath: apkPath,
+          filename: build.apk_path,
+          suggestion: 'The APK may have been deleted or the storage volume is not mounted'
+        }
       });
     }
 
     // Stream the file
+    console.log(`[APK_DOWNLOAD] Starting download for build ${buildId}: ${build.apk_path}`);
     const filename = build.apk_path;
     res.setHeader('Content-Type', 'application/vnd.android.package-archive');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);

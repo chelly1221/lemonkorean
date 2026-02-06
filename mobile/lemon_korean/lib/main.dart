@@ -274,7 +274,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Color(0xFF001F3F), // 짙은 남색
                   ),
                 ),
               ),
@@ -286,7 +286,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     l10n?.appName ?? '레몬 한국어',
                     style: const TextStyle(
                       fontSize: 20,
-                      color: Colors.white70,
+                      color: Color(0xFF003366), // 짙은 남색 (약간 밝게)
                     ),
                   );
                 },

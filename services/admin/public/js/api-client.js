@@ -1037,10 +1037,68 @@ const API = (() => {
      * APK 다운로드
      *
      * @param {number} buildId - 빌드 ID
+     * @returns {Promise<void>}
      */
     async downloadAPK(buildId) {
       const token = Auth.getToken();
-      window.open(`${BASE_URL}/api/admin/deploy/apk/download/${buildId}?token=${token}`, '_blank');
+
+      try {
+        // Fetch with Authorization header
+        const response = await fetch(`${BASE_URL}/api/admin/deploy/apk/download/${buildId}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          const error = await response.json().catch(() => ({
+            error: 'Download failed',
+            details: { status: response.status }
+          }));
+
+          // Format detailed error message
+          let errorMessage = error.error || 'Download failed';
+          if (error.details?.suggestion) {
+            errorMessage += `\n${error.details.suggestion}`;
+          }
+          if (error.details?.expectedPath) {
+            console.error('APK Download Error Details:', error.details);
+          }
+
+          throw new Error(errorMessage);
+        }
+
+        // Get filename from Content-Disposition header or use default
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = `lemon-korean-build-${buildId}.apk`;
+
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+          if (filenameMatch && filenameMatch[1]) {
+            filename = filenameMatch[1].replace(/['"]/g, '');
+          }
+        }
+
+        // Convert response to blob and trigger download
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+
+        document.body.appendChild(a);
+        a.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+      } catch (error) {
+        console.error('[API] APK download failed:', error);
+        throw error;
+      }
     },
 
     /**

@@ -254,7 +254,7 @@ class _HangulMainScreenState extends State<HangulMainScreen>
                       l10n.loading,
                       style: const TextStyle(
                         fontSize: 16,
-                        color: AppConstants.textSecondary,
+                        color: Color(0xFF001F3F), // 짙은 남색
                       ),
                     ),
                   ],

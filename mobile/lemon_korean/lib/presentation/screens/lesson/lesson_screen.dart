@@ -309,7 +309,7 @@ class _LessonScreenState extends State<LessonScreen> {
                 l10n.loadingLesson(widget.lesson.title),
                 style: const TextStyle(
                   fontSize: AppConstants.fontSizeMedium,
-                  color: AppConstants.textSecondary,
+                  color: Color(0xFF001F3F), // 짙은 남색
                 ),
               ),
             ],

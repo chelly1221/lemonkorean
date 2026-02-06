@@ -9,6 +9,12 @@ NAS_WEB_DIR="/mnt/nas/lemon/flutter-build/build/web"
 
 cd "$SCRIPT_DIR"
 
+echo "Cleaning previous build..."
+flutter clean
+
+echo "Getting dependencies..."
+flutter pub get
+
 echo "Building Flutter web app..."
 flutter build web --release --no-wasm-dry-run
 

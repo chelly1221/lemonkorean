@@ -29,6 +29,49 @@ const BUILD_SCRIPT_PATH = '/project/mobile/lemon_korean/build_web.sh';
 const DEPLOY_LOCK_KEY = 'deploy:web:lock';
 const DEPLOY_LOCK_TTL = 900; // 15 minutes
 
+// Web deployment phase milestones for progress tracking
+const WEB_DEPLOY_PHASES = [
+  // 초기화 (0-15%)
+  { pattern: /Creating deployment trigger/i, progress: 5, status: 'pending' },
+  { pattern: /Starting (web )?deployment( \d+)?/i, progress: 10, status: 'building' },
+  { pattern: /Executing build script/i, progress: 12, status: 'building' },
+
+  // 빌드 준비 (15-30%)
+  { pattern: /Cleaning previous build/i, progress: 15, status: 'building' },
+  { pattern: /Deleting build\.\.\./i, progress: 16, status: 'building' },
+  { pattern: /Getting dependencies/i, progress: 20, status: 'building' },
+  { pattern: /Resolving dependencies/i, progress: 25, status: 'building' },
+  { pattern: /Downloading packages|Got dependencies/i, progress: 30, status: 'building' },
+
+  // 컴파일 (30-75%) - 가장 긴 단계
+  { pattern: /Building Flutter web app/i, progress: 35, status: 'building' },
+  { pattern: /Compiling lib\/main\.dart for the Web\.{3,}$/m, progress: 40, status: 'building' },
+  { pattern: /Font asset .* was tree-shaken/i, progress: 60, status: 'building' },
+  { pattern: /Compiling lib\/main\.dart for the Web\.{3,}\d+\.\d+s$/m, progress: 75, status: 'building' },
+  { pattern: /✓ Built build\/web/i, progress: 78, status: 'building' },
+
+  // 배포 (75-95%)
+  { pattern: /Syncing to NAS deployment directory/i, progress: 80, status: 'syncing' },
+  { pattern: /sending incremental file list/i, progress: 82, status: 'syncing' },
+  { pattern: /sent .* bytes.*received .* bytes/i, progress: 88, status: 'syncing' },
+  { pattern: /Restarting nginx/i, progress: 92, status: 'restarting' },
+  { pattern: /Container lemon-nginx/i, progress: 95, status: 'restarting' },
+
+  // 완료 (95-100%)
+  { pattern: /Done! Web app deployed/i, progress: 98, status: 'validating' },
+  { pattern: /Deployment completed successfully/i, progress: 99, status: 'validating' }
+];
+
+// Error patterns for early failure detection
+const ERROR_PATTERNS = [
+  /Error: Failed to compile/i,
+  /Target dart2js failed/i,
+  /ProcessException/i,
+  /BUILD FAILED/i,
+  /Exception:/i,
+  /fatal:/i
+];
+
 /**
  * Start web deployment
  * @param {number} adminId - Admin user ID
@@ -138,6 +181,7 @@ async function updateStatusWithRetry(deploymentId, status, options = {}) {
 async function executeDeployment(deploymentId) {
   const startTime = Date.now();
   let isCancelled = false;
+  let currentProgress = 0; // Track current progress for log-based updates
 
   try {
     // Update status: building
@@ -211,11 +255,27 @@ async function executeDeployment(deploymentId) {
             const lines = newLogs.split('\n').filter(line => line.trim());
             for (const line of lines) {
               await appendLog(deploymentId, 'info', line.trim());
+
+              // Log-based progress update
+              try {
+                currentProgress = await updateProgressFromLog(
+                  deploymentId,
+                  line.trim(),
+                  currentProgress
+                );
+              } catch (err) {
+                // Error detected in log - propagate to outer catch
+                throw err;
+              }
             }
             lastLogSize = logs.length;
           }
         } catch (err) {
-          // Log file doesn't exist yet
+          // If it's a build error, propagate it
+          if (err.message && err.message.includes('Build failed')) {
+            throw err;
+          }
+          // Otherwise, log file doesn't exist yet - ignore
         }
 
         // Check status
@@ -241,9 +301,14 @@ async function executeDeployment(deploymentId) {
           }
         }
 
-        // Update progress
-        const progress = Math.min(15 + Math.floor((attempts / maxAttempts) * 80), 95);
-        await updateStatus(deploymentId, 'building', progress);
+        // Fallback progress update (only if no log-based progress detected)
+        // This prevents UI from showing 0% if logs are delayed
+        if (attempts % 30 === 0 && currentProgress < 15) {
+          const fallbackProgress = Math.min(currentProgress + 2, 14);
+          await updateStatus(deploymentId, 'building', fallbackProgress);
+          currentProgress = fallbackProgress;
+          console.log(`[DEPLOY] Fallback progress update: ${fallbackProgress}%`);
+        }
       }
 
       if (isCancelled) {
@@ -360,40 +425,47 @@ async function appendLog(deploymentId, logType, message) {
 }
 
 /**
- * Update progress based on build output
- * Parse flutter build output to estimate progress
+ * Update progress based on log line parsing
+ * @param {number} deploymentId - 배포 ID
+ * @param {string} logLine - 로그 라인
+ * @param {number} currentProgress - 현재 진행률
+ * @returns {Promise<number>} 새로운 진행률
  */
-async function updateProgressFromOutput(deploymentId, output) {
-  let progress = null;
-  let status = null;
+async function updateProgressFromLog(deploymentId, logLine, currentProgress) {
+  let newProgress = currentProgress;
+  let newStatus = null;
 
-  if (output.includes('Building Flutter') || output.includes('flutter build')) {
-    progress = 20;
-    status = 'building';
-  } else if (output.includes('Compiling') || output.includes('compiling')) {
-    progress = 40;
-    status = 'building';
-  } else if (output.includes('Optimizing') || output.includes('optimizing')) {
-    progress = 60;
-    status = 'building';
-  } else if (output.includes('✓ Built') || output.includes('Done!') || output.includes('build completed')) {
-    progress = 85;
-    status = 'building';
-  } else if (output.includes('Syncing to NAS') || output.includes('rsync')) {
-    progress = 90;
-    status = 'syncing';
-  } else if (output.includes('Restarting nginx') || output.includes('nginx')) {
-    progress = 95;
-    status = 'restarting';
+  // Error detection - fail fast
+  for (const errorPattern of ERROR_PATTERNS) {
+    if (errorPattern.test(logLine)) {
+      throw new Error(`Build failed: ${logLine}`);
+    }
   }
 
-  if (progress !== null) {
-    const currentStatus = status || 'building';
+  // Phase detection (역순으로 검사하여 나중 단계 우선)
+  for (let i = WEB_DEPLOY_PHASES.length - 1; i >= 0; i--) {
+    const phase = WEB_DEPLOY_PHASES[i];
+    if (phase.pattern.test(logLine)) {
+      // 진행률이 증가하는 경우에만 업데이트
+      if (phase.progress > currentProgress) {
+        newProgress = phase.progress;
+        newStatus = phase.status;
+        console.log(`[DEPLOY] Phase detected: ${logLine.substring(0, 60)} → ${newProgress}%`);
+        break;
+      }
+    }
+  }
+
+  // 진행률 업데이트 (증가한 경우에만)
+  if (newProgress > currentProgress) {
     await pool.query(
-      `UPDATE web_deployments SET progress = $1, status = $2 WHERE id = $3 AND progress < $1`,
-      [progress, currentStatus, deploymentId]
+      `UPDATE web_deployments SET progress = $1, status = $2
+       WHERE id = $3 AND progress < $1`,
+      [newProgress, newStatus || 'building', deploymentId]
     );
   }
+
+  return newProgress;
 }
 
 /**
