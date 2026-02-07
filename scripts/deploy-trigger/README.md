@@ -101,8 +101,8 @@ sudo systemctl restart deploy-agent
 **Builds failing:**
 - Check deployment/build log files
 - Verify Flutter SDK in PATH
-- Ensure NAS mount is available (`/mnt/nas/lemon/`)
+- Ensure local data directory exists (`./data/`)
 
 ---
 
-**Last Updated:** 2026-02-05
+**Last Updated:** 2026-02-07

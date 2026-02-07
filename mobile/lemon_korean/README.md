@@ -118,7 +118,7 @@ Builds the Flutter web app and deploys to NAS storage.
 **Features:**
 - Flutter clean and dependency fetch
 - WebAssembly bypass for compatibility (uses JS compilation)
-- Automatic deployment to `/mnt/nas/lemon/www/app/`
+- Automatic deployment to `./data/flutter-build/web/`
 - 3-minute average build time
 - 35MB output with optimized assets
 
@@ -138,7 +138,7 @@ Builds Android APK in release mode and stores on NAS.
 - Flutter clean and dependency fetch
 - Release mode APK compilation
 - Automatic naming with timestamp
-- NAS storage at `/mnt/nas/lemon/apk-builds/`
+- Local storage at `./data/apk-builds/`
 - File size reporting
 
 **Usage:**

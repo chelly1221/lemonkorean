@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-APK_OUTPUT_DIR="/mnt/nas/lemon/apk-builds"
+PROJECT_ROOT="/home/sanchan/lemonkorean"
+APK_OUTPUT_DIR="$PROJECT_ROOT/data/apk-builds"
 
 cd "$SCRIPT_DIR"
 
@@ -44,9 +45,9 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 APK_FILE="lemon_korean_${TIMESTAMP}.apk"
 APK_FULL_PATH="$APK_OUTPUT_DIR/$APK_FILE"
 
-# Copy APK to NAS
+# Copy APK to local storage
 echo ""
-echo "📤 Copying APK to NAS..."
+echo "📤 Copying APK to local storage..."
 cp build/app/outputs/flutter-apk/app-release.apk "$APK_FULL_PATH"
 
 # Get APK size

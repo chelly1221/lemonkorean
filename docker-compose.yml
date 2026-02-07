@@ -34,8 +34,8 @@ services:
   # ⚠️ DO NOT modify 'command' or config settings here
   # ⚠️ Edit config/mongo/mongod.conf instead
   # ⚠️ Apply changes: docker compose restart mongo
-  # ⚠️ Data stored on NAS: /mnt/nas/lemon/mongo-data
-  # ⚠️ Running as uid 1000 to match NAS CIFS mount ownership
+  # ⚠️ Data stored on local disk: ./data/mongo-data
+  # ⚠️ Running as uid 1000 to match local directory ownership
   mongo:
     image: mongo:4.4
     container_name: lemon-mongo
@@ -46,7 +46,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${POSTGRES_DB:-lemon_korean}
     volumes:
-      - /mnt/nas/lemon/mongo-data:/data/db
+      - ./data/mongo-data:/data/db
       - mongo-log:/var/log/mongodb
       - ./database/mongo/init:/docker-entrypoint-initdb.d
       - ./config/mongo/mongod.conf:/etc/mongod.conf:ro
@@ -84,7 +84,7 @@ services:
     restart: unless-stopped
 
   # MinIO (S3-compatible storage)
-  # ⚠️ Data stored on NAS: /mnt/nas/lemon/minio-data
+  # ⚠️ Data stored on local disk: ./data/minio-data
   minio:
     image: minio/minio:latest
     container_name: lemon-minio
@@ -93,7 +93,7 @@ services:
       MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
       MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
     volumes:
-      - /mnt/nas/lemon/minio-data:/data
+      - ./data/minio-data:/data
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -390,7 +390,7 @@ services:
       - ./.env:/app/.env
       - /var/run/docker.sock:/var/run/docker.sock
       - ./:/project:ro  # Project root for docs (read-only)
-      - /mnt/nas/lemon/apk-builds:/mnt/nas/lemon/apk-builds:ro  # APK storage (read-only)
+      - ./data/apk-builds:/apk-builds:ro  # APK storage (read-only)
     depends_on:
       postgres:
         condition: service_healthy
@@ -412,8 +412,8 @@ services:
   # ==================== API Gateway & Proxy ====================
 
   # Nginx API Gateway
-  # ⚠️ Logs & cache stored on NAS, web app served from NAS via symlink
-  # ⚠️ Running as uid 1000 to match NAS CIFS mount ownership
+  # ⚠️ Logs & cache stored on local disk: ./data/nginx-*
+  # ⚠️ Running as uid 1000 to match local directory ownership
   nginx:
     build: ./nginx
     container_name: lemon-nginx
@@ -421,16 +421,16 @@ services:
     environment:
       NGINX_MODE: ${NGINX_MODE:-development}
     volumes:
-      - /mnt/nas/lemon/nginx-cache:/var/cache/nginx
-      - /mnt/nas/lemon/nginx-logs:/var/log/nginx
+      - ./data/nginx-cache:/var/cache/nginx
+      - ./data/nginx-logs:/var/log/nginx
       # Direct config mount (changes take effect with reload)
       - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
       # Logrotate config
       - ./nginx/logrotate.conf:/etc/logrotate.d/nginx:ro
       # SSL certificates (for development)
       - ./nginx/ssl:/etc/nginx/ssl:ro
-      # Flutter web app build output (via symlink to NAS)
-      - /mnt/nas/lemon/flutter-build/build/web:/var/www/lemon_korean_web:ro
+      # Flutter web app build output (local disk)
+      - ./data/flutter-build/web:/var/www/lemon_korean_web:ro
     ports:
       - "80:80"
       - "443:443"
@@ -486,7 +486,7 @@ networks:
     name: lemon-network
 
 # ==================== Volumes ====================
-# Note: mongo-data and minio-data moved to NAS bind mounts
+# Note: All data moved to local ./data/ directory
 volumes:
   postgres-data:
     name: lemon-postgres-data

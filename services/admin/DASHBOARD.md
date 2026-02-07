@@ -294,11 +294,11 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 2. Flutter clean 및 의존성 설치
 3. APK 릴리스 빌드 (flutter build apk --release)
 4. APK 파일 크기 측정
-5. NAS 스토리지로 복사 (`/mnt/nas/lemon/apk-builds/`)
+5. 로컬 스토리지로 복사 (`./data/apk-builds/`)
 6. 로그와 함께 데이터베이스 기록
 
 **파일 저장**:
-- **경로**: `/mnt/nas/lemon/apk-builds/lemon_korean_YYYYMMDD_HHMMSS.apk`
+- **경로**: `./data/apk-builds/lemon_korean_YYYYMMDD_HHMMSS.apk`
 - **명명**: 타임스탬프 기반 자동 명명
 - **메타데이터**: 빌드 ID, 버전, 크기, git 정보
 

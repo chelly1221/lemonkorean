@@ -28,7 +28,7 @@ function getRedis() {
 const APK_BUILD_SCRIPT = '/project/mobile/lemon_korean/build_apk.sh';
 const BUILD_LOCK_KEY = 'deploy:apk:lock';
 const BUILD_LOCK_TTL = 1800; // 30 minutes
-const APK_STORAGE_PATH = '/mnt/nas/lemon/apk-builds';
+const APK_STORAGE_PATH = '/apk-builds';
 
 // APK build phase milestones for progress tracking
 const APK_BUILD_PHASES = [

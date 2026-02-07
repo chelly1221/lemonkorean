@@ -115,3 +115,10 @@ htmlcov/
 !package-lock.json
 !go.sum
 !requirements.txt
+
+# Local data storage (migrated from NAS)
+data/
+
+# Deploy trigger runtime files
+services/admin/src/deploy-triggers/*.status
+services/admin/src/deploy-triggers/*.cancel
