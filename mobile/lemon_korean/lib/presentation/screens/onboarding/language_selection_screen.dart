@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
+import '../../screens/auth/login_screen.dart';
 import 'utils/onboarding_colors.dart';
 import 'utils/onboarding_text_styles.dart';
 import 'widgets/language_selection_card.dart';
@@ -91,7 +92,10 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
 
     if (!mounted) return;
 
-    Navigator.of(context).pushReplacementNamed('/login');
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (route) => false,
+    );
   }
 
   @override

@@ -196,6 +196,8 @@ class ThemeProvider extends ChangeNotifier {
         error: theme.error,
         surface: theme.cardBackgroundCol,
         surfaceContainerHighest: theme.backgroundLightCol,
+        // Force NavigationBar indicator to use primary (yellow) instead of secondary (green)
+        secondaryContainer: theme.primary.withOpacity(0.3),
       ),
 
       // Scaffold Background
@@ -274,6 +276,44 @@ class ThemeProvider extends ChangeNotifier {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: theme.primary,
         foregroundColor: Colors.white,
+      ),
+
+      // Navigation Bar Theme
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: theme.cardBackgroundCol,
+        indicatorColor: theme.primary.withOpacity(0.3), // 노란색 원 (30% 투명도)
+        indicatorShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100), // 큰 원형 (반지름 100)
+        ),
+        elevation: 8.0,
+        height: 80.0,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((states) {
+          if (states.contains(MaterialState.selected)) {
+            return IconThemeData(
+              color: theme.textPrimaryCol, // 선택된 아이콘은 어두운 색
+              size: 28.0,
+            );
+          }
+          return IconThemeData(
+            color: theme.textSecondaryCol, // 선택 안 된 아이콘은 회색
+            size: 24.0,
+          );
+        }),
+        labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>((states) {
+          if (states.contains(MaterialState.selected)) {
+            return TextStyle(
+              color: theme.textPrimaryCol,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+            );
+          }
+          return TextStyle(
+            color: theme.textSecondaryCol,
+            fontSize: 11.0,
+            fontWeight: FontWeight.normal,
+          );
+        }),
       ),
 
       // Input Decoration Theme

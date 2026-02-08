@@ -1,5 +1,55 @@
 # Lemon Korean - Change Log
 
+## 2026-02-09 - Level Selector Snap Auto-Selection & Hangul Inline Path
+
+### Feature: Carousel snap auto-selects level + Hangul level 0 inline display
+
+**Changes:**
+
+1. **Level Selector (`level_selector.dart`)**: Added `onPageChanged` callback to `PageView.builder`. Scrolling and snapping now automatically selects the corresponding level. Removed duplicate `onLevelSelected` from tap handler.
+
+2. **Hangul Path View (`hangul_path_view.dart`)**: New widget displaying 4 hangul section nodes (Alphabet Table, Learn, Practice, Activities) in the same zigzag S-curve path style as `LessonPathView`. Each node navigates to `HangulMainScreen` with the appropriate tab.
+
+3. **Home Screen (`home_screen.dart`)**: Level 0 no longer navigates to a separate `HangulMainScreen`. Instead shows `HangulPathView` inline, consistent with how other levels show `LessonPathView`.
+
+**Files:**
+- `mobile/lemon_korean/lib/presentation/screens/home/widgets/level_selector.dart` (modified)
+- `mobile/lemon_korean/lib/presentation/screens/home/widgets/hangul_path_view.dart` (new)
+- `mobile/lemon_korean/lib/presentation/screens/home/home_screen.dart` (modified)
+
+---
+
+## 2026-02-07~08 - Home Screen Redesign & Level Selector Carousel
+
+### Features: Level carousel, lesson path view, profile tab redesign, storage management
+
+**Major changes since last commit:**
+
+1. **Level Selector Carousel**: 10-level PageView carousel with SVG icons, smooth size interpolation, center glow indicator.
+
+2. **Lesson Path View**: Zigzag vertical learning path with lemon-shaped nodes connected by S-curve bezier lines. Three node states (completed/in-progress/locked).
+
+3. **Profile Tab Redesign**: Greeting + streak badge, daily goal card moved from HomeTab to ProfileTab.
+
+4. **Bottom Navigation**: 3-tab layout (Home, Review, Profile) with settings accessible via gear icon.
+
+5. **Storage & Cache Management**: Admin dashboard pages for cache management and web app storage reset.
+
+6. **NAS to Local Storage Migration**: Build outputs moved from NAS to local `./data/` directory.
+
+**New files:**
+- `lib/presentation/screens/home/widgets/level_selector.dart`
+- `lib/presentation/screens/home/widgets/lesson_path_view.dart`
+- `lib/presentation/screens/home/widgets/lesson_path_node.dart`
+- `lib/presentation/screens/home/widgets/lemon_clipper.dart`
+- `lib/core/constants/level_constants.dart`
+- `assets/levels/level_*.svg` (10 SVG files)
+- `services/admin/public/js/pages/cache-management.js`
+- `services/admin/public/js/pages/storage-reset.js`
+- `database/postgres/migrations/2026-02-07-create-storage-reset-flags.sql`
+
+---
+
 ## 2026-01-31 - Flutter Web Dynamic Network Configuration (Development Mode Support)
 
 ### Feature: Multi-URL Network Config Fetching for Web Platform
@@ -22,7 +72,7 @@
    - **Before**: Only tried 3 production URLs from .env.production
    - **After**: Tries 6+ URLs including current host (web), production, and development fallbacks
 
-2. **`nginx/nginx.dev.conf`** (After line 136)
+2. **`nginx/nginx.conf`** (After line 136)
    - Added new `location /api/admin/network/config` proxy block in port 3007 server
    - Proxies network config requests to admin service
    - Includes CORS headers for cross-origin requests

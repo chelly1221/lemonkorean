@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#4A90D9"/>
+  <circle cx="50" cy="50" r="40" fill="#5BA3EC"/>
+  <!-- Stylized ㅎ character -->
+  <circle cx="50" cy="28" r="8" fill="none" stroke="#FFF" stroke-width="3.5"/>
+  <line x1="32" y1="48" x2="68" y2="48" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="50" cy="68" r="12" fill="none" stroke="#FFF" stroke-width="3.5"/>
+</svg>

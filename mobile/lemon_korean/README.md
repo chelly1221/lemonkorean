@@ -44,6 +44,7 @@ lib/
 │   ├── constants/
 │   │   ├── api_constants.dart      # API 엔드포인트
 │   │   ├── app_constants.dart      # 앱 전역 상수
+│   │   ├── level_constants.dart    # 레벨 색상/SVG/개수 (10 레벨)
 │   │   └── settings_keys.dart      # SharedPreferences 키
 │   ├── storage/
 │   │   ├── local_storage.dart      # Hive 로컬 저장소
@@ -69,7 +70,8 @@ lib/
 ├── presentation/
 │   ├── screens/
 │   │   ├── auth/                   # 인증 화면
-│   │   ├── home/                   # 홈 화면
+│   │   ├── home/                   # 홈 화면 + 학습 경로
+│   │   │   └── widgets/            # 레벨 셀렉터, 경로 뷰, 레몬 노드
 │   │   ├── lesson/                 # 레슨 화면
 │   │   │   └── stages/             # 7단계 레슨
 │   │   │       └── quiz/           # 5개 퀴즈 유형
@@ -340,6 +342,30 @@ await ThemeProvider.checkForUpdates();
 // Access current theme
 final theme = ThemeProvider.currentTheme;
 ```
+
+---
+
+### Level Selector & Learning Path (2026-02-09)
+
+Home screen level carousel and lesson path visualization.
+
+**Location**: `lib/presentation/screens/home/widgets/`
+
+**Widgets** (5 total):
+- `level_selector.dart` - PageView carousel with 10 level icons (SVG)
+- `lesson_path_view.dart` - Zigzag S-curve path connecting lesson nodes
+- `lesson_path_node.dart` - Lemon-shaped node with 3 states (completed/in-progress/locked)
+- `hangul_path_view.dart` - Hangul section path (4 nodes for level 0)
+- `lemon_clipper.dart` - Custom lemon shape painter with glow effects
+
+**Features**:
+- Snap-to-select carousel with auto level switching on page change
+- 10 levels with unique SVG icons and colors (defined in `level_constants.dart`)
+- Level 0 (Hangul) shown inline with 4 section nodes instead of separate screen
+- Lemon-shaped nodes with completion states and pulse animation
+- S-curve bezier path lines between nodes (solid=completed, dashed=incomplete)
+
+**Assets**: `assets/levels/level_*.svg` (10 SVG files)
 
 ---
 

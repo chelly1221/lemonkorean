@@ -128,8 +128,7 @@ config_change_workflow:
     never_edit: "docker-compose.yml"
     apply: "docker compose restart rabbitmq"
   nginx:
-    edit: "nginx/nginx.dev.conf"
-    production: "nginx/nginx.conf"
+    edit: "nginx/nginx.conf"
     apply: "docker compose exec nginx nginx -s reload"
   prometheus:
     edit: "monitoring/prometheus/prometheus.yml"

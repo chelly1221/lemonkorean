@@ -1,7 +1,9 @@
 # 柠檬韩语 (Lemon Korean) - 프로젝트 가이드
 
 ## 프로젝트 개요
-다국어 한국어 학습 앱. 오프라인 학습 지원, 마이크로서비스 아키텍처, 자체 호스팅. 전 세계 학습자를 위한 6개 언어 콘텐츠 제공.
+다국어 한국어 학습 앱 (모바일 앱 + 웹 앱 동시 지원). 오프라인 학습 지원, 마이크로서비스 아키텍처, 자체 호스팅. 전 세계 학습자를 위한 6개 언어 콘텐츠 제공.
+
+**플랫폼**: Flutter 기반 모바일(Android) + 웹 앱 호환 프로젝트 (단일 코드베이스)
 
 **상태**: ✅ **프로덕션 준비 완료** (100%, 6/6 서비스)
 
@@ -130,6 +132,33 @@ return localPath ?? '${ApiConstants.baseUrl}/media/$remoteKey';
 ### 웹 앱 제한
 - 오프라인 다운로드 불가 (항상 온라인 가정)
 - localStorage 5-10MB 제한
+
+### 웹 앱 캐시 관리 (중요!)
+**문제**: Nginx는 `main.dart.js` 등 정적 자산을 7일간 캐시. 웹 앱 배포 후 변경사항이 보이지 않을 수 있음
+
+**해결**: `build_web.sh` 스크립트가 자동으로 처리
+```bash
+cd mobile/lemon_korean && ./build_web.sh
+```
+
+**스크립트 자동 수행 작업**:
+1. ✅ `version.json`에 빌드 타임스탬프 추가 (캐시 무효화)
+2. ✅ Nginx 캐시 디렉토리 정리 (`/var/cache/nginx/`)
+3. ✅ Nginx 컨테이너 재시작
+
+**사용자 측 캐시 클리어** (배포 후 안내 필수):
+- Chrome/Edge/Firefox: `Ctrl+Shift+R` (Mac: `Cmd+Shift+R`)
+- Safari: `Cmd+Option+R`
+- 또는 시크릿/비공개 모드로 확인
+
+**수동 캐시 클리어** (필요 시):
+```bash
+# Nginx 캐시만 클리어
+docker compose exec nginx sh -c "rm -rf /var/cache/nginx/*"
+docker compose restart nginx
+
+# 브라우저 서비스 워커 클리어 (F12 → Application → Service Workers → Unregister)
+```
 
 ### 배포 자동화
 - Deploy Agent는 systemd 서비스로 실행 (`deploy-agent.service`)

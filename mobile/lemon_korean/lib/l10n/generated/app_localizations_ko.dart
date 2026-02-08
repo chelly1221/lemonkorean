@@ -577,7 +577,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get downloadFailed => '다운로드 실패';
 
   @override
-  String get home => '홈';
+  String get home => '학습';
 
   @override
   String get lessons => '강의';
@@ -586,7 +586,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get review => '복습';
 
   @override
-  String get profile => '내 정보';
+  String get profile => '프로필';
 
   @override
   String get continueLearning => '학습 계속';

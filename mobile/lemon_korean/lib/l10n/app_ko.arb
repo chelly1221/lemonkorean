@@ -583,8 +583,8 @@
   "downloadFailed": "다운로드 실패",
   "@downloadFailed": {"description": "Download failed status"},
 
-  "home": "홈",
-  "@home": {"description": "Home tab"},
+  "home": "학습",
+  "@home": {"description": "Learning tab"},
 
   "lessons": "강의",
   "@lessons": {"description": "Lessons tab"},
@@ -592,7 +592,7 @@
   "review": "복습",
   "@review": {"description": "Review tab"},
 
-  "profile": "내 정보",
+  "profile": "프로필",
   "@profile": {"description": "Profile tab"},
 
   "continueLearning": "계속 학습",

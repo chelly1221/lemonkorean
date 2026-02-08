@@ -353,6 +353,42 @@ https://lemon.3chan.kr/app/
 - **참여도**: 주간 목표 설정으로 학습 지속성 향상
 - **데이터**: 사용자 레벨 및 목표 데이터 수집으로 개인화 가능
 
+## 다국어 번역 및 배포 (i18n)
+
+온보딩 기능에 대한 6개 언어 번역 작업을 완료하고 웹 앱을 배포했습니다.
+
+### 추가된 번역 키 (17개)
+
+하드코딩된 텍스트를 l10n으로 변경:
+- `onboardingSkip`, `onboardingLanguageTitle`, `onboardingLanguagePrompt`, `onboardingNext`
+- `onboardingWelcome`, `onboardingLevelQuestion`, `onboardingStart`, `onboardingStartWithoutLevel`
+- `levelBeginner/Desc`, `levelElementary/Desc`, `levelIntermediate/Desc`, `levelAdvanced/Desc`
+
+### 번역된 언어별 환영 메시지
+
+| 언어 | 환영 메시지 |
+|------|------------|
+| 중국어 간체 | "你好！我是柠檬韩语的柠檬 🍋 我们一起学韩语吧？" |
+| 중국어 번체 | "你好！我是檸檬韓語的檸檬 🍋 我們一起學韓語吧？" |
+| 한국어 | "안녕! 나는 레몬한국어의 레몬이야 🍋 우리 같이 한국어 공부해볼래?" |
+| 영어 | "Hi! I'm Lemon from Lemon Korean 🍋 Want to learn Korean together?" |
+| 일본어 | "こんにちは！レモン韓国語のレモンです 🍋 一緒に韓国語を勉強しませんか？" |
+| 스페인어 | "¡Hola! Soy Limón de Lemon Korean 🍋 ¿Quieres aprender coreano juntos?" |
+
+### 수정된 파일 (i18n 적용)
+- `language_selection_screen.dart` - 하드코딩 → l10n
+- `welcome_level_screen.dart` - 레벨 목록을 l10n 기반 동적 생성
+- `app_*.arb` 6개 파일 - 번역 키 추가
+
+### 웹 배포
+```bash
+flutter gen-l10n && flutter build web --release  # 252.3초
+docker compose restart nginx
+# 접속: https://lemon.3chan.kr/app/
+```
+
+---
+
 ## 결론
 
 이번 업데이트로 Lemon Korean 앱의 온보딩 경험이 크게 개선되었습니다. 5단계 플로우, 전문적인 비주얼 디자인, 부드러운 애니메이션, 주간 목표 설정 기능을 통해 사용자들에게 더 나은 첫인상을 제공하고, 학습 여정을 시작하는 데 필요한 모든 정보를 제공합니다.

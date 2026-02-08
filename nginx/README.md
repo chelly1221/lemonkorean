@@ -19,9 +19,7 @@ Nginx가 다음 역할을 수행합니다:
 
 ```
 nginx/
-├── nginx.conf              # 프로덕션 설정 (SSL, 엄격한 rate limiting)
-├── nginx.dev.conf          # 개발 설정 (HTTP only, 완화된 제한) - Docker 빌드 시 사용됨
-├── nginx.conf.dev          # ⚠️ 레거시 (사용 권장하지 않음 - proxy_pass 버그 있음)
+├── nginx.conf              # Nginx 설정 (HTTP only, NPM이 HTTPS 처리)
 ├── Dockerfile              # Nginx 컨테이너 빌드
 ├── docker-entrypoint.sh    # 환경에 따라 설정 파일 선택
 ├── generate-ssl.sh         # 자체 서명 인증서 생성 (개발용)
@@ -32,9 +30,7 @@ nginx/
 └── logs/                   # 로그 파일
 ```
 
-> **참고**: Docker 빌드 시 `NGINX_MODE` 환경 변수에 따라 자동으로 설정 파일이 선택됩니다:
-> - `NGINX_MODE=development` → nginx.dev.conf 사용
-> - `NGINX_MODE=production` (기본값) → nginx.conf 사용
+> **참고**: `nginx.conf` 파일이 Docker 볼륨 마운트로 직접 사용됩니다.
 
 ---
 
@@ -69,12 +65,10 @@ limit_req zone=upload_limit burst=3
 limit_conn conn_limit 20
 ```
 
-### 개발 (nginx.dev.conf)
+### 현재 설정 (nginx.conf)
 - 일반 API: 1000 req/s (burst=100)
 - 인증 API: 100 req/s (burst=50)
 - 업로드: 50 req/min (burst=10)
-
-> **참고**: 개발 환경은 프로덕션보다 2배 높은 burst 값을 사용합니다.
 
 ---
 
@@ -272,39 +266,20 @@ docker run -d \
 
 ---
 
-## 개발 vs 프로덕션
+## 실행 환경
 
-### 개발 환경
 ```bash
-# nginx.dev.conf 사용
+# nginx.conf 사용 (Docker Compose에서 볼륨 마운트)
 docker run -d \
-  -v $(pwd)/nginx.dev.conf:/etc/nginx/nginx.conf:ro \
+  -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro \
   lemon-nginx
 
 # 특징:
-# - HTTP only (포트 80)
-# - 완화된 rate limiting (burst 값 2배)
+# - HTTP only (NPM이 HTTPS 처리)
+# - 완화된 rate limiting
 # - 짧은 캐시 시간 (1시간)
 # - 상세한 로깅 (debug level)
 # - 허용적인 CORS (*)
-# - 보안 헤더 생략 (HSTS 등)
-# - Keepalive 미설정 (기본값 사용)
-```
-
-### 프로덕션 환경
-```bash
-# nginx.conf 사용 (기본)
-docker run -d \
-  -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro \
-  -v /etc/letsencrypt:/etc/nginx/ssl:ro \
-  lemon-nginx
-
-# 특징:
-# - HTTPS (포트 443)
-# - 엄격한 rate limiting
-# - 긴 캐시 시간 (7일)
-# - warn level 로깅
-# - 제한적 CORS
 ```
 
 ---
@@ -410,7 +385,7 @@ upstream media_service {
 }
 ```
 
-> **참고**: 개발 환경(nginx.dev.conf)은 keepalive 및 health check를 사용하지 않습니다.
+> **참고**: 현재 설정은 keepalive 및 health check를 사용하지 않습니다.
 
 ### Buffer 크기
 ```nginx
@@ -444,8 +419,7 @@ docker exec lemon-nginx curl http://auth-service:3001/health
 # Rate limit 상태 확인
 docker exec lemon-nginx cat /etc/nginx/nginx.conf | grep limit_req_zone
 
-# 임시로 제한 완화 (개발 시)
-# nginx.dev.conf 사용
+# nginx.conf에서 rate limit 설정 확인
 ```
 
 ### SSL 인증서 문제

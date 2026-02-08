@@ -14,7 +14,7 @@ RUN apk add --no-cache \
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Default config (will be overridden by volume mount in development)
-COPY nginx.dev.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/

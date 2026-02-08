@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#E8F5E9"/>
+  <circle cx="50" cy="50" r="40" fill="#F1F8E9"/>
+  <!-- Soil mound -->
+  <ellipse cx="50" cy="72" rx="22" ry="8" fill="#8D6E63"/>
+  <ellipse cx="50" cy="70" rx="20" ry="6" fill="#A1887F"/>
+  <!-- Stem -->
+  <path d="M50 68 Q50 50 50 40" fill="none" stroke="#66BB6A" stroke-width="3" stroke-linecap="round"/>
+  <!-- Left leaf -->
+  <path d="M50 48 Q40 38 34 42 Q38 50 50 48" fill="#66BB6A"/>
+  <path d="M50 48 Q40 38 34 42" fill="none" stroke="#43A047" stroke-width="1" stroke-linecap="round"/>
+  <!-- Right leaf -->
+  <path d="M50 42 Q60 32 66 36 Q62 44 50 42" fill="#81C784"/>
+  <path d="M50 42 Q60 32 66 36" fill="none" stroke="#43A047" stroke-width="1" stroke-linecap="round"/>
+</svg>

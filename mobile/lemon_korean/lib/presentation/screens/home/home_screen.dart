@@ -19,13 +19,14 @@ import '../review/review_screen.dart';
 import '../settings/settings_menu_screen.dart';
 import '../stats/completed_lessons_screen.dart';
 import '../stats/mastered_words_screen.dart';
-import '../hangul/hangul_main_screen.dart';
 import '../vocabulary_book/vocabulary_book_screen.dart';
 import '../vocabulary_browser/vocabulary_browser_screen.dart';
-import 'widgets/user_header.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
-import 'widgets/lesson_grid_item.dart';
+import 'widgets/hangul_path_view.dart';
+import 'widgets/lesson_path_view.dart';
+import 'widgets/level_selector.dart';
+import '../../../core/constants/level_constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,18 +63,18 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             destinations: [
               NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
+                icon: const Icon(Icons.school),
+                selectedIcon: const Icon(Icons.school),
                 label: l10n?.home ?? 'Home',
               ),
               NavigationDestination(
-                icon: const Icon(Icons.replay_outlined),
+                icon: const Icon(Icons.replay),
                 selectedIcon: const Icon(Icons.replay),
                 label: l10n?.review ?? 'Review',
               ),
               NavigationDestination(
-                icon: const Icon(Icons.person_outlined),
-                selectedIcon: const Icon(Icons.person),
+                icon: const Icon(Icons.account_circle),
+                selectedIcon: const Icon(Icons.account_circle),
                 label: l10n?.profile ?? 'Profile',
               ),
             ],
@@ -99,10 +100,11 @@ class _HomeTabState extends State<_HomeTab> {
   List<LessonModel> _lessons = [];
   ProgressModel? _currentProgress;
   Map<int, double> _lessonProgress = {}; // lesson_id -> progress (0.0-1.0)
-  int _streakDays = 0;
-  double _todayProgress = 0.0;
-  int _completedToday = 0;
-  final int _targetLessons = 3;
+  int _selectedLevel = 1;
+  Set<int> _levelsWithProgress = {};
+
+  List<LessonModel> get _filteredLessons =>
+      _lessons.where((l) => l.level == _selectedLevel).toList();
 
   @override
   void initState() {
@@ -110,68 +112,6 @@ class _HomeTabState extends State<_HomeTab> {
     _loadData();
   }
 
-  /// Calculate streak days from progress data
-  int _calculateStreakDays(List<Map<String, dynamic>> progressList) {
-    if (progressList.isEmpty) return 0;
-
-    // Filter and sort completed lessons by completion date
-    final completedProgress = progressList
-        .where((p) => p['status'] == 'completed' && p['completed_at'] != null)
-        .toList();
-
-    if (completedProgress.isEmpty) return 0;
-
-    // Sort by completion date (most recent first)
-    completedProgress.sort((a, b) {
-      final dateA = DateTime.parse(a['completed_at']);
-      final dateB = DateTime.parse(b['completed_at']);
-      return dateB.compareTo(dateA);
-    });
-
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-
-    // Check if there's activity today or yesterday
-    final mostRecent = DateTime.parse(completedProgress[0]['completed_at']);
-    final mostRecentDate = DateTime(mostRecent.year, mostRecent.month, mostRecent.day);
-
-    final daysSinceLastActivity = today.difference(mostRecentDate).inDays;
-
-    if (daysSinceLastActivity > 1) {
-      // No activity today or yesterday - streak is broken
-      return 0;
-    }
-
-    // Count consecutive days
-    int streakDays = 1;
-
-    // Get unique completion dates
-    final uniqueDates = <DateTime>{};
-    for (final p in completedProgress) {
-      final date = DateTime.parse(p['completed_at']);
-      final dayDate = DateTime(date.year, date.month, date.day);
-      uniqueDates.add(dayDate);
-    }
-
-    final sortedDates = uniqueDates.toList()
-      ..sort((a, b) => b.compareTo(a));
-
-    // Count consecutive days
-    for (int i = 1; i < sortedDates.length; i++) {
-      final currentDay = sortedDates[i];
-      final previousDay = sortedDates[i - 1];
-
-      // Check if this is the previous day
-      if (previousDay.difference(currentDay).inDays == 1) {
-        streakDays++;
-      } else {
-        // Gap in streak - stop counting
-        break;
-      }
-    }
-
-    return streakDays;
-  }
 
   Future<void> _loadData() async {
     final lessonProvider = Provider.of<LessonProvider>(context, listen: false);
@@ -239,19 +179,6 @@ class _HomeTabState extends State<_HomeTab> {
   /// Update progress statistics from provider data
   void _updateProgressStats(ProgressProvider progressProvider) {
     final progressList = progressProvider.progressList;
-    final today = DateTime.now();
-    final todayProgress = progressList.where((p) {
-      final completedAtStr = p['completed_at'];
-      if (completedAtStr == null || completedAtStr.toString().isEmpty) return false;
-      try {
-        final completedAt = DateTime.parse(completedAtStr.toString());
-        return completedAt.year == today.year &&
-               completedAt.month == today.month &&
-               completedAt.day == today.day;
-      } catch (_) {
-        return false;
-      }
-    }).length;
 
     // Build lesson progress map
     final lessonProgressMap = <int, double>{};
@@ -271,11 +198,17 @@ class _HomeTabState extends State<_HomeTab> {
       }
     }
 
+    // Compute which levels have progress
+    final progressLevels = <int>{};
+    for (final lesson in _lessons) {
+      if (lessonProgressMap.containsKey(lesson.id)) {
+        progressLevels.add(lesson.level);
+      }
+    }
+
     setState(() {
-      _completedToday = todayProgress;
-      _todayProgress = todayProgress / _targetLessons;
       _lessonProgress = lessonProgressMap;
-      _streakDays = _calculateStreakDays(progressList);
+      _levelsWithProgress = progressLevels;
     });
   }
 
@@ -310,73 +243,32 @@ class _HomeTabState extends State<_HomeTab> {
     });
   }
 
+  void _onLevelSelected(int level) {
+    setState(() {
+      _selectedLevel = level;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    final user = authProvider.currentUser;
+    final filtered = _filteredLessons;
 
     return CustomScrollView(
       slivers: [
-        // User Header
-        SliverToBoxAdapter(
-          child: UserHeader(
-            user: user,
-            streakDays: _streakDays,
-          ).animate().fadeIn(duration: 400.ms).slideY(
-                begin: -0.2,
-                end: 0,
-                duration: 400.ms,
-                curve: Curves.easeOut,
-              ),
-        ),
-
-        // Daily Goal Card
+        // Level Selector
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
+            padding: const EdgeInsets.only(top: AppConstants.paddingSmall),
+            child: LevelSelector(
+              selectedLevel: _selectedLevel,
+              levelsWithProgress: _levelsWithProgress,
+              onLevelSelected: _onLevelSelected,
             ),
-            child: DailyGoalCard(
-              progress: _todayProgress,
-              completedLessons: _completedToday,
-              targetLessons: _targetLessons,
-            ).animate().fadeIn(duration: 400.ms).slideY(
-                  begin: 0.2,
-                  end: 0,
-                  duration: 400.ms,
-                  curve: Curves.easeOut,
-                ),
-          ),
-        ),
-
-        // Hangul Learning Card
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
-            ),
-            child: _HangulLearningCard(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HangulMainScreen(),
-                  ),
-                );
-              },
-            ).animate().fadeIn(duration: 400.ms).slideY(
-                  begin: 0.2,
-                  end: 0,
-                  duration: 400.ms,
-                  curve: Curves.easeOut,
-                ),
           ),
         ),
 
         // Continue Learning Section
-        if (_currentProgress != null)
+        if (_currentProgress != null && _lessons.isNotEmpty)
           SliverToBoxAdapter(
             child: Builder(
               builder: (context) {
@@ -418,78 +310,58 @@ class _HomeTabState extends State<_HomeTab> {
             ),
           ),
 
-        // All Lessons Section
-        SliverToBoxAdapter(
-          child: Builder(
-            builder: (context) {
-              final l10n = AppLocalizations.of(context);
-              return Padding(
-                padding: const EdgeInsets.all(AppConstants.paddingMedium),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // Hangul Path View for Level 0
+        if (_selectedLevel == 0)
+          const SliverToBoxAdapter(
+            child: HangulPathView(),
+          )
+        // Lessons Grid or Empty State
+        else if (filtered.isEmpty)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingXLarge,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      l10n?.lessons ?? 'Lessons',
-                      style: const TextStyle(
-                        fontSize: AppConstants.fontSizeLarge,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Icon(
+                      Icons.lock_outline,
+                      size: 48,
+                      color: Colors.grey.shade400,
                     ),
-                    TextButton.icon(
-                      onPressed: () {
-                        // Show filter
-                      },
-                      icon: const Icon(Icons.filter_list, size: 20),
-                      label: Text(l10n?.filter ?? 'Filter'),
+                    const SizedBox(height: AppConstants.paddingMedium),
+                    Text(
+                      'Coming soon',
+                      style: TextStyle(
+                        fontSize: AppConstants.fontSizeLarge,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
                   ],
                 ),
-              ).animate().fadeIn(duration: 400.ms);
-            },
-          ),
-        ),
-
-        // Lessons Grid
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.paddingMedium,
-          ),
-          sliver: SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-              crossAxisSpacing: AppConstants.paddingMedium,
-              mainAxisSpacing: AppConstants.paddingMedium,
+              ),
             ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final lesson = _lessons[index];
-                final progress = _lessonProgress[lesson.id];
-                return LessonGridItem(
-                  lesson: lesson,
-                  progress: progress,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LessonScreen(lesson: lesson),
-                      ),
-                    );
-                  },
-                )
-                    .animate()
-                    .fadeIn(duration: 400.ms)
-                    .scale(
-                      begin: const Offset(0.8, 0.8),
-                      end: const Offset(1, 1),
-                      duration: 400.ms,
-                      curve: Curves.easeOut,
-                    );
+          )
+        else
+          SliverToBoxAdapter(
+            child: LessonPathView(
+              lessons: filtered,
+              lessonProgress: _lessonProgress,
+              levelColor: LevelConstants.getLevelColor(_selectedLevel),
+              onLessonTap: (lesson) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LessonScreen(lesson: lesson),
+                  ),
+                );
               },
-              childCount: _lessons.length,
             ),
           ),
-        ),
 
         // Bottom padding
         const SliverToBoxAdapter(
@@ -635,10 +507,104 @@ class _ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<_ProfileTab> {
+  int _streakDays = 0;
+  double _todayProgress = 0.0;
+  int _completedToday = 0;
+  final int _targetLessons = 3;
+
   @override
   void initState() {
     super.initState();
     _loadStats();
+  }
+
+  /// Calculate streak days from progress data
+  int _calculateStreakDays(List<Map<String, dynamic>> progressList) {
+    if (progressList.isEmpty) return 0;
+
+    // Filter and sort completed lessons by completion date
+    final completedProgress = progressList
+        .where((p) => p['status'] == 'completed' && p['completed_at'] != null)
+        .toList();
+
+    if (completedProgress.isEmpty) return 0;
+
+    // Sort by completion date (most recent first)
+    completedProgress.sort((a, b) {
+      final dateA = DateTime.parse(a['completed_at']);
+      final dateB = DateTime.parse(b['completed_at']);
+      return dateB.compareTo(dateA);
+    });
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    // Check if there's activity today or yesterday
+    final mostRecent = DateTime.parse(completedProgress[0]['completed_at']);
+    final mostRecentDate = DateTime(mostRecent.year, mostRecent.month, mostRecent.day);
+
+    final daysSinceLastActivity = today.difference(mostRecentDate).inDays;
+
+    if (daysSinceLastActivity > 1) {
+      // No activity today or yesterday - streak is broken
+      return 0;
+    }
+
+    // Count consecutive days
+    int streakDays = 1;
+
+    // Get unique completion dates
+    final uniqueDates = <DateTime>{};
+    for (final p in completedProgress) {
+      final date = DateTime.parse(p['completed_at']);
+      final dayDate = DateTime(date.year, date.month, date.day);
+      uniqueDates.add(dayDate);
+    }
+
+    final sortedDates = uniqueDates.toList()
+      ..sort((a, b) => b.compareTo(a));
+
+    // Count consecutive days
+    for (int i = 1; i < sortedDates.length; i++) {
+      final currentDay = sortedDates[i];
+      final previousDay = sortedDates[i - 1];
+
+      // Check if this is the previous day
+      if (previousDay.difference(currentDay).inDays == 1) {
+        streakDays++;
+      } else {
+        // Gap in streak - stop counting
+        break;
+      }
+    }
+
+    return streakDays;
+  }
+
+  /// Update daily statistics (streak and progress)
+  void _updateDailyStats() {
+    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final progressList = progressProvider.progressList;
+    final today = DateTime.now();
+
+    final completedToday = progressList.where((p) {
+      final completedAtStr = p['completed_at'];
+      if (completedAtStr == null) return false;
+      try {
+        final completedAt = DateTime.parse(completedAtStr.toString());
+        return completedAt.year == today.year &&
+               completedAt.month == today.month &&
+               completedAt.day == today.day;
+      } catch (_) {
+        return false;
+      }
+    }).length;
+
+    setState(() {
+      _streakDays = _calculateStreakDays(progressList);
+      _completedToday = completedToday;
+      _todayProgress = completedToday / _targetLessons;
+    });
   }
 
   Future<void> _loadStats() async {
@@ -651,7 +617,101 @@ class _ProfileTabState extends State<_ProfileTab> {
         progressProvider.fetchUserStats(authProvider.currentUser!.id),
         bookmarkProvider.fetchBookmarks(silent: true),
       ]);
+      _updateDailyStats();
     }
+  }
+
+  Widget _buildGreetingStreak(AuthProvider authProvider) {
+    final l10n = AppLocalizations.of(context)!;
+    final user = authProvider.currentUser;
+    final hour = DateTime.now().hour;
+    String greeting = hour < 12
+        ? l10n.goodMorning
+        : hour < 18
+            ? l10n.goodAfternoon
+            : l10n.goodEvening;
+
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(AppConstants.paddingLarge),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Greeting text (left side)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    greeting,
+                    style: const TextStyle(
+                      fontSize: AppConstants.fontSizeMedium,
+                      color: AppConstants.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    user?.username ?? l10n.user,
+                    style: const TextStyle(
+                      fontSize: AppConstants.fontSizeLarge,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Streak badge (right side)
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingSmall,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.orange.shade50,
+                borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                border: Border.all(
+                  color: Colors.orange.shade200,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.local_fire_department,
+                    color: Colors.orange,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '$_streakDays',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Text(
+                        l10n.days,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.orange.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -762,6 +822,33 @@ class _ProfileTabState extends State<_ProfileTab> {
             ),
           ),
         ),
+
+        // Greeting + Streak
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
+            ),
+            child: _buildGreetingStreak(authProvider),
+          ),
+        ),
+
+        // Daily Goal Card
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
+            ),
+            child: DailyGoalCard(
+              progress: _todayProgress,
+              completedLessons: _completedToday,
+              targetLessons: _targetLessons,
+            ),
+          ),
+        ),
+
         SliverPadding(
           padding: const EdgeInsets.all(AppConstants.paddingMedium),
           sliver: SliverList(
@@ -932,97 +1019,3 @@ class _ProfileTabState extends State<_ProfileTab> {
   }
 }
 
-// ================================================================
-// HANGUL LEARNING CARD
-// ================================================================
-
-/// Special card for accessing Korean alphabet (Hangul) learning section
-class _HangulLearningCard extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const _HangulLearningCard({required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(AppConstants.paddingMedium),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.blue.shade400,
-              Colors.blue.shade600,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blue.withValues(alpha: 0.3),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            // Icon section
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  '한글',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: AppConstants.paddingMedium),
-            // Text section
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n?.hangulLearning ?? 'Hangul Learning',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    l10n?.hangulLearningSubtitle ?? 'Learn Korean alphabet - 40 letters',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white.withValues(alpha: 0.9),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Arrow
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white.withValues(alpha: 0.8),
-              size: 20,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

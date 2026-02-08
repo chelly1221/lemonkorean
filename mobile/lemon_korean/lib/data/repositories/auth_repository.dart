@@ -278,17 +278,40 @@ class AuthRepository {
   // ================================================================
 
   String _handleError(dynamic error) {
-    final errorString = error.toString();
+    if (error is DioException) {
+      // Use structured DioException data instead of string matching
+      // (_ErrorInterceptor modifies error.toString(), making pattern matching unreliable)
+      final statusCode = error.response?.statusCode;
+      final responseData = error.response?.data;
+      final serverMessage = responseData is Map ? responseData['message'] as String? : null;
 
-    if (errorString.contains('network') ||
-        errorString.contains('SocketException')) {
-      return '네트워크 연결 실패. 네트워크 설정을 확인하세요';
-    } else if (errorString.contains('401')) {
-      return '이메일 또는 비밀번호가 잘못되었습니다';
-    } else if (errorString.contains('409')) {
-      return '이미 등록된 이메일입니다';
-    } else if (errorString.contains('timeout')) {
-      return '요청 시간 초과. 다시 시도하세요';
+      if (statusCode != null) {
+        switch (statusCode) {
+          case 401:
+            return serverMessage ?? '이메일 또는 비밀번호가 잘못되었습니다';
+          case 409:
+            return serverMessage ?? '이미 등록된 이메일입니다';
+          case 429:
+            return '요청이 너무 많습니다. 잠시 후 다시 시도하세요';
+          default:
+            if (statusCode >= 500) {
+              return '서버 오류. 나중에 다시 시도하세요';
+            }
+            return serverMessage ?? '작업 실패. 나중에 다시 시도하세요';
+        }
+      }
+
+      // Connection/network errors (no response)
+      switch (error.type) {
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.sendTimeout:
+        case DioExceptionType.receiveTimeout:
+          return '요청 시간 초과. 다시 시도하세요';
+        case DioExceptionType.connectionError:
+          return '네트워크 연결 실패. 네트워크 설정을 확인하세요';
+        default:
+          break;
+      }
     }
 
     return '작업 실패. 나중에 다시 시도하세요';

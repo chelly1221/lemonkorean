@@ -4,9 +4,8 @@ const { requireAuth, requireAdmin } = require('../middleware/auth.middleware');
 const systemController = require('../controllers/system.controller');
 
 /**
- * System Logs Routes
+ * System Routes
  * All routes require authentication and admin privileges
- * No audit logging needed for read-only monitoring
  */
 
 // Get system audit logs
@@ -15,6 +14,22 @@ router.get(
   requireAuth,
   requireAdmin,
   systemController.getLogs
+);
+
+// Create storage reset flag
+router.post(
+  '/storage-reset',
+  requireAuth,
+  requireAdmin,
+  systemController.createStorageResetFlag
+);
+
+// List storage reset flags
+router.get(
+  '/storage-reset',
+  requireAuth,
+  requireAdmin,
+  systemController.listStorageResetFlags
 );
 
 module.exports = router;

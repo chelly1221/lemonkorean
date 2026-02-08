@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#E8F5E9"/>
+  <circle cx="50" cy="50" r="40" fill="#F1F8F2"/>
+  <!-- Ground with grass -->
+  <rect x="10" y="74" width="80" height="16" rx="6" fill="#66BB6A"/>
+  <rect x="12" y="74" width="76" height="8" rx="4" fill="#81C784"/>
+  <!-- Small bushes -->
+  <circle cx="16" cy="74" r="5" fill="#4CAF50"/>
+  <circle cx="38" cy="75" r="4" fill="#4CAF50"/>
+  <circle cx="62" cy="75" r="4" fill="#4CAF50"/>
+  <circle cx="84" cy="74" r="5" fill="#4CAF50"/>
+  <!-- Tree 1 (far left) -->
+  <rect x="14" y="58" width="3" height="16" rx="1" fill="#795548"/>
+  <circle cx="16" cy="50" r="10" fill="#4CAF50"/>
+  <circle cx="16" cy="45" r="7" fill="#66BB6A"/>
+  <ellipse cx="13" cy="50" rx="3" ry="2.5" fill="#FFB300"/>
+  <ellipse cx="19" cy="48" rx="3" ry="2.5" fill="#FFC107"/>
+  <!-- Tree 2 (left) -->
+  <rect x="28" y="54" width="4" height="20" rx="1" fill="#795548"/>
+  <circle cx="30" cy="42" r="14" fill="#4CAF50"/>
+  <circle cx="30" cy="36" r="10" fill="#66BB6A"/>
+  <ellipse cx="25" cy="44" rx="3.5" ry="3" fill="#FFB300"/>
+  <ellipse cx="35" cy="42" rx="3.5" ry="3" fill="#FFC107"/>
+  <ellipse cx="30" cy="48" rx="3.5" ry="3" fill="#FFB300"/>
+  <!-- Tree 3 (center, largest) -->
+  <rect x="47" y="48" width="6" height="26" rx="2" fill="#795548"/>
+  <circle cx="50" cy="32" r="18" fill="#4CAF50"/>
+  <circle cx="50" cy="24" r="13" fill="#66BB6A"/>
+  <ellipse cx="43" cy="34" rx="4" ry="3.5" fill="#FFB300"/>
+  <ellipse cx="57" cy="32" rx="4" ry="3.5" fill="#FFC107"/>
+  <ellipse cx="50" cy="40" rx="4" ry="3.5" fill="#FFB300"/>
+  <ellipse cx="46" cy="24" rx="3" ry="2.5" fill="#FFC107"/>
+  <ellipse cx="54" cy="22" rx="3" ry="2.5" fill="#FFB300"/>
+  <!-- Tree 4 (right) -->
+  <rect x="68" y="54" width="4" height="20" rx="1" fill="#795548"/>
+  <circle cx="70" cy="42" r="14" fill="#4CAF50"/>
+  <circle cx="70" cy="36" r="10" fill="#66BB6A"/>
+  <ellipse cx="65" cy="44" rx="3.5" ry="3" fill="#FFC107"/>
+  <ellipse cx="75" cy="42" rx="3.5" ry="3" fill="#FFB300"/>
+  <ellipse cx="70" cy="48" rx="3.5" ry="3" fill="#FFC107"/>
+  <!-- Tree 5 (far right) -->
+  <rect x="83" y="58" width="3" height="16" rx="1" fill="#795548"/>
+  <circle cx="84" cy="50" r="10" fill="#4CAF50"/>
+  <circle cx="84" cy="45" r="7" fill="#66BB6A"/>
+  <ellipse cx="81" cy="50" rx="3" ry="2.5" fill="#FFC107"/>
+  <ellipse cx="87" cy="48" rx="3" ry="2.5" fill="#FFB300"/>
+  <!-- Leaf sparkles -->
+  <g fill="#A5D6A7" opacity="0.7">
+    <circle cx="22" cy="38" r="1.5"/>
+    <circle cx="42" cy="20" r="1.5"/>
+    <circle cx="58" cy="18" r="1.5"/>
+    <circle cx="78" cy="38" r="1.5"/>
+  </g>
+</svg>

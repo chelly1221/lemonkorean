@@ -387,7 +387,7 @@ docker compose down && docker compose up -d
 | RabbitMQ Queues | `config/rabbitmq/definitions.json` |
 | Prometheus | `monitoring/prometheus/prometheus.yml` |
 | Prometheus Alerts | `monitoring/prometheus/rules/alerts.yml` |
-| Nginx | `nginx/nginx.dev.conf` or `nginx/nginx.conf` |
+| Nginx | `nginx/nginx.conf` |
 
 ### docker-compose.yml 수정이 허용되는 경우
 

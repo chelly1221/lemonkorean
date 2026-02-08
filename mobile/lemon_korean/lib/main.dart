@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/app_constants.dart';
+import 'core/platform/storage_reset.dart'
+    if (dart.library.html) 'core/platform/web/storage_reset_web.dart';
 import 'core/network/api_client.dart';
 import 'core/platform/platform_factory.dart';
 import 'core/utils/app_logger.dart';
@@ -47,6 +49,9 @@ void main() async {
   // Platform-specific initialization
   if (kIsWeb) {
     AppLogger.i('Running on WEB platform', tag: 'Main');
+
+    // Web: Check and handle storage reset flag BEFORE initializing storage
+    await checkAndHandleStorageReset();
 
     // Web: Initialize IndexedDB storage
     final storage = PlatformFactory.createLocalStorage();

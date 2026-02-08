@@ -424,7 +424,7 @@ services:
       - ./data/nginx-cache:/var/cache/nginx
       - ./data/nginx-logs:/var/log/nginx
       # Direct config mount (changes take effect with reload)
-      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       # Logrotate config
       - ./nginx/logrotate.conf:/etc/logrotate.d/nginx:ro
       # SSL certificates (for development)

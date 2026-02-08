@@ -284,8 +284,7 @@ lemonkorean/
 │       └── init/
 │
 ├── nginx/                      # Nginx 설정
-│   ├── nginx.conf
-│   └── nginx.dev.conf
+│   └── nginx.conf
 │
 ├── scripts/                    # 운영 스크립트
 │   ├── deploy.sh              # 배포 스크립트

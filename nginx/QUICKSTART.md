@@ -15,7 +15,7 @@ docker build -t lemon-nginx .
 docker run -d \
   --name lemon-nginx \
   -p 80:80 \
-  -v $(pwd)/nginx.dev.conf:/etc/nginx/nginx.conf:ro \
+  -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro \
   lemon-nginx
 
 # 프로덕션 모드 (HTTPS)
