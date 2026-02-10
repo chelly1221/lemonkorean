@@ -76,6 +76,14 @@ go build -o progress-service main.go
 - `POST /api/progress/sync/batch` - 배치 동기화
 - `GET /api/progress/sync/status/:userId` - 동기화 상태
 
+### 게임화 (2026-02-10)
+
+- `POST /api/progress/lesson-reward` - 레슨 레몬 보상 저장/업데이트
+- `GET /api/progress/lemon-currency/:userId` - 레몬 잔액 조회
+- `GET /api/progress/lesson-rewards/:userId` - 레슨 보상 목록
+- `POST /api/progress/lemon-harvest` - 나무 레몬 수확 (광고 시청 후)
+- `POST /api/progress/boss-quiz/complete` - 보스 퀴즈 완료 기록
+
 ### 통계
 
 - `GET /api/progress/stats/:userId` - 사용자 통계
@@ -111,8 +119,9 @@ progress/
 │   ├── progress.go         # Progress 모델
 │   └── session.go          # Session 모델
 ├── handlers/
-│   ├── progress_handler.go # Progress API 핸들러
-│   └── sync_handler.go     # 동기화 핸들러
+│   ├── progress_handler.go      # Progress API 핸들러
+│   ├── gamification_handler.go  # 게임화 API 핸들러
+│   └── sync_handler.go          # 동기화 핸들러
 ├── repository/
 │   └── progress_repository.go # 데이터 접근 계층
 ├── middleware/

@@ -5,9 +5,9 @@
 
 **플랫폼**: Flutter 기반 모바일(Android) + 웹 앱 호환 프로젝트 (단일 코드베이스)
 
-**상태**: ✅ **프로덕션 준비 완료** (100%, 6/6 서비스)
+**상태**: ✅ **프로덕션 준비 완료** (100%, 7/7 서비스)
 
-**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환
+**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티
 
 ---
 
@@ -28,7 +28,7 @@ cd mobile/lemon_korean && ./build_web.sh
 
 ## 아키텍처
 ```
-Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 6 Microservices ↔ PostgreSQL/MongoDB/Redis/MinIO
+Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 7 Microservices ↔ PostgreSQL/MongoDB/Redis/MinIO
 ```
 
 ### 마이크로서비스
@@ -40,14 +40,15 @@ Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 6 Microservices ↔ Post
 | Media | 3004 | Go | 미디어 서빙 |
 | Analytics | 3005 | Python | 통계 |
 | Admin | 3006 | Node.js | 관리자 대시보드, 앱 테마 설정, APK 빌드 |
+| SNS | 3007 | Node.js | 커뮤니티 피드, 게시물, 댓글, 팔로우 |
 
 ---
 
 ## 주요 디렉토리
 ```
 services/           # 백엔드 마이크로서비스
-mobile/lemon_korean/lib/  # Flutter 앱 (134 Dart 파일)
-database/postgres/  # PostgreSQL 스키마 (23개 테이블)
+mobile/lemon_korean/lib/  # Flutter 앱 (160+ Dart 파일)
+database/postgres/  # PostgreSQL 스키마 (35+ 테이블)
 config/             # DB/서비스 설정 파일
 nginx/              # Nginx 설정
 scripts/            # 백업, 최적화, 배포 트리거 스크립트
@@ -212,4 +213,4 @@ sudo lsof -i :5432
 
 ---
 
-**마지막 업데이트**: 2026-02-05
+**마지막 업데이트**: 2026-02-10

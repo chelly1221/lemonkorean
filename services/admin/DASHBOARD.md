@@ -371,6 +371,63 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
+### 15. Gamification Settings (2026-02-10)
+
+게임화 시스템 설정 관리.
+
+**위치**: `#/gamification-settings` (사이드바: "Gamification")
+
+**기능**:
+- **광고 설정**: AdMob App ID, Rewarded Ad ID, AdSense 설정
+- **레몬 보상 설정**: 3레몬/2레몬 퀴즈 점수 임계값
+- **보스 퀴즈 설정**: 보너스 레몬, 통과 기준 퍼센트
+- **나무 설정**: 최대 나무 레몬 수
+- **설정 초기화**: 기본값 복원
+
+**API 연동** (`/api/admin/gamification/`):
+- `GET /settings` - 현재 설정 조회 (공개)
+- `PUT /ad-settings` - 광고 설정 업데이트
+- `PUT /lemon-settings` - 레몬 설정 업데이트
+- `POST /reset` - 설정 초기화
+
+**백엔드 파일**:
+- `src/controllers/gamification.controller.js`
+- `src/routes/gamification.routes.js`
+- `public/js/pages/gamification-settings.js`
+
+**데이터베이스**: `gamification_settings` 테이블 (단일 행, id=1)
+
+---
+
+### 16. SNS Moderation (2026-02-10)
+
+SNS 커뮤니티 콘텐츠 모더레이션 관리.
+
+**위치**: `#/sns-moderation` (사이드바: "SNS Moderation")
+
+**기능**:
+- **신고 관리**: 신고 목록, 상태 업데이트 (pending/reviewed/resolved/dismissed)
+- **게시물 관리**: 게시물 목록, 게시물 삭제
+- **사용자 관리**: SNS 밴/언밴
+- **모더레이션 통계**: 신고 현황 대시보드
+
+**API 연동** (`/api/admin/sns-moderation/`):
+- `GET /reports` - 신고 목록
+- `PUT /reports/:id` - 신고 상태 업데이트
+- `GET /posts` - 게시물 목록
+- `DELETE /posts/:id` - 게시물 삭제
+- `GET /users` - 사용자 목록
+- `PUT /users/:id/ban` - 사용자 밴
+- `PUT /users/:id/unban` - 사용자 언밴
+- `GET /stats` - 모더레이션 통계
+
+**백엔드 파일**:
+- `src/controllers/sns-moderation.controller.js`
+- `src/routes/sns-moderation.routes.js`
+- `public/js/pages/sns-moderation.js`
+
+---
+
 ## 사용 방법
 
 ### 1. 서비스 시작

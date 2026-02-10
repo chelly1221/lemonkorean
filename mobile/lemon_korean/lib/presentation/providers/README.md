@@ -6,12 +6,15 @@
 
 ```
 providers/
-├── auth_provider.dart      # 认证状态管理
-├── lesson_provider.dart    # 课程状态管理
-├── progress_provider.dart  # 学习进度管理
-├── download_provider.dart  # 下载队列管理
-├── settings_provider.dart  # 应用设置管理
-└── sync_provider.dart      # 离线同步管理
+├── auth_provider.dart           # 认证状态管理
+├── lesson_provider.dart         # 课程状态管理
+├── progress_provider.dart       # 学习进度管理
+├── download_provider.dart       # 下载队列管理
+├── settings_provider.dart       # 应用设置管理
+├── sync_provider.dart           # 离线同步管理
+├── gamification_provider.dart   # 게임화 상태 관리 (2026-02-10)
+├── feed_provider.dart           # SNS 피드 상태 관리 (2026-02-10)
+└── social_provider.dart         # SNS 소셜 상태 관리 (2026-02-10)
 ```
 
 > **注意**: 本文档主要介绍 AuthProvider。其他 Provider 请参考相应的源代码注释。

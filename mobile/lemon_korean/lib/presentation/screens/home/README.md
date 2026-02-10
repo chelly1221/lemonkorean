@@ -11,6 +11,7 @@ home/
     ├── level_selector.dart       # 레벨 셀렉터 캐러셀 (10 레벨)
     ├── lesson_path_view.dart     # 레슨 경로 뷰 (지그재그 S-curve)
     ├── lesson_path_node.dart     # 레몬 모양 레슨 노드
+    ├── boss_quiz_node.dart       # 보스 퀴즈 노드 (주차별, 2026-02-10)
     ├── hangul_path_view.dart     # 한글 섹션 경로 뷰 (레벨 0 전용)
     ├── lemon_clipper.dart        # 레몬 모양 CustomPainter
     ├── daily_goal_card.dart      # 일일 목표 카드 (ProfileTab)

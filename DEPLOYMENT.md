@@ -340,6 +340,7 @@ curl http://localhost:3002/health  # Content
 curl http://localhost:3003/health  # Progress
 curl http://localhost:3004/health  # Media
 curl http://localhost:3005/health  # Analytics
+curl http://localhost:3007/health  # SNS
 # Admin은 nginx를 통해 접근: https://lemon.3chan.kr/admin/
 ```
 
@@ -740,6 +741,13 @@ psql -U 3chan -d lemon_korean -f database/postgres/migrations/005_add_app_theme_
 
 # 3. 디자인 설정 제거 (선택)
 psql -U 3chan -d lemon_korean -f database/postgres/migrations/006_remove_design_settings.sql
+
+# 4. 게임화 테이블 추가
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/008_add_gamification_tables.sql
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/009_add_gamification_settings.sql
+
+# 5. SNS 테이블 추가
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/010_add_sns_tables.sql
 ```
 
 ### 배포 URL

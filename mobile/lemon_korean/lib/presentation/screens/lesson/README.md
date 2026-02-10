@@ -7,6 +7,7 @@
 ```
 lesson/
 ├── lesson_screen.dart        # 主学习屏幕（沉浸模式容器）
+├── boss_quiz_screen.dart     # Boss Quiz屏幕（每周挑战）
 ├── stages/
 │   ├── stage1_intro.dart     # 第1阶段：课程介绍
 │   ├── stage2_vocabulary.dart # 第2阶段：词汇学习（简单版）

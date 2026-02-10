@@ -92,7 +92,12 @@ lib/
 │   │       ├── welcome_level_screen.dart
 │   │       ├── utils/              # 디자인 시스템 (2개)
 │   │       └── widgets/            # 재사용 위젯 (7개)
-│   ├── providers/                  # 상태 관리 (8개 Providers)
+│   │   ├── community/              # 커뮤니티 피드
+│   │   ├── create_post/            # 게시물 작성
+│   │   ├── friend_search/          # 친구 검색
+│   │   ├── post_detail/            # 게시물 상세
+│   │   └── user_profile/           # 사용자 프로필
+│   ├── providers/                  # 상태 관리 (11개 Providers)
 │   └── widgets/                    # 재사용 위젯
 ├── l10n/                           # 다국어 지원 (6개 언어)
 │   ├── app_zh.arb                  # 중국어 간체
@@ -105,7 +110,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 132개 (소스 + 생성 + l10n + 온보딩 16개)
+**총 Dart 파일 수**: 160+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS)
 
 ---
 
@@ -366,6 +371,58 @@ Home screen level carousel and lesson path visualization.
 - S-curve bezier path lines between nodes (solid=completed, dashed=incomplete)
 
 **Assets**: `assets/levels/level_*.svg` (10 SVG files)
+
+---
+
+### Gamification System (2026-02-10)
+
+Lemon reward system with boss quizzes, lemon tree, and ad integration.
+
+**New Files**:
+- `lib/presentation/providers/gamification_provider.dart` - Gamification state management
+- `lib/presentation/screens/lesson/boss_quiz_screen.dart` - Boss quiz at end of each week
+- `lib/presentation/screens/home/widgets/boss_quiz_node.dart` - Boss quiz node in lesson path
+- `lib/presentation/screens/lesson/stages/stage7_summary.dart` - Updated with lemon rewards
+- `lib/presentation/screens/profile/widgets/lemon_tree_widget.dart` - Lemon tree visualization
+- `lib/core/services/ad_service.dart` - Ad service abstraction
+- `lib/core/services/admob_service.dart` - AdMob for mobile
+- `lib/core/services/admob_service_web.dart` - Web stub
+- `lib/core/services/adsense_service.dart` - AdSense for web
+
+**Features**:
+- 🍋 1-3 lemon rewards per lesson based on quiz score
+- 🏆 Boss quizzes at end of each week (bonus 5 lemons)
+- 🌳 Lemon tree grows with earned lemons, harvest after ad
+- 📱 AdMob rewarded ads (mobile), AdSense placeholder (web)
+- ⚙️ Admin-configurable thresholds and ad settings
+
+---
+
+### SNS Community (2026-02-10)
+
+Social features: feed, posts, comments, follows, friend search.
+
+**New Files**:
+- `lib/presentation/providers/feed_provider.dart` - Feed state management
+- `lib/presentation/providers/social_provider.dart` - Social interactions
+- `lib/presentation/screens/community/community_screen.dart` - Community feed
+- `lib/presentation/screens/community/widgets/` - Post cards, image grid, category filters
+- `lib/presentation/screens/create_post/create_post_screen.dart` - Create post with images
+- `lib/presentation/screens/post_detail/post_detail_screen.dart` - Post detail with comments
+- `lib/presentation/screens/friend_search/friend_search_screen.dart` - User search
+- `lib/presentation/screens/user_profile/user_profile_screen.dart` - User profile view
+
+**Features**:
+- 📝 Create/delete posts with categories (learning/general)
+- 🖼️ Image attachments
+- 💬 Comments with nested replies
+- ❤️ Like/unlike posts
+- 👥 Follow/unfollow users
+- 🔍 User search by name
+- 🚫 Block/report users
+- 🛡️ Admin moderation tools
+
+**Backend**: SNS Service (port 3007) with 21 API endpoints
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Lemon Korean API provides endpoints for managing lessons, vocabulary, grammar, and user progress. All content endpoints support multi-language content via the `?language=` query parameter.
+The Lemon Korean API provides endpoints for managing lessons, vocabulary, grammar, user progress, gamification, and social features. All content endpoints support multi-language content via the `?language=` query parameter.
 
 ## Base URLs
 
@@ -14,6 +14,7 @@ The Lemon Korean API provides endpoints for managing lessons, vocabulary, gramma
 | Media | 3004 | `/media` |
 | Analytics | 3005 | `/api/analytics` |
 | Admin | 3006 | `/api/admin` |
+| SNS | 3007 | `/api/sns` |
 
 ---
 
@@ -716,6 +717,106 @@ CREATE TABLE grammar_translations (
 | 401 | Unauthorized - Invalid/missing token |
 | 404 | Not Found - Resource doesn't exist |
 | 500 | Internal Server Error |
+
+---
+
+## Gamification Endpoints (2026-02-10)
+
+Lemon reward system with lesson scoring, boss quizzes, and lemon tree.
+
+### Progress Service Gamification (`/api/progress/`)
+
+All endpoints require authentication.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/progress/lesson-reward` | Save/update lesson lemon reward (1-3 lemons based on quiz score) |
+| GET | `/api/progress/lemon-currency/:userId` | Get user's lemon currency balance |
+| GET | `/api/progress/lesson-rewards/:userId` | Get all lesson rewards for user |
+| POST | `/api/progress/lemon-harvest` | Harvest lemon from tree (after ad watched) |
+| POST | `/api/progress/boss-quiz/complete` | Record boss quiz completion |
+
+### Admin Gamification Settings (`/api/admin/gamification/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/settings` | Public | Get current gamification settings (used by Flutter app) |
+| PUT | `/ad-settings` | Admin | Update ad settings (AdMob/AdSense IDs) |
+| PUT | `/lemon-settings` | Admin | Update lemon reward thresholds |
+| POST | `/reset` | Admin | Reset gamification settings to defaults |
+
+---
+
+## SNS Service Endpoints (2026-02-10)
+
+Community features: posts, comments, follows, profiles, reports, blocks.
+
+### Posts (`/api/sns/posts/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/feed` | Required | Get feed from followed users |
+| GET | `/discover` | Optional | Get public posts (discover) |
+| GET | `/user/:userId` | Optional | Get posts by specific user |
+| GET | `/:id` | Optional | Get single post |
+| POST | `/` | Required | Create new post |
+| DELETE | `/:id` | Required | Delete post (soft delete) |
+| POST | `/:id/like` | Required | Like a post |
+| DELETE | `/:id/like` | Required | Unlike a post |
+
+### Comments (`/api/sns/comments/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/post/:postId` | Optional | Get comments for a post |
+| POST | `/post/:postId` | Required | Create comment |
+| DELETE | `/:id` | Required | Delete comment (soft delete) |
+
+### Follows (`/api/sns/follows/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/:userId` | Required | Follow a user |
+| DELETE | `/:userId` | Required | Unfollow a user |
+| GET | `/:userId/followers` | Optional | Get user's followers |
+| GET | `/:userId/following` | Optional | Get user's following list |
+
+### Profiles (`/api/sns/profiles/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/search` | Required | Search users by name |
+| GET | `/suggested` | Required | Get suggested users |
+| GET | `/:userId` | Optional | Get user profile |
+| PUT | `/` | Required | Update own profile |
+
+### Reports (`/api/sns/reports/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/` | Required | Submit a report |
+
+### Blocks (`/api/sns/blocks/`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/:userId` | Required | Block a user |
+| DELETE | `/:userId` | Required | Unblock a user |
+
+### Admin SNS Moderation (`/api/admin/sns-moderation/`)
+
+All endpoints require admin authentication.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/reports` | Get all reports |
+| PUT | `/reports/:id` | Update report status |
+| GET | `/posts` | Get posts (moderation view) |
+| DELETE | `/posts/:id` | Delete post |
+| GET | `/users` | Get users (moderation view) |
+| PUT | `/users/:id/ban` | Ban user from SNS |
+| PUT | `/users/:id/unban` | Unban user |
+| GET | `/stats` | Get moderation statistics |
 
 ---
 

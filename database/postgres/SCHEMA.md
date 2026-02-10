@@ -4,7 +4,7 @@ PostgreSQL 15+ compatible schema documentation for the Lemon Korean learning pla
 
 ## Overview
 
-The database consists of 23 tables organized into the following functional areas:
+The database consists of 36+ tables organized into the following functional areas:
 
 - **User Management**: Users, sessions, authentication
 - **Lesson Content**: Lessons, vocabulary, grammar, dialogues
@@ -13,6 +13,8 @@ The database consists of 23 tables organized into the following functional areas
 - **Media Management**: Media metadata and storage references
 - **Admin Tools**: Audit logs, web deployment tracking
 - **Internationalization**: Multi-language content support (6 languages)
+- **Gamification**: Lemon rewards, currency, boss quizzes, settings (5 tables)
+- **SNS/Community**: Posts, comments, likes, follows, reports, blocks (6 tables)
 
 ---
 
@@ -799,6 +801,212 @@ Real-time APK build logs with timestamps.
 
 ---
 
+## Gamification Tables (Migration 008-009)
+
+### lesson_rewards
+
+Per-user, per-lesson lemon reward tracking (1-3 lemons based on quiz score).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Reward ID |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| lesson_id | INTEGER | NOT NULL, FK(lessons.id) CASCADE | Lesson reference |
+| lemons_earned | INTEGER | DEFAULT 0, CHECK (0-3) | Lemons earned (0-3) |
+| best_quiz_score | INTEGER | CHECK (0-100) | Best quiz score |
+| earned_at | TIMESTAMPTZ | DEFAULT NOW() | First earned time |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+| UNIQUE(user_id, lesson_id) | | | One reward per user-lesson |
+
+---
+
+### lemon_currency
+
+Per-user lemon balance and tree state.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| user_id | INTEGER | PRIMARY KEY, FK(users.id) CASCADE | User reference |
+| total_lemons | INTEGER | DEFAULT 0 | Total lemons earned |
+| tree_lemons_available | INTEGER | DEFAULT 0 | Lemons available on tree |
+| tree_lemons_harvested | INTEGER | DEFAULT 0 | Lemons harvested from tree |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+
+---
+
+### lemon_transactions
+
+Lemon earning history.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Transaction ID |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| amount | INTEGER | NOT NULL | Lemon amount |
+| type | VARCHAR(20) | NOT NULL, CHECK (lesson/boss/harvest/bonus) | Transaction type |
+| source_id | INTEGER | | Source lesson_id or boss quiz ID |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Transaction time |
+
+---
+
+### boss_quiz_completions
+
+Boss quiz completion tracking (one per user per level-week).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Completion ID |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| level | INTEGER | NOT NULL | TOPIK level |
+| week | INTEGER | NOT NULL | Week number |
+| score | INTEGER | | Quiz score |
+| bonus_lemons | INTEGER | DEFAULT 5 | Bonus lemons earned |
+| completed_at | TIMESTAMPTZ | DEFAULT NOW() | Completion time |
+| UNIQUE(user_id, level, week) | | | One per user-level-week |
+
+---
+
+### gamification_settings
+
+Global gamification settings (single-row table, id=1).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | INTEGER | PRIMARY KEY, CHECK (id=1) | Settings ID (always 1) |
+| admob_app_id | VARCHAR(100) | DEFAULT test ID | AdMob app ID |
+| admob_rewarded_ad_id | VARCHAR(100) | DEFAULT test ID | AdMob rewarded ad unit ID |
+| adsense_publisher_id | VARCHAR(100) | DEFAULT '' | AdSense publisher ID |
+| adsense_ad_slot | VARCHAR(100) | DEFAULT '' | AdSense ad slot |
+| ads_enabled | BOOLEAN | DEFAULT true | Enable ads globally |
+| web_ads_enabled | BOOLEAN | DEFAULT false | Enable web ads |
+| lemon_3_threshold | INTEGER | DEFAULT 95 | Score for 3 lemons |
+| lemon_2_threshold | INTEGER | DEFAULT 80 | Score for 2 lemons |
+| boss_quiz_bonus | INTEGER | DEFAULT 5 | Boss quiz bonus lemons |
+| boss_quiz_pass_percent | INTEGER | DEFAULT 70 | Boss quiz pass threshold % |
+| max_tree_lemons | INTEGER | DEFAULT 10 | Max lemons on tree |
+| version | INTEGER | DEFAULT 1 | Version for cache |
+| updated_by | INTEGER | | Admin who last updated |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Creation time |
+
+---
+
+## SNS/Community Tables (Migration 010)
+
+### users (extended columns)
+
+Additional columns added to existing users table:
+
+| Column | Type | Default | Description |
+|--------|------|---------|-------------|
+| bio | TEXT | | User bio |
+| follower_count | INTEGER | 0 | Follower count |
+| following_count | INTEGER | 0 | Following count |
+| post_count | INTEGER | 0 | Post count |
+| is_public | BOOLEAN | true | Public profile |
+| sns_banned | BOOLEAN | false | SNS ban status |
+
+---
+
+### user_follows
+
+Instagram-style 1-directional follows.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Follow ID |
+| follower_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Follower |
+| following_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Following |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Follow time |
+| UNIQUE(follower_id, following_id) | | | No duplicate follows |
+| CHECK(follower_id != following_id) | | | No self-follow |
+
+---
+
+### sns_posts
+
+Community posts with categories and image support.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Post ID |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Author |
+| content | TEXT | NOT NULL | Post content |
+| category | VARCHAR(20) | DEFAULT 'general', CHECK (learning/general) | Category |
+| tags | TEXT[] | DEFAULT '{}' | Tags array |
+| visibility | VARCHAR(20) | DEFAULT 'public', CHECK (public/followers) | Visibility |
+| image_urls | TEXT[] | DEFAULT '{}' | Image URLs |
+| like_count | INTEGER | DEFAULT 0 | Like count |
+| comment_count | INTEGER | DEFAULT 0 | Comment count |
+| is_deleted | BOOLEAN | DEFAULT false | Soft delete flag |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Creation time |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+
+---
+
+### post_likes
+
+Post like tracking.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Like ID |
+| post_id | INTEGER | NOT NULL, FK(sns_posts.id) CASCADE | Post reference |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User who liked |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Like time |
+| UNIQUE(post_id, user_id) | | | One like per user-post |
+
+---
+
+### sns_comments
+
+Post comments with nested reply support.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Comment ID |
+| post_id | INTEGER | NOT NULL, FK(sns_posts.id) CASCADE | Post reference |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Author |
+| parent_id | INTEGER | FK(sns_comments.id) CASCADE | Parent comment (for replies) |
+| content | TEXT | NOT NULL | Comment content |
+| is_deleted | BOOLEAN | DEFAULT false | Soft delete flag |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Creation time |
+
+---
+
+### sns_reports
+
+Report system for posts, comments, and users.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Report ID |
+| reporter_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Reporter |
+| target_type | VARCHAR(20) | NOT NULL, CHECK (post/comment/user) | Target type |
+| target_id | INTEGER | NOT NULL | Target ID |
+| reason | TEXT | NOT NULL | Report reason |
+| status | VARCHAR(20) | DEFAULT 'pending', CHECK (pending/reviewed/resolved/dismissed) | Status |
+| admin_notes | TEXT | | Admin notes |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Report time |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+
+---
+
+### user_blocks
+
+User blocking.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Block ID |
+| blocker_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Blocker |
+| blocked_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Blocked user |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Block time |
+| UNIQUE(blocker_id, blocked_id) | | | No duplicate blocks |
+| CHECK(blocker_id != blocked_id) | | | No self-block |
+
+---
+
 ## Migration History
 
 | Version | Date | Description |
@@ -810,6 +1018,9 @@ Real-time APK build logs with timestamps.
 | 005 | 2026-02-04 | Add app_theme_settings table |
 | 006 | 2026-02-05 | Remove design_settings table (admin dashboard only) |
 | 007 | 2026-02-05 | Add APK build tracking tables |
+| 008 | 2026-02-10 | Add gamification tables (lesson_rewards, lemon_currency, lemon_transactions, boss_quiz_completions) |
+| 009 | 2026-02-10 | Add gamification_settings table |
+| 010 | 2026-02-10 | Add SNS tables (user_follows, sns_posts, post_likes, sns_comments, sns_reports, user_blocks) |
 
 ---
 
@@ -847,4 +1058,4 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 
 ---
 
-**Last Updated:** 2026-02-05
+**Last Updated:** 2026-02-10

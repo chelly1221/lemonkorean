@@ -1,5 +1,46 @@
 # Lemon Korean - Change Log
 
+## 2026-02-10 - Gamification System & SNS Community
+
+### Feature: Lemon reward system, boss quizzes, community feed
+
+**Gamification:**
+1. **Lemon Rewards**: 1-3 lemons per lesson based on quiz score (95%+ = 3, 80%+ = 2, else 1)
+2. **Boss Quizzes**: End-of-week quiz with 5 bonus lemons, displayed as special node in lesson path
+3. **Lemon Tree**: Visual tree grows with lemons, harvest after watching rewarded ad
+4. **Ad Integration**: AdMob for mobile, AdSense placeholder for web
+5. **Admin Settings**: Configurable thresholds, ad IDs, and lemon parameters
+6. **Database**: 5 new tables (lesson_rewards, lemon_currency, lemon_transactions, boss_quiz_completions, gamification_settings)
+
+**SNS Community (Phase 1):**
+1. **SNS Service**: New microservice on port 3007 (Node.js/Express + PostgreSQL)
+2. **Community Feed**: Discover and following-based feeds with category filters
+3. **Posts**: Create/delete with image attachments, learning/general categories
+4. **Comments**: Nested comments with reply support
+5. **Social**: Follow/unfollow, like/unlike, user search, suggested users
+6. **Profiles**: User profiles with bio, follower/following counts
+7. **Safety**: Block/report users, admin moderation dashboard
+8. **Database**: 6 new tables + extended users table (user_follows, sns_posts, post_likes, sns_comments, sns_reports, user_blocks)
+
+**Flutter App Changes:**
+- New providers: GamificationProvider, FeedProvider, SocialProvider
+- New screens: BossQuizScreen, CommunityScreen, CreatePostScreen, PostDetailScreen, FriendSearchScreen, UserProfileScreen
+- Updated: Stage7Summary (lemon rewards), LessonPathView (boss quiz nodes), HomeScreen (community tab)
+- New ad services: AdService, AdMobService, AdSenseService
+- 80+ new i18n keys across 6 languages
+
+**Admin Dashboard:**
+- Gamification Settings page (#/gamification-settings)
+- SNS Moderation page (#/sns-moderation)
+
+**Nginx:**
+- Added SNS service upstream (sns_service → sns-service:3007)
+- Added `/api/sns/` location block
+
+**Files**: 93 files changed, 14,444 insertions
+
+---
+
 ## 2026-02-09 - Level Selector Snap Auto-Selection & Hangul Inline Path
 
 ### Feature: Carousel snap auto-selects level + Hangul level 0 inline display

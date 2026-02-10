@@ -5,7 +5,7 @@ Lemon Korean 프로젝트의 API Gateway 설정
 ## 개요
 
 Nginx가 다음 역할을 수행합니다:
-- **API Gateway**: 6개 마이크로서비스로 요청 라우팅
+- **API Gateway**: 7개 마이크로서비스로 요청 라우팅
 - **Load Balancing**: Least connections 알고리즘
 - **Rate Limiting**: IP 기반 요청 제한
 - **Caching**: 미디어 파일 및 API 응답 캐싱
@@ -44,6 +44,7 @@ nginx/
 | `/media/*` | media-service | 3004 | 이미지/오디오/비디오 |
 | `/api/analytics/*` | analytics-service | 3005 | 로그 분석 |
 | `/api/admin/*` | admin-service | 3006 | 관리자 대시보드 |
+| `/api/sns/*` | sns-service | 3007 | SNS 커뮤니티 |
 | `/app/*` | static files | - | Flutter 웹 앱 (온보딩 포함) |
 
 ---
