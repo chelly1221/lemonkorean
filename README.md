@@ -20,11 +20,13 @@
 - **🎨 현대적 UI 디자인**: Material Design 3, 부드러운 애니메이션
 - **📊 SRS 복습 시스템**: 지능형 복습 알림
 - **🖥️ 웹 앱 지원**: Flutter 웹 빌드, PWA 설치 가능 (https://lemon.3chan.kr/app/)
-- **👋 개인화 온보딩**: 5단계 온보딩 플로우 (언어 선택→레벨 테스트→주간 목표→개인화 완료)
+- **👋 개인화 온보딩**: 6단계 온보딩 플로우 (언어 선택→소개→레벨→주간 목표→개인화 완료→계정 선택)
 - **🎨 앱 테마 커스터마이징**: 관리자가 색상, 로고, 폰트 설정 (20+ 옵션)
-- **🔤 한글 학습 모듈**: 발음 가이드, 필기 연습, 소리 구분 (8개 모드)
+- **🔤 한글 학습 모듈**: 발음 가이드, 필기 연습, 소리 구분 (9개 모드)
 - **🍋 게임화 시스템**: 레몬 보상, 보스 퀴즈, 레몬 나무, 리더보드
 - **👥 SNS 커뮤니티**: 게시물 피드, 댓글, 좋아요, 친구 검색, 팔로우
+- **💬 실시간 DM**: Socket.IO 기반 1:1 메시징 (텍스트, 이미지, 음성)
+- **🎤 음성 대화방**: LiveKit 기반 실시간 음성 채팅 (최대 4명)
 
 ---
 
@@ -68,6 +70,11 @@
                   │  (Node.js)   │
                   │    :3007     │
                   └──────────────┘
+                    ↕           ↕
+            ┌──────────┐  ┌──────────┐
+            │Socket.IO │  │ LiveKit  │
+            │  (DM)    │  │ (Voice)  │
+            └──────────┘  └──────────┘
         ↓                 ↓                 ↓
 ┌─────────────────────────────────────────────────────────┐
 │                   데이터 레이어                           │
@@ -114,7 +121,7 @@
 | **Media Service** | Go + Gin | 3004 | 이미지/오디오 서빙 |
 | **Analytics Service** | Python + FastAPI | 3005 | 로그 분석, 통계 |
 | **Admin Service** | Node.js + Express | 3006 | 관리자 대시보드 |
-| **SNS Service** | Node.js + Express | 3007 | 커뮤니티 피드, 게시물, 팔로우 |
+| **SNS Service** | Node.js + Express | 3007 | 커뮤니티 피드, 게시물, 댓글, 팔로우, DM, 음성대화방 |
 
 ### 데이터베이스 및 스토리지
 
@@ -128,7 +135,7 @@
 
 ### 모바일
 
-- **Flutter 3.x** - iOS/Android/웹 크로스 플랫폼
+- **Flutter 3.x** - Android/웹 크로스 플랫폼
 - **Hive** - 로컬 NoSQL 데이터베이스 (레슨, 진도)
 - **SQLite** - 미디어 파일 매핑
 - **Dio** - HTTP 클라이언트
@@ -137,6 +144,8 @@
 - **audioplayers** - 오디오 재생
 - **flutter_localizations** - 다국어 지원 (6개 언어)
 - **flutter_open_chinese_convert** - 간체/번체 변환
+- **socket_io_client** - Socket.IO 실시간 메시징 (DM)
+- **livekit_client** - LiveKit 음성 대화방
 
 ### 인프라
 
@@ -427,7 +436,7 @@ docker-compose exec postgres psql -U 3chan -d lemon_korean -f /init/01_schema.sq
 | GET | `/media/images/:key` | 이미지 조회 |
 | GET | `/media/audio/:key` | 오디오 조회 |
 
-상세 API 문서: [API 문서](./docs/api/README.md)
+상세 API 문서: [API 문서](./docs/API.md)
 
 ---
 
@@ -726,7 +735,7 @@ docker-compose exec nginx nginx -s reload
 - **[CLAUDE.md](./CLAUDE.md)** - 상세 개발 가이드
 - **[scripts/README.md](./scripts/README.md)** - 운영 스크립트 문서
 - **[mobile/lemon_korean/README.md](./mobile/lemon_korean/README.md)** - Flutter 앱 문서
-- **[docs/api/README.md](./docs/api/README.md)** - API 문서
+- **[docs/API.md](./docs/API.md)** - API 문서
 
 ---
 
@@ -741,6 +750,7 @@ docker-compose exec nginx nginx -s reload
 - [x] **Phase 7**: 프로덕션 배포 + CI/CD
 - [x] **Phase 8**: 게임화 시스템 (레몬 보상, 보스 퀴즈, 광고)
 - [x] **Phase 9**: SNS 커뮤니티 (피드, 게시물, 댓글, 팔로우, 모더레이션)
+- [x] **Phase 10**: 실시간 DM, 음성 대화방 (Socket.IO, LiveKit)
 
 ---
 

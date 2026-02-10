@@ -21,6 +21,7 @@ curl http://localhost:3002/health  # Content
 curl http://localhost:3003/health  # Progress
 curl http://localhost:3004/health  # Media
 curl http://localhost:3005/health  # Analytics
+curl http://localhost:3007/health  # SNS
 # Admin은 nginx를 통해 접근: https://lemon.3chan.kr/admin/
 ```
 

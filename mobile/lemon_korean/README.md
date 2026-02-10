@@ -54,12 +54,17 @@ lib/
 │   │   └── database_helper.dart    # SQLite 헬퍼
 │   ├── network/
 │   │   └── api_client.dart         # Dio API 클라이언트
-│   ├── platform/                   # 플랫폼 추상화 (22개 파일)
+│   ├── platform/                   # 플랫폼 추상화 (23개 파일)
 │   │   ├── interfaces/             # 5개 인터페이스
 │   │   ├── io/                     # 4개 모바일 구현
 │   │   └── web/                    # 13개 웹 스텁/구현
 │   ├── services/
-│   │   └── notification_service.dart  # 푸시 알림
+│   │   ├── notification_service.dart  # 푸시 알림
+│   │   ├── socket_service.dart        # Socket.IO 실시간 연결
+│   │   ├── ad_service.dart            # 광고 서비스 추상화
+│   │   ├── admob_service.dart         # AdMob (모바일)
+│   │   ├── admob_service_web.dart     # AdMob 웹 스텁
+│   │   └── adsense_service.dart       # AdSense (웹)
 │   └── utils/
 │       ├── download_manager.dart   # 다운로드 관리
 │       ├── sync_manager.dart       # 동기화 관리
@@ -106,7 +111,7 @@ lib/
 │   │   └── voice_rooms/            # 음성 대화방
 │   │       ├── voice_room_list_screen.dart  # 방 목록
 │   │       └── voice_room_screen.dart       # 음성 대화 화면
-│   ├── providers/                  # 상태 관리 (13개 Providers)
+│   ├── providers/                  # 상태 관리 (15개 Providers)
 │   └── widgets/                    # 재사용 위젯
 ├── l10n/                           # 다국어 지원 (6개 언어)
 │   ├── app_zh.arb                  # 중국어 간체
@@ -119,7 +124,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 180+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방)
+**총 Dart 파일 수**: 210+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방)
 
 ---
 
@@ -129,7 +134,7 @@ The project includes automated build scripts for production deployments.
 
 ### Web Build (`build_web.sh`)
 
-Builds the Flutter web app and deploys to NAS storage.
+Builds the Flutter web app and deploys to local storage.
 
 **Features:**
 - Flutter clean and dependency fetch
@@ -252,11 +257,11 @@ flutter run -d chrome
 
 ### Hangul Learning Module (2026-02-03)
 
-Comprehensive Korean alphabet learning system with 8 practice modes.
+Comprehensive Korean alphabet learning system with 9 practice modes.
 
 **Location**: `lib/presentation/screens/hangul/`
 
-**Screens** (8 total):
+**Screens** (9 total):
 - `hangul_main_screen.dart` - Main hub with character grid and practice menu
 - `hangul_table_screen.dart` - Organized alphabet table (consonants/vowels)
 - `hangul_lesson_screen.dart` - Structured sequential lessons
@@ -291,10 +296,10 @@ Comprehensive Korean alphabet learning system with 8 practice modes.
 - **SVG assets** for visual pronunciation guides
 
 **New Packages** (2026-02-03):
-- `just_audio: ^0.9.40` - Speed-controlled audio playback
-- `record: ^5.1.2` - Audio recording (mobile platforms only)
+- `just_audio: ^0.9.36` - Speed-controlled audio playback
+- `record: ^5.0.4` - Audio recording (mobile platforms only)
 - `audio_waveforms: ^1.0.5` - Waveform visualization during recording
-- `perfect_freehand: ^2.2.0` - Smooth handwriting stroke rendering
+- `perfect_freehand: ^2.3.0` - Smooth handwriting stroke rendering
 
 **Platform Support**:
 - ✅ Mobile (Android/iOS): Full support including recording

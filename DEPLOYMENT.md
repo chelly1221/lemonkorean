@@ -356,15 +356,19 @@ curl http://localhost:3007/health  # SNS
 
 음성 대화방 기능은 LiveKit을 사용합니다.
 
+**네트워크 모드**: LiveKit은 `network_mode: host`로 실행됩니다. 호스트 네트워크 모드에서는 Docker 포트 매핑이 불필요하며, LiveKit이 직접 호스트 네트워크 인터페이스를 사용합니다.
+
+**TURN 서버**: 비활성화됨. 대부분의 클라이언트가 직접 UDP 연결을 사용하므로 TURN relay는 사용하지 않습니다.
+
 ```bash
-# LiveKit 서버 (Docker 또는 Cloud)
-# 설정 파일: config/livekit/
-# 포트: 7880 (HTTP), 7881 (RTC/TCP), 7882/udp (RTC/UDP)
+# LiveKit 서버 (호스트 네트워크 모드)
+# 설정 파일: config/livekit/livekit.yaml
+# 포트: 7880 (HTTP), 7881 (RTC/TCP), 50000-50200/udp (RTC 미디어)
 
 # 방화벽에 LiveKit 포트 추가
-sudo ufw allow 7880/tcp   # LiveKit HTTP API
-sudo ufw allow 7881/tcp   # LiveKit RTC (TCP)
-sudo ufw allow 7882/udp   # LiveKit RTC (UDP)
+sudo ufw allow 7880/tcp        # LiveKit HTTP API
+sudo ufw allow 7881/tcp        # LiveKit RTC (TCP)
+sudo ufw allow 50000:50200/udp # LiveKit RTC 미디어 (UDP)
 
 # 환경변수 확인
 echo $LIVEKIT_API_KEY
@@ -719,7 +723,7 @@ docker compose exec postgres psql -U lemon_admin -d lemon_korean \
 - [ ] 백업 자동화 설정
 - [ ] 모니터링 설정
 - [ ] 보안 강화 (Fail2Ban, SSH)
-- [ ] LiveKit 서버 상태 확인 (포트 7880/7881/7882)
+- [ ] LiveKit 서버 상태 확인 (포트 7880/7881, UDP 50000-50200)
 - [ ] Socket.IO WebSocket 연결 테스트 (`/api/sns/socket.io`)
 - [ ] DM 메시지 전송/수신 테스트
 - [ ] 문서화

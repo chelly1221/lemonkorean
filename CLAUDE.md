@@ -47,7 +47,7 @@ Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 7 Microservices ↔ Post
 ## 주요 디렉토리
 ```
 services/           # 백엔드 마이크로서비스
-mobile/lemon_korean/lib/  # Flutter 앱 (180+ Dart 파일)
+mobile/lemon_korean/lib/  # Flutter 앱 (210+ Dart 파일)
 database/postgres/  # PostgreSQL 스키마 (41+ 테이블)
 config/             # DB/서비스 설정 파일 (livekit/ 포함)
 nginx/              # Nginx 설정
@@ -72,7 +72,7 @@ dev-notes/          # 개발노트
 date: 2026-01-30
 category: Mobile|Backend|Frontend|Database|Infrastructure|Documentation
 title: 명확한 제목
-author: Claude Opus 4.5
+author: Claude Opus 4.6
 tags: [tag1, tag2]
 priority: high|medium|low
 ---
@@ -216,4 +216,4 @@ sudo lsof -i :5432
 
 ---
 
-**마지막 업데이트**: 2026-02-10
+**마지막 업데이트**: 2026-02-11
