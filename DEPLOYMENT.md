@@ -256,6 +256,14 @@ MINIO_USE_SSL=false
 # RabbitMQ
 RABBITMQ_PASSWORD=REPLACE_WITH_STRONG_PASSWORD
 
+# LiveKit (Voice Rooms)
+LIVEKIT_API_KEY=your_api_key
+LIVEKIT_API_SECRET=your_api_secret
+LIVEKIT_URL=wss://livekit.your-domain.com
+
+# Redis (Socket.IO, DM online status, deployment locks)
+REDIS_URL=redis://redis:6379
+
 # Service Ports
 AUTH_SERVICE_PORT=3001
 CONTENT_SERVICE_PORT=3002
@@ -342,6 +350,42 @@ curl http://localhost:3004/health  # Media
 curl http://localhost:3005/health  # Analytics
 curl http://localhost:3007/health  # SNS
 # Admin은 nginx를 통해 접근: https://lemon.3chan.kr/admin/
+```
+
+### 4. LiveKit 설정 (음성 대화방)
+
+음성 대화방 기능은 LiveKit을 사용합니다.
+
+```bash
+# LiveKit 서버 (Docker 또는 Cloud)
+# 설정 파일: config/livekit/
+# 포트: 7880 (HTTP), 7881 (RTC/TCP), 7882/udp (RTC/UDP)
+
+# 방화벽에 LiveKit 포트 추가
+sudo ufw allow 7880/tcp   # LiveKit HTTP API
+sudo ufw allow 7881/tcp   # LiveKit RTC (TCP)
+sudo ufw allow 7882/udp   # LiveKit RTC (UDP)
+
+# 환경변수 확인
+echo $LIVEKIT_API_KEY
+echo $LIVEKIT_URL
+```
+
+### 5. Socket.IO WebSocket 설정
+
+SNS 서비스의 Socket.IO는 WebSocket 연결을 사용합니다. Nginx에서 WebSocket upgrade 설정이 필요합니다.
+
+```nginx
+# nginx.conf - Socket.IO WebSocket proxy
+location /api/sns/socket.io {
+    proxy_pass http://sns_service;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_read_timeout 86400;
+}
 ```
 
 ---
@@ -675,6 +719,9 @@ docker compose exec postgres psql -U lemon_admin -d lemon_korean \
 - [ ] 백업 자동화 설정
 - [ ] 모니터링 설정
 - [ ] 보안 강화 (Fail2Ban, SSH)
+- [ ] LiveKit 서버 상태 확인 (포트 7880/7881/7882)
+- [ ] Socket.IO WebSocket 연결 테스트 (`/api/sns/socket.io`)
+- [ ] DM 메시지 전송/수신 테스트
 - [ ] 문서화
 
 ---
@@ -748,6 +795,12 @@ psql -U 3chan -d lemon_korean -f database/postgres/migrations/009_add_gamificati
 
 # 5. SNS 테이블 추가
 psql -U 3chan -d lemon_korean -f database/postgres/migrations/010_add_sns_tables.sql
+
+# 6. DM 테이블 추가
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/011_add_dm_tables.sql
+
+# 7. 음성 대화방 테이블 추가
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/012_add_voice_rooms.sql
 ```
 
 ### 배포 URL

@@ -2410,4 +2410,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userNotFound => 'User not found';
+
+  @override
+  String get message => 'Message';
+
+  @override
+  String get messages => 'Messages';
+
+  @override
+  String get noMessages => 'No messages yet';
+
+  @override
+  String get startConversation => 'Start a conversation with someone!';
+
+  @override
+  String get noMessagesYet => 'No messages yet. Say hello!';
+
+  @override
+  String get typing => 'typing...';
+
+  @override
+  String get typeMessage => 'Type a message...';
+
+  @override
+  String get createVoiceRoom => 'Create Voice Room';
+
+  @override
+  String get roomTitle => 'Room Title';
+
+  @override
+  String get roomTitleHint => 'e.g. Korean Conversation Practice';
+
+  @override
+  String get topic => 'Topic';
+
+  @override
+  String get topicHint => 'What would you like to talk about?';
+
+  @override
+  String get languageLevel => 'Language Level';
+
+  @override
+  String get allLevels => 'All Levels';
+
+  @override
+  String get beginner => 'Beginner';
+
+  @override
+  String get intermediate => 'Intermediate';
+
+  @override
+  String get advanced => 'Advanced';
+
+  @override
+  String get maxParticipants => 'Max Participants';
+
+  @override
+  String get createAndJoin => 'Create & Join';
+
+  @override
+  String get unmute => 'Unmute';
+
+  @override
+  String get mute => 'Mute';
+
+  @override
+  String get leave => 'Leave';
+
+  @override
+  String get closeRoom => 'Close Room';
+
+  @override
+  String get voiceRooms => 'Voice Rooms';
+
+  @override
+  String get noVoiceRooms => 'No active voice rooms';
+
+  @override
+  String get createVoiceRoomHint => 'Create one to start talking!';
+
+  @override
+  String get createRoom => 'Create Room';
 }

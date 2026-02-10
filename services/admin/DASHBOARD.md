@@ -426,6 +426,16 @@ SNS 커뮤니티 콘텐츠 모더레이션 관리.
 - `src/routes/sns-moderation.routes.js`
 - `public/js/pages/sns-moderation.js`
 
+**DM 모더레이션 참고** (2026-02-10):
+- DM은 1:1 비공개 대화이므로 커뮤니티 모더레이션 대상이 아님
+- 사용자 신고 접수 시 DB 직접 조회로 대화 내용 확인 가능:
+  ```sql
+  SELECT m.* FROM dm_messages m
+  JOIN dm_conversations c ON m.conversation_id = c.id
+  WHERE c.user1_id = :userId OR c.user2_id = :userId
+  ORDER BY m.created_at DESC LIMIT 50;
+  ```
+
 ---
 
 ## 사용 방법

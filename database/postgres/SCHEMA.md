@@ -4,7 +4,7 @@ PostgreSQL 15+ compatible schema documentation for the Lemon Korean learning pla
 
 ## Overview
 
-The database consists of 36+ tables organized into the following functional areas:
+The database consists of 41+ tables organized into the following functional areas:
 
 - **User Management**: Users, sessions, authentication
 - **Lesson Content**: Lessons, vocabulary, grammar, dialogues
@@ -15,6 +15,8 @@ The database consists of 36+ tables organized into the following functional area
 - **Internationalization**: Multi-language content support (6 languages)
 - **Gamification**: Lemon rewards, currency, boss quizzes, settings (5 tables)
 - **SNS/Community**: Posts, comments, likes, follows, reports, blocks (6 tables)
+- **Direct Messaging**: DM conversations, messages, read receipts (3 tables)
+- **Voice Rooms**: Voice chat rooms with LiveKit integration (2 tables)
 
 ---
 
@@ -1007,6 +1009,126 @@ User blocking.
 
 ---
 
+## Direct Messaging Tables (Migration 011)
+
+### dm_conversations
+
+1:1 conversation pairs with normalized user ordering (user1_id < user2_id).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Conversation ID |
+| user1_id | INTEGER | NOT NULL, FK(users.id) CASCADE | First user (lower ID) |
+| user2_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Second user (higher ID) |
+| last_message_id | INTEGER | FK(dm_messages.id) SET NULL | Last message reference |
+| last_message_at | TIMESTAMPTZ | | Last message timestamp |
+| last_message_preview | TEXT | | Preview text (truncated) |
+| created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Creation time |
+
+**Constraints:**
+- `UNIQUE(user1_id, user2_id)` - One conversation per user pair
+- `CHECK(user1_id < user2_id)` - Normalized ordering
+
+**Indexes:**
+- `idx_dm_conversations_user1` on user1_id
+- `idx_dm_conversations_user2` on user2_id
+- `idx_dm_conversations_last_message` on last_message_at DESC NULLS LAST
+
+---
+
+### dm_messages
+
+Individual DM messages supporting text, image, and voice types.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Message ID |
+| conversation_id | INTEGER | NOT NULL, FK(dm_conversations.id) CASCADE | Conversation reference |
+| sender_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Sender reference |
+| message_type | VARCHAR(10) | NOT NULL, DEFAULT 'text', CHECK (text/image/voice) | Message type |
+| content | TEXT | | Text content |
+| media_url | TEXT | | Media file URL |
+| media_metadata | JSONB | DEFAULT '{}' | Media metadata (dimensions, duration, etc.) |
+| client_message_id | UUID | | Client-generated dedup ID |
+| is_deleted | BOOLEAN | NOT NULL, DEFAULT FALSE | Soft delete flag |
+| created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Send time |
+
+**Constraints:**
+- `CHECK(content IS NOT NULL OR media_url IS NOT NULL)` - Must have content or media
+
+**Indexes:**
+- `idx_dm_messages_conversation` on (conversation_id, created_at DESC)
+- `idx_dm_messages_sender` on sender_id
+- `UNIQUE idx_dm_messages_client_id` on client_message_id WHERE NOT NULL
+
+---
+
+### dm_read_receipts
+
+Per-user read tracking for each conversation.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Receipt ID |
+| conversation_id | INTEGER | NOT NULL, FK(dm_conversations.id) CASCADE | Conversation reference |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| last_read_message_id | INTEGER | FK(dm_messages.id) SET NULL | Last read message |
+| last_read_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Read timestamp |
+
+**Constraints:**
+- `UNIQUE(conversation_id, user_id)` - One receipt per user per conversation
+
+**Indexes:**
+- `idx_dm_read_receipts_user` on user_id
+
+---
+
+## Voice Room Tables (Migration 012)
+
+### voice_rooms
+
+Voice chat room sessions with LiveKit integration (max 4 participants).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Room ID |
+| creator_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Room creator |
+| title | VARCHAR(100) | NOT NULL | Room title |
+| topic | VARCHAR(200) | | Discussion topic |
+| language_level | VARCHAR(20) | DEFAULT 'all', CHECK (beginner/intermediate/advanced/all) | Target level |
+| max_participants | INTEGER | NOT NULL, DEFAULT 4, CHECK (2-4) | Max participants |
+| livekit_room_name | VARCHAR(100) | NOT NULL, UNIQUE | LiveKit room identifier |
+| status | VARCHAR(20) | NOT NULL, DEFAULT 'active', CHECK (active/closed) | Room status |
+| participant_count | INTEGER | NOT NULL, DEFAULT 0 | Current participant count |
+| created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Creation time |
+| closed_at | TIMESTAMPTZ | | Closure time |
+
+**Indexes:**
+- `idx_voice_rooms_status` on (status, created_at DESC)
+- `idx_voice_rooms_creator` on creator_id
+
+---
+
+### voice_room_participants
+
+Current and past voice room participants.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Participant ID |
+| room_id | INTEGER | NOT NULL, FK(voice_rooms.id) CASCADE | Room reference |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| is_muted | BOOLEAN | NOT NULL, DEFAULT FALSE | Mute status |
+| joined_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Join time |
+| left_at | TIMESTAMPTZ | | Leave time (NULL = active) |
+
+**Indexes:**
+- `idx_voice_room_participants_room` on room_id
+- `idx_voice_room_participants_user` on user_id
+- `UNIQUE idx_voice_room_active_participant` on (room_id, user_id) WHERE left_at IS NULL
+
+---
+
 ## Migration History
 
 | Version | Date | Description |
@@ -1021,6 +1143,8 @@ User blocking.
 | 008 | 2026-02-10 | Add gamification tables (lesson_rewards, lemon_currency, lemon_transactions, boss_quiz_completions) |
 | 009 | 2026-02-10 | Add gamification_settings table |
 | 010 | 2026-02-10 | Add SNS tables (user_follows, sns_posts, post_likes, sns_comments, sns_reports, user_blocks) |
+| 011 | 2026-02-10 | Add DM tables (dm_conversations, dm_messages, dm_read_receipts) |
+| 012 | 2026-02-10 | Add voice room tables (voice_rooms, voice_room_participants) |
 
 ---
 

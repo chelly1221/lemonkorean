@@ -2372,6 +2372,87 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get userNotFound => '用户不存在';
+
+  @override
+  String get message => '私信';
+
+  @override
+  String get messages => '私信';
+
+  @override
+  String get noMessages => '还没有消息';
+
+  @override
+  String get startConversation => '和别人开始聊天吧！';
+
+  @override
+  String get noMessagesYet => '还没有消息，打个招呼吧！';
+
+  @override
+  String get typing => '正在输入...';
+
+  @override
+  String get typeMessage => '输入消息...';
+
+  @override
+  String get createVoiceRoom => '创建语音房间';
+
+  @override
+  String get roomTitle => '房间标题';
+
+  @override
+  String get roomTitleHint => '例如：韩语会话练习';
+
+  @override
+  String get topic => '主题';
+
+  @override
+  String get topicHint => '你想聊什么？';
+
+  @override
+  String get languageLevel => '语言水平';
+
+  @override
+  String get allLevels => '所有水平';
+
+  @override
+  String get beginner => '初级';
+
+  @override
+  String get intermediate => '中级';
+
+  @override
+  String get advanced => '高级';
+
+  @override
+  String get maxParticipants => '最大人数';
+
+  @override
+  String get createAndJoin => '创建并加入';
+
+  @override
+  String get unmute => '取消静音';
+
+  @override
+  String get mute => '静音';
+
+  @override
+  String get leave => '离开';
+
+  @override
+  String get closeRoom => '关闭房间';
+
+  @override
+  String get voiceRooms => '语音房间';
+
+  @override
+  String get noVoiceRooms => '暂无活跃语音房间';
+
+  @override
+  String get createVoiceRoomHint => '创建一个开始聊天吧！';
+
+  @override
+  String get createRoom => '创建房间';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -4742,4 +4823,85 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get userNotFound => '用戶不存在';
+
+  @override
+  String get message => '私訊';
+
+  @override
+  String get messages => '私訊';
+
+  @override
+  String get noMessages => '還沒有訊息';
+
+  @override
+  String get startConversation => '和別人開始聊天吧！';
+
+  @override
+  String get noMessagesYet => '還沒有訊息，打個招呼吧！';
+
+  @override
+  String get typing => '正在輸入...';
+
+  @override
+  String get typeMessage => '輸入訊息...';
+
+  @override
+  String get createVoiceRoom => '建立語音房間';
+
+  @override
+  String get roomTitle => '房間標題';
+
+  @override
+  String get roomTitleHint => '例如：韓語會話練習';
+
+  @override
+  String get topic => '主題';
+
+  @override
+  String get topicHint => '你想聊什麼？';
+
+  @override
+  String get languageLevel => '語言程度';
+
+  @override
+  String get allLevels => '所有程度';
+
+  @override
+  String get beginner => '初級';
+
+  @override
+  String get intermediate => '中級';
+
+  @override
+  String get advanced => '高級';
+
+  @override
+  String get maxParticipants => '最大人數';
+
+  @override
+  String get createAndJoin => '建立並加入';
+
+  @override
+  String get unmute => '取消靜音';
+
+  @override
+  String get mute => '靜音';
+
+  @override
+  String get leave => '離開';
+
+  @override
+  String get closeRoom => '關閉房間';
+
+  @override
+  String get voiceRooms => '語音房間';
+
+  @override
+  String get noVoiceRooms => '目前沒有語音房間';
+
+  @override
+  String get createVoiceRoomHint => '建立一個開始聊天吧！';
+
+  @override
+  String get createRoom => '建立房間';
 }

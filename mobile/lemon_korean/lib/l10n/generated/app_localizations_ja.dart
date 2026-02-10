@@ -2378,4 +2378,85 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get userNotFound => 'ユーザーが見つかりません';
+
+  @override
+  String get message => 'メッセージ';
+
+  @override
+  String get messages => 'メッセージ';
+
+  @override
+  String get noMessages => 'メッセージはまだありません';
+
+  @override
+  String get startConversation => '誰かと会話を始めましょう！';
+
+  @override
+  String get noMessagesYet => 'メッセージはまだありません。挨拶しましょう！';
+
+  @override
+  String get typing => '入力中...';
+
+  @override
+  String get typeMessage => 'メッセージを入力...';
+
+  @override
+  String get createVoiceRoom => 'ボイスルーム作成';
+
+  @override
+  String get roomTitle => 'ルーム名';
+
+  @override
+  String get roomTitleHint => '例：韓国語会話練習';
+
+  @override
+  String get topic => 'トピック';
+
+  @override
+  String get topicHint => '何について話しますか？';
+
+  @override
+  String get languageLevel => '言語レベル';
+
+  @override
+  String get allLevels => '全レベル';
+
+  @override
+  String get beginner => '初級';
+
+  @override
+  String get intermediate => '中級';
+
+  @override
+  String get advanced => '上級';
+
+  @override
+  String get maxParticipants => '最大人数';
+
+  @override
+  String get createAndJoin => '作成して参加';
+
+  @override
+  String get unmute => 'ミュート解除';
+
+  @override
+  String get mute => 'ミュート';
+
+  @override
+  String get leave => '退出';
+
+  @override
+  String get closeRoom => 'ルームを閉じる';
+
+  @override
+  String get voiceRooms => 'ボイスルーム';
+
+  @override
+  String get noVoiceRooms => 'アクティブなボイスルームはありません';
+
+  @override
+  String get createVoiceRoomHint => 'ルームを作成して会話を始めましょう！';
+
+  @override
+  String get createRoom => 'ルーム作成';
 }

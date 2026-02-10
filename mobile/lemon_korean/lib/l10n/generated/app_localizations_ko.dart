@@ -2378,4 +2378,85 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get userNotFound => '유저를 찾을 수 없습니다';
+
+  @override
+  String get message => '메시지';
+
+  @override
+  String get messages => '메시지';
+
+  @override
+  String get noMessages => '아직 메시지가 없습니다';
+
+  @override
+  String get startConversation => '누군가와 대화를 시작해보세요!';
+
+  @override
+  String get noMessagesYet => '아직 메시지가 없습니다. 인사해보세요!';
+
+  @override
+  String get typing => '입력 중...';
+
+  @override
+  String get typeMessage => '메시지를 입력하세요...';
+
+  @override
+  String get createVoiceRoom => '음성 대화방 만들기';
+
+  @override
+  String get roomTitle => '방 제목';
+
+  @override
+  String get roomTitleHint => '예: 한국어 회화 연습';
+
+  @override
+  String get topic => '주제';
+
+  @override
+  String get topicHint => '어떤 이야기를 하고 싶으세요?';
+
+  @override
+  String get languageLevel => '언어 레벨';
+
+  @override
+  String get allLevels => '모든 레벨';
+
+  @override
+  String get beginner => '초급';
+
+  @override
+  String get intermediate => '중급';
+
+  @override
+  String get advanced => '고급';
+
+  @override
+  String get maxParticipants => '최대 인원';
+
+  @override
+  String get createAndJoin => '만들고 참가하기';
+
+  @override
+  String get unmute => '음소거 해제';
+
+  @override
+  String get mute => '음소거';
+
+  @override
+  String get leave => '나가기';
+
+  @override
+  String get closeRoom => '방 닫기';
+
+  @override
+  String get voiceRooms => '음성 대화방';
+
+  @override
+  String get noVoiceRooms => '활성 음성 대화방이 없습니다';
+
+  @override
+  String get createVoiceRoomHint => '대화방을 만들어 대화를 시작하세요!';
+
+  @override
+  String get createRoom => '방 만들기';
 }

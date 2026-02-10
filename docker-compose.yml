@@ -421,6 +421,14 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-admin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_BUCKET: lemon-korean-media
+      LIVEKIT_HOST: http://livekit:7880
+      LIVEKIT_PUBLIC_URL: wss://lemon.3chan.kr/livekit/
+      LIVEKIT_API_KEY: lemon-korean-key
+      LIVEKIT_SECRET: ${LIVEKIT_SECRET:-lemon-korean-secret-change-me}
     ports:
       - "3007:3007"
     volumes:
@@ -430,6 +438,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      minio:
+        condition: service_healthy
     networks:
       - lemon-network
     healthcheck:
@@ -437,6 +447,26 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    restart: unless-stopped
+
+  # ==================== LiveKit (Voice Chat Rooms) ====================
+
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: lemon-livekit
+    command:
+      - --config
+      - /etc/livekit.yaml
+      - --keys
+      - "lemon-korean-key: ${LIVEKIT_SECRET:-lemon-korean-secret-change-me}"
+    volumes:
+      - ./config/livekit/livekit.yaml:/etc/livekit.yaml:ro
+    ports:
+      - "7880:7880"
+      - "7881:7881"
+      - "7882:7882/udp"
+    networks:
+      - lemon-network
     restart: unless-stopped
 
   # ==================== API Gateway & Proxy ====================

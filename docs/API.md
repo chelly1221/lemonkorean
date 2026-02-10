@@ -820,6 +820,208 @@ All endpoints require admin authentication.
 
 ---
 
+## DM Conversations (`/api/sns/conversations/`) (2026-02-10)
+
+1:1 Direct Messaging between users. All endpoints require authentication.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Get conversation list (sorted by last_message_at DESC) |
+| POST | `/` | Create or retrieve conversation (body: `{ user_id }`) |
+| GET | `/unread-count` | Get total unread message count |
+| POST | `/:id/read` | Mark conversation as read |
+
+### GET /api/sns/conversations/
+
+**Query Parameters:**
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `limit` | int | 20 | Items per page |
+| `offset` | int | 0 | Pagination offset |
+
+**Response:**
+```json
+{
+  "success": true,
+  "conversations": [
+    {
+      "id": 1,
+      "other_user": { "id": 5, "name": "김학생", "profile_image_url": "..." },
+      "last_message_preview": "안녕하세요!",
+      "last_message_at": "2026-02-10T10:30:00Z",
+      "unread_count": 3
+    }
+  ]
+}
+```
+
+### POST /api/sns/conversations/
+
+Creates a new conversation or returns existing one between two users.
+
+**Request Body:**
+```json
+{ "user_id": 5 }
+```
+
+**Response:** Conversation object with `id`, `user1_id`, `user2_id`, `created_at`.
+
+---
+
+## DM Messages (`/api/sns/`) (2026-02-10)
+
+Message history and sending. All endpoints require authentication.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/conversations/:id/messages` | Get message history (cursor-based) |
+| POST | `/conversations/:id/messages` | Send message (REST fallback) |
+| POST | `/dm/upload` | Upload media (image/voice, max 10MB) |
+| DELETE | `/messages/:id` | Delete message (sender only, soft delete) |
+
+### GET /api/sns/conversations/:id/messages
+
+**Query Parameters:**
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `cursor` | int | - | Message ID cursor (returns older messages) |
+| `limit` | int | 50 | Items per page (max 100) |
+
+**Response:**
+```json
+{
+  "success": true,
+  "messages": [
+    {
+      "id": 42,
+      "sender_id": 1,
+      "sender_name": "User",
+      "sender_avatar": "...",
+      "message_type": "text",
+      "content": "안녕하세요!",
+      "media_url": null,
+      "client_message_id": "uuid-...",
+      "created_at": "2026-02-10T10:30:00Z"
+    }
+  ],
+  "has_more": true
+}
+```
+
+### POST /api/sns/dm/upload
+
+Upload image or voice message media.
+
+**Content-Type:** `multipart/form-data`
+
+**Form Fields:**
+- `file`: Media file (max 10MB, image/jpeg, image/png, audio/webm, audio/mp4)
+
+**Response:**
+```json
+{
+  "success": true,
+  "url": "/media/dm-images/uuid-filename.jpg",
+  "media_type": "image"
+}
+```
+
+---
+
+## Voice Rooms (`/api/sns/voice-rooms/`) (2026-02-10)
+
+Voice chat rooms with LiveKit integration (max 4 participants). All endpoints require authentication.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | List active voice rooms |
+| POST | `/` | Create a new voice room |
+| GET | `/:id` | Get room details with participants |
+| POST | `/:id/join` | Join room (returns `livekit_token`, `livekit_url`) |
+| POST | `/:id/leave` | Leave room |
+| DELETE | `/:id` | Close room (creator only) |
+| POST | `/:id/mute` | Toggle mute status |
+
+### POST /api/sns/voice-rooms/
+
+**Request Body:**
+```json
+{
+  "title": "한국어 프리토킹",
+  "topic": "일상 대화 연습",
+  "language_level": "beginner",
+  "max_participants": 4
+}
+```
+
+**`language_level` values:** `beginner`, `intermediate`, `advanced`, `all`
+
+### POST /api/sns/voice-rooms/:id/join
+
+**Response:**
+```json
+{
+  "success": true,
+  "livekit_token": "eyJ...",
+  "livekit_url": "wss://livekit.example.com",
+  "room": { "id": 1, "title": "...", "participants": [...] }
+}
+```
+
+### DELETE /api/sns/voice-rooms/:id
+
+Closes the room (creator only). Sets status to `closed` and disconnects all participants.
+
+---
+
+## Socket.IO Real-time Events (2026-02-10)
+
+Real-time messaging and presence via Socket.IO.
+
+### Connection
+
+- **Path:** `/api/sns/socket.io`
+- **Auth:** `{ token: "JWT_TOKEN" }` in handshake auth
+- **Ping Timeout:** 60s
+- **Ping Interval:** 25s
+
+### Client → Server Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `dm:join_conversation` | `{ conversation_id }` | Join conversation room for messages |
+| `dm:leave_conversation` | `{ conversation_id }` | Leave conversation room |
+| `dm:send_message` | `{ conversation_id, message_type, content, media_url?, media_metadata?, client_message_id? }` | Send a message (supports ack callback) |
+| `dm:typing_start` | `{ conversation_id }` | Notify typing started |
+| `dm:typing_stop` | `{ conversation_id }` | Notify typing stopped |
+| `dm:mark_read` | `{ conversation_id, message_id }` | Mark messages as read up to message_id |
+| `voice:join_room` | `{ room_id }` | Join voice room socket for updates |
+| `voice:leave_room` | `{ room_id }` | Leave voice room socket |
+| `ping_alive` | _(none)_ | Heartbeat to refresh online TTL (300s) |
+
+### Server → Client Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `dm:new_message` | Message object | New message in joined conversation |
+| `dm:conversation_updated` | `{ conversation_id, last_message }` | Conversation update (for badge/list) |
+| `dm:typing` | `{ conversation_id, user_id, is_typing }` | Typing indicator |
+| `dm:read_receipt` | `{ conversation_id, user_id, last_read_message_id }` | Read receipt update |
+| `dm:user_online` | `{ user_id }` | User came online |
+| `dm:user_offline` | `{ user_id }` | User went offline |
+| `dm:message_sent` | `{ message, client_message_id }` | Message sent confirmation (when no ack) |
+| `voice:participant_joined` | `{ room_id, user }` | Participant joined voice room |
+| `voice:participant_left` | `{ room_id, user_id }` | Participant left voice room |
+| `voice:participant_muted` | `{ room_id, user_id, is_muted }` | Mute status changed |
+| `voice:room_created` | Room object | New voice room created |
+| `voice:room_closed` | `{ room_id }` | Voice room closed |
+
+### Online Status
+
+Online status tracked via Redis keys `dm:online:{userId}` with 300s TTL. Refreshed by `ping_alive` heartbeat.
+
+---
+
 ## Rate Limiting
 
 - 100 requests per minute per IP

@@ -246,6 +246,7 @@ func (m *MockDB) Query(query string) (*sql.Rows, error) {
 | Media | 0% | 75% |
 | Analytics | 0% | 70% |
 | Admin | 0% | 70% |
+| SNS | 0% | 70% |
 | Flutter App | 0% | 60% |
 
 ---
@@ -385,6 +386,116 @@ it('should calculate total price', () => {
 - 통합 테스트는 필요한 것만
 - E2E 테스트는 최소화
 
+## SNS Service 테스트 (DM, Voice, Socket.IO)
+
+### DM API 테스트
+
+```bash
+cd services/sns
+npm test
+```
+
+```javascript
+describe('DM Conversations', () => {
+  it('should create a conversation between two users', async () => {
+    const res = await request(app)
+      .post('/api/sns/conversations')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ user_id: 5 });
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+  });
+
+  it('should return conversation list sorted by last message', async () => {
+    const res = await request(app)
+      .get('/api/sns/conversations')
+      .set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(200);
+  });
+});
+
+describe('DM Messages', () => {
+  it('should send a text message', async () => {
+    const res = await request(app)
+      .post('/api/sns/conversations/1/messages')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ content: 'Hello!' });
+    expect(res.status).toBe(200);
+  });
+
+  it('should return message history with cursor pagination', async () => {
+    const res = await request(app)
+      .get('/api/sns/conversations/1/messages?limit=20')
+      .set('Authorization', `Bearer ${token}`);
+    expect(res.body.messages).toBeDefined();
+  });
+});
+```
+
+### Voice Room API 테스트
+
+```javascript
+describe('Voice Rooms', () => {
+  it('should create a voice room', async () => {
+    const res = await request(app)
+      .post('/api/sns/voice-rooms')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ title: 'Test Room', max_participants: 4 });
+    expect(res.status).toBe(200);
+    expect(res.body.room.livekit_room_name).toBeDefined();
+  });
+
+  it('should return livekit_token on join', async () => {
+    const res = await request(app)
+      .post('/api/sns/voice-rooms/1/join')
+      .set('Authorization', `Bearer ${token}`);
+    expect(res.body.livekit_token).toBeDefined();
+  });
+});
+```
+
+### Socket.IO 테스트
+
+```javascript
+const { io } = require('socket.io-client');
+
+describe('Socket.IO DM', () => {
+  let socket;
+
+  beforeAll((done) => {
+    socket = io('http://localhost:3007', {
+      path: '/api/sns/socket.io',
+      auth: { token: testToken }
+    });
+    socket.on('connect', done);
+  });
+
+  afterAll(() => socket.disconnect());
+
+  it('should receive dm:new_message after sending', (done) => {
+    socket.emit('dm:join_conversation', { conversation_id: 1 });
+    socket.on('dm:new_message', (msg) => {
+      expect(msg.content).toBe('test');
+      done();
+    });
+    socket.emit('dm:send_message', {
+      conversation_id: 1,
+      content: 'test'
+    });
+  });
+
+  it('should receive typing indicators', (done) => {
+    socket.on('dm:typing', (data) => {
+      expect(data.is_typing).toBe(true);
+      done();
+    });
+    // Trigger from another socket...
+  });
+});
+```
+
+---
+
 ## 지속적 개선
 
 - [ ] 모든 서비스에 기본 테스트 추가
@@ -392,6 +503,9 @@ it('should calculate total price', () => {
 - [ ] E2E 테스트 시나리오 확장
 - [ ] 성능 테스트 추가
 - [ ] 보안 테스트 자동화
+- [ ] Socket.IO 실시간 메시징 E2E 테스트
+- [ ] LiveKit 음성 연결 통합 테스트
+- [ ] DM 미디어 업로드 테스트 (이미지/음성)
 
 ## 참고 자료
 

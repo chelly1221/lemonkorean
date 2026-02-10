@@ -31,6 +31,13 @@ class ApiConstants {
   static const String syncEndpoint = '$progressBaseUrl/sync';
   static const String reviewScheduleEndpoint = '$progressBaseUrl/review-schedule';
 
+  // SNS Endpoints
+  static const String snsBaseUrl = '$baseUrl/api/sns';
+
+  // DM Endpoints
+  static const String conversationsEndpoint = '$snsBaseUrl/conversations';
+  static const String dmUploadEndpoint = '$snsBaseUrl/dm/upload';
+
   // Media Endpoints
   static const String imagesEndpoint = '$mediaBaseUrl/images';
   static const String audioEndpoint = '$mediaBaseUrl/audio';

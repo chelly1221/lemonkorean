@@ -7,7 +7,7 @@
 
 **상태**: ✅ **프로덕션 준비 완료** (100%, 7/7 서비스)
 
-**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티
+**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티, 실시간 DM, 음성 대화방(LiveKit)
 
 ---
 
@@ -40,16 +40,16 @@ Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 7 Microservices ↔ Post
 | Media | 3004 | Go | 미디어 서빙 |
 | Analytics | 3005 | Python | 통계 |
 | Admin | 3006 | Node.js | 관리자 대시보드, 앱 테마 설정, APK 빌드 |
-| SNS | 3007 | Node.js | 커뮤니티 피드, 게시물, 댓글, 팔로우 |
+| SNS | 3007 | Node.js | 커뮤니티 피드, 게시물, 댓글, 팔로우, DM, 음성대화방 |
 
 ---
 
 ## 주요 디렉토리
 ```
 services/           # 백엔드 마이크로서비스
-mobile/lemon_korean/lib/  # Flutter 앱 (160+ Dart 파일)
-database/postgres/  # PostgreSQL 스키마 (35+ 테이블)
-config/             # DB/서비스 설정 파일
+mobile/lemon_korean/lib/  # Flutter 앱 (180+ Dart 파일)
+database/postgres/  # PostgreSQL 스키마 (41+ 테이블)
+config/             # DB/서비스 설정 파일 (livekit/ 포함)
 nginx/              # Nginx 설정
 scripts/            # 백업, 최적화, 배포 트리거 스크립트
 dev-notes/          # 개발노트
@@ -94,7 +94,8 @@ priority: high|medium|low
 
 - **Backend**: Node.js (Express), Go (Gin), Python (FastAPI)
 - **DB**: PostgreSQL 15, MongoDB 4.4, Redis 7, MinIO
-- **Mobile**: Flutter 3.x, Hive, Provider, Dio
+- **Realtime**: Socket.IO (DM/채팅), LiveKit (음성 대화방)
+- **Mobile**: Flutter 3.x, Hive, Provider, Dio, socket_io_client, livekit_client
 - **Infra**: Docker Compose, Nginx (Rate Limiting, SSL)
 
 ---
@@ -210,6 +211,8 @@ sudo lsof -i :5432
 - `MONGODB_URI`: MongoDB 연결
 - `JWT_SECRET`: 인증 시크릿
 - `MINIO_*`: 미디어 스토리지
+- `REDIS_URL`: Redis 연결 (Socket.IO, 온라인 상태, 배포 락)
+- `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`, `LIVEKIT_URL`: LiveKit 음성 대화방
 
 ---
 

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const http = require('http');
 const cors = require('cors');
 const postsRoutes = require('./routes/posts.routes');
 const commentsRoutes = require('./routes/comments.routes');
@@ -7,9 +8,16 @@ const followsRoutes = require('./routes/follows.routes');
 const profilesRoutes = require('./routes/profiles.routes');
 const reportsRoutes = require('./routes/reports.routes');
 const blocksRoutes = require('./routes/blocks.routes');
+const conversationsRoutes = require('./routes/conversations.routes');
+const messagesRoutes = require('./routes/messages.routes');
+const voiceRoomsRoutes = require('./routes/voice-rooms.routes');
 const { testConnection } = require('./config/database');
+const { initRedis } = require('./config/redis');
+const { initMinIO, ensureBucket } = require('./config/minio');
+const { initSocketIO } = require('./socket/socket-manager');
 
 const app = express();
+const server = http.createServer(app);
 const PORT = process.env.PORT || 3007;
 
 // ==================== Middleware ====================
@@ -31,6 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Request logging
 app.use((req, res, next) => {
+  // Skip Socket.IO polling noise
+  if (req.path.includes('/socket.io')) return next();
   console.log(`[SNS] [${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
 });
@@ -42,6 +52,9 @@ app.use('/api/sns/follows', followsRoutes);
 app.use('/api/sns/profiles', profilesRoutes);
 app.use('/api/sns/reports', reportsRoutes);
 app.use('/api/sns/blocks', blocksRoutes);
+app.use('/api/sns/conversations', conversationsRoutes);
+app.use('/api/sns', messagesRoutes);
+app.use('/api/sns/voice-rooms', voiceRoomsRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -57,7 +70,7 @@ app.get('/health', (req, res) => {
 app.get('/', (req, res) => {
   res.json({
     service: 'Lemon Korean SNS Service',
-    version: '1.0.0',
+    version: '2.0.0',
     endpoints: {
       health: '/health',
       posts: '/api/sns/posts',
@@ -65,7 +78,12 @@ app.get('/', (req, res) => {
       follows: '/api/sns/follows',
       profiles: '/api/sns/profiles',
       reports: '/api/sns/reports',
-      blocks: '/api/sns/blocks'
+      blocks: '/api/sns/blocks',
+      conversations: '/api/sns/conversations',
+      messages: '/api/sns/conversations/:id/messages',
+      dmUpload: '/api/sns/dm/upload',
+      voiceRooms: '/api/sns/voice-rooms',
+      socketio: '/api/sns/socket.io'
     }
   });
 });
@@ -101,10 +119,28 @@ const startServer = async () => {
     await testConnection();
     console.log('[SNS] Database connection successful');
 
-    // Start server
-    app.listen(PORT, '0.0.0.0', () => {
+    // Initialize Redis (non-fatal if fails)
+    await initRedis();
+
+    // Initialize MinIO
+    try {
+      initMinIO();
+      const bucket = process.env.MINIO_BUCKET || 'lemon-korean-media';
+      await ensureBucket(bucket);
+      console.log('[SNS] MinIO ready');
+    } catch (e) {
+      console.warn('[SNS] MinIO init failed (DM media upload will be unavailable):', e.message);
+    }
+
+    // Initialize Socket.IO
+    const io = initSocketIO(server);
+    app.set('io', io);
+
+    // Start HTTP server (Socket.IO attached)
+    server.listen(PORT, '0.0.0.0', () => {
       console.log('========================================');
       console.log(`[SNS] SNS Service running on port ${PORT}`);
+      console.log(`[SNS] Socket.IO path: /api/sns/socket.io`);
       console.log(`[SNS] Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`[SNS] Health check: http://localhost:${PORT}/health`);
       console.log('========================================');
@@ -118,12 +154,12 @@ const startServer = async () => {
 // Handle graceful shutdown
 process.on('SIGTERM', () => {
   console.log('[SNS] SIGTERM signal received: closing HTTP server');
-  process.exit(0);
+  server.close(() => process.exit(0));
 });
 
 process.on('SIGINT', () => {
   console.log('[SNS] SIGINT signal received: closing HTTP server');
-  process.exit(0);
+  server.close(() => process.exit(0));
 });
 
 startServer();

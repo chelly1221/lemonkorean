@@ -364,6 +364,17 @@ bash scripts/monitoring/dashboard.sh
 - ✅ 캐시 디스크 사용량 (10GB 제한)
 - ✅ 캐시 권한 오류 모니터링 (UID 1000)
 
+### Socket.IO / DM (실시간 서비스)
+- ✅ 동시 Socket.IO 연결 수
+- ✅ DM 메시지 전송 볼륨 (24시간 기준)
+- ✅ 온라인 사용자 수 (Redis `dm:online:*` keys)
+- ✅ Socket.IO 연결 에러율
+
+### LiveKit (음성 대화방)
+- ✅ LiveKit 서버 상태 (HTTP health check)
+- ✅ 활성 음성 대화방 수 (status='active')
+- ✅ 동시 참가자 수
+
 ### 웹 앱 (Flutter Web)
 - ✅ 번들 크기 (< 20MB 목표)
 - ✅ 로딩 시간 (First Contentful Paint)
@@ -454,6 +465,48 @@ bash <(curl -Ss https://my-netdata.io/kickstart.sh)
 open http://localhost:19999
 ```
 
+## Socket.IO / DM 모니터링
+
+### 온라인 사용자 수
+
+```bash
+# Redis에서 현재 온라인 사용자 수 확인
+docker exec lemon-redis redis-cli KEYS "dm:online:*" | wc -l
+
+# 또는 SCAN으로 안전하게 카운트
+docker exec lemon-redis redis-cli --scan --pattern "dm:online:*" | wc -l
+```
+
+### DM 메시지 볼륨
+
+```bash
+# 최근 24시간 DM 메시지 수
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "SELECT COUNT(*) AS messages_24h FROM dm_messages WHERE created_at > NOW() - INTERVAL '24 hours';"
+
+# 시간대별 메시지 볼륨
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "SELECT date_trunc('hour', created_at) AS hour, COUNT(*) FROM dm_messages
+   WHERE created_at > NOW() - INTERVAL '24 hours' GROUP BY 1 ORDER BY 1;"
+```
+
+### LiveKit 상태 체크
+
+```bash
+# LiveKit HTTP health check
+curl http://localhost:7880
+
+# 활성 음성 대화방 수
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "SELECT COUNT(*) AS active_rooms FROM voice_rooms WHERE status = 'active';"
+
+# 현재 참가자 수
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "SELECT COUNT(*) AS active_participants FROM voice_room_participants WHERE left_at IS NULL;"
+```
+
+---
+
 ## 체크리스트
 
 - [ ] 헬스체크 엔드포인트 테스트
@@ -464,6 +517,9 @@ open http://localhost:19999
 - [ ] 성능 벤치마크 수행
 - [ ] Prometheus + Grafana 설정 (선택)
 - [ ] 대시보드 접근 권한 설정
+- [ ] Socket.IO 연결 수 모니터링 설정
+- [ ] LiveKit 서버 헬스체크 추가
+- [ ] DM 메시지 볼륨 알림 설정
 
 ## 참고 자료
 

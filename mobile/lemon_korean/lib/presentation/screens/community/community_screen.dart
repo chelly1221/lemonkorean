@@ -4,9 +4,12 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../providers/dm_provider.dart';
 import '../../providers/feed_provider.dart';
 import '../create_post/create_post_screen.dart';
+import '../dm/conversations_screen.dart';
 import '../friend_search/friend_search_screen.dart';
+import '../voice_rooms/voice_rooms_list_screen.dart';
 import 'widgets/category_filter_chips.dart';
 import 'widgets/post_card.dart';
 
@@ -33,6 +36,9 @@ class _CommunityScreenState extends State<CommunityScreen>
       final feedProvider = Provider.of<FeedProvider>(context, listen: false);
       feedProvider.loadFeed(refresh: true);
       feedProvider.loadDiscover(refresh: true);
+
+      // Load DM unread count for badge
+      Provider.of<DmProvider>(context, listen: false).refreshUnreadCount();
     });
   }
 
@@ -56,8 +62,68 @@ class _CommunityScreenState extends State<CommunityScreen>
           ),
         ),
         backgroundColor: Colors.white,
+        foregroundColor: AppConstants.textPrimary,
         elevation: 0,
         actions: [
+          // DM messages icon with unread badge
+          Consumer<DmProvider>(
+            builder: (context, dmProvider, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.mail_outline),
+                    tooltip: l10n?.messages ?? 'Messages',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ConversationsScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  if (dmProvider.totalUnreadCount > 0)
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        constraints: const BoxConstraints(minWidth: 16),
+                        child: Text(
+                          dmProvider.totalUnreadCount > 99
+                              ? '99+'
+                              : '${dmProvider.totalUnreadCount}',
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+          // Voice rooms
+          IconButton(
+            icon: const Icon(Icons.mic_outlined),
+            tooltip: l10n?.voiceRooms ?? 'Voice Rooms',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const VoiceRoomsListScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.person_search_outlined),
             tooltip: l10n?.findFriends ?? 'Find Friends',

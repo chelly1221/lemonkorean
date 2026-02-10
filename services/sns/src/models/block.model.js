@@ -111,6 +111,25 @@ class Block {
   }
 
   /**
+   * Check if either user has blocked the other (bidirectional)
+   * @param {Number} userA - First user ID
+   * @param {Number} userB - Second user ID
+   * @returns {Boolean} True if either direction is blocked
+   */
+  static async isBlockedEitherWay(userA, userB) {
+    const sql = `
+      SELECT EXISTS(
+        SELECT 1 FROM user_blocks
+        WHERE (blocker_id = $1 AND blocked_id = $2)
+           OR (blocker_id = $2 AND blocked_id = $1)
+      ) AS is_blocked
+    `;
+
+    const result = await query(sql, [userA, userB]);
+    return result.rows[0].is_blocked;
+  }
+
+  /**
    * Get all blocked user IDs for a user
    * @param {Number} userId - User ID
    * @returns {Array<Number>} Array of blocked user IDs

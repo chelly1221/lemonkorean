@@ -33,6 +33,9 @@
 - `record`: 오디오 녹음 (Hangul 모듈, 모바일 전용)
 - `audio_waveforms`: 파형 시각화 (Hangul 모듈)
 - `perfect_freehand`: 필기 렌더링 (Hangul 모듈)
+- `socket_io_client`: Socket.IO 실시간 메시징 (DM)
+- `livekit_client`: LiveKit 음성 대화방
+- `image_picker`: 이미지 선택 (DM 미디어 전송)
 
 ---
 
@@ -96,8 +99,14 @@ lib/
 │   │   ├── create_post/            # 게시물 작성
 │   │   ├── friend_search/          # 친구 검색
 │   │   ├── post_detail/            # 게시물 상세
-│   │   └── user_profile/           # 사용자 프로필
-│   ├── providers/                  # 상태 관리 (11개 Providers)
+│   │   ├── user_profile/           # 사용자 프로필
+│   │   ├── dm/                     # DM (1:1 메시징)
+│   │   │   ├── dm_list_screen.dart         # 대화 목록
+│   │   │   └── dm_chat_screen.dart         # 채팅 화면
+│   │   └── voice_rooms/            # 음성 대화방
+│   │       ├── voice_room_list_screen.dart  # 방 목록
+│   │       └── voice_room_screen.dart       # 음성 대화 화면
+│   ├── providers/                  # 상태 관리 (13개 Providers)
 │   └── widgets/                    # 재사용 위젯
 ├── l10n/                           # 다국어 지원 (6개 언어)
 │   ├── app_zh.arb                  # 중국어 간체
@@ -110,7 +119,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 160+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS)
+**총 Dart 파일 수**: 180+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방)
 
 ---
 
@@ -426,6 +435,61 @@ Social features: feed, posts, comments, follows, friend search.
 
 ---
 
+### Direct Messaging (DM) (2026-02-10)
+
+Real-time 1:1 messaging with Socket.IO.
+
+**New Files**:
+- `lib/core/services/socket_service.dart` - Socket.IO connection manager (JWT auth, auto-reconnect)
+- `lib/presentation/providers/dm_provider.dart` - DM state management
+- `lib/presentation/screens/dm/dm_list_screen.dart` - Conversation list
+- `lib/presentation/screens/dm/dm_chat_screen.dart` - Chat screen with message bubbles
+
+**Features**:
+- 💬 Real-time messaging via Socket.IO (path: `/api/sns/socket.io`)
+- 📷 Image and voice message support
+- ✅ Read receipts and typing indicators
+- 🟢 Online/offline status (Redis TTL 300s)
+- 🔔 Unread message count badges
+- 🔄 Auto-reconnection on network change
+- 🚫 Block check before sending messages
+
+**Message Types**: `text`, `image`, `voice`
+
+**Socket.IO Events**:
+- Client → Server: `dm:send_message`, `dm:typing_start/stop`, `dm:mark_read`, `dm:join/leave_conversation`
+- Server → Client: `dm:new_message`, `dm:typing`, `dm:read_receipt`, `dm:user_online/offline`
+
+---
+
+### Voice Rooms (2026-02-10)
+
+Voice chat rooms with LiveKit integration (max 4 participants).
+
+**New Files**:
+- `lib/presentation/providers/voice_room_provider.dart` - Voice room state management
+- `lib/presentation/screens/voice_rooms/voice_room_list_screen.dart` - Room list
+- `lib/presentation/screens/voice_rooms/voice_room_screen.dart` - Voice room UI
+
+**Features**:
+- 🎤 Real-time voice chat via LiveKit
+- 🏠 Create rooms with title, topic, and language level
+- 👥 Max 4 participants per room
+- 🔇 Mute/unmute toggle
+- 📊 Participant list with mute status
+- 🚪 Join/leave rooms with token-based auth
+
+**Backend Integration**:
+- **7 API endpoints** in SNS Service (`/api/sns/voice-rooms/*`)
+- **LiveKit token** generated server-side on join
+- **2 database tables**: `voice_rooms`, `voice_room_participants`
+
+**Platform Support**:
+- ✅ Mobile (Android): Full LiveKit audio support
+- ⚠️ Web: UI only, LiveKit skipped (`kIsWeb` check), no audio
+
+---
+
 ### 1. 오프라인 우선 아키텍처
 
 ```dart
@@ -494,6 +558,19 @@ for (final media in package['media_urls']) {
 - 오프라인 데이터 동기화
 - 네트워크 상태 감지
 - 동기화 큐 관리
+
+### DmProvider (2026-02-10)
+- Socket.IO 연결 관리
+- 대화 목록/메시지 히스토리
+- 실시간 메시지 수신/전송
+- 읽음 확인, 타이핑 표시
+- 안읽은 메시지 카운트
+
+### VoiceRoomProvider (2026-02-10)
+- 음성 대화방 목록/상세
+- LiveKit 연결 및 토큰 관리
+- 방 생성/입장/퇴장
+- 뮤트 토글
 
 ---
 

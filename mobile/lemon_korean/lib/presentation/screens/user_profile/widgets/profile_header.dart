@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/sns_user_model.dart';
 import '../../../../l10n/generated/app_localizations.dart';
+import '../../../providers/dm_provider.dart';
 import '../../../providers/social_provider.dart';
+import '../../dm/chat_screen.dart';
 
 /// Profile header widget displaying user avatar, name, bio, stats, and follow button
 class ProfileHeader extends StatelessWidget {
@@ -93,10 +95,17 @@ class ProfileHeader extends StatelessWidget {
           // Stats row
           _buildStatsRow(l10n),
 
-          // Follow button (only for other users)
+          // Follow + Message buttons (only for other users)
           if (!isOwnProfile) ...[
             const SizedBox(height: AppConstants.paddingMedium),
-            _buildFollowButton(context, l10n),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildFollowButton(context, l10n),
+                const SizedBox(width: 12),
+                _buildMessageButton(context, l10n),
+              ],
+            ),
           ],
         ],
       ),
@@ -168,6 +177,41 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 
+  Widget _buildMessageButton(BuildContext context, AppLocalizations? l10n) {
+    return OutlinedButton.icon(
+      onPressed: () async {
+        final dmProvider = Provider.of<DmProvider>(context, listen: false);
+        final conversationId = await dmProvider.openConversation(user.id);
+        if (conversationId != null && context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                conversationId: conversationId,
+                otherUserName: user.name,
+                otherUserAvatar: user.profileImageUrl,
+                otherUserId: user.id,
+              ),
+            ),
+          );
+        }
+      },
+      icon: const Icon(Icons.mail_outline, size: 18),
+      label: Text(l10n?.message ?? 'Message'),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppConstants.textPrimary,
+        side: BorderSide(color: Colors.grey.shade400),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.paddingMedium,
+          vertical: AppConstants.paddingSmall,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+        ),
+      ),
+    );
+  }
+
   Widget _buildFollowButton(BuildContext context, AppLocalizations? l10n) {
     return Consumer<SocialProvider>(
       builder: (context, socialProvider, child) {
@@ -176,7 +220,7 @@ class ProfileHeader extends StatelessWidget {
         final isLoading = socialProvider.isToggling(user.id);
 
         return SizedBox(
-          width: 160,
+          width: 130,
           child: ElevatedButton(
             onPressed: isLoading
                 ? null

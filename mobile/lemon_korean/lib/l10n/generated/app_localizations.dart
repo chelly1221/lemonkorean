@@ -4526,6 +4526,168 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'用户不存在'**
   String get userNotFound;
+
+  /// No description provided for @message.
+  ///
+  /// In zh, this message translates to:
+  /// **'私信'**
+  String get message;
+
+  /// No description provided for @messages.
+  ///
+  /// In zh, this message translates to:
+  /// **'私信'**
+  String get messages;
+
+  /// No description provided for @noMessages.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有消息'**
+  String get noMessages;
+
+  /// No description provided for @startConversation.
+  ///
+  /// In zh, this message translates to:
+  /// **'和别人开始聊天吧！'**
+  String get startConversation;
+
+  /// No description provided for @noMessagesYet.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有消息，打个招呼吧！'**
+  String get noMessagesYet;
+
+  /// No description provided for @typing.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在输入...'**
+  String get typing;
+
+  /// No description provided for @typeMessage.
+  ///
+  /// In zh, this message translates to:
+  /// **'输入消息...'**
+  String get typeMessage;
+
+  /// No description provided for @createVoiceRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建语音房间'**
+  String get createVoiceRoom;
+
+  /// No description provided for @roomTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'房间标题'**
+  String get roomTitle;
+
+  /// No description provided for @roomTitleHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'例如：韩语会话练习'**
+  String get roomTitleHint;
+
+  /// No description provided for @topic.
+  ///
+  /// In zh, this message translates to:
+  /// **'主题'**
+  String get topic;
+
+  /// No description provided for @topicHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'你想聊什么？'**
+  String get topicHint;
+
+  /// No description provided for @languageLevel.
+  ///
+  /// In zh, this message translates to:
+  /// **'语言水平'**
+  String get languageLevel;
+
+  /// No description provided for @allLevels.
+  ///
+  /// In zh, this message translates to:
+  /// **'所有水平'**
+  String get allLevels;
+
+  /// No description provided for @beginner.
+  ///
+  /// In zh, this message translates to:
+  /// **'初级'**
+  String get beginner;
+
+  /// No description provided for @intermediate.
+  ///
+  /// In zh, this message translates to:
+  /// **'中级'**
+  String get intermediate;
+
+  /// No description provided for @advanced.
+  ///
+  /// In zh, this message translates to:
+  /// **'高级'**
+  String get advanced;
+
+  /// No description provided for @maxParticipants.
+  ///
+  /// In zh, this message translates to:
+  /// **'最大人数'**
+  String get maxParticipants;
+
+  /// No description provided for @createAndJoin.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建并加入'**
+  String get createAndJoin;
+
+  /// No description provided for @unmute.
+  ///
+  /// In zh, this message translates to:
+  /// **'取消静音'**
+  String get unmute;
+
+  /// No description provided for @mute.
+  ///
+  /// In zh, this message translates to:
+  /// **'静音'**
+  String get mute;
+
+  /// No description provided for @leave.
+  ///
+  /// In zh, this message translates to:
+  /// **'离开'**
+  String get leave;
+
+  /// No description provided for @closeRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭房间'**
+  String get closeRoom;
+
+  /// No description provided for @voiceRooms.
+  ///
+  /// In zh, this message translates to:
+  /// **'语音房间'**
+  String get voiceRooms;
+
+  /// No description provided for @noVoiceRooms.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无活跃语音房间'**
+  String get noVoiceRooms;
+
+  /// No description provided for @createVoiceRoomHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建一个开始聊天吧！'**
+  String get createVoiceRoomHint;
+
+  /// No description provided for @createRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建房间'**
+  String get createRoom;
 }
 
 class _AppLocalizationsDelegate

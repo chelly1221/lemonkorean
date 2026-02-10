@@ -277,8 +277,26 @@ BACKUP_DIR=/mnt/external/backups bash scripts/backup/backup-all.sh
 - 기술 문서: `/docs/backup-strategy.md`
 - 이슈 보고: GitHub Issues
 
+## DM 데이터 백업 참고사항 (2026-02-10)
+
+### DM 메시지
+- DM 메시지 (`dm_conversations`, `dm_messages`, `dm_read_receipts`)는 PostgreSQL에 저장되므로 **기존 PostgreSQL 백업에 자동 포함**
+- 추가 설정 불필요
+
+### DM 미디어 파일
+- DM 이미지: MinIO `dm-images/` 경로에 저장
+- DM 음성메시지: MinIO `dm-voice/` 경로에 저장
+- MinIO 백업이 설정되어 있다면 자동 포함
+
+### Redis 온라인 상태
+- `dm:online:{userId}` 키는 TTL 300초로 자동 만료
+- 세션 상태이므로 **백업 불필요** (재접속 시 자동 복구)
+
+---
+
 ## 변경 이력
 
+- 2026-02-10: DM 데이터 백업 참고사항 추가
 - 2026-01-28: 초기 백업 시스템 구현
   - PostgreSQL 자동 백업
   - MongoDB 자동 백업

@@ -20,6 +20,13 @@ dependencies:
   # HTTP Client
   dio: ^5.4.0
 
+  # Real-time Communication
+  socket_io_client: ^2.0.3+1
+  livekit_client: ^2.1.0
+
+  # Image Picker
+  image_picker: ^1.0.7
+
   # Local Database
   hive: ^2.2.3
   hive_flutter: ^1.1.0

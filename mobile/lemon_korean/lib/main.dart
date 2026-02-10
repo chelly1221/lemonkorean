@@ -21,8 +21,11 @@ import 'presentation/providers/settings_provider.dart';
 import 'presentation/providers/sync_provider.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/vocabulary_browser_provider.dart';
+import 'core/services/socket_service.dart';
+import 'presentation/providers/dm_provider.dart';
 import 'presentation/providers/feed_provider.dart';
 import 'presentation/providers/social_provider.dart';
+import 'presentation/providers/voice_room_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
 import 'presentation/screens/onboarding/language_selection_screen.dart';
@@ -150,6 +153,8 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SyncProvider()),
         ChangeNotifierProvider(create: (_) => FeedProvider()),
         ChangeNotifierProvider(create: (_) => SocialProvider()),
+        ChangeNotifierProvider(create: (_) => DmProvider()),
+        ChangeNotifierProvider(create: (_) => VoiceRoomProvider()),
         // Download provider only on mobile (web doesn't support file downloads)
         if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),
       ],
@@ -219,6 +224,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (isLoggedIn && authProvider.currentUser?.id != null) {
       final userId = authProvider.currentUser!.id;
+
+      // Connect Socket.IO for DM
+      SocketService.instance.connect();
 
       // Logged in: Sync lessons + progress (3 second timeout)
       await Future.wait([

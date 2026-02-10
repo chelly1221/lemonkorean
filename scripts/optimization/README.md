@@ -358,6 +358,37 @@ mkdir -p /var/log/lemon-korean
 
 ---
 
+## Socket.IO / Redis / DM 최적화 (2026-02-10)
+
+### Redis DM 키 관리
+- `dm:online:{userId}` 키는 TTL 300초 → 자동 만료, 수동 정리 불필요
+- `deployment:web:lock` 키는 TTL 15분 → 배포 실패 시 수동 삭제 가능
+
+### Socket.IO 연결 설정
+- `pingTimeout`: 60000ms (60초)
+- `pingInterval`: 25000ms (25초)
+- 장시간 미활동 시 자동 연결 해제
+
+### dm_messages 테이블 최적화
+```bash
+# dm_messages 테이블은 고빈도 INSERT → VACUUM 주기 단축 권장
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "VACUUM ANALYZE dm_messages;"
+
+# 테이블 크기 확인
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "SELECT pg_size_pretty(pg_total_relation_size('dm_messages'));"
+```
+
+### Voice Room 정리
+```bash
+# 오래된 closed 방 정리 (30일 이상)
+docker compose exec postgres psql -U 3chan -d lemon_korean -c \
+  "DELETE FROM voice_rooms WHERE status = 'closed' AND closed_at < NOW() - INTERVAL '30 days';"
+```
+
+---
+
 **작성일**: 2026-01-28
-**버전**: 1.0.0
+**버전**: 1.1.0
 **유지보수**: Lemon Korean DevOps Team
