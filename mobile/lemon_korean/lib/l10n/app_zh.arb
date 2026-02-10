@@ -2238,5 +2238,125 @@
   "syllableCombinationDesc": "学习辅音和元音如何组合",
   "batchimPracticeDesc": "练习收音发音",
   "writingPracticeDesc": "练习书写韩文字母",
-  "webNotSupported": "网页版不支持"
+  "webNotSupported": "网页版不支持",
+
+  "chapter": "章节",
+  "bossQuiz": "Boss测验",
+  "bossQuizCleared": "Boss测验通过！",
+  "bossQuizBonus": "奖励柠檬",
+  "lemonsScoreHint95": "95%以上获得3个柠檬",
+  "lemonsScoreHint80": "80%以上获得2个柠檬",
+  "myLemonTree": "我的柠檬树",
+  "harvestLemon": "收获柠檬",
+  "watchAdToHarvest": "观看广告来收获这个柠檬？",
+  "lemonHarvested": "柠檬已收获！",
+  "lemonsAvailable": "个柠檬可收获",
+  "completeMoreLessons": "完成更多课程来种植柠檬",
+  "totalLemons": "柠檬总数",
+
+  "community": "社区",
+  "following": "关注",
+  "discover": "发现",
+  "createPost": "发帖",
+  "writePost": "分享你的想法...",
+  "postCategory": "分类",
+  "categoryLearning": "学习",
+  "categoryGeneral": "日常",
+  "categoryAll": "全部",
+  "post": "发布",
+  "like": "点赞",
+  "comment": "评论",
+  "writeComment": "写评论...",
+  "replyingTo": "回复 {name}",
+  "@replyingTo": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "reply": "回复",
+  "deletePost": "删除帖子",
+  "deletePostConfirm": "确定要删除这条帖子吗？",
+  "deleteComment": "删除评论",
+  "postDeleted": "帖子已删除",
+  "commentDeleted": "评论已删除",
+  "noPostsYet": "还没有帖子",
+  "followToSeePosts": "关注用户后可以在这里看到他们的帖子",
+  "discoverPosts": "发现社区中的精彩帖子",
+  "seeMore": "查看更多",
+  "followers": "粉丝",
+  "followingLabel": "关注",
+  "posts": "帖子",
+  "follow": "关注",
+  "unfollow": "取消关注",
+  "editProfile": "编辑资料",
+  "bio": "个人简介",
+  "bioHint": "介绍一下自己...",
+  "searchUsers": "搜索用户...",
+  "suggestedUsers": "推荐用户",
+  "noUsersFound": "未找到用户",
+  "report": "举报",
+  "reportContent": "举报内容",
+  "reportReason": "请输入举报原因",
+  "reportSubmitted": "举报已提交",
+  "blockUser": "屏蔽用户",
+  "unblockUser": "取消屏蔽",
+  "userBlocked": "已屏蔽该用户",
+  "userUnblocked": "已取消屏蔽",
+  "postCreated": "发布成功！",
+  "likesCount": "{count}个赞",
+  "@likesCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "commentsCount": "{count}条评论",
+  "@commentsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "followersCount": "{count}位粉丝",
+  "@followersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "followingCount": "关注{count}人",
+  "@followingCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "findFriends": "找朋友",
+  "addPhotos": "添加照片",
+  "maxPhotos": "最多{count}张照片",
+  "@maxPhotos": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "visibility": "可见范围",
+  "visibilityPublic": "公开",
+  "visibilityFollowers": "仅粉丝可见",
+
+  "noFollowingPosts": "关注的用户还没有发帖",
+  "all": "全部",
+  "learning": "学习",
+  "general": "日常",
+  "linkCopied": "链接已复制",
+  "postFailed": "发布失败",
+  "newPost": "新帖子",
+  "category": "分类",
+  "writeYourThoughts": "分享你的想法...",
+  "photos": "照片",
+  "addPhoto": "添加照片",
+  "imageUrlHint": "输入图片链接",
+  "noSuggestions": "暂无推荐，试试搜索用户吧！",
+  "noResults": "未找到用户",
+  "postDetail": "帖子详情",
+  "comments": "评论",
+  "noComments": "还没有评论，来抢沙发吧！",
+  "deleteCommentConfirm": "确定要删除这条评论吗？",
+  "failedToLoadProfile": "加载资料失败",
+  "userNotFound": "用户不存在"
 }

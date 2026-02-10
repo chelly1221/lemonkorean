@@ -55,6 +55,12 @@ class LessonModel {
   @HiveField(16)
   final String? contentLanguage; // Language code of the content
 
+  @HiveField(17)
+  final int? week; // Week/chapter grouping from DB
+
+  @HiveField(18)
+  final int? orderNum; // Order within level from DB
+
   LessonModel({
     required this.id,
     required this.level,
@@ -73,6 +79,8 @@ class LessonModel {
     this.isDownloaded = false,
     this.downloadedAt,
     this.contentLanguage,
+    this.week,
+    this.orderNum,
   });
 
   // From JSON
@@ -104,6 +112,8 @@ class LessonModel {
           ? DateTime.parse(json['updated_at'] as String)
           : DateTime.now(),
       contentLanguage: json['content_language'] as String?,
+      week: json['week'] as int?,
+      orderNum: json['order_num'] as int?,
     );
   }
 
@@ -127,6 +137,8 @@ class LessonModel {
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
       'content_language': contentLanguage,
+      'week': week,
+      'order_num': orderNum,
     };
   }
 
@@ -149,6 +161,8 @@ class LessonModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? contentLanguage,
+    int? week,
+    int? orderNum,
   }) {
     return LessonModel(
       id: id ?? this.id,
@@ -168,6 +182,8 @@ class LessonModel {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       contentLanguage: contentLanguage ?? this.contentLanguage,
+      week: week ?? this.week,
+      orderNum: orderNum ?? this.orderNum,
     );
   }
 

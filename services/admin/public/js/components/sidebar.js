@@ -40,6 +40,8 @@ const Sidebar = (() => {
         { path: '/system', icon: 'fa-file-lines', label: '로그' },
         { path: '/deploy', icon: 'fa-rocket', label: '배포' },
         { path: '/app-theme', icon: 'fa-mobile-alt', label: '앱 테마' },
+        { path: '/gamification', icon: 'fa-lemon', label: '게임화 설정' },
+        { path: '/sns-moderation', icon: 'fa-comments', label: 'SNS 관리' },
         { path: '/storage-reset', icon: 'fa-trash-restore', label: '스토리지 리셋' },
         { path: '/cache-management', icon: 'fa-broom', label: '캐시 관리' },
         { path: '/docs', icon: 'fa-book', label: '개발 문서' },

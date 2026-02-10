@@ -10,6 +10,7 @@ import '../../../data/models/lesson_model.dart';
 import '../../../data/models/progress_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/bookmark_provider.dart';
+import '../../providers/gamification_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../providers/progress_provider.dart';
 import '../../providers/settings_provider.dart';
@@ -21,6 +22,8 @@ import '../stats/completed_lessons_screen.dart';
 import '../stats/mastered_words_screen.dart';
 import '../vocabulary_book/vocabulary_book_screen.dart';
 import '../vocabulary_browser/vocabulary_browser_screen.dart';
+import '../community/community_screen.dart';
+import '../profile/widgets/lemon_tree_widget.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
 import 'widgets/hangul_path_view.dart';
@@ -46,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           index: _selectedIndex,
           children: const [
             _HomeTab(),
+            CommunityScreen(),
             _ReviewTab(),
             _ProfileTab(),
           ],
@@ -66,6 +70,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.school),
                 selectedIcon: const Icon(Icons.school),
                 label: l10n?.home ?? 'Home',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.people_alt_outlined),
+                selectedIcon: const Icon(Icons.people_alt),
+                label: l10n?.community ?? 'Community',
               ),
               NavigationDestination(
                 icon: const Icon(Icons.replay),
@@ -100,6 +109,7 @@ class _HomeTabState extends State<_HomeTab> {
   List<LessonModel> _lessons = [];
   ProgressModel? _currentProgress;
   Map<int, double> _lessonProgress = {}; // lesson_id -> progress (0.0-1.0)
+  Map<int, int> _lessonLemons = {}; // lesson_id -> 0-3 lemons earned
   int _selectedLevel = 1;
   Set<int> _levelsWithProgress = {};
 
@@ -172,6 +182,15 @@ class _HomeTabState extends State<_HomeTab> {
       await lessonProvider.fetchLessons(language: language);
     }
 
+    // Load gamification data (lemons)
+    try {
+      final gamificationProvider = Provider.of<GamificationProvider>(context, listen: false);
+      await gamificationProvider.loadFromStorage();
+      _updateLemonData(gamificationProvider);
+    } catch (e) {
+      debugPrint('[HomeTab] Failed to load gamification data: $e');
+    }
+
     // Update lessons from provider
     _updateLessonsFromProvider(lessonProvider);
   }
@@ -209,6 +228,20 @@ class _HomeTabState extends State<_HomeTab> {
     setState(() {
       _lessonProgress = lessonProgressMap;
       _levelsWithProgress = progressLevels;
+    });
+  }
+
+  /// Update lemon data from gamification provider
+  void _updateLemonData(GamificationProvider gamificationProvider) {
+    final lemonMap = <int, int>{};
+    for (final lesson in _lessons) {
+      final lemons = gamificationProvider.getLemonsForLesson(lesson.id);
+      if (lemons > 0) {
+        lemonMap[lesson.id] = lemons;
+      }
+    }
+    setState(() {
+      _lessonLemons = lemonMap;
     });
   }
 
@@ -351,6 +384,7 @@ class _HomeTabState extends State<_HomeTab> {
             child: LessonPathView(
               lessons: filtered,
               lessonProgress: _lessonProgress,
+              lessonLemons: _lessonLemons,
               levelColor: LevelConstants.getLevelColor(_selectedLevel),
               onLessonTap: (lesson) {
                 Navigator.push(
@@ -846,6 +880,17 @@ class _ProfileTabState extends State<_ProfileTab> {
               completedLessons: _completedToday,
               targetLessons: _targetLessons,
             ),
+          ),
+        ),
+
+        // Lemon Tree
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
+            ),
+            child: LemonTreeWidget(),
           ),
         ),
 

@@ -51,7 +51,7 @@ class DatabaseHelper {
   /// Delete media file mapping
   Future<void> deleteMediaFile(String remoteKey) async {
     try {
-      web.window.localStorage.remove('lk_media_$remoteKey');
+      web.window.localStorage.removeItem('lk_media_$remoteKey');
     } catch (e) {
       AppLogger.e('Failed to delete media file', error: e, tag: 'DatabaseHelper');
     }
@@ -62,10 +62,12 @@ class DatabaseHelper {
     try {
       final keysToRemove = <String>[];
 
-      for (final key in web.window.localStorage.keys) {
-        if (key.startsWith('lk_media_')) {
+      final storage = web.window.localStorage;
+      for (int i = 0; i < storage.length; i++) {
+        final key = storage.key(i);
+        if (key != null && key.startsWith('lk_media_')) {
           try {
-            final value = web.window.localStorage[key];
+            final value = storage[key];
             if (value != null) {
               final data = json.decode(value) as Map<String, dynamic>;
               if (data['lesson_id'] == lessonId) {
@@ -79,7 +81,7 @@ class DatabaseHelper {
       }
 
       for (final key in keysToRemove) {
-        web.window.localStorage.remove(key);
+        storage.removeItem(key);
       }
     } catch (e) {
       AppLogger.e('Failed to delete media files by lesson', error: e, tag: 'DatabaseHelper');
@@ -113,10 +115,12 @@ class DatabaseHelper {
     final results = <Map<String, dynamic>>[];
 
     try {
-      for (final key in web.window.localStorage.keys) {
-        if (key.startsWith('lk_media_')) {
+      final storage = web.window.localStorage;
+      for (int i = 0; i < storage.length; i++) {
+        final key = storage.key(i);
+        if (key != null && key.startsWith('lk_media_')) {
           try {
-            final value = web.window.localStorage[key];
+            final value = storage[key];
             if (value != null) {
               final data = json.decode(value) as Map<String, dynamic>;
               if (data['lesson_id'] == lessonId) {
@@ -163,14 +167,16 @@ class DatabaseHelper {
     try {
       final keysToRemove = <String>[];
 
-      for (final key in web.window.localStorage.keys) {
-        if (key.startsWith('lk_media_')) {
+      final storage = web.window.localStorage;
+      for (int i = 0; i < storage.length; i++) {
+        final key = storage.key(i);
+        if (key != null && key.startsWith('lk_media_')) {
           keysToRemove.add(key);
         }
       }
 
       for (final key in keysToRemove) {
-        web.window.localStorage.remove(key);
+        storage.removeItem(key);
       }
     } catch (e) {
       AppLogger.e('Failed to clear all', error: e, tag: 'DatabaseHelper');

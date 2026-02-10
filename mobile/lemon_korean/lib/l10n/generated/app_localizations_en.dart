@@ -2135,4 +2135,279 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get webNotSupported => 'Not available on web';
+
+  @override
+  String get chapter => 'Chapter';
+
+  @override
+  String get bossQuiz => 'Boss Quiz';
+
+  @override
+  String get bossQuizCleared => 'Boss Quiz Cleared!';
+
+  @override
+  String get bossQuizBonus => 'Bonus Lemons';
+
+  @override
+  String get lemonsScoreHint95 => 'Score 95%+ for 3 lemons';
+
+  @override
+  String get lemonsScoreHint80 => 'Score 80%+ for 2 lemons';
+
+  @override
+  String get myLemonTree => 'My Lemon Tree';
+
+  @override
+  String get harvestLemon => 'Harvest Lemon';
+
+  @override
+  String get watchAdToHarvest => 'Watch an ad to harvest this lemon?';
+
+  @override
+  String get lemonHarvested => 'Lemon harvested!';
+
+  @override
+  String get lemonsAvailable => 'lemons available';
+
+  @override
+  String get completeMoreLessons => 'Complete more lessons to grow lemons';
+
+  @override
+  String get totalLemons => 'Total Lemons';
+
+  @override
+  String get community => 'Community';
+
+  @override
+  String get following => 'Following';
+
+  @override
+  String get discover => 'Discover';
+
+  @override
+  String get createPost => 'Create Post';
+
+  @override
+  String get writePost => 'Write a post...';
+
+  @override
+  String get postCategory => 'Category';
+
+  @override
+  String get categoryLearning => 'Learning';
+
+  @override
+  String get categoryGeneral => 'General';
+
+  @override
+  String get categoryAll => 'All';
+
+  @override
+  String get post => 'Post';
+
+  @override
+  String get like => 'Like';
+
+  @override
+  String get comment => 'Comment';
+
+  @override
+  String get writeComment => 'Write a comment...';
+
+  @override
+  String replyingTo(String name) {
+    return 'Replying to $name';
+  }
+
+  @override
+  String get reply => 'Reply';
+
+  @override
+  String get deletePost => 'Delete Post';
+
+  @override
+  String get deletePostConfirm => 'Are you sure you want to delete this post?';
+
+  @override
+  String get deleteComment => 'Delete Comment';
+
+  @override
+  String get postDeleted => 'Post deleted';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
+  String get noPostsYet => 'No posts yet';
+
+  @override
+  String get followToSeePosts => 'Follow users to see their posts here';
+
+  @override
+  String get discoverPosts => 'Discover posts from the community';
+
+  @override
+  String get seeMore => 'See more';
+
+  @override
+  String get followers => 'Followers';
+
+  @override
+  String get followingLabel => 'Following';
+
+  @override
+  String get posts => 'Posts';
+
+  @override
+  String get follow => 'Follow';
+
+  @override
+  String get unfollow => 'Unfollow';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get bio => 'Bio';
+
+  @override
+  String get bioHint => 'Tell us about yourself...';
+
+  @override
+  String get searchUsers => 'Search users...';
+
+  @override
+  String get suggestedUsers => 'Suggested Users';
+
+  @override
+  String get noUsersFound => 'No users found';
+
+  @override
+  String get report => 'Report';
+
+  @override
+  String get reportContent => 'Report Content';
+
+  @override
+  String get reportReason => 'Reason for reporting';
+
+  @override
+  String get reportSubmitted => 'Report submitted';
+
+  @override
+  String get blockUser => 'Block User';
+
+  @override
+  String get unblockUser => 'Unblock User';
+
+  @override
+  String get userBlocked => 'User blocked';
+
+  @override
+  String get userUnblocked => 'User unblocked';
+
+  @override
+  String get postCreated => 'Post created!';
+
+  @override
+  String likesCount(int count) {
+    return '$count likes';
+  }
+
+  @override
+  String commentsCount(int count) {
+    return '$count comments';
+  }
+
+  @override
+  String followersCount(int count) {
+    return '$count followers';
+  }
+
+  @override
+  String followingCount(int count) {
+    return '$count following';
+  }
+
+  @override
+  String get findFriends => 'Find Friends';
+
+  @override
+  String get addPhotos => 'Add Photos';
+
+  @override
+  String maxPhotos(int count) {
+    return 'Maximum $count photos';
+  }
+
+  @override
+  String get visibility => 'Visibility';
+
+  @override
+  String get visibilityPublic => 'Public';
+
+  @override
+  String get visibilityFollowers => 'Followers Only';
+
+  @override
+  String get noFollowingPosts => 'No posts from people you follow yet';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get learning => 'Learning';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get linkCopied => 'Link copied';
+
+  @override
+  String get postFailed => 'Failed to post';
+
+  @override
+  String get newPost => 'New Post';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get writeYourThoughts => 'Share your thoughts...';
+
+  @override
+  String get photos => 'Photos';
+
+  @override
+  String get addPhoto => 'Add Photo';
+
+  @override
+  String get imageUrlHint => 'Enter image URL';
+
+  @override
+  String get noSuggestions =>
+      'No suggestions available. Try searching for users!';
+
+  @override
+  String get noResults => 'No users found';
+
+  @override
+  String get postDetail => 'Post';
+
+  @override
+  String get comments => 'Comments';
+
+  @override
+  String get noComments => 'No comments yet. Be the first!';
+
+  @override
+  String get deleteCommentConfirm =>
+      'Are you sure you want to delete this comment?';
+
+  @override
+  String get failedToLoadProfile => 'Failed to load profile';
+
+  @override
+  String get userNotFound => 'User not found';
 }

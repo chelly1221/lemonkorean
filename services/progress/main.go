@@ -61,6 +61,7 @@ func main() {
 	progressHandler := handlers.NewProgressHandler(progressRepo)
 	syncHandler := handlers.NewSyncHandler(progressRepo)
 	hangulHandler := handlers.NewHangulHandler(progressRepo)
+	gamificationHandler := handlers.NewGamificationHandler(progressRepo)
 
 	// Initialize middleware
 	authMiddleware := middleware.NewAuthMiddleware()
@@ -120,6 +121,13 @@ func main() {
 		api.POST("/hangul/:userId/:characterId", hangulHandler.UpdateHangulProgress)
 		api.GET("/hangul/review/:userId", hangulHandler.GetHangulReviewSchedule)
 		api.POST("/hangul/batch", hangulHandler.RecordHangulBatch)
+
+		// Gamification (lemon rewards)
+		api.POST("/lesson-reward", gamificationHandler.SaveLessonReward)
+		api.GET("/lemon-currency/:userId", gamificationHandler.GetLemonCurrency)
+		api.GET("/lesson-rewards/:userId", gamificationHandler.GetLessonRewards)
+		api.POST("/lemon-harvest", gamificationHandler.HarvestLemon)
+		api.POST("/boss-quiz/complete", gamificationHandler.CompleteBossQuiz)
 	}
 
 	// Start server

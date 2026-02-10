@@ -7,7 +7,7 @@ import 'lemon_clipper.dart';
 /// A single lemon-shaped node in the learning path.
 ///
 /// Three visual states:
-/// - Completed (progress >= 1.0): filled lemon + white check icon
+/// - Completed (progress >= 1.0): filled lemon + white check icon + lemon reward icons
 /// - In-progress (0 < progress < 1.0): colored border + lesson number + pulse glow
 /// - Not started (progress == null): grey border + grey lesson number
 class LessonPathNode extends StatelessWidget {
@@ -16,6 +16,7 @@ class LessonPathNode extends StatelessWidget {
   final Color levelColor;
   final VoidCallback onTap;
   final int index; // for ordering display
+  final int lemonsEarned; // 0-3 lemons earned for this lesson
 
   static const double nodeWidth = 80;
   static const double nodeHeight = 90;
@@ -27,6 +28,7 @@ class LessonPathNode extends StatelessWidget {
     required this.index,
     super.key,
     this.progress,
+    this.lemonsEarned = 0,
   });
 
   bool get _isCompleted => progress != null && progress! >= 1.0;
@@ -47,7 +49,12 @@ class LessonPathNode extends StatelessWidget {
               height: nodeHeight,
               child: _isInProgress ? _buildAnimatedNode() : _buildStaticNode(),
             ),
-            const SizedBox(height: 6),
+            // Lemon reward icons (only for completed lessons)
+            if (_isCompleted && lemonsEarned > 0) ...[
+              const SizedBox(height: 2),
+              _buildLemonIcons(),
+            ],
+            const SizedBox(height: 4),
             // Korean title
             Text(
               lesson.titleKo,
@@ -78,6 +85,27 @@ class LessonPathNode extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  /// Build small lemon icons showing 1-3 earned lemons
+  Widget _buildLemonIcons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(3, (i) {
+        final isEarned = i < lemonsEarned;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 1),
+          child: Text(
+            isEarned ? '🍋' : '·',
+            style: TextStyle(
+              fontSize: isEarned ? 10 : 12,
+              color: isEarned ? null : Colors.grey.shade400,
+            ),
+          ),
+        );
+      }),
     );
   }
 

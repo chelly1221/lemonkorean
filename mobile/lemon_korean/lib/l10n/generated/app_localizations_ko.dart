@@ -2105,4 +2105,277 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get webNotSupported => '웹에서 사용 불가';
+
+  @override
+  String get chapter => '챕터';
+
+  @override
+  String get bossQuiz => '보스 퀴즈';
+
+  @override
+  String get bossQuizCleared => '보스 퀴즈 클리어!';
+
+  @override
+  String get bossQuizBonus => '보너스 레몬';
+
+  @override
+  String get lemonsScoreHint95 => '95% 이상이면 레몬 3개';
+
+  @override
+  String get lemonsScoreHint80 => '80% 이상이면 레몬 2개';
+
+  @override
+  String get myLemonTree => '나의 레몬 나무';
+
+  @override
+  String get harvestLemon => '레몬 수확';
+
+  @override
+  String get watchAdToHarvest => '광고를 보고 레몬을 수확하시겠습니까?';
+
+  @override
+  String get lemonHarvested => '레몬을 수확했습니다!';
+
+  @override
+  String get lemonsAvailable => '개 레몬 수확 가능';
+
+  @override
+  String get completeMoreLessons => '레슨을 완료하면 레몬이 자랍니다';
+
+  @override
+  String get totalLemons => '총 레몬';
+
+  @override
+  String get community => '커뮤니티';
+
+  @override
+  String get following => '팔로잉';
+
+  @override
+  String get discover => '탐색';
+
+  @override
+  String get createPost => '게시글 작성';
+
+  @override
+  String get writePost => '무엇이든 나눠보세요...';
+
+  @override
+  String get postCategory => '카테고리';
+
+  @override
+  String get categoryLearning => '학습';
+
+  @override
+  String get categoryGeneral => '일반';
+
+  @override
+  String get categoryAll => '전체';
+
+  @override
+  String get post => '게시';
+
+  @override
+  String get like => '좋아요';
+
+  @override
+  String get comment => '댓글';
+
+  @override
+  String get writeComment => '댓글을 입력하세요...';
+
+  @override
+  String replyingTo(String name) {
+    return '$name님에게 답글';
+  }
+
+  @override
+  String get reply => '답글';
+
+  @override
+  String get deletePost => '게시글 삭제';
+
+  @override
+  String get deletePostConfirm => '이 게시글을 삭제하시겠습니까?';
+
+  @override
+  String get deleteComment => '댓글 삭제';
+
+  @override
+  String get postDeleted => '게시글이 삭제되었습니다';
+
+  @override
+  String get commentDeleted => '댓글이 삭제되었습니다';
+
+  @override
+  String get noPostsYet => '아직 게시글이 없습니다';
+
+  @override
+  String get followToSeePosts => '유저를 팔로우하면 게시글이 여기에 표시됩니다';
+
+  @override
+  String get discoverPosts => '커뮤니티의 다양한 게시글을 확인하세요';
+
+  @override
+  String get seeMore => '더 보기';
+
+  @override
+  String get followers => '팔로워';
+
+  @override
+  String get followingLabel => '팔로잉';
+
+  @override
+  String get posts => '게시글';
+
+  @override
+  String get follow => '팔로우';
+
+  @override
+  String get unfollow => '언팔로우';
+
+  @override
+  String get editProfile => '프로필 수정';
+
+  @override
+  String get bio => '자기소개';
+
+  @override
+  String get bioHint => '자기소개를 입력하세요...';
+
+  @override
+  String get searchUsers => '유저 검색...';
+
+  @override
+  String get suggestedUsers => '추천 유저';
+
+  @override
+  String get noUsersFound => '유저를 찾을 수 없습니다';
+
+  @override
+  String get report => '신고';
+
+  @override
+  String get reportContent => '콘텐츠 신고';
+
+  @override
+  String get reportReason => '신고 사유를 입력하세요';
+
+  @override
+  String get reportSubmitted => '신고가 접수되었습니다';
+
+  @override
+  String get blockUser => '유저 차단';
+
+  @override
+  String get unblockUser => '차단 해제';
+
+  @override
+  String get userBlocked => '유저가 차단되었습니다';
+
+  @override
+  String get userUnblocked => '차단이 해제되었습니다';
+
+  @override
+  String get postCreated => '게시글이 작성되었습니다!';
+
+  @override
+  String likesCount(int count) {
+    return '좋아요 $count개';
+  }
+
+  @override
+  String commentsCount(int count) {
+    return '댓글 $count개';
+  }
+
+  @override
+  String followersCount(int count) {
+    return '팔로워 $count명';
+  }
+
+  @override
+  String followingCount(int count) {
+    return '팔로잉 $count명';
+  }
+
+  @override
+  String get findFriends => '친구 찾기';
+
+  @override
+  String get addPhotos => '사진 추가';
+
+  @override
+  String maxPhotos(int count) {
+    return '최대 $count장까지 가능';
+  }
+
+  @override
+  String get visibility => '공개 범위';
+
+  @override
+  String get visibilityPublic => '전체 공개';
+
+  @override
+  String get visibilityFollowers => '팔로워만';
+
+  @override
+  String get noFollowingPosts => '팔로우한 유저의 게시글이 아직 없습니다';
+
+  @override
+  String get all => '전체';
+
+  @override
+  String get learning => '학습';
+
+  @override
+  String get general => '일반';
+
+  @override
+  String get linkCopied => '링크가 복사되었습니다';
+
+  @override
+  String get postFailed => '게시 실패';
+
+  @override
+  String get newPost => '새 게시글';
+
+  @override
+  String get category => '카테고리';
+
+  @override
+  String get writeYourThoughts => '생각을 나눠보세요...';
+
+  @override
+  String get photos => '사진';
+
+  @override
+  String get addPhoto => '사진 추가';
+
+  @override
+  String get imageUrlHint => '이미지 URL을 입력하세요';
+
+  @override
+  String get noSuggestions => '추천이 없습니다. 유저를 검색해 보세요!';
+
+  @override
+  String get noResults => '유저를 찾을 수 없습니다';
+
+  @override
+  String get postDetail => '게시글';
+
+  @override
+  String get comments => '댓글';
+
+  @override
+  String get noComments => '아직 댓글이 없습니다. 첫 댓글을 남겨보세요!';
+
+  @override
+  String get deleteCommentConfirm => '이 댓글을 삭제하시겠습니까?';
+
+  @override
+  String get failedToLoadProfile => '프로필을 불러올 수 없습니다';
+
+  @override
+  String get userNotFound => '유저를 찾을 수 없습니다';
 }

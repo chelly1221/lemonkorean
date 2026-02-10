@@ -13,6 +13,7 @@ import 'l10n/generated/app_localizations.dart';
 import 'presentation/providers/auth_provider.dart';
 import 'presentation/providers/bookmark_provider.dart';
 import 'presentation/providers/download_provider.dart';
+import 'presentation/providers/gamification_provider.dart';
 import 'presentation/providers/hangul_provider.dart';
 import 'presentation/providers/lesson_provider.dart';
 import 'presentation/providers/progress_provider.dart';
@@ -20,6 +21,8 @@ import 'presentation/providers/settings_provider.dart';
 import 'presentation/providers/sync_provider.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/vocabulary_browser_provider.dart';
+import 'presentation/providers/feed_provider.dart';
+import 'presentation/providers/social_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
 import 'presentation/screens/onboarding/language_selection_screen.dart';
@@ -138,12 +141,15 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => LessonProvider()),
         ChangeNotifierProvider(create: (_) => ProgressProvider()),
+        ChangeNotifierProvider(create: (_) => GamificationProvider()),
         ChangeNotifierProvider(create: (_) => BookmarkProvider()),
         ChangeNotifierProvider(create: (_) => VocabularyBrowserProvider()),
         ChangeNotifierProvider(create: (_) => HangulProvider()),
         ChangeNotifierProvider<SettingsProvider>.value(value: settingsProvider),
         ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
         ChangeNotifierProvider(create: (_) => SyncProvider()),
+        ChangeNotifierProvider(create: (_) => FeedProvider()),
+        ChangeNotifierProvider(create: (_) => SocialProvider()),
         // Download provider only on mobile (web doesn't support file downloads)
         if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),
       ],

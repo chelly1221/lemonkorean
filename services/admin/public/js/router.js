@@ -241,6 +241,8 @@ const Router = (() => {
     register('/dev-notes', DevNotesPage.render, true);
     register('/deploy', DeployPage.render, true);
     register('/app-theme', AppThemePage.render, true);
+    register('/gamification', GamificationSettingsPage.render, true);
+    register('/sns-moderation', SnsModerationPage.render, true);
     register('/storage-reset', StorageResetPage.render, true);
     register('/cache-management', CacheManagementPage.render, true);
 

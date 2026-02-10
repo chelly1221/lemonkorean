@@ -2150,4 +2150,282 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get webNotSupported => 'No disponible en web';
+
+  @override
+  String get chapter => 'Capítulo';
+
+  @override
+  String get bossQuiz => 'Examen Final';
+
+  @override
+  String get bossQuizCleared => '¡Examen Final Superado!';
+
+  @override
+  String get bossQuizBonus => 'Limones de Bonificación';
+
+  @override
+  String get lemonsScoreHint95 => '95%+ para 3 limones';
+
+  @override
+  String get lemonsScoreHint80 => '80%+ para 2 limones';
+
+  @override
+  String get myLemonTree => 'Mi Árbol de Limones';
+
+  @override
+  String get harvestLemon => 'Cosechar Limón';
+
+  @override
+  String get watchAdToHarvest => '¿Ver un anuncio para cosechar este limón?';
+
+  @override
+  String get lemonHarvested => '¡Limón cosechado!';
+
+  @override
+  String get lemonsAvailable => 'limones disponibles';
+
+  @override
+  String get completeMoreLessons =>
+      'Completa más lecciones para cultivar limones';
+
+  @override
+  String get totalLemons => 'Total de Limones';
+
+  @override
+  String get community => 'Comunidad';
+
+  @override
+  String get following => 'Siguiendo';
+
+  @override
+  String get discover => 'Descubrir';
+
+  @override
+  String get createPost => 'Crear publicación';
+
+  @override
+  String get writePost => 'Comparte algo...';
+
+  @override
+  String get postCategory => 'Categoría';
+
+  @override
+  String get categoryLearning => 'Aprendizaje';
+
+  @override
+  String get categoryGeneral => 'General';
+
+  @override
+  String get categoryAll => 'Todo';
+
+  @override
+  String get post => 'Publicar';
+
+  @override
+  String get like => 'Me gusta';
+
+  @override
+  String get comment => 'Comentario';
+
+  @override
+  String get writeComment => 'Escribe un comentario...';
+
+  @override
+  String replyingTo(String name) {
+    return 'Respondiendo a $name';
+  }
+
+  @override
+  String get reply => 'Responder';
+
+  @override
+  String get deletePost => 'Eliminar publicación';
+
+  @override
+  String get deletePostConfirm =>
+      '¿Seguro que quieres eliminar esta publicación?';
+
+  @override
+  String get deleteComment => 'Eliminar comentario';
+
+  @override
+  String get postDeleted => 'Publicación eliminada';
+
+  @override
+  String get commentDeleted => 'Comentario eliminado';
+
+  @override
+  String get noPostsYet => 'Aún no hay publicaciones';
+
+  @override
+  String get followToSeePosts =>
+      'Sigue a otros usuarios para ver sus publicaciones aquí';
+
+  @override
+  String get discoverPosts => 'Descubre publicaciones de la comunidad';
+
+  @override
+  String get seeMore => 'Ver más';
+
+  @override
+  String get followers => 'Seguidores';
+
+  @override
+  String get followingLabel => 'Siguiendo';
+
+  @override
+  String get posts => 'Publicaciones';
+
+  @override
+  String get follow => 'Seguir';
+
+  @override
+  String get unfollow => 'Dejar de seguir';
+
+  @override
+  String get editProfile => 'Editar perfil';
+
+  @override
+  String get bio => 'Biografía';
+
+  @override
+  String get bioHint => 'Cuéntanos sobre ti...';
+
+  @override
+  String get searchUsers => 'Buscar usuarios...';
+
+  @override
+  String get suggestedUsers => 'Usuarios sugeridos';
+
+  @override
+  String get noUsersFound => 'No se encontraron usuarios';
+
+  @override
+  String get report => 'Reportar';
+
+  @override
+  String get reportContent => 'Reportar contenido';
+
+  @override
+  String get reportReason => 'Motivo del reporte';
+
+  @override
+  String get reportSubmitted => 'Reporte enviado';
+
+  @override
+  String get blockUser => 'Bloquear usuario';
+
+  @override
+  String get unblockUser => 'Desbloquear usuario';
+
+  @override
+  String get userBlocked => 'Usuario bloqueado';
+
+  @override
+  String get userUnblocked => 'Usuario desbloqueado';
+
+  @override
+  String get postCreated => '¡Publicación creada!';
+
+  @override
+  String likesCount(int count) {
+    return '$count me gusta';
+  }
+
+  @override
+  String commentsCount(int count) {
+    return '$count comentarios';
+  }
+
+  @override
+  String followersCount(int count) {
+    return '$count seguidores';
+  }
+
+  @override
+  String followingCount(int count) {
+    return '$count siguiendo';
+  }
+
+  @override
+  String get findFriends => 'Buscar amigos';
+
+  @override
+  String get addPhotos => 'Añadir fotos';
+
+  @override
+  String maxPhotos(int count) {
+    return 'Máximo $count fotos';
+  }
+
+  @override
+  String get visibility => 'Visibilidad';
+
+  @override
+  String get visibilityPublic => 'Público';
+
+  @override
+  String get visibilityFollowers => 'Solo seguidores';
+
+  @override
+  String get noFollowingPosts =>
+      'Aún no hay publicaciones de las personas que sigues';
+
+  @override
+  String get all => 'Todo';
+
+  @override
+  String get learning => 'Aprendizaje';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get linkCopied => 'Enlace copiado';
+
+  @override
+  String get postFailed => 'Error al publicar';
+
+  @override
+  String get newPost => 'Nueva publicación';
+
+  @override
+  String get category => 'Categoría';
+
+  @override
+  String get writeYourThoughts => 'Comparte tus pensamientos...';
+
+  @override
+  String get photos => 'Fotos';
+
+  @override
+  String get addPhoto => 'Añadir foto';
+
+  @override
+  String get imageUrlHint => 'Ingresa la URL de la imagen';
+
+  @override
+  String get noSuggestions => 'No hay sugerencias. ¡Intenta buscar usuarios!';
+
+  @override
+  String get noResults => 'No se encontraron usuarios';
+
+  @override
+  String get postDetail => 'Publicación';
+
+  @override
+  String get comments => 'Comentarios';
+
+  @override
+  String get noComments => 'Aún no hay comentarios. ¡Sé el primero!';
+
+  @override
+  String get deleteCommentConfirm =>
+      '¿Seguro que quieres eliminar este comentario?';
+
+  @override
+  String get failedToLoadProfile => 'Error al cargar el perfil';
+
+  @override
+  String get userNotFound => 'Usuario no encontrado';
 }

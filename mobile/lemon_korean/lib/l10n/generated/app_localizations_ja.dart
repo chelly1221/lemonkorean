@@ -2105,4 +2105,277 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get webNotSupported => 'ウェブでは利用不可';
+
+  @override
+  String get chapter => 'チャプター';
+
+  @override
+  String get bossQuiz => 'ボスクイズ';
+
+  @override
+  String get bossQuizCleared => 'ボスクイズクリア！';
+
+  @override
+  String get bossQuizBonus => 'ボーナスレモン';
+
+  @override
+  String get lemonsScoreHint95 => '95%以上で3つのレモン';
+
+  @override
+  String get lemonsScoreHint80 => '80%以上で2つのレモン';
+
+  @override
+  String get myLemonTree => '私のレモンの木';
+
+  @override
+  String get harvestLemon => 'レモンを収穫';
+
+  @override
+  String get watchAdToHarvest => '広告を見てレモンを収穫しますか？';
+
+  @override
+  String get lemonHarvested => 'レモンを収穫しました！';
+
+  @override
+  String get lemonsAvailable => '個のレモンが収穫可能';
+
+  @override
+  String get completeMoreLessons => 'レッスンを完了してレモンを育てましょう';
+
+  @override
+  String get totalLemons => 'レモン合計';
+
+  @override
+  String get community => 'コミュニティ';
+
+  @override
+  String get following => 'フォロー中';
+
+  @override
+  String get discover => '発見';
+
+  @override
+  String get createPost => '投稿作成';
+
+  @override
+  String get writePost => '何か共有しましょう...';
+
+  @override
+  String get postCategory => 'カテゴリー';
+
+  @override
+  String get categoryLearning => '学習';
+
+  @override
+  String get categoryGeneral => '一般';
+
+  @override
+  String get categoryAll => 'すべて';
+
+  @override
+  String get post => '投稿';
+
+  @override
+  String get like => 'いいね';
+
+  @override
+  String get comment => 'コメント';
+
+  @override
+  String get writeComment => 'コメントを書く...';
+
+  @override
+  String replyingTo(String name) {
+    return '$nameさんに返信';
+  }
+
+  @override
+  String get reply => '返信';
+
+  @override
+  String get deletePost => '投稿を削除';
+
+  @override
+  String get deletePostConfirm => 'この投稿を削除しますか？';
+
+  @override
+  String get deleteComment => 'コメントを削除';
+
+  @override
+  String get postDeleted => '投稿が削除されました';
+
+  @override
+  String get commentDeleted => 'コメントが削除されました';
+
+  @override
+  String get noPostsYet => 'まだ投稿がありません';
+
+  @override
+  String get followToSeePosts => 'ユーザーをフォローすると投稿がここに表示されます';
+
+  @override
+  String get discoverPosts => 'コミュニティの投稿を探してみましょう';
+
+  @override
+  String get seeMore => 'もっと見る';
+
+  @override
+  String get followers => 'フォロワー';
+
+  @override
+  String get followingLabel => 'フォロー中';
+
+  @override
+  String get posts => '投稿';
+
+  @override
+  String get follow => 'フォロー';
+
+  @override
+  String get unfollow => 'フォロー解除';
+
+  @override
+  String get editProfile => 'プロフィール編集';
+
+  @override
+  String get bio => '自己紹介';
+
+  @override
+  String get bioHint => '自己紹介を入力...';
+
+  @override
+  String get searchUsers => 'ユーザー検索...';
+
+  @override
+  String get suggestedUsers => 'おすすめユーザー';
+
+  @override
+  String get noUsersFound => 'ユーザーが見つかりません';
+
+  @override
+  String get report => '報告';
+
+  @override
+  String get reportContent => 'コンテンツを報告';
+
+  @override
+  String get reportReason => '報告理由を入力してください';
+
+  @override
+  String get reportSubmitted => '報告が送信されました';
+
+  @override
+  String get blockUser => 'ユーザーをブロック';
+
+  @override
+  String get unblockUser => 'ブロック解除';
+
+  @override
+  String get userBlocked => 'ユーザーをブロックしました';
+
+  @override
+  String get userUnblocked => 'ブロックを解除しました';
+
+  @override
+  String get postCreated => '投稿しました！';
+
+  @override
+  String likesCount(int count) {
+    return '$countいいね';
+  }
+
+  @override
+  String commentsCount(int count) {
+    return '$countコメント';
+  }
+
+  @override
+  String followersCount(int count) {
+    return '$countフォロワー';
+  }
+
+  @override
+  String followingCount(int count) {
+    return '$countフォロー中';
+  }
+
+  @override
+  String get findFriends => '友達を探す';
+
+  @override
+  String get addPhotos => '写真を追加';
+
+  @override
+  String maxPhotos(int count) {
+    return '最大$count枚まで';
+  }
+
+  @override
+  String get visibility => '公開範囲';
+
+  @override
+  String get visibilityPublic => '公開';
+
+  @override
+  String get visibilityFollowers => 'フォロワーのみ';
+
+  @override
+  String get noFollowingPosts => 'フォロー中のユーザーの投稿はまだありません';
+
+  @override
+  String get all => 'すべて';
+
+  @override
+  String get learning => '学習';
+
+  @override
+  String get general => '一般';
+
+  @override
+  String get linkCopied => 'リンクをコピーしました';
+
+  @override
+  String get postFailed => '投稿に失敗しました';
+
+  @override
+  String get newPost => '新しい投稿';
+
+  @override
+  String get category => 'カテゴリー';
+
+  @override
+  String get writeYourThoughts => '思ったことを共有しましょう...';
+
+  @override
+  String get photos => '写真';
+
+  @override
+  String get addPhoto => '写真を追加';
+
+  @override
+  String get imageUrlHint => '画像URLを入力';
+
+  @override
+  String get noSuggestions => 'おすすめがありません。ユーザーを検索してみましょう！';
+
+  @override
+  String get noResults => 'ユーザーが見つかりません';
+
+  @override
+  String get postDetail => '投稿';
+
+  @override
+  String get comments => 'コメント';
+
+  @override
+  String get noComments => 'まだコメントがありません。最初のコメントを！';
+
+  @override
+  String get deleteCommentConfirm => 'このコメントを削除しますか？';
+
+  @override
+  String get failedToLoadProfile => 'プロフィールの読み込みに失敗しました';
+
+  @override
+  String get userNotFound => 'ユーザーが見つかりません';
 }

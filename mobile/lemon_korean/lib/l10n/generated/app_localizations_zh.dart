@@ -2099,6 +2099,279 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get webNotSupported => '网页版不支持';
+
+  @override
+  String get chapter => '章节';
+
+  @override
+  String get bossQuiz => 'Boss测验';
+
+  @override
+  String get bossQuizCleared => 'Boss测验通过！';
+
+  @override
+  String get bossQuizBonus => '奖励柠檬';
+
+  @override
+  String get lemonsScoreHint95 => '95%以上获得3个柠檬';
+
+  @override
+  String get lemonsScoreHint80 => '80%以上获得2个柠檬';
+
+  @override
+  String get myLemonTree => '我的柠檬树';
+
+  @override
+  String get harvestLemon => '收获柠檬';
+
+  @override
+  String get watchAdToHarvest => '观看广告来收获这个柠檬？';
+
+  @override
+  String get lemonHarvested => '柠檬已收获！';
+
+  @override
+  String get lemonsAvailable => '个柠檬可收获';
+
+  @override
+  String get completeMoreLessons => '完成更多课程来种植柠檬';
+
+  @override
+  String get totalLemons => '柠檬总数';
+
+  @override
+  String get community => '社区';
+
+  @override
+  String get following => '关注';
+
+  @override
+  String get discover => '发现';
+
+  @override
+  String get createPost => '发帖';
+
+  @override
+  String get writePost => '分享你的想法...';
+
+  @override
+  String get postCategory => '分类';
+
+  @override
+  String get categoryLearning => '学习';
+
+  @override
+  String get categoryGeneral => '日常';
+
+  @override
+  String get categoryAll => '全部';
+
+  @override
+  String get post => '发布';
+
+  @override
+  String get like => '点赞';
+
+  @override
+  String get comment => '评论';
+
+  @override
+  String get writeComment => '写评论...';
+
+  @override
+  String replyingTo(String name) {
+    return '回复 $name';
+  }
+
+  @override
+  String get reply => '回复';
+
+  @override
+  String get deletePost => '删除帖子';
+
+  @override
+  String get deletePostConfirm => '确定要删除这条帖子吗？';
+
+  @override
+  String get deleteComment => '删除评论';
+
+  @override
+  String get postDeleted => '帖子已删除';
+
+  @override
+  String get commentDeleted => '评论已删除';
+
+  @override
+  String get noPostsYet => '还没有帖子';
+
+  @override
+  String get followToSeePosts => '关注用户后可以在这里看到他们的帖子';
+
+  @override
+  String get discoverPosts => '发现社区中的精彩帖子';
+
+  @override
+  String get seeMore => '查看更多';
+
+  @override
+  String get followers => '粉丝';
+
+  @override
+  String get followingLabel => '关注';
+
+  @override
+  String get posts => '帖子';
+
+  @override
+  String get follow => '关注';
+
+  @override
+  String get unfollow => '取消关注';
+
+  @override
+  String get editProfile => '编辑资料';
+
+  @override
+  String get bio => '个人简介';
+
+  @override
+  String get bioHint => '介绍一下自己...';
+
+  @override
+  String get searchUsers => '搜索用户...';
+
+  @override
+  String get suggestedUsers => '推荐用户';
+
+  @override
+  String get noUsersFound => '未找到用户';
+
+  @override
+  String get report => '举报';
+
+  @override
+  String get reportContent => '举报内容';
+
+  @override
+  String get reportReason => '请输入举报原因';
+
+  @override
+  String get reportSubmitted => '举报已提交';
+
+  @override
+  String get blockUser => '屏蔽用户';
+
+  @override
+  String get unblockUser => '取消屏蔽';
+
+  @override
+  String get userBlocked => '已屏蔽该用户';
+
+  @override
+  String get userUnblocked => '已取消屏蔽';
+
+  @override
+  String get postCreated => '发布成功！';
+
+  @override
+  String likesCount(int count) {
+    return '$count个赞';
+  }
+
+  @override
+  String commentsCount(int count) {
+    return '$count条评论';
+  }
+
+  @override
+  String followersCount(int count) {
+    return '$count位粉丝';
+  }
+
+  @override
+  String followingCount(int count) {
+    return '关注$count人';
+  }
+
+  @override
+  String get findFriends => '找朋友';
+
+  @override
+  String get addPhotos => '添加照片';
+
+  @override
+  String maxPhotos(int count) {
+    return '最多$count张照片';
+  }
+
+  @override
+  String get visibility => '可见范围';
+
+  @override
+  String get visibilityPublic => '公开';
+
+  @override
+  String get visibilityFollowers => '仅粉丝可见';
+
+  @override
+  String get noFollowingPosts => '关注的用户还没有发帖';
+
+  @override
+  String get all => '全部';
+
+  @override
+  String get learning => '学习';
+
+  @override
+  String get general => '日常';
+
+  @override
+  String get linkCopied => '链接已复制';
+
+  @override
+  String get postFailed => '发布失败';
+
+  @override
+  String get newPost => '新帖子';
+
+  @override
+  String get category => '分类';
+
+  @override
+  String get writeYourThoughts => '分享你的想法...';
+
+  @override
+  String get photos => '照片';
+
+  @override
+  String get addPhoto => '添加照片';
+
+  @override
+  String get imageUrlHint => '输入图片链接';
+
+  @override
+  String get noSuggestions => '暂无推荐，试试搜索用户吧！';
+
+  @override
+  String get noResults => '未找到用户';
+
+  @override
+  String get postDetail => '帖子详情';
+
+  @override
+  String get comments => '评论';
+
+  @override
+  String get noComments => '还没有评论，来抢沙发吧！';
+
+  @override
+  String get deleteCommentConfirm => '确定要删除这条评论吗？';
+
+  @override
+  String get failedToLoadProfile => '加载资料失败';
+
+  @override
+  String get userNotFound => '用户不存在';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -4196,4 +4469,277 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get webNotSupported => '網頁版不支援';
+
+  @override
+  String get chapter => '章節';
+
+  @override
+  String get bossQuiz => 'Boss測驗';
+
+  @override
+  String get bossQuizCleared => 'Boss測驗通過！';
+
+  @override
+  String get bossQuizBonus => '獎勵檸檬';
+
+  @override
+  String get lemonsScoreHint95 => '95%以上獲得3個檸檬';
+
+  @override
+  String get lemonsScoreHint80 => '80%以上獲得2個檸檬';
+
+  @override
+  String get myLemonTree => '我的檸檬樹';
+
+  @override
+  String get harvestLemon => '收穫檸檬';
+
+  @override
+  String get watchAdToHarvest => '觀看廣告來收穫這個檸檬？';
+
+  @override
+  String get lemonHarvested => '檸檬已收穫！';
+
+  @override
+  String get lemonsAvailable => '個檸檬可收穫';
+
+  @override
+  String get completeMoreLessons => '完成更多課程來種植檸檬';
+
+  @override
+  String get totalLemons => '檸檬總數';
+
+  @override
+  String get community => '社群';
+
+  @override
+  String get following => '追蹤中';
+
+  @override
+  String get discover => '探索';
+
+  @override
+  String get createPost => '發文';
+
+  @override
+  String get writePost => '分享你的想法...';
+
+  @override
+  String get postCategory => '分類';
+
+  @override
+  String get categoryLearning => '學習';
+
+  @override
+  String get categoryGeneral => '日常';
+
+  @override
+  String get categoryAll => '全部';
+
+  @override
+  String get post => '發布';
+
+  @override
+  String get like => '按讚';
+
+  @override
+  String get comment => '留言';
+
+  @override
+  String get writeComment => '寫留言...';
+
+  @override
+  String replyingTo(String name) {
+    return '回覆 $name';
+  }
+
+  @override
+  String get reply => '回覆';
+
+  @override
+  String get deletePost => '刪除貼文';
+
+  @override
+  String get deletePostConfirm => '確定要刪除這則貼文嗎？';
+
+  @override
+  String get deleteComment => '刪除留言';
+
+  @override
+  String get postDeleted => '貼文已刪除';
+
+  @override
+  String get commentDeleted => '留言已刪除';
+
+  @override
+  String get noPostsYet => '還沒有貼文';
+
+  @override
+  String get followToSeePosts => '追蹤用戶後可以在這裡看到他們的貼文';
+
+  @override
+  String get discoverPosts => '探索社群中的精彩貼文';
+
+  @override
+  String get seeMore => '查看更多';
+
+  @override
+  String get followers => '粉絲';
+
+  @override
+  String get followingLabel => '追蹤中';
+
+  @override
+  String get posts => '貼文';
+
+  @override
+  String get follow => '追蹤';
+
+  @override
+  String get unfollow => '取消追蹤';
+
+  @override
+  String get editProfile => '編輯個人資料';
+
+  @override
+  String get bio => '個人簡介';
+
+  @override
+  String get bioHint => '介紹一下自己...';
+
+  @override
+  String get searchUsers => '搜尋用戶...';
+
+  @override
+  String get suggestedUsers => '推薦用戶';
+
+  @override
+  String get noUsersFound => '找不到用戶';
+
+  @override
+  String get report => '檢舉';
+
+  @override
+  String get reportContent => '檢舉內容';
+
+  @override
+  String get reportReason => '請輸入檢舉原因';
+
+  @override
+  String get reportSubmitted => '檢舉已提交';
+
+  @override
+  String get blockUser => '封鎖用戶';
+
+  @override
+  String get unblockUser => '解除封鎖';
+
+  @override
+  String get userBlocked => '已封鎖該用戶';
+
+  @override
+  String get userUnblocked => '已解除封鎖';
+
+  @override
+  String get postCreated => '發布成功！';
+
+  @override
+  String likesCount(int count) {
+    return '$count個讚';
+  }
+
+  @override
+  String commentsCount(int count) {
+    return '$count則留言';
+  }
+
+  @override
+  String followersCount(int count) {
+    return '$count位粉絲';
+  }
+
+  @override
+  String followingCount(int count) {
+    return '追蹤$count人';
+  }
+
+  @override
+  String get findFriends => '找朋友';
+
+  @override
+  String get addPhotos => '新增照片';
+
+  @override
+  String maxPhotos(int count) {
+    return '最多$count張照片';
+  }
+
+  @override
+  String get visibility => '可見範圍';
+
+  @override
+  String get visibilityPublic => '公開';
+
+  @override
+  String get visibilityFollowers => '僅粉絲可見';
+
+  @override
+  String get noFollowingPosts => '追蹤的用戶還沒有發文';
+
+  @override
+  String get all => '全部';
+
+  @override
+  String get learning => '學習';
+
+  @override
+  String get general => '日常';
+
+  @override
+  String get linkCopied => '連結已複製';
+
+  @override
+  String get postFailed => '發布失敗';
+
+  @override
+  String get newPost => '新貼文';
+
+  @override
+  String get category => '分類';
+
+  @override
+  String get writeYourThoughts => '分享你的想法...';
+
+  @override
+  String get photos => '照片';
+
+  @override
+  String get addPhoto => '新增照片';
+
+  @override
+  String get imageUrlHint => '輸入圖片連結';
+
+  @override
+  String get noSuggestions => '暫無推薦，試試搜尋用戶吧！';
+
+  @override
+  String get noResults => '找不到用戶';
+
+  @override
+  String get postDetail => '貼文詳情';
+
+  @override
+  String get comments => '留言';
+
+  @override
+  String get noComments => '還沒有留言，來搶沙發吧！';
+
+  @override
+  String get deleteCommentConfirm => '確定要刪除這則留言嗎？';
+
+  @override
+  String get failedToLoadProfile => '載入資料失敗';
+
+  @override
+  String get userNotFound => '用戶不存在';
 }

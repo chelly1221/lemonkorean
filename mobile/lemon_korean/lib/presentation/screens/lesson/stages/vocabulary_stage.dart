@@ -79,7 +79,7 @@ class _VocabularyStageState extends State<VocabularyStage>
       // No data available - return empty list, UI will show appropriate message
       _words = [];
     }
-    _initialized = true;
+
   }
 
   @override

@@ -26,6 +26,11 @@ func NewProgressRepository(db *sql.DB, redisClient *redis.Client) *ProgressRepos
 	}
 }
 
+// GetDB returns the database connection
+func (r *ProgressRepository) GetDB() *sql.DB {
+	return r.db
+}
+
 // GetRedis returns the Redis client
 func (r *ProgressRepository) GetRedis() *redis.Client {
 	return r.redis

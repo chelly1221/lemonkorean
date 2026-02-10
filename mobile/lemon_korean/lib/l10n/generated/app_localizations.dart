@@ -4004,6 +4004,528 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'网页版不支持'**
   String get webNotSupported;
+
+  /// No description provided for @chapter.
+  ///
+  /// In zh, this message translates to:
+  /// **'章节'**
+  String get chapter;
+
+  /// No description provided for @bossQuiz.
+  ///
+  /// In zh, this message translates to:
+  /// **'Boss测验'**
+  String get bossQuiz;
+
+  /// No description provided for @bossQuizCleared.
+  ///
+  /// In zh, this message translates to:
+  /// **'Boss测验通过！'**
+  String get bossQuizCleared;
+
+  /// No description provided for @bossQuizBonus.
+  ///
+  /// In zh, this message translates to:
+  /// **'奖励柠檬'**
+  String get bossQuizBonus;
+
+  /// No description provided for @lemonsScoreHint95.
+  ///
+  /// In zh, this message translates to:
+  /// **'95%以上获得3个柠檬'**
+  String get lemonsScoreHint95;
+
+  /// No description provided for @lemonsScoreHint80.
+  ///
+  /// In zh, this message translates to:
+  /// **'80%以上获得2个柠檬'**
+  String get lemonsScoreHint80;
+
+  /// No description provided for @myLemonTree.
+  ///
+  /// In zh, this message translates to:
+  /// **'我的柠檬树'**
+  String get myLemonTree;
+
+  /// No description provided for @harvestLemon.
+  ///
+  /// In zh, this message translates to:
+  /// **'收获柠檬'**
+  String get harvestLemon;
+
+  /// No description provided for @watchAdToHarvest.
+  ///
+  /// In zh, this message translates to:
+  /// **'观看广告来收获这个柠檬？'**
+  String get watchAdToHarvest;
+
+  /// No description provided for @lemonHarvested.
+  ///
+  /// In zh, this message translates to:
+  /// **'柠檬已收获！'**
+  String get lemonHarvested;
+
+  /// No description provided for @lemonsAvailable.
+  ///
+  /// In zh, this message translates to:
+  /// **'个柠檬可收获'**
+  String get lemonsAvailable;
+
+  /// No description provided for @completeMoreLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成更多课程来种植柠檬'**
+  String get completeMoreLessons;
+
+  /// No description provided for @totalLemons.
+  ///
+  /// In zh, this message translates to:
+  /// **'柠檬总数'**
+  String get totalLemons;
+
+  /// No description provided for @community.
+  ///
+  /// In zh, this message translates to:
+  /// **'社区'**
+  String get community;
+
+  /// No description provided for @following.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注'**
+  String get following;
+
+  /// No description provided for @discover.
+  ///
+  /// In zh, this message translates to:
+  /// **'发现'**
+  String get discover;
+
+  /// No description provided for @createPost.
+  ///
+  /// In zh, this message translates to:
+  /// **'发帖'**
+  String get createPost;
+
+  /// No description provided for @writePost.
+  ///
+  /// In zh, this message translates to:
+  /// **'分享你的想法...'**
+  String get writePost;
+
+  /// No description provided for @postCategory.
+  ///
+  /// In zh, this message translates to:
+  /// **'分类'**
+  String get postCategory;
+
+  /// No description provided for @categoryLearning.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习'**
+  String get categoryLearning;
+
+  /// No description provided for @categoryGeneral.
+  ///
+  /// In zh, this message translates to:
+  /// **'日常'**
+  String get categoryGeneral;
+
+  /// No description provided for @categoryAll.
+  ///
+  /// In zh, this message translates to:
+  /// **'全部'**
+  String get categoryAll;
+
+  /// No description provided for @post.
+  ///
+  /// In zh, this message translates to:
+  /// **'发布'**
+  String get post;
+
+  /// No description provided for @like.
+  ///
+  /// In zh, this message translates to:
+  /// **'点赞'**
+  String get like;
+
+  /// No description provided for @comment.
+  ///
+  /// In zh, this message translates to:
+  /// **'评论'**
+  String get comment;
+
+  /// No description provided for @writeComment.
+  ///
+  /// In zh, this message translates to:
+  /// **'写评论...'**
+  String get writeComment;
+
+  /// No description provided for @replyingTo.
+  ///
+  /// In zh, this message translates to:
+  /// **'回复 {name}'**
+  String replyingTo(String name);
+
+  /// No description provided for @reply.
+  ///
+  /// In zh, this message translates to:
+  /// **'回复'**
+  String get reply;
+
+  /// No description provided for @deletePost.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除帖子'**
+  String get deletePost;
+
+  /// No description provided for @deletePostConfirm.
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要删除这条帖子吗？'**
+  String get deletePostConfirm;
+
+  /// No description provided for @deleteComment.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除评论'**
+  String get deleteComment;
+
+  /// No description provided for @postDeleted.
+  ///
+  /// In zh, this message translates to:
+  /// **'帖子已删除'**
+  String get postDeleted;
+
+  /// No description provided for @commentDeleted.
+  ///
+  /// In zh, this message translates to:
+  /// **'评论已删除'**
+  String get commentDeleted;
+
+  /// No description provided for @noPostsYet.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有帖子'**
+  String get noPostsYet;
+
+  /// No description provided for @followToSeePosts.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注用户后可以在这里看到他们的帖子'**
+  String get followToSeePosts;
+
+  /// No description provided for @discoverPosts.
+  ///
+  /// In zh, this message translates to:
+  /// **'发现社区中的精彩帖子'**
+  String get discoverPosts;
+
+  /// No description provided for @seeMore.
+  ///
+  /// In zh, this message translates to:
+  /// **'查看更多'**
+  String get seeMore;
+
+  /// No description provided for @followers.
+  ///
+  /// In zh, this message translates to:
+  /// **'粉丝'**
+  String get followers;
+
+  /// No description provided for @followingLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注'**
+  String get followingLabel;
+
+  /// No description provided for @posts.
+  ///
+  /// In zh, this message translates to:
+  /// **'帖子'**
+  String get posts;
+
+  /// No description provided for @follow.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注'**
+  String get follow;
+
+  /// No description provided for @unfollow.
+  ///
+  /// In zh, this message translates to:
+  /// **'取消关注'**
+  String get unfollow;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑资料'**
+  String get editProfile;
+
+  /// No description provided for @bio.
+  ///
+  /// In zh, this message translates to:
+  /// **'个人简介'**
+  String get bio;
+
+  /// No description provided for @bioHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'介绍一下自己...'**
+  String get bioHint;
+
+  /// No description provided for @searchUsers.
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索用户...'**
+  String get searchUsers;
+
+  /// No description provided for @suggestedUsers.
+  ///
+  /// In zh, this message translates to:
+  /// **'推荐用户'**
+  String get suggestedUsers;
+
+  /// No description provided for @noUsersFound.
+  ///
+  /// In zh, this message translates to:
+  /// **'未找到用户'**
+  String get noUsersFound;
+
+  /// No description provided for @report.
+  ///
+  /// In zh, this message translates to:
+  /// **'举报'**
+  String get report;
+
+  /// No description provided for @reportContent.
+  ///
+  /// In zh, this message translates to:
+  /// **'举报内容'**
+  String get reportContent;
+
+  /// No description provided for @reportReason.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入举报原因'**
+  String get reportReason;
+
+  /// No description provided for @reportSubmitted.
+  ///
+  /// In zh, this message translates to:
+  /// **'举报已提交'**
+  String get reportSubmitted;
+
+  /// No description provided for @blockUser.
+  ///
+  /// In zh, this message translates to:
+  /// **'屏蔽用户'**
+  String get blockUser;
+
+  /// No description provided for @unblockUser.
+  ///
+  /// In zh, this message translates to:
+  /// **'取消屏蔽'**
+  String get unblockUser;
+
+  /// No description provided for @userBlocked.
+  ///
+  /// In zh, this message translates to:
+  /// **'已屏蔽该用户'**
+  String get userBlocked;
+
+  /// No description provided for @userUnblocked.
+  ///
+  /// In zh, this message translates to:
+  /// **'已取消屏蔽'**
+  String get userUnblocked;
+
+  /// No description provided for @postCreated.
+  ///
+  /// In zh, this message translates to:
+  /// **'发布成功！'**
+  String get postCreated;
+
+  /// No description provided for @likesCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}个赞'**
+  String likesCount(int count);
+
+  /// No description provided for @commentsCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}条评论'**
+  String commentsCount(int count);
+
+  /// No description provided for @followersCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}位粉丝'**
+  String followersCount(int count);
+
+  /// No description provided for @followingCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注{count}人'**
+  String followingCount(int count);
+
+  /// No description provided for @findFriends.
+  ///
+  /// In zh, this message translates to:
+  /// **'找朋友'**
+  String get findFriends;
+
+  /// No description provided for @addPhotos.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加照片'**
+  String get addPhotos;
+
+  /// No description provided for @maxPhotos.
+  ///
+  /// In zh, this message translates to:
+  /// **'最多{count}张照片'**
+  String maxPhotos(int count);
+
+  /// No description provided for @visibility.
+  ///
+  /// In zh, this message translates to:
+  /// **'可见范围'**
+  String get visibility;
+
+  /// No description provided for @visibilityPublic.
+  ///
+  /// In zh, this message translates to:
+  /// **'公开'**
+  String get visibilityPublic;
+
+  /// No description provided for @visibilityFollowers.
+  ///
+  /// In zh, this message translates to:
+  /// **'仅粉丝可见'**
+  String get visibilityFollowers;
+
+  /// No description provided for @noFollowingPosts.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注的用户还没有发帖'**
+  String get noFollowingPosts;
+
+  /// No description provided for @all.
+  ///
+  /// In zh, this message translates to:
+  /// **'全部'**
+  String get all;
+
+  /// No description provided for @learning.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习'**
+  String get learning;
+
+  /// No description provided for @general.
+  ///
+  /// In zh, this message translates to:
+  /// **'日常'**
+  String get general;
+
+  /// No description provided for @linkCopied.
+  ///
+  /// In zh, this message translates to:
+  /// **'链接已复制'**
+  String get linkCopied;
+
+  /// No description provided for @postFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'发布失败'**
+  String get postFailed;
+
+  /// No description provided for @newPost.
+  ///
+  /// In zh, this message translates to:
+  /// **'新帖子'**
+  String get newPost;
+
+  /// No description provided for @category.
+  ///
+  /// In zh, this message translates to:
+  /// **'分类'**
+  String get category;
+
+  /// No description provided for @writeYourThoughts.
+  ///
+  /// In zh, this message translates to:
+  /// **'分享你的想法...'**
+  String get writeYourThoughts;
+
+  /// No description provided for @photos.
+  ///
+  /// In zh, this message translates to:
+  /// **'照片'**
+  String get photos;
+
+  /// No description provided for @addPhoto.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加照片'**
+  String get addPhoto;
+
+  /// No description provided for @imageUrlHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'输入图片链接'**
+  String get imageUrlHint;
+
+  /// No description provided for @noSuggestions.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无推荐，试试搜索用户吧！'**
+  String get noSuggestions;
+
+  /// No description provided for @noResults.
+  ///
+  /// In zh, this message translates to:
+  /// **'未找到用户'**
+  String get noResults;
+
+  /// No description provided for @postDetail.
+  ///
+  /// In zh, this message translates to:
+  /// **'帖子详情'**
+  String get postDetail;
+
+  /// No description provided for @comments.
+  ///
+  /// In zh, this message translates to:
+  /// **'评论'**
+  String get comments;
+
+  /// No description provided for @noComments.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有评论，来抢沙发吧！'**
+  String get noComments;
+
+  /// No description provided for @deleteCommentConfirm.
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要删除这条评论吗？'**
+  String get deleteCommentConfirm;
+
+  /// No description provided for @failedToLoadProfile.
+  ///
+  /// In zh, this message translates to:
+  /// **'加载资料失败'**
+  String get failedToLoadProfile;
+
+  /// No description provided for @userNotFound.
+  ///
+  /// In zh, this message translates to:
+  /// **'用户不存在'**
+  String get userNotFound;
 }
 
 class _AppLocalizationsDelegate

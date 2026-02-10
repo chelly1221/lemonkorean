@@ -409,6 +409,36 @@ services:
       retries: 3
     restart: unless-stopped
 
+  # SNS Service (Node.js) - 커뮤니티/피드/팔로우
+  sns-service:
+    build:
+      context: ./services/sns
+      dockerfile: Dockerfile
+    container_name: lemon-sns-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3007
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+    ports:
+      - "3007:3007"
+    volumes:
+      - ./services/sns/src:/app/src
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - lemon-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
   # ==================== API Gateway & Proxy ====================
 
   # Nginx API Gateway

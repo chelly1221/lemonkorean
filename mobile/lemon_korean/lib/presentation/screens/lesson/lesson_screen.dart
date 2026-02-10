@@ -8,6 +8,7 @@ import '../../../data/models/lesson_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/gamification_provider.dart';
 import '../../providers/progress_provider.dart';
 import '../../providers/settings_provider.dart';
 import 'stages/stage1_intro.dart';
@@ -248,6 +249,17 @@ class _LessonScreenState extends State<LessonScreen> {
         lessonId: widget.lesson.id,
         vocabularyResults: _vocabularyResults,
       );
+    }
+
+    // Record lemon reward
+    try {
+      final gamificationProvider = Provider.of<GamificationProvider>(context, listen: false);
+      await gamificationProvider.recordLessonReward(
+        lessonId: widget.lesson.id,
+        quizScorePercent: _quizScore,
+      );
+    } catch (e) {
+      debugPrint('[LessonScreen] Failed to record lemon reward: $e');
     }
 
     // Save lesson completion
@@ -533,6 +545,7 @@ class _LessonScreenState extends State<LessonScreen> {
           stageData: data,
           onComplete: _completeLessonAndExit,
           onPrevious: isFirst ? null : _previousStage,
+          quizScore: _quizScore,
         );
       default:
         final l10n = AppLocalizations.of(context)!;
