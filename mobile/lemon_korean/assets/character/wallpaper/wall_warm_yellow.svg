@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <rect width="300" height="260" fill="#FFF9E6"/>
+  <!-- Subtle pattern -->
+  <line x1="0" y1="65" x2="300" y2="65" stroke="#F5EACC" stroke-width="0.5"/>
+  <line x1="0" y1="130" x2="300" y2="130" stroke="#F5EACC" stroke-width="0.5"/>
+  <line x1="0" y1="195" x2="300" y2="195" stroke="#F5EACC" stroke-width="0.5"/>
+</svg>

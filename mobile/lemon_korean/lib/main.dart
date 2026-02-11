@@ -25,6 +25,7 @@ import 'core/services/socket_service.dart';
 import 'presentation/providers/dm_provider.dart';
 import 'presentation/providers/feed_provider.dart';
 import 'presentation/providers/social_provider.dart';
+import 'presentation/providers/character_provider.dart';
 import 'presentation/providers/voice_room_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
@@ -154,6 +155,7 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FeedProvider()),
         ChangeNotifierProvider(create: (_) => SocialProvider()),
         ChangeNotifierProvider(create: (_) => DmProvider()),
+        ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider(create: (_) => VoiceRoomProvider()),
         // Download provider only on mobile (web doesn't support file downloads)
         if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),

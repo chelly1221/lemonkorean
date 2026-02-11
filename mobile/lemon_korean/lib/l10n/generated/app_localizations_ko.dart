@@ -2431,7 +2431,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get advanced => '고급';
 
   @override
-  String get maxParticipants => '최대 인원';
+  String get stageSlots => '최대 발언자';
+
+  @override
+  String get anyoneCanListen => '누구나 청취자로 참여할 수 있습니다';
 
   @override
   String get createAndJoin => '만들고 참가하기';
@@ -2449,6 +2452,36 @@ class AppLocalizationsKo extends AppLocalizations {
   String get closeRoom => '방 닫기';
 
   @override
+  String get emojiReaction => '리액션';
+
+  @override
+  String get gesture => '제스처';
+
+  @override
+  String get raiseHand => '손들기';
+
+  @override
+  String get cancelRequest => '취소';
+
+  @override
+  String get leaveStage => '스테이지 내리기';
+
+  @override
+  String get pendingRequests => '요청';
+
+  @override
+  String get typeAMessage => '메시지를 입력하세요...';
+
+  @override
+  String get stageRequests => '스테이지 요청';
+
+  @override
+  String get noPendingRequests => '대기 중인 요청이 없습니다';
+
+  @override
+  String get onStage => '스테이지';
+
+  @override
   String get voiceRooms => '음성 대화방';
 
   @override
@@ -2459,4 +2492,122 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get createRoom => '방 만들기';
+
+  @override
+  String get batchimDescriptionText =>
+      '한국어 받침은 7가지 소리로 발음됩니다.\n여러 받침이 같은 소리로 발음되는 것을 \"받침 대표음\"이라고 합니다.';
+
+  @override
+  String get syllableInputLabel => '음절 입력';
+
+  @override
+  String get syllableInputHint => '예: 한';
+
+  @override
+  String totalPracticedCount(int count) {
+    return '총 $count개 글자 연습 완료';
+  }
+
+  @override
+  String get audioLoadError => '오디오를 불러올 수 없습니다';
+
+  @override
+  String get writingPracticeCompleteMessage => '쓰기 연습을 완료했습니다!';
+
+  @override
+  String get sevenRepresentativeSounds => '7가지 대표음';
+
+  @override
+  String get myRoom => '마이룸';
+
+  @override
+  String get characterEditor => '캐릭터 편집';
+
+  @override
+  String get roomEditor => '룸 편집';
+
+  @override
+  String get shop => '상점';
+
+  @override
+  String get character => '캐릭터';
+
+  @override
+  String get room => '룸';
+
+  @override
+  String get hair => '헤어';
+
+  @override
+  String get eyes => '눈';
+
+  @override
+  String get brows => '눈썹';
+
+  @override
+  String get nose => '코';
+
+  @override
+  String get mouth => '입';
+
+  @override
+  String get top => '상의';
+
+  @override
+  String get bottom => '하의';
+
+  @override
+  String get hatItem => '모자';
+
+  @override
+  String get accessory => '악세';
+
+  @override
+  String get wallpaper => '벽지';
+
+  @override
+  String get floorItem => '바닥';
+
+  @override
+  String get petItem => '펫';
+
+  @override
+  String get none => '없음';
+
+  @override
+  String get noItemsYet => '아이템이 없습니다';
+
+  @override
+  String get visitShopToGetItems => '상점에서 아이템을 구매하세요!';
+
+  @override
+  String get alreadyOwned => '이미 보유 중!';
+
+  @override
+  String get buy => '구매';
+
+  @override
+  String purchasedItem(String name) {
+    return '$name 구매 완료!';
+  }
+
+  @override
+  String get notEnoughLemons => '레몬이 부족합니다!';
+
+  @override
+  String get owned => '보유';
+
+  @override
+  String get free => '무료';
+
+  @override
+  String get comingSoon => '준비 중!';
+
+  @override
+  String balanceLemons(int count) {
+    return '잔액: $count 레몬';
+  }
+
+  @override
+  String get furnitureItem => '가구';
 }

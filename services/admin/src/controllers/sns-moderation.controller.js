@@ -15,8 +15,8 @@ const getReports = async (req, res) => {
       SELECT r.*,
              reporter.name as reporter_name, reporter.email as reporter_email,
              CASE
-               WHEN r.target_type = 'post' THEN (SELECT content FROM posts WHERE id = r.target_id)
-               WHEN r.target_type = 'comment' THEN (SELECT content FROM post_comments WHERE id = r.target_id)
+               WHEN r.target_type = 'post' THEN (SELECT content FROM sns_posts WHERE id = r.target_id)
+               WHEN r.target_type = 'comment' THEN (SELECT content FROM sns_comments WHERE id = r.target_id)
                WHEN r.target_type = 'user' THEN (SELECT name FROM users WHERE id = r.target_id)
              END as target_content
       FROM sns_reports r
@@ -91,7 +91,7 @@ const getPosts = async (req, res) => {
     let sql = `
       SELECT p.*, u.name as author_name, u.email as author_email,
              (SELECT COUNT(*) FROM sns_reports WHERE target_type = 'post' AND target_id = p.id) as report_count
-      FROM posts p
+      FROM sns_posts p
       JOIN users u ON p.user_id = u.id
     `;
 
@@ -109,7 +109,7 @@ const getPosts = async (req, res) => {
     const result = await query(sql, params);
 
     // Total count
-    let countSql = 'SELECT COUNT(*) as total FROM posts';
+    let countSql = 'SELECT COUNT(*) as total FROM sns_posts';
     const countParams = [];
     if (search) {
       countParams.push(`%${search}%`);
@@ -135,7 +135,7 @@ const deletePost = async (req, res) => {
     const { id } = req.params;
 
     const result = await query(
-      `UPDATE posts SET is_deleted = true, updated_at = NOW() WHERE id = $1 RETURNING id`,
+      `UPDATE sns_posts SET is_deleted = true, updated_at = NOW() WHERE id = $1 RETURNING id`,
       [id]
     );
 
@@ -146,7 +146,7 @@ const deletePost = async (req, res) => {
     // Decrement user post count
     await query(
       `UPDATE users SET post_count = GREATEST(0, post_count - 1)
-       WHERE id = (SELECT user_id FROM posts WHERE id = $1)`,
+       WHERE id = (SELECT user_id FROM sns_posts WHERE id = $1)`,
       [id]
     );
 
@@ -237,10 +237,10 @@ const unbanUser = async (req, res) => {
 const getStats = async (req, res) => {
   try {
     const [postsResult, usersResult, reportsResult, commentsResult] = await Promise.all([
-      query('SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE is_deleted = true) as deleted FROM posts'),
+      query('SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE is_deleted = true) as deleted FROM sns_posts'),
       query('SELECT COUNT(*) FILTER (WHERE post_count > 0) as active_users, COUNT(*) FILTER (WHERE sns_banned = true) as banned_users FROM users'),
       query('SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE status = \'pending\') as pending FROM sns_reports'),
-      query('SELECT COUNT(*) as total FROM post_comments WHERE is_deleted = false'),
+      query('SELECT COUNT(*) as total FROM sns_comments WHERE is_deleted = false'),
     ]);
 
     res.json({

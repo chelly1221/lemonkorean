@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <rect y="260" width="300" height="140" fill="#DEB887"/>
+  <!-- Wood planks -->
+  <line x1="0" y1="295" x2="300" y2="295" stroke="#C8A570" stroke-width="1"/>
+  <line x1="0" y1="330" x2="300" y2="330" stroke="#C8A570" stroke-width="1"/>
+  <line x1="0" y1="365" x2="300" y2="365" stroke="#C8A570" stroke-width="1"/>
+  <!-- Vertical plank lines -->
+  <line x1="75" y1="260" x2="75" y2="295" stroke="#C8A570" stroke-width="0.5"/>
+  <line x1="150" y1="295" x2="150" y2="330" stroke="#C8A570" stroke-width="0.5"/>
+  <line x1="225" y1="330" x2="225" y2="365" stroke="#C8A570" stroke-width="0.5"/>
+  <line x1="100" y1="365" x2="100" y2="400" stroke="#C8A570" stroke-width="0.5"/>
+</svg>

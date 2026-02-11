@@ -2377,14 +2377,94 @@
   "beginner": "初级",
   "intermediate": "中级",
   "advanced": "高级",
-  "maxParticipants": "最大人数",
+  "stageSlots": "发言席位",
+  "anyoneCanListen": "任何人都可以加入聆听",
   "createAndJoin": "创建并加入",
   "unmute": "取消静音",
   "mute": "静音",
   "leave": "离开",
   "closeRoom": "关闭房间",
+  "emojiReaction": "表情",
+  "gesture": "动作",
+  "raiseHand": "举手",
+  "cancelRequest": "取消",
+  "leaveStage": "离开舞台",
+  "pendingRequests": "请求",
+  "typeAMessage": "输入消息...",
+  "stageRequests": "上台请求",
+  "noPendingRequests": "暂无待处理请求",
+  "onStage": "舞台上",
   "voiceRooms": "语音房间",
   "noVoiceRooms": "暂无活跃语音房间",
   "createVoiceRoomHint": "创建一个开始聊天吧！",
-  "createRoom": "创建房间"
+  "createRoom": "创建房间",
+
+  "batchimDescriptionText": "韩语收音（받침）发音为7种音。\n多个收音发同一个音的现象叫做「收音代表音」。",
+  "@batchimDescriptionText": {"description": "Batchim description text"},
+
+  "syllableInputLabel": "输入音节",
+  "@syllableInputLabel": {"description": "Syllable input field label"},
+
+  "syllableInputHint": "例：한",
+  "@syllableInputHint": {"description": "Syllable input hint"},
+
+  "totalPracticedCount": "共练习了 {count} 个字",
+  "@totalPracticedCount": {
+    "description": "Total practiced count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "audioLoadError": "无法加载音频",
+  "@audioLoadError": {"description": "Audio load error message"},
+
+  "writingPracticeCompleteMessage": "书写练习完成！",
+  "@writingPracticeCompleteMessage": {"description": "Writing practice complete message"},
+
+  "sevenRepresentativeSounds": "7种代表音",
+  "@sevenRepresentativeSounds": {"description": "Seven representative sounds title"},
+
+  "myRoom": "我的房间",
+  "characterEditor": "角色编辑",
+  "roomEditor": "房间编辑",
+  "shop": "商店",
+  "character": "角色",
+  "room": "房间",
+  "hair": "发型",
+  "eyes": "眼睛",
+  "brows": "眉毛",
+  "nose": "鼻子",
+  "mouth": "嘴巴",
+  "top": "上衣",
+  "bottom": "下装",
+  "hatItem": "帽子",
+  "accessory": "饰品",
+  "wallpaper": "壁纸",
+  "floorItem": "地板",
+  "petItem": "宠物",
+  "none": "无",
+  "noItemsYet": "暂无物品",
+  "visitShopToGetItems": "去商店获取物品！",
+  "alreadyOwned": "已拥有！",
+  "buy": "购买",
+  "purchasedItem": "已购买 {name}！",
+  "@purchasedItem": {
+    "description": "Purchase success message",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notEnoughLemons": "柠檬不够！",
+  "owned": "已拥有",
+  "free": "免费",
+  "comingSoon": "即将推出！",
+  "balanceLemons": "余额: {count}个柠檬",
+  "@balanceLemons": {
+    "description": "Lemon balance display",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "furnitureItem": "家具"
 }

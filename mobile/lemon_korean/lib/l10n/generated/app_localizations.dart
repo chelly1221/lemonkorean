@@ -4629,11 +4629,17 @@ abstract class AppLocalizations {
   /// **'高级'**
   String get advanced;
 
-  /// No description provided for @maxParticipants.
+  /// No description provided for @stageSlots.
   ///
   /// In zh, this message translates to:
-  /// **'最大人数'**
-  String get maxParticipants;
+  /// **'发言席位'**
+  String get stageSlots;
+
+  /// No description provided for @anyoneCanListen.
+  ///
+  /// In zh, this message translates to:
+  /// **'任何人都可以加入聆听'**
+  String get anyoneCanListen;
 
   /// No description provided for @createAndJoin.
   ///
@@ -4665,6 +4671,66 @@ abstract class AppLocalizations {
   /// **'关闭房间'**
   String get closeRoom;
 
+  /// No description provided for @emojiReaction.
+  ///
+  /// In zh, this message translates to:
+  /// **'表情'**
+  String get emojiReaction;
+
+  /// No description provided for @gesture.
+  ///
+  /// In zh, this message translates to:
+  /// **'动作'**
+  String get gesture;
+
+  /// No description provided for @raiseHand.
+  ///
+  /// In zh, this message translates to:
+  /// **'举手'**
+  String get raiseHand;
+
+  /// No description provided for @cancelRequest.
+  ///
+  /// In zh, this message translates to:
+  /// **'取消'**
+  String get cancelRequest;
+
+  /// No description provided for @leaveStage.
+  ///
+  /// In zh, this message translates to:
+  /// **'离开舞台'**
+  String get leaveStage;
+
+  /// No description provided for @pendingRequests.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求'**
+  String get pendingRequests;
+
+  /// No description provided for @typeAMessage.
+  ///
+  /// In zh, this message translates to:
+  /// **'输入消息...'**
+  String get typeAMessage;
+
+  /// No description provided for @stageRequests.
+  ///
+  /// In zh, this message translates to:
+  /// **'上台请求'**
+  String get stageRequests;
+
+  /// No description provided for @noPendingRequests.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无待处理请求'**
+  String get noPendingRequests;
+
+  /// No description provided for @onStage.
+  ///
+  /// In zh, this message translates to:
+  /// **'舞台上'**
+  String get onStage;
+
   /// No description provided for @voiceRooms.
   ///
   /// In zh, this message translates to:
@@ -4688,6 +4754,228 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'创建房间'**
   String get createRoom;
+
+  /// Batchim description text
+  ///
+  /// In zh, this message translates to:
+  /// **'韩语收音（받침）发音为7种音。\n多个收音发同一个音的现象叫做「收音代表音」。'**
+  String get batchimDescriptionText;
+
+  /// Syllable input field label
+  ///
+  /// In zh, this message translates to:
+  /// **'输入音节'**
+  String get syllableInputLabel;
+
+  /// Syllable input hint
+  ///
+  /// In zh, this message translates to:
+  /// **'例：한'**
+  String get syllableInputHint;
+
+  /// Total practiced count
+  ///
+  /// In zh, this message translates to:
+  /// **'共练习了 {count} 个字'**
+  String totalPracticedCount(int count);
+
+  /// Audio load error message
+  ///
+  /// In zh, this message translates to:
+  /// **'无法加载音频'**
+  String get audioLoadError;
+
+  /// Writing practice complete message
+  ///
+  /// In zh, this message translates to:
+  /// **'书写练习完成！'**
+  String get writingPracticeCompleteMessage;
+
+  /// Seven representative sounds title
+  ///
+  /// In zh, this message translates to:
+  /// **'7种代表音'**
+  String get sevenRepresentativeSounds;
+
+  /// No description provided for @myRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'我的房间'**
+  String get myRoom;
+
+  /// No description provided for @characterEditor.
+  ///
+  /// In zh, this message translates to:
+  /// **'角色编辑'**
+  String get characterEditor;
+
+  /// No description provided for @roomEditor.
+  ///
+  /// In zh, this message translates to:
+  /// **'房间编辑'**
+  String get roomEditor;
+
+  /// No description provided for @shop.
+  ///
+  /// In zh, this message translates to:
+  /// **'商店'**
+  String get shop;
+
+  /// No description provided for @character.
+  ///
+  /// In zh, this message translates to:
+  /// **'角色'**
+  String get character;
+
+  /// No description provided for @room.
+  ///
+  /// In zh, this message translates to:
+  /// **'房间'**
+  String get room;
+
+  /// No description provided for @hair.
+  ///
+  /// In zh, this message translates to:
+  /// **'发型'**
+  String get hair;
+
+  /// No description provided for @eyes.
+  ///
+  /// In zh, this message translates to:
+  /// **'眼睛'**
+  String get eyes;
+
+  /// No description provided for @brows.
+  ///
+  /// In zh, this message translates to:
+  /// **'眉毛'**
+  String get brows;
+
+  /// No description provided for @nose.
+  ///
+  /// In zh, this message translates to:
+  /// **'鼻子'**
+  String get nose;
+
+  /// No description provided for @mouth.
+  ///
+  /// In zh, this message translates to:
+  /// **'嘴巴'**
+  String get mouth;
+
+  /// No description provided for @top.
+  ///
+  /// In zh, this message translates to:
+  /// **'上衣'**
+  String get top;
+
+  /// No description provided for @bottom.
+  ///
+  /// In zh, this message translates to:
+  /// **'下装'**
+  String get bottom;
+
+  /// No description provided for @hatItem.
+  ///
+  /// In zh, this message translates to:
+  /// **'帽子'**
+  String get hatItem;
+
+  /// No description provided for @accessory.
+  ///
+  /// In zh, this message translates to:
+  /// **'饰品'**
+  String get accessory;
+
+  /// No description provided for @wallpaper.
+  ///
+  /// In zh, this message translates to:
+  /// **'壁纸'**
+  String get wallpaper;
+
+  /// No description provided for @floorItem.
+  ///
+  /// In zh, this message translates to:
+  /// **'地板'**
+  String get floorItem;
+
+  /// No description provided for @petItem.
+  ///
+  /// In zh, this message translates to:
+  /// **'宠物'**
+  String get petItem;
+
+  /// No description provided for @none.
+  ///
+  /// In zh, this message translates to:
+  /// **'无'**
+  String get none;
+
+  /// No description provided for @noItemsYet.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无物品'**
+  String get noItemsYet;
+
+  /// No description provided for @visitShopToGetItems.
+  ///
+  /// In zh, this message translates to:
+  /// **'去商店获取物品！'**
+  String get visitShopToGetItems;
+
+  /// No description provided for @alreadyOwned.
+  ///
+  /// In zh, this message translates to:
+  /// **'已拥有！'**
+  String get alreadyOwned;
+
+  /// No description provided for @buy.
+  ///
+  /// In zh, this message translates to:
+  /// **'购买'**
+  String get buy;
+
+  /// Purchase success message
+  ///
+  /// In zh, this message translates to:
+  /// **'已购买 {name}！'**
+  String purchasedItem(String name);
+
+  /// No description provided for @notEnoughLemons.
+  ///
+  /// In zh, this message translates to:
+  /// **'柠檬不够！'**
+  String get notEnoughLemons;
+
+  /// No description provided for @owned.
+  ///
+  /// In zh, this message translates to:
+  /// **'已拥有'**
+  String get owned;
+
+  /// No description provided for @free.
+  ///
+  /// In zh, this message translates to:
+  /// **'免费'**
+  String get free;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In zh, this message translates to:
+  /// **'即将推出！'**
+  String get comingSoon;
+
+  /// Lemon balance display
+  ///
+  /// In zh, this message translates to:
+  /// **'余额: {count}个柠檬'**
+  String balanceLemons(int count);
+
+  /// No description provided for @furnitureItem.
+  ///
+  /// In zh, this message translates to:
+  /// **'家具'**
+  String get furnitureItem;
 }
 
 class _AppLocalizationsDelegate

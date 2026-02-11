@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"lemonkorean/progress/models"
+	"lemonkorean/progress/utils"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -1008,7 +1009,7 @@ func (r *ProgressRepository) GetHangulCharacterProgress(ctx context.Context, use
 		SELECT
 			id, user_id, character_id, mastery_level, correct_count, wrong_count,
 			streak_count, last_practiced, next_review, ease_factor, interval_days,
-			created_at, updated_at
+			repetition_count, created_at, updated_at
 		FROM hangul_progress
 		WHERE user_id = $1 AND character_id = $2
 	`
@@ -1017,7 +1018,7 @@ func (r *ProgressRepository) GetHangulCharacterProgress(ctx context.Context, use
 	err := r.db.QueryRowContext(ctx, query, userID, characterID).Scan(
 		&p.ID, &p.UserID, &p.CharacterID, &p.MasteryLevel, &p.CorrectCount, &p.WrongCount,
 		&p.StreakCount, &p.LastPracticed, &p.NextReview, &p.EasinessFactor, &p.IntervalDays,
-		&p.CreatedAt, &p.UpdatedAt,
+		&p.RepetitionCount, &p.CreatedAt, &p.UpdatedAt,
 	)
 
 	if err == sql.ErrNoRows {
@@ -1034,52 +1035,33 @@ func (r *ProgressRepository) GetHangulCharacterProgress(ctx context.Context, use
 func (r *ProgressRepository) UpdateHangulProgress(ctx context.Context, userID, characterID int64, isCorrect bool, srs interface{}) error {
 	now := time.Now()
 
-	// Type assert srs to get values
-	type SRSResult struct {
-		MasteryLevel    int       `json:"mastery_level"`
-		EasinessFactor  float64   `json:"easiness_factor"`
-		IntervalDays    int       `json:"interval_days"`
-		RepetitionCount int       `json:"repetition_count"`
-		NextReviewAt    time.Time `json:"next_review_at"`
-	}
+	// Type assert srs to get SRS values
+	var srsResult utils.SRSResult
 
-	var srsResult SRSResult
-
-	// Handle different types
+	// Handle different types that may be passed
 	switch v := srs.(type) {
-	case *SRSResult:
-		srsResult = *v
-	case SRSResult:
+	case utils.SRSResult:
 		srsResult = v
+	case *utils.SRSResult:
+		srsResult = *v
 	default:
-		// Try to use reflection for the utils.SRSResult type
-		// Use default values if type assertion fails
-		srsResult = SRSResult{
-			MasteryLevel:   1,
-			EasinessFactor: 2.5,
-			IntervalDays:   1,
-			NextReviewAt:   now.Add(24 * time.Hour),
+		// Fallback: use default values if type assertion fails
+		srsResult = utils.SRSResult{
+			MasteryLevel:    1,
+			EasinessFactor:  2.5,
+			IntervalDays:    1,
+			RepetitionCount: 0,
+			NextReviewAt:    now.Add(24 * time.Hour),
 		}
-	}
-
-	// Try to extract values from interface if it has the expected fields
-	if srsMap, ok := srs.(interface {
-		GetMasteryLevel() int
-		GetEasinessFactor() float64
-		GetIntervalDays() int
-		GetNextReviewAt() time.Time
-	}); ok {
-		srsResult.MasteryLevel = srsMap.GetMasteryLevel()
-		srsResult.EasinessFactor = srsMap.GetEasinessFactor()
-		srsResult.IntervalDays = srsMap.GetIntervalDays()
-		srsResult.NextReviewAt = srsMap.GetNextReviewAt()
 	}
 
 	correctIncr := 0
 	wrongIncr := 0
 	streakReset := "streak_count + 1"
+	streakInitial := 0
 	if isCorrect {
 		correctIncr = 1
+		streakInitial = 1
 	} else {
 		wrongIncr = 1
 		streakReset = "0"
@@ -1089,8 +1071,8 @@ func (r *ProgressRepository) UpdateHangulProgress(ctx context.Context, userID, c
 		INSERT INTO hangul_progress (
 			user_id, character_id, mastery_level, correct_count, wrong_count,
 			streak_count, last_practiced, next_review, ease_factor, interval_days,
-			created_at, updated_at
-		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $11)
+			repetition_count, created_at, updated_at
+		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $12)
 		ON CONFLICT (user_id, character_id)
 		DO UPDATE SET
 			mastery_level = $3,
@@ -1101,13 +1083,14 @@ func (r *ProgressRepository) UpdateHangulProgress(ctx context.Context, userID, c
 			next_review = $8,
 			ease_factor = $9,
 			interval_days = $10,
-			updated_at = $11
+			repetition_count = $11,
+			updated_at = $12
 	`, streakReset)
 
 	_, err := r.db.ExecContext(ctx, query,
 		userID, characterID, srsResult.MasteryLevel, correctIncr, wrongIncr,
-		1, now, srsResult.NextReviewAt, srsResult.EasinessFactor, srsResult.IntervalDays,
-		now,
+		streakInitial, now, srsResult.NextReviewAt, srsResult.EasinessFactor, srsResult.IntervalDays,
+		srsResult.RepetitionCount, now,
 	)
 
 	if err != nil {
@@ -1176,47 +1159,37 @@ func (r *ProgressRepository) RecordHangulBatch(ctx context.Context, req *models.
 	failCount := 0
 
 	for _, result := range req.Results {
-		// Get current progress
+		// Get current progress for SM-2 calculation
 		currentProgress, _ := r.GetHangulCharacterProgress(ctx, req.UserID, result.CharacterID)
 
-		// Initialize SRS values
-		masteryLevel := 1
-		easeFactor := 2.5
-		intervalDays := 1
-		nextReview := time.Now().Add(24 * time.Hour)
+		// Initialize SRS parameters from existing progress or defaults
+		var currentEasiness float64 = utils.InitialEasinessFactor
+		var currentInterval int = 0
+		var currentRepetitions int = 0
+		var currentMastery int = utils.MasteryLevelNew
 
 		if currentProgress != nil {
-			// Simple SRS update
-			if result.IsCorrect {
-				masteryLevel = currentProgress.MasteryLevel + 1
-				if masteryLevel > 5 {
-					masteryLevel = 5
-				}
-				intervalDays = currentProgress.IntervalDays * 2
-				if intervalDays < 1 {
-					intervalDays = 1
-				}
-			} else {
-				masteryLevel = currentProgress.MasteryLevel - 1
-				if masteryLevel < 0 {
-					masteryLevel = 0
-				}
-				intervalDays = 1
-			}
-			nextReview = time.Now().Add(time.Duration(intervalDays) * 24 * time.Hour)
+			currentEasiness = currentProgress.EasinessFactor
+			currentInterval = currentProgress.IntervalDays
+			currentRepetitions = currentProgress.RepetitionCount
+			currentMastery = currentProgress.MasteryLevel
 		}
 
-		srs := struct {
-			MasteryLevel   int
-			EasinessFactor float64
-			IntervalDays   int
-			NextReviewAt   time.Time
-		}{
-			MasteryLevel:   masteryLevel,
-			EasinessFactor: easeFactor,
-			IntervalDays:   intervalDays,
-			NextReviewAt:   nextReview,
+		// Calculate quality from response time (use default if not provided)
+		responseTime := result.ResponseTime
+		if responseTime <= 0 {
+			responseTime = 3000 // default 3 seconds
 		}
+		quality := utils.CalculateQualityFromResponseTime(result.IsCorrect, responseTime)
+
+		// Use the same SM-2 algorithm as single-record path
+		srs := utils.CalculateNextReview(
+			quality,
+			currentEasiness,
+			currentInterval,
+			currentRepetitions,
+			currentMastery,
+		)
 
 		err := r.UpdateHangulProgress(ctx, req.UserID, result.CharacterID, result.IsCorrect, srs)
 		if err != nil {

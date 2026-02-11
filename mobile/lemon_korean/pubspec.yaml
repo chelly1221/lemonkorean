@@ -22,7 +22,7 @@ dependencies:
 
   # Real-time Communication
   socket_io_client: ^2.0.3+1
-  livekit_client: ^2.1.0
+  livekit_client: ^2.6.2
 
   # Image Picker
   image_picker: ^1.0.7
@@ -39,7 +39,7 @@ dependencies:
   provider: ^6.1.1
 
   # Network & Connectivity
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^7.0.0
 
   # File System
   path_provider: ^2.1.1
@@ -48,6 +48,7 @@ dependencies:
   # Media Players
   audioplayers: ^5.2.1
   just_audio: ^0.9.36         # Speed control for pronunciation
+  flutter_tts: ^4.2.0         # TTS fallback for Korean pronunciation
 
   # Recording & Waveform (mobile only)
   record: ^5.0.4              # Audio recording
@@ -117,6 +118,18 @@ flutter:
     - assets/hangul/pronunciation/mouth/
     - assets/hangul/pronunciation/tongue/
     - assets/hangul/pronunciation/airflow/
+    # Character customization assets
+    - assets/character/body/
+    - assets/character/hair/
+    - assets/character/eyes/
+    - assets/character/eyebrows/
+    - assets/character/nose/
+    - assets/character/mouth/
+    - assets/character/top/
+    - assets/character/bottom/
+    - assets/character/shoes/
+    - assets/character/wallpaper/
+    - assets/character/floor/
     # Note: Media files (images, audio) are loaded from server (MinIO)
     # Local assets below can be uncommented when adding bundled resources
     # - assets/images/

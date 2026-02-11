@@ -100,6 +100,12 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
           .firstWhere((s) => s == ProcessingState.completed);
     } catch (e) {
       debugPrint('[ShadowingScreen] Audio error: $e');
+      if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.audioLoadError)),
+        );
+      }
     }
 
     if (mounted) {
@@ -165,7 +171,7 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
             _buildResultRow(l10n.needsPractice, _practiceCount, Colors.red),
             const Divider(height: 24),
             Text(
-              'Total: $total characters practiced',
+              l10n.totalPracticedCount(total),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
@@ -293,7 +299,7 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
     final character = _currentCharacter;
 
     if (character == null) {
-      return const Center(child: Text('No characters available'));
+      return Center(child: Text(l10n.noCharactersAvailable));
     }
 
     return Padding(
@@ -515,6 +521,7 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
           nativeAudioUrl: character.audioUrl,
           onRecordingComplete: _onRecordingComplete,
           onPlayNative: _playNativeAudio,
+          onEvaluate: _onEvaluate,
         ),
       ],
     );
@@ -550,8 +557,11 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
               l10n.playRecording,
               Icons.mic,
               Colors.red,
-              () {
-                // Play recorded audio
+              () async {
+                if (_recordingPath != null) {
+                  await _audioPlayer.setFilePath(_recordingPath!);
+                  await _audioPlayer.play();
+                }
               },
             ),
           ],

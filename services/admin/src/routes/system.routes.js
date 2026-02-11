@@ -16,20 +16,5 @@ router.get(
   systemController.getLogs
 );
 
-// Create storage reset flag
-router.post(
-  '/storage-reset',
-  requireAuth,
-  requireAdmin,
-  systemController.createStorageResetFlag
-);
-
-// List storage reset flags
-router.get(
-  '/storage-reset',
-  requireAuth,
-  requireAdmin,
-  systemController.listStorageResetFlags
-);
 
 module.exports = router;

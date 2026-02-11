@@ -243,8 +243,7 @@ const Router = (() => {
     register('/app-theme', AppThemePage.render, true);
     register('/gamification', GamificationSettingsPage.render, true);
     register('/sns-moderation', SnsModerationPage.render, true);
-    register('/storage-reset', StorageResetPage.render, true);
-    register('/cache-management', CacheManagementPage.render, true);
+    register('/character-items', CharacterItemsPage.render, true);
 
     // Hash 변경 이벤트 리스너
     window.addEventListener('hashchange', handleRoute);

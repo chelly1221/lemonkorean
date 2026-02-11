@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <!-- Hoodie body -->
+  <path d="M100 190 Q100 183 112 183 L188 183 Q200 183 200 190 L210 300 Q210 305 205 305 L95 305 Q90 305 90 300 Z" fill="#E74C3C"/>
+  <!-- Sleeves -->
+  <path d="M100 190 Q78 195 68 235 Q65 248 75 248 Q85 245 95 220 L100 205 Z" fill="#E74C3C"/>
+  <path d="M200 190 Q222 195 232 235 Q235 248 225 248 Q215 245 205 220 L200 205 Z" fill="#E74C3C"/>
+  <!-- Hood -->
+  <path d="M115 183 Q115 170 130 168 L170 168 Q185 170 185 183" fill="#C0392B"/>
+  <!-- Front pocket -->
+  <rect x="120" y="255" width="60" height="25" rx="5" fill="#C0392B"/>
+  <!-- Drawstrings -->
+  <line x1="140" y1="185" x2="138" y2="200" stroke="#C0392B" stroke-width="1.5"/>
+  <line x1="160" y1="185" x2="162" y2="200" stroke="#C0392B" stroke-width="1.5"/>
+</svg>

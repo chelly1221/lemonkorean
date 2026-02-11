@@ -86,6 +86,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
   }
 
   void _generateOptions() {
+    if (_practiceQueue.isEmpty || _currentIndex >= _practiceQueue.length) return;
+
     final provider = Provider.of<HangulProvider>(context, listen: false);
     final currentChar = _practiceQueue[_currentIndex];
 

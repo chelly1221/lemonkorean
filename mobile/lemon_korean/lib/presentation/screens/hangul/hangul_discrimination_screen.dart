@@ -181,6 +181,12 @@ class _HangulDiscriminationScreenState
         await _audioPlayer.play();
       } catch (e) {
         debugPrint('[DiscriminationScreen] Audio error: $e');
+        if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(l10n.audioLoadError)),
+          );
+        }
       }
     }
   }

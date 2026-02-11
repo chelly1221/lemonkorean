@@ -732,34 +732,6 @@ const API = (() => {
       return request(`/api/admin/system/logs${queryString}`);
     },
 
-    /**
-     * 스토리지 리셋 플래그 생성
-     *
-     * @param {Object} data - 리셋 플래그 데이터
-     * @param {number|null} data.user_id - 사용자 ID (null이면 전체 사용자)
-     * @param {string|null} data.reason - 리셋 사유
-     * @returns {Promise<Object>} 생성된 플래그 정보
-     */
-    async createStorageResetFlag(data) {
-      return request('/api/admin/system/storage-reset', {
-        method: 'POST',
-        body: data,
-      });
-    },
-
-    /**
-     * 스토리지 리셋 플래그 목록 조회
-     *
-     * @param {Object} params - 쿼리 파라미터
-     * @param {number} params.page - 페이지 번호
-     * @param {number} params.limit - 페이지당 항목 수
-     * @param {string} params.status - 상태 필터 (pending, completed, expired)
-     * @returns {Promise<{data: Array, pagination: Object}>} 플래그 목록
-     */
-    async listStorageResetFlags(params = {}) {
-      const queryString = buildQueryString(params);
-      return request(`/api/admin/system/storage-reset${queryString}`);
-    },
   };
 
 
@@ -954,6 +926,73 @@ const API = (() => {
         method: 'POST',
         body: { characters },
       });
+    },
+  };
+
+  // =============================================================================
+  // SNS Moderation API
+  // =============================================================================
+
+  const snsModerationAPI = {
+    async getStats() {
+      return request('/api/admin/sns-moderation/stats');
+    },
+    async getReports(params = {}) {
+      const queryString = buildQueryString(params);
+      return request(`/api/admin/sns-moderation/reports${queryString}`);
+    },
+    async updateReport(id, data) {
+      return request(`/api/admin/sns-moderation/reports/${id}`, {
+        method: 'PUT',
+        body: data,
+      });
+    },
+    async getPosts() {
+      return request('/api/admin/sns-moderation/posts');
+    },
+    async deletePost(id) {
+      return request(`/api/admin/sns-moderation/posts/${id}`, {
+        method: 'DELETE',
+      });
+    },
+    async getUsers() {
+      return request('/api/admin/sns-moderation/users');
+    },
+    async banUser(id) {
+      return request(`/api/admin/sns-moderation/users/${id}/ban`, {
+        method: 'PUT',
+      });
+    },
+    async unbanUser(id) {
+      return request(`/api/admin/sns-moderation/users/${id}/unban`, {
+        method: 'PUT',
+      });
+    },
+  };
+
+  // =============================================================================
+  // Character Items API
+  // =============================================================================
+
+  const characterItemsAPI = {
+    async list(params = {}) {
+      const queryString = buildQueryString(params);
+      return request(`/api/admin/character-items${queryString}`);
+    },
+    async getById(id) {
+      return request(`/api/admin/character-items/${id}`);
+    },
+    async create(data) {
+      return request('/api/admin/character-items', { method: 'POST', body: data });
+    },
+    async update(id, data) {
+      return request(`/api/admin/character-items/${id}`, { method: 'PUT', body: data });
+    },
+    async delete(id) {
+      return request(`/api/admin/character-items/${id}`, { method: 'DELETE' });
+    },
+    async getStats() {
+      return request('/api/admin/character-items/stats');
     },
   };
 
@@ -1156,5 +1195,7 @@ const API = (() => {
     devNotes: devNotesAPI,
     hangul: hangulAPI,
     deploy: deployAPI,
+    snsModeration: snsModerationAPI,
+    characterItems: characterItemsAPI,
   };
 })();

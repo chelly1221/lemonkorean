@@ -5,9 +5,14 @@ import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/voice_room_provider.dart';
-import 'widgets/participant_avatar.dart';
+import 'widgets/audience_bar_widget.dart';
+import 'widgets/gesture_tray_widget.dart';
+import 'widgets/reaction_tray_widget.dart';
+import 'widgets/stage_area_widget.dart';
+import 'widgets/stage_controls_widget.dart';
+import 'widgets/voice_chat_widget.dart';
 
-/// Active voice room screen showing participants and controls
+/// Active voice room screen with stage/audience layout
 class VoiceRoomScreen extends StatefulWidget {
   const VoiceRoomScreen({super.key});
 
@@ -16,9 +21,24 @@ class VoiceRoomScreen extends StatefulWidget {
 }
 
 class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
+  bool _showReactionTray = false;
+  bool _showGestureTray = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set user ID on provider
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userId =
+          Provider.of<AuthProvider>(context, listen: false).currentUser?.id;
+      if (userId != null) {
+        context.read<VoiceRoomProvider>().setMyUserId(userId);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     final currentUserId =
         Provider.of<AuthProvider>(context, listen: false).currentUser?.id ?? 0;
 
@@ -26,13 +46,40 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       builder: (context, provider, child) {
         final room = provider.activeRoom;
         if (room == null) {
+          // Room was closed by host
+          final error = provider.error;
           return Scaffold(
-            appBar: AppBar(title: const Text('Voice Room')),
-            body: const Center(child: Text('Room not available')),
+            backgroundColor: const Color(0xFF1A1A2E),
+            appBar: AppBar(
+              backgroundColor: const Color(0xFF1A1A2E),
+              title: const Text('Voice Room',
+                  style: TextStyle(color: Colors.white)),
+            ),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.meeting_room_outlined,
+                      color: Colors.white54, size: 48),
+                  const SizedBox(height: 16),
+                  Text(
+                    error ?? 'Room not available',
+                    style:
+                        const TextStyle(color: Colors.white70, fontSize: 16),
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () {
+                      provider.clearError();
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Go Back'),
+                  ),
+                ],
+              ),
+            ),
           );
         }
-
-        final isCreator = room.creatorId == currentUserId;
 
         return PopScope(
           canPop: false,
@@ -72,17 +119,27 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                 ],
               ),
               actions: [
-                // Participant count
+                // Speaker count + Listener count
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 12),
                   child: Row(
                     children: [
-                      const Icon(Icons.people, color: Colors.white54, size: 18),
-                      const SizedBox(width: 4),
+                      const Icon(Icons.mic, color: Colors.amber, size: 14),
+                      const SizedBox(width: 2),
                       Text(
-                        '${provider.participants.length}/${room.maxParticipants}',
+                        '${provider.speakers.length}/${room.maxSpeakers}',
                         style: const TextStyle(
-                            color: Colors.white54, fontSize: 14),
+                            color: Colors.white70, fontSize: 12),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(Icons.visibility,
+                          color: Colors.white.withValues(alpha: 0.5),
+                          size: 14),
+                      const SizedBox(width: 2),
+                      Text(
+                        '${provider.listeners.length}',
+                        style: const TextStyle(
+                            color: Colors.white54, fontSize: 12),
                       ),
                     ],
                   ),
@@ -92,119 +149,69 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
             body: Column(
               children: [
                 // Connection status banner
-                if (provider.isConnecting)
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    color: Colors.orange.shade800,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 14,
-                          height: 14,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          'Connecting...',
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  )
-                else if (!provider.isConnected && provider.activeRoom != null)
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    color: Colors.red.shade800,
-                    child: const Text(
-                      'Disconnected',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 13),
-                    ),
-                  ),
+                _buildConnectionBanner(provider),
 
                 // Level badge
                 if (room.languageLevel != 'all')
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: _buildLevelBadge(room.languageLevel),
                   ),
 
-                // Participants grid
+                // STAGE AREA (~40%)
                 Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-                      child: Wrap(
-                        spacing: 24,
-                        runSpacing: 24,
-                        alignment: WrapAlignment.center,
-                        children: provider.participants.map((p) {
-                          return ParticipantAvatar(
-                            name: p.name,
-                            avatar: p.avatar,
-                            isMuted: p.isMuted,
-                            isCreator: p.userId == room.creatorId,
-                            isSelf: p.userId == currentUserId,
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
+                  flex: 4,
+                  child: StageAreaWidget(myUserId: currentUserId),
                 ),
 
-                // Bottom controls
+                // Divider
                 Container(
-                  padding: const EdgeInsets.all(AppConstants.paddingLarge),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF16213E),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    ),
-                  ),
-                  child: SafeArea(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // Mute button
-                        _buildControlButton(
-                          icon: provider.isMuted
-                              ? Icons.mic_off
-                              : Icons.mic,
-                          label: provider.isMuted
-                              ? (l10n?.unmute ?? 'Unmute')
-                              : (l10n?.mute ?? 'Mute'),
-                          color: provider.isMuted
-                              ? Colors.red.shade400
-                              : AppConstants.primaryColor,
-                          onTap: () => provider.toggleMute(),
-                        ),
+                  height: 1,
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
 
-                        // Leave button
-                        _buildControlButton(
-                          icon: Icons.call_end,
-                          label: l10n?.leave ?? 'Leave',
-                          color: Colors.red,
-                          onTap: () => _handleLeave(context, provider),
-                        ),
+                // AUDIENCE BAR
+                AudienceBarWidget(listeners: provider.listeners),
 
-                        // Close room (creator only)
-                        if (isCreator)
-                          _buildControlButton(
-                            icon: Icons.close,
-                            label: l10n?.closeRoom ?? 'Close',
-                            color: Colors.orange,
-                            onTap: () => _handleClose(context, provider),
-                          ),
-                      ],
-                    ),
+                // Divider
+                Container(
+                  height: 1,
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
+
+                // CHAT (~30%)
+                const Expanded(
+                  flex: 3,
+                  child: VoiceChatWidget(),
+                ),
+
+                // Reaction or Gesture tray (expandable)
+                if (_showReactionTray)
+                  ReactionTrayWidget(
+                    onClose: () => setState(() => _showReactionTray = false),
                   ),
+                if (_showGestureTray)
+                  GestureTrayWidget(
+                    onClose: () => setState(() => _showGestureTray = false),
+                  ),
+
+                // Controls
+                StageControlsWidget(
+                  onLeaveRoom: () => _handleLeave(context, provider),
+                  onCloseRoom: () => _handleClose(context, provider),
+                  onShowReactions: () {
+                    setState(() {
+                      _showReactionTray = !_showReactionTray;
+                      _showGestureTray = false;
+                    });
+                  },
+                  onShowGestures: () {
+                    setState(() {
+                      _showGestureTray = !_showGestureTray;
+                      _showReactionTray = false;
+                    });
+                  },
+                  onManageStage: () => _showStageManagement(context, provider),
                 ),
               ],
             ),
@@ -214,34 +221,75 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     );
   }
 
-  Widget _buildControlButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.2),
-              shape: BoxShape.circle,
+  Widget _buildConnectionBanner(VoiceRoomProvider provider) {
+    if (provider.isConnecting || provider.isReconnecting) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+        color: Colors.orange.shade800,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(
+              width: 14,
+              height: 14,
+              child: CircularProgressIndicator(
+                  strokeWidth: 2, color: Colors.white),
             ),
-            child: Icon(icon, color: color, size: 28),
+            const SizedBox(width: 8),
+            Text(
+              provider.isReconnecting
+                  ? 'Reconnecting (${provider.reconnectAttempts}/3)...'
+                  : 'Connecting...',
+              style: const TextStyle(color: Colors.white, fontSize: 13),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (!provider.isConnected && provider.activeRoom != null) {
+      return GestureDetector(
+        onTap: () => provider.reconnect(),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          color: Colors.red.shade800,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.wifi_off, color: Colors.white, size: 16),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  provider.error ?? 'Disconnected',
+                  style: const TextStyle(color: Colors.white, fontSize: 13),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text(
+                  'Retry',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            style: const TextStyle(color: Colors.white70, fontSize: 12),
-          ),
-        ],
-      ),
-    );
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 
   Widget _buildLevelBadge(String level) {
@@ -273,8 +321,131 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       ),
       child: Text(
         label,
-        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+        style: TextStyle(
+            color: color, fontSize: 12, fontWeight: FontWeight.w600),
       ),
+    );
+  }
+
+  void _showStageManagement(
+      BuildContext context, VoiceRoomProvider provider) {
+    final l10n = AppLocalizations.of(context);
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF16213E),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return Consumer<VoiceRoomProvider>(
+          builder: (context, provider, child) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n?.stageRequests ?? 'Stage Requests',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  if (provider.stageRequests.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          l10n?.noPendingRequests ?? 'No pending requests',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.5),
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    ...provider.stageRequests.map((req) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: req.avatar != null
+                              ? NetworkImage(req.avatar!)
+                              : null,
+                          child: req.avatar == null
+                              ? Text(req.name.isNotEmpty
+                                  ? req.name[0].toUpperCase()
+                                  : '?')
+                              : null,
+                        ),
+                        title: Text(
+                          req.name,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.check_circle,
+                                  color: Colors.green),
+                              onPressed: () {
+                                provider.grantStage(req.userId);
+                                Navigator.pop(ctx);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+
+                  // Current speakers on stage
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n?.onStage ?? 'On Stage',
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ...provider.speakers.map((speaker) {
+                    final isCreator =
+                        speaker.userId == provider.activeRoom?.creatorId;
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: speaker.avatar != null
+                            ? NetworkImage(speaker.avatar!)
+                            : null,
+                        child: speaker.avatar == null
+                            ? Text(speaker.name.isNotEmpty
+                                ? speaker.name[0].toUpperCase()
+                                : '?')
+                            : null,
+                      ),
+                      title: Text(
+                        '${speaker.name}${isCreator ? ' (Host)' : ''}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      trailing: isCreator
+                          ? null
+                          : IconButton(
+                              icon: const Icon(Icons.arrow_downward,
+                                  color: Colors.orange),
+                              onPressed: () {
+                                provider.removeFromStage(speaker.userId);
+                                Navigator.pop(ctx);
+                              },
+                            ),
+                    );
+                  }),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

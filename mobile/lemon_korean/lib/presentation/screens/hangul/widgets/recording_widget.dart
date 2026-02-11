@@ -25,12 +25,14 @@ class RecordingWidget extends StatefulWidget {
   final String? nativeAudioUrl;
   final Function(String recordingPath)? onRecordingComplete;
   final VoidCallback? onPlayNative;
+  final Function(String evaluation)? onEvaluate;
 
   const RecordingWidget({
     required this.targetCharacter,
     this.nativeAudioUrl,
     this.onRecordingComplete,
     this.onPlayNative,
+    this.onEvaluate,
     super.key,
   });
 
@@ -161,7 +163,7 @@ class _RecordingWidgetState extends State<RecordingWidget>
   }
 
   void _trackRecordingDuration() async {
-    while (_state == RecordingState.recording) {
+    while (_state == RecordingState.recording && mounted) {
       await Future.delayed(const Duration(milliseconds: 100));
       if (_state == RecordingState.recording && mounted) {
         setState(() {
@@ -493,16 +495,19 @@ class _RecordingWidgetState extends State<RecordingWidget>
                 l10n.accurate,
                 Icons.check_circle,
                 Colors.green,
+                'accurate',
               ),
               _buildEvaluationButton(
                 l10n.almostCorrect,
                 Icons.check_circle_outline,
                 Colors.orange,
+                'almost',
               ),
               _buildEvaluationButton(
                 l10n.needsPractice,
                 Icons.refresh,
                 Colors.red,
+                'practice',
               ),
             ],
           ),
@@ -511,16 +516,11 @@ class _RecordingWidgetState extends State<RecordingWidget>
     );
   }
 
-  Widget _buildEvaluationButton(String label, IconData icon, Color color) {
+  Widget _buildEvaluationButton(
+      String label, IconData icon, Color color, String evaluationType) {
     return InkWell(
       onTap: () {
-        // Handle evaluation
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Selected: $label'),
-            duration: const Duration(seconds: 1),
-          ),
-        );
+        widget.onEvaluate?.call(evaluationType);
         _resetRecording();
       },
       borderRadius: BorderRadius.circular(8),

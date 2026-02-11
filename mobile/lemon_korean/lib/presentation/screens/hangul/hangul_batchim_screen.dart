@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/korean_tts_helper.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Batchim (final consonant) information
@@ -261,8 +262,7 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '한국어 받침은 7가지 소리로 발음됩니다.\n'
-                  '여러 받침이 같은 소리로 발음되는 것을 "받침 대표음"이라고 합니다.',
+                  l10n.batchimDescriptionText,
                   style: TextStyle(
                     color: Colors.blue.shade900,
                     fontSize: 13,
@@ -276,9 +276,9 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
           const SizedBox(height: 24),
 
           // 7 sound groups
-          const Text(
-            '7가지 대표음',
-            style: TextStyle(
+          Text(
+            l10n.sevenRepresentativeSounds,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -691,14 +691,17 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
           ),
           const SizedBox(width: 8),
           IconButton(
-            onPressed: () {
-              // Play audio
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Playing: $example'),
-                  duration: const Duration(seconds: 1),
-                ),
-              );
+            onPressed: () async {
+              try {
+                await KoreanTtsHelper.playKoreanText(example, _audioPlayer);
+              } catch (e) {
+                if (mounted) {
+                  final l10n = AppLocalizations.of(context)!;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.audioLoadError)),
+                  );
+                }
+              }
             },
             icon: const Icon(Icons.volume_up, size: 20),
             padding: EdgeInsets.zero,

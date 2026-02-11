@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#E8F5E9"/>
+  <circle cx="50" cy="50" r="40" fill="#F1F8E9"/>
+  <!-- Green lemon body -->
+  <ellipse cx="50" cy="50" rx="18" ry="15" fill="#4CAF50" transform="rotate(-10 50 50)"/>
+  <ellipse cx="50" cy="50" rx="15" ry="12" fill="#66BB6A" transform="rotate(-10 50 50)"/>
+  <!-- Lemon tip -->
+  <ellipse cx="35" cy="55" rx="5" ry="3" fill="#4CAF50" transform="rotate(-30 35 55)"/>
+  <!-- Stem -->
+  <path d="M62 42 Q64 38 66 36" fill="none" stroke="#795548" stroke-width="2" stroke-linecap="round"/>
+  <!-- Leaf -->
+  <path d="M64 38 Q72 30 78 32 Q74 40 64 38" fill="#43A047"/>
+  <path d="M64 38 Q72 30 78 32" fill="none" stroke="#2E7D32" stroke-width="0.8" stroke-linecap="round"/>
+  <!-- Leaf vein -->
+  <path d="M66 37 Q72 33 76 33" fill="none" stroke="#2E7D32" stroke-width="0.5" stroke-linecap="round"/>
+</svg>

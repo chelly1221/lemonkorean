@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <!-- T-Shirt -->
+  <path d="M105 190 Q105 185 115 185 L185 185 Q195 185 195 190 L205 295 Q205 300 200 300 L100 300 Q95 300 95 295 Z" fill="#4A90D9"/>
+  <!-- Sleeves -->
+  <path d="M105 190 Q85 195 75 230 Q72 240 80 240 Q88 238 98 215 L105 200 Z" fill="#4A90D9"/>
+  <path d="M195 190 Q215 195 225 230 Q228 240 220 240 Q212 238 202 215 L195 200 Z" fill="#4A90D9"/>
+  <!-- Collar -->
+  <path d="M130 185 Q150 195 170 185" stroke="#3A7BC8" stroke-width="2" fill="none"/>
+</svg>

@@ -2481,7 +2481,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get advanced => 'Avanzado';
 
   @override
-  String get maxParticipants => 'Máx. Participantes';
+  String get stageSlots => 'Plazas en Escenario';
+
+  @override
+  String get anyoneCanListen => 'Cualquiera puede unirse para escuchar';
 
   @override
   String get createAndJoin => 'Crear y Unirse';
@@ -2499,6 +2502,36 @@ class AppLocalizationsEs extends AppLocalizations {
   String get closeRoom => 'Cerrar Sala';
 
   @override
+  String get emojiReaction => 'Reacción';
+
+  @override
+  String get gesture => 'Gesto';
+
+  @override
+  String get raiseHand => 'Levantar Mano';
+
+  @override
+  String get cancelRequest => 'Cancelar';
+
+  @override
+  String get leaveStage => 'Dejar Escenario';
+
+  @override
+  String get pendingRequests => 'Solicitudes';
+
+  @override
+  String get typeAMessage => 'Escribe un mensaje...';
+
+  @override
+  String get stageRequests => 'Solicitudes de Escenario';
+
+  @override
+  String get noPendingRequests => 'Sin solicitudes pendientes';
+
+  @override
+  String get onStage => 'En Escenario';
+
+  @override
   String get voiceRooms => 'Salas de Voz';
 
   @override
@@ -2509,4 +2542,123 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get createRoom => 'Crear Sala';
+
+  @override
+  String get batchimDescriptionText =>
+      'Las consonantes finales coreanas (batchim) se pronuncian con 7 sonidos.\nVarios batchim que comparten la misma pronunciación se llaman \"sonidos representativos\".';
+
+  @override
+  String get syllableInputLabel => 'Ingresa sílaba';
+
+  @override
+  String get syllableInputHint => 'ej. 한';
+
+  @override
+  String totalPracticedCount(int count) {
+    return 'Total: $count caracteres practicados';
+  }
+
+  @override
+  String get audioLoadError => 'No se pudo cargar el audio';
+
+  @override
+  String get writingPracticeCompleteMessage =>
+      '¡Práctica de escritura completada!';
+
+  @override
+  String get sevenRepresentativeSounds => '7 Sonidos Representativos';
+
+  @override
+  String get myRoom => 'Mi Sala';
+
+  @override
+  String get characterEditor => 'Editor de Personaje';
+
+  @override
+  String get roomEditor => 'Editor de Sala';
+
+  @override
+  String get shop => 'Tienda';
+
+  @override
+  String get character => 'Personaje';
+
+  @override
+  String get room => 'Sala';
+
+  @override
+  String get hair => 'Cabello';
+
+  @override
+  String get eyes => 'Ojos';
+
+  @override
+  String get brows => 'Cejas';
+
+  @override
+  String get nose => 'Nariz';
+
+  @override
+  String get mouth => 'Boca';
+
+  @override
+  String get top => 'Camiseta';
+
+  @override
+  String get bottom => 'Pantalones';
+
+  @override
+  String get hatItem => 'Sombrero';
+
+  @override
+  String get accessory => 'Acc.';
+
+  @override
+  String get wallpaper => 'Fondo';
+
+  @override
+  String get floorItem => 'Suelo';
+
+  @override
+  String get petItem => 'Mascota';
+
+  @override
+  String get none => 'Ninguno';
+
+  @override
+  String get noItemsYet => 'Sin artículos';
+
+  @override
+  String get visitShopToGetItems => '¡Visita la tienda!';
+
+  @override
+  String get alreadyOwned => '¡Ya lo tienes!';
+
+  @override
+  String get buy => 'Comprar';
+
+  @override
+  String purchasedItem(String name) {
+    return '¡$name comprado!';
+  }
+
+  @override
+  String get notEnoughLemons => '¡Limones insuficientes!';
+
+  @override
+  String get owned => 'Adquirido';
+
+  @override
+  String get free => 'Gratis';
+
+  @override
+  String get comingSoon => '¡Próximamente!';
+
+  @override
+  String balanceLemons(int count) {
+    return 'Saldo: $count limones';
+  }
+
+  @override
+  String get furnitureItem => 'Mueble';
 }

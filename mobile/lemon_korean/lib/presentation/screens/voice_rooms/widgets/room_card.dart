@@ -22,7 +22,7 @@ class RoomCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: InkWell(
-        onTap: room.isFull ? null : onTap,
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -41,34 +41,68 @@ class RoomCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: room.isFull
-                          ? Colors.red.shade100
-                          : AppConstants.primaryColor.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.people,
-                          size: 14,
-                          color: room.isFull ? Colors.red : Colors.black87,
+                  // Speaker count + Listener count
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: room.isStageFull
+                              ? Colors.red.shade100
+                              : AppConstants.primaryColor
+                                  .withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${room.participantCount}/${room.maxParticipants}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: room.isFull ? Colors.red : Colors.black87,
-                          ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.mic,
+                                size: 13,
+                                color: room.isStageFull
+                                    ? Colors.red
+                                    : Colors.black87),
+                            const SizedBox(width: 3),
+                            Text(
+                              '${room.speakerCount}/${room.maxSpeakers}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: room.isStageFull
+                                    ? Colors.red
+                                    : Colors.black87,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.visibility,
+                                size: 13, color: Colors.grey),
+                            const SizedBox(width: 3),
+                            Text(
+                              '${room.listenerCount}',
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -117,15 +151,15 @@ class RoomCard extends StatelessWidget {
                 ],
               ),
 
-              // Full indicator
-              if (room.isFull) ...[
+              // Stage full indicator
+              if (room.isStageFull) ...[
                 const SizedBox(height: 8),
                 Center(
                   child: Text(
-                    'Room Full',
+                    'Stage Full',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.red.shade400,
+                      color: Colors.orange.shade400,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

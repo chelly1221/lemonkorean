@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <!-- Head -->
+  <ellipse cx="150" cy="100" rx="60" ry="70" fill="#FFDBB4"/>
+  <!-- Neck -->
+  <rect x="135" y="165" width="30" height="25" rx="5" fill="#FFDBB4"/>
+  <!-- Body / Torso -->
+  <path d="M100 190 Q100 185 110 185 L190 185 Q200 185 200 190 L210 300 Q210 310 200 310 L100 310 Q90 310 90 300 Z" fill="#FFDBB4"/>
+  <!-- Arms -->
+  <path d="M100 195 Q80 200 70 240 Q65 260 75 260 Q85 260 95 230 L100 210 Z" fill="#FFDBB4"/>
+  <path d="M200 195 Q220 200 230 240 Q235 260 225 260 Q215 260 205 230 L200 210 Z" fill="#FFDBB4"/>
+  <!-- Legs -->
+  <rect x="110" y="305" width="35" height="70" rx="8" fill="#FFDBB4"/>
+  <rect x="155" y="305" width="35" height="70" rx="8" fill="#FFDBB4"/>
+  <!-- Ears -->
+  <ellipse cx="90" cy="100" rx="12" ry="16" fill="#FFDBB4"/>
+  <ellipse cx="210" cy="100" rx="12" ry="16" fill="#FFDBB4"/>
+</svg>

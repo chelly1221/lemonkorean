@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <path d="M90 90 Q90 30 150 25 Q210 30 210 90 L210 70 Q210 35 150 30 Q90 35 90 70 Z" fill="#8B4513"/>
+  <path d="M85 90 Q85 55 150 50 Q215 55 215 90 Q215 100 210 105 L210 85 Q205 60 150 55 Q95 60 90 85 L90 105 Q85 100 85 90 Z" fill="#8B4513"/>
+  <!-- Curly puffs -->
+  <circle cx="82" cy="80" r="12" fill="#8B4513"/>
+  <circle cx="218" cy="80" r="12" fill="#8B4513"/>
+  <circle cx="85" cy="100" r="10" fill="#8B4513"/>
+  <circle cx="215" cy="100" r="10" fill="#8B4513"/>
+  <circle cx="90" cy="65" r="10" fill="#8B4513"/>
+  <circle cx="210" cy="65" r="10" fill="#8B4513"/>
+  <circle cx="120" cy="35" r="10" fill="#8B4513"/>
+  <circle cx="150" cy="30" r="10" fill="#8B4513"/>
+  <circle cx="180" cy="35" r="10" fill="#8B4513"/>
+</svg>

@@ -17,7 +17,7 @@ class SyncProvider with ChangeNotifier {
   DateTime? _lastSyncTime;
   String? _errorMessage;
   Timer? _syncTimer;
-  StreamSubscription<ConnectivityResult>? _connectivitySubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
   // Getters
   bool get isSyncing => _isSyncing;
@@ -34,14 +34,14 @@ class SyncProvider with ChangeNotifier {
   /// Initialize connectivity monitoring
   Future<void> _initConnectivity() async {
     try {
-      final result = await _connectivity.checkConnectivity();
-      _isOnline = result != ConnectivityResult.none;
+      final results = await _connectivity.checkConnectivity();
+      _isOnline = !results.contains(ConnectivityResult.none);
 
       // Listen to connectivity changes
       _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
-        (ConnectivityResult result) {
+        (List<ConnectivityResult> results) {
           final wasOffline = !_isOnline;
-          _isOnline = result != ConnectivityResult.none;
+          _isOnline = !results.contains(ConnectivityResult.none);
 
           if (wasOffline && _isOnline) {
             // Just came online - trigger sync

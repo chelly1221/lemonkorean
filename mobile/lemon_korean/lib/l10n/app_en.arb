@@ -1581,7 +1581,8 @@
   "beginner": "Beginner",
   "intermediate": "Intermediate",
   "advanced": "Advanced",
-  "maxParticipants": "Max Participants",
+  "stageSlots": "Stage Slots",
+  "anyoneCanListen": "Anyone can join to listen",
   "createAndJoin": "Create & Join",
   "unmute": "Unmute",
   "mute": "Mute",
@@ -1590,5 +1591,66 @@
   "voiceRooms": "Voice Rooms",
   "noVoiceRooms": "No active voice rooms",
   "createVoiceRoomHint": "Create one to start talking!",
-  "createRoom": "Create Room"
+  "createRoom": "Create Room",
+  "emojiReaction": "React",
+  "gesture": "Gesture",
+  "raiseHand": "Raise Hand",
+  "cancelRequest": "Cancel",
+  "leaveStage": "Leave Stage",
+  "pendingRequests": "Requests",
+  "typeAMessage": "Type a message...",
+  "stageRequests": "Stage Requests",
+  "noPendingRequests": "No pending requests",
+  "onStage": "On Stage",
+
+  "batchimDescriptionText": "Korean final consonants (batchim) are pronounced as 7 sounds.\nMultiple batchim sharing the same pronunciation are called \"representative sounds\".",
+  "syllableInputLabel": "Enter syllable",
+  "syllableInputHint": "e.g. 한",
+  "totalPracticedCount": "Total: {count} characters practiced",
+  "audioLoadError": "Failed to load audio",
+  "writingPracticeCompleteMessage": "Writing practice complete!",
+  "sevenRepresentativeSounds": "7 Representative Sounds",
+
+  "myRoom": "My Room",
+  "characterEditor": "Character Editor",
+  "roomEditor": "Room Editor",
+  "shop": "Shop",
+  "character": "Character",
+  "room": "Room",
+  "hair": "Hair",
+  "eyes": "Eyes",
+  "brows": "Brows",
+  "nose": "Nose",
+  "mouth": "Mouth",
+  "top": "Top",
+  "bottom": "Bottom",
+  "hatItem": "Hat",
+  "accessory": "Acc.",
+  "wallpaper": "Wallpaper",
+  "floorItem": "Floor",
+  "petItem": "Pet",
+  "none": "None",
+  "noItemsYet": "No items yet",
+  "visitShopToGetItems": "Visit the shop to get items!",
+  "alreadyOwned": "Already owned!",
+  "buy": "Buy",
+  "purchasedItem": "Purchased {name}!",
+  "@purchasedItem": {
+    "description": "Purchase success message",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notEnoughLemons": "Not enough lemons!",
+  "owned": "Owned",
+  "free": "Free",
+  "comingSoon": "Coming soon!",
+  "balanceLemons": "Balance: {count} lemons",
+  "@balanceLemons": {
+    "description": "Lemon balance display",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "furnitureItem": "Furn."
 }

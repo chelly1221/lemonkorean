@@ -23,6 +23,7 @@ import '../stats/mastered_words_screen.dart';
 import '../vocabulary_book/vocabulary_book_screen.dart';
 import '../vocabulary_browser/vocabulary_browser_screen.dart';
 import '../community/community_screen.dart';
+import '../my_room/my_room_screen.dart';
 import '../profile/widgets/lemon_tree_widget.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
@@ -50,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: const [
             _HomeTab(),
             CommunityScreen(),
+            MyRoomScreen(),
             _ReviewTab(),
             _ProfileTab(),
           ],
@@ -75,6 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.people_alt_outlined),
                 selectedIcon: const Icon(Icons.people_alt),
                 label: l10n?.community ?? 'Community',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: 'My Room',
               ),
               NavigationDestination(
                 icon: const Icon(Icons.replay),

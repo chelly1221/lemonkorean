@@ -2425,7 +2425,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get advanced => '高级';
 
   @override
-  String get maxParticipants => '最大人数';
+  String get stageSlots => '发言席位';
+
+  @override
+  String get anyoneCanListen => '任何人都可以加入聆听';
 
   @override
   String get createAndJoin => '创建并加入';
@@ -2443,6 +2446,36 @@ class AppLocalizationsZh extends AppLocalizations {
   String get closeRoom => '关闭房间';
 
   @override
+  String get emojiReaction => '表情';
+
+  @override
+  String get gesture => '动作';
+
+  @override
+  String get raiseHand => '举手';
+
+  @override
+  String get cancelRequest => '取消';
+
+  @override
+  String get leaveStage => '离开舞台';
+
+  @override
+  String get pendingRequests => '请求';
+
+  @override
+  String get typeAMessage => '输入消息...';
+
+  @override
+  String get stageRequests => '上台请求';
+
+  @override
+  String get noPendingRequests => '暂无待处理请求';
+
+  @override
+  String get onStage => '舞台上';
+
+  @override
   String get voiceRooms => '语音房间';
 
   @override
@@ -2453,6 +2486,124 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get createRoom => '创建房间';
+
+  @override
+  String get batchimDescriptionText =>
+      '韩语收音（받침）发音为7种音。\n多个收音发同一个音的现象叫做「收音代表音」。';
+
+  @override
+  String get syllableInputLabel => '输入音节';
+
+  @override
+  String get syllableInputHint => '例：한';
+
+  @override
+  String totalPracticedCount(int count) {
+    return '共练习了 $count 个字';
+  }
+
+  @override
+  String get audioLoadError => '无法加载音频';
+
+  @override
+  String get writingPracticeCompleteMessage => '书写练习完成！';
+
+  @override
+  String get sevenRepresentativeSounds => '7种代表音';
+
+  @override
+  String get myRoom => '我的房间';
+
+  @override
+  String get characterEditor => '角色编辑';
+
+  @override
+  String get roomEditor => '房间编辑';
+
+  @override
+  String get shop => '商店';
+
+  @override
+  String get character => '角色';
+
+  @override
+  String get room => '房间';
+
+  @override
+  String get hair => '发型';
+
+  @override
+  String get eyes => '眼睛';
+
+  @override
+  String get brows => '眉毛';
+
+  @override
+  String get nose => '鼻子';
+
+  @override
+  String get mouth => '嘴巴';
+
+  @override
+  String get top => '上衣';
+
+  @override
+  String get bottom => '下装';
+
+  @override
+  String get hatItem => '帽子';
+
+  @override
+  String get accessory => '饰品';
+
+  @override
+  String get wallpaper => '壁纸';
+
+  @override
+  String get floorItem => '地板';
+
+  @override
+  String get petItem => '宠物';
+
+  @override
+  String get none => '无';
+
+  @override
+  String get noItemsYet => '暂无物品';
+
+  @override
+  String get visitShopToGetItems => '去商店获取物品！';
+
+  @override
+  String get alreadyOwned => '已拥有！';
+
+  @override
+  String get buy => '购买';
+
+  @override
+  String purchasedItem(String name) {
+    return '已购买 $name！';
+  }
+
+  @override
+  String get notEnoughLemons => '柠檬不够！';
+
+  @override
+  String get owned => '已拥有';
+
+  @override
+  String get free => '免费';
+
+  @override
+  String get comingSoon => '即将推出！';
+
+  @override
+  String balanceLemons(int count) {
+    return '余额: $count个柠檬';
+  }
+
+  @override
+  String get furnitureItem => '家具';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -4876,7 +5027,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get advanced => '高級';
 
   @override
-  String get maxParticipants => '最大人數';
+  String get stageSlots => '發言席位';
+
+  @override
+  String get anyoneCanListen => '任何人都可以加入聆聽';
 
   @override
   String get createAndJoin => '建立並加入';
@@ -4894,6 +5048,36 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get closeRoom => '關閉房間';
 
   @override
+  String get emojiReaction => '表情';
+
+  @override
+  String get gesture => '動作';
+
+  @override
+  String get raiseHand => '舉手';
+
+  @override
+  String get cancelRequest => '取消';
+
+  @override
+  String get leaveStage => '離開舞台';
+
+  @override
+  String get pendingRequests => '請求';
+
+  @override
+  String get typeAMessage => '輸入訊息...';
+
+  @override
+  String get stageRequests => '上台請求';
+
+  @override
+  String get noPendingRequests => '暫無待處理請求';
+
+  @override
+  String get onStage => '舞台上';
+
+  @override
   String get voiceRooms => '語音房間';
 
   @override
@@ -4904,4 +5088,122 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get createRoom => '建立房間';
+
+  @override
+  String get batchimDescriptionText =>
+      '韓語收音（받침）發音為7種音。\n多個收音發同一個音的現象叫做「收音代表音」。';
+
+  @override
+  String get syllableInputLabel => '輸入音節';
+
+  @override
+  String get syllableInputHint => '例：한';
+
+  @override
+  String totalPracticedCount(int count) {
+    return '共練習了 $count 個字';
+  }
+
+  @override
+  String get audioLoadError => '無法載入音訊';
+
+  @override
+  String get writingPracticeCompleteMessage => '書寫練習完成！';
+
+  @override
+  String get sevenRepresentativeSounds => '7種代表音';
+
+  @override
+  String get myRoom => '我的房間';
+
+  @override
+  String get characterEditor => '角色編輯';
+
+  @override
+  String get roomEditor => '房間編輯';
+
+  @override
+  String get shop => '商店';
+
+  @override
+  String get character => '角色';
+
+  @override
+  String get room => '房間';
+
+  @override
+  String get hair => '髮型';
+
+  @override
+  String get eyes => '眼睛';
+
+  @override
+  String get brows => '眉毛';
+
+  @override
+  String get nose => '鼻子';
+
+  @override
+  String get mouth => '嘴巴';
+
+  @override
+  String get top => '上衣';
+
+  @override
+  String get bottom => '下裝';
+
+  @override
+  String get hatItem => '帽子';
+
+  @override
+  String get accessory => '飾品';
+
+  @override
+  String get wallpaper => '壁紙';
+
+  @override
+  String get floorItem => '地板';
+
+  @override
+  String get petItem => '寵物';
+
+  @override
+  String get none => '無';
+
+  @override
+  String get noItemsYet => '暫無物品';
+
+  @override
+  String get visitShopToGetItems => '去商店獲取物品！';
+
+  @override
+  String get alreadyOwned => '已擁有！';
+
+  @override
+  String get buy => '購買';
+
+  @override
+  String purchasedItem(String name) {
+    return '已購買 $name！';
+  }
+
+  @override
+  String get notEnoughLemons => '檸檬不夠！';
+
+  @override
+  String get owned => '已擁有';
+
+  @override
+  String get free => '免費';
+
+  @override
+  String get comingSoon => '即將推出！';
+
+  @override
+  String balanceLemons(int count) {
+    return '餘額: $count個檸檬';
+  }
+
+  @override
+  String get furnitureItem => '家具';
 }

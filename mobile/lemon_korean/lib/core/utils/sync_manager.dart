@@ -20,7 +20,7 @@ class SyncManager {
   bool _isOnline = false;
   DateTime? _lastSyncTime;
   Timer? _syncTimer;
-  StreamSubscription<ConnectivityResult>? _connectivitySubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
   // Callbacks
   Function(SyncStatus status)? onSyncStatusChanged;
@@ -43,8 +43,8 @@ class SyncManager {
   /// Check initial connectivity
   Future<void> _checkConnectivity() async {
     try {
-      final result = await _connectivity.checkConnectivity();
-      _isOnline = result != ConnectivityResult.none;
+      final results = await _connectivity.checkConnectivity();
+      _isOnline = !results.contains(ConnectivityResult.none);
       _notifyStatusChange();
     } catch (e) {
       _isOnline = false;
@@ -55,9 +55,9 @@ class SyncManager {
   /// Monitor connectivity changes
   void _startConnectivityMonitoring() {
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult result) {
+      (List<ConnectivityResult> results) {
         final wasOffline = !_isOnline;
-        _isOnline = result != ConnectivityResult.none;
+        _isOnline = !results.contains(ConnectivityResult.none);
 
         AppLogger.logSync('Connectivity changed', details: 'isOnline: $_isOnline');
 
@@ -160,6 +160,9 @@ class SyncManager {
       // Bookmark operations (create, update, delete)
       final bookmarkTypes = ['bookmark_create', 'bookmark_update', 'bookmark_delete'];
       final bookmarkItems = queue.where((item) => bookmarkTypes.contains(item['type'])).toList();
+      // Character customization operations
+      final characterTypes = ['character_equip', 'character_purchase', 'room_update', 'lemon_spend'];
+      final characterItems = queue.where((item) => characterTypes.contains(item['type'])).toList();
 
       // Sync progress
       if (progressItems.isNotEmpty) {
@@ -206,6 +209,13 @@ class SyncManager {
       // Sync bookmarks
       if (bookmarkItems.isNotEmpty) {
         final result = await _syncBookmarks(bookmarkItems);
+        syncedCount += result.syncedCount;
+        failedCount += result.failedCount;
+      }
+
+      // Sync character customization
+      if (characterItems.isNotEmpty) {
+        final result = await _syncCharacter(characterItems);
         syncedCount += result.syncedCount;
         failedCount += result.failedCount;
       }
@@ -552,6 +562,85 @@ class SyncManager {
         }
       } catch (e) {
         AppLogger.logSync('Error syncing bookmark', details: e.toString(), isError: true);
+        failedCount++;
+      }
+    }
+
+    return _SyncItemResult(
+      syncedCount: syncedCount,
+      failedCount: failedCount,
+    );
+  }
+
+  /// Sync character customization items (equip, purchase, room update)
+  Future<_SyncItemResult> _syncCharacter(List<Map<String, dynamic>> items) async {
+    int syncedCount = 0;
+    int failedCount = 0;
+
+    for (final item in items) {
+      try {
+        final type = item['type'] as String;
+        final data = item['data'] as Map<String, dynamic>;
+        bool success = false;
+
+        switch (type) {
+          case 'character_equip':
+            // Equip or update skin color
+            if (data.containsKey('skin_color')) {
+              final response = await _apiClient.dio.put(
+                '/api/progress/character/skin-color',
+                data: {'skin_color': data['skin_color']},
+              );
+              success = response.statusCode == 200;
+            } else {
+              final response = await _apiClient.dio.put(
+                '/api/progress/character/equip',
+                data: {
+                  'category': data['category'],
+                  'item_id': data['item_id'],
+                },
+              );
+              success = response.statusCode == 200;
+            }
+            break;
+
+          case 'character_purchase':
+            final response = await _apiClient.dio.post(
+              '/api/progress/shop/purchase',
+              data: {'item_id': data['item_id']},
+            );
+            // 200 = purchased, 409 = already owned (both count as synced)
+            success = response.statusCode == 200 || response.statusCode == 409;
+            break;
+
+          case 'room_update':
+            final response = await _apiClient.dio.put(
+              '/api/progress/room/furniture',
+              data: {'furniture': data['furniture']},
+            );
+            success = response.statusCode == 200;
+            break;
+
+          case 'lemon_spend':
+            // Lemon spending is handled server-side during purchase
+            // Just remove from queue
+            success = true;
+            break;
+        }
+
+        if (success) {
+          final queue = LocalStorage.getSyncQueue();
+          final index = queue.indexOf(item);
+          if (index != -1) {
+            await LocalStorage.removeFromSyncQueue(index);
+            syncedCount++;
+          }
+        } else {
+          AppLogger.logSync('Character sync failed', details: 'type: $type', isError: true);
+          failedCount++;
+        }
+      } catch (e) {
+        AppLogger.logSync('Error syncing character', details: e.toString(), isError: true);
         failedCount++;
       }
     }

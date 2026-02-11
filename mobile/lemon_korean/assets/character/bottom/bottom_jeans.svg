@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <!-- Jeans -->
+  <path d="M100 300 L95 310 L108 375 L148 375 L150 320 L152 375 L192 375 L205 310 L200 300 Z" fill="#34495E"/>
+  <!-- Belt -->
+  <rect x="98" y="298" width="104" height="8" rx="2" fill="#5D4E37"/>
+  <!-- Belt buckle -->
+  <rect x="144" y="299" width="12" height="6" rx="1" fill="#B8860B"/>
+  <!-- Seam lines -->
+  <line x1="150" y1="310" x2="150" y2="375" stroke="#2C3E50" stroke-width="1"/>
+  <line x1="130" y1="310" x2="128" y2="375" stroke="#2C3E50" stroke-width="0.5"/>
+  <line x1="170" y1="310" x2="172" y2="375" stroke="#2C3E50" stroke-width="0.5"/>
+</svg>

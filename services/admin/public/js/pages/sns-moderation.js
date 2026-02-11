@@ -7,35 +7,41 @@ const SnsModerationPage = (() => {
   let currentTab = 'stats';
 
   async function render() {
-    const layout = Layout.create('SNS 관리');
-
-    layout.querySelector('.content-body').innerHTML = `
-      <ul class="nav nav-tabs mb-4" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link ${currentTab === 'stats' ? 'active' : ''}" href="#" data-tab="stats">
-            <i class="fas fa-chart-bar me-1"></i>통계
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ${currentTab === 'reports' ? 'active' : ''}" href="#" data-tab="reports">
-            <i class="fas fa-flag me-1"></i>신고
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ${currentTab === 'posts' ? 'active' : ''}" href="#" data-tab="posts">
-            <i class="fas fa-file-alt me-1"></i>게시글
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ${currentTab === 'users' ? 'active' : ''}" href="#" data-tab="users">
-            <i class="fas fa-users me-1"></i>유저
-          </a>
-        </li>
-      </ul>
-      <div id="sns-tab-content"></div>
+    const layout = `
+      <div class="app-layout">
+        ${Sidebar.render()}
+        <div class="main-content">
+          ${Header.render('SNS 관리')}
+          <div class="content-container">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link ${currentTab === 'stats' ? 'active' : ''}" href="#" data-tab="stats">
+                  <i class="fas fa-chart-bar me-1"></i>통계
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link ${currentTab === 'reports' ? 'active' : ''}" href="#" data-tab="reports">
+                  <i class="fas fa-flag me-1"></i>신고
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link ${currentTab === 'posts' ? 'active' : ''}" href="#" data-tab="posts">
+                  <i class="fas fa-file-alt me-1"></i>게시글
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link ${currentTab === 'users' ? 'active' : ''}" href="#" data-tab="users">
+                  <i class="fas fa-users me-1"></i>유저
+                </a>
+              </li>
+            </ul>
+            <div id="sns-tab-content"></div>
+          </div>
+        </div>
+      </div>
     `;
 
-    Router.render(layout.outerHTML);
+    Router.render(layout);
 
     // Tab click handlers
     document.querySelectorAll('[data-tab]').forEach(tab => {
@@ -58,7 +64,7 @@ const SnsModerationPage = (() => {
   async function renderStats() {
     const container = document.getElementById('sns-tab-content');
     try {
-      const res = await Api.get('/api/admin/sns-moderation/stats');
+      const res = await API.snsModeration.getStats();
       const stats = res;
 
       container.innerHTML = `
@@ -108,7 +114,7 @@ const SnsModerationPage = (() => {
   async function renderReports() {
     const container = document.getElementById('sns-tab-content');
     try {
-      const res = await Api.get('/api/admin/sns-moderation/reports?status=all');
+      const res = await API.snsModeration.getReports({ status: 'all' });
       const reports = res.reports || [];
 
       if (reports.length === 0) {
@@ -168,7 +174,7 @@ const SnsModerationPage = (() => {
   async function renderPosts() {
     const container = document.getElementById('sns-tab-content');
     try {
-      const res = await Api.get('/api/admin/sns-moderation/posts');
+      const res = await API.snsModeration.getPosts();
       const posts = res.posts || [];
 
       if (posts.length === 0) {
@@ -222,7 +228,7 @@ const SnsModerationPage = (() => {
   async function renderUsers() {
     const container = document.getElementById('sns-tab-content');
     try {
-      const res = await Api.get('/api/admin/sns-moderation/users');
+      const res = await API.snsModeration.getUsers();
       const users = res.users || [];
 
       if (users.length === 0) {
@@ -276,7 +282,7 @@ const SnsModerationPage = (() => {
   async function resolveReport(id) {
     if (!confirm('이 신고를 처리 완료하시겠습니까?')) return;
     try {
-      await Api.put(`/api/admin/sns-moderation/reports/${id}`, { status: 'resolved', admin_notes: 'Resolved by admin' });
+      await API.snsModeration.updateReport(id, { status: 'resolved', admin_notes: 'Resolved by admin' });
       await renderReports();
     } catch (error) {
       alert('처리 실패: ' + error.message);
@@ -286,7 +292,7 @@ const SnsModerationPage = (() => {
   async function dismissReport(id) {
     if (!confirm('이 신고를 무시하시겠습니까?')) return;
     try {
-      await Api.put(`/api/admin/sns-moderation/reports/${id}`, { status: 'dismissed', admin_notes: 'Dismissed by admin' });
+      await API.snsModeration.updateReport(id, { status: 'dismissed', admin_notes: 'Dismissed by admin' });
       await renderReports();
     } catch (error) {
       alert('처리 실패: ' + error.message);
@@ -296,7 +302,7 @@ const SnsModerationPage = (() => {
   async function deletePost(id) {
     if (!confirm('이 게시글을 삭제하시겠습니까?')) return;
     try {
-      await Api.delete(`/api/admin/sns-moderation/posts/${id}`);
+      await API.snsModeration.deletePost(id);
       await renderPosts();
     } catch (error) {
       alert('삭제 실패: ' + error.message);
@@ -306,7 +312,7 @@ const SnsModerationPage = (() => {
   async function banUser(id) {
     if (!confirm('이 유저를 SNS에서 차단하시겠습니까?')) return;
     try {
-      await Api.put(`/api/admin/sns-moderation/users/${id}/ban`);
+      await API.snsModeration.banUser(id);
       await renderUsers();
     } catch (error) {
       alert('차단 실패: ' + error.message);
@@ -316,7 +322,7 @@ const SnsModerationPage = (() => {
   async function unbanUser(id) {
     if (!confirm('이 유저의 SNS 차단을 해제하시겠습니까?')) return;
     try {
-      await Api.put(`/api/admin/sns-moderation/users/${id}/unban`);
+      await API.snsModeration.unbanUser(id);
       await renderUsers();
     } catch (error) {
       alert('해제 실패: ' + error.message);

@@ -62,6 +62,7 @@ func main() {
 	syncHandler := handlers.NewSyncHandler(progressRepo)
 	hangulHandler := handlers.NewHangulHandler(progressRepo)
 	gamificationHandler := handlers.NewGamificationHandler(progressRepo)
+	characterHandler := handlers.NewCharacterHandler(progressRepo)
 
 	// Initialize middleware
 	authMiddleware := middleware.NewAuthMiddleware()
@@ -128,6 +129,16 @@ func main() {
 		api.GET("/lesson-rewards/:userId", gamificationHandler.GetLessonRewards)
 		api.POST("/lemon-harvest", gamificationHandler.HarvestLemon)
 		api.POST("/boss-quiz/complete", gamificationHandler.CompleteBossQuiz)
+
+		// Character customization
+		api.GET("/character/:userId", characterHandler.GetCharacter)
+		api.PUT("/character/equip", characterHandler.EquipItem)
+		api.PUT("/character/skin-color", characterHandler.UpdateSkinColor)
+		api.GET("/inventory/:userId", characterHandler.GetInventory)
+		api.POST("/shop/purchase", characterHandler.PurchaseItem)
+		api.GET("/shop/items", characterHandler.GetShopItems)
+		api.GET("/room/:userId", characterHandler.GetRoom)
+		api.PUT("/room/furniture", characterHandler.UpdateRoomFurniture)
 	}
 
 	// Start server

@@ -1826,7 +1826,8 @@
   "beginner": "초급",
   "intermediate": "중급",
   "advanced": "고급",
-  "maxParticipants": "최대 인원",
+  "stageSlots": "최대 발언자",
+  "anyoneCanListen": "누구나 청취자로 참여할 수 있습니다",
   "createAndJoin": "만들고 참가하기",
   "unmute": "음소거 해제",
   "mute": "음소거",
@@ -1835,5 +1836,66 @@
   "voiceRooms": "음성 대화방",
   "noVoiceRooms": "활성 음성 대화방이 없습니다",
   "createVoiceRoomHint": "대화방을 만들어 대화를 시작하세요!",
-  "createRoom": "방 만들기"
+  "createRoom": "방 만들기",
+  "emojiReaction": "리액션",
+  "gesture": "제스처",
+  "raiseHand": "손들기",
+  "cancelRequest": "취소",
+  "leaveStage": "스테이지 내리기",
+  "pendingRequests": "요청",
+  "typeAMessage": "메시지를 입력하세요...",
+  "stageRequests": "스테이지 요청",
+  "noPendingRequests": "대기 중인 요청이 없습니다",
+  "onStage": "스테이지",
+
+  "batchimDescriptionText": "한국어 받침은 7가지 소리로 발음됩니다.\n여러 받침이 같은 소리로 발음되는 것을 \"받침 대표음\"이라고 합니다.",
+  "syllableInputLabel": "음절 입력",
+  "syllableInputHint": "예: 한",
+  "totalPracticedCount": "총 {count}개 글자 연습 완료",
+  "audioLoadError": "오디오를 불러올 수 없습니다",
+  "writingPracticeCompleteMessage": "쓰기 연습을 완료했습니다!",
+  "sevenRepresentativeSounds": "7가지 대표음",
+
+  "myRoom": "마이룸",
+  "characterEditor": "캐릭터 편집",
+  "roomEditor": "룸 편집",
+  "shop": "상점",
+  "character": "캐릭터",
+  "room": "룸",
+  "hair": "헤어",
+  "eyes": "눈",
+  "brows": "눈썹",
+  "nose": "코",
+  "mouth": "입",
+  "top": "상의",
+  "bottom": "하의",
+  "hatItem": "모자",
+  "accessory": "악세",
+  "wallpaper": "벽지",
+  "floorItem": "바닥",
+  "petItem": "펫",
+  "none": "없음",
+  "noItemsYet": "아이템이 없습니다",
+  "visitShopToGetItems": "상점에서 아이템을 구매하세요!",
+  "alreadyOwned": "이미 보유 중!",
+  "buy": "구매",
+  "purchasedItem": "{name} 구매 완료!",
+  "@purchasedItem": {
+    "description": "Purchase success message",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notEnoughLemons": "레몬이 부족합니다!",
+  "owned": "보유",
+  "free": "무료",
+  "comingSoon": "준비 중!",
+  "balanceLemons": "잔액: {count} 레몬",
+  "@balanceLemons": {
+    "description": "Lemon balance display",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "furnitureItem": "가구"
 }

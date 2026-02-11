@@ -6,19 +6,26 @@ const LIVEKIT_SECRET = process.env.LIVEKIT_SECRET || 'lemon-korean-secret-change
 
 /**
  * Generate a LiveKit access token for a user joining a room
+ * @param {string} roomName - LiveKit room name
+ * @param {number} userId - User ID
+ * @param {string} userName - Display name
+ * @param {string} role - 'speaker' or 'listener'
  */
-const generateToken = async (roomName, userId, userName) => {
+const generateToken = async (roomName, userId, userName, role = 'speaker') => {
   const token = new AccessToken(LIVEKIT_API_KEY, LIVEKIT_SECRET, {
     identity: `user_${userId}`,
     name: userName,
     ttl: '1h',
   });
 
+  const isSpeaker = role === 'speaker';
+
   token.addGrant({
     room: roomName,
     roomJoin: true,
-    canPublish: true,
+    canPublish: isSpeaker,
     canSubscribe: true,
+    canPublishData: isSpeaker,
   });
 
   return await token.toJwt();

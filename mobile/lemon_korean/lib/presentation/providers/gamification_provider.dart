@@ -236,6 +236,26 @@ class GamificationProvider with ChangeNotifier {
     });
   }
 
+  /// Spend lemons (for shop purchases). Returns true if successful.
+  Future<bool> spendLemons(int amount) async {
+    if (amount <= 0 || _totalLemons < amount) return false;
+
+    _totalLemons -= amount;
+    await _saveCurrency();
+
+    await LocalStorage.addToSyncQueue({
+      'type': 'lemon_spend',
+      'data': {
+        'amount': amount,
+        'spent_at': DateTime.now().toIso8601String(),
+      },
+      'created_at': DateTime.now().toIso8601String(),
+    });
+
+    notifyListeners();
+    return true;
+  }
+
   /// Get total lemons earned across all lessons
   int get totalLemonsEarned {
     int total = 0;

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#FFFDE7"/>
+  <circle cx="50" cy="50" r="40" fill="#FFFFF0"/>
+  <!-- Glow effect -->
+  <ellipse cx="50" cy="50" rx="28" ry="24" fill="#FFEB3B" opacity="0.15"/>
+  <!-- Yellow lemon body -->
+  <ellipse cx="50" cy="50" rx="20" ry="15" fill="#FFEB3B" transform="rotate(-10 50 50)"/>
+  <ellipse cx="50" cy="50" rx="17" ry="12" fill="#FFF176" transform="rotate(-10 50 50)"/>
+  <!-- Lemon tip left -->
+  <ellipse cx="33" cy="55" rx="5" ry="3" fill="#FFEB3B" transform="rotate(-25 33 55)"/>
+  <!-- Lemon tip right -->
+  <ellipse cx="67" cy="45" rx="4" ry="2.5" fill="#FFEB3B" transform="rotate(-25 67 45)"/>
+  <!-- Highlight -->
+  <ellipse cx="44" cy="44" rx="6" ry="3.5" fill="#FFFDE7" opacity="0.6" transform="rotate(-20 44 44)"/>
+  <!-- Stem -->
+  <path d="M64 42 Q66 38 68 36" fill="none" stroke="#795548" stroke-width="2" stroke-linecap="round"/>
+  <!-- Leaf -->
+  <path d="M66 38 Q74 30 80 32 Q76 40 66 38" fill="#66BB6A"/>
+  <!-- Sparkle top-right -->
+  <path d="M78 22 L80 18 L82 22 L86 24 L82 26 L80 30 L78 26 L74 24 Z" fill="#FFD54F"/>
+  <!-- Sparkle top-left -->
+  <path d="M22 28 L23.5 25 L25 28 L28 29.5 L25 31 L23.5 34 L22 31 L19 29.5 Z" fill="#FFD54F" opacity="0.7"/>
+  <!-- Sparkle bottom -->
+  <path d="M74 68 L75.5 65.5 L77 68 L79.5 69.5 L77 71 L75.5 73.5 L74 71 L71.5 69.5 Z" fill="#FFD54F" opacity="0.6"/>
+</svg>

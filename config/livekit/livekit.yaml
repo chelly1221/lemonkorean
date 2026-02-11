@@ -1,17 +1,20 @@
 # LiveKit Server Configuration
-# For Lemon Korean voice chat rooms (max 4 participants)
+# For Lemon Korean voice chat rooms (stage + audience system)
 
 port: 7880
 rtc:
   tcp_port: 7881
   port_range_start: 50000
   port_range_end: 50200
-  use_external_ip: false
+  use_external_ip: true      # STUN으로 공인 IP 탐지 → ICE 후보에 포함
+
+turn:
+  enabled: false              # TURN 비활성화 - 직접 연결 방식 사용
 
 room:
   empty_timeout: 300     # 5 minutes before closing empty room
-  max_participants: 4    # Max 4 per voice room
-  auto_create: false     # Rooms created via API only
+  max_participants: 200  # High limit - audience is unlimited, app enforces speaker limits
+  auto_create: true      # Auto-create room when first participant joins with valid token
 
 logging:
   level: info

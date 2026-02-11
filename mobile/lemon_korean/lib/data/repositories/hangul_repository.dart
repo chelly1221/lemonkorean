@@ -218,7 +218,7 @@ class HangulRepository {
     }
   }
 
-  /// Get hangul stats
+  /// Get hangul stats (with local fallback)
   Future<HangulStats?> getStats(int userId) async {
     try {
       final dio = await _createProgressDio();
@@ -227,20 +227,75 @@ class HangulRepository {
       if (response.statusCode == 200 && response.data['stats'] != null) {
         return HangulStats.fromJson(response.data['stats']);
       }
-      return null;
+      return await _calculateLocalStats(userId);
     } catch (e) {
-      AppLogger.w('[HangulRepository] getStats error: $e');
+      AppLogger.w('[HangulRepository] getStats error, using local fallback: $e');
+      return await _calculateLocalStats(userId);
+    }
+  }
+
+  /// Calculate stats from local progress data when server is unavailable
+  Future<HangulStats?> _calculateLocalStats(int userId) async {
+    try {
+      final localProgress = await _getLocalProgress(userId);
+      if (localProgress.isEmpty) return null;
+
+      int totalCorrect = 0;
+      int totalWrong = 0;
+      int learned = 0;
+      int mastered = 0;
+      int perfected = 0;
+      int dueForReview = 0;
+      final now = DateTime.now();
+
+      for (final p in localProgress) {
+        totalCorrect += p.correctCount;
+        totalWrong += p.wrongCount;
+        if (p.masteryLevel >= 1) learned++;
+        if (p.masteryLevel >= 3) mastered++;
+        if (p.masteryLevel >= 5) perfected++;
+        if (p.nextReview == null || p.nextReview!.isBefore(now)) {
+          dueForReview++;
+        }
+      }
+
+      final total = totalCorrect + totalWrong;
+      return HangulStats(
+        totalCharacters: 40,
+        charactersLearned: learned,
+        charactersMastered: mastered,
+        charactersPerfected: perfected,
+        totalCorrect: totalCorrect,
+        totalWrong: totalWrong,
+        accuracyPercent: total > 0 ? (totalCorrect * 100.0 / total) : 0.0,
+        dueForReview: dueForReview,
+      );
+    } catch (e) {
+      AppLogger.w('[HangulRepository] calculateLocalStats error: $e');
       return null;
     }
   }
 
-  /// Record practice result for a character
+  /// Record practice result for a character (offline-first)
   Future<Result<Map<String, dynamic>>> recordPractice({
     required int userId,
     required int characterId,
     required bool isCorrect,
     int? responseTime,
   }) async {
+    final now = DateTime.now();
+
+    // 1. Save locally first (offline-first pattern)
+    final localData = {
+      'user_id': userId,
+      'character_id': characterId,
+      'is_correct': isCorrect,
+      'response_time': responseTime ?? 0,
+      'last_practiced': now.toIso8601String(),
+    };
+    await _updateLocalProgressFromPractice(userId, characterId, isCorrect, now);
+
+    // 2. Try API call in background
     try {
       final dio = await _createProgressDio();
       final response = await dio.post(
@@ -252,21 +307,83 @@ class HangulRepository {
       );
 
       if (response.statusCode == 200) {
-        // Update local progress
+        // Update local progress with server response (authoritative SRS data)
         await _updateLocalProgress(userId, characterId, response.data);
-
         return Success(response.data, isFromCache: false);
       }
 
-      return const Error(
-        'Failed to record practice',
-        code: ErrorCodes.serverError,
-      );
-    } catch (e, stackTrace) {
-      AppLogger.w('recordPractice error', tag: 'HangulRepository', error: e);
+      // Server returned non-200, queue for sync
+      await _addToSyncQueue(userId, characterId, isCorrect, responseTime ?? 0);
+      return Success(localData, isFromCache: true);
+    } catch (e) {
+      AppLogger.w('recordPractice API error, queued for sync',
+          tag: 'HangulRepository', error: e);
 
-      final exception = ExceptionHandler.handle(e, stackTrace);
-      return Error(exception.message, code: exception.code);
+      // 3. API failed - add to sync queue for later retry
+      await _addToSyncQueue(userId, characterId, isCorrect, responseTime ?? 0);
+      return Success(localData, isFromCache: true);
+    }
+  }
+
+  /// Add practice record to sync queue for offline retry
+  Future<void> _addToSyncQueue(
+      int userId, int characterId, bool isCorrect, int responseTime) async {
+    try {
+      await LocalStorage.addToSyncQueue({
+        'type': 'hangul_practice',
+        'endpoint': '/api/progress/hangul/$userId/$characterId',
+        'method': 'POST',
+        'data': {
+          'is_correct': isCorrect,
+          'response_time': responseTime,
+        },
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      AppLogger.w('[HangulRepository] addToSyncQueue error: $e');
+    }
+  }
+
+  /// Update local progress optimistically from practice result
+  Future<void> _updateLocalProgressFromPractice(
+      int userId, int characterId, bool isCorrect, DateTime now) async {
+    try {
+      final key = '${userId}_$characterId';
+      final existing = LocalStorage.getFromBox<Map<dynamic, dynamic>>(
+          _progressBoxName, key);
+
+      if (existing != null) {
+        final updated = Map<String, dynamic>.from(existing);
+        updated['last_practiced'] = now.toIso8601String();
+        if (isCorrect) {
+          updated['correct_count'] = (updated['correct_count'] as int? ?? 0) + 1;
+          updated['streak_count'] = (updated['streak_count'] as int? ?? 0) + 1;
+        } else {
+          updated['wrong_count'] = (updated['wrong_count'] as int? ?? 0) + 1;
+          updated['streak_count'] = 0;
+        }
+        updated['updated_at'] = now.toIso8601String();
+        await LocalStorage.saveToBox(_progressBoxName, key, updated);
+      } else {
+        // Create new local progress entry
+        final newProgress = {
+          'id': 0,
+          'user_id': userId,
+          'character_id': characterId,
+          'mastery_level': isCorrect ? 1 : 0,
+          'correct_count': isCorrect ? 1 : 0,
+          'wrong_count': isCorrect ? 0 : 1,
+          'streak_count': isCorrect ? 1 : 0,
+          'last_practiced': now.toIso8601String(),
+          'ease_factor': 2.5,
+          'interval_days': 1,
+          'created_at': now.toIso8601String(),
+          'updated_at': now.toIso8601String(),
+        };
+        await LocalStorage.saveToBox(_progressBoxName, key, newProgress);
+      }
+    } catch (e) {
+      AppLogger.w('[HangulRepository] updateLocalProgressFromPractice error: $e');
     }
   }
 

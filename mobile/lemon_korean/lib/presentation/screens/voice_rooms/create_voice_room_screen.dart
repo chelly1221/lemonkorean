@@ -19,7 +19,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
   final _titleController = TextEditingController();
   final _topicController = TextEditingController();
   String _selectedLevel = 'all';
-  int _maxParticipants = 4;
+  int _maxSpeakers = 4;
   bool _isCreating = false;
 
   @override
@@ -63,7 +63,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
           ? _topicController.text.trim()
           : null,
       languageLevel: _selectedLevel,
-      maxParticipants: _maxParticipants,
+      maxSpeakers: _maxSpeakers,
     );
 
     if (mounted) {
@@ -171,18 +171,26 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
 
             const SizedBox(height: AppConstants.paddingLarge),
 
-            // Max participants
+            // Stage slots (max speakers)
             Text(
-              l10n?.maxParticipants ?? 'Max Participants',
+              l10n?.stageSlots ?? 'Stage Slots',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: AppConstants.fontSizeMedium,
               ),
             ),
+            const SizedBox(height: 4),
+            Text(
+              l10n?.anyoneCanListen ?? 'Anyone can join to listen',
+              style: TextStyle(
+                fontSize: AppConstants.fontSizeSmall,
+                color: Colors.grey.shade500,
+              ),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [2, 3, 4].map((count) {
-                final isSelected = _maxParticipants == count;
+                final isSelected = _maxSpeakers == count;
                 return Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: ChoiceChip(
@@ -191,7 +199,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
                     selectedColor: AppConstants.primaryColor,
                     onSelected: (selected) {
                       if (selected) {
-                        setState(() => _maxParticipants = count);
+                        setState(() => _maxSpeakers = count);
                       }
                     },
                   ),

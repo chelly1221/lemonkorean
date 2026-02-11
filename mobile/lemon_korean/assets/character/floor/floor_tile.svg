@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <rect y="260" width="300" height="140" fill="#ECF0F1"/>
+  <!-- Tile grid -->
+  <line x1="0" y1="295" x2="300" y2="295" stroke="#D5DBDB" stroke-width="1"/>
+  <line x1="0" y1="330" x2="300" y2="330" stroke="#D5DBDB" stroke-width="1"/>
+  <line x1="0" y1="365" x2="300" y2="365" stroke="#D5DBDB" stroke-width="1"/>
+  <line x1="60" y1="260" x2="60" y2="400" stroke="#D5DBDB" stroke-width="1"/>
+  <line x1="120" y1="260" x2="120" y2="400" stroke="#D5DBDB" stroke-width="1"/>
+  <line x1="180" y1="260" x2="180" y2="400" stroke="#D5DBDB" stroke-width="1"/>
+  <line x1="240" y1="260" x2="240" y2="400" stroke="#D5DBDB" stroke-width="1"/>
+</svg>

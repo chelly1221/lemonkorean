@@ -415,6 +415,8 @@ services:
       context: ./services/sns
       dockerfile: Dockerfile
     container_name: lemon-sns-service
+    extra_hosts:
+      - "livekit:host-gateway"
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3007
@@ -454,6 +456,7 @@ services:
   livekit:
     image: livekit/livekit-server:latest
     container_name: lemon-livekit
+    network_mode: host
     command:
       - --config
       - /etc/livekit.yaml
@@ -461,12 +464,6 @@ services:
       - "lemon-korean-key: ${LIVEKIT_SECRET:-lemon-korean-secret-change-me}"
     volumes:
       - ./config/livekit/livekit.yaml:/etc/livekit.yaml:ro
-    ports:
-      - "7880:7880"
-      - "7881:7881"
-      - "7882:7882/udp"
-    networks:
-      - lemon-network
     restart: unless-stopped
 
   # ==================== API Gateway & Proxy ====================
@@ -477,6 +474,8 @@ services:
   nginx:
     build: ./nginx
     container_name: lemon-nginx
+    extra_hosts:
+      - "livekit:host-gateway"
     user: "1000:1000"
     environment:
       NGINX_MODE: ${NGINX_MODE:-development}

@@ -136,20 +136,60 @@ class _WritingCanvasState extends State<WritingCanvas>
   }
 
   double _calculateAccuracy() {
-    // Simplified accuracy calculation
-    // In a real implementation, this would compare with reference strokes
     if (_strokes.isEmpty) return 0.0;
 
-    // For now, return a placeholder based on stroke count and coverage
-    final totalPoints =
-        _strokes.fold<int>(0, (sum, stroke) => sum + stroke.length);
-    final minExpectedPoints = 50;
+    // Collect all points
+    final allPoints = <StrokePoint>[];
+    for (final stroke in _strokes) {
+      allPoints.addAll(stroke);
+    }
+    if (allPoints.isEmpty) return 0.0;
 
-    if (totalPoints < minExpectedPoints) {
-      return (totalPoints / minExpectedPoints).clamp(0.0, 1.0);
+    // Find bounding box of all points
+    double minX = double.infinity, minY = double.infinity;
+    double maxX = double.negativeInfinity, maxY = double.negativeInfinity;
+    for (final p in allPoints) {
+      if (p.x < minX) minX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y > maxY) maxY = p.y;
     }
 
-    return 0.8 + (0.2 * (totalPoints / 200).clamp(0.0, 1.0));
+    final width = maxX - minX;
+    final height = maxY - minY;
+
+    // 1. Stroke count score (40%): Korean chars typically have 1-6 strokes.
+    //    Penalize too few or too many strokes.
+    final strokeCount = _strokes.length;
+    double strokeScore;
+    if (strokeCount >= 1 && strokeCount <= 8) {
+      strokeScore = 1.0;
+    } else if (strokeCount > 8) {
+      strokeScore = (8.0 / strokeCount).clamp(0.3, 1.0);
+    } else {
+      strokeScore = 0.0;
+    }
+
+    // 2. Area coverage (30%): Divide canvas into 3x3 grid, check distribution
+    final gridSize = 3;
+    final coveredCells = <int>{};
+    for (final p in allPoints) {
+      if (width < 10 || height < 10) continue;
+      final col = ((p.x - minX) / width * gridSize).floor().clamp(0, gridSize - 1);
+      final row = ((p.y - minY) / height * gridSize).floor().clamp(0, gridSize - 1);
+      coveredCells.add(row * gridSize + col);
+    }
+    // Expect at least 4 of 9 cells covered for a proper character
+    final coverageScore = (coveredCells.length / 4.0).clamp(0.0, 1.0);
+
+    // 3. Point density (30%): Minimum points expected for meaningful strokes
+    final totalPoints = allPoints.length;
+    final densityScore = (totalPoints / 80.0).clamp(0.0, 1.0);
+
+    // Weighted combination
+    final accuracy =
+        strokeScore * 0.4 + coverageScore * 0.3 + densityScore * 0.3;
+    return accuracy.clamp(0.0, 1.0);
   }
 
   @override
@@ -470,7 +510,28 @@ class _HangulWritingScreenState extends State<HangulWritingScreen> {
   double _accuracy = 0.0;
   bool _stepCompleted = false;
 
-  void _nextStep() {
+  Future<void> _nextStep() async {
+    if (_currentMode == WritingMode.freehand) {
+      // Practice complete - show completion dialog
+      final l10n = AppLocalizations.of(context)!;
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(l10n.practiceComplete),
+          content: Text(l10n.writingPracticeCompleteMessage),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: Text(l10n.confirm),
+            ),
+          ],
+        ),
+      );
+      widget.onComplete?.call();
+      if (mounted) Navigator.pop(context);
+      return;
+    }
+
     setState(() {
       _stepCompleted = false;
       _accuracy = 0.0;
@@ -483,10 +544,7 @@ class _HangulWritingScreenState extends State<HangulWritingScreen> {
           _currentMode = WritingMode.freehand;
           break;
         case WritingMode.freehand:
-          // Practice complete
-          widget.onComplete?.call();
-          Navigator.pop(context);
-          return;
+          break; // handled above
       }
     });
   }

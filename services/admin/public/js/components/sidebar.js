@@ -42,8 +42,7 @@ const Sidebar = (() => {
         { path: '/app-theme', icon: 'fa-mobile-alt', label: '앱 테마' },
         { path: '/gamification', icon: 'fa-lemon', label: '게임화 설정' },
         { path: '/sns-moderation', icon: 'fa-comments', label: 'SNS 관리' },
-        { path: '/storage-reset', icon: 'fa-trash-restore', label: '스토리지 리셋' },
-        { path: '/cache-management', icon: 'fa-broom', label: '캐시 관리' },
+        { path: '/character-items', icon: 'fa-user-edit', label: '캐릭터 아이템' },
         { path: '/docs', icon: 'fa-book', label: '개발 문서' },
         { path: '/dev-notes', icon: 'fa-sticky-note', label: '개발노트' }
       ]

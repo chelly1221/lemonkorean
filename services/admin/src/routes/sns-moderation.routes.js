@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const snsModerationController = require('../controllers/sns-moderation.controller');
+const { requireAuth, requireAdmin } = require('../middleware/auth.middleware');
 
-// All routes require admin auth (handled by middleware in index.js)
+// All routes require admin auth
+router.use(requireAuth, requireAdmin);
 
 // Reports
 router.get('/reports', snsModerationController.getReports);

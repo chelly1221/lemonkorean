@@ -232,23 +232,60 @@ class HangulProvider with ChangeNotifier {
 
     bool success = false;
     result.when(
-      success: (data, _) {
+      success: (data, isFromCache) {
         success = true;
-        // Update local progress from response
-        if (data['mastery_level'] != null) {
-          final existing = _progressMap[characterId];
-          if (existing != null) {
-            final updated = existing.copyWith(
-              masteryLevel: data['mastery_level'] as int?,
-              correctCount: isCorrect
-                  ? existing.correctCount + 1
-                  : existing.correctCount,
-              wrongCount: !isCorrect
-                  ? existing.wrongCount + 1
-                  : existing.wrongCount,
-            );
-            _progressMap[characterId] = updated;
+        final existing = _progressMap[characterId];
+        if (existing != null) {
+          // Extract SRS data from server response (inside 'srs' object)
+          final srs = data['srs'] as Map<String, dynamic>?;
+
+          final updated = existing.copyWith(
+            masteryLevel: srs?['mastery_level'] as int? ?? existing.masteryLevel,
+            correctCount: isCorrect
+                ? existing.correctCount + 1
+                : existing.correctCount,
+            wrongCount: !isCorrect
+                ? existing.wrongCount + 1
+                : existing.wrongCount,
+            streakCount: isCorrect ? existing.streakCount + 1 : 0,
+            easeFactor: (srs?['easiness_factor'] as num?)?.toDouble() ??
+                existing.easeFactor,
+            intervalDays: srs?['interval_days'] as int? ?? existing.intervalDays,
+            nextReview: srs?['next_review_at'] != null
+                ? DateTime.tryParse(srs!['next_review_at'].toString())
+                : existing.nextReview,
+            lastPracticed: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
+          _progressMap[characterId] = updated;
+
+          // Sync _progress list with _progressMap
+          final idx = _progress.indexWhere((p) => p.characterId == characterId);
+          if (idx >= 0) {
+            _progress[idx] = updated;
           }
+        } else {
+          // No existing progress - create new entry
+          final srs = data['srs'] as Map<String, dynamic>?;
+          final newProgress = HangulProgressModel(
+            id: 0,
+            userId: userId,
+            characterId: characterId,
+            masteryLevel: srs?['mastery_level'] as int? ?? (isCorrect ? 1 : 0),
+            correctCount: isCorrect ? 1 : 0,
+            wrongCount: isCorrect ? 0 : 1,
+            streakCount: isCorrect ? 1 : 0,
+            easeFactor: (srs?['easiness_factor'] as num?)?.toDouble() ?? 2.5,
+            intervalDays: srs?['interval_days'] as int? ?? 1,
+            nextReview: srs?['next_review_at'] != null
+                ? DateTime.tryParse(srs!['next_review_at'].toString())
+                : null,
+            lastPracticed: DateTime.now(),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
+          _progressMap[characterId] = newProgress;
+          _progress.add(newProgress);
         }
       },
       error: (message, code, _) {

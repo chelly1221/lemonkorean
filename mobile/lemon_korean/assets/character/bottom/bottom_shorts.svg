@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <!-- Shorts -->
+  <path d="M100 300 L95 308 L110 345 L148 345 L150 315 L152 345 L190 345 L205 308 L200 300 Z" fill="#2ECC71"/>
+  <!-- Waistband -->
+  <rect x="98" y="298" width="104" height="8" rx="2" fill="#27AE60"/>
+  <!-- Seam -->
+  <line x1="150" y1="308" x2="150" y2="345" stroke="#229954" stroke-width="1"/>
+</svg>

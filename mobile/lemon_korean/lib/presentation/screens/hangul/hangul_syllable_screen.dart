@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/korean_tts_helper.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'widgets/pronunciation_player.dart';
 
@@ -106,14 +107,20 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
     final syllable = _combinedSyllable;
     if (syllable.isEmpty) return;
 
-    // In a real implementation, this would play audio from the server
-    // For now, we'll show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Playing: $syllable'),
-        duration: const Duration(seconds: 1),
-      ),
-    );
+    try {
+      await KoreanTtsHelper.playKoreanText(
+        syllable,
+        _audioPlayer,
+        speed: _playbackSpeed.value,
+      );
+    } catch (e) {
+      if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.audioLoadError)),
+        );
+      }
+    }
   }
 
   void _clearSelection() {
@@ -452,8 +459,8 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
           // Input field
           TextField(
             decoration: InputDecoration(
-              labelText: '음절 입력',
-              hintText: '예: 한',
+              labelText: l10n.syllableInputLabel,
+              hintText: l10n.syllableInputHint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

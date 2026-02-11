@@ -2431,7 +2431,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get advanced => '上級';
 
   @override
-  String get maxParticipants => '最大人数';
+  String get stageSlots => 'ステージ枠';
+
+  @override
+  String get anyoneCanListen => '誰でもリスナーとして参加できます';
 
   @override
   String get createAndJoin => '作成して参加';
@@ -2449,6 +2452,36 @@ class AppLocalizationsJa extends AppLocalizations {
   String get closeRoom => 'ルームを閉じる';
 
   @override
+  String get emojiReaction => 'リアクション';
+
+  @override
+  String get gesture => 'ジェスチャー';
+
+  @override
+  String get raiseHand => '挙手';
+
+  @override
+  String get cancelRequest => 'キャンセル';
+
+  @override
+  String get leaveStage => 'ステージを降りる';
+
+  @override
+  String get pendingRequests => 'リクエスト';
+
+  @override
+  String get typeAMessage => 'メッセージを入力...';
+
+  @override
+  String get stageRequests => 'ステージリクエスト';
+
+  @override
+  String get noPendingRequests => 'リクエストはありません';
+
+  @override
+  String get onStage => 'ステージ上';
+
+  @override
   String get voiceRooms => 'ボイスルーム';
 
   @override
@@ -2459,4 +2492,122 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get createRoom => 'ルーム作成';
+
+  @override
+  String get batchimDescriptionText =>
+      '韓国語のパッチム（받침）は7つの音で発音されます。\n複数のパッチムが同じ音で発音されることを「パッチム代表音」と言います。';
+
+  @override
+  String get syllableInputLabel => '音節入力';
+
+  @override
+  String get syllableInputHint => '例：한';
+
+  @override
+  String totalPracticedCount(int count) {
+    return '合計 $count 文字練習完了';
+  }
+
+  @override
+  String get audioLoadError => '音声を読み込めませんでした';
+
+  @override
+  String get writingPracticeCompleteMessage => '書き取り練習完了！';
+
+  @override
+  String get sevenRepresentativeSounds => '7つの代表音';
+
+  @override
+  String get myRoom => 'マイルーム';
+
+  @override
+  String get characterEditor => 'キャラクター編集';
+
+  @override
+  String get roomEditor => 'ルーム編集';
+
+  @override
+  String get shop => 'ショップ';
+
+  @override
+  String get character => 'キャラクター';
+
+  @override
+  String get room => 'ルーム';
+
+  @override
+  String get hair => 'ヘアー';
+
+  @override
+  String get eyes => '目';
+
+  @override
+  String get brows => '眉';
+
+  @override
+  String get nose => '鼻';
+
+  @override
+  String get mouth => '口';
+
+  @override
+  String get top => 'トップス';
+
+  @override
+  String get bottom => 'ボトムス';
+
+  @override
+  String get hatItem => '帽子';
+
+  @override
+  String get accessory => 'アクセ';
+
+  @override
+  String get wallpaper => '壁紙';
+
+  @override
+  String get floorItem => '床';
+
+  @override
+  String get petItem => 'ペット';
+
+  @override
+  String get none => 'なし';
+
+  @override
+  String get noItemsYet => 'アイテムなし';
+
+  @override
+  String get visitShopToGetItems => 'ショップでアイテムを手に入れよう！';
+
+  @override
+  String get alreadyOwned => '所持済み！';
+
+  @override
+  String get buy => '購入';
+
+  @override
+  String purchasedItem(String name) {
+    return '$nameを購入！';
+  }
+
+  @override
+  String get notEnoughLemons => 'レモンが足りません！';
+
+  @override
+  String get owned => '所持';
+
+  @override
+  String get free => '無料';
+
+  @override
+  String get comingSoon => '近日公開！';
+
+  @override
+  String balanceLemons(int count) {
+    return '残高: $countレモン';
+  }
+
+  @override
+  String get furnitureItem => '家具';
 }
