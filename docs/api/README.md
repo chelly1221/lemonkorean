@@ -16,6 +16,11 @@ Lemon Korean API 문서에 오신 것을 환영합니다. 이 디렉토리는 Le
 | **Media Service** | 3004 | [MEDIA_API.md](./MEDIA_API.md) | 이미지 및 오디오 파일 서빙 |
 | **Analytics Service** | 3005 | [ANALYTICS_API.md](./ANALYTICS_API.md) | 로그 분석, 통계 API |
 | **Admin Service** | 3006 | [ADMIN_API.md](./ADMIN_API.md) | 관리자 대시보드 REST API |
+| **SNS Service** | 3007 | [SNS_API.md](./SNS_API.md) | 커뮤니티 피드, 게시물, 댓글, 팔로우 |
+
+**참고**:
+- SNS Service는 DM 및 음성 대화방 기능도 포함합니다 ([DM_API.md](./DM_API.md), [VOICE_ROOMS_API.md](./VOICE_ROOMS_API.md))
+- 캐릭터 커스터마이징은 Progress/Admin Service에서 제공됩니다 ([CHARACTER_SYSTEM_API.md](./CHARACTER_SYSTEM_API.md))
 
 ---
 
@@ -40,6 +45,9 @@ Progress Service:  https://lemon.3chan.kr/api/progress
 Media Service:     https://lemon.3chan.kr/media
 Analytics Service: https://lemon.3chan.kr/api/analytics
 Admin Service:     https://lemon.3chan.kr/api/admin
+SNS Service:       https://lemon.3chan.kr/api/sns
+Socket.IO:         wss://lemon.3chan.kr/socket.io
+LiveKit:           wss://lemon.3chan.kr:7880
 Admin Dashboard:   https://lemon.3chan.kr/admin/
 Web App:           https://lemon.3chan.kr/app/
 ```
@@ -604,7 +612,7 @@ API 문제나 질문이 있는 경우:
 
 ---
 
-**마지막 업데이트**: 2026-02-03
+**마지막 업데이트**: 2026-02-11
 **API 버전**: 1.0.0
 
 **중국어권 한국어 학습자를 위해 만들어졌습니다**

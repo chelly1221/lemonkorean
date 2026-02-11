@@ -108,11 +108,26 @@ lib/
 │   │   ├── dm/                     # DM (1:1 메시징)
 │   │   │   ├── dm_list_screen.dart         # 대화 목록
 │   │   │   └── dm_chat_screen.dart         # 채팅 화면
-│   │   └── voice_rooms/            # 음성 대화방
-│   │       ├── voice_room_list_screen.dart  # 방 목록
-│   │       └── voice_room_screen.dart       # 음성 대화 화면
-│   ├── providers/                  # 상태 관리 (15개 Providers)
+│   │   ├── voice_rooms/            # 음성 대화방
+│   │   │   ├── voice_room_list_screen.dart  # 방 목록
+│   │   │   ├── voice_room_screen.dart       # 음성 대화 화면
+│   │   │   └── widgets/                     # 6개 위젯
+│   │   │       ├── stage_area_widget.dart
+│   │   │       ├── audience_bar_widget.dart
+│   │   │       ├── voice_chat_widget.dart
+│   │   │       ├── stage_controls_widget.dart
+│   │   │       ├── reaction_tray_widget.dart
+│   │   │       └── gesture_tray_widget.dart
+│   │   └── my_room/                # 캐릭터 커스터마이징 & 마이룸
+│   │       ├── my_room_screen.dart          # 마이룸 메인
+│   │       ├── character_editor_screen.dart # 캐릭터 편집
+│   │       ├── room_editor_screen.dart      # 방 꾸미기
+│   │       ├── shop_screen.dart             # 아이템 상점
+│   │       └── character_detail_screen.dart # 아이템 상세
+│   ├── providers/                  # 상태 관리 (16개 Providers)
+│   │   └── character_provider.dart # 캐릭터 상태 관리
 │   └── widgets/                    # 재사용 위젯
+│       └── character_avatar_widget.dart # 캐릭터 아바타
 ├── l10n/                           # 다국어 지원 (6개 언어)
 │   ├── app_zh.arb                  # 중국어 간체
 │   ├── app_zh_TW.arb               # 중국어 번체
@@ -124,7 +139,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 210+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방)
+**총 Dart 파일 수**: 230+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방 + 캐릭터 커스터마이징)
 
 ---
 

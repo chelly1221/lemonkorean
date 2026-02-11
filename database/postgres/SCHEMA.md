@@ -4,7 +4,7 @@ PostgreSQL 15+ compatible schema documentation for the Lemon Korean learning pla
 
 ## Overview
 
-The database consists of 41+ tables organized into the following functional areas:
+The database consists of 48+ tables organized into the following functional areas:
 
 - **User Management**: Users, sessions, authentication
 - **Lesson Content**: Lessons, vocabulary, grammar, dialogues
@@ -14,6 +14,7 @@ The database consists of 41+ tables organized into the following functional area
 - **Admin Tools**: Audit logs, web deployment tracking
 - **Internationalization**: Multi-language content support (6 languages)
 - **Gamification**: Lemon rewards, currency, boss quizzes, settings (5 tables)
+- **Character Customization**: Character items catalog, user characters, inventory, room furniture (4 tables)
 - **SNS/Community**: Posts, comments, likes, follows, reports, blocks (6 tables)
 - **Direct Messaging**: DM conversations, messages, read receipts (3 tables)
 - **Voice Rooms**: Voice chat rooms with LiveKit integration (2 tables)
@@ -370,6 +371,7 @@ User progress for hangul characters (SRS-based).
 | correct_count | INTEGER | DEFAULT 0 | Correct answer count |
 | wrong_count | INTEGER | DEFAULT 0 | Wrong answer count |
 | streak_count | INTEGER | DEFAULT 0 | Current correct streak |
+| repetition_count | INTEGER | DEFAULT 0 | Total number of repetitions (for accurate SRS) |
 | last_practiced | TIMESTAMP | | Last practice time |
 | next_review | TIMESTAMP | | Next SRS review time |
 | ease_factor | DECIMAL(3,2) | DEFAULT 2.50 | SM-2 algorithm ease factor |
@@ -384,6 +386,8 @@ User progress for hangul characters (SRS-based).
 - `idx_hangul_progress_mastery` on mastery_level
 - `idx_hangul_progress_next_review` on next_review
 - `idx_hangul_progress_user_review` on (user_id, next_review)
+
+**Note:** Migration 015 added `repetition_count` for accurate SRS algorithm tracking.
 
 ---
 
@@ -1087,19 +1091,20 @@ Per-user read tracking for each conversation.
 
 ### voice_rooms
 
-Voice chat room sessions with LiveKit integration (max 4 participants).
+Voice chat room sessions with LiveKit integration. Supports stage/audience system with limited speakers and unlimited listeners.
 
 | Column | Type | Constraints | Description |
 |--------|------|-------------|-------------|
 | id | SERIAL | PRIMARY KEY | Room ID |
-| creator_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Room creator |
+| creator_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Room creator (host) |
 | title | VARCHAR(100) | NOT NULL | Room title |
 | topic | VARCHAR(200) | | Discussion topic |
 | language_level | VARCHAR(20) | DEFAULT 'all', CHECK (beginner/intermediate/advanced/all) | Target level |
-| max_participants | INTEGER | NOT NULL, DEFAULT 4, CHECK (2-4) | Max participants |
+| max_speakers | INTEGER | NOT NULL, DEFAULT 4, CHECK (2-10) | Max speakers on stage |
 | livekit_room_name | VARCHAR(100) | NOT NULL, UNIQUE | LiveKit room identifier |
 | status | VARCHAR(20) | NOT NULL, DEFAULT 'active', CHECK (active/closed) | Room status |
-| participant_count | INTEGER | NOT NULL, DEFAULT 0 | Current participant count |
+| speaker_count | INTEGER | NOT NULL, DEFAULT 0 | Current speaker count |
+| listener_count | INTEGER | NOT NULL, DEFAULT 0 | Current listener count |
 | created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Creation time |
 | closed_at | TIMESTAMPTZ | | Closure time |
 
@@ -1107,17 +1112,20 @@ Voice chat room sessions with LiveKit integration (max 4 participants).
 - `idx_voice_rooms_status` on (status, created_at DESC)
 - `idx_voice_rooms_creator` on creator_id
 
+**Note:** Migration 014 renamed `max_participants` → `max_speakers` and `participant_count` → `speaker_count`, and added `listener_count`.
+
 ---
 
 ### voice_room_participants
 
-Current and past voice room participants.
+Current and past voice room participants with stage/audience roles.
 
 | Column | Type | Constraints | Description |
 |--------|------|-------------|-------------|
 | id | SERIAL | PRIMARY KEY | Participant ID |
 | room_id | INTEGER | NOT NULL, FK(voice_rooms.id) CASCADE | Room reference |
 | user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| role | VARCHAR(10) | NOT NULL, DEFAULT 'listener', CHECK (speaker/listener) | Participant role |
 | is_muted | BOOLEAN | NOT NULL, DEFAULT FALSE | Mute status |
 | joined_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Join time |
 | left_at | TIMESTAMPTZ | | Leave time (NULL = active) |
@@ -1125,7 +1133,141 @@ Current and past voice room participants.
 **Indexes:**
 - `idx_voice_room_participants_room` on room_id
 - `idx_voice_room_participants_user` on user_id
+- `idx_voice_room_participants_role` on (room_id, role) WHERE left_at IS NULL
 - `UNIQUE idx_voice_room_active_participant` on (room_id, user_id) WHERE left_at IS NULL
+
+**Note:** Migration 014 added `role` column to distinguish speakers (can publish audio) from listeners (can only subscribe).
+
+---
+
+### voice_room_messages
+
+Ephemeral chat messages within voice rooms (deleted when room closes).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Message ID |
+| room_id | INTEGER | NOT NULL, FK(voice_rooms.id) CASCADE | Room reference |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Sender reference |
+| content | TEXT | NOT NULL | Message text |
+| message_type | VARCHAR(10) | NOT NULL, DEFAULT 'text', CHECK (text/system) | Message type |
+| created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Message time |
+
+**Indexes:**
+- `idx_voice_room_messages_room_time` on (room_id, created_at DESC)
+
+**Note:** Messages are automatically deleted when the room closes. System messages are auto-generated (e.g., "Alice joined the stage").
+
+---
+
+### voice_room_stage_requests
+
+Raise-hand requests from listeners to join the stage as speakers.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Request ID |
+| room_id | INTEGER | NOT NULL, FK(voice_rooms.id) CASCADE | Room reference |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Requester reference |
+| status | VARCHAR(10) | NOT NULL, DEFAULT 'pending', CHECK (pending/approved/denied/cancelled) | Request status |
+| created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Request time |
+| resolved_at | TIMESTAMPTZ | | Resolution time |
+
+**Constraints:**
+- `UNIQUE(room_id, user_id)` - One pending request per user per room
+
+**Note:** Requests are cancelled automatically if the user leaves the room.
+
+---
+
+## Character Customization Tables
+
+### character_items
+
+Item catalog for character customization (managed by admin). Includes character parts, clothing, pets, wallpapers, floors, and furniture.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Item ID |
+| category | VARCHAR(30) | NOT NULL, CHECK | Item category (body, hair, eyes, eyebrows, nose, mouth, top, bottom, shoes, hat, accessory, pet, wallpaper, floor, furniture) |
+| name | VARCHAR(100) | NOT NULL | Item display name |
+| description | TEXT | | Item description |
+| asset_key | VARCHAR(200) | NOT NULL | Asset path (bundled) or MinIO key |
+| asset_type | VARCHAR(10) | DEFAULT 'svg', CHECK (svg/png) | Asset file type |
+| is_bundled | BOOLEAN | DEFAULT false | true = app-bundled asset, false = MinIO |
+| render_order | INTEGER | DEFAULT 0 | Layer stacking order (body=0, eyes=20, hair=40, top=50, etc.) |
+| price | INTEGER | DEFAULT 0 | Price in lemons (0 = free) |
+| rarity | VARCHAR(20) | DEFAULT 'common', CHECK | Rarity tier (common, rare, epic, legendary) |
+| is_default | BOOLEAN | DEFAULT false | Auto-equipped for new users |
+| is_active | BOOLEAN | DEFAULT true | Availability in shop |
+| metadata | JSONB | DEFAULT '{}' | Category-specific data (color_hex, position, etc.) |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Creation time |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+
+**Indexes:**
+- `idx_character_items_category` on category
+- `idx_character_items_active` on is_active WHERE is_active = true
+
+---
+
+### user_characters
+
+Currently equipped character items per user (one row per user).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| user_id | INTEGER | PRIMARY KEY, FK(users.id) CASCADE | User reference |
+| body_item_id | INTEGER | FK(character_items.id) | Equipped body item |
+| skin_color | VARCHAR(7) | DEFAULT '#FFDBB4' | Skin color hex |
+| hair_item_id | INTEGER | FK(character_items.id) | Equipped hair |
+| eyes_item_id | INTEGER | FK(character_items.id) | Equipped eyes |
+| eyebrows_item_id | INTEGER | FK(character_items.id) | Equipped eyebrows |
+| nose_item_id | INTEGER | FK(character_items.id) | Equipped nose |
+| mouth_item_id | INTEGER | FK(character_items.id) | Equipped mouth |
+| top_item_id | INTEGER | FK(character_items.id) | Equipped top clothing |
+| bottom_item_id | INTEGER | FK(character_items.id) | Equipped bottom clothing |
+| shoes_item_id | INTEGER | FK(character_items.id) | Equipped shoes |
+| hat_item_id | INTEGER | FK(character_items.id) | Equipped hat |
+| accessory_item_id | INTEGER | FK(character_items.id) | Equipped accessory |
+| pet_item_id | INTEGER | FK(character_items.id) | Equipped pet |
+| wallpaper_item_id | INTEGER | FK(character_items.id) | Room wallpaper |
+| floor_item_id | INTEGER | FK(character_items.id) | Room floor |
+| updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+
+---
+
+### user_inventory
+
+Items owned by users (purchased or acquired as defaults).
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Inventory entry ID |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| item_id | INTEGER | NOT NULL, FK(character_items.id) CASCADE | Item reference |
+| acquired_at | TIMESTAMPTZ | DEFAULT NOW() | Acquisition time |
+
+**Indexes:**
+- `idx_user_inventory_user` on user_id
+- UNIQUE on (user_id, item_id)
+
+---
+
+### user_room_furniture
+
+Furniture placement positions in user's room.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Placement ID |
+| user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | User reference |
+| item_id | INTEGER | NOT NULL, FK(character_items.id) CASCADE | Furniture item |
+| position_x | REAL | DEFAULT 0.5 | X position (0.0-1.0 ratio) |
+| position_y | REAL | DEFAULT 0.5 | Y position (0.0-1.0 ratio) |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Placement time |
+
+**Indexes:**
+- `idx_user_room_furniture_user` on user_id
 
 ---
 
@@ -1145,6 +1287,7 @@ Current and past voice room participants.
 | 010 | 2026-02-10 | Add SNS tables (user_follows, sns_posts, post_likes, sns_comments, sns_reports, user_blocks) |
 | 011 | 2026-02-10 | Add DM tables (dm_conversations, dm_messages, dm_read_receipts) |
 | 012 | 2026-02-10 | Add voice room tables (voice_rooms, voice_room_participants) |
+| 013 | 2026-02-11 | Add character customization tables (character_items, user_characters, user_inventory, user_room_furniture) |
 
 ---
 
@@ -1182,4 +1325,4 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 
 ---
 
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-02-11

@@ -805,6 +805,15 @@ psql -U 3chan -d lemon_korean -f database/postgres/migrations/011_add_dm_tables.
 
 # 7. 음성 대화방 테이블 추가
 psql -U 3chan -d lemon_korean -f database/postgres/migrations/012_add_voice_rooms.sql
+
+# 8. 캐릭터 커스터마이징 시스템 (2026-02-11)
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/013_add_character_system.sql
+
+# 9. 음성 대화방 무대/청중 시스템 (2026-02-11)
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/014_voice_room_stage_system.sql
+
+# 10. 한글 SRS 반복 횟수 추적 (2026-02-11)
+psql -U 3chan -d lemon_korean -f database/postgres/migrations/015_add_hangul_repetition_count.sql
 ```
 
 ### 배포 URL
