@@ -8,6 +8,7 @@ import '../../core/services/socket_service.dart';
 import '../../core/utils/app_logger.dart';
 import '../../data/models/voice_room_model.dart';
 import '../../data/repositories/voice_room_repository.dart';
+import '../../game/core/game_bridge.dart';
 
 /// State for a character on the stage
 class StageCharacterState {
@@ -153,6 +154,34 @@ class VoiceRoomProvider with ChangeNotifier {
   bool get isCreator =>
       _activeRoom != null && _activeRoom!.creatorId == _myUserId;
   int? _myUserId;
+
+  // GameBridge for Flame integration
+  GameBridge? _gameBridge;
+  StreamSubscription? _bridgeFlutterSub;
+
+  /// Lazily creates and returns the GameBridge for voice stage.
+  GameBridge get gameBridge {
+    _gameBridge ??= GameBridge();
+    return _gameBridge!;
+  }
+
+  /// Attach the bridge and start listening for Flame → Flutter events.
+  void attachGameBridge() {
+    _bridgeFlutterSub?.cancel();
+    _bridgeFlutterSub = gameBridge.flutterEvents.listen((event) {
+      if (event is LocalCharacterMoved) {
+        updateMyStagePosition(event.x, event.y, event.direction);
+      }
+    });
+  }
+
+  /// Detach the bridge and clean up.
+  void detachGameBridge() {
+    _bridgeFlutterSub?.cancel();
+    _bridgeFlutterSub = null;
+    _gameBridge?.dispose();
+    _gameBridge = null;
+  }
 
   void setMyUserId(int userId) {
     _myUserId = userId;
@@ -326,6 +355,8 @@ class VoiceRoomProvider with ChangeNotifier {
           _speakers.removeWhere((p) => p.userId == userId);
           _listeners.removeWhere((p) => p.userId == userId);
           _stageCharacters.remove(userId);
+          // Forward to Flame
+          _gameBridge?.sendToGame(RemoteCharacterRemoved(userId: userId));
           notifyListeners();
         }
       }),
@@ -352,6 +383,11 @@ class VoiceRoomProvider with ChangeNotifier {
               if (_stageCharacters.containsKey(userId)) {
                 _stageCharacters[userId]!.isMuted = muted;
               }
+              // Forward to Flame
+              _gameBridge?.sendToGame(MuteStateChanged(
+                userId: userId,
+                isMuted: muted,
+              ));
               notifyListeners();
             }
           }
@@ -428,6 +464,13 @@ class VoiceRoomProvider with ChangeNotifier {
             equippedItems: speaker.equippedItems,
             skinColor: speaker.skinColor,
           );
+          // Forward to Flame
+          _gameBridge?.sendToGame(RemoteCharacterAdded(
+            userId: userId,
+            name: speaker.name,
+            equippedItems: speaker.equippedItems,
+            skinColor: speaker.skinColor,
+          ));
         } else {
           // Move from speakers to listeners
           final speakerIdx = _speakers.indexWhere((p) => p.userId == userId);
@@ -442,6 +485,8 @@ class VoiceRoomProvider with ChangeNotifier {
             role: 'listener',
           ));
           _stageCharacters.remove(userId);
+          // Forward to Flame
+          _gameBridge?.sendToGame(RemoteCharacterRemoved(userId: userId));
         }
 
         // Update own role
@@ -534,9 +579,19 @@ class VoiceRoomProvider with ChangeNotifier {
 
         if (_stageCharacters.containsKey(userId)) {
           final char = _stageCharacters[userId]!;
-          char.targetX = (data['x'] as num?)?.toDouble() ?? char.x;
-          char.targetY = (data['y'] as num?)?.toDouble() ?? char.y;
-          char.direction = data['direction']?.toString() ?? char.direction;
+          final x = (data['x'] as num?)?.toDouble() ?? char.x;
+          final y = (data['y'] as num?)?.toDouble() ?? char.y;
+          final direction = data['direction']?.toString() ?? char.direction;
+          char.targetX = x;
+          char.targetY = y;
+          char.direction = direction;
+          // Forward to Flame
+          _gameBridge?.sendToGame(RemoteCharacterMoved(
+            userId: userId,
+            x: x,
+            y: y,
+            direction: direction,
+          ));
           notifyListeners();
         }
       }),
@@ -550,13 +605,22 @@ class VoiceRoomProvider with ChangeNotifier {
         if (userId == null || emoji == null) return;
 
         final stageChar = _stageCharacters[userId];
+        final startX = stageChar?.x ?? 0.5;
+        final startY = stageChar?.y ?? 0.3;
         _reactions.add(FloatingReaction(
           emoji: emoji,
           userId: userId,
           userName: data['name']?.toString(),
-          startX: stageChar?.x ?? 0.5,
-          startY: stageChar?.y ?? 0.3,
+          startX: startX,
+          startY: startY,
           createdAt: DateTime.now(),
+        ));
+        // Forward to Flame
+        _gameBridge?.sendToGame(ReactionReceived(
+          emoji: emoji,
+          userId: userId,
+          startX: startX,
+          startY: startY,
         ));
         notifyListeners();
 
@@ -580,6 +644,11 @@ class VoiceRoomProvider with ChangeNotifier {
         if (_stageCharacters.containsKey(userId)) {
           _stageCharacters[userId]!.activeGesture = gesture;
           _stageCharacters[userId]!.gestureStartTime = DateTime.now();
+          // Forward to Flame
+          _gameBridge?.sendToGame(RemoteGestureReceived(
+            userId: userId,
+            gesture: gesture,
+          ));
           notifyListeners();
 
           // Clear gesture after animation duration
@@ -1067,6 +1136,7 @@ class VoiceRoomProvider with ChangeNotifier {
   void dispose() {
     _cleanupLiveKit();
     _cleanupSocketListeners();
+    detachGameBridge();
     super.dispose();
   }
 }

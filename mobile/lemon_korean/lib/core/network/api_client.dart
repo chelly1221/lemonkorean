@@ -78,7 +78,7 @@ class ApiClient {
       data: {
         'email': email,
         'password': password,
-        'username': username,
+        'name': username,
       },
     );
   }

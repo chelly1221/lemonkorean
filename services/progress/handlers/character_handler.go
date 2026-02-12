@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -294,6 +295,14 @@ func (h *CharacterHandler) GetInventory(c *gin.Context) {
 			continue
 		}
 
+		var metaMap interface{}
+		if len(metadata) > 0 {
+			json.Unmarshal(metadata, &metaMap)
+		}
+		if metaMap == nil {
+			metaMap = map[string]interface{}{}
+		}
+
 		items = append(items, gin.H{
 			"id":           id,
 			"category":     category,
@@ -306,6 +315,7 @@ func (h *CharacterHandler) GetInventory(c *gin.Context) {
 			"rarity":       rarity,
 			"is_default":   isDefault,
 			"acquired_at":  acquiredAt,
+			"metadata":     metaMap,
 		})
 	}
 
@@ -476,6 +486,14 @@ func (h *CharacterHandler) GetShopItems(c *gin.Context) {
 			continue
 		}
 
+		var metaMap interface{}
+		if len(metadata) > 0 {
+			json.Unmarshal(metadata, &metaMap)
+		}
+		if metaMap == nil {
+			metaMap = map[string]interface{}{}
+		}
+
 		item := gin.H{
 			"id":           id,
 			"category":     category,
@@ -487,6 +505,7 @@ func (h *CharacterHandler) GetShopItems(c *gin.Context) {
 			"price":        price,
 			"rarity":       rarity,
 			"is_default":   isDefault,
+			"metadata":     metaMap,
 		}
 		if description.Valid {
 			item["description"] = description.String

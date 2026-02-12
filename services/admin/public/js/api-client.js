@@ -994,6 +994,28 @@ const API = (() => {
     async getStats() {
       return request('/api/admin/character-items/stats');
     },
+    async uploadSprite(formData) {
+      const token = Auth.getToken();
+      const response = await fetch(`${BASE_URL}/api/admin/character-items/upload-sprite`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 401) {
+        Auth.logout();
+        window.location.hash = '#/login';
+        throw new Error('Authentication expired.');
+      }
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Sprite upload failed');
+      }
+      return data;
+    },
   };
 
   /**

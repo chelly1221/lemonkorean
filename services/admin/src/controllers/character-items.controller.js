@@ -1,5 +1,5 @@
 const pool = require('../config/database');
-const { getMinIOClient } = require('../config/minio');
+const mediaService = require('../services/media-upload.service');
 
 /**
  * Character Items Controller
@@ -190,31 +190,54 @@ const deleteItem = async (req, res) => {
 };
 
 /**
- * Upload asset file to MinIO
- * @route POST /api/admin/character-items/upload-asset
+ * Upload sprite PNG file to MinIO
+ * @route POST /api/admin/character-items/upload-sprite
  */
-const uploadAsset = async (req, res) => {
+const uploadSprite = async (req, res) => {
   try {
-    // This endpoint expects multipart form data with a file
-    // For now, we return the expected MinIO key pattern
-    // Actual file upload is handled by the media service
-
-    const { category, filename } = req.body;
-
-    if (!category || !filename) {
-      return res.status(400).json({ error: 'category and filename are required' });
+    if (!req.file) {
+      return res.status(400).json({ error: 'No sprite file provided' });
     }
 
-    const assetKey = `character-items/${category}/${filename}`;
+    const { category = 'body', itemId } = req.body;
 
-    res.json({
+    // Upload to MinIO under images/ (media service serves /media/images/:key)
+    const spriteName = `sprite_${category}_${req.file.originalname}`;
+    const result = await mediaService.uploadFile(
+      req.file,
+      'images',
+      spriteName
+    );
+
+    console.log(`[CHARACTER-ITEMS] Sprite uploaded: ${result.key}`);
+
+    // If itemId provided, auto-update the item's metadata and asset_type
+    if (itemId) {
+      const existing = await pool.query('SELECT metadata FROM character_items WHERE id = $1', [itemId]);
+      if (existing.rows.length > 0) {
+        const currentMeta = existing.rows[0].metadata || {};
+        const updatedMeta = { ...currentMeta, spritesheet_key: result.key };
+
+        await pool.query(
+          `UPDATE character_items SET asset_type = 'spritesheet', asset_key = $1, metadata = $2, updated_at = NOW() WHERE id = $3`,
+          [result.key, JSON.stringify(updatedMeta), itemId]
+        );
+        console.log(`[CHARACTER-ITEMS] Item ${itemId} updated with sprite key: ${result.key}`);
+      }
+    }
+
+    res.status(201).json({
       success: true,
-      asset_key: assetKey,
-      message: 'Upload the file to the media service with this key',
+      data: {
+        key: result.key,
+        url: result.url,
+        originalName: result.originalName,
+        size: result.size,
+      },
     });
   } catch (error) {
-    console.error('[CHARACTER-ITEMS] Error uploading asset:', error);
-    res.status(500).json({ error: 'Failed to upload asset' });
+    console.error('[CHARACTER-ITEMS] Error uploading sprite:', error);
+    res.status(500).json({ error: 'Failed to upload sprite' });
   }
 };
 
@@ -246,6 +269,6 @@ module.exports = {
   createItem,
   updateItem,
   deleteItem,
-  uploadAsset,
+  uploadSprite,
   getStats,
 };

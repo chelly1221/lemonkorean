@@ -14,21 +14,33 @@ class CharacterProvider with ChangeNotifier {
 
   /// Hardcoded defaults matching the DB seed data in 013_add_character_system.sql.
   /// Used as offline fallback when server is unreachable and local cache is empty.
+  static const _defaultSpriteMeta = {
+    'frameWidth': 32,
+    'frameHeight': 48,
+    'frameColumns': 5,
+    'frameRows': 4,
+  };
+
+  static Map<String, dynamic> _spriteMeta(String spritesheetKey) => {
+    ..._defaultSpriteMeta,
+    'spritesheet_key': spritesheetKey,
+  };
+
   static final List<CharacterItemModel> bundledDefaults = [
-    CharacterItemModel(id: 1, category: 'body', name: 'Default Body', assetKey: 'assets/character/body/body_default.svg', isBundled: true, renderOrder: 0, isDefault: true),
-    CharacterItemModel(id: 2, category: 'hair', name: 'Short Hair', assetKey: 'assets/character/hair/hair_short.svg', isBundled: true, renderOrder: 40, isDefault: true),
+    CharacterItemModel(id: 1, category: 'body', name: 'Default Body', assetKey: 'assets/sprites/character/body/body_default.png', assetType: 'spritesheet', isBundled: true, renderOrder: 0, isDefault: true, metadata: _spriteMeta('assets/sprites/character/body/body_default.png')),
+    CharacterItemModel(id: 2, category: 'hair', name: 'Short Hair', assetKey: 'assets/sprites/character/hair/hair_short.png', assetType: 'spritesheet', isBundled: true, renderOrder: 40, isDefault: true, metadata: _spriteMeta('assets/sprites/character/hair/hair_short.png')),
     CharacterItemModel(id: 3, category: 'hair', name: 'Long Hair', assetKey: 'assets/character/hair/hair_long.svg', isBundled: true, renderOrder: 40),
     CharacterItemModel(id: 4, category: 'hair', name: 'Curly Hair', assetKey: 'assets/character/hair/hair_curly.svg', isBundled: true, renderOrder: 40),
-    CharacterItemModel(id: 5, category: 'eyes', name: 'Round Eyes', assetKey: 'assets/character/eyes/eyes_round.svg', isBundled: true, renderOrder: 20, isDefault: true),
+    CharacterItemModel(id: 5, category: 'eyes', name: 'Round Eyes', assetKey: 'assets/sprites/character/eyes/eyes_round.png', assetType: 'spritesheet', isBundled: true, renderOrder: 20, isDefault: true, metadata: _spriteMeta('assets/sprites/character/eyes/eyes_round.png')),
     CharacterItemModel(id: 6, category: 'eyes', name: 'Almond Eyes', assetKey: 'assets/character/eyes/eyes_almond.svg', isBundled: true, renderOrder: 20),
     CharacterItemModel(id: 7, category: 'eyes', name: 'Happy Eyes', assetKey: 'assets/character/eyes/eyes_happy.svg', isBundled: true, renderOrder: 20),
-    CharacterItemModel(id: 8, category: 'eyebrows', name: 'Natural Brows', assetKey: 'assets/character/eyebrows/eyebrows_natural.svg', isBundled: true, renderOrder: 25, isDefault: true),
+    CharacterItemModel(id: 8, category: 'eyebrows', name: 'Natural Brows', assetKey: 'assets/sprites/character/eyebrows/eyebrows_natural.png', assetType: 'spritesheet', isBundled: true, renderOrder: 25, isDefault: true, metadata: _spriteMeta('assets/sprites/character/eyebrows/eyebrows_natural.png')),
     CharacterItemModel(id: 9, category: 'eyebrows', name: 'Thick Brows', assetKey: 'assets/character/eyebrows/eyebrows_thick.svg', isBundled: true, renderOrder: 25),
-    CharacterItemModel(id: 10, category: 'nose', name: 'Button Nose', assetKey: 'assets/character/nose/nose_button.svg', isBundled: true, renderOrder: 30, isDefault: true),
+    CharacterItemModel(id: 10, category: 'nose', name: 'Button Nose', assetKey: 'assets/sprites/character/nose/nose_button.png', assetType: 'spritesheet', isBundled: true, renderOrder: 30, isDefault: true, metadata: _spriteMeta('assets/sprites/character/nose/nose_button.png')),
     CharacterItemModel(id: 11, category: 'nose', name: 'Small Nose', assetKey: 'assets/character/nose/nose_small.svg', isBundled: true, renderOrder: 30),
-    CharacterItemModel(id: 12, category: 'mouth', name: 'Smile', assetKey: 'assets/character/mouth/mouth_smile.svg', isBundled: true, renderOrder: 35, isDefault: true),
+    CharacterItemModel(id: 12, category: 'mouth', name: 'Smile', assetKey: 'assets/sprites/character/mouth/mouth_smile.png', assetType: 'spritesheet', isBundled: true, renderOrder: 35, isDefault: true, metadata: _spriteMeta('assets/sprites/character/mouth/mouth_smile.png')),
     CharacterItemModel(id: 13, category: 'mouth', name: 'Grin', assetKey: 'assets/character/mouth/mouth_grin.svg', isBundled: true, renderOrder: 35),
-    CharacterItemModel(id: 14, category: 'top', name: 'Basic T-Shirt', assetKey: 'assets/character/top/top_tshirt.svg', isBundled: true, renderOrder: 50, isDefault: true),
+    CharacterItemModel(id: 14, category: 'top', name: 'Basic T-Shirt', assetKey: 'assets/sprites/character/top/top_tshirt.png', assetType: 'spritesheet', isBundled: true, renderOrder: 50, isDefault: true, metadata: _spriteMeta('assets/sprites/character/top/top_tshirt.png')),
     CharacterItemModel(id: 15, category: 'top', name: 'Hoodie', assetKey: 'assets/character/top/top_hoodie.svg', isBundled: true, renderOrder: 50, price: 10),
     CharacterItemModel(id: 16, category: 'bottom', name: 'Jeans', assetKey: 'assets/character/bottom/bottom_jeans.svg', isBundled: true, renderOrder: 55, isDefault: true),
     CharacterItemModel(id: 17, category: 'bottom', name: 'Shorts', assetKey: 'assets/character/bottom/bottom_shorts.svg', isBundled: true, renderOrder: 55, price: 10),

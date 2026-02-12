@@ -1,6 +1,73 @@
 const { query, getClient } = require('../config/database');
 const { v4: uuidv4 } = require('uuid');
 
+// Individual item_id columns in user_characters
+const ITEM_COLUMNS = [
+  'body_item_id', 'hair_item_id', 'eyes_item_id', 'eyebrows_item_id',
+  'nose_item_id', 'mouth_item_id', 'top_item_id', 'bottom_item_id',
+  'shoes_item_id', 'hat_item_id', 'accessory_item_id',
+];
+
+// Map column name → category
+const COLUMN_TO_CATEGORY = {
+  body_item_id: 'body',
+  hair_item_id: 'hair',
+  eyes_item_id: 'eyes',
+  eyebrows_item_id: 'eyebrows',
+  nose_item_id: 'nose',
+  mouth_item_id: 'mouth',
+  top_item_id: 'top',
+  bottom_item_id: 'bottom',
+  shoes_item_id: 'shoes',
+  hat_item_id: 'hat',
+  accessory_item_id: 'accessory',
+};
+
+/**
+ * Collect non-null item IDs from a row's individual *_item_id columns.
+ * Returns array of { category, itemId }.
+ */
+function _collectItemIds(row) {
+  const entries = [];
+  for (const col of ITEM_COLUMNS) {
+    if (row[col] != null) {
+      entries.push({ category: COLUMN_TO_CATEGORY[col], itemId: row[col] });
+    }
+  }
+  return entries;
+}
+
+/**
+ * Batch-fetch character_items by ID array.
+ * Returns Map<id, item row>.
+ */
+async function _fetchItemDetails(itemIds) {
+  if (!itemIds.length) return new Map();
+  const result = await query(
+    'SELECT * FROM character_items WHERE id = ANY($1)',
+    [itemIds]
+  );
+  const map = new Map();
+  for (const row of result.rows) {
+    map.set(row.id, row);
+  }
+  return map;
+}
+
+/**
+ * Build equipped_items map { category: { full item object } } for a row.
+ */
+function _buildEquippedItemsMap(entries, itemDetailsMap) {
+  const equipped = {};
+  for (const { category, itemId } of entries) {
+    const item = itemDetailsMap.get(itemId);
+    if (item) {
+      equipped[category] = item;
+    }
+  }
+  return Object.keys(equipped).length > 0 ? equipped : null;
+}
+
 class VoiceRoom {
   /**
    * Create a new voice room
@@ -90,7 +157,11 @@ class VoiceRoom {
   static async getSpeakers(roomId) {
     const sql = `
       SELECT p.user_id, p.is_muted, p.role, u.name, u.profile_image_url AS avatar,
-        uc.equipped_items, uc.skin_color
+        uc.skin_color,
+        uc.body_item_id, uc.hair_item_id, uc.eyes_item_id,
+        uc.eyebrows_item_id, uc.nose_item_id, uc.mouth_item_id,
+        uc.top_item_id, uc.bottom_item_id, uc.shoes_item_id,
+        uc.hat_item_id, uc.accessory_item_id
       FROM voice_room_participants p
       JOIN users u ON u.id = p.user_id
       LEFT JOIN user_characters uc ON uc.user_id = p.user_id
@@ -99,7 +170,30 @@ class VoiceRoom {
     `;
 
     const result = await query(sql, [roomId]);
-    return result.rows;
+
+    // Collect all item IDs across all speakers
+    const allEntries = [];
+    const rowEntries = [];
+    for (const row of result.rows) {
+      const entries = _collectItemIds(row);
+      rowEntries.push(entries);
+      allEntries.push(...entries);
+    }
+
+    // Batch fetch item details
+    const uniqueIds = [...new Set(allEntries.map(e => e.itemId))];
+    const itemDetailsMap = await _fetchItemDetails(uniqueIds);
+
+    // Build equipped_items map for each speaker
+    return result.rows.map((row, idx) => ({
+      user_id: row.user_id,
+      is_muted: row.is_muted,
+      role: row.role,
+      name: row.name,
+      avatar: row.avatar,
+      skin_color: row.skin_color,
+      equipped_items: _buildEquippedItemsMap(rowEntries[idx], itemDetailsMap),
+    }));
   }
 
   /**
@@ -315,15 +409,24 @@ class VoiceRoom {
       await client.query('COMMIT');
 
       // Return character data for the promoted user
+      const itemCols = ITEM_COLUMNS.map(c => `uc.${c}`).join(', ');
       const characterData = await query(
-        'SELECT equipped_items, skin_color FROM user_characters WHERE user_id = $1',
+        `SELECT uc.skin_color, ${itemCols} FROM user_characters uc WHERE uc.user_id = $1`,
         [userId]
       );
+
+      let equippedItems = null;
+      if (characterData.rows[0]) {
+        const entries = _collectItemIds(characterData.rows[0]);
+        const uniqueIds = [...new Set(entries.map(e => e.itemId))];
+        const itemDetailsMap = await _fetchItemDetails(uniqueIds);
+        equippedItems = _buildEquippedItemsMap(entries, itemDetailsMap);
+      }
 
       return {
         user_id: userId,
         role: 'speaker',
-        equipped_items: characterData.rows[0]?.equipped_items || null,
+        equipped_items: equippedItems,
         skin_color: characterData.rows[0]?.skin_color || null
       };
     } catch (error) {

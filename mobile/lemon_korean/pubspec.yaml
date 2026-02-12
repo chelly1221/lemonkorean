@@ -54,6 +54,10 @@ dependencies:
   record: ^5.0.4              # Audio recording
   audio_waveforms: ^1.0.5     # Waveform visualization
 
+  # Game Engine
+  flame: ^1.22.0
+  flame_audio: ^2.10.0
+
   # Drawing
   perfect_freehand: ^2.3.0    # Smooth stroke rendering
 
@@ -130,6 +134,23 @@ flutter:
     - assets/character/shoes/
     - assets/character/wallpaper/
     - assets/character/floor/
+    # Pixel art spritesheets (FLAME game engine)
+    - assets/sprites/character/body/
+    - assets/sprites/character/hair/
+    - assets/sprites/character/eyes/
+    - assets/sprites/character/eyebrows/
+    - assets/sprites/character/nose/
+    - assets/sprites/character/mouth/
+    - assets/sprites/character/top/
+    - assets/sprites/character/bottom/
+    - assets/sprites/character/shoes/
+    - assets/sprites/character/accessory/
+    - assets/sprites/room/backgrounds/
+    - assets/sprites/room/furniture/
+    - assets/sprites/pets/
+    - assets/sprites/effects/
+    # Game audio (sound effects)
+    - assets/audio/sfx/
     # Note: Media files (images, audio) are loaded from server (MinIO)
     # Local assets below can be uncommented when adding bundled resources
     # - assets/images/

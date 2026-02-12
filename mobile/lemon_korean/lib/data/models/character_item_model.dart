@@ -5,7 +5,7 @@ class CharacterItemModel {
   final String name;
   final String? description;
   final String assetKey;
-  final String assetType; // svg, png
+  final String assetType; // svg, png, spritesheet
   final bool isBundled;
   final int renderOrder;
   final int price;
@@ -72,4 +72,26 @@ class CharacterItemModel {
 
   /// Whether this is a room decoration item
   bool get isRoomItem => const ['wallpaper', 'floor', 'furniture'].contains(category);
+
+  /// Whether this item has a spritesheet for FLAME rendering.
+  /// Checks both asset_type and metadata for the spritesheet_key.
+  bool get hasSpritesheet =>
+      assetType == 'spritesheet' || metadata.containsKey('spritesheet_key');
+
+  /// Path to the spritesheet asset (from metadata), if available.
+  String? get spritesheetKey => metadata['spritesheet_key'] as String?;
+
+  /// Spritesheet frame width (from metadata, default 32).
+  double get spritesheetFrameWidth =>
+      (metadata['frameWidth'] as num?)?.toDouble() ?? 32;
+
+  /// Spritesheet frame height (from metadata, default 48).
+  double get spritesheetFrameHeight =>
+      (metadata['frameHeight'] as num?)?.toDouble() ?? 48;
+
+  /// Spritesheet columns per row (from metadata, default 5).
+  int get spritesheetColumns => (metadata['frameColumns'] as int?) ?? 5;
+
+  /// Spritesheet row count (from metadata, default 4).
+  int get spritesheetRows => (metadata['frameRows'] as int?) ?? 4;
 }

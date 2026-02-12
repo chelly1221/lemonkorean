@@ -1,14 +1,17 @@
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../data/models/character_item_model.dart';
+import '../../../game/core/game_bridge.dart';
+import '../../../game/voice_stage/voice_stage_game.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/voice_room_provider.dart';
 import 'widgets/audience_bar_widget.dart';
 import 'widgets/gesture_tray_widget.dart';
 import 'widgets/reaction_tray_widget.dart';
-import 'widgets/stage_area_widget.dart';
 import 'widgets/stage_controls_widget.dart';
 import 'widgets/voice_chat_widget.dart';
 
@@ -23,25 +26,82 @@ class VoiceRoomScreen extends StatefulWidget {
 class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
   bool _showReactionTray = false;
   bool _showGestureTray = false;
+  VoiceStageGame? _game;
+  bool _gameInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    // Set user ID on provider
+    // Set user ID on provider and initialize Flame game
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final userId =
           Provider.of<AuthProvider>(context, listen: false).currentUser?.id;
       if (userId != null) {
-        context.read<VoiceRoomProvider>().setMyUserId(userId);
+        final provider = context.read<VoiceRoomProvider>();
+        provider.setMyUserId(userId);
+        _initializeGame(provider, userId);
       }
     });
   }
 
+  void _initializeGame(VoiceRoomProvider provider, int userId) {
+    if (_gameInitialized) return;
+    _gameInitialized = true;
+
+    // Attach bridge
+    provider.attachGameBridge();
+
+    // Build my equipped items from my stage character data
+    final myChar = provider.stageCharacters[userId];
+    final myEquippedItems = _convertEquippedItems(myChar?.equippedItems);
+    final mySkinColor = myChar?.skinColor ?? '#FFDBB4';
+    final myName = myChar?.name ?? '';
+
+    _game = VoiceStageGame(
+      bridge: provider.gameBridge,
+      isSpeaker: provider.isSpeaker,
+      myEquippedItems: myEquippedItems,
+      mySkinColor: mySkinColor,
+      myName: myName,
+      myUserId: userId,
+    );
+
+    // Send existing remote speakers to Flame
+    for (final entry in provider.stageCharacters.entries) {
+      if (entry.key == userId) continue;
+      final char = entry.value;
+      provider.gameBridge.sendToGame(RemoteCharacterAdded(
+        userId: char.userId,
+        name: char.name,
+        equippedItems: char.equippedItems,
+        skinColor: char.skinColor,
+        isMuted: char.isMuted,
+      ));
+    }
+
+    setState(() {});
+  }
+
+  List<CharacterItemModel> _convertEquippedItems(
+      Map<String, dynamic>? items) {
+    if (items == null || items.isEmpty) return [];
+    final result = <CharacterItemModel>[];
+    items.forEach((category, itemData) {
+      if (itemData is Map<String, dynamic>) {
+        result.add(CharacterItemModel.fromJson(itemData));
+      }
+    });
+    return result;
+  }
+
+  @override
+  void dispose() {
+    // Bridge cleanup is handled by provider
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentUserId =
-        Provider.of<AuthProvider>(context, listen: false).currentUser?.id ?? 0;
-
     return Consumer<VoiceRoomProvider>(
       builder: (context, provider, child) {
         final room = provider.activeRoom;
@@ -119,6 +179,29 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                 ],
               ),
               actions: [
+                // Stage request badge (creator only)
+                if (provider.isCreator)
+                  IconButton(
+                    icon: Badge(
+                      isLabelVisible: provider.stageRequests.isNotEmpty,
+                      label: Text(
+                        '${provider.stageRequests.length}',
+                        style: const TextStyle(fontSize: 10),
+                      ),
+                      backgroundColor: Colors.red,
+                      child: Icon(
+                        provider.stageRequests.isNotEmpty
+                            ? Icons.back_hand
+                            : Icons.back_hand_outlined,
+                        color: provider.stageRequests.isNotEmpty
+                            ? Colors.amber
+                            : Colors.white54,
+                        size: 20,
+                      ),
+                    ),
+                    onPressed: () =>
+                        _showStageManagement(context, provider),
+                  ),
                 // Speaker count + Listener count
                 Padding(
                   padding: const EdgeInsets.only(right: 12),
@@ -158,10 +241,19 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                     child: _buildLevelBadge(room.languageLevel),
                   ),
 
-                // STAGE AREA (~40%)
+                // STAGE AREA (~40%) - Flame GameWidget
                 Expanded(
                   flex: 4,
-                  child: StageAreaWidget(myUserId: currentUserId),
+                  child: _game != null
+                      ? GameWidget(game: _game!)
+                      : Container(
+                          color: const Color(0xFF1A1A2E),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white24,
+                            ),
+                          ),
+                        ),
                 ),
 
                 // Divider

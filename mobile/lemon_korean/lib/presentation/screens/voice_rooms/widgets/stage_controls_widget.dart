@@ -105,13 +105,13 @@ class StageControlsWidget extends StatelessWidget {
                         onTap: () => provider.leaveStage(),
                       ),
 
-                    // Manage stage (creator only)
-                    if (provider.isCreator &&
-                        provider.stageRequests.isNotEmpty)
-                      _buildButton(
+                    // Manage stage (creator only - always visible)
+                    if (provider.isCreator)
+                      _buildBadgeButton(
                         icon: Icons.people_outline,
-                        label: '${l10n?.pendingRequests ?? 'Requests'} (${provider.stageRequests.length})',
+                        label: l10n?.pendingRequests ?? 'Stage',
                         color: Colors.cyan,
+                        badgeCount: provider.stageRequests.length,
                         onTap: onManageStage,
                       ),
 
@@ -160,6 +160,46 @@ class StageControlsWidget extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: color, size: 22),
+          ),
+          const SizedBox(height: 3),
+          Text(
+            label,
+            style: const TextStyle(color: Colors.white60, fontSize: 9),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBadgeButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required int badgeCount,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Badge(
+            isLabelVisible: badgeCount > 0,
+            label: Text(
+              '$badgeCount',
+              style: const TextStyle(fontSize: 10, color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+            child: Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.15),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 22),
+            ),
           ),
           const SizedBox(height: 3),
           Text(
