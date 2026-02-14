@@ -58,6 +58,13 @@ class MuteStateChanged extends GameEvent {
   MuteStateChanged({required this.userId, required this.isMuted});
 }
 
+/// Connection quality changed for a participant.
+class ConnectionQualityChanged extends GameEvent {
+  final int userId;
+  final String quality; // 'excellent', 'good', 'poor', 'lost', 'unknown'
+  ConnectionQualityChanged({required this.userId, required this.quality});
+}
+
 /// A visitor joined the room.
 class VisitorJoined extends GameEvent {
   final int userId;

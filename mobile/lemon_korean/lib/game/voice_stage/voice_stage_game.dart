@@ -11,6 +11,7 @@ import '../components/effects/floating_emoji.dart';
 import '../components/effects/gesture_effects.dart';
 import '../components/effects/particle_manager.dart';
 import '../components/effects/speaking_aura.dart';
+import '../components/ui/connection_quality_badge.dart';
 import '../components/ui/mute_badge.dart';
 import '../components/ui/name_label.dart';
 import '../core/game_bridge.dart';
@@ -34,6 +35,7 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
   SpeakingAura? _myAura;
   NameLabel? _myNameLabel;
   MuteBadge? _myMuteBadge;
+  ConnectionQualityBadge? _myQualityBadge;
   bool _myMuted = false;
 
   // Remote characters
@@ -109,6 +111,13 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
       size.y * 0.75 - 5,
     );
     add(_myMuteBadge!);
+
+    _myQualityBadge = ConnectionQualityBadge();
+    _myQualityBadge!.position = Vector2(
+      size.x * 0.5 + GameConstants.displayWidth / 2 - 5,
+      size.y * 0.75 - GameConstants.displayHeight - 12,
+    );
+    add(_myQualityBadge!);
   }
 
   @override
@@ -156,6 +165,13 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
           _myMuteBadge?.isMuted = isMuted;
         } else {
           _remoteCharacters[userId]?.updateMuteState(isMuted);
+        }
+
+      case ConnectionQualityChanged(:final userId, :final quality):
+        if (userId == myUserId) {
+          _myQualityBadge?.quality = quality;
+        } else {
+          _remoteCharacters[userId]?.updateConnectionQuality(quality);
         }
 
       case RemoteCharacterAdded(:final userId, :final name, :final equippedItems, :final skinColor, :final isMuted):

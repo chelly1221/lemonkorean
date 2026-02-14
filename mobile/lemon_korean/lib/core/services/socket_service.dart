@@ -58,6 +58,8 @@ class SocketService {
       StreamController<Map<String, dynamic>>.broadcast();
   final _onVoiceGesture =
       StreamController<Map<String, dynamic>>.broadcast();
+  final _onVoiceParticipantKicked =
+      StreamController<Map<String, dynamic>>.broadcast();
 
   Stream<Map<String, dynamic>> get onNewMessage => _onNewMessage.stream;
   Stream<Map<String, dynamic>> get onMessageSent => _onMessageSent.stream;
@@ -98,6 +100,8 @@ class SocketService {
       _onVoiceReaction.stream;
   Stream<Map<String, dynamic>> get onVoiceGesture =>
       _onVoiceGesture.stream;
+  Stream<Map<String, dynamic>> get onVoiceParticipantKicked =>
+      _onVoiceParticipantKicked.stream;
 
   /// Connect to Socket.IO server with JWT token
   Future<void> connect() async {
@@ -284,6 +288,12 @@ class SocketService {
         _onVoiceGesture.add(Map<String, dynamic>.from(data));
       }
     });
+
+    s.on('voice:participant_kicked', (data) {
+      if (data is Map) {
+        _onVoiceParticipantKicked.add(Map<String, dynamic>.from(data));
+      }
+    });
   }
 
   /// Join a conversation room for real-time updates
@@ -412,5 +422,6 @@ class SocketService {
     _onVoiceCharacterPosition.close();
     _onVoiceReaction.close();
     _onVoiceGesture.close();
+    _onVoiceParticipantKicked.close();
   }
 }

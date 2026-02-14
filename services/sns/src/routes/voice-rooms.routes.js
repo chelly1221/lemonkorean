@@ -15,7 +15,9 @@ const {
   cancelStageRequest,
   grantStage,
   removeFromStage,
-  leaveStage
+  leaveStage,
+  kickParticipant,
+  inviteToStage
 } = require('../controllers/voice-rooms.controller');
 
 // All routes require authentication
@@ -40,5 +42,7 @@ router.delete('/:id/request-stage', cancelStageRequest);
 router.post('/:id/grant-stage', grantStage);
 router.post('/:id/remove-from-stage', removeFromStage);
 router.post('/:id/leave-stage', leaveStage);
+router.post('/:id/kick', kickParticipant);
+router.post('/:id/invite-to-stage', inviteToStage);
 
 module.exports = router;

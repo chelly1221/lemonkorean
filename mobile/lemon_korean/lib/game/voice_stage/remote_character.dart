@@ -6,6 +6,7 @@ import '../../data/models/character_item_model.dart';
 import '../components/character/character_animation.dart';
 import '../components/character/pixel_character.dart';
 import '../components/effects/speaking_aura.dart';
+import '../components/ui/connection_quality_badge.dart';
 import '../components/ui/mute_badge.dart';
 import '../components/ui/name_label.dart';
 import '../core/game_constants.dart';
@@ -30,6 +31,7 @@ class RemoteCharacter extends PositionComponent with HasGameReference {
   late SpeakingAura _aura;
   late NameLabel _nameLabel;
   late MuteBadge _muteBadge;
+  late ConnectionQualityBadge _qualityBadge;
 
   RemoteCharacter({
     required this.userId,
@@ -73,6 +75,13 @@ class RemoteCharacter extends PositionComponent with HasGameReference {
       GameConstants.displayHeight - 5,
     );
     add(_muteBadge);
+
+    _qualityBadge = ConnectionQualityBadge();
+    _qualityBadge.position = Vector2(
+      GameConstants.displayWidth - 5,
+      -12,
+    );
+    add(_qualityBadge);
 
     // Set initial position
     _updateWorldPosition();
@@ -129,6 +138,11 @@ class RemoteCharacter extends PositionComponent with HasGameReference {
     isMuted = muted;
     _aura.isMuted = muted;
     _muteBadge.isMuted = muted;
+  }
+
+  /// Update connection quality badge.
+  void updateConnectionQuality(String quality) {
+    _qualityBadge.quality = quality;
   }
 
   /// Play a gesture animation.

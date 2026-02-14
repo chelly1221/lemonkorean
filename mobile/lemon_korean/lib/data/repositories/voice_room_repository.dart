@@ -330,4 +330,32 @@ class VoiceRoomRepository {
       return (success: false, livekitToken: null, livekitUrl: null);
     }
   }
+
+  /// Kick a participant from the room (creator only)
+  Future<bool> kickParticipant(int roomId, int userId) async {
+    try {
+      final response = await _dio.post(
+        '/sns/voice-rooms/$roomId/kick',
+        data: {'user_id': userId},
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      AppLogger.e('kickParticipant error', tag: 'VoiceRoomRepo', error: e);
+      return false;
+    }
+  }
+
+  /// Invite a listener to stage (creator only)
+  Future<bool> inviteToStage(int roomId, int userId) async {
+    try {
+      final response = await _dio.post(
+        '/sns/voice-rooms/$roomId/invite-to-stage',
+        data: {'user_id': userId},
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      AppLogger.e('inviteToStage error', tag: 'VoiceRoomRepo', error: e);
+      return false;
+    }
+  }
 }

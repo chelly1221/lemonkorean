@@ -23,6 +23,7 @@ class StageCharacterState {
   double targetX;
   double targetY;
   bool isMuted;
+  String connectionQuality; // 'excellent', 'good', 'poor', 'lost', 'unknown'
 
   // Gesture state
   String? activeGesture;
@@ -40,6 +41,7 @@ class StageCharacterState {
     this.targetX = 0.5,
     this.targetY = 0.75,
     this.isMuted = false,
+    this.connectionQuality = 'unknown',
     this.activeGesture,
     this.gestureStartTime,
   });
@@ -206,6 +208,12 @@ class VoiceRoomProvider with ChangeNotifier {
       _livekitRoom = lk.Room(
         roomOptions: const lk.RoomOptions(
           defaultAudioPublishOptions: lk.AudioPublishOptions(dtx: true),
+          defaultAudioCaptureOptions: lk.AudioCaptureOptions(
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+            highPassFilter: true,
+          ),
         ),
       );
 
@@ -231,7 +239,50 @@ class VoiceRoomProvider with ChangeNotifier {
         ..on<lk.ParticipantConnectedEvent>((_) => refreshParticipants())
         ..on<lk.ParticipantDisconnectedEvent>((_) => refreshParticipants())
         ..on<lk.TrackMutedEvent>((_) => refreshParticipants())
-        ..on<lk.TrackUnmutedEvent>((_) => refreshParticipants());
+        ..on<lk.TrackUnmutedEvent>((_) => refreshParticipants())
+        ..on<lk.ParticipantPermissionsUpdatedEvent>((event) async {
+          // Server updated our permissions in-place (promotion/demotion)
+          final canPublish = event.permissions.canPublish;
+          AppLogger.i(
+            'Permissions updated: canPublish=$canPublish',
+            tag: 'VoiceRoomProvider',
+          );
+          if (canPublish && _myRole == 'speaker') {
+            // Promoted — enable mic
+            try {
+              await _livekitRoom?.localParticipant
+                  ?.setMicrophoneEnabled(true);
+            } catch (e) {
+              AppLogger.w('Mic enable after permission update failed',
+                  tag: 'VoiceRoomProvider', error: e);
+            }
+          } else if (!canPublish && _myRole == 'listener') {
+            // Demoted — ensure mic is off
+            try {
+              await _livekitRoom?.localParticipant
+                  ?.setMicrophoneEnabled(false);
+            } catch (_) {}
+          }
+          notifyListeners();
+        })
+        ..on<lk.ParticipantConnectionQualityUpdatedEvent>((event) {
+          final identity = event.participant.identity;
+          // Parse userId from identity format "user_123"
+          final idStr = identity.startsWith('user_')
+              ? identity.substring(5)
+              : identity;
+          final userId = int.tryParse(idStr);
+          if (userId == null) return;
+          final quality = event.connectionQuality.name; // excellent, good, poor, lost, unknown
+          if (_stageCharacters.containsKey(userId)) {
+            _stageCharacters[userId]!.connectionQuality = quality;
+          }
+          _gameBridge?.sendToGame(ConnectionQualityChanged(
+            userId: userId,
+            quality: quality,
+          ));
+          notifyListeners();
+        });
 
       await _livekitRoom!
           .connect(_livekitUrl!, _livekitToken!)
@@ -528,7 +579,7 @@ class VoiceRoomProvider with ChangeNotifier {
       }),
     );
 
-    // Stage granted (new LiveKit token for promoted user)
+    // Stage granted (promoted to speaker — permissions updated server-side)
     _socketSubscriptions.add(
       _socket.onVoiceStageGranted.listen((data) async {
         if (_activeRoom == null) return;
@@ -539,10 +590,23 @@ class VoiceRoomProvider with ChangeNotifier {
           _hasRaisedHand = false;
           final newToken = data['livekit_token'] as String?;
           if (newToken != null) {
-            _livekitToken = newToken;
-            // Reconnect with new token that has canPublish
-            _cleanupLiveKit();
+            _livekitToken = newToken; // Save as fallback
+          }
+          // Server already updated permissions in-place via LiveKit API.
+          // The ParticipantPermissionsUpdatedEvent listener will enable mic.
+          // If LiveKit room is not connected, fall back to reconnect.
+          if (_livekitRoom == null || !_isConnected) {
             await _connectToLiveKit();
+          } else {
+            // Ensure mic is enabled (in case permission event hasn't fired yet)
+            try {
+              await _livekitRoom!.localParticipant
+                  ?.setMicrophoneEnabled(true);
+              _isMuted = false;
+            } catch (e) {
+              AppLogger.w('Mic enable on stage grant failed',
+                  tag: 'VoiceRoomProvider', error: e);
+            }
           }
           notifyListeners();
         }
@@ -552,7 +616,7 @@ class VoiceRoomProvider with ChangeNotifier {
       }),
     );
 
-    // Stage removed (demoted to listener)
+    // Stage removed (demoted to listener — permissions revoked server-side)
     _socketSubscriptions.add(
       _socket.onVoiceStageRemoved.listen((data) async {
         if (_activeRoom == null) return;
@@ -561,11 +625,15 @@ class VoiceRoomProvider with ChangeNotifier {
           _myRole = 'listener';
           final newToken = data['livekit_token'] as String?;
           if (newToken != null) {
-            _livekitToken = newToken;
-            // Reconnect with listener token (canPublish: false)
-            _cleanupLiveKit();
-            await _connectToLiveKit();
+            _livekitToken = newToken; // Save as fallback
           }
+          // Server already revoked permissions via LiveKit API — no reconnect needed.
+          // Just ensure mic is disabled.
+          try {
+            await _livekitRoom?.localParticipant
+                ?.setMicrophoneEnabled(false);
+          } catch (_) {}
+          _isMuted = false;
           notifyListeners();
         }
       }),
@@ -631,6 +699,34 @@ class VoiceRoomProvider with ChangeNotifier {
               DateTime.now().difference(r.createdAt).inMilliseconds > 1800);
           notifyListeners();
         });
+      }),
+    );
+
+    // Participant kicked
+    _socketSubscriptions.add(
+      _socket.onVoiceParticipantKicked.listen((data) {
+        if (_activeRoom == null) return;
+        if (data['room_id'] != _activeRoom!.id) return;
+        final userId = data['user_id'] as int?;
+        if (userId == _myUserId) {
+          // I was kicked — full cleanup
+          _cleanupLiveKit();
+          _cleanupSocketListeners();
+          _activeRoom = null;
+          _livekitToken = null;
+          _livekitUrl = null;
+          _speakers = [];
+          _listeners = [];
+          _messages = [];
+          _stageRequests = [];
+          _stageCharacters.clear();
+          _reactions.clear();
+          _isMuted = false;
+          _myRole = 'listener';
+          _hasRaisedHand = false;
+          _error = 'You were removed from the room by the host';
+          notifyListeners();
+        }
       }),
     );
 
@@ -977,18 +1073,34 @@ class VoiceRoomProvider with ChangeNotifier {
 
   Future<void> requestStage() async {
     if (_activeRoom == null || !isListener) return;
-    final success = await _repository.requestStage(_activeRoom!.id);
-    if (success) {
-      _hasRaisedHand = true;
+    // Optimistic: show raised hand immediately
+    _hasRaisedHand = true;
+    notifyListeners();
+    try {
+      final success = await _repository.requestStage(_activeRoom!.id);
+      if (!success) {
+        _hasRaisedHand = false;
+        notifyListeners();
+      }
+    } catch (_) {
+      _hasRaisedHand = false;
       notifyListeners();
     }
   }
 
   Future<void> cancelStageRequest() async {
     if (_activeRoom == null) return;
-    final success = await _repository.cancelStageRequest(_activeRoom!.id);
-    if (success) {
-      _hasRaisedHand = false;
+    // Optimistic: hide raised hand immediately
+    _hasRaisedHand = false;
+    notifyListeners();
+    try {
+      final success = await _repository.cancelStageRequest(_activeRoom!.id);
+      if (!success) {
+        _hasRaisedHand = true;
+        notifyListeners();
+      }
+    } catch (_) {
+      _hasRaisedHand = true;
       notifyListeners();
     }
   }
@@ -1007,17 +1119,41 @@ class VoiceRoomProvider with ChangeNotifier {
     if (_activeRoom == null || !isSpeaker || isCreator) return;
 
     final result = await _repository.leaveStage(_activeRoom!.id);
-    if (result.success && result.livekitToken != null) {
+    if (result.success) {
       _myRole = 'listener';
-      _livekitToken = result.livekitToken;
+      if (result.livekitToken != null) {
+        _livekitToken = result.livekitToken; // Save as fallback
+      }
       _livekitUrl = result.livekitUrl ?? _livekitUrl;
 
       _stageCharacters.remove(_myUserId);
-      notifyListeners();
 
-      // Reconnect with listener token
-      _cleanupLiveKit();
-      await _connectToLiveKit();
+      // Server already revoked permissions via LiveKit API — no reconnect needed
+      try {
+        await _livekitRoom?.localParticipant?.setMicrophoneEnabled(false);
+      } catch (_) {}
+      _isMuted = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> kickParticipant(int userId) async {
+    if (_activeRoom == null || !isCreator) return false;
+    try {
+      return await _repository.kickParticipant(_activeRoom!.id, userId);
+    } catch (e) {
+      AppLogger.e('kickParticipant error', tag: 'VoiceRoomProvider', error: e);
+      return false;
+    }
+  }
+
+  Future<bool> inviteToStage(int userId) async {
+    if (_activeRoom == null || !isCreator) return false;
+    try {
+      return await _repository.inviteToStage(_activeRoom!.id, userId);
+    } catch (e) {
+      AppLogger.e('inviteToStage error', tag: 'VoiceRoomProvider', error: e);
+      return false;
     }
   }
 

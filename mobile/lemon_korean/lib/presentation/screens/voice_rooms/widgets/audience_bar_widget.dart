@@ -5,8 +5,13 @@ import '../../../../data/models/voice_room_model.dart';
 /// Horizontal scroll bar showing listener avatars
 class AudienceBarWidget extends StatelessWidget {
   final List<VoiceParticipantModel> listeners;
+  final void Function(VoiceParticipantModel)? onListenerTap;
 
-  const AudienceBarWidget({super.key, required this.listeners});
+  const AudienceBarWidget({
+    super.key,
+    required this.listeners,
+    this.onListenerTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,41 +64,46 @@ class AudienceBarWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 4),
               itemBuilder: (context, index) {
                 final listener = listeners[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Colors.grey.shade700,
-                        backgroundImage: listener.avatar != null
-                            ? NetworkImage(listener.avatar!)
-                            : null,
-                        child: listener.avatar == null
-                            ? Text(
-                                listener.name.isNotEmpty
-                                    ? listener.name[0].toUpperCase()
-                                    : '?',
-                                style: const TextStyle(
-                                    fontSize: 11, color: Colors.white),
-                              )
-                            : null,
-                      ),
-                      const SizedBox(height: 2),
-                      SizedBox(
-                        width: 40,
-                        child: Text(
-                          listener.name,
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.6),
-                            fontSize: 9,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
+                return GestureDetector(
+                  onTap: onListenerTap != null
+                      ? () => onListenerTap!(listener)
+                      : null,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Colors.grey.shade700,
+                          backgroundImage: listener.avatar != null
+                              ? NetworkImage(listener.avatar!)
+                              : null,
+                          child: listener.avatar == null
+                              ? Text(
+                                  listener.name.isNotEmpty
+                                      ? listener.name[0].toUpperCase()
+                                      : '?',
+                                  style: const TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              : null,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 2),
+                        SizedBox(
+                          width: 40,
+                          child: Text(
+                            listener.name,
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: 9,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

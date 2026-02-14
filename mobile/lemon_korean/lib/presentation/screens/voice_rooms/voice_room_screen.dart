@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/character_item_model.dart';
+import '../../../data/models/voice_room_model.dart';
 import '../../../game/core/game_bridge.dart';
 import '../../../game/voice_stage/voice_stage_game.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -263,7 +264,13 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                 ),
 
                 // AUDIENCE BAR
-                AudienceBarWidget(listeners: provider.listeners),
+                AudienceBarWidget(
+                  listeners: provider.listeners,
+                  onListenerTap: provider.isCreator
+                      ? (listener) =>
+                          _showInviteToStageDialog(context, provider, listener)
+                      : null,
+                ),
 
                 // Divider
                 Container(
@@ -503,7 +510,7 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                   ),
                   const SizedBox(height: 8),
                   ...provider.speakers.map((speaker) {
-                    final isCreator =
+                    final isHost =
                         speaker.userId == provider.activeRoom?.creatorId;
                     return ListTile(
                       leading: CircleAvatar(
@@ -517,27 +524,124 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                             : null,
                       ),
                       title: Text(
-                        '${speaker.name}${isCreator ? ' (Host)' : ''}',
+                        '${speaker.name}${isHost ? ' (Host)' : ''}',
                         style: const TextStyle(color: Colors.white),
                       ),
-                      trailing: isCreator
+                      trailing: isHost
                           ? null
-                          : IconButton(
-                              icon: const Icon(Icons.arrow_downward,
-                                  color: Colors.orange),
-                              onPressed: () {
-                                provider.removeFromStage(speaker.userId);
-                                Navigator.pop(ctx);
-                              },
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_downward,
+                                      color: Colors.orange),
+                                  tooltip: 'Demote to listener',
+                                  onPressed: () {
+                                    provider.removeFromStage(speaker.userId);
+                                    Navigator.pop(ctx);
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.logout,
+                                      color: Colors.red, size: 20),
+                                  tooltip: 'Kick from room',
+                                  onPressed: () {
+                                    provider.kickParticipant(speaker.userId);
+                                    Navigator.pop(ctx);
+                                  },
+                                ),
+                              ],
                             ),
                     );
                   }),
+
+                  // Listeners section
+                  if (provider.listeners.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Listeners',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    ...provider.listeners.map((listener) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: listener.avatar != null
+                              ? NetworkImage(listener.avatar!)
+                              : null,
+                          child: listener.avatar == null
+                              ? Text(listener.name.isNotEmpty
+                                  ? listener.name[0].toUpperCase()
+                                  : '?')
+                              : null,
+                        ),
+                        title: Text(
+                          listener.name,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.arrow_upward,
+                                  color: Colors.green, size: 20),
+                              tooltip: 'Invite to stage',
+                              onPressed: () {
+                                provider.inviteToStage(listener.userId);
+                                Navigator.pop(ctx);
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.logout,
+                                  color: Colors.red, size: 20),
+                              tooltip: 'Kick from room',
+                              onPressed: () {
+                                provider.kickParticipant(listener.userId);
+                                Navigator.pop(ctx);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                  ],
                 ],
               ),
             );
           },
         );
       },
+    );
+  }
+
+  void _showInviteToStageDialog(
+    BuildContext context,
+    VoiceRoomProvider provider,
+    VoiceParticipantModel listener,
+  ) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Invite to Stage'),
+        content: Text('Invite ${listener.name} to speak on stage?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              provider.inviteToStage(listener.userId);
+            },
+            child: const Text('Invite'),
+          ),
+        ],
+      ),
     );
   }
 
