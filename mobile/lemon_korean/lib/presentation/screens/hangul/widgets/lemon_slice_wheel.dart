@@ -2,164 +2,118 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'lemon_slice_painter.dart';
 
-/// Interactive lemon cross-section wheel that displays 9 learning stages.
-/// Users can drag to rotate and select different stages.
-class LemonSliceWheel extends StatefulWidget {
-  final double size; // Diameter of the wheel
+/// Giant interactive lemon wheel that displays 9 learning stages.
+/// Users can drag horizontally to rotate and select different stages.
+/// Only the center portion is visible, with the selected slice highlighted.
+class GiantLemonWheel extends StatefulWidget {
   final List<({int stage, String title, String subtitle})> stages;
   final List<double> stageProgress; // Progress for each stage (0-5)
-  final int selectedStage; // Initial selected stage
+  final int initialStage; // Initial selected stage
   final ValueChanged<int>? onStageSelected; // Callback when stage is selected
 
-  const LemonSliceWheel({
-    required this.size,
+  const GiantLemonWheel({
     required this.stages,
     required this.stageProgress,
     super.key,
-    this.selectedStage = 0,
+    this.initialStage = 0,
     this.onStageSelected,
   })  : assert(stages.length == 9, 'Must have exactly 9 stages'),
         assert(
             stageProgress.length == 9, 'Must have exactly 9 progress values');
 
   @override
-  State<LemonSliceWheel> createState() => _LemonSliceWheelState();
+  State<GiantLemonWheel> createState() => _GiantLemonWheelState();
 }
 
-class _LemonSliceWheelState extends State<LemonSliceWheel>
+class _GiantLemonWheelState extends State<GiantLemonWheel>
     with SingleTickerProviderStateMixin {
-  late AnimationController _rotationController;
-  late Animation<double> _rotationAnimation;
+  late AnimationController _snapController;
+  late Animation<double> _snapAnimation;
 
   double _currentRotation = 0.0;
-  int _selectedStageIndex = 0;
-  double _startAngle = 0.0;
+  int _centerSliceIndex = 0;
+  double _dragStartX = 0.0;
+  double _rotationAtDragStart = 0.0;
 
   @override
   void initState() {
     super.initState();
-    _selectedStageIndex = widget.selectedStage;
+    _centerSliceIndex = widget.initialStage;
 
-    _rotationController = AnimationController(
+    _snapController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 300),
     );
 
-    _rotationAnimation = Tween<double>(
+    _snapAnimation = Tween<double>(
       begin: 0.0,
       end: 0.0,
     ).animate(CurvedAnimation(
-      parent: _rotationController,
-      curve: Curves.easeOutCubic,
+      parent: _snapController,
+      curve: Curves.easeOut,
     ));
 
-    _rotationAnimation.addListener(() {
+    _snapAnimation.addListener(() {
       setState(() {
-        _currentRotation = _rotationAnimation.value;
+        _currentRotation = _snapAnimation.value;
       });
     });
 
-    // Initialize rotation to show selected stage at top
-    _currentRotation = _calculateTargetRotation(_selectedStageIndex);
+    // Initialize rotation to show selected stage at center
+    _currentRotation = -widget.initialStage * (2 * pi / 9);
   }
 
   @override
   void dispose() {
-    _rotationController.dispose();
+    _snapController.dispose();
     super.dispose();
   }
 
   @override
-  void didUpdateWidget(LemonSliceWheel oldWidget) {
+  void didUpdateWidget(GiantLemonWheel oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.selectedStage != widget.selectedStage) {
-      _selectedStageIndex = widget.selectedStage;
-      _rotateToStage(widget.selectedStage);
-    }
+    // External updates can be handled here if needed
   }
 
-  /// Calculate the target rotation angle for a given stage index
-  double _calculateTargetRotation(int stageIndex) {
+  /// Calculate which slice is currently at center (0 degrees / top)
+  int _calculateCenterSliceIndex(double rotation) {
     const sliceAngle = 2 * pi / 9;
-    return -stageIndex * sliceAngle;
-  }
+    final normalizedRotation = rotation % (2 * pi);
 
-  /// Calculate which stage is currently at the top (0 degrees)
-  int _calculateTopStageIndex(double rotation) {
-    const sliceAngle = 2 * pi / 9;
-    final normalized = rotation % (2 * pi);
+    // Calculate index based on rotation
+    // We add a small offset to ensure proper rounding
+    final rawIndex = -normalizedRotation / sliceAngle;
+    var index = rawIndex.round() % 9;
 
-    // Normalize to positive angle
-    final positiveAngle = normalized < 0 ? normalized + 2 * pi : normalized;
+    // Ensure positive index
+    if (index < 0) index += 9;
 
-    // Calculate which slice is at top
-    final index = ((-positiveAngle / sliceAngle).round()) % 9;
-    return index < 0 ? index + 9 : index;
-  }
-
-  /// Calculate tapped stage index from local position.
-  int _calculateTappedStageIndex(Offset localPosition) {
-    final center = Offset(widget.size / 2, widget.size / 2);
-    final dx = localPosition.dx - center.dx;
-    final dy = localPosition.dy - center.dy;
-    final radius = sqrt(dx * dx + dy * dy);
-    final maxRadius = widget.size / 2;
-
-    // Ignore taps outside wheel.
-    if (radius > maxRadius) return _selectedStageIndex;
-
-    const sliceAngle = 2 * pi / 9;
-    final angle = atan2(dy, dx);
-
-    // Convert to wheel-local angle with top as 0 and current rotation applied.
-    double normalized = angle - _currentRotation - (-pi / 2);
-    normalized %= (2 * pi);
-    if (normalized < 0) normalized += 2 * pi;
-
-    return (normalized / sliceAngle).floor().clamp(0, 8);
-  }
-
-  /// Animate rotation to a specific stage
-  void _rotateToStage(int stageIndex) {
-    final targetRotation = _calculateTargetRotation(stageIndex);
-
-    _rotationAnimation = Tween<double>(
-      begin: _currentRotation,
-      end: targetRotation,
-    ).animate(CurvedAnimation(
-      parent: _rotationController,
-      curve: Curves.easeInOutCubic,
-    ));
-
-    _rotationController
-      ..reset()
-      ..forward();
-
-    setState(() {
-      _selectedStageIndex = stageIndex;
-    });
+    return index;
   }
 
   /// Snap to the nearest stage after drag ends
   void _snapToNearestStage() {
-    // Find nearest stage
-    final nearestIndex = (_calculateTopStageIndex(_currentRotation));
-    final targetRotation = _calculateTargetRotation(nearestIndex);
+    const sliceAngle = 2 * pi / 9;
 
-    _rotationAnimation = Tween<double>(
+    // Find nearest slice
+    final nearestIndex = _calculateCenterSliceIndex(_currentRotation);
+    final targetRotation = -nearestIndex * sliceAngle;
+
+    _snapAnimation = Tween<double>(
       begin: _currentRotation,
       end: targetRotation,
     ).animate(CurvedAnimation(
-      parent: _rotationController,
+      parent: _snapController,
       curve: Curves.easeOut,
     ));
 
-    _rotationController
+    _snapController
       ..reset()
       ..forward();
 
+    // Update center slice index
     setState(() {
-      _selectedStageIndex = nearestIndex;
+      _centerSliceIndex = nearestIndex;
     });
 
     // Notify parent
@@ -168,50 +122,84 @@ class _LemonSliceWheelState extends State<LemonSliceWheel>
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Giant wheel diameter (3.5x screen height)
+    final wheelDiameter = screenHeight * 3.5;
+
+    // Viewport height (40% of screen)
+    final viewportHeight = screenHeight * 0.4;
+
     return GestureDetector(
-      onTapUp: (details) {
-        final tappedIndex = _calculateTappedStageIndex(details.localPosition);
-        _rotateToStage(tappedIndex);
-        widget.onStageSelected?.call(tappedIndex);
+      onHorizontalDragStart: (details) {
+        _snapController.stop();
+        _dragStartX = details.globalPosition.dx;
+        _rotationAtDragStart = _currentRotation;
       },
-      onPanStart: (details) {
-        _rotationController.stop();
+      onHorizontalDragUpdate: (details) {
+        final dragDelta = details.globalPosition.dx - _dragStartX;
 
-        final center = Offset(widget.size / 2, widget.size / 2);
-        final localPosition = details.localPosition;
-
-        _startAngle = atan2(
-              localPosition.dy - center.dy,
-              localPosition.dx - center.dx,
-            ) -
-            _currentRotation;
-      },
-      onPanUpdate: (details) {
-        final center = Offset(widget.size / 2, widget.size / 2);
-        final localPosition = details.localPosition;
-
-        final angle = atan2(
-          localPosition.dy - center.dy,
-          localPosition.dx - center.dx,
-        );
+        // Convert drag distance to rotation angle
+        // Screen width drag = 360 degrees rotation
+        final rotationDelta = (dragDelta / screenWidth) * 2 * pi;
 
         setState(() {
-          _currentRotation = angle - _startAngle;
+          _currentRotation = _rotationAtDragStart + rotationDelta;
+          _centerSliceIndex = _calculateCenterSliceIndex(_currentRotation);
         });
       },
-      onPanEnd: (details) {
+      onHorizontalDragEnd: (details) {
         _snapToNearestStage();
       },
-      child: SizedBox(
-        width: widget.size,
-        height: widget.size,
-        child: CustomPaint(
-          size: Size(widget.size, widget.size),
-          painter: LemonSlicePainter(
-            rotation: _currentRotation,
-            selectedIndex: _selectedStageIndex,
-            stageProgress: widget.stageProgress,
+      child: ClipRect(
+        child: SizedBox(
+          height: viewportHeight,
+          width: screenWidth,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Giant lemon wheel
+              Transform.rotate(
+                angle: _currentRotation,
+                child: CustomPaint(
+                  size: Size(wheelDiameter, wheelDiameter),
+                  painter: GiantLemonSlicePainter(
+                    centerIndex: _centerSliceIndex,
+                    stageProgress: widget.stageProgress,
+                  ),
+                ),
+              ),
+
+              // Center indicator (selection area guide)
+              Positioned(
+                top: viewportHeight / 2 - 60,
+                child: _buildCenterIndicator(),
+              ),
+            ],
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Build center indicator to show selection area
+  Widget _buildCenterIndicator() {
+    return Container(
+      width: 120,
+      height: 120,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(0xFFFF6F00).withValues(alpha: 0.3),
+          width: 3,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Center(
+        child: Icon(
+          Icons.arrow_downward,
+          size: 32,
+          color: const Color(0xFFFF6F00).withValues(alpha: 0.5),
         ),
       ),
     );

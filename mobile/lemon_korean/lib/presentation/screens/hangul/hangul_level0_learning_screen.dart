@@ -36,151 +36,150 @@ class _HangulLevel0LearningScreenState
     final selectedStage = _stages[_selectedStageIndex];
     final hangulProvider = context.watch<HangulProvider>();
     final stageProgress = _getStageProgress(hangulProvider);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final wheelDiameter = min(screenWidth * 0.85, 340.0);
-    final visibleHeight = wheelDiameter * 0.4; // Show top 40% only
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('레벨 0 학습'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // 1. Lemon slice wheel (only top 40% visible)
-            SizedBox(
-              height: visibleHeight + 20,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  ClipRect(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      heightFactor: 0.4,
-                      child: LemonSliceWheel(
-                        size: wheelDiameter,
-                        stages: _stages,
-                        selectedStage: _selectedStageIndex,
-                        stageProgress: stageProgress,
-                        onStageSelected: (index) {
-                          setState(() {
-                            _selectedStageIndex = index;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ).animate().fadeIn(duration: 500.ms).scale(
-                  begin: const Offset(0.9, 0.9),
-                  duration: 600.ms,
-                  curve: Curves.easeOutCubic,
-                ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                // 1. Stage info (moved to top)
+                _buildStageInfo(selectedStage, stageProgress)
+                    .animate()
+                    .fadeIn(duration: 300.ms),
 
-            const SizedBox(height: 24),
+                const SizedBox(height: 32),
 
-            // 2. Selected stage info
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  // Stage number
-                  Text(
-                    '${selectedStage.stage}단계',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
+                // 2. Giant lemon wheel (center portion only)
+                GiantLemonWheel(
+                  stages: _stages,
+                  initialStage: _selectedStageIndex,
+                  stageProgress: stageProgress,
+                  onStageSelected: (index) {
+                    setState(() {
+                      _selectedStageIndex = index;
+                    });
+                  },
+                ).animate().fadeIn(duration: 500.ms).scale(
+                      begin: const Offset(0.95, 0.95),
+                      duration: 600.ms,
+                      curve: Curves.easeOutCubic,
                     ),
-                  ),
-                  const SizedBox(height: 8),
 
-                  // Stage title
-                  Text(
-                    selectedStage.title,
-                    style: TextStyle(
-                      fontSize: screenWidth < 360 ? 20 : 24,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF424242),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 6),
-
-                  // Stage subtitle
-                  Text(
-                    selectedStage.subtitle,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Progress bar
-                  LinearProgressIndicator(
-                    value: stageProgress[_selectedStageIndex] / 5,
-                    backgroundColor: Colors.grey.shade200,
-                    valueColor: AlwaysStoppedAnimation(
-                      _getProgressColor(stageProgress[_selectedStageIndex]),
-                    ),
-                    minHeight: 6,
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  const SizedBox(height: 8),
-
-                  // Progress text
-                  Text(
-                    '진행률: ${(stageProgress[_selectedStageIndex] / 5 * 100).toInt()}%',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                  const SizedBox(height: 28),
-
-                  // Start learning button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton(
-                      onPressed: () => _navigateToStage(selectedStage.stage),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4CAF50),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 3,
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.play_arrow, size: 24),
-                          SizedBox(width: 8),
-                          Text(
-                            '학습 시작',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ).animate().fadeIn(
-                        duration: 400.ms,
-                        delay: 200.ms,
-                      ),
-                ],
-              ),
+                const SizedBox(height: 100), // Space for bottom button
+              ],
             ),
+          ),
 
-            const SizedBox(height: 40),
-          ],
-        ),
+          // 3. Start learning button (fixed at bottom)
+          Positioned(
+            bottom: 24,
+            left: 24,
+            right: 24,
+            child: SizedBox(
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () => _navigateToStage(selectedStage.stage),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4CAF50),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.play_arrow, size: 28),
+                    SizedBox(width: 12),
+                    Text(
+                      '학습 시작',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ).animate().fadeIn(
+                  duration: 400.ms,
+                  delay: 200.ms,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Build stage information section (top of screen)
+  Widget _buildStageInfo(
+    ({int stage, String title, String subtitle}) selectedStage,
+    List<double> stageProgress,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+      child: Column(
+        children: [
+          // Stage number
+          Text(
+            '${selectedStage.stage}단계',
+            style: const TextStyle(
+              fontSize: 16,
+              color: Color(0xFFFF6F00),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Title
+          Text(
+            selectedStage.title,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF424242),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+
+          // Subtitle
+          Text(
+            selectedStage.subtitle,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.shade600,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+
+          // Progress bar
+          LinearProgressIndicator(
+            value: stageProgress[_selectedStageIndex] / 5,
+            backgroundColor: Colors.grey.shade200,
+            valueColor: AlwaysStoppedAnimation(
+              _getProgressColor(stageProgress[_selectedStageIndex]),
+            ),
+            minHeight: 6,
+            borderRadius: BorderRadius.circular(3),
+          ),
+          const SizedBox(height: 8),
+
+          // Progress text
+          Text(
+            '진행률: ${(stageProgress[_selectedStageIndex] / 5 * 100).toInt()}%',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey.shade600,
+            ),
+          ),
+        ],
       ),
     );
   }

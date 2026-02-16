@@ -2,16 +2,15 @@ import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-/// CustomPainter that renders a lemon cross-section with 9 radial slices.
+/// CustomPainter that renders a giant lemon cross-section with 9 radial slices.
 /// Each slice represents a learning stage (0-8) with progress-based coloring.
-class LemonSlicePainter extends CustomPainter {
-  final double rotation; // Current rotation angle in radians
-  final int selectedIndex; // Currently selected slice (0-8)
+/// The center slice is highlighted with enhanced scale, brightness, and border.
+class GiantLemonSlicePainter extends CustomPainter {
+  final int centerIndex; // Currently centered slice (0-8)
   final List<double> stageProgress; // Mastery level for each stage (0-5)
 
-  LemonSlicePainter({
-    required this.rotation,
-    required this.selectedIndex,
+  GiantLemonSlicePainter({
+    required this.centerIndex,
     required this.stageProgress,
   }) : assert(stageProgress.length == 9, 'Must have exactly 9 stages');
 
@@ -41,7 +40,7 @@ class LemonSlicePainter extends CustomPainter {
     const gapAngle = 0.02; // Small gap between slices
 
     for (int i = 0; i < sliceCount; i++) {
-      final startAngle = i * sliceAngle + rotation - pi / 2; // Start from top
+      final startAngle = i * sliceAngle - pi / 2; // Start from top
       final sweepAngle = sliceAngle - gapAngle;
 
       // Create slice path
@@ -58,28 +57,47 @@ class LemonSlicePainter extends CustomPainter {
       // Get color based on progress
       final color = _getProgressColor(stageProgress[i]);
 
-      // Draw glow for selected slice
-      if (i == selectedIndex) {
+      // Check if this is the center slice
+      final isCenterSlice = (i == centerIndex);
+
+      // Apply scale and glow for center slice
+      if (isCenterSlice) {
+        canvas.save();
+        canvas.translate(center.dx, center.dy);
+        canvas.scale(1.05, 1.05);
+        canvas.translate(-center.dx, -center.dy);
         _drawGlowEffect(canvas, path, color);
       }
 
-      // Draw slice
-      _slicePaint.color = color;
+      // Draw slice with brightness adjustment
+      _slicePaint.color = isCenterSlice
+          ? color.withValues(alpha: 1.0)
+          : color.withValues(alpha: 0.6);
       canvas.drawPath(path, _slicePaint);
 
-      // Draw white border
+      // Draw border with emphasis for center slice
+      if (isCenterSlice) {
+        _borderPaint
+          ..color = const Color(0xFFFF6F00)
+          ..strokeWidth = 4.0;
+      } else {
+        _borderPaint
+          ..color = Colors.white
+          ..strokeWidth = 2.0;
+      }
       canvas.drawPath(path, _borderPaint);
+
+      if (isCenterSlice) {
+        canvas.restore();
+      }
 
       // Draw stage label
       final labelAngle = startAngle + sweepAngle / 2;
-      _drawLabel(canvas, i, center, radius * 0.7, labelAngle);
+      _drawLabel(canvas, i, center, radius * 0.7, labelAngle, isCenterSlice);
     }
 
     // 4. Draw center core (seed area)
-    _drawCenterCore(canvas, center, 40);
-
-    // 5. Draw top indicator (arrow pointing to selected slice)
-    _drawTopIndicator(canvas, center, radius);
+    _drawCenterCore(canvas, center, 60);
   }
 
   void _drawOuterRind(Canvas canvas, Offset center, double radius) {
@@ -121,6 +139,7 @@ class LemonSlicePainter extends CustomPainter {
     Offset center,
     double labelRadius,
     double angle,
+    bool isCenterSlice,
   ) {
     final x = center.dx + labelRadius * cos(angle);
     final y = center.dy + labelRadius * sin(angle);
@@ -128,9 +147,9 @@ class LemonSlicePainter extends CustomPainter {
     final textSpan = TextSpan(
       text: '$stage',
       style: TextStyle(
-        fontSize: stage == selectedIndex ? 20 : 16,
-        fontWeight: stage == selectedIndex ? FontWeight.bold : FontWeight.w600,
-        color: stage == selectedIndex
+        fontSize: isCenterSlice ? 24 : 16,
+        fontWeight: isCenterSlice ? FontWeight.bold : FontWeight.w600,
+        color: isCenterSlice
             ? const Color(0xFFFF6F00)
             : Colors.black87,
       ),
@@ -167,31 +186,6 @@ class LemonSlicePainter extends CustomPainter {
     canvas.drawCircle(center, diameter / 2, shadowPaint);
   }
 
-  void _drawTopIndicator(Canvas canvas, Offset center, double radius) {
-    final indicatorPaint = Paint()
-      ..color = const Color(0xFFFF6F00)
-      ..style = PaintingStyle.fill;
-
-    final path = Path();
-    final tipY = center.dy - radius - 12;
-    final baseY = center.dy - radius - 4;
-
-    path.moveTo(center.dx, tipY); // Top point
-    path.lineTo(center.dx - 6, baseY); // Left base
-    path.lineTo(center.dx + 6, baseY); // Right base
-    path.close();
-
-    canvas.drawPath(path, indicatorPaint);
-
-    // Add white outline
-    final outlinePaint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5;
-
-    canvas.drawPath(path, outlinePaint);
-  }
-
   Color _getProgressColor(double mastery) {
     final level = mastery.clamp(0, 5).toInt();
     const colors = [
@@ -206,9 +200,8 @@ class LemonSlicePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant LemonSlicePainter oldDelegate) {
-    return oldDelegate.rotation != rotation ||
-        oldDelegate.selectedIndex != selectedIndex ||
+  bool shouldRepaint(covariant GiantLemonSlicePainter oldDelegate) {
+    return oldDelegate.centerIndex != centerIndex ||
         !_listEquals(oldDelegate.stageProgress, stageProgress);
   }
 
