@@ -103,9 +103,9 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
     const sliceAngle = 2 * pi / 9;
     final normalizedRotation = rotation % (2 * pi);
 
-    // Calculate index based on rotation
-    // We add a small offset to ensure proper rounding
-    final rawIndex = -normalizedRotation / sliceAngle;
+    // Add 0.5 offset to align with painter's visual centers
+    // Painter draws slices starting at -pi/2 (top), so slice 0's center is at 0
+    final rawIndex = (-normalizedRotation / sliceAngle) + 0.5;
     var index = rawIndex.round() % 9;
 
     // Ensure positive index
@@ -156,7 +156,7 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
 
         // Circle center position: below the local viewport bottom.
         final centerX = viewportWidth / 2;
-        final centerY = viewportHeight + (radius * 0.3);
+        final centerY = viewportHeight + (radius * 0.15);
 
         return GestureDetector(
           onHorizontalDragStart: (details) {

@@ -53,62 +53,84 @@ class _HangulLevel0LearningScreenState
 
               // 2. Giant lemon wheel (expands to fill remaining space)
               Expanded(
-                child: ClipRect(
-                  child: GiantLemonWheel(
-                    stages: _stages,
-                    initialStage: _selectedStageIndex,
-                    stageProgress: stageProgress,
-                    onStageSelected: (index) {
-                      setState(() {
-                        _selectedStageIndex = index;
-                      });
-                    },
-                  ).animate().fadeIn(duration: 500.ms).scale(
-                        begin: const Offset(0.95, 0.95),
-                        duration: 600.ms,
-                        curve: Curves.easeOutCubic,
-                      ),
-                ),
-              ),
-            ],
-          ),
-
-          // 3. Start learning button (fixed at bottom with absolute positioning)
-          Positioned(
-            bottom: 24,
-            left: 24,
-            right: 24,
-            child: SizedBox(
-              height: 56,
-              child: ElevatedButton(
-                onPressed: () => _navigateToStage(selectedStage.stage),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4CAF50),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 4,
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Stack(
                   children: [
-                    Icon(Icons.play_arrow, size: 28),
-                    SizedBox(width: 12),
-                    Text(
-                      '학습 시작',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    // Lemon wheel
+                    ClipRect(
+                      child: GiantLemonWheel(
+                        stages: _stages,
+                        initialStage: _selectedStageIndex,
+                        stageProgress: stageProgress,
+                        onStageSelected: (index) {
+                          setState(() {
+                            _selectedStageIndex = index;
+                          });
+                        },
+                      ).animate().fadeIn(duration: 500.ms).scale(
+                            begin: const Offset(0.95, 0.95),
+                            duration: 600.ms,
+                            curve: Curves.easeOutCubic,
+                          ),
+                    ),
+
+                    // Embedded button (appears to emerge from wheel)
+                    Positioned(
+                      bottom: 40,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () => _navigateToStage(selectedStage.stage),
+                          child: Container(
+                            width: 180,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFFFF8F00), // Bright orange
+                                  Color(0xFFFF6F00), // Orange (from painter)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: const Color(0xFFFFD54F), // Gold border
+                                width: 3,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(
+                                    0xFFFF6F00,
+                                  ).withValues(alpha: 0.5),
+                                  blurRadius: 16,
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.play_arrow, size: 28, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text(
+                                  '학습 시작',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ).animate().fadeIn(duration: 400.ms, delay: 200.ms),
                       ),
                     ),
                   ],
                 ),
               ),
-            ).animate().fadeIn(
-                  duration: 400.ms,
-                  delay: 200.ms,
-                ),
+            ],
           ),
         ],
       ),
