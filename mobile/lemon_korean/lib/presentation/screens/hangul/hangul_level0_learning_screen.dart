@@ -1,9 +1,23 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
+import '../../providers/hangul_provider.dart';
+import 'widgets/lemon_slice_wheel.dart';
 
-/// Level 0 Hangul learning roadmap skeleton (stages only).
+/// Level 0 Hangul learning roadmap with interactive lemon wheel.
 /// Detailed lesson content will be added later.
-class HangulLevel0LearningScreen extends StatelessWidget {
+class HangulLevel0LearningScreen extends StatefulWidget {
   const HangulLevel0LearningScreen({super.key});
+
+  @override
+  State<HangulLevel0LearningScreen> createState() =>
+      _HangulLevel0LearningScreenState();
+}
+
+class _HangulLevel0LearningScreenState
+    extends State<HangulLevel0LearningScreen> {
+  int _selectedStageIndex = 0;
 
   static const List<({int stage, String title, String subtitle})> _stages = [
     (stage: 0, title: '한글 구조 이해', subtitle: '자음 + 모음 = 글자(음절) 개념'),
@@ -19,116 +33,272 @@ class HangulLevel0LearningScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectedStage = _stages[_selectedStageIndex];
+    final hangulProvider = context.watch<HangulProvider>();
+    final stageProgress = _getStageProgress(hangulProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final wheelDiameter = min(screenWidth * 0.85, 340.0);
+    final visibleHeight = wheelDiameter * 0.4; // Show top 40% only
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('레벨 0 학습'),
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: _stages.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 10),
-        itemBuilder: (context, index) {
-          final stage = _stages[index];
-          return Card(
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Text('${stage.stage}'),
-              ),
-              title: Text('${stage.stage}단계 · ${stage.title}'),
-              subtitle: Text(stage.subtitle),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {
-                if (stage.stage == 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage0TutorialScreen(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // 1. Lemon slice wheel (only top 40% visible)
+            SizedBox(
+              height: visibleHeight + 20,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  ClipRect(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      heightFactor: 0.4,
+                      child: LemonSliceWheel(
+                        size: wheelDiameter,
+                        stages: _stages,
+                        selectedStage: _selectedStageIndex,
+                        stageProgress: stageProgress,
+                        onStageSelected: (index) {
+                          setState(() {
+                            _selectedStageIndex = index;
+                          });
+                        },
+                      ),
                     ),
-                  );
-                  return;
-                }
-                if (stage.stage == 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage1VowelsScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage2ConsonantsScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 3) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage3SyllableReadingScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 4) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage4ContrastScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 5) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage5BatchimBasicScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 6) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage6BatchimExtendedScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 7) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage7AdvancedBatchimScreen(),
-                    ),
-                  );
-                  return;
-                }
-                if (stage.stage == 8) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HangulStage8WordReadingScreen(),
-                    ),
-                  );
-                  return;
-                }
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('${stage.stage}단계 상세 내용은 다음 지시 후 추가됩니다.'),
                   ),
-                );
-              },
+                ],
+              ),
+            ).animate().fadeIn(duration: 500.ms).scale(
+                  begin: const Offset(0.9, 0.9),
+                  duration: 600.ms,
+                  curve: Curves.easeOutCubic,
+                ),
+
+            const SizedBox(height: 24),
+
+            // 2. Selected stage info
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                children: [
+                  // Stage number
+                  Text(
+                    '${selectedStage.stage}단계',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Stage title
+                  Text(
+                    selectedStage.title,
+                    style: TextStyle(
+                      fontSize: screenWidth < 360 ? 20 : 24,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF424242),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 6),
+
+                  // Stage subtitle
+                  Text(
+                    selectedStage.subtitle,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Progress bar
+                  LinearProgressIndicator(
+                    value: stageProgress[_selectedStageIndex] / 5,
+                    backgroundColor: Colors.grey.shade200,
+                    valueColor: AlwaysStoppedAnimation(
+                      _getProgressColor(stageProgress[_selectedStageIndex]),
+                    ),
+                    minHeight: 6,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Progress text
+                  Text(
+                    '진행률: ${(stageProgress[_selectedStageIndex] / 5 * 100).toInt()}%',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+
+                  // Start learning button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: () => _navigateToStage(selectedStage.stage),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4CAF50),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 3,
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.play_arrow, size: 24),
+                          SizedBox(width: 8),
+                          Text(
+                            '학습 시작',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ).animate().fadeIn(
+                        duration: 400.ms,
+                        delay: 200.ms,
+                      ),
+                ],
+              ),
             ),
-          );
-        },
+
+            const SizedBox(height: 40),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Get progress data for each stage
+  List<double> _getStageProgress(HangulProvider provider) {
+    final overall = provider.overallProgress.clamp(0.0, 1.0);
+    final stageSpan = _stages.length.toDouble();
+    final completedStages = overall * stageSpan;
+
+    // Convert overall progress into per-stage mastery (0..5).
+    return List<double>.generate(_stages.length, (index) {
+      final stageCompletion = (completedStages - index).clamp(0.0, 1.0);
+      return stageCompletion * 5.0;
+    });
+  }
+
+  /// Get color based on mastery level
+  Color _getProgressColor(double mastery) {
+    final level = mastery.clamp(0, 5).toInt();
+    const colors = [
+      Color(0xFFBDBDBD), // 0
+      Color(0xFFC5E1A5), // 1
+      Color(0xFF81C784), // 2
+      Color(0xFFCDDC39), // 3
+      Color(0xFFFFEE58), // 4
+      Color(0xFFFFD54F), // 5
+    ];
+    return colors[level];
+  }
+
+  /// Navigate to the selected stage screen
+  void _navigateToStage(int stage) {
+    if (stage == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage0TutorialScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage1VowelsScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage2ConsonantsScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage3SyllableReadingScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 4) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage4ContrastScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 5) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage5BatchimBasicScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 6) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage6BatchimExtendedScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 7) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage7AdvancedBatchimScreen(),
+        ),
+      );
+      return;
+    }
+    if (stage == 8) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const HangulStage8WordReadingScreen(),
+        ),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$stage단계 상세 내용은 다음 지시 후 추가됩니다.'),
       ),
     );
   }

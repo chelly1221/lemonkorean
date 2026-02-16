@@ -147,69 +147,70 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
   Widget _buildActionButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-      child: GridView.count(
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.8,
+      child: Row(
         children: [
-          _buildActionButton(
-            context: context,
-            icon: Icons.school,
-            label: '학습',
-            color: const Color(0xFF4CAF50),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const HangulLevel0LearningScreen(),
-                ),
-              );
-            },
+          Expanded(
+            child: _buildActionButton(
+              icon: Icons.school,
+              label: '학습',
+              color: const Color(0xFF4CAF50),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const HangulLevel0LearningScreen(),
+                  ),
+                );
+              },
+            ),
           ),
-          _buildActionButton(
-            context: context,
-            icon: Icons.extension,
-            label: '음절조합',
-            color: const Color(0xFF2196F3),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const HangulSyllableScreen(),
-                ),
-              );
-            },
+          const SizedBox(width: 8),
+          Expanded(
+            child: _buildActionButton(
+              icon: Icons.extension,
+              label: '음절조합',
+              color: const Color(0xFF2196F3),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const HangulSyllableScreen(),
+                  ),
+                );
+              },
+            ),
           ),
-          _buildActionButton(
-            context: context,
-            icon: Icons.abc,
-            label: '받침연습',
-            color: const Color(0xFF9C27B0),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const HangulBatchimScreen(),
-                ),
-              );
-            },
+          const SizedBox(width: 8),
+          Expanded(
+            child: _buildActionButton(
+              icon: Icons.abc,
+              label: '받침연습',
+              color: const Color(0xFF9C27B0),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const HangulBatchimScreen(),
+                  ),
+                );
+              },
+            ),
           ),
-          _buildActionButton(
-            context: context,
-            icon: Icons.hearing,
-            label: '소리구분훈련',
-            color: const Color(0xFFFF9800),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const HangulDiscriminationScreen(),
-                ),
-              );
-            },
+          const SizedBox(width: 8),
+          Expanded(
+            child: _buildActionButton(
+              icon: Icons.hearing,
+              label: '소리구분훈련',
+              color: const Color(0xFFFF9800),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const HangulDiscriminationScreen(),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -222,7 +223,6 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
   }
 
   Widget _buildActionButton({
-    required BuildContext context,
     required IconData icon,
     required String label,
     required Color color,
@@ -233,24 +233,27 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         elevation: 2,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 28),
+          Icon(icon, size: 20),
           const SizedBox(height: 4),
           Text(
             label,
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -392,5 +395,4 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
       ),
     );
   }
-
 }
