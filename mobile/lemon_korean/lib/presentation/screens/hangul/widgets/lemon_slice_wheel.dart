@@ -27,6 +27,11 @@ class GiantLemonWheel extends StatefulWidget {
 
 class _GiantLemonWheelState extends State<GiantLemonWheel>
     with SingleTickerProviderStateMixin {
+  static const int _sliceCount = 9;
+  static const double _gapAngle = 0.02;
+  static const double _sliceAngle = 2 * pi / _sliceCount;
+  static const double _sliceCenterOffset = (_sliceAngle - _gapAngle) / 2;
+
   late AnimationController _snapController;
   late Animation<double> _snapAnimation;
 
@@ -59,8 +64,8 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
       });
     });
 
-    // Initialize rotation to show selected stage at center
-    _currentRotation = -widget.initialStage * (2 * pi / 9);
+    // Initialize rotation to align slice center with viewport center line.
+    _currentRotation = _targetRotationForStage(widget.initialStage);
   }
 
   @override
@@ -78,8 +83,7 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
   }
 
   void _animateToStage(int stageIndex) {
-    const sliceAngle = 2 * pi / 9;
-    final targetRotation = -stageIndex * sliceAngle;
+    final targetRotation = _targetRotationForStage(stageIndex);
 
     _snapAnimation = Tween<double>(
       begin: _currentRotation,
@@ -98,29 +102,26 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
     });
   }
 
+  double _targetRotationForStage(int stageIndex) {
+    return -((stageIndex * _sliceAngle) + _sliceCenterOffset);
+  }
+
   /// Calculate which slice is currently at center (0 degrees / top)
   int _calculateCenterSliceIndex(double rotation) {
-    const sliceAngle = 2 * pi / 9;
-    final normalizedRotation = rotation % (2 * pi);
-
-    // Add 0.5 offset to align with painter's visual centers
-    // Painter draws slices starting at -pi/2 (top), so slice 0's center is at 0
-    final rawIndex = (-normalizedRotation / sliceAngle) + 0.5;
-    var index = rawIndex.round() % 9;
+    final rawIndex = -(rotation + _sliceCenterOffset) / _sliceAngle;
+    var index = rawIndex.round() % _sliceCount;
 
     // Ensure positive index
-    if (index < 0) index += 9;
+    if (index < 0) index += _sliceCount;
 
     return index;
   }
 
   /// Snap to the nearest stage after drag ends
   void _snapToNearestStage() {
-    const sliceAngle = 2 * pi / 9;
-
     // Find nearest slice
     final nearestIndex = _calculateCenterSliceIndex(_currentRotation);
-    final targetRotation = -nearestIndex * sliceAngle;
+    final targetRotation = _targetRotationForStage(nearestIndex);
 
     _snapAnimation = Tween<double>(
       begin: _currentRotation,
@@ -150,13 +151,13 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
         final viewportWidth = constraints.maxWidth;
         final viewportHeight = constraints.maxHeight;
 
-        // Size relative to viewport so the rim stays visible on all screens.
-        final wheelDiameter = min(viewportWidth * 1.45, viewportHeight * 1.9);
+        // Make the wheel large enough to reach up close to the stage info bottom.
+        final wheelDiameter = max(viewportHeight * 2.5, viewportWidth * 2.0);
         final radius = wheelDiameter / 2;
 
-        // Keep center near lower area without pushing most of wheel out of viewport.
+        // Position center below viewport while keeping upper arc visible near top.
         final centerX = viewportWidth / 2;
-        final centerY = viewportHeight + (radius * 0.18);
+        final centerY = viewportHeight + (radius * 0.2);
 
         return GestureDetector(
           onHorizontalDragStart: (details) {
