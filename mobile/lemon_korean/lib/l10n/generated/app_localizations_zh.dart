@@ -2604,6 +2604,43 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get furnitureItem => '家具';
+
+  @override
+  String get hangulWelcome => '欢迎来到韩文世界！';
+
+  @override
+  String get hangulWelcomeDesc => '逐一学习40个韩文字母';
+
+  @override
+  String get hangulStartLearning => '开始学习';
+
+  @override
+  String get hangulLearnNext => '学习下一个';
+
+  @override
+  String hangulLearnedCount(int count) {
+    return '已学习$count/40个字母！';
+  }
+
+  @override
+  String hangulReviewNeeded(int count) {
+    return '今天有$count个字母需要复习！';
+  }
+
+  @override
+  String get hangulReviewNow => '立即复习';
+
+  @override
+  String get hangulPracticeSuggestion => '快要完成了！通过活动巩固技能吧';
+
+  @override
+  String get hangulStartActivities => '开始活动';
+
+  @override
+  String get hangulMastered => '恭喜！你已经掌握了韩文字母！';
+
+  @override
+  String get hangulGoToLevel1 => '进入第1级';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -5206,4 +5243,41 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get furnitureItem => '家具';
+
+  @override
+  String get hangulWelcome => '歡迎來到韓文世界！';
+
+  @override
+  String get hangulWelcomeDesc => '逐一學習40個韓文字母';
+
+  @override
+  String get hangulStartLearning => '開始學習';
+
+  @override
+  String get hangulLearnNext => '學習下一個';
+
+  @override
+  String hangulLearnedCount(int count) {
+    return '已學習$count/40個字母！';
+  }
+
+  @override
+  String hangulReviewNeeded(int count) {
+    return '今天有$count個字母需要複習！';
+  }
+
+  @override
+  String get hangulReviewNow => '立即複習';
+
+  @override
+  String get hangulPracticeSuggestion => '快要完成了！通過活動鞏固技能吧';
+
+  @override
+  String get hangulStartActivities => '開始活動';
+
+  @override
+  String get hangulMastered => '恭喜！你已經掌握了韓文字母！';
+
+  @override
+  String get hangulGoToLevel1 => '進入第1級';
 }

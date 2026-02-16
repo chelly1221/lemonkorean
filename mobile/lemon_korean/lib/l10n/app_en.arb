@@ -1652,5 +1652,37 @@
       "count": {"type": "int"}
     }
   },
-  "furnitureItem": "Furn."
+  "furnitureItem": "Furn.",
+  "hangulWelcome": "Welcome to Hangul!",
+  "@hangulWelcome": {"description": "Hangul dashboard welcome title"},
+  "hangulWelcomeDesc": "Learn 40 Korean alphabet letters one by one",
+  "@hangulWelcomeDesc": {"description": "Hangul dashboard welcome description"},
+  "hangulStartLearning": "Start Learning",
+  "@hangulStartLearning": {"description": "Hangul dashboard CTA for beginners"},
+  "hangulLearnNext": "Learn Next",
+  "@hangulLearnNext": {"description": "Hangul dashboard CTA to learn next character"},
+  "hangulLearnedCount": "{count}/40 letters learned!",
+  "@hangulLearnedCount": {
+    "description": "Hangul dashboard learned count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNeeded": "{count} letters due for review today!",
+  "@hangulReviewNeeded": {
+    "description": "Hangul dashboard review needed message",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNow": "Review Now",
+  "@hangulReviewNow": {"description": "Hangul dashboard CTA for review"},
+  "hangulPracticeSuggestion": "Almost there! Strengthen skills with activities",
+  "@hangulPracticeSuggestion": {"description": "Hangul dashboard practice suggestion"},
+  "hangulStartActivities": "Start Activities",
+  "@hangulStartActivities": {"description": "Hangul dashboard CTA for activities"},
+  "hangulMastered": "Congratulations! You've mastered Hangul!",
+  "@hangulMastered": {"description": "Hangul dashboard mastery congratulation"},
+  "hangulGoToLevel1": "Go to Level 1",
+  "@hangulGoToLevel1": {"description": "Hangul dashboard CTA to proceed to level 1"}
 }

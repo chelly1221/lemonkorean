@@ -2610,4 +2610,41 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get furnitureItem => '家具';
+
+  @override
+  String get hangulWelcome => 'ハングルの世界へようこそ！';
+
+  @override
+  String get hangulWelcomeDesc => '40文字の子母音を一つずつ学びましょう';
+
+  @override
+  String get hangulStartLearning => '学習を始める';
+
+  @override
+  String get hangulLearnNext => '次の文字を学ぶ';
+
+  @override
+  String hangulLearnedCount(int count) {
+    return '$count/40文字を学びました！';
+  }
+
+  @override
+  String hangulReviewNeeded(int count) {
+    return '今日復習する文字が$count個あります！';
+  }
+
+  @override
+  String get hangulReviewNow => '今すぐ復習';
+
+  @override
+  String get hangulPracticeSuggestion => 'もう少し！アクティビティで実力を固めましょう';
+
+  @override
+  String get hangulStartActivities => 'アクティビティ開始';
+
+  @override
+  String get hangulMastered => 'おめでとうございます！ハングルをマスターしました！';
+
+  @override
+  String get hangulGoToLevel1 => 'Level 1を始める';
 }

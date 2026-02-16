@@ -2610,4 +2610,41 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get furnitureItem => '가구';
+
+  @override
+  String get hangulWelcome => '한글의 세계에 오신 것을 환영합니다!';
+
+  @override
+  String get hangulWelcomeDesc => '40개 자모를 하나씩 배워보세요';
+
+  @override
+  String get hangulStartLearning => '학습 시작하기';
+
+  @override
+  String get hangulLearnNext => '다음 글자 배우기';
+
+  @override
+  String hangulLearnedCount(int count) {
+    return '$count/40 글자를 배웠어요!';
+  }
+
+  @override
+  String hangulReviewNeeded(int count) {
+    return '오늘 복습할 글자가 $count개 있어요!';
+  }
+
+  @override
+  String get hangulReviewNow => '지금 복습하기';
+
+  @override
+  String get hangulPracticeSuggestion => '거의 다 배웠어요! 활동으로 실력을 다져보세요';
+
+  @override
+  String get hangulStartActivities => '활동 시작';
+
+  @override
+  String get hangulMastered => '축하합니다! 한글 자모를 마스터했어요!';
+
+  @override
+  String get hangulGoToLevel1 => 'Level 1 시작';
 }

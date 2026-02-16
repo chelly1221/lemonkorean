@@ -27,7 +27,7 @@ import '../my_room/my_room_screen.dart';
 import '../profile/widgets/lemon_tree_widget.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
-import 'widgets/hangul_path_view.dart';
+import 'widgets/hangul_dashboard_view.dart';
 import 'widgets/lesson_path_view.dart';
 import 'widgets/level_selector.dart';
 import '../../../core/constants/level_constants.dart';
@@ -350,10 +350,12 @@ class _HomeTabState extends State<_HomeTab> {
             ),
           ),
 
-        // Hangul Path View for Level 0
+        // Hangul Dashboard for Level 0
         if (_selectedLevel == 0)
-          const SliverToBoxAdapter(
-            child: HangulPathView(),
+          SliverToBoxAdapter(
+            child: HangulDashboardView(
+              onLevelSelected: _onLevelSelected,
+            ),
           )
         // Lessons Grid or Empty State
         else if (filtered.isEmpty)

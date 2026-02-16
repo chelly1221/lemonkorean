@@ -2642,4 +2642,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get furnitureItem => 'Furn.';
+
+  @override
+  String get hangulWelcome => 'Welcome to Hangul!';
+
+  @override
+  String get hangulWelcomeDesc => 'Learn 40 Korean alphabet letters one by one';
+
+  @override
+  String get hangulStartLearning => 'Start Learning';
+
+  @override
+  String get hangulLearnNext => 'Learn Next';
+
+  @override
+  String hangulLearnedCount(int count) {
+    return '$count/40 letters learned!';
+  }
+
+  @override
+  String hangulReviewNeeded(int count) {
+    return '$count letters due for review today!';
+  }
+
+  @override
+  String get hangulReviewNow => 'Review Now';
+
+  @override
+  String get hangulPracticeSuggestion =>
+      'Almost there! Strengthen skills with activities';
+
+  @override
+  String get hangulStartActivities => 'Start Activities';
+
+  @override
+  String get hangulMastered => 'Congratulations! You\'ve mastered Hangul!';
+
+  @override
+  String get hangulGoToLevel1 => 'Go to Level 1';
 }

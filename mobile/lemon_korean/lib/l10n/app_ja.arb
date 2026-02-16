@@ -1825,5 +1825,26 @@
       "count": {"type": "int"}
     }
   },
-  "furnitureItem": "家具"
+  "furnitureItem": "家具",
+  "hangulWelcome": "ハングルの世界へようこそ！",
+  "hangulWelcomeDesc": "40文字の子母音を一つずつ学びましょう",
+  "hangulStartLearning": "学習を始める",
+  "hangulLearnNext": "次の文字を学ぶ",
+  "hangulLearnedCount": "{count}/40文字を学びました！",
+  "@hangulLearnedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNeeded": "今日復習する文字が{count}個あります！",
+  "@hangulReviewNeeded": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNow": "今すぐ復習",
+  "hangulPracticeSuggestion": "もう少し！アクティビティで実力を固めましょう",
+  "hangulStartActivities": "アクティビティ開始",
+  "hangulMastered": "おめでとうございます！ハングルをマスターしました！",
+  "hangulGoToLevel1": "Level 1を始める"
 }

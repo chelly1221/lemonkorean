@@ -1825,5 +1825,26 @@
       "count": {"type": "int"}
     }
   },
-  "furnitureItem": "Mueble"
+  "furnitureItem": "Mueble",
+  "hangulWelcome": "¡Bienvenido al Hangul!",
+  "hangulWelcomeDesc": "Aprende las 40 letras del alfabeto coreano una por una",
+  "hangulStartLearning": "Empezar a aprender",
+  "hangulLearnNext": "Aprender siguiente",
+  "hangulLearnedCount": "¡{count}/40 letras aprendidas!",
+  "@hangulLearnedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNeeded": "¡{count} letras para repasar hoy!",
+  "@hangulReviewNeeded": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNow": "Repasar ahora",
+  "hangulPracticeSuggestion": "¡Casi lo logras! Refuerza tus habilidades con actividades",
+  "hangulStartActivities": "Iniciar actividades",
+  "hangulMastered": "¡Felicidades! ¡Has dominado el Hangul!",
+  "hangulGoToLevel1": "Ir al Nivel 1"
 }

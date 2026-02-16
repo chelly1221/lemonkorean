@@ -4976,6 +4976,72 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'家具'**
   String get furnitureItem;
+
+  /// No description provided for @hangulWelcome.
+  ///
+  /// In zh, this message translates to:
+  /// **'欢迎来到韩文世界！'**
+  String get hangulWelcome;
+
+  /// No description provided for @hangulWelcomeDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'逐一学习40个韩文字母'**
+  String get hangulWelcomeDesc;
+
+  /// No description provided for @hangulStartLearning.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习'**
+  String get hangulStartLearning;
+
+  /// No description provided for @hangulLearnNext.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习下一个'**
+  String get hangulLearnNext;
+
+  /// No description provided for @hangulLearnedCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'已学习{count}/40个字母！'**
+  String hangulLearnedCount(int count);
+
+  /// No description provided for @hangulReviewNeeded.
+  ///
+  /// In zh, this message translates to:
+  /// **'今天有{count}个字母需要复习！'**
+  String hangulReviewNeeded(int count);
+
+  /// No description provided for @hangulReviewNow.
+  ///
+  /// In zh, this message translates to:
+  /// **'立即复习'**
+  String get hangulReviewNow;
+
+  /// No description provided for @hangulPracticeSuggestion.
+  ///
+  /// In zh, this message translates to:
+  /// **'快要完成了！通过活动巩固技能吧'**
+  String get hangulPracticeSuggestion;
+
+  /// No description provided for @hangulStartActivities.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始活动'**
+  String get hangulStartActivities;
+
+  /// No description provided for @hangulMastered.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！你已经掌握了韩文字母！'**
+  String get hangulMastered;
+
+  /// No description provided for @hangulGoToLevel1.
+  ///
+  /// In zh, this message translates to:
+  /// **'进入第1级'**
+  String get hangulGoToLevel1;
 }
 
 class _AppLocalizationsDelegate

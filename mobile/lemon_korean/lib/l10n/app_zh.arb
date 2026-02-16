@@ -2466,5 +2466,26 @@
       "count": {"type": "int"}
     }
   },
-  "furnitureItem": "家具"
+  "furnitureItem": "家具",
+  "hangulWelcome": "欢迎来到韩文世界！",
+  "hangulWelcomeDesc": "逐一学习40个韩文字母",
+  "hangulStartLearning": "开始学习",
+  "hangulLearnNext": "学习下一个",
+  "hangulLearnedCount": "已学习{count}/40个字母！",
+  "@hangulLearnedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNeeded": "今天有{count}个字母需要复习！",
+  "@hangulReviewNeeded": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNow": "立即复习",
+  "hangulPracticeSuggestion": "快要完成了！通过活动巩固技能吧",
+  "hangulStartActivities": "开始活动",
+  "hangulMastered": "恭喜！你已经掌握了韩文字母！",
+  "hangulGoToLevel1": "进入第1级"
 }

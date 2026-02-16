@@ -1897,5 +1897,26 @@
       "count": {"type": "int"}
     }
   },
-  "furnitureItem": "가구"
+  "furnitureItem": "가구",
+  "hangulWelcome": "한글의 세계에 오신 것을 환영합니다!",
+  "hangulWelcomeDesc": "40개 자모를 하나씩 배워보세요",
+  "hangulStartLearning": "학습 시작하기",
+  "hangulLearnNext": "다음 글자 배우기",
+  "hangulLearnedCount": "{count}/40 글자를 배웠어요!",
+  "@hangulLearnedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNeeded": "오늘 복습할 글자가 {count}개 있어요!",
+  "@hangulReviewNeeded": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNow": "지금 복습하기",
+  "hangulPracticeSuggestion": "거의 다 배웠어요! 활동으로 실력을 다져보세요",
+  "hangulStartActivities": "활동 시작",
+  "hangulMastered": "축하합니다! 한글 자모를 마스터했어요!",
+  "hangulGoToLevel1": "Level 1 시작"
 }

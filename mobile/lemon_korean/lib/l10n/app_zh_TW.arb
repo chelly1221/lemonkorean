@@ -939,5 +939,26 @@
       "count": {"type": "int"}
     }
   },
-  "furnitureItem": "家具"
+  "furnitureItem": "家具",
+  "hangulWelcome": "歡迎來到韓文世界！",
+  "hangulWelcomeDesc": "逐一學習40個韓文字母",
+  "hangulStartLearning": "開始學習",
+  "hangulLearnNext": "學習下一個",
+  "hangulLearnedCount": "已學習{count}/40個字母！",
+  "@hangulLearnedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNeeded": "今天有{count}個字母需要複習！",
+  "@hangulReviewNeeded": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hangulReviewNow": "立即複習",
+  "hangulPracticeSuggestion": "快要完成了！通過活動鞏固技能吧",
+  "hangulStartActivities": "開始活動",
+  "hangulMastered": "恭喜！你已經掌握了韓文字母！",
+  "hangulGoToLevel1": "進入第1級"
 }
