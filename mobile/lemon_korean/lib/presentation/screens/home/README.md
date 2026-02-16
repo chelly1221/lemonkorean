@@ -1,18 +1,18 @@
 # 홈 화면 (Home Screen)
 
-Material Design 3 기반 홈 화면. 3개 탭과 레벨 셀렉터 캐러셀, 학습 경로 뷰 포함.
+Material Design 3 기반 홈 화면. 5개 탭과 레벨 셀렉터 캐러셀, 레벨별 학습 경로를 제공.
 
 ## 파일 구조
 
 ```
 home/
-├── home_screen.dart              # 메인 화면 (3개 Tab: Home, Review, Profile)
+├── home_screen.dart              # 메인 화면 (5개 Tab: Home, Community, My Room, Review, Profile)
 └── widgets/
     ├── level_selector.dart       # 레벨 셀렉터 캐러셀 (10 레벨)
     ├── lesson_path_view.dart     # 레슨 경로 뷰 (지그재그 S-curve)
     ├── lesson_path_node.dart     # 레몬 모양 레슨 노드
     ├── boss_quiz_node.dart       # 보스 퀴즈 노드 (주차별, 2026-02-10)
-    ├── hangul_path_view.dart     # 한글 섹션 경로 뷰 (레벨 0 전용)
+    ├── hangul_dashboard_view.dart # 한글 대시보드 뷰 (레벨 0 전용)
     ├── lemon_clipper.dart        # 레몬 모양 CustomPainter
     ├── daily_goal_card.dart      # 일일 목표 카드 (ProfileTab)
     └── continue_lesson_card.dart # 이어서 학습 카드
@@ -24,11 +24,13 @@ home/
 
 ### 메인 화면 (HomeScreen)
 
-`IndexedStack` + `NavigationBar`로 3개 탭 구현:
+`IndexedStack` + `NavigationBar`로 5개 탭 구현:
 
-1. **학습** (HomeTab) - 레벨 셀렉터 + 학습 경로
-2. **복습** (ReviewTab) - SRS 복습 일정
-3. **프로필** (ProfileTab) - 인사말, 연속 학습, 일일 목표, 통계
+1. **학습** (HomeTab) - 레벨 셀렉터 + 레벨별 학습 콘텐츠
+2. **커뮤니티** (CommunityTab)
+3. **마이룸** (MyRoomTab)
+4. **복습** (ReviewTab) - SRS 복습 일정
+5. **프로필** (ProfileTab) - 인사말, 연속 학습, 일일 목표, 통계
 
 ---
 
@@ -41,7 +43,7 @@ home/
 ```
 LevelSelector (레벨 캐러셀, 10개 아이콘)
     ↓
-[레벨 0] HangulPathView (한글 4개 섹션 노드)
+[레벨 0] HangulDashboardView (액션 버튼 + 한글 자모 레몬 그리드)
 [레벨 1-9] LessonPathView (레슨 노드 지그재그 경로)
     ↓
 ContinueLessonCard [선택적, 진행 중 레슨 있을 때]
@@ -55,9 +57,13 @@ ContinueLessonCard [선택적, 진행 중 레슨 있을 때]
 - 중앙 아이콘에 노란색 테두리 + 글로우 + 하단 점 인디케이터
 
 **레벨 0 (한글) 인라인:**
-- 별도 화면 이동 대신 `HangulPathView`를 인라인으로 표시
-- 4개 섹션 노드: 자모표, 학습, 연습, 활동
-- 각 노드 탭 → `HangulMainScreen(initialTabIndex: n)` 이동
+- `HangulDashboardView`를 인라인으로 표시
+- 상단 액션 버튼 4개:
+  - `학습` → `HangulLevel0LearningScreen`
+  - `음절조합` → `HangulSyllableScreen`
+  - `받침연습` → `HangulBatchimScreen`
+  - `소리구분훈련` → `HangulDiscriminationScreen`
+- 하단에서 자모 레몬 그리드를 통해 문자 상세(`HangulCharacterDetailScreen`) 이동
 
 ### 2. 복습 Tab (ReviewTab)
 
@@ -117,10 +123,12 @@ SRS 복습 일정:
 - **진행 중** (0 < progress < 1.0): 색상 테두리 + 펄스 글로우
 - **미시작** (progress == null): 회색 테두리 + 회색 번호
 
-### HangulPathView
+### HangulDashboardView
 
-한글 전용 경로 뷰. LessonPathView와 동일한 스타일.
-4개 섹션: 자모표(grid_view), 학습(school), 연습(quiz), 활동(sports_esports).
+한글 전용 대시보드 뷰.
+- 상단: 학습 액션 버튼(4개)
+- 하단: 기본/쌍자음/기본모음/복합모음 자모 섹션
+- 자모 탭 시 상세 화면으로 진입
 
 ### DailyGoalCard
 

@@ -353,9 +353,7 @@ class _HomeTabState extends State<_HomeTab> {
         // Hangul Dashboard for Level 0
         if (_selectedLevel == 0)
           SliverToBoxAdapter(
-            child: HangulDashboardView(
-              onLevelSelected: _onLevelSelected,
-            ),
+            child: HangulDashboardView(),
           )
         // Lessons Grid or Empty State
         else if (filtered.isEmpty)
@@ -1072,4 +1070,3 @@ class _ProfileTabState extends State<_ProfileTab> {
     );
   }
 }
-

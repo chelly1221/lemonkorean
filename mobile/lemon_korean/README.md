@@ -272,12 +272,12 @@ flutter run -d chrome
 
 ### Hangul Learning Module (2026-02-03)
 
-Comprehensive Korean alphabet learning system with 9 practice modes.
+Comprehensive Korean alphabet learning system with level-0 roadmap and practice screens.
 
 **Location**: `lib/presentation/screens/hangul/`
 
-**Screens** (9 total):
-- `hangul_main_screen.dart` - Main hub with character grid and practice menu
+**Screens**:
+- `hangul_level0_learning_screen.dart` - Level 0 roadmap (0~8 stages) and lesson skeletons
 - `hangul_table_screen.dart` - Organized alphabet table (consonants/vowels)
 - `hangul_lesson_screen.dart` - Structured sequential lessons
 - `hangul_practice_screen.dart` - General character practice
@@ -295,6 +295,7 @@ Comprehensive Korean alphabet learning system with 9 practice modes.
 - `recording_widget.dart` - Audio recording for shadowing practice (mobile only)
 
 **Features**:
+- 🌱 Level 0 roadmap with stage-by-stage lesson planning (0~8)
 - 🎵 Pronunciation guides with native language comparisons (6 languages)
 - 🎨 Visual pronunciation mechanics (mouth shapes, tongue positions, airflow)
 - 🎧 Speed-controlled audio playback (0.5x to 1.5x)
@@ -385,17 +386,21 @@ Home screen level carousel and lesson path visualization.
 
 **Location**: `lib/presentation/screens/home/widgets/`
 
-**Widgets** (5 total):
+**Widgets**:
 - `level_selector.dart` - PageView carousel with 10 level icons (SVG)
 - `lesson_path_view.dart` - Zigzag S-curve path connecting lesson nodes
 - `lesson_path_node.dart` - Lemon-shaped node with 3 states (completed/in-progress/locked)
-- `hangul_path_view.dart` - Hangul section path (4 nodes for level 0)
+- `hangul_dashboard_view.dart` - Level 0 dashboard (action buttons + character lemon grid)
 - `lemon_clipper.dart` - Custom lemon shape painter with glow effects
 
 **Features**:
 - Snap-to-select carousel with auto level switching on page change
 - 10 levels with unique SVG icons and colors (defined in `level_constants.dart`)
-- Level 0 (Hangul) shown inline with 4 section nodes instead of separate screen
+- Level 0 (Hangul) shown inline as dashboard with quick actions:
+  - 학습 (level roadmap)
+  - 음절조합
+  - 받침연습
+  - 소리구분훈련
 - Lemon-shaped nodes with completion states and pulse animation
 - S-curve bezier path lines between nodes (solid=completed, dashed=incomplete)
 
