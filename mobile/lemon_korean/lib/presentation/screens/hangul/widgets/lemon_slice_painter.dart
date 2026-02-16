@@ -3,11 +3,25 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 /// CustomPainter that renders a giant lemon cross-section with 9 radial slices.
-/// Each slice represents a learning stage (0-8) with progress-based coloring.
+/// Each slice represents a learning stage (0-8) with lemon yellow theme.
+/// Progress is shown through radial fill and lesson fractions (X/Y).
 /// The center slice is highlighted with enhanced scale, brightness, and border.
 class GiantLemonSlicePainter extends CustomPainter {
   final int centerIndex; // Currently centered slice (0-8)
   final List<double> stageProgress; // Mastery level for each stage (0-5)
+
+  // Lesson counts for each stage (0-8)
+  static const List<int> _lessonCounts = [
+    4,  // Stage 0: 한글 구조 이해 (0-1, 0-2, 0-3, 0-M)
+    9,  // Stage 1: 핵심 모음 (1-1 through 1-8, 1-M)
+    17, // Stage 2: 기본 자음 (2-1 through 2-16, 2-M)
+    6,  // Stage 3: 본격 조합 훈련 (3-1 through 3-5, 3-M)
+    14, // Stage 4: 된소리/거센소리 (4-1 through 4-13, 4-M)
+    10, // Stage 5: 받침 1차 (5-0 through 5-8, 5-M)
+    7,  // Stage 6: 받침 확장 (6-1 through 6-6, 6-M)
+    7,  // Stage 7: 복합 받침 (7-1 through 7-6, 7-M)
+    6,  // Stage 8: 단어 읽기 (8-1 through 8-5, 8-M)
+  ];
 
   GiantLemonSlicePainter({
     required this.centerIndex,
@@ -15,7 +29,6 @@ class GiantLemonSlicePainter extends CustomPainter {
   }) : assert(stageProgress.length == 9, 'Must have exactly 9 stages');
 
   // Reusable paint objects for performance
-  static final _slicePaint = Paint()..style = PaintingStyle.fill;
   static final _borderPaint = Paint()
     ..style = PaintingStyle.stroke
     ..strokeWidth = 2.0
@@ -54,9 +67,6 @@ class GiantLemonSlicePainter extends CustomPainter {
         )
         ..close();
 
-      // Get color based on progress
-      final color = _getProgressColor(stageProgress[i]);
-
       // Check if this is the center slice
       final isCenterSlice = (i == centerIndex);
 
@@ -66,19 +76,16 @@ class GiantLemonSlicePainter extends CustomPainter {
         canvas.translate(center.dx, center.dy);
         canvas.scale(1.05, 1.05);
         canvas.translate(-center.dx, -center.dy);
-        _drawGlowEffect(canvas, path, color);
+        _drawGlowEffect(canvas, path);
       }
 
-      // Draw slice with brightness adjustment
-      _slicePaint.color = isCenterSlice
-          ? color.withValues(alpha: 1.0)
-          : color.withValues(alpha: 0.3); // More transparent for non-selected slices
-      canvas.drawPath(path, _slicePaint);
+      // Draw slice with radial fill
+      _drawRadialFill(canvas, center, radius * 0.94, path, i, isCenterSlice);
 
       // Draw border with emphasis for center slice
       if (isCenterSlice) {
         _borderPaint
-          ..color = const Color(0xFFFF6F00)
+          ..color = const Color(0xFFFFD54F) // Gold border
           ..strokeWidth = 6.0; // Thicker border for emphasis
       } else {
         _borderPaint
@@ -91,9 +98,9 @@ class GiantLemonSlicePainter extends CustomPainter {
         canvas.restore();
       }
 
-      // Draw stage label
+      // Draw lesson fraction text
       final labelAngle = startAngle + sweepAngle / 2;
-      _drawLabel(canvas, i, center, radius * 0.7, labelAngle, isCenterSlice);
+      _drawLessonFraction(canvas, i, center, radius * 0.7, labelAngle, isCenterSlice);
     }
 
     // 4. Draw center core (seed area)
@@ -105,8 +112,8 @@ class GiantLemonSlicePainter extends CustomPainter {
       center,
       radius,
       [
-        const Color(0xFFFFD54F), // Gold
-        const Color(0xFFFFA000), // Darker gold
+        const Color(0xFFFFFDE7), // Very light yellow (center)
+        const Color(0xFFFFEF5F), // Lemon yellow (edge)
       ],
       [0.85, 1.0],
     );
@@ -123,9 +130,9 @@ class GiantLemonSlicePainter extends CustomPainter {
     canvas.drawCircle(center, radius, pithPaint);
   }
 
-  void _drawGlowEffect(Canvas canvas, Path path, Color color) {
+  void _drawGlowEffect(Canvas canvas, Path path) {
     final glowPaint = Paint()
-      ..color = const Color(0xFFFF6F00).withValues(alpha: 0.3)
+      ..color = const Color(0xFFFFD54F).withValues(alpha: 0.4) // Gold glow
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4;
@@ -133,25 +140,31 @@ class GiantLemonSlicePainter extends CustomPainter {
     canvas.drawPath(path, glowPaint);
   }
 
-  void _drawLabel(
+  void _drawLessonFraction(
     Canvas canvas,
-    int stage,
+    int index,
     Offset center,
     double labelRadius,
     double angle,
     bool isCenterSlice,
   ) {
+    final totalLessons = _lessonCounts[index];
+    final mastery = stageProgress[index].clamp(0.0, 5.0);
+    final completedLessons = ((mastery / 5.0) * totalLessons).round();
+
+    // Calculate text position at slice center
     final x = center.dx + labelRadius * cos(angle);
     final y = center.dy + labelRadius * sin(angle);
 
+    // Text styling based on center status
     final textSpan = TextSpan(
-      text: '$stage',
+      text: '$completedLessons/$totalLessons',
       style: TextStyle(
         fontSize: isCenterSlice ? 24 : 16,
-        fontWeight: isCenterSlice ? FontWeight.bold : FontWeight.w600,
+        fontWeight: isCenterSlice ? FontWeight.bold : FontWeight.normal,
         color: isCenterSlice
-            ? const Color(0xFFFF6F00)
-            : Colors.black87,
+            ? const Color(0xFF212121) // Dark text for center
+            : const Color(0xFF212121).withValues(alpha: 0.7), // Slightly transparent for others
       ),
     );
 
@@ -171,8 +184,8 @@ class GiantLemonSlicePainter extends CustomPainter {
         center,
         diameter / 2,
         [
-          const Color(0xFFFFF59D), // Light yellow
-          const Color(0xFFFFEE58), // Yellow
+          const Color(0xFFFFFDE7), // Light yellow (center)
+          const Color(0xFFFFEE58), // Bright yellow (edge)
         ],
       );
 
@@ -186,17 +199,48 @@ class GiantLemonSlicePainter extends CustomPainter {
     canvas.drawCircle(center, diameter / 2, shadowPaint);
   }
 
-  Color _getProgressColor(double mastery) {
-    final level = mastery.clamp(0, 5).toInt();
-    const colors = [
-      Color(0xFFBDBDBD), // 0: grey (not started)
-      Color(0xFFC5E1A5), // 1: light green
-      Color(0xFF81C784), // 2: green
-      Color(0xFFCDDC39), // 3: yellow-green
-      Color(0xFFFFEE58), // 4: yellow
-      Color(0xFFFFD54F), // 5: gold (mastered)
-    ];
-    return colors[level];
+  void _drawRadialFill(
+    Canvas canvas,
+    Offset center,
+    double radius,
+    Path slicePath,
+    int index,
+    bool isCenterSlice,
+  ) {
+    final totalLessons = _lessonCounts[index];
+    final mastery = stageProgress[index].clamp(0.0, 5.0);
+
+    // Calculate completed lessons from mastery (0-5 maps to 0-totalLessons)
+    final completedLessons = ((mastery / 5.0) * totalLessons).round();
+    final fillRatio = completedLessons / totalLessons;
+
+    // Uniform lemon yellow color
+    const lemonYellow = Color(0xFFFFEF5F);
+
+    // Base opacity for center vs non-center slices
+    final baseOpacity = isCenterSlice ? 1.0 : 0.5;
+
+    // Create gradient shader from center to edge based on fill ratio
+    final gradientShader = ui.Gradient.radial(
+      center,
+      radius,
+      [
+        lemonYellow.withValues(alpha: baseOpacity), // Full color at center
+        lemonYellow.withValues(alpha: baseOpacity * 0.9), // Slightly lighter
+        lemonYellow.withValues(alpha: baseOpacity * 0.2), // Very light at unfilled area
+      ],
+      [
+        0.0,
+        fillRatio * 0.9, // Filled portion
+        1.0, // Unfilled portion
+      ],
+    );
+
+    final fillPaint = Paint()
+      ..shader = gradientShader
+      ..style = PaintingStyle.fill;
+
+    canvas.drawPath(slicePath, fillPaint);
   }
 
   @override

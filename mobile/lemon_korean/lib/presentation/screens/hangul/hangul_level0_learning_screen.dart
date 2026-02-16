@@ -87,8 +87,8 @@ class _HangulLevel0LearningScreenState
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
                                 colors: [
-                                  Color(0xFFFF8F00), // Bright orange
-                                  Color(0xFFFF6F00), // Orange (from painter)
+                                  Color(0xFFFFF9C4), // Light lemon yellow (top - highlight)
+                                  Color(0xFFFFEF5F), // Main lemon yellow (bottom)
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -101,24 +101,24 @@ class _HangulLevel0LearningScreenState
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(
-                                    0xFFFF6F00,
-                                  ).withValues(alpha: 0.5),
-                                  blurRadius: 16,
-                                  spreadRadius: 2,
+                                    0xFFFFEF5F, // Lemon yellow glow
+                                  ).withValues(alpha: 0.6),
+                                  blurRadius: 20,
+                                  spreadRadius: 3,
                                 ),
                               ],
                             ),
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.play_arrow, size: 28, color: Colors.white),
+                                Icon(Icons.play_arrow, size: 28, color: Color(0xFF212121)),
                                 SizedBox(width: 8),
                                 Text(
                                   '학습 시작',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: Color(0xFF212121), // Dark text for contrast
                                   ),
                                 ),
                               ],
@@ -151,7 +151,7 @@ class _HangulLevel0LearningScreenState
             '${selectedStage.stage}단계',
             style: const TextStyle(
               fontSize: 16,
-              color: Color(0xFFFF6F00),
+              color: Color(0xFFFFD54F), // Gold color to match theme
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -218,18 +218,10 @@ class _HangulLevel0LearningScreenState
     });
   }
 
-  /// Get color based on mastery level
+  /// Get color based on mastery level (using lemon yellow theme)
   Color _getProgressColor(double mastery) {
-    final level = mastery.clamp(0, 5).toInt();
-    const colors = [
-      Color(0xFFBDBDBD), // 0
-      Color(0xFFC5E1A5), // 1
-      Color(0xFF81C784), // 2
-      Color(0xFFCDDC39), // 3
-      Color(0xFFFFEE58), // 4
-      Color(0xFFFFD54F), // 5
-    ];
-    return colors[level];
+    // All progress uses lemon yellow theme
+    return const Color(0xFFFFEF5F); // Lemon yellow
   }
 
   /// Navigate to the selected stage screen
