@@ -72,14 +72,14 @@ class GiantLemonSlicePainter extends CustomPainter {
       // Draw slice with brightness adjustment
       _slicePaint.color = isCenterSlice
           ? color.withValues(alpha: 1.0)
-          : color.withValues(alpha: 0.6);
+          : color.withValues(alpha: 0.3); // More transparent for non-selected slices
       canvas.drawPath(path, _slicePaint);
 
       // Draw border with emphasis for center slice
       if (isCenterSlice) {
         _borderPaint
           ..color = const Color(0xFFFF6F00)
-          ..strokeWidth = 4.0;
+          ..strokeWidth = 6.0; // Thicker border for emphasis
       } else {
         _borderPaint
           ..color = Colors.white

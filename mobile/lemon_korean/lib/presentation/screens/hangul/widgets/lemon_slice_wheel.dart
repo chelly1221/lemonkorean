@@ -72,7 +72,30 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
   @override
   void didUpdateWidget(GiantLemonWheel oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // External updates can be handled here if needed
+    if (oldWidget.initialStage != widget.initialStage) {
+      _animateToStage(widget.initialStage.clamp(0, 8));
+    }
+  }
+
+  void _animateToStage(int stageIndex) {
+    const sliceAngle = 2 * pi / 9;
+    final targetRotation = -stageIndex * sliceAngle;
+
+    _snapAnimation = Tween<double>(
+      begin: _currentRotation,
+      end: targetRotation,
+    ).animate(CurvedAnimation(
+      parent: _snapController,
+      curve: Curves.easeOut,
+    ));
+
+    _snapController
+      ..reset()
+      ..forward();
+
+    setState(() {
+      _centerSliceIndex = stageIndex;
+    });
   }
 
   /// Calculate which slice is currently at center (0 degrees / top)
@@ -122,86 +145,64 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final viewportWidth = constraints.maxWidth;
+        final viewportHeight = constraints.maxHeight;
 
-    // Giant wheel diameter (3.5x screen height)
-    final wheelDiameter = screenHeight * 3.5;
+        // Giant wheel diameter derived from parent viewport, not full screen.
+        final wheelDiameter = viewportHeight * 7.0;
+        final radius = wheelDiameter / 2;
 
-    // Viewport height (40% of screen)
-    final viewportHeight = screenHeight * 0.4;
+        // Circle center position: below the local viewport bottom.
+        final centerX = viewportWidth / 2;
+        final centerY = viewportHeight + (radius * 0.3);
 
-    return GestureDetector(
-      onHorizontalDragStart: (details) {
-        _snapController.stop();
-        _dragStartX = details.globalPosition.dx;
-        _rotationAtDragStart = _currentRotation;
-      },
-      onHorizontalDragUpdate: (details) {
-        final dragDelta = details.globalPosition.dx - _dragStartX;
+        return GestureDetector(
+          onHorizontalDragStart: (details) {
+            _snapController.stop();
+            _dragStartX = details.globalPosition.dx;
+            _rotationAtDragStart = _currentRotation;
+          },
+          onHorizontalDragUpdate: (details) {
+            final dragDelta = details.globalPosition.dx - _dragStartX;
 
-        // Convert drag distance to rotation angle
-        // Screen width drag = 360 degrees rotation
-        final rotationDelta = (dragDelta / screenWidth) * 2 * pi;
+            // Viewport width drag = 360 degrees rotation.
+            final rotationDelta = (dragDelta / viewportWidth) * 2 * pi;
 
-        setState(() {
-          _currentRotation = _rotationAtDragStart + rotationDelta;
-          _centerSliceIndex = _calculateCenterSliceIndex(_currentRotation);
-        });
-      },
-      onHorizontalDragEnd: (details) {
-        _snapToNearestStage();
-      },
-      child: ClipRect(
-        child: SizedBox(
-          height: viewportHeight,
-          width: screenWidth,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Giant lemon wheel
-              Transform.rotate(
-                angle: _currentRotation,
-                child: CustomPaint(
-                  size: Size(wheelDiameter, wheelDiameter),
-                  painter: GiantLemonSlicePainter(
-                    centerIndex: _centerSliceIndex,
-                    stageProgress: widget.stageProgress,
+            setState(() {
+              _currentRotation = _rotationAtDragStart + rotationDelta;
+              _centerSliceIndex = _calculateCenterSliceIndex(_currentRotation);
+            });
+          },
+          onHorizontalDragEnd: (details) {
+            _snapToNearestStage();
+          },
+          child: ClipRect(
+            child: SizedBox.expand(
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: centerX - radius,
+                    top: centerY - radius,
+                    child: Transform.rotate(
+                      angle: _currentRotation,
+                      alignment: Alignment.center,
+                      child: CustomPaint(
+                        size: Size(wheelDiameter, wheelDiameter),
+                        painter: GiantLemonSlicePainter(
+                          centerIndex: _centerSliceIndex,
+                          stageProgress: widget.stageProgress,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-
-              // Center indicator (selection area guide)
-              Positioned(
-                top: viewportHeight / 2 - 60,
-                child: _buildCenterIndicator(),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  /// Build center indicator to show selection area
-  Widget _buildCenterIndicator() {
-    return Container(
-      width: 120,
-      height: 120,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: const Color(0xFFFF6F00).withValues(alpha: 0.3),
-          width: 3,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Center(
-        child: Icon(
-          Icons.arrow_downward,
-          size: 32,
-          color: const Color(0xFFFF6F00).withValues(alpha: 0.5),
-        ),
-      ),
+        );
+      },
     );
   }
 }

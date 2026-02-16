@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -43,38 +42,38 @@ class _HangulLevel0LearningScreenState
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                // 1. Stage info (moved to top)
-                _buildStageInfo(selectedStage, stageProgress)
-                    .animate()
-                    .fadeIn(duration: 300.ms),
+          Column(
+            children: [
+              // 1. Stage info (top section with fixed height)
+              _buildStageInfo(selectedStage, stageProgress)
+                  .animate()
+                  .fadeIn(duration: 300.ms),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 16),
 
-                // 2. Giant lemon wheel (center portion only)
-                GiantLemonWheel(
-                  stages: _stages,
-                  initialStage: _selectedStageIndex,
-                  stageProgress: stageProgress,
-                  onStageSelected: (index) {
-                    setState(() {
-                      _selectedStageIndex = index;
-                    });
-                  },
-                ).animate().fadeIn(duration: 500.ms).scale(
-                      begin: const Offset(0.95, 0.95),
-                      duration: 600.ms,
-                      curve: Curves.easeOutCubic,
-                    ),
-
-                const SizedBox(height: 100), // Space for bottom button
-              ],
-            ),
+              // 2. Giant lemon wheel (expands to fill remaining space)
+              Expanded(
+                child: ClipRect(
+                  child: GiantLemonWheel(
+                    stages: _stages,
+                    initialStage: _selectedStageIndex,
+                    stageProgress: stageProgress,
+                    onStageSelected: (index) {
+                      setState(() {
+                        _selectedStageIndex = index;
+                      });
+                    },
+                  ).animate().fadeIn(duration: 500.ms).scale(
+                        begin: const Offset(0.95, 0.95),
+                        duration: 600.ms,
+                        curve: Curves.easeOutCubic,
+                      ),
+                ),
+              ),
+            ],
           ),
 
-          // 3. Start learning button (fixed at bottom)
+          // 3. Start learning button (fixed at bottom with absolute positioning)
           Positioned(
             bottom: 24,
             left: 24,
