@@ -45,6 +45,10 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
           return _buildErrorState(context, provider);
         }
 
+        if (provider.characters.isEmpty) {
+          return _buildEmptyState(context, provider);
+        }
+
         return RefreshIndicator(
           onRefresh: () => provider.loadAlphabetTable(),
           child: SingleChildScrollView(
@@ -276,6 +280,34 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
           const SizedBox(height: 16),
           Text(
             provider.errorMessage ?? l10n.loadFailed,
+            style: const TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () => provider.loadAlphabetTable(),
+            child: Text(l10n.retry),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context, HangulProvider provider) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.grid_off,
+            size: 64,
+            color: Colors.grey,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.noCharactersAvailable,
             style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           ),

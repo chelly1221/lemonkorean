@@ -18,9 +18,12 @@ class HangulRepository {
   static const String _progressBoxName = 'hangul_progress';
 
   // Helper to create Dio with token
-  Future<Dio> _createContentDio() async {
-    final storage = PlatformFactory.createSecureStorage();
-    final token = await storage.read(key: AppConstants.tokenKey);
+  Future<Dio> _createContentDio({bool includeAuth = true}) async {
+    String? token;
+    if (includeAuth) {
+      final storage = PlatformFactory.createSecureStorage();
+      token = await storage.read(key: AppConstants.tokenKey);
+    }
 
     return Dio(BaseOptions(
       baseUrl: AppConstants.contentUrl,
@@ -59,13 +62,24 @@ class HangulRepository {
     String? characterType,
   }) async {
     try {
-      final dio = await _createContentDio();
-      final response = await dio.get(
+      var dio = await _createContentDio();
+      var response = await dio.get(
         '/api/content/hangul/characters',
         queryParameters: {
           if (characterType != null) 'character_type': characterType,
         },
       );
+
+      // Content endpoints are public. Retry once without auth header if token is stale.
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        dio = await _createContentDio(includeAuth: false);
+        response = await dio.get(
+          '/api/content/hangul/characters',
+          queryParameters: {
+            if (characterType != null) 'character_type': characterType,
+          },
+        );
+      }
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['characters'] ?? [];
@@ -110,10 +124,16 @@ class HangulRepository {
   }
 
   /// Get alphabet table (organized by type)
-  Future<Result<Map<String, List<HangulCharacterModel>>>> getAlphabetTableResult() async {
+  Future<Result<Map<String, List<HangulCharacterModel>>>>
+      getAlphabetTableResult() async {
     try {
       final dio = await _createContentDio();
-      final response = await dio.get('/api/content/hangul/table');
+      var response = await dio.get('/api/content/hangul/table');
+
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        final publicDio = await _createContentDio(includeAuth: false);
+        response = await publicDio.get('/api/content/hangul/table');
+      }
 
       if (response.statusCode == 200) {
         final tableData = response.data['table'] as Map<String, dynamic>? ?? {};
@@ -128,14 +148,31 @@ class HangulRepository {
           }
         });
 
-        // Save all characters
-        final allCharacters = table.values.expand((list) => list).toList();
-        await _saveCharactersLocal(allCharacters);
-
-        return Success(table, isFromCache: false);
+        if (table.isNotEmpty) {
+          // Save all characters
+          final allCharacters = table.values.expand((list) => list).toList();
+          await _saveCharactersLocal(allCharacters);
+          return Success(table, isFromCache: false);
+        }
       }
 
-      // Fallback
+      // Fallback: If /table endpoint fails, derive table from /characters endpoint
+      final charactersResult = await getCharactersResult();
+      final tableFromCharacters = charactersResult.when(
+        success: (characters, isFromCache) =>
+            _buildAlphabetTableFromCharacters(characters),
+        error: (_, __, cachedData) {
+          if (cachedData != null && cachedData.isNotEmpty) {
+            return _buildAlphabetTableFromCharacters(cachedData);
+          }
+          return <String, List<HangulCharacterModel>>{};
+        },
+      );
+      if (tableFromCharacters.isNotEmpty) {
+        return Success(tableFromCharacters, isFromCache: false);
+      }
+
+      // Final fallback: local
       final cached = await _getLocalAlphabetTable();
       return Error(
         'Server returned status ${response.statusCode}',
@@ -144,6 +181,26 @@ class HangulRepository {
       );
     } catch (e, stackTrace) {
       AppLogger.w('getAlphabetTable error', tag: 'HangulRepository', error: e);
+
+      // Fallback: derive table from /characters endpoint
+      try {
+        final charactersResult = await getCharactersResult();
+        final tableFromCharacters = charactersResult.when(
+          success: (characters, isFromCache) =>
+              _buildAlphabetTableFromCharacters(characters),
+          error: (_, __, cachedData) {
+            if (cachedData != null && cachedData.isNotEmpty) {
+              return _buildAlphabetTableFromCharacters(cachedData);
+            }
+            return <String, List<HangulCharacterModel>>{};
+          },
+        );
+        if (tableFromCharacters.isNotEmpty) {
+          return Success(tableFromCharacters, isFromCache: false);
+        }
+      } catch (_) {
+        // Continue to local fallback below
+      }
 
       final cached = await _getLocalAlphabetTable();
       final exception = ExceptionHandler.handle(e, stackTrace);
@@ -162,8 +219,13 @@ class HangulRepository {
       final localChar = await _getLocalCharacter(id);
 
       // Try remote
-      final dio = await _createContentDio();
-      final response = await dio.get('/api/content/hangul/characters/$id');
+      var dio = await _createContentDio();
+      var response = await dio.get('/api/content/hangul/characters/$id');
+
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        dio = await _createContentDio(includeAuth: false);
+        response = await dio.get('/api/content/hangul/characters/$id');
+      }
 
       if (response.statusCode == 200) {
         final char = HangulCharacterModel.fromJson(response.data['character']);
@@ -183,7 +245,8 @@ class HangulRepository {
   // ================================================================
 
   /// Get user's hangul progress
-  Future<Result<List<HangulProgressModel>>> getProgressResult(int userId) async {
+  Future<Result<List<HangulProgressModel>>> getProgressResult(
+      int userId) async {
     try {
       final dio = await _createProgressDio();
       final response = await dio.get('/api/progress/hangul/$userId');
@@ -229,7 +292,8 @@ class HangulRepository {
       }
       return await _calculateLocalStats(userId);
     } catch (e) {
-      AppLogger.w('[HangulRepository] getStats error, using local fallback: $e');
+      AppLogger.w(
+          '[HangulRepository] getStats error, using local fallback: $e');
       return await _calculateLocalStats(userId);
     }
   }
@@ -349,14 +413,15 @@ class HangulRepository {
       int userId, int characterId, bool isCorrect, DateTime now) async {
     try {
       final key = '${userId}_$characterId';
-      final existing = LocalStorage.getFromBox<Map<dynamic, dynamic>>(
-          _progressBoxName, key);
+      final existing =
+          LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
 
       if (existing != null) {
         final updated = Map<String, dynamic>.from(existing);
         updated['last_practiced'] = now.toIso8601String();
         if (isCorrect) {
-          updated['correct_count'] = (updated['correct_count'] as int? ?? 0) + 1;
+          updated['correct_count'] =
+              (updated['correct_count'] as int? ?? 0) + 1;
           updated['streak_count'] = (updated['streak_count'] as int? ?? 0) + 1;
         } else {
           updated['wrong_count'] = (updated['wrong_count'] as int? ?? 0) + 1;
@@ -383,13 +448,14 @@ class HangulRepository {
         await LocalStorage.saveToBox(_progressBoxName, key, newProgress);
       }
     } catch (e) {
-      AppLogger.w('[HangulRepository] updateLocalProgressFromPractice error: $e');
+      AppLogger.w(
+          '[HangulRepository] updateLocalProgressFromPractice error: $e');
     }
   }
 
   /// Get characters due for review
-  Future<Result<List<HangulCharacterModel>>> getReviewScheduleResult(
-      int userId, {int limit = 20}) async {
+  Future<Result<List<HangulCharacterModel>>> getReviewScheduleResult(int userId,
+      {int limit = 20}) async {
     try {
       final dio = await _createProgressDio();
       final response = await dio.get(
@@ -429,10 +495,12 @@ class HangulRepository {
   // LOCAL STORAGE HELPERS
   // ================================================================
 
-  Future<void> _saveCharactersLocal(List<HangulCharacterModel> characters) async {
+  Future<void> _saveCharactersLocal(
+      List<HangulCharacterModel> characters) async {
     try {
       for (final char in characters) {
-        await LocalStorage.saveToBox(_charactersBoxName, char.id.toString(), char.toJson());
+        await LocalStorage.saveToBox(
+            _charactersBoxName, char.id.toString(), char.toJson());
       }
     } catch (e) {
       AppLogger.w('[HangulRepository] saveCharactersLocal error: $e');
@@ -441,7 +509,8 @@ class HangulRepository {
 
   Future<void> _saveCharacterLocal(HangulCharacterModel char) async {
     try {
-      await LocalStorage.saveToBox(_charactersBoxName, char.id.toString(), char.toJson());
+      await LocalStorage.saveToBox(
+          _charactersBoxName, char.id.toString(), char.toJson());
     } catch (e) {
       AppLogger.w('[HangulRepository] saveCharacterLocal error: $e');
     }
@@ -451,15 +520,16 @@ class HangulRepository {
     String? characterType,
   }) async {
     try {
-      final allData = LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_charactersBoxName);
+      final allData =
+          LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_charactersBoxName);
       var characters = allData
-          .map((data) => HangulCharacterModel.fromJson(Map<String, dynamic>.from(data)))
+          .map((data) =>
+              HangulCharacterModel.fromJson(Map<String, dynamic>.from(data)))
           .toList();
 
       if (characterType != null) {
-        characters = characters
-            .where((c) => c.characterType == characterType)
-            .toList();
+        characters =
+            characters.where((c) => c.characterType == characterType).toList();
       }
 
       characters.sort((a, b) => a.displayOrder.compareTo(b.displayOrder));
@@ -484,9 +554,58 @@ class HangulRepository {
     }
   }
 
-  Future<Map<String, List<HangulCharacterModel>>> _getLocalAlphabetTable() async {
+  Future<Map<String, List<HangulCharacterModel>>>
+      _getLocalAlphabetTable() async {
     final characters = await _getLocalCharacters();
+    return _buildAlphabetTableFromCharacters(characters);
+  }
 
+  Future<void> _saveProgressLocal(
+      int userId, List<HangulProgressModel> progress) async {
+    try {
+      for (final p in progress) {
+        final key = '${userId}_${p.characterId}';
+        await LocalStorage.saveToBox(_progressBoxName, key, p.toJson());
+      }
+    } catch (e) {
+      AppLogger.w('[HangulRepository] saveProgressLocal error: $e');
+    }
+  }
+
+  Future<List<HangulProgressModel>> _getLocalProgress(int userId) async {
+    try {
+      final allData =
+          LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_progressBoxName);
+      return allData
+          .map((data) =>
+              HangulProgressModel.fromJson(Map<String, dynamic>.from(data)))
+          .where((p) => p.userId == userId)
+          .toList();
+    } catch (e) {
+      AppLogger.w('[HangulRepository] getLocalProgress error: $e');
+      return [];
+    }
+  }
+
+  Future<void> _updateLocalProgress(
+      int userId, int characterId, Map<String, dynamic> data) async {
+    try {
+      final key = '${userId}_$characterId';
+      final existing =
+          LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
+
+      if (existing != null) {
+        final updated = Map<String, dynamic>.from(existing);
+        updated.addAll(data);
+        await LocalStorage.saveToBox(_progressBoxName, key, updated);
+      }
+    } catch (e) {
+      AppLogger.w('[HangulRepository] updateLocalProgress error: $e');
+    }
+  }
+
+  Map<String, List<HangulCharacterModel>> _buildAlphabetTableFromCharacters(
+      List<HangulCharacterModel> characters) {
     final table = <String, List<HangulCharacterModel>>{
       'basic_consonants': [],
       'double_consonants': [],
@@ -512,45 +631,5 @@ class HangulRepository {
     }
 
     return table;
-  }
-
-  Future<void> _saveProgressLocal(int userId, List<HangulProgressModel> progress) async {
-    try {
-      for (final p in progress) {
-        final key = '${userId}_${p.characterId}';
-        await LocalStorage.saveToBox(_progressBoxName, key, p.toJson());
-      }
-    } catch (e) {
-      AppLogger.w('[HangulRepository] saveProgressLocal error: $e');
-    }
-  }
-
-  Future<List<HangulProgressModel>> _getLocalProgress(int userId) async {
-    try {
-      final allData = LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_progressBoxName);
-      return allData
-          .map((data) => HangulProgressModel.fromJson(Map<String, dynamic>.from(data)))
-          .where((p) => p.userId == userId)
-          .toList();
-    } catch (e) {
-      AppLogger.w('[HangulRepository] getLocalProgress error: $e');
-      return [];
-    }
-  }
-
-  Future<void> _updateLocalProgress(
-      int userId, int characterId, Map<String, dynamic> data) async {
-    try {
-      final key = '${userId}_$characterId';
-      final existing = LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
-
-      if (existing != null) {
-        final updated = Map<String, dynamic>.from(existing);
-        updated.addAll(data);
-        await LocalStorage.saveToBox(_progressBoxName, key, updated);
-      }
-    } catch (e) {
-      AppLogger.w('[HangulRepository] updateLocalProgress error: $e');
-    }
   }
 }
