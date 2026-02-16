@@ -148,7 +148,13 @@ class HangulRepository {
           }
         });
 
-        if (table.isNotEmpty) {
+        final totalFromTable = table.values.fold<int>(
+          0,
+          (sum, list) => sum + list.length,
+        );
+
+        // Only accept /table result when it actually contains characters.
+        if (totalFromTable > 0) {
           // Save all characters
           final allCharacters = table.values.expand((list) => list).toList();
           await _saveCharactersLocal(allCharacters);

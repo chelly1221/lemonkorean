@@ -9,6 +9,7 @@ import '../../../providers/auth_provider.dart';
 import '../../../providers/hangul_provider.dart';
 import '../../hangul/hangul_character_detail.dart';
 import '../../hangul/hangul_main_screen.dart';
+import '../../hangul/hangul_level0_learning_screen.dart';
 import 'lemon_clipper.dart';
 
 /// Learning stage for the adaptive guide card.
@@ -84,8 +85,7 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
 
   static bool _lemonFilled(int masteryLevel) => masteryLevel > 0;
 
-  static double _lemonGlow(int masteryLevel) =>
-      masteryLevel >= 5 ? 0.5 : 0.0;
+  static double _lemonGlow(int masteryLevel) => masteryLevel >= 5 ? 0.5 : 0.0;
 
   // ── Progress lemon colour (interpolated) ─────────────────────────
 
@@ -127,6 +127,10 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
             constraints: const BoxConstraints(maxWidth: 600),
             child: Column(
               children: [
+                _buildTopLearningButton(context),
+
+                const SizedBox(height: 8),
+
                 // Adaptive guide card
                 _buildGuideCard(context, stats, stage),
 
@@ -184,6 +188,40 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
 
   // ── Guide card ──────────────────────────────────────────────────
 
+  Widget _buildTopLearningButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HangulLevel0LearningScreen(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.school),
+          label: const Text('학습'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF5BA3EC),
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ),
+    ).animate().fadeIn(duration: 300.ms).slideY(
+          begin: 0.12,
+          end: 0,
+          duration: 300.ms,
+          curve: Curves.easeOut,
+        );
+  }
+
   Widget _buildGuideCard(
     BuildContext context,
     HangulStats stats,
@@ -207,8 +245,8 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         ctaAction = () => _goHangul(1);
         break;
       case _HangulStage.learning:
-        message = l10n?.hangulLearnedCount(learned) ??
-            '$learned/40 letters learned!';
+        message =
+            l10n?.hangulLearnedCount(learned) ?? '$learned/40 letters learned!';
         ctaLabel = '🌱  ${l10n?.hangulLearnNext ?? 'Learn Next'}';
         ctaAction = () => _goHangul(1);
         break;
@@ -225,8 +263,8 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         ctaAction = () => _goHangul(3);
         break;
       case _HangulStage.master:
-        message = l10n?.hangulMastered ??
-            "Congratulations! You've mastered Hangul!";
+        message =
+            l10n?.hangulMastered ?? "Congratulations! You've mastered Hangul!";
         ctaLabel = '▶  ${l10n?.hangulGoToLevel1 ?? 'Go to Level 1'}';
         ctaAction = () => widget.onLevelSelected?.call(1);
         break;
@@ -516,8 +554,7 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>
-                HangulCharacterDetailScreen(character: character),
+            builder: (_) => HangulCharacterDetailScreen(character: character),
           ),
         );
       },
