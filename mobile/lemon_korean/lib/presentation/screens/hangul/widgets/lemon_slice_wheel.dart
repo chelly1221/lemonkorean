@@ -150,13 +150,13 @@ class _GiantLemonWheelState extends State<GiantLemonWheel>
         final viewportWidth = constraints.maxWidth;
         final viewportHeight = constraints.maxHeight;
 
-        // Giant wheel diameter derived from parent viewport, not full screen.
-        final wheelDiameter = viewportHeight * 7.0;
+        // Size relative to viewport so the rim stays visible on all screens.
+        final wheelDiameter = min(viewportWidth * 1.45, viewportHeight * 1.9);
         final radius = wheelDiameter / 2;
 
-        // Circle center position: below the local viewport bottom.
+        // Keep center near lower area without pushing most of wheel out of viewport.
         final centerX = viewportWidth / 2;
-        final centerY = viewportHeight + (radius * 0.15);
+        final centerY = viewportHeight + (radius * 0.18);
 
         return GestureDetector(
           onHorizontalDragStart: (details) {
