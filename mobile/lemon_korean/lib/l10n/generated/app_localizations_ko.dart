@@ -715,10 +715,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onboardingSkip => '건너뛰기';
 
   @override
-  String get onboardingLanguageTitle => '레몬 한국어';
+  String get onboardingLanguageTitle => '반가워요! 모니라고 해요';
 
   @override
-  String get onboardingLanguagePrompt => '선호하는 언어를 선택하세요';
+  String get onboardingLanguagePrompt => '어떤 언어부터 함께 배울까요?';
 
   @override
   String get onboardingNext => '다음';

@@ -709,10 +709,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingSkip => '跳过';
 
   @override
-  String get onboardingLanguageTitle => '柠檬韩语';
+  String get onboardingLanguageTitle => '你好！我是莫妮';
 
   @override
-  String get onboardingLanguagePrompt => '请选择您的首选语言';
+  String get onboardingLanguagePrompt => '从哪种语言开始一起学习呢？';
 
   @override
   String get onboardingNext => '下一步';
@@ -3348,10 +3348,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get onboardingSkip => '跳過';
 
   @override
-  String get onboardingLanguageTitle => '檸檬韓語';
+  String get onboardingLanguageTitle => '你好！我是莫妮';
 
   @override
-  String get onboardingLanguagePrompt => '請選擇您的首選語言';
+  String get onboardingLanguagePrompt => '從哪種語言開始一起學習呢？';
 
   @override
   String get onboardingNext => '下一步';

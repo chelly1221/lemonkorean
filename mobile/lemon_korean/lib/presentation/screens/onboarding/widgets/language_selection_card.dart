@@ -6,7 +6,6 @@ import '../utils/onboarding_colors.dart';
 const _selectedBg = Color(0xFFFFF9D3);
 const _selectedBorder = Color(0xFFFFDB59);
 const _unselectedBg = Color(0xFFFBF6EF);
-const _unselectedBorder = Color(0xFF9B8A74);
 
 /// Tappable card for vertical language list
 class LanguageSelectionCard extends StatefulWidget {
@@ -76,54 +75,60 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
       onTap: _handleTap,
       child: ScaleTransition(
         scale: _scaleAnimation,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          height: 50,
-          padding: const EdgeInsets.symmetric(
-            horizontal: OnboardingSpacing.md,
-            vertical: OnboardingSpacing.sm,
-          ),
-          decoration: BoxDecoration(
-            color: widget.isSelected ? _selectedBg : _unselectedBg,
-            border: Border.all(
-              color: widget.isSelected ? _selectedBorder : _unselectedBorder,
-              width: widget.isSelected ? 2 : 1,
-            ),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            children: [
-              // Flag emoji in a fixed rectangular container
-              SizedBox(
-                width: 30,
-                height: 20,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(3),
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      widget.flagEmoji,
-                      style: const TextStyle(fontSize: 20),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final contentLeft = constraints.maxWidth * 0.30;
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              height: 50,
+              padding: EdgeInsets.only(
+                left: contentLeft,
+                right: OnboardingSpacing.md,
+                top: OnboardingSpacing.sm,
+                bottom: OnboardingSpacing.sm,
+              ),
+              decoration: BoxDecoration(
+                color: widget.isSelected ? _selectedBg : _unselectedBg,
+                border: widget.isSelected
+                    ? Border.all(color: _selectedBorder, width: 2)
+                    : null,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                children: [
+                  // Flag emoji in a fixed rectangular container
+                  SizedBox(
+                    width: 30,
+                    height: 20,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(3),
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          widget.flagEmoji,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(width: OnboardingSpacing.md),
-              // Language name
-              Expanded(
-                child: Text(
-                  widget.nativeName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: OnboardingColors.textPrimary,
-                    letterSpacing: -0.2,
+                  const SizedBox(width: OnboardingSpacing.md),
+                  // Language name
+                  Expanded(
+                    child: Text(
+                      widget.nativeName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: OnboardingColors.textPrimary,
+                        letterSpacing: -0.2,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

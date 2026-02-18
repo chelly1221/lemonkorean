@@ -198,8 +198,8 @@ class AppThemeModel {
       stage5Color: '#E91E63',
       stage6Color: '#F44336',
       stage7Color: '#607D8B',
-      fontFamily: 'NotoSansKR',
-      fontSource: 'google',
+      fontFamily: 'Pretendard',
+      fontSource: 'local',
       version: 1,
     );
   }

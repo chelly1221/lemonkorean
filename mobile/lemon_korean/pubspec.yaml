@@ -155,12 +155,18 @@ flutter:
     # Local assets below can be uncommented when adding bundled resources
     # - assets/images/
     # - assets/audio/
+    - assets/fonts/
 
-  # Custom fonts (uncomment when adding font files)
-  # Download NotoSansKR from: https://fonts.google.com/specimen/Noto+Sans+KR
-  # fonts:
-  #   - family: NotoSansKR
-  #     fonts:
-  #       - asset: assets/fonts/NotoSansKR-Regular.ttf
-  #       - asset: assets/fonts/NotoSansKR-Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Pretendard
+      fonts:
+        - asset: assets/fonts/Pretendard-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Pretendard-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Pretendard-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Pretendard-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Pretendard-ExtraBold.otf
+          weight: 800

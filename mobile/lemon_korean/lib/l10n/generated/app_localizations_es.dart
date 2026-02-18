@@ -732,10 +732,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingSkip => 'Saltar';
 
   @override
-  String get onboardingLanguageTitle => 'Lemon Korean';
+  String get onboardingLanguageTitle => '¡Mucho gusto! Soy Moni';
 
   @override
-  String get onboardingLanguagePrompt => 'Elige tu idioma preferido';
+  String get onboardingLanguagePrompt =>
+      '¿Qué idioma empezamos a aprender juntos?';
 
   @override
   String get onboardingNext => 'Siguiente';

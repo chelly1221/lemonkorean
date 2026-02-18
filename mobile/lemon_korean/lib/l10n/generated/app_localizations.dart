@@ -1452,13 +1452,13 @@ abstract class AppLocalizations {
   /// Onboarding language selection title
   ///
   /// In zh, this message translates to:
-  /// **'柠檬韩语'**
+  /// **'你好！我是莫妮'**
   String get onboardingLanguageTitle;
 
   /// Onboarding language selection prompt
   ///
   /// In zh, this message translates to:
-  /// **'请选择您的首选语言'**
+  /// **'从哪种语言开始一起学习呢？'**
   String get onboardingLanguagePrompt;
 
   /// Onboarding next button

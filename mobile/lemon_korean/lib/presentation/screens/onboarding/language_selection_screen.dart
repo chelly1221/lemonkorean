@@ -107,145 +107,123 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Main content
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: OnboardingSpacing.lg,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: OnboardingSpacing.md),
+            // Fixed: mascot + title + prompt
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: OnboardingSpacing.lg,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: OnboardingSpacing.md),
 
-                    // Lemon mascot with shadow ellipses
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          // Blue shadow ellipses beneath lemon
-                          Positioned(
-                            bottom: 10,
-                            left: 25,
-                            child: Container(
-                              width: 57,
-                              height: 12,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFB1E7FF),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            right: 5,
-                            child: Container(
-                              width: 47,
-                              height: 12,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFB1E7FF),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                          ),
-                          // Actual lemon image from media server
-                          CachedNetworkImage(
-                            imageUrl:
-                                '${AppConstants.mediaUrl}/$_lemonMascotImageKey',
-                            width: 180,
-                            height: 180,
-                            fit: BoxFit.contain,
-                            placeholder: (ctx, url) =>
-                                const SizedBox(width: 180, height: 180),
-                            errorWidget: (ctx, url, e) => const LemonCharacter(
-                              expression: LemonExpression.welcome,
-                              size: 160,
-                            ),
-                          ),
-                        ],
+                  // Lemon mascot (no blue ellipses)
+                  CachedNetworkImage(
+                    imageUrl:
+                        '${AppConstants.mediaUrl}/$_lemonMascotImageKey',
+                    width: 180,
+                    height: 180,
+                    fit: BoxFit.contain,
+                    placeholder: (ctx, url) =>
+                        const SizedBox(width: 180, height: 180),
+                    errorWidget: (ctx, url, e) => const LemonCharacter(
+                      expression: LemonExpression.welcome,
+                      size: 160,
+                    ),
+                  )
+                      .animate()
+                      .scale(duration: 400.ms, curve: Curves.easeOutBack)
+                      .fadeIn(duration: 400.ms),
+
+                  const SizedBox(height: OnboardingSpacing.xl),
+
+                  // Title
+                  Text(
+                    l10n.onboardingLanguageTitle,
+                    style: OnboardingTextStyles.headline1,
+                    textAlign: TextAlign.center,
+                  )
+                      .animate()
+                      .fadeIn(delay: 200.ms, duration: 400.ms)
+                      .slideY(
+                        begin: 0.3,
+                        end: 0,
+                        delay: 200.ms,
+                        duration: 400.ms,
+                        curve: Curves.easeOut,
                       ),
-                    )
-                        .animate()
-                        .scale(
-                          duration: 400.ms,
-                          curve: Curves.easeOutBack,
-                        )
-                        .fadeIn(duration: 400.ms),
 
-                    const SizedBox(height: OnboardingSpacing.xl),
+                  const SizedBox(height: OnboardingSpacing.sm),
 
-                    // App name - Toss style: dark text
-                    Text(
-                      l10n.onboardingLanguageTitle,
-                      style: OnboardingTextStyles.headline1,
-                      textAlign: TextAlign.center,
-                    )
-                        .animate()
-                        .fadeIn(delay: 200.ms, duration: 400.ms)
-                        .slideY(
-                          begin: 0.3,
-                          end: 0,
-                          delay: 200.ms,
-                          duration: 400.ms,
-                          curve: Curves.easeOut,
-                        ),
+                  // Instruction text
+                  Text(
+                    l10n.onboardingLanguagePrompt,
+                    style: OnboardingTextStyles.body1,
+                    textAlign: TextAlign.center,
+                  )
+                      .animate()
+                      .fadeIn(delay: 300.ms, duration: 400.ms),
 
-                    const SizedBox(height: OnboardingSpacing.xl),
+                  const SizedBox(height: OnboardingSpacing.lg),
+                ],
+              ),
+            ),
 
-                    // Instruction text
-                    Text(
-                      l10n.onboardingLanguagePrompt,
-                      style: OnboardingTextStyles.body1,
-                      textAlign: TextAlign.center,
-                    )
-                        .animate()
-                        .fadeIn(delay: 300.ms, duration: 400.ms),
-
-                    const SizedBox(height: OnboardingSpacing.lg),
-
-                    // Language cards in fixed order (English first)
-                    ..._orderedLanguages.asMap().entries.map((entry) {
-                      final index = entry.key;
-                      final language = entry.value;
-
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: OnboardingSpacing.sm,
-                        ),
-                        child: LanguageSelectionCard(
-                          flagEmoji: _languageFlags[language] ?? '🌐',
-                          nativeName: language.nativeName,
-                          isSelected: _selectedLanguage == language,
-                          onTap: () async {
-                            setState(() {
-                              _selectedLanguage = language;
-                            });
-                            // 즉시 언어 적용
-                            final settings = Provider.of<SettingsProvider>(
-                                context,
-                                listen: false);
-                            await settings.setAppLanguage(language);
-                          },
-                        )
-                            .animate()
-                            .fadeIn(
-                              delay: (400 + index * 50).ms,
-                              duration: 400.ms,
-                            )
-                            .slideX(
-                              begin: -0.3,
-                              end: 0,
-                              delay: (400 + index * 50).ms,
-                              duration: 400.ms,
-                              curve: Curves.easeOut,
-                            ),
-                      );
-                    }),
-
-                    const SizedBox(height: OnboardingSpacing.xl),
+            // Scrollable language list with top/bottom fade
+            Expanded(
+              child: ShaderMask(
+                shaderCallback: (bounds) => const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.white,
+                    Colors.white,
+                    Colors.transparent,
                   ],
+                  stops: [0.0, 0.06, 0.88, 1.0],
+                ).createShader(bounds),
+                blendMode: BlendMode.dstIn,
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: OnboardingSpacing.lg,
+                    vertical: OnboardingSpacing.sm,
+                  ),
+                  children: _orderedLanguages.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final language = entry.value;
+
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: OnboardingSpacing.sm,
+                          ),
+                          child: LanguageSelectionCard(
+                              flagEmoji: _languageFlags[language] ?? '🌐',
+                              nativeName: language.nativeName,
+                              isSelected: _selectedLanguage == language,
+                              onTap: () async {
+                                setState(() {
+                                  _selectedLanguage = language;
+                                });
+                                final settings = Provider.of<SettingsProvider>(
+                                    context,
+                                    listen: false);
+                                await settings.setAppLanguage(language);
+                              },
+                            )
+                                .animate()
+                                .fadeIn(
+                                  delay: (400 + index * 50).ms,
+                                  duration: 400.ms,
+                                )
+                                .slideX(
+                                  begin: -0.3,
+                                  end: 0,
+                                  delay: (400 + index * 50).ms,
+                                  duration: 400.ms,
+                                  curve: Curves.easeOut,
+                                ),
+                        );
+                  }).toList(),
                 ),
               ),
             ),

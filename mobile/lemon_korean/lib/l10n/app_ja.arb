@@ -730,10 +730,10 @@
   "onboardingSkip": "スキップ",
   "@onboardingSkip": {"description": "Onboarding skip button"},
 
-  "onboardingLanguageTitle": "レモン韓国語",
+  "onboardingLanguageTitle": "はじめまして！モニです",
   "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
 
-  "onboardingLanguagePrompt": "使用言語を選択してください",
+  "onboardingLanguagePrompt": "どの言語から一緒に学びますか？",
   "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
 
   "onboardingNext": "次へ",

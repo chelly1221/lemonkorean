@@ -723,10 +723,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingSkip => 'Skip';
 
   @override
-  String get onboardingLanguageTitle => 'Lemon Korean';
+  String get onboardingLanguageTitle => 'Nice to meet you! I\'m Moni';
 
   @override
-  String get onboardingLanguagePrompt => 'Choose your preferred language';
+  String get onboardingLanguagePrompt =>
+      'Which language shall we start learning?';
 
   @override
   String get onboardingNext => 'Next';

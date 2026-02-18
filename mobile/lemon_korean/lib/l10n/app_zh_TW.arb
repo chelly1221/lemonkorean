@@ -228,8 +228,8 @@
   "user": "用戶",
 
   "onboardingSkip": "跳過",
-  "onboardingLanguageTitle": "檸檬韓語",
-  "onboardingLanguagePrompt": "請選擇您的首選語言",
+  "onboardingLanguageTitle": "你好！我是莫妮",
+  "onboardingLanguagePrompt": "從哪種語言開始一起學習呢？",
   "onboardingNext": "下一步",
   "onboardingWelcome": "你好！我是檸檬韓語的檸檬 🍋\n我們一起學韓語吧？",
   "onboardingLevelQuestion": "你現在的韓語水平是？",

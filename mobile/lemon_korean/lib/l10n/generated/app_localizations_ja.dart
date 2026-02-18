@@ -715,10 +715,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingSkip => 'スキップ';
 
   @override
-  String get onboardingLanguageTitle => 'レモン韓国語';
+  String get onboardingLanguageTitle => 'はじめまして！モニです';
 
   @override
-  String get onboardingLanguagePrompt => '使用言語を選択してください';
+  String get onboardingLanguagePrompt => 'どの言語から一緒に学びますか？';
 
   @override
   String get onboardingNext => '次へ';

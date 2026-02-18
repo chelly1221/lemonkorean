@@ -730,10 +730,10 @@
   "onboardingSkip": "Saltar",
   "@onboardingSkip": {"description": "Onboarding skip button"},
 
-  "onboardingLanguageTitle": "Lemon Korean",
+  "onboardingLanguageTitle": "¡Mucho gusto! Soy Moni",
   "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
 
-  "onboardingLanguagePrompt": "Elige tu idioma preferido",
+  "onboardingLanguagePrompt": "¿Qué idioma empezamos a aprender juntos?",
   "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
 
   "onboardingNext": "Siguiente",
