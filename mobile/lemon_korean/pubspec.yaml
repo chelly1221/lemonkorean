@@ -153,7 +153,7 @@ flutter:
     - assets/audio/sfx/
     # Note: Media files (images, audio) are loaded from server (MinIO)
     # Local assets below can be uncommented when adding bundled resources
-    # - assets/images/
+    - assets/images/
     # - assets/audio/
     - assets/fonts/
 

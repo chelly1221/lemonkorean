@@ -1,15 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
 import 'utils/onboarding_colors.dart';
 import 'utils/onboarding_text_styles.dart';
 import 'widgets/language_selection_card.dart';
-import 'widgets/lemon_character.dart';
 import 'widgets/onboarding_button.dart';
 import 'welcome_introduction_screen.dart';
 
@@ -25,8 +23,6 @@ class LanguageSelectionScreen extends StatefulWidget {
 
 class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   AppLanguage _selectedLanguage = AppLanguage.ko;
-  static const _lemonMascotImageKey =
-      'images/288f0d0a4b5650591f7f4f7a85f0a339.webp';
 
   // Korean-first language order
   static const _orderedLanguages = [
@@ -114,19 +110,10 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                 children: [
                   const SizedBox(height: OnboardingSpacing.sm),
 
-                  // Lemon mascot
-                  CachedNetworkImage(
-                    imageUrl:
-                        '${AppConstants.mediaUrl}/$_lemonMascotImageKey',
-                    width: 150,
+                  // Moni mascot (bundled SVG)
+                  SvgPicture.asset(
+                    'assets/images/moni_mascot.svg',
                     height: 150,
-                    fit: BoxFit.contain,
-                    placeholder: (ctx, url) =>
-                        const SizedBox(width: 150, height: 150),
-                    errorWidget: (ctx, url, e) => const LemonCharacter(
-                      expression: LemonExpression.welcome,
-                      size: 140,
-                    ),
                   )
                       .animate()
                       .scale(duration: 400.ms, curve: Curves.easeOutBack)
