@@ -36,6 +36,7 @@
 - `socket_io_client`: Socket.IO 실시간 메시징 (DM)
 - `livekit_client`: LiveKit 음성 대화방
 - `image_picker`: 이미지 선택 (DM 미디어 전송)
+- `flutter_svg`: SVG 에셋 렌더링 (아이콘, 국기, 마스코트 등)
 
 ---
 
@@ -90,12 +91,10 @@ lib/
 │   │   ├── stats/                  # 통계 화면 (2개)
 │   │   ├── vocabulary_book/        # 단어장 (2개)
 │   │   ├── vocabulary_browser/     # 단어 검색
-│   │   └── onboarding/             # 온보딩 화면 (16개 파일)
+│   │   └── onboarding/             # 온보딩 화면 (14개 파일)
 │   │       ├── language_selection_screen.dart
-│   │       ├── welcome_introduction_screen.dart
 │   │       ├── level_selection_screen.dart
 │   │       ├── weekly_goal_screen.dart
-│   │       ├── personalization_complete_screen.dart
 │   │       ├── account_choice_screen.dart
 │   │       ├── welcome_level_screen.dart
 │   │       ├── utils/              # 디자인 시스템 (2개)
@@ -230,38 +229,32 @@ flutter run -d chrome
 
 ## 핵심 기능
 
-### 0. 온보딩 플로우 (2026-02-03 업데이트)
+### 0. 온보딩 플로우 (2026-02-19 업데이트)
 
-앱을 처음 실행하면 6단계 개인화 온보딩이 시작됩니다:
+앱을 처음 실행하면 4단계 개인화 온보딩이 시작됩니다:
 
 1. **언어 선택** (`language_selection_screen.dart`)
    - 6개 언어 중 선택 (중국어 간체/번체, 한국어, 영어, 일본어, 스페인어)
    - 선택 즉시 앱 전체 언어 변경
 
-2. **소개 화면** (`welcome_introduction_screen.dart`)
-   - 앱의 핵심 기능 소개 (오프라인 학습, SRS, 중국어 맞춤)
-   - 부드러운 애니메이션
-
-3. **레벨 선택** (`level_selection_screen.dart`)
+2. **레벨 선택** (`level_selection_screen.dart`)
    - 완전 초보/초급/중급/고급 4단계
    - 레벨에 따른 맞춤 콘텐츠 추천
 
-4. **주간 목표** (`weekly_goal_screen.dart`)
+3. **주간 목표** (`weekly_goal_screen.dart`)
    - 가벼운 (5분)/보통 (15분)/집중 (30분)/프로 (60분)
    - 일일 학습 시간 목표 설정
 
-5. **개인화 완료** (`personalization_complete_screen.dart`)
-   - 설정 요약 표시 (언어, 레벨, 목표)
-   - 다음 단계로 이동 버튼
-
-6. **계정 선택** (`account_choice_screen.dart`)
+4. **계정 선택** (`account_choice_screen.dart`)
    - 로그인 또는 회원가입 선택
    - 기존 계정이 있으면 로그인, 없으면 새 계정 생성
 
 **디자인 시스템:**
-- `utils/onboarding_colors.dart` - 토스 스타일 컬러 팔레트
+- `utils/onboarding_colors.dart` - 컬러 팔레트
 - `utils/onboarding_text_styles.dart` - 일관된 타이포그래피
 - `widgets/` - 재사용 가능한 카드 컴포넌트 7개
+- **폰트**: Pretendard (w400/w500/w600/w700)
+- **주요 색상**: `#43240D` (기본 텍스트), `#FEFFF4` (배경), `#FFEC6D` (CTA 버튼), `#FFA323` (링크 강조)
 
 **Provider 연동:**
 - `SettingsProvider.setHasCompletedOnboarding(true)` - 온보딩 완료 상태
