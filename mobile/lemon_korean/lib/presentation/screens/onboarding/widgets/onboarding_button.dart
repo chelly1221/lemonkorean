@@ -15,12 +15,14 @@ class OnboardingButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final bool isEnabled;
   final OnboardingButtonVariant variant;
+  final Color? backgroundColor;
 
   const OnboardingButton({
     required this.text,
     this.onPressed,
     this.variant = OnboardingButtonVariant.primary,
     this.isEnabled = true,
+    this.backgroundColor,
     super.key,
   });
 
@@ -92,7 +94,7 @@ class _OnboardingButtonState extends State<OnboardingButton>
             // Primary: solid yellow, Secondary: outlined
             color: widget.variant == OnboardingButtonVariant.primary
                 ? (widget.isEnabled
-                    ? OnboardingColors.primaryYellow
+                    ? (widget.backgroundColor ?? OnboardingColors.primaryYellow)
                     : const Color(0xFFE5E8EB))  // Disabled gray
                 : Colors.transparent,  // Secondary: transparent background
             borderRadius: BorderRadius.circular(14),  // Slightly larger radius

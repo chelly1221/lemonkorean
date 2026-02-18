@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/onboarding_colors.dart';
 
+// Local colors for redesigned card
+const _selectedBg = Color(0xFFFFF9D3);
+const _selectedBorder = Color(0xFFFFDB59);
+const _unselectedBg = Color(0xFFFBF6EF);
+const _unselectedBorder = Color(0xFF9B8A74);
+
 /// Tappable card for vertical language list
 class LanguageSelectionCard extends StatefulWidget {
   final String flagEmoji;
@@ -73,37 +79,35 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          height: 72,
+          height: 50,
           padding: const EdgeInsets.symmetric(
             horizontal: OnboardingSpacing.md,
             vertical: OnboardingSpacing.sm,
           ),
           decoration: BoxDecoration(
-            // Toss-style: white card with subtle shadow
-            color: widget.isSelected
-                ? OnboardingColors.cardSelected
-                : OnboardingColors.cardWhite,
+            color: widget.isSelected ? _selectedBg : _unselectedBg,
             border: Border.all(
-              color: widget.isSelected
-                  ? OnboardingColors.borderSelected
-                  : OnboardingColors.border,
+              color: widget.isSelected ? _selectedBorder : _unselectedBorder,
               width: widget.isSelected ? 2 : 1,
             ),
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: const [
-              BoxShadow(
-                color: OnboardingColors.cardShadow,
-                blurRadius: 8,
-                offset: Offset(0, 2),
-              ),
-            ],
+            borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
             children: [
-              // Flag emoji
-              Text(
-                widget.flagEmoji,
-                style: const TextStyle(fontSize: 32),
+              // Flag emoji in a fixed rectangular container
+              SizedBox(
+                width: 30,
+                height: 20,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(3),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      widget.flagEmoji,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(width: OnboardingSpacing.md),
               // Language name
@@ -115,24 +119,6 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
                     fontWeight: FontWeight.w600,
                     color: OnboardingColors.textPrimary,
                     letterSpacing: -0.2,
-                  ),
-                ),
-              ),
-              // Checkmark (visible when selected)
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: widget.isSelected ? 1.0 : 0.0,
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: const BoxDecoration(
-                    color: OnboardingColors.primaryYellow,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 16,
                   ),
                 ),
               ),

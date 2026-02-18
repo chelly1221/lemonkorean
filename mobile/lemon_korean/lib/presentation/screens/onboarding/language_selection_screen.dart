@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
-import '../../screens/auth/login_screen.dart';
 import 'utils/onboarding_colors.dart';
 import 'utils/onboarding_text_styles.dart';
 import 'widgets/language_selection_card.dart';
@@ -24,6 +25,18 @@ class LanguageSelectionScreen extends StatefulWidget {
 
 class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   AppLanguage _selectedLanguage = AppLanguage.ko;
+  static const _lemonMascotImageKey =
+      'images/288f0d0a4b5650591f7f4f7a85f0a339.webp';
+
+  // English-first language order
+  static const _orderedLanguages = [
+    AppLanguage.en,
+    AppLanguage.zhCN,
+    AppLanguage.zhTW,
+    AppLanguage.ko,
+    AppLanguage.ja,
+    AppLanguage.es,
+  ];
 
   // Language flag emojis
   final Map<AppLanguage, String> _languageFlags = {
@@ -85,42 +98,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
     );
   }
 
-  void _onSkip() async {
-    // Mark onboarding as completed and navigate to login
-    final settings = Provider.of<SettingsProvider>(context, listen: false);
-    await settings.completeOnboarding();
-
-    if (!mounted) return;
-
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-      (route) => false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: OnboardingColors.backgroundYellow,
+      backgroundColor: const Color(0xFFFEFFF4),
       body: SafeArea(
         child: Column(
           children: [
-            // Skip button
-            Align(
-              alignment: Alignment.topRight,
-              child: TextButton(
-                onPressed: _onSkip,
-                child: Text(
-                  l10n.onboardingSkip,
-                  style: OnboardingTextStyles.body2.copyWith(
-                    color: OnboardingColors.gray,
-                  ),
-                ),
-              ).animate().fadeIn(duration: 300.ms),
-            ),
-
             // Main content
             Expanded(
               child: SingleChildScrollView(
@@ -132,10 +118,54 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   children: [
                     const SizedBox(height: OnboardingSpacing.md),
 
-                    // Lemon character
-                    const LemonCharacter(
-                      expression: LemonExpression.welcome,
-                      size: 120,
+                    // Lemon mascot with shadow ellipses
+                    SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // Blue shadow ellipses beneath lemon
+                          Positioned(
+                            bottom: 10,
+                            left: 25,
+                            child: Container(
+                              width: 57,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFB1E7FF),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 10,
+                            right: 5,
+                            child: Container(
+                              width: 47,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFB1E7FF),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ),
+                          // Actual lemon image from media server
+                          CachedNetworkImage(
+                            imageUrl:
+                                '${AppConstants.mediaUrl}/$_lemonMascotImageKey',
+                            width: 180,
+                            height: 180,
+                            fit: BoxFit.contain,
+                            placeholder: (ctx, url) =>
+                                const SizedBox(width: 180, height: 180),
+                            errorWidget: (ctx, url, e) => const LemonCharacter(
+                              expression: LemonExpression.welcome,
+                              size: 160,
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                         .animate()
                         .scale(
@@ -175,8 +205,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
 
                     const SizedBox(height: OnboardingSpacing.lg),
 
-                    // Language cards (vertical scrollable list)
-                    ...AppLanguage.values.asMap().entries.map((entry) {
+                    // Language cards in fixed order (English first)
+                    ..._orderedLanguages.asMap().entries.map((entry) {
                       final index = entry.key;
                       final language = entry.value;
 
@@ -226,6 +256,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               child: OnboardingButton(
                 text: l10n.onboardingNext,
                 onPressed: _onNext,
+                backgroundColor: const Color(0xFFFFEC6D),
               )
                   .animate()
                   .fadeIn(delay: 700.ms, duration: 400.ms)
