@@ -80,6 +80,7 @@ class _OnboardingButtonState extends State<OnboardingButton>
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTapDown: _handleTapDown,
       onTapUp: _handleTapUp,
@@ -89,7 +90,7 @@ class _OnboardingButtonState extends State<OnboardingButton>
         scale: _scaleAnimation,
         child: Container(
           width: double.infinity,
-          height: 54,
+          height: screenHeight * 0.05,
           decoration: BoxDecoration(
             // Primary: solid yellow, Secondary: outlined
             color: widget.variant == OnboardingButtonVariant.primary

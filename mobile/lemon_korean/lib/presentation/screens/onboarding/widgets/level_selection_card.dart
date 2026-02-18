@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../utils/onboarding_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// Level selection card widget with TOPIK indicator
-/// Enhanced design matching the new onboarding style
 class LevelSelectionCard extends StatefulWidget {
-  final String emoji;
   final String title;
   final String description;
   final String topikLevel;
@@ -13,7 +11,6 @@ class LevelSelectionCard extends StatefulWidget {
   final VoidCallback onTap;
 
   const LevelSelectionCard({
-    required this.emoji,
     required this.title,
     required this.description,
     required this.topikLevel,
@@ -68,6 +65,9 @@ class _LevelSelectionCardState extends State<LevelSelectionCard>
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTapDown: _handleTapDown,
       onTapUp: _handleTapUp,
@@ -78,102 +78,103 @@ class _LevelSelectionCardState extends State<LevelSelectionCard>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          padding: const EdgeInsets.all(OnboardingSpacing.md),
+          height: screenHeight * 0.108, // 104/965
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.043, // 16/375
+          ),
           decoration: BoxDecoration(
-            // Toss-style: white card with subtle shadow
             color: widget.isSelected
-                ? OnboardingColors.cardSelected
-                : OnboardingColors.cardWhite,
-            border: Border.all(
-              color: widget.isSelected
-                  ? OnboardingColors.borderSelected
-                  : OnboardingColors.border,
-              width: widget.isSelected ? 2 : 1,
-            ),
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: const [
-              BoxShadow(
-                color: OnboardingColors.cardShadow,
-                blurRadius: 8,
-                offset: Offset(0, 2),
-              ),
-            ],
+                ? const Color(0xFFFFF9D3)
+                : const Color(0xFFFBF6EF),
+            border: widget.isSelected
+                ? Border.all(color: const Color(0xFFFFDB59), width: 2)
+                : null,
+            borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
             children: [
-              // Emoji
-              Text(
-                widget.emoji,
-                style: const TextStyle(fontSize: 32),
+              // ── Icon ─────────────────────────────────────────
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                width: screenWidth * 0.08,
+                height: screenWidth * 0.08,
+                decoration: BoxDecoration(
+                  color: widget.isSelected ? const Color(0xFFFFFEF7) : Colors.white,
+                  border: Border.all(
+                    color: widget.isSelected
+                        ? const Color(0xFFFFDB59)
+                        : const Color(0xFFF2E3CE),
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(2.5),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(2.5),
+                  child: SvgPicture.asset(
+                    'assets/images/level_card_icon.svg',
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
-              const SizedBox(width: OnboardingSpacing.md),
-              // Text content
+
+              SizedBox(width: screenWidth * 0.024),
+
+              // ── Text column ──────────────────────────────────
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       widget.title,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: OnboardingColors.textPrimary,
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: screenWidth * 0.0427,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF43240D),
                         letterSpacing: -0.3,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: screenHeight * 0.002),
                     Text(
                       widget.description,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: OnboardingColors.textSecondary,
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: screenWidth * 0.037,
+                        color: const Color(0xFF907866),
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 6),
-                    // TOPIK level indicator - Toss style pill
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: widget.isSelected
-                            ? OnboardingColors.primaryYellow.withValues(alpha: 0.2)
-                            : OnboardingColors.border,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        widget.topikLevel,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: widget.isSelected
-                              ? OnboardingColors.textPrimary
-                              : OnboardingColors.textTertiary,
+                    SizedBox(height: screenHeight * 0.003),
+                    // ── TOPIK coral tag ──────────────────────
+                    IntrinsicWidth(
+                      child: Container(
+                        height: screenHeight * 0.023,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.01,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFF9868),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          widget.topikLevel,
+                          style: TextStyle(
+                            fontFamily: 'Pretendard',
+                            fontSize: screenWidth * 0.024,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              // Checkmark - Toss style filled circle
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: widget.isSelected ? 1.0 : 0.0,
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: const BoxDecoration(
-                    color: OnboardingColors.primaryYellow,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 16,
-                  ),
-                ),
-              ),
+
             ],
           ),
         ),

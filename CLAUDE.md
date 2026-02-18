@@ -169,6 +169,28 @@ docker compose restart nginx
 
 ---
 
+## Flutter 핫 리로드 / 핫 리스타트
+
+`flutter run`이 백그라운드에서 실행 중이고 stdin이 닫혀 있을 때 (터미널 키 입력 불가), 시그널로 리로드:
+
+```bash
+# flutter run PID 확인
+pgrep -a flutter | grep "run -d"
+
+# 핫 리로드 (코드 변경 반영, 상태 유지) 🔥
+kill -SIGUSR1 <PID>
+
+# 핫 리스타트 (전체 재시작, 상태 초기화)
+kill -SIGUSR2 <PID>
+
+# 로그 확인 (flutter run 출력이 /tmp에 기록된 경우)
+tail -f /tmp/flutter_run.log
+```
+
+> **참고**: `flutter run`이 포그라운드 터미널에서 실행 중이면 `r` (핫 리로드) / `R` (핫 리스타트) 키 사용.
+
+---
+
 ## 트러블슈팅
 
 ```bash

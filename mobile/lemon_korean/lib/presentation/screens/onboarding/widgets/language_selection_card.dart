@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/onboarding_colors.dart';
 
 // Local colors for redesigned card
@@ -10,6 +11,8 @@ const _unselectedBg = Color(0xFFFBF6EF);
 /// Tappable card for vertical language list
 class LanguageSelectionCard extends StatefulWidget {
   final String flagEmoji;
+  final String? flagSvgAsset;
+  final bool flagShowBorder;
   final String nativeName;
   final bool isSelected;
   final VoidCallback onTap;
@@ -19,6 +22,8 @@ class LanguageSelectionCard extends StatefulWidget {
     required this.nativeName,
     required this.isSelected,
     required this.onTap,
+    this.flagSvgAsset,
+    this.flagShowBorder = false,
     super.key,
   });
 
@@ -61,6 +66,49 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
     _controller.reverse();
   }
 
+  Widget _buildNameText(double screenWidth) {
+    final name = widget.nativeName;
+    final parenStart = name.indexOf('(');
+    if (parenStart == -1) {
+      return Text(
+        name,
+        style: TextStyle(
+          fontFamily: 'Pretendard',
+          fontSize: screenWidth * 0.048,
+          fontWeight: FontWeight.w500,
+          color: const Color(0xFF43240D),
+          letterSpacing: -0.2,
+        ),
+      );
+    }
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: name.substring(0, parenStart),
+            style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontSize: screenWidth * 0.048,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFF43240D),
+              letterSpacing: -0.2,
+            ),
+          ),
+          TextSpan(
+            text: name.substring(parenStart),
+            style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontSize: screenWidth * 0.03,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xFF43240D),
+              letterSpacing: -0.2,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _handleTap() {
     HapticFeedback.selectionClick();
     widget.onTap();
@@ -68,6 +116,8 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
 
   @override
   Widget build(BuildContext context) {
+    final cardHeight = MediaQuery.of(context).size.height * 0.059;
+    final screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTapDown: _handleTapDown,
       onTapUp: _handleTapUp,
@@ -81,12 +131,12 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
-              height: 50,
+              height: cardHeight,
               padding: EdgeInsets.only(
                 left: contentLeft,
-                right: OnboardingSpacing.md,
-                top: OnboardingSpacing.sm,
-                bottom: OnboardingSpacing.sm,
+                right: screenWidth * 0.043,
+                top: cardHeight * 0.16,
+                bottom: cardHeight * 0.16,
               ),
               decoration: BoxDecoration(
                 color: widget.isSelected ? _selectedBg : _unselectedBg,
@@ -97,33 +147,36 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
               ),
               child: Row(
                 children: [
-                  // Flag emoji in a fixed rectangular container
+                  // Flag: SVG asset or emoji fallback
                   SizedBox(
-                    width: 30,
-                    height: 20,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(3),
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Text(
-                          widget.flagEmoji,
-                          style: const TextStyle(fontSize: 20),
+                    width: screenWidth * 0.09,
+                    height: screenWidth * 0.062,
+                    child: Center(
+                      child: SizedBox(
+                        width: screenWidth * (widget.flagShowBorder ? 0.09 : 0.08),
+                        height: screenWidth * (widget.flagShowBorder ? 0.062 : 0.053),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(3),
+                          child: widget.flagSvgAsset != null
+                              ? SvgPicture.asset(
+                                  widget.flagSvgAsset!,
+                                  fit: BoxFit.cover,
+                                )
+                              : FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    widget.flagEmoji,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: OnboardingSpacing.md),
+                  SizedBox(width: screenWidth * 0.043),
                   // Language name
                   Expanded(
-                    child: Text(
-                      widget.nativeName,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: OnboardingColors.textPrimary,
-                        letterSpacing: -0.2,
-                      ),
-                    ),
+                    child: _buildNameText(screenWidth),
                   ),
                 ],
               ),

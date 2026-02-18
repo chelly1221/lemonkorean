@@ -802,7 +802,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get goalCasualDesc => '주당 1-2과';
 
   @override
-  String get goalCasualTime => '~주당 10-20분';
+  String get goalCasualTime => '10 - 20분';
 
   @override
   String get goalCasualHelper => '바쁜 일정에 완벽';
@@ -814,7 +814,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get goalRegularDesc => '주당 3-4과';
 
   @override
-  String get goalRegularTime => '~주당 30-40분';
+  String get goalRegularTime => '30 - 40분';
 
   @override
   String get goalRegularHelper => '부담 없이 꾸준한 진전';
@@ -826,7 +826,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get goalSeriousDesc => '주당 5-6과';
 
   @override
-  String get goalSeriousTime => '~주당 50-60분';
+  String get goalSeriousTime => '50 - 60분';
 
   @override
   String get goalSeriousHelper => '빠른 향상을 위한 헌신';

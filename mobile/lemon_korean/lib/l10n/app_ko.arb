@@ -817,7 +817,7 @@
   "goalCasualDesc": "주당 1-2과",
   "@goalCasualDesc": {"description": "Casual goal description"},
 
-  "goalCasualTime": "~주당 10-20분",
+  "goalCasualTime": "10 - 20분",
   "@goalCasualTime": {"description": "Casual goal time"},
 
   "goalCasualHelper": "바쁜 일정에 완벽",
@@ -829,7 +829,7 @@
   "goalRegularDesc": "주당 3-4과",
   "@goalRegularDesc": {"description": "Regular goal description"},
 
-  "goalRegularTime": "~주당 30-40분",
+  "goalRegularTime": "30 - 40분",
   "@goalRegularTime": {"description": "Regular goal time"},
 
   "goalRegularHelper": "부담 없이 꾸준한 진전",
@@ -841,7 +841,7 @@
   "goalSeriousDesc": "주당 5-6과",
   "@goalSeriousDesc": {"description": "Serious goal description"},
 
-  "goalSeriousTime": "~주당 50-60분",
+  "goalSeriousTime": "50 - 60분",
   "@goalSeriousTime": {"description": "Serious goal time"},
 
   "goalSeriousHelper": "빠른 향상을 위한 헌신",

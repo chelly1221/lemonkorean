@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../utils/onboarding_colors.dart';
-import '../utils/onboarding_text_styles.dart';
 
-/// Goal selection card with color-coded border and time indicator
+/// Goal selection card — matches level selection card visual pattern
 class GoalSelectionCard extends StatefulWidget {
   final String emoji;
   final String title;
-  final String description;
   final String timeText;
   final String helperText;
-  final Color accentColor;
   final bool isSelected;
   final VoidCallback onTap;
 
   const GoalSelectionCard({
     required this.emoji,
     required this.title,
-    required this.description,
     required this.timeText,
     required this.helperText,
-    required this.accentColor,
     required this.isSelected,
     required this.onTap,
     super.key,
@@ -53,17 +47,9 @@ class _GoalSelectionCardState extends State<GoalSelectionCard>
     super.dispose();
   }
 
-  void _handleTapDown(TapDownDetails details) {
-    _controller.forward();
-  }
-
-  void _handleTapUp(TapUpDetails details) {
-    _controller.reverse();
-  }
-
-  void _handleTapCancel() {
-    _controller.reverse();
-  }
+  void _handleTapDown(TapDownDetails details) => _controller.forward();
+  void _handleTapUp(TapUpDetails details) => _controller.reverse();
+  void _handleTapCancel() => _controller.reverse();
 
   void _handleTap() {
     HapticFeedback.selectionClick();
@@ -72,6 +58,9 @@ class _GoalSelectionCardState extends State<GoalSelectionCard>
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTapDown: _handleTapDown,
       onTapUp: _handleTapUp,
@@ -82,108 +71,85 @@ class _GoalSelectionCardState extends State<GoalSelectionCard>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          padding: const EdgeInsets.all(OnboardingSpacing.md),
-          decoration: BoxDecoration(
-            // Toss-style: white card with subtle shadow
-            color: widget.isSelected
-                ? OnboardingColors.cardSelected
-                : OnboardingColors.cardWhite,
-            border: Border.all(
-              color: widget.isSelected
-                  ? widget.accentColor
-                  : OnboardingColors.border,
-              width: widget.isSelected ? 2 : 1,
-            ),
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: const [
-              BoxShadow(
-                color: OnboardingColors.cardShadow,
-                blurRadius: 8,
-                offset: Offset(0, 2),
-              ),
-            ],
+          height: screenHeight * 0.108,
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.043,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          decoration: BoxDecoration(
+            color: widget.isSelected
+                ? const Color(0xFFFFF9D3)
+                : const Color(0xFFFBF6EF),
+            border: widget.isSelected
+                ? Border.all(color: const Color(0xFFFFDB59), width: 2)
+                : null,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Row(
             children: [
-              Row(
-                children: [
-                  // Emoji
-                  Text(
-                    widget.emoji,
-                    style: const TextStyle(fontSize: 32),
+              // ── Icon box ─────────────────────────────────
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                width: screenWidth * 0.08,
+                height: screenWidth * 0.08,
+                decoration: BoxDecoration(
+                  color: widget.isSelected
+                      ? const Color(0xFFFFFEF7)
+                      : Colors.white,
+                  border: Border.all(
+                    color: widget.isSelected
+                        ? const Color(0xFFFFDB59)
+                        : const Color(0xFFF2E3CE),
+                    width: 1.5,
                   ),
-                  const SizedBox(width: OnboardingSpacing.sm),
-                  // Title
-                  Expanded(
-                    child: Text(
+                  borderRadius: BorderRadius.circular(2.5),
+                ),
+              ),
+
+              SizedBox(width: screenWidth * 0.024),
+
+              // ── Text column ───────────────────────────────
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Line 1: Title
+                    Text(
                       widget.title,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: OnboardingColors.textPrimary,
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: screenWidth * 0.0427,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF43240D),
                         letterSpacing: -0.3,
                       ),
                     ),
-                  ),
-                  // Checkmark - Toss style filled circle
-                  AnimatedOpacity(
-                    duration: const Duration(milliseconds: 200),
-                    opacity: widget.isSelected ? 1.0 : 0.0,
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: widget.accentColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 16,
+                    SizedBox(height: 0),
+                    // Line 2: Time
+                    Text(
+                      widget.timeText,
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: screenWidth * 0.037,
+                        height: 1.1,
+                        color: const Color(0xFF907866),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: OnboardingSpacing.sm),
-              // Description
-              Text(
-                widget.description,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: OnboardingColors.textSecondary,
-                ),
-              ),
-              const SizedBox(height: OnboardingSpacing.sm),
-              // Time indicator - Toss style
-              Row(
-                children: [
-                  Icon(
-                    Icons.schedule,
-                    size: 16,
-                    color: widget.isSelected
-                        ? widget.accentColor
-                        : OnboardingColors.textTertiary,
-                  ),
-                  const SizedBox(width: OnboardingSpacing.xs),
-                  Text(
-                    widget.timeText,
-                    style: OnboardingTextStyles.caption.copyWith(
-                      color: widget.isSelected
-                          ? OnboardingColors.textPrimary
-                          : OnboardingColors.textTertiary,
+                    SizedBox(height: 3),
+                    // Line 3: Helper text
+                    Text(
+                      widget.helperText,
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: screenWidth * 0.033,
+                        height: 1.1,
+                        color: const Color(0xFF907866),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: OnboardingSpacing.xs),
-              // Helper text
-              Text(
-                widget.helperText,
-                style: OnboardingTextStyles.caption.copyWith(
-                  fontStyle: FontStyle.italic,
-                  color: OnboardingColors.textTertiary,
+                  ],
                 ),
               ),
             ],
