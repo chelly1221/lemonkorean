@@ -77,7 +77,7 @@ class _LanguageSelectionCardState extends State<LanguageSelectionCard>
         scale: _scaleAnimation,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final contentLeft = constraints.maxWidth * 0.30;
+            final contentLeft = constraints.maxWidth * 0.38;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,

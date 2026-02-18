@@ -28,12 +28,12 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   static const _lemonMascotImageKey =
       'images/288f0d0a4b5650591f7f4f7a85f0a339.webp';
 
-  // English-first language order
+  // Korean-first language order
   static const _orderedLanguages = [
-    AppLanguage.en,
-    AppLanguage.zhCN,
-    AppLanguage.zhTW,
     AppLanguage.ko,
+    AppLanguage.zhTW,
+    AppLanguage.zhCN,
+    AppLanguage.en,
     AppLanguage.ja,
     AppLanguage.es,
   ];
@@ -109,37 +109,35 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
           children: [
             // Fixed: mascot + title + prompt
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: OnboardingSpacing.lg,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                  const SizedBox(height: OnboardingSpacing.md),
+                  const SizedBox(height: OnboardingSpacing.sm),
 
-                  // Lemon mascot (no blue ellipses)
+                  // Lemon mascot
                   CachedNetworkImage(
                     imageUrl:
                         '${AppConstants.mediaUrl}/$_lemonMascotImageKey',
-                    width: 180,
-                    height: 180,
+                    width: 150,
+                    height: 150,
                     fit: BoxFit.contain,
                     placeholder: (ctx, url) =>
-                        const SizedBox(width: 180, height: 180),
+                        const SizedBox(width: 150, height: 150),
                     errorWidget: (ctx, url, e) => const LemonCharacter(
                       expression: LemonExpression.welcome,
-                      size: 160,
+                      size: 140,
                     ),
                   )
                       .animate()
                       .scale(duration: 400.ms, curve: Curves.easeOutBack)
                       .fadeIn(duration: 400.ms),
 
-                  const SizedBox(height: OnboardingSpacing.xl),
+                  const SizedBox(height: OnboardingSpacing.lg),
 
                   // Title
                   Text(
                     l10n.onboardingLanguageTitle,
-                    style: OnboardingTextStyles.headline1,
+                    style: OnboardingTextStyles.headline2,
                     textAlign: TextAlign.center,
                   )
                       .animate()
@@ -152,7 +150,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                         curve: Curves.easeOut,
                       ),
 
-                  const SizedBox(height: OnboardingSpacing.sm),
+                  const SizedBox(height: OnboardingSpacing.xs),
 
                   // Instruction text
                   Text(
@@ -163,7 +161,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                       .animate()
                       .fadeIn(delay: 300.ms, duration: 400.ms),
 
-                  const SizedBox(height: OnboardingSpacing.lg),
+                  const SizedBox(height: OnboardingSpacing.sm),
                 ],
               ),
             ),
@@ -185,44 +183,42 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                 blendMode: BlendMode.dstIn,
                 child: ListView(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: OnboardingSpacing.lg,
+                    horizontal: 15,
                     vertical: OnboardingSpacing.sm,
                   ),
                   children: _orderedLanguages.asMap().entries.map((entry) {
                     final index = entry.key;
                     final language = entry.value;
 
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: OnboardingSpacing.sm,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: LanguageSelectionCard(
+                        flagEmoji: _languageFlags[language] ?? '🌐',
+                        nativeName: language.nativeName,
+                        isSelected: _selectedLanguage == language,
+                        onTap: () async {
+                          setState(() {
+                            _selectedLanguage = language;
+                          });
+                          final settings = Provider.of<SettingsProvider>(
+                              context,
+                              listen: false);
+                          await settings.setAppLanguage(language);
+                        },
+                      )
+                          .animate()
+                          .fadeIn(
+                            delay: (400 + index * 50).ms,
+                            duration: 400.ms,
+                          )
+                          .slideX(
+                            begin: -0.3,
+                            end: 0,
+                            delay: (400 + index * 50).ms,
+                            duration: 400.ms,
+                            curve: Curves.easeOut,
                           ),
-                          child: LanguageSelectionCard(
-                              flagEmoji: _languageFlags[language] ?? '🌐',
-                              nativeName: language.nativeName,
-                              isSelected: _selectedLanguage == language,
-                              onTap: () async {
-                                setState(() {
-                                  _selectedLanguage = language;
-                                });
-                                final settings = Provider.of<SettingsProvider>(
-                                    context,
-                                    listen: false);
-                                await settings.setAppLanguage(language);
-                              },
-                            )
-                                .animate()
-                                .fadeIn(
-                                  delay: (400 + index * 50).ms,
-                                  duration: 400.ms,
-                                )
-                                .slideX(
-                                  begin: -0.3,
-                                  end: 0,
-                                  delay: (400 + index * 50).ms,
-                                  duration: 400.ms,
-                                  curve: Curves.easeOut,
-                                ),
-                        );
+                    );
                   }).toList(),
                 ),
               ),
@@ -230,7 +226,10 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
 
             // Next button
             Padding(
-              padding: const EdgeInsets.all(OnboardingSpacing.lg),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: OnboardingSpacing.md,
+              ),
               child: OnboardingButton(
                 text: l10n.onboardingNext,
                 onPressed: _onNext,
