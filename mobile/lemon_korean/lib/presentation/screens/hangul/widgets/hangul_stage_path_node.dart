@@ -1,42 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../../data/models/lesson_model.dart';
-import '../../../screens/hangul/widgets/lemon_cross_section_painter.dart';
+import 'hangul_stats_bar.dart';
+import 'lemon_cross_section_painter.dart';
 
-/// A single lemon-shaped node in the learning path.
+/// A single lemon-shaped node in the hangul stage path.
 ///
 /// Three visual states:
-/// - Completed (progress >= 1.0): filled lemon + white check icon + lemon reward icons
-/// - In-progress (0 < progress < 1.0): colored border + lesson number + pulse glow
-/// - Not started (progress == null): grey border + grey lesson number
-class LessonPathNode extends StatelessWidget {
-  final LessonModel lesson;
-  final double? progress; // null = not started, 0..1
+/// - Completed (mastery >= 5.0): filled lemon + white check icon + lemon reward icons
+/// - In progress (0 < mastery < 5.0): colored border + stage number + pulse glow
+/// - Not started (mastery <= 0): grey border + grey stage number
+class HangulStagePathNode extends StatelessWidget {
+  final int stageIndex; // 0-8
+  final String title; // e.g., '한글 구조 이해'
+  final StageVisualState state;
+  final double mastery; // 0-5
+  final bool isRecommended; // first incomplete stage
   final Color levelColor;
   final VoidCallback onTap;
-  final int index; // for ordering display
-  final int lemonsEarned; // 0-3 lemons earned for this lesson
+  final int animationIndex; // staggered fadeIn delay
+  final int? completedLessonsOverride; // real lesson count (from provider)
 
   static const double nodeWidth = 80;
   static const double nodeHeight = 80;
-  static const int _totalSteps = 7; // 7단계 레슨
 
-  const LessonPathNode({
-    required this.lesson,
+  const HangulStagePathNode({
+    required this.stageIndex,
+    required this.title,
+    required this.state,
+    required this.mastery,
     required this.levelColor,
     required this.onTap,
-    required this.index,
+    required this.animationIndex,
+    this.isRecommended = false,
+    this.completedLessonsOverride,
     super.key,
-    this.progress,
-    this.lemonsEarned = 0,
   });
 
-  bool get _isCompleted => progress != null && progress! >= 1.0;
-  bool get _isInProgress => progress != null && progress! > 0 && progress! < 1.0;
+  bool get _isCompleted => state == StageVisualState.completed;
+  bool get _isInProgress => state == StageVisualState.inProgress;
+
+  int get _lemonsEarned {
+    if (mastery >= 5.0) return 3;
+    if (mastery >= 3.0) return 2;
+    if (mastery >= 1.0) return 1;
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final totalLessons = kStageLessonCounts[stageIndex];
+    final completedLessons = completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
+
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -50,15 +65,15 @@ class LessonPathNode extends StatelessWidget {
               height: nodeHeight,
               child: _isInProgress ? _buildAnimatedNode() : _buildStaticNode(),
             ),
-            // Lemon reward icons (only for completed lessons)
-            if (_isCompleted && lemonsEarned > 0) ...[
+            // Lemon reward icons (only for completed stages)
+            if (_isCompleted && _lemonsEarned > 0) ...[
               const SizedBox(height: 2),
               _buildLemonIcons(),
             ],
             const SizedBox(height: 4),
-            // Korean title
+            // Title
             Text(
-              lesson.titleKo,
+              title,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: _isCompleted ? FontWeight.w600 : FontWeight.w500,
@@ -70,9 +85,9 @@ class LessonPathNode extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
             ),
-            // Translated title
+            // Lesson count sublabel
             Text(
-              lesson.title,
+              '$completedLessons/$totalLessons 레슨',
               style: TextStyle(
                 fontSize: 10,
                 color: _isCompleted || _isInProgress
@@ -89,13 +104,12 @@ class LessonPathNode extends StatelessWidget {
     );
   }
 
-  /// Build small lemon icons showing 1-3 earned lemons
   Widget _buildLemonIcons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: List.generate(3, (i) {
-        final isEarned = i < lemonsEarned;
+        final isEarned = i < _lemonsEarned;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 1),
           child: Text(
@@ -110,23 +124,22 @@ class LessonPathNode extends StatelessWidget {
     );
   }
 
-  int get _filledSteps => progress != null
-      ? (progress! * _totalSteps).round()
-      : 0;
-
   Widget _buildStaticNode() {
+    final totalLessons = kStageLessonCounts[stageIndex];
+    final completedLessons = ((mastery / 5.0) * totalLessons).round();
+
     return CustomPaint(
       painter: LemonCrossSectionPainter(
         color: _isCompleted ? levelColor : Colors.grey.shade300,
-        totalSlices: _totalSteps,
-        filledSlices: _filledSteps,
+        totalSlices: totalLessons,
+        filledSlices: completedLessons,
         isFilled: _isCompleted,
       ),
       child: Center(
         child: _isCompleted
             ? const Icon(Icons.check, color: Colors.white, size: 16)
             : Text(
-                '${lesson.id}',
+                '$stageIndex',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -138,6 +151,9 @@ class LessonPathNode extends StatelessWidget {
   }
 
   Widget _buildAnimatedNode() {
+    final totalLessons = kStageLessonCounts[stageIndex];
+    final completedLessons = ((mastery / 5.0) * totalLessons).round();
+
     return Animate(
       onPlay: (controller) => controller.repeat(reverse: true),
       effects: [
@@ -148,8 +164,8 @@ class LessonPathNode extends StatelessWidget {
             return CustomPaint(
               painter: LemonCrossSectionPainter(
                 color: levelColor,
-                totalSlices: _totalSteps,
-                filledSlices: _filledSteps,
+                totalSlices: totalLessons,
+                filledSlices: completedLessons,
                 isFilled: false,
                 glowIntensity: value,
               ),
@@ -160,7 +176,7 @@ class LessonPathNode extends StatelessWidget {
       ],
       child: Center(
         child: Text(
-          '${lesson.id}',
+          '$stageIndex',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,

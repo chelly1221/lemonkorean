@@ -1201,3 +1201,68 @@ func (r *ProgressRepository) RecordHangulBatch(ctx context.Context, req *models.
 
 	return successCount, failCount, nil
 }
+
+// ================================================================
+// HANGUL LESSON PROGRESS
+// ================================================================
+
+// HangulLessonProgress represents a single lesson completion record.
+type HangulLessonProgress struct {
+	LessonID       string     `json:"lesson_id"`
+	CompletedSteps int        `json:"completed_steps"`
+	TotalSteps     int        `json:"total_steps"`
+	IsCompleted    bool       `json:"is_completed"`
+	BestScore      int        `json:"best_score"`
+	LemonsEarned   int        `json:"lemons_earned"`
+	CompletedAt    *time.Time `json:"completed_at,omitempty"`
+	LastAccessedAt time.Time  `json:"last_accessed_at"`
+}
+
+// UpsertHangulLessonProgress saves or updates lesson progress.
+// Only updates if new score is better or lesson was not yet completed.
+func (r *ProgressRepository) UpsertHangulLessonProgress(ctx context.Context, userID int64, p *HangulLessonProgress) error {
+	now := time.Now()
+	query := `
+		INSERT INTO hangul_lesson_progress
+			(user_id, lesson_id, completed_steps, total_steps, is_completed, best_score, lemons_earned, completed_at, last_accessed_at, updated_at)
+		VALUES ($1, $2, $3, $4, TRUE, $5, $6, $7, $7, $7)
+		ON CONFLICT (user_id, lesson_id) DO UPDATE SET
+			completed_steps = GREATEST(hangul_lesson_progress.completed_steps, EXCLUDED.completed_steps),
+			is_completed = TRUE,
+			best_score = GREATEST(hangul_lesson_progress.best_score, EXCLUDED.best_score),
+			lemons_earned = GREATEST(hangul_lesson_progress.lemons_earned, EXCLUDED.lemons_earned),
+			completed_at = COALESCE(hangul_lesson_progress.completed_at, EXCLUDED.completed_at),
+			last_accessed_at = EXCLUDED.last_accessed_at,
+			updated_at = EXCLUDED.updated_at
+	`
+	_, err := r.db.ExecContext(ctx, query,
+		userID, p.LessonID, p.CompletedSteps, p.TotalSteps, p.BestScore, p.LemonsEarned, now,
+	)
+	return err
+}
+
+// GetHangulLessonProgress retrieves all lesson progress for a user.
+func (r *ProgressRepository) GetHangulLessonProgress(ctx context.Context, userID int64) ([]HangulLessonProgress, error) {
+	query := `
+		SELECT lesson_id, completed_steps, total_steps, is_completed, best_score, lemons_earned, completed_at, last_accessed_at
+		FROM hangul_lesson_progress
+		WHERE user_id = $1
+		ORDER BY lesson_id
+	`
+	rows, err := r.db.QueryContext(ctx, query, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var results []HangulLessonProgress
+	for rows.Next() {
+		var p HangulLessonProgress
+		err := rows.Scan(&p.LessonID, &p.CompletedSteps, &p.TotalSteps, &p.IsCompleted, &p.BestScore, &p.LemonsEarned, &p.CompletedAt, &p.LastAccessedAt)
+		if err != nil {
+			return nil, err
+		}
+		results = append(results, p)
+	}
+	return results, nil
+}

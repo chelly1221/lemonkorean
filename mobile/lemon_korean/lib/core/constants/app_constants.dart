@@ -47,12 +47,12 @@ class AppConstants {
   static const Color infoColor = Color(0xFF2196F3);
 
   // Text Colors
-  static const Color textPrimary = Color(0xFF212121);
-  static const Color textSecondary = Color(0xFF757575);
-  static const Color textHint = Color(0xFFBDBDBD);
+  static const Color textPrimary = Color(0xFF191F28);
+  static const Color textSecondary = Color(0xFF6B7684);
+  static const Color textHint = Color(0xFF8B95A1);
 
   // Background Colors
-  static const Color backgroundLight = Color(0xFFFAFAFA);
+  static const Color backgroundLight = Color(0xFFFEFFF4);
   static const Color backgroundDark = Color(0xFF303030);
   static const Color cardBackground = Colors.white;
 

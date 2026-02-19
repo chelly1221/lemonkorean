@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../../data/models/hangul_character_model.dart';
+import '../../data/models/hangul_lesson_progress_model.dart';
 import '../../data/models/hangul_progress_model.dart';
 import '../../data/repositories/hangul_repository.dart';
 import '../../core/utils/app_logger.dart';
@@ -27,6 +28,9 @@ class HangulProvider with ChangeNotifier {
   List<HangulProgressModel> _progress = [];
   HangulStats? _stats;
   Map<int, HangulProgressModel> _progressMap = {};
+
+  // Lesson progress (Stage 0+ interactive lessons)
+  final Map<String, HangulLessonProgressModel> _lessonProgress = {};
 
   // Review/Practice
   List<HangulCharacterModel> _reviewQueue = [];
@@ -322,6 +326,67 @@ class HangulProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // ================================================================
+  // LESSON PROGRESS (Stage 0+ interactive lessons)
+  // ================================================================
+
+  /// Get lesson progress by lesson ID (e.g. '0-1').
+  HangulLessonProgressModel? getLessonProgress(String lessonId) {
+    return _lessonProgress[lessonId];
+  }
+
+  /// Get all completed lesson IDs for a stage.
+  int getCompletedLessonCount(int stage) {
+    return _lessonProgress.values
+        .where((p) => p.lessonId.startsWith('$stage-') && p.isCompleted)
+        .length;
+  }
+
+  /// Load lesson progress from local storage.
+  Future<void> loadLessonProgress() async {
+    try {
+      final allData = await _repository.getAllLessonProgress();
+      _lessonProgress.clear();
+      for (final p in allData) {
+        _lessonProgress[p.lessonId] = p;
+      }
+      notifyListeners();
+    } catch (e) {
+      AppLogger.w('[HangulProvider] loadLessonProgress error: $e');
+    }
+  }
+
+  /// Mark a lesson as completed and save progress.
+  Future<void> completeLesson({
+    required String lessonId,
+    required int totalSteps,
+    required int bestScore,
+    required int lemonsEarned,
+  }) async {
+    final existing = _lessonProgress[lessonId];
+
+    // Only update if new score is better or not yet completed
+    if (existing != null && existing.isCompleted && existing.bestScore >= bestScore) {
+      return;
+    }
+
+    final progress = HangulLessonProgressModel(
+      lessonId: lessonId,
+      userId: 0, // Will be set by repository
+      completedSteps: totalSteps,
+      totalSteps: totalSteps,
+      isCompleted: true,
+      bestScore: bestScore,
+      lemonsEarned: lemonsEarned,
+      completedAt: DateTime.now(),
+    );
+
+    _lessonProgress[lessonId] = progress;
+    notifyListeners();
+
+    await _repository.saveLessonProgress(progress);
+  }
+
   /// Clear all data (for logout)
   void clear() {
     _characters = [];
@@ -332,6 +397,7 @@ class HangulProvider with ChangeNotifier {
     _progressMap = {};
     _reviewQueue = [];
     _currentReviewIndex = 0;
+    _lessonProgress.clear();
     _loadingState = HangulLoadingState.initial;
     _errorMessage = null;
     notifyListeners();

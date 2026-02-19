@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Lemon Korean primary color - Bright lemon yellow -->
-    <color name="lemon_yellow">#FFEF5F</color>
+    <color name="lemon_yellow">#FFFEFFF4</color>
 </resources>

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/app_constants.dart';
@@ -256,71 +258,111 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final mascotSize = screenHeight * 0.22;
+
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          color: AppConstants.primaryColor,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Logo
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
+        width: double.infinity,
+        height: double.infinity,
+        color: const Color(0xFFFEFFF4),
+        child: Stack(
+          children: [
+            // ── 방사형 그라데이션 오버레이 ──
+            Center(
+              child: OverflowBox(
+                maxWidth: double.infinity,
+                maxHeight: double.infinity,
+                child: Transform.scale(
+                  scaleY: 0.65,
+                  child: Container(
+                    width: screenWidth * 1.2,
+                    height: screenWidth * 1.2,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          const Color(0xFFFFEF7E).withOpacity(0.5),
+                          const Color(0xFFFFEF7E).withOpacity(0.0),
+                        ],
+                        stops: const [0.0, 1.0],
+                      ),
                     ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text(
-                    '🍋',
-                    style: TextStyle(fontSize: 60),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
-              Semantics(
-                header: true,
-                child: const Text(
-                  AppConstants.appName,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF001F3F), // 짙은 남색
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Builder(
-                builder: (context) {
-                  final l10n = AppLocalizations.of(context);
-                  return Text(
-                    l10n?.appName ?? '레몬 한국어',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Color(0xFF003366), // 짙은 남색 (약간 밝게)
+            ),
+            // ── 콘텐츠 ──
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // 마스코트
+                  SvgPicture.asset(
+                    'assets/images/moni_mascot.svg',
+                    width: mascotSize,
+                    height: mascotSize,
+                  )
+                      .animate()
+                      .scale(
+                        begin: const Offset(0.8, 0.8),
+                        end: const Offset(1.0, 1.0),
+                        duration: 600.ms,
+                        curve: Curves.easeOutBack,
+                      )
+                      .fadeIn(duration: 500.ms),
+                  SizedBox(height: screenHeight * 0.03),
+                  // 제목
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      '레몬 한국어',
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: screenWidth * 0.08,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFF43240D),
+                        letterSpacing: -0.8,
+                      ),
                     ),
-                  );
-                },
+                  )
+                      .animate()
+                      .fadeIn(delay: 200.ms, duration: 500.ms)
+                      .slideY(begin: 0.15, end: 0, duration: 500.ms, curve: Curves.easeOut),
+                  SizedBox(height: screenHeight * 0.01),
+                  // 부제목
+                  Text(
+                    '상큼한 학습습관',
+                    style: TextStyle(
+                      fontFamily: 'Pretendard',
+                      fontSize: screenWidth * 0.045,
+                      color: const Color(0xFF907866),
+                      letterSpacing: -0.2,
+                    ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 350.ms, duration: 500.ms)
+                      .slideY(begin: 0.15, end: 0, duration: 500.ms, curve: Curves.easeOut),
+                  SizedBox(height: screenHeight * 0.06),
+                  // 스피너
+                  Semantics(
+                    label: 'Loading',
+                    child: const SizedBox(
+                      width: 28,
+                      height: 28,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDEB887)),
+                        strokeWidth: 3,
+                      ),
+                    ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 600.ms, duration: 500.ms),
+                ],
               ),
-              const SizedBox(height: 50),
-              Semantics(
-                label: 'Loading',
-                child: const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

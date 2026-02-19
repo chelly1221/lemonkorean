@@ -61,6 +61,7 @@ func main() {
 	progressHandler := handlers.NewProgressHandler(progressRepo)
 	syncHandler := handlers.NewSyncHandler(progressRepo)
 	hangulHandler := handlers.NewHangulHandler(progressRepo)
+	hangulLessonHandler := handlers.NewHangulLessonHandler(progressRepo)
 	gamificationHandler := handlers.NewGamificationHandler(progressRepo)
 	characterHandler := handlers.NewCharacterHandler(progressRepo)
 
@@ -122,6 +123,10 @@ func main() {
 		api.POST("/hangul/:userId/:characterId", hangulHandler.UpdateHangulProgress)
 		api.GET("/hangul/review/:userId", hangulHandler.GetHangulReviewSchedule)
 		api.POST("/hangul/batch", hangulHandler.RecordHangulBatch)
+
+		// Hangul lesson progress (Stage 0+)
+		api.POST("/hangul-lesson/complete", hangulLessonHandler.CompleteLesson)
+		api.GET("/hangul-lesson/:userId", hangulLessonHandler.GetLessonProgress)
 
 		// Gamification (lemon rewards)
 		api.POST("/lesson-reward", gamificationHandler.SaveLessonReward)

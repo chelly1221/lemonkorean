@@ -35,80 +35,83 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Consumer<HangulProvider>(
-      builder: (context, provider, child) {
-        if (provider.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    return Scaffold(
+      appBar: AppBar(title: const Text('자모표')),
+      body: Consumer<HangulProvider>(
+        builder: (context, provider, child) {
+          if (provider.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        if (provider.errorMessage != null && provider.characters.isEmpty) {
-          return _buildErrorState(context, provider);
-        }
+          if (provider.errorMessage != null && provider.characters.isEmpty) {
+            return _buildErrorState(context, provider);
+          }
 
-        if (provider.characters.isEmpty) {
-          return _buildEmptyState(context, provider);
-        }
+          if (provider.characters.isEmpty) {
+            return _buildEmptyState(context, provider);
+          }
 
-        return RefreshIndicator(
-          onRefresh: () => provider.loadAlphabetTable(),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Stats summary
-                _buildStatsSummary(context, provider),
+          return RefreshIndicator(
+            onRefresh: () => provider.loadAlphabetTable(),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppConstants.paddingMedium),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Stats summary
+                  _buildStatsSummary(context, provider),
 
-                const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-                // Basic Consonants
-                if (provider.basicConsonants.isNotEmpty)
-                  _buildCharacterSection(
-                    '${l10n.basicConsonants} (${l10n.basicConsonantsKo})',
-                    provider.basicConsonants,
-                    Colors.blue,
-                    provider,
-                  ),
+                  // Basic Consonants
+                  if (provider.basicConsonants.isNotEmpty)
+                    _buildCharacterSection(
+                      '${l10n.basicConsonants} (${l10n.basicConsonantsKo})',
+                      provider.basicConsonants,
+                      Colors.blue,
+                      provider,
+                    ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
-                // Double Consonants
-                if (provider.doubleConsonants.isNotEmpty)
-                  _buildCharacterSection(
-                    '${l10n.doubleConsonants} (${l10n.doubleConsonantsKo})',
-                    provider.doubleConsonants,
-                    Colors.indigo,
-                    provider,
-                  ),
+                  // Double Consonants
+                  if (provider.doubleConsonants.isNotEmpty)
+                    _buildCharacterSection(
+                      '${l10n.doubleConsonants} (${l10n.doubleConsonantsKo})',
+                      provider.doubleConsonants,
+                      Colors.indigo,
+                      provider,
+                    ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
-                // Basic Vowels
-                if (provider.basicVowels.isNotEmpty)
-                  _buildCharacterSection(
-                    '${l10n.basicVowels} (${l10n.basicVowelsKo})',
-                    provider.basicVowels,
-                    Colors.green,
-                    provider,
-                  ),
+                  // Basic Vowels
+                  if (provider.basicVowels.isNotEmpty)
+                    _buildCharacterSection(
+                      '${l10n.basicVowels} (${l10n.basicVowelsKo})',
+                      provider.basicVowels,
+                      Colors.green,
+                      provider,
+                    ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
-                // Compound Vowels
-                if (provider.compoundVowels.isNotEmpty)
-                  _buildCharacterSection(
-                    '${l10n.compoundVowels} (${l10n.compoundVowelsKo})',
-                    provider.compoundVowels,
-                    Colors.teal,
-                    provider,
-                  ),
+                  // Compound Vowels
+                  if (provider.compoundVowels.isNotEmpty)
+                    _buildCharacterSection(
+                      '${l10n.compoundVowels} (${l10n.compoundVowelsKo})',
+                      provider.compoundVowels,
+                      Colors.teal,
+                      provider,
+                    ),
 
-                const SizedBox(height: 32),
-              ],
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

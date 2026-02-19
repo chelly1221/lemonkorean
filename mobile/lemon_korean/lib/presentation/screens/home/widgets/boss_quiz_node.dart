@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'lemon_clipper.dart';
+import '../../../screens/hangul/widgets/lemon_cross_section_painter.dart';
 
 /// A special boss quiz node displayed at the end of each chapter.
 /// Shows a crown icon when unlocked, lock icon when locked.
@@ -13,7 +13,7 @@ class BossQuizNode extends StatelessWidget {
   final VoidCallback onTap;
 
   static const double nodeWidth = 80;
-  static const double nodeHeight = 90;
+  static const double nodeHeight = 80;
 
   const BossQuizNode({
     required this.chapterNumber,
@@ -63,18 +63,18 @@ class BossQuizNode extends StatelessWidget {
     );
   }
 
+  static const int _bossSlices = 8;
+
   Widget _buildCompletedNode() {
     return CustomPaint(
-      painter: LemonShapePainter(
+      painter: LemonCrossSectionPainter(
         color: Colors.amber,
+        totalSlices: _bossSlices,
+        filledSlices: _bossSlices,
         isFilled: true,
-        strokeWidth: 3.0,
       ),
       child: const Center(
-        child: Padding(
-          padding: EdgeInsets.only(top: 8),
-          child: Icon(Icons.workspace_premium, color: Colors.white, size: 36),
-        ),
+        child: Icon(Icons.workspace_premium, color: Colors.white, size: 20),
       ),
     );
   }
@@ -88,10 +88,11 @@ class BossQuizNode extends StatelessWidget {
           curve: Curves.easeInOut,
           builder: (context, value, child) {
             return CustomPaint(
-              painter: LemonShapePainter(
+              painter: LemonCrossSectionPainter(
                 color: Colors.amber,
+                totalSlices: _bossSlices,
+                filledSlices: 0,
                 isFilled: false,
-                strokeWidth: 3.0,
                 glowIntensity: value,
               ),
               child: child,
@@ -100,13 +101,10 @@ class BossQuizNode extends StatelessWidget {
         ),
       ],
       child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Icon(
-            Icons.workspace_premium,
-            size: 36,
-            color: Colors.amber.shade700,
-          ),
+        child: Icon(
+          Icons.workspace_premium,
+          size: 20,
+          color: Colors.amber.shade700,
         ),
       ),
     );
@@ -114,19 +112,17 @@ class BossQuizNode extends StatelessWidget {
 
   Widget _buildLockedNode() {
     return CustomPaint(
-      painter: LemonShapePainter(
+      painter: LemonCrossSectionPainter(
         color: Colors.grey.shade300,
+        totalSlices: _bossSlices,
+        filledSlices: 0,
         isFilled: false,
-        strokeWidth: 3.0,
       ),
       child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Icon(
-            Icons.lock,
-            size: 28,
-            color: Colors.grey.shade400,
-          ),
+        child: Icon(
+          Icons.lock,
+          size: 18,
+          color: Colors.grey.shade400,
         ),
       ),
     );

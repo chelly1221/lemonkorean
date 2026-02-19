@@ -8,6 +8,7 @@ import '../../core/utils/result.dart';
 import '../../core/utils/app_exception.dart';
 import '../../core/platform/platform_factory.dart';
 import '../models/hangul_character_model.dart';
+import '../models/hangul_lesson_progress_model.dart';
 import '../models/hangul_progress_model.dart';
 
 /// Hangul Repository
@@ -494,6 +495,68 @@ class HangulRepository {
 
       final exception = ExceptionHandler.handle(e, stackTrace);
       return Error(exception.message, code: exception.code);
+    }
+  }
+
+  // ================================================================
+  // LESSON PROGRESS (Stage 0+ interactive lessons)
+  // ================================================================
+
+  static const String _lessonProgressBoxName = 'hangul_lesson_progress';
+
+  /// Save lesson progress to local storage.
+  Future<void> saveLessonProgress(HangulLessonProgressModel progress) async {
+    try {
+      await LocalStorage.saveToBox(
+        _lessonProgressBoxName,
+        progress.lessonId,
+        progress.toJson(),
+      );
+
+      // Add to sync queue for server sync
+      await LocalStorage.addToSyncQueue({
+        'type': 'hangul_lesson_complete',
+        'data': progress.toJson(),
+        'created_at': DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      AppLogger.w('[HangulRepository] saveLessonProgress error: $e');
+    }
+  }
+
+  /// Get all lesson progress from local storage.
+  Future<List<HangulLessonProgressModel>> getAllLessonProgress() async {
+    try {
+      final allData = LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(
+        _lessonProgressBoxName,
+      );
+      return allData.map((data) {
+        return HangulLessonProgressModel.fromJson(
+          Map<String, dynamic>.from(data),
+        );
+      }).toList();
+    } catch (e) {
+      AppLogger.w('[HangulRepository] getAllLessonProgress error: $e');
+      return [];
+    }
+  }
+
+  /// Get a single lesson progress.
+  HangulLessonProgressModel? getLessonProgress(String lessonId) {
+    try {
+      final data = LocalStorage.getFromBox<Map<dynamic, dynamic>>(
+        _lessonProgressBoxName,
+        lessonId,
+      );
+      if (data != null) {
+        return HangulLessonProgressModel.fromJson(
+          Map<String, dynamic>.from(data),
+        );
+      }
+      return null;
+    } catch (e) {
+      AppLogger.w('[HangulRepository] getLessonProgress error: $e');
+      return null;
     }
   }
 

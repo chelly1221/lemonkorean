@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../data/models/hangul_character_model.dart';
-import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/auth_provider.dart';
+import '../../../providers/gamification_provider.dart';
 import '../../../providers/hangul_provider.dart';
-import '../../hangul/hangul_character_detail.dart';
 import '../../hangul/hangul_level0_learning_screen.dart';
+import '../../hangul/stage0/hangul_stage0_lesson_list_screen.dart';
+import '../../hangul/hangul_practice_screen.dart';
 import '../../hangul/hangul_syllable_screen.dart';
 import '../../hangul/hangul_batchim_screen.dart';
 import '../../hangul/hangul_discrimination_screen.dart';
-import 'lemon_clipper.dart';
+import '../../hangul/hangul_table_screen.dart';
+import '../../hangul/widgets/hangul_stage_path_view.dart';
+import '../../hangul/widgets/hangul_stats_bar.dart';
 
 /// Lemon orchard dashboard for Level 0 (Hangul).
-/// Shows an adaptive guide card and a lemon-themed character grid.
+/// Shows action buttons, stats bar, and inline lemon stage path.
 class HangulDashboardView extends StatefulWidget {
   const HangulDashboardView({super.key});
 
@@ -36,43 +38,93 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
     final auth = context.read<AuthProvider>();
 
     await hangul.loadAlphabetTable();
+    await hangul.loadLessonProgress();
     if (auth.currentUser != null) {
       await hangul.loadProgress(auth.currentUser!.id);
     }
     if (mounted) setState(() => _loaded = true);
   }
 
-  // ── Mastery → lemon colour ───────────────────────────────────────
+  static const _stages = <({int stage, String title, String subtitle})>[
+    (stage: 0, title: '한글 구조 이해', subtitle: '자음 + 모음 = 글자(음절) 개념'),
+    (stage: 1, title: '핵심 모음', subtitle: '기본 모음과 확장 모음'),
+    (stage: 2, title: '기본 자음', subtitle: '조합 가능한 기본 자음 세트'),
+    (stage: 3, title: '본격 조합 훈련', subtitle: '자음×모음 리듬 읽기와 대비 훈련'),
+    (stage: 4, title: '된소리 / 거센소리', subtitle: '혼동쌍 집중 훈련'),
+    (stage: 5, title: '받침(종성) 1차', subtitle: '핵심 받침부터 읽기 강화'),
+    (stage: 6, title: '받침 확장', subtitle: '확장 받침 및 소리 변동 도입'),
+    (stage: 7, title: '복합 받침', subtitle: '고급 받침 조합'),
+    (stage: 8, title: '단어 읽기 확장', subtitle: '받침 유무 단어 읽기'),
+  ];
 
-  static Color _lemonColor(int masteryLevel) {
-    switch (masteryLevel) {
-      case 0:
-        return Colors.grey.shade300;
-      case 1:
-        return const Color(0xFFC5E1A5); // light green
-      case 2:
-        return const Color(0xFF81C784); // green
-      case 3:
-        return const Color(0xFFCDDC39); // yellow-green
-      case 4:
-        return const Color(0xFFFFEE58); // yellow
-      case 5:
-        return const Color(0xFFFFD54F); // gold
-      default:
-        return Colors.grey.shade300;
-    }
+  // ── Progress helpers ──────────────────────────────────────────
+
+  static List<double> _getStageProgress(HangulProvider provider) {
+    final overall = provider.overallProgress.clamp(0.0, 1.0);
+    final stageSpan = _stages.length.toDouble();
+    final completedStages = overall * stageSpan;
+
+    return List<double>.generate(_stages.length, (index) {
+      final stageCompletion = (completedStages - index).clamp(0.0, 1.0);
+      return stageCompletion * 5.0;
+    });
   }
 
-  static bool _lemonFilled(int masteryLevel) => masteryLevel > 0;
+  static List<StageVisualState> _getStageStates(List<double> stageProgress) {
+    return stageProgress.map((mastery) {
+      if (mastery <= 0) return StageVisualState.notStarted;
+      if (mastery >= 5) return StageVisualState.completed;
+      return StageVisualState.inProgress;
+    }).toList();
+  }
 
-  static double _lemonGlow(int masteryLevel) => masteryLevel >= 5 ? 0.5 : 0.0;
+  // ── Navigation ────────────────────────────────────────────────
 
-  // ── Build ────────────────────────────────────────────────────────
+  static void _navigateToStage(BuildContext context, int stage) {
+    Widget screen;
+    switch (stage) {
+      case 0:
+        screen = const HangulStage0LessonListScreen();
+        break;
+      case 1:
+        screen = const HangulStage1VowelsScreen();
+        break;
+      case 2:
+        screen = const HangulStage2ConsonantsScreen();
+        break;
+      case 3:
+        screen = const HangulStage3SyllableReadingScreen();
+        break;
+      case 4:
+        screen = const HangulStage4ContrastScreen();
+        break;
+      case 5:
+        screen = const HangulStage5BatchimBasicScreen();
+        break;
+      case 6:
+        screen = const HangulStage6BatchimExtendedScreen();
+        break;
+      case 7:
+        screen = const HangulStage7AdvancedBatchimScreen();
+        break;
+      case 8:
+        screen = const HangulStage8WordReadingScreen();
+        break;
+      default:
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('$stage단계 상세 내용은 다음 지시 후 추가됩니다.')),
+        );
+        return;
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
+  }
+
+  // ── Build ─────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HangulProvider>(
-      builder: (context, hangul, _) {
+    return Consumer2<HangulProvider, GamificationProvider>(
+      builder: (context, hangul, gamification, _) {
         if (!_loaded || hangul.isLoading) {
           return const Padding(
             padding: EdgeInsets.symmetric(vertical: 80),
@@ -80,60 +132,60 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
           );
         }
 
-        final table = hangul.alphabetTable;
+        final stageProgress = _getStageProgress(hangul);
+        final stageStates = _getStageStates(stageProgress);
+        final stats = hangul.stats;
+        final isBossUnlocked =
+            stageStates.every((s) => s == StageVisualState.completed);
 
         return Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600),
             child: Column(
               children: [
-                // Action buttons for learning modes
+                // Action buttons
                 _buildActionButtons(context),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
 
-                // Character sections
-                if (table['basic_consonants']?.isNotEmpty == true)
-                  _buildCharacterSection(
-                    context,
-                    hangul,
-                    icon: '🌿',
-                    characters: table['basic_consonants']!,
-                    isConsonant: true,
-                    animDelay: 0,
-                  ),
+                // Stats bar
+                HangulStatsBar(
+                  totalLemons: gamification.totalLemons,
+                  charactersLearned: stats?.charactersLearned ?? 0,
+                  totalCharacters: stats?.totalCharacters ?? 40,
+                  dueForReview: stats?.dueForReview ?? 0,
+                  onReviewTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const HangulPracticeScreen(),
+                      ),
+                    );
+                  },
+                ),
 
-                if (table['double_consonants']?.isNotEmpty == true)
-                  _buildCharacterSection(
-                    context,
-                    hangul,
-                    icon: '🌿',
-                    characters: table['double_consonants']!,
-                    isConsonant: true,
-                    animDelay: 100,
-                  ),
+                const SizedBox(height: 8),
 
-                if (table['basic_vowels']?.isNotEmpty == true)
-                  _buildCharacterSection(
-                    context,
-                    hangul,
-                    icon: '🌸',
-                    characters: table['basic_vowels']!,
-                    isConsonant: false,
-                    animDelay: 200,
-                  ),
-
-                if (table['compound_vowels']?.isNotEmpty == true)
-                  _buildCharacterSection(
-                    context,
-                    hangul,
-                    icon: '🌸',
-                    characters: table['compound_vowels']!,
-                    isConsonant: false,
-                    animDelay: 300,
-                  ),
-
-                const SizedBox(height: 24),
+                // Inline lemon stage path
+                HangulStagePathView(
+                  stages: _stages,
+                  stageProgress: stageProgress,
+                  stageStates: stageStates,
+                  levelColor: const Color(0xFFFFD54F),
+                  onStageTap: (stage) => _navigateToStage(context, stage),
+                  isBossUnlocked: isBossUnlocked,
+                  isBossCompleted: false,
+                  completedLessonsMap: {
+                    0: hangul.getCompletedLessonCount(0),
+                  },
+                  onBossTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('보스 퀴즈는 준비 중입니다.'),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -142,7 +194,7 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
     );
   }
 
-  // ── Action buttons ──────────────────────────────────────────────
+  // ── Action buttons ────────────────────────────────────────────
 
   Widget _buildActionButtons(BuildContext context) {
     return Padding(
@@ -151,14 +203,14 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         children: [
           Expanded(
             child: _buildActionButton(
-              icon: Icons.school,
-              label: '학습',
+              icon: Icons.grid_view,
+              label: '자모표',
               color: const Color(0xFF4CAF50),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const HangulLevel0LearningScreen(),
+                    builder: (_) => const HangulTableScreen(),
                   ),
                 );
               },
@@ -256,142 +308,6 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
             overflow: TextOverflow.ellipsis,
           ),
         ],
-      ),
-    );
-  }
-
-  // ── Character section ───────────────────────────────────────────
-
-  Widget _buildCharacterSection(
-    BuildContext context,
-    HangulProvider hangul, {
-    required String icon,
-    required List<HangulCharacterModel> characters,
-    required bool isConsonant,
-    required int animDelay,
-  }) {
-    final l10n = AppLocalizations.of(context);
-    final type = characters.first.characterType;
-
-    String sectionTitle;
-    switch (type) {
-      case 'basic_consonant':
-        sectionTitle = l10n?.basicConsonants ?? 'Basic Consonants';
-        break;
-      case 'double_consonant':
-        sectionTitle = l10n?.doubleConsonants ?? 'Double Consonants';
-        break;
-      case 'basic_vowel':
-        sectionTitle = l10n?.basicVowels ?? 'Basic Vowels';
-        break;
-      case 'compound_vowel':
-        sectionTitle = l10n?.compoundVowels ?? 'Compound Vowels';
-        break;
-      default:
-        sectionTitle = type;
-    }
-
-    final accentColor =
-        isConsonant ? const Color(0xFF4CAF50) : const Color(0xFFE91E63);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 14),
-          // Section header
-          Row(
-            children: [
-              Text(icon, style: const TextStyle(fontSize: 16)),
-              const SizedBox(width: 6),
-              Text(
-                sectionTitle,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: accentColor,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '${characters.length}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade500,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: accentColor.withValues(alpha: 0.3),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          // Character grid (7 columns)
-          Wrap(
-            spacing: 6,
-            runSpacing: 8,
-            children: characters
-                .map((ch) => _buildLemonCell(context, hangul, ch))
-                .toList(),
-          ),
-        ],
-      ),
-    ).animate().fadeIn(
-          duration: 350.ms,
-          delay: animDelay.ms,
-        );
-  }
-
-  // ── Individual lemon cell ───────────────────────────────────────
-
-  Widget _buildLemonCell(
-    BuildContext context,
-    HangulProvider hangul,
-    HangulCharacterModel character,
-  ) {
-    final progress = hangul.getProgressForCharacter(character.id);
-    final mastery = progress?.masteryLevel ?? 0;
-    final color = _lemonColor(mastery);
-    final filled = _lemonFilled(mastery);
-    final glow = _lemonGlow(mastery);
-
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => HangulCharacterDetailScreen(character: character),
-          ),
-        );
-      },
-      child: SizedBox(
-        width: 46,
-        height: 56,
-        child: CustomPaint(
-          painter: LemonShapePainter(
-            color: color,
-            isFilled: filled,
-            glowIntensity: glow,
-          ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                character.character,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: filled ? Colors.black87 : Colors.grey.shade500,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

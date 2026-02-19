@@ -214,8 +214,8 @@ class ThemeProvider extends ChangeNotifier {
 
       // AppBar Theme
       appBarTheme: AppBarTheme(
-        backgroundColor: theme.primary,
-        foregroundColor: Colors.white,
+        backgroundColor: theme.backgroundLightCol,
+        foregroundColor: theme.textPrimaryCol,
         elevation: 0,
         centerTitle: true,
       ),
@@ -261,7 +261,7 @@ class ThemeProvider extends ChangeNotifier {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.primary,
-          foregroundColor: Colors.white,
+          foregroundColor: const Color(0xFF43240D),
           padding: const EdgeInsets.symmetric(
             horizontal: AppConstants.paddingLarge,
             vertical: AppConstants.paddingMedium,
@@ -275,7 +275,7 @@ class ThemeProvider extends ChangeNotifier {
       // Floating Action Button Theme
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: theme.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: const Color(0xFF43240D),
       ),
 
       // Navigation Bar Theme
