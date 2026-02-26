@@ -637,6 +637,43 @@ const inviteToStage = async (req, res) => {
   }
 };
 
+/**
+ * Reject a stage request (creator only)
+ */
+const rejectStageRequest = async (req, res) => {
+  try {
+    const creatorId = req.user.id;
+    const roomId = parseInt(req.params.id);
+    const { user_id: targetUserId } = req.body;
+
+    if (!targetUserId) {
+      return res.status(400).json({ error: 'user_id is required' });
+    }
+
+    // Verify requester is creator
+    const room = await VoiceRoom.getById(roomId);
+    if (!room || room.creator_id !== creatorId) {
+      return res.status(403).json({ error: 'Only the room creator can reject stage requests' });
+    }
+
+    await VoiceRoom.resolveStageRequest(roomId, targetUserId, 'denied');
+
+    // Broadcast rejection
+    const io = req.app.get('io');
+    if (io) {
+      io.to(`voice:${roomId}`).emit('voice:stage_request_rejected', {
+        room_id: roomId,
+        user_id: targetUserId
+      });
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('[SNS] rejectStageRequest error:', error);
+    res.status(500).json({ error: 'Failed to reject stage request' });
+  }
+};
+
 module.exports = {
   getRooms,
   createRoom,
@@ -650,6 +687,7 @@ module.exports = {
   requestStage,
   cancelStageRequest,
   grantStage,
+  rejectStageRequest,
   removeFromStage,
   leaveStage,
   kickParticipant,

@@ -7,7 +7,7 @@
 
 **상태**: ✅ **프로덕션 준비 완료** (100%, 7/7 서비스)
 
-**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티, 실시간 DM, 음성 대화방(LiveKit)
+**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 12단계 한글 커리큘럼(Stage 0~11), 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티, 실시간 DM, 음성 대화방(LiveKit, 6가지 방 유형)
 
 ---
 
@@ -28,26 +28,37 @@ cd mobile/lemon_korean && ./build_web.sh
 
 ## 아키텍처
 ```
-Flutter App (오프라인 우선) ↔ Nginx Gateway ↔ 7 Microservices ↔ PostgreSQL/MongoDB/Redis/MinIO
+Flutter App (오프라인 우선, 콘텐츠 내장) ↔ Nginx Gateway ↔ 최소 서버(Auth/Progress/SNS) ↔ PostgreSQL/Redis/MinIO
 ```
 
-### 마이크로서비스
+### 2026-02 개발 방향 (중요)
+
+- **최소 서버 구조를 기본값으로 유지**:
+  - 서버 필수: `Auth`, `Progress`, `SNS(커뮤니티/DM/음성)`
+  - 앱 내장: `한글/레슨/단어/문법`, `앱 테마 기본값`, `게임화 기본값`, `캐릭터 아이템 카탈로그`
+- 정적 학습 콘텐츠는 서버 CRUD보다 **앱 번들 + 로컬 저장소**를 우선한다.
+- 새로운 데이터 추가 시 판단 기준:
+  - 사용자별 상태/동기화 필요 -> 서버
+  - 정적 커리큘럼/사전/표시용 설정 -> 앱 내장
+
+### 마이크로서비스 (운영 관점)
 | 서비스 | 포트 | 기술 | 역할 |
 |--------|------|------|------|
 | Auth | 3001 | Node.js | JWT 인증 |
-| Content | 3002 | Node.js | 레슨/단어 CRUD |
 | Progress | 3003 | Go | 진도/SRS |
 | Media | 3004 | Go | 미디어 서빙 |
 | Analytics | 3005 | Python | 통계 |
-| Admin | 3006 | Node.js | 관리자 대시보드, 앱 테마 설정, APK 빌드 |
+| Admin | 3006 | Node.js | 운영/관리 도구(배포/운영 설정) |
 | SNS | 3007 | Node.js | 커뮤니티 피드, 게시물, 댓글, 팔로우, DM, 음성대화방 |
+
+> Content/Admin 서비스는 개발/운영 도구로 유지 가능하지만, 모바일 런타임의 정적 학습 콘텐츠 필수 의존으로 두지 않는다.
 
 ---
 
 ## 주요 디렉토리
 ```
 services/           # 백엔드 마이크로서비스
-mobile/lemon_korean/lib/  # Flutter 앱 (210+ Dart 파일)
+mobile/lemon_korean/lib/  # Flutter 앱 (300+ Dart 파일)
 database/postgres/  # PostgreSQL 스키마 (41+ 테이블)
 config/             # DB/서비스 설정 파일 (livekit/ 포함)
 nginx/              # Nginx 설정
@@ -238,4 +249,4 @@ sudo lsof -i :5432
 
 ---
 
-**마지막 업데이트**: 2026-02-19
+**마지막 업데이트**: 2026-02-27

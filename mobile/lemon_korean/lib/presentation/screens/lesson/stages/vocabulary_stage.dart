@@ -3,11 +3,13 @@ import 'dart:math' as math;
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/media_loader.dart';
 import '../../../../data/models/lesson_model.dart';
 import '../../../../l10n/generated/app_localizations.dart';
+import '../../../providers/settings_provider.dart';
 
 /// Vocabulary Stage with Flip Card Animation
 /// Shows vocabulary cards with images, audio, and Chinese translations
@@ -579,8 +581,9 @@ class _VocabularyStageState extends State<VocabularyStage>
             const SizedBox(height: 20),
           ],
 
-          // Similarity Score
-          _buildSimilarityBar(word['similarity'] as int, l10n),
+          // Similarity Score (Chinese users only)
+          if (context.read<SettingsProvider>().isChinese)
+            _buildSimilarityBar(word['similarity'] as int, l10n),
 
           const Spacer(),
 

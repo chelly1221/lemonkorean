@@ -6,13 +6,26 @@ class AppConstants {
   static const String appNameKorean = '레몬 한국어';
   static const String version = '1.0.0';
 
-  // Static Production URLs (hardcoded)
-  static const String baseUrl = 'https://lemon.3chan.kr';
-  static const String contentUrl = 'https://lemon.3chan.kr';
-  static const String progressUrl = 'https://lemon.3chan.kr';
-  static const String mediaUrl = 'https://lemon.3chan.kr/media';
+  // Runtime URLs (override with --dart-define)
+  static const String _defaultBaseUrl = 'https://lemon.3chan.kr';
+  static const String baseUrl = String.fromEnvironment(
+    'BASE_URL',
+    defaultValue: _defaultBaseUrl,
+  );
+  static const String contentUrl = String.fromEnvironment(
+    'CONTENT_URL',
+    defaultValue: baseUrl,
+  );
+  static const String progressUrl = String.fromEnvironment(
+    'PROGRESS_URL',
+    defaultValue: baseUrl,
+  );
+  static const String mediaUrl = String.fromEnvironment(
+    'MEDIA_URL',
+    defaultValue: '$baseUrl/media',
+  );
 
-  // API Endpoints (statically constructed)
+  // API Endpoints
   static const String apiUrl = '$baseUrl/api';
   static const String authEndpoint = '$baseUrl/api/auth';
   static const String contentEndpoint = '$baseUrl/api/content';
@@ -23,7 +36,8 @@ class AppConstants {
   static const String tokenKey = 'auth_token';
   static const String refreshTokenKey = 'refresh_token';
   static const String userIdKey = 'user_id';
-  static const String secureUserIdKey = 'secure_user_id'; // Reliable storage for user_id
+  static const String secureUserIdKey =
+      'secure_user_id'; // Reliable storage for user_id
   static const String syncQueueKey = 'sync_queue';
 
   // Hive Box Names

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/auth_provider.dart';
 import '../../../providers/gamification_provider.dart';
 import '../../../providers/hangul_provider.dart';
-import '../../hangul/hangul_level0_learning_screen.dart';
 import '../../hangul/stage0/hangul_stage0_lesson_list_screen.dart';
-import '../../hangul/hangul_practice_screen.dart';
-import '../../hangul/hangul_syllable_screen.dart';
-import '../../hangul/hangul_batchim_screen.dart';
-import '../../hangul/hangul_discrimination_screen.dart';
-import '../../hangul/hangul_table_screen.dart';
+import '../../hangul/stage1/hangul_stage1_lesson_list_screen.dart';
+import '../../hangul/stage2/hangul_stage2_lesson_list_screen.dart';
+import '../../hangul/stage3/hangul_stage3_lesson_list_screen.dart';
+import '../../hangul/stage4/hangul_stage4_lesson_list_screen.dart';
+import '../../hangul/stage5/hangul_stage5_lesson_list_screen.dart';
+import '../../hangul/stage6/hangul_stage6_lesson_list_screen.dart';
+import '../../hangul/stage7/hangul_stage7_lesson_list_screen.dart';
+import '../../hangul/stage8/hangul_stage8_lesson_list_screen.dart';
+import '../../hangul/stage9/hangul_stage9_lesson_list_screen.dart';
+import '../../hangul/stage10/hangul_stage10_lesson_list_screen.dart';
+import '../../hangul/stage11/hangul_stage11_lesson_list_screen.dart';
 import '../../hangul/widgets/hangul_stage_path_view.dart';
 import '../../hangul/widgets/hangul_stats_bar.dart';
 
@@ -30,7 +34,10 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _loadData();
+    });
   }
 
   Future<void> _loadData() async {
@@ -47,14 +54,17 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
 
   static const _stages = <({int stage, String title, String subtitle})>[
     (stage: 0, title: '한글 구조 이해', subtitle: '자음 + 모음 = 글자(음절) 개념'),
-    (stage: 1, title: '핵심 모음', subtitle: '기본 모음과 확장 모음'),
-    (stage: 2, title: '기본 자음', subtitle: '조합 가능한 기본 자음 세트'),
-    (stage: 3, title: '본격 조합 훈련', subtitle: '자음×모음 리듬 읽기와 대비 훈련'),
-    (stage: 4, title: '된소리 / 거센소리', subtitle: '혼동쌍 집중 훈련'),
-    (stage: 5, title: '받침(종성) 1차', subtitle: '핵심 받침부터 읽기 강화'),
-    (stage: 6, title: '받침 확장', subtitle: '확장 받침 및 소리 변동 도입'),
-    (stage: 7, title: '복합 받침', subtitle: '고급 받침 조합'),
-    (stage: 8, title: '단어 읽기 확장', subtitle: '받침 유무 단어 읽기'),
+    (stage: 1, title: '기본 모음', subtitle: '기본 모음 6개 모양 + 소리 연결'),
+    (stage: 2, title: 'Y-모음', subtitle: '기본 모음에 획 추가 = Y-소리'),
+    (stage: 3, title: 'ㅐ/ㅔ 모음', subtitle: 'ㅐ/ㅔ 구분과 복합 단모음'),
+    (stage: 4, title: '기본 자음 1', subtitle: 'ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ'),
+    (stage: 5, title: '기본 자음 2', subtitle: 'ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ'),
+    (stage: 6, title: '본격 조합 훈련', subtitle: '자음×모음 리듬 읽기와 복합모음'),
+    (stage: 7, title: '된소리 / 거센소리', subtitle: '혼동쌍 집중 훈련'),
+    (stage: 8, title: '받침(종성) 1차', subtitle: '핵심 받침부터 읽기 강화'),
+    (stage: 9, title: '받침 확장', subtitle: '확장 받침 및 소리 변동 도입'),
+    (stage: 10, title: '복합 받침', subtitle: '고급 받침 조합'),
+    (stage: 11, title: '단어 읽기 확장', subtitle: '받침 유무 단어 읽기'),
   ];
 
   // ── Progress helpers ──────────────────────────────────────────
@@ -64,10 +74,38 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
     final stageSpan = _stages.length.toDouble();
     final completedStages = overall * stageSpan;
 
-    return List<double>.generate(_stages.length, (index) {
+    final progress = List<double>.generate(_stages.length, (index) {
       final stageCompletion = (completedStages - index).clamp(0.0, 1.0);
       return stageCompletion * 5.0;
     });
+
+    // Stage 0 is lesson-driven. Reflect real lesson completion so the lemon
+    // slices and completion state match what user completed in Stage 0.
+    final stage0Completed = provider.getCompletedLessonCount(0);
+    final stage0Total = kStageLessonCounts[0];
+    if (stage0Completed > 0) {
+      final lessonBasedMastery =
+          ((stage0Completed / stage0Total) * 5.0).clamp(0.0, 5.0);
+      progress[0] =
+          progress[0] < lessonBasedMastery ? lessonBasedMastery : progress[0];
+    }
+
+    // Split Stage 4 into two outer nodes (4-1 / 4-2) using real completion.
+    final stage4Completed = provider.getCompletedLessonCount(4);
+    if (stage4Completed > 0 && progress.length > 5) {
+      final stage41Mastery =
+          (((stage4Completed.clamp(0, 7)) / 7) * 5.0).clamp(0.0, 5.0);
+      progress[4] = progress[4] < stage41Mastery ? stage41Mastery : progress[4];
+
+      final stage42Completed = (stage4Completed - 7).clamp(0, 10);
+      if (stage42Completed > 0) {
+        final stage42Mastery = ((stage42Completed / 10) * 5.0).clamp(0.0, 5.0);
+        progress[5] =
+            progress[5] < stage42Mastery ? stage42Mastery : progress[5];
+      }
+    }
+
+    return progress;
   }
 
   static List<StageVisualState> _getStageStates(List<double> stageProgress) {
@@ -87,28 +125,37 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         screen = const HangulStage0LessonListScreen();
         break;
       case 1:
-        screen = const HangulStage1VowelsScreen();
+        screen = const HangulStage1LessonListScreen();
         break;
       case 2:
-        screen = const HangulStage2ConsonantsScreen();
+        screen = const HangulStage2LessonListScreen();
         break;
       case 3:
-        screen = const HangulStage3SyllableReadingScreen();
+        screen = const HangulStage3LessonListScreen();
         break;
       case 4:
-        screen = const HangulStage4ContrastScreen();
+        screen = const HangulStage4LessonListScreen();
         break;
       case 5:
-        screen = const HangulStage5BatchimBasicScreen();
+        screen = const HangulStage5LessonListScreen();
         break;
       case 6:
-        screen = const HangulStage6BatchimExtendedScreen();
+        screen = const HangulStage6LessonListScreen();
         break;
       case 7:
-        screen = const HangulStage7AdvancedBatchimScreen();
+        screen = const HangulStage7LessonListScreen();
         break;
       case 8:
-        screen = const HangulStage8WordReadingScreen();
+        screen = const HangulStage8LessonListScreen();
+        break;
+      case 9:
+        screen = const HangulStage9LessonListScreen();
+        break;
+      case 10:
+        screen = const HangulStage10LessonListScreen();
+        break;
+      case 11:
+        screen = const HangulStage11LessonListScreen();
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(
@@ -134,7 +181,10 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
 
         final stageProgress = _getStageProgress(hangul);
         final stageStates = _getStageStates(stageProgress);
-        final stats = hangul.stats;
+        final stage4Completed = hangul.getCompletedLessonCount(4);
+        final stage41Completed = stage4Completed > 7 ? 7 : stage4Completed;
+        final stage42Raw = stage4Completed > 7 ? stage4Completed - 7 : 0;
+        final stage42Completed = stage42Raw > 10 ? 10 : stage42Raw;
         final isBossUnlocked =
             stageStates.every((s) => s == StageVisualState.completed);
 
@@ -143,29 +193,6 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
             constraints: const BoxConstraints(maxWidth: 600),
             child: Column(
               children: [
-                // Action buttons
-                _buildActionButtons(context),
-
-                const SizedBox(height: 8),
-
-                // Stats bar
-                HangulStatsBar(
-                  totalLemons: gamification.totalLemons,
-                  charactersLearned: stats?.charactersLearned ?? 0,
-                  totalCharacters: stats?.totalCharacters ?? 40,
-                  dueForReview: stats?.dueForReview ?? 0,
-                  onReviewTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HangulPracticeScreen(),
-                      ),
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 8),
-
                 // Inline lemon stage path
                 HangulStagePathView(
                   stages: _stages,
@@ -177,6 +204,17 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
                   isBossCompleted: false,
                   completedLessonsMap: {
                     0: hangul.getCompletedLessonCount(0),
+                    1: hangul.getCompletedLessonCount(1),
+                    2: hangul.getCompletedLessonCount(2),
+                    3: hangul.getCompletedLessonCount(3),
+                    4: stage41Completed,
+                    5: stage42Completed,
+                    6: hangul.getCompletedLessonCount(5),
+                    7: hangul.getCompletedLessonCount(6),
+                    8: hangul.getCompletedLessonCount(7),
+                    9: hangul.getCompletedLessonCount(8),
+                    10: hangul.getCompletedLessonCount(9),
+                    11: hangul.getCompletedLessonCount(10),
                   },
                   onBossTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -191,124 +229,6 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
           ),
         );
       },
-    );
-  }
-
-  // ── Action buttons ────────────────────────────────────────────
-
-  Widget _buildActionButtons(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-      child: Row(
-        children: [
-          Expanded(
-            child: _buildActionButton(
-              icon: Icons.grid_view,
-              label: '자모표',
-              color: const Color(0xFF4CAF50),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const HangulTableScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: _buildActionButton(
-              icon: Icons.extension,
-              label: '음절조합',
-              color: const Color(0xFF2196F3),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const HangulSyllableScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: _buildActionButton(
-              icon: Icons.abc,
-              label: '받침연습',
-              color: const Color(0xFF9C27B0),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const HangulBatchimScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: _buildActionButton(
-              icon: Icons.hearing,
-              label: '소리구분훈련',
-              color: const Color(0xFFFF9800),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const HangulDiscriminationScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    ).animate().fadeIn(duration: 300.ms).slideY(
-          begin: 0.12,
-          end: 0,
-          duration: 300.ms,
-          curve: Curves.easeOut,
-        );
-  }
-
-  Widget _buildActionButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return ElevatedButton(
-      onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 2,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 20),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
     );
   }
 }

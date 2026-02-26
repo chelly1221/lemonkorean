@@ -40,30 +40,35 @@ class CategoryFilterChips extends StatelessWidget {
           final entry = categories.entries.elementAt(index);
           final isSelected = selectedCategory == entry.key;
 
-          return FilterChip(
-            label: Text(
-              entry.value,
-              style: TextStyle(
-                fontSize: AppConstants.fontSizeMedium,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? Colors.black87 : AppConstants.textSecondary,
-              ),
-            ),
+          return Semantics(
+            label: '${entry.value} category filter',
             selected: isSelected,
-            onSelected: (_) => onCategoryChanged(entry.key),
-            selectedColor: AppConstants.primaryColor.withValues(alpha: 0.3),
-            backgroundColor: Colors.grey.shade100,
-            checkmarkColor: Colors.black87,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
-            ),
-            side: BorderSide(
-              color: isSelected
-                  ? AppConstants.primaryColor
-                  : Colors.grey.shade300,
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingSmall,
+            button: true,
+            child: ChoiceChip(
+              label: Text(
+                entry.value,
+                style: TextStyle(
+                  fontSize: AppConstants.fontSizeMedium,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected ? Colors.black87 : AppConstants.textSecondary,
+                ),
+              ),
+              selected: isSelected,
+              onSelected: (_) => onCategoryChanged(entry.key),
+              selectedColor: AppConstants.primaryColor.withValues(alpha: 0.45),
+              backgroundColor: Colors.grey.shade100,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+              ),
+              side: BorderSide(
+                color: isSelected
+                    ? AppConstants.primaryColor
+                    : Colors.grey.shade300,
+                width: isSelected ? 1.5 : 1.0,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingSmall,
+              ),
             ),
           );
         },

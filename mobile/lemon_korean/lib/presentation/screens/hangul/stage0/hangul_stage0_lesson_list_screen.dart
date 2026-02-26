@@ -25,7 +25,8 @@ class HangulStage0LessonListScreen extends StatelessWidget {
               final progress = hangul.getLessonProgress(lesson.id);
               final isCompleted = progress?.isCompleted ?? false;
               final lemonsEarned = progress?.lemonsEarned ?? 0;
-              final isLocked = index > 0 && !_isPreviousCompleted(hangul, index);
+              final isLocked =
+                  index > 0 && !_isPreviousCompleted(hangul, index);
 
               return _LessonCard(
                 lesson: lesson,
@@ -33,9 +34,7 @@ class HangulStage0LessonListScreen extends StatelessWidget {
                 isCompleted: isCompleted,
                 lemonsEarned: lemonsEarned,
                 isLocked: isLocked,
-                onTap: isLocked
-                    ? null
-                    : () => _startLesson(context, lesson),
+                onTap: isLocked ? null : () => _startLesson(context, lesson),
               )
                   .animate()
                   .fadeIn(duration: 400.ms, delay: (80 * index).ms)
@@ -135,16 +134,9 @@ class _LessonCard extends StatelessWidget {
                       lesson.subtitle,
                       style: TextStyle(
                         fontSize: 13,
-                        color: isLocked ? Colors.grey.shade400 : Colors.grey.shade600,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    // Step count
-                    Text(
-                      '${lesson.totalSteps} 단계',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade500,
+                        color: isLocked
+                            ? Colors.grey.shade400
+                            : Colors.grey.shade600,
                       ),
                     ),
                   ],
@@ -215,10 +207,12 @@ class _LessonCard extends StatelessWidget {
         child: Text(
           lesson.id.split('-').last,
           style: const TextStyle(
+            fontFamily: 'Pretendard',
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: Color(0xFFF9A825),
           ),
+          textScaler: TextScaler.noScaling,
         ),
       ),
     );

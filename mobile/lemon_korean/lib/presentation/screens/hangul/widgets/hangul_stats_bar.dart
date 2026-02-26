@@ -4,17 +4,20 @@ import '../../../../core/constants/app_constants.dart';
 /// Shared enum for stage visual states across hub widgets.
 enum StageVisualState { notStarted, inProgress, completed }
 
-/// Lesson counts for each stage (0-8), shared across hangul widgets.
+/// Lesson counts for each stage, shared across hangul widgets.
 const List<int> kStageLessonCounts = [
   4, // Stage 0: 한글 구조 이해
-  9, // Stage 1: 핵심 모음
-  17, // Stage 2: 기본 자음
-  6, // Stage 3: 본격 조합 훈련
-  14, // Stage 4: 된소리/거센소리
-  10, // Stage 5: 받침 1차
-  7, // Stage 6: 받침 확장
-  7, // Stage 7: 복합 받침
-  6, // Stage 8: 단어 읽기
+  10, // Stage 1: 기본 모음 (1-1~1-10)
+  7, // Stage 2: Y-모음
+  7, // Stage 3: ㅐ/ㅔ 모음
+  9, // Stage 4: 기본 자음 4-1 (4-1~4-8 +미션)
+  10, // Stage 5: 기본 자음 4-2
+  9, // Stage 6: 본격 조합 훈련 (기존 Stage 5)
+  6, // Stage 7: 된소리/거센소리 (5개 대비 묶음 +미션)
+  10, // Stage 8: 받침 1차 (+미션)
+  8, // Stage 9: 받침 확장 (+미션)
+  7, // Stage 10: 복합 받침 (+미션)
+  8, // Stage 11: 단어 읽기 (11-1~11-7 +미션)
 ];
 
 /// Compact horizontal stats bar showing lemons, characters learned, and review nudge.
@@ -26,12 +29,12 @@ class HangulStatsBar extends StatelessWidget {
   final VoidCallback? onReviewTap;
 
   const HangulStatsBar({
-    super.key,
     required this.totalLemons,
     required this.charactersLearned,
     required this.totalCharacters,
     required this.dueForReview,
     this.onReviewTap,
+    super.key,
   });
 
   @override
@@ -106,7 +109,7 @@ class _StatChip extends StatelessWidget {
           builder: (context, val, _) {
             return Text(
               '$val${suffix ?? ''}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: AppConstants.fontSizeMedium,
                 fontWeight: FontWeight.w600,
                 color: AppConstants.textPrimary,
@@ -188,7 +191,7 @@ class _ReviewNudgePillState extends State<_ReviewNudgePill>
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.refresh,
               size: 12,
               color: AppConstants.warningColor,
@@ -196,7 +199,7 @@ class _ReviewNudgePillState extends State<_ReviewNudgePill>
             const SizedBox(width: 4),
             Text(
               '복습 ${widget.count}자',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: AppConstants.fontSizeSmall,
                 fontWeight: FontWeight.w600,
                 color: AppConstants.warningColor,

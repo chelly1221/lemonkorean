@@ -326,9 +326,6 @@
   "lowSimilarity": "낮은 유사도",
   "@lowSimilarity": {"description": "Low similarity level"},
 
-  "lessonComplete": "강의 완료!",
-  "@lessonComplete": {"description": "Lesson complete message"},
-
   "learningComplete": "학습 완료",
   "@learningComplete": {"description": "Learning complete title"},
 
@@ -366,20 +363,11 @@
   "dialogues": "대화",
   "@dialogues": {"description": "Dialogues label"},
 
-  "grammarExplanation": "문법 설명",
-  "@grammarExplanation": {"description": "Grammar explanation title"},
-
-  "exampleSentences": "예문",
-  "@exampleSentences": {"description": "Example sentences label"},
-
   "previous": "이전",
   "@previous": {"description": "Previous button"},
 
   "next": "다음",
   "@next": {"description": "Next button"},
-
-  "continueBtn": "계속",
-  "@continueBtn": {"description": "Continue button"},
 
   "topicParticle": "주제 조사",
   "@topicParticle": {"description": "Topic particle grammar"},
@@ -471,29 +459,17 @@
   "listening": "듣기",
   "@listening": {"description": "Listening question type"},
 
-  "fillBlank": "빈칸 채우기",
-  "@fillBlank": {"description": "Fill in blank question type"},
-
   "translation": "번역",
   "@translation": {"description": "Translation question type"},
 
   "wordOrder": "순서 맞추기",
   "@wordOrder": {"description": "Word order question type"},
 
-  "pronunciation": "발음",
-  "@pronunciation": {"description": "Pronunciation question type"},
-
   "excellent": "훌륭합니다!",
   "@excellent": {"description": "Excellent feedback"},
 
   "correctOrderIs": "올바른 순서:",
   "@correctOrderIs": {"description": "Correct order is prefix"},
-
-  "correctAnswerIs": "정답:",
-  "@correctAnswerIs": {"description": "Correct answer is prefix"},
-
-  "previousQuestion": "이전 문제",
-  "@previousQuestion": {"description": "Previous question button"},
 
   "nextQuestion": "다음 문제",
   "@nextQuestion": {"description": "Next question button"},
@@ -1847,6 +1823,148 @@
   "stageRequests": "스테이지 요청",
   "noPendingRequests": "대기 중인 요청이 없습니다",
   "onStage": "스테이지",
+  "voiceRoomMicPermission": "음성 대화방을 이용하려면 마이크 권한이 필요합니다",
+  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "voiceRoomEnterTitle": "방 제목을 입력해 주세요",
+  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "voiceRoomCreateFailed": "방 생성에 실패했습니다",
+  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "voiceRoomNotAvailable": "방을 이용할 수 없습니다",
+  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "voiceRoomGoBack": "돌아가기",
+  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "voiceRoomConnecting": "연결 중...",
+  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "voiceRoomReconnecting": "재연결 중 ({attempts}/{max})...",
+  "@voiceRoomReconnecting": {
+    "description": "Reconnection status with attempt count",
+    "placeholders": {
+      "attempts": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "voiceRoomDisconnected": "연결이 끊어졌습니다",
+  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "voiceRoomRetry": "재시도",
+  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "voiceRoomHostLabel": "(호스트)",
+  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "voiceRoomDemoteToListener": "청취자로 내리기",
+  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "voiceRoomKickFromRoom": "방에서 내보내기",
+  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "voiceRoomListeners": "청취자",
+  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "voiceRoomInviteToStage": "스테이지에 초대",
+  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "voiceRoomInviteConfirm": "{name}님을 스테이지에 초대할까요?",
+  "@voiceRoomInviteConfirm": {
+    "description": "Confirmation message for stage invitation",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomInvite": "초대",
+  "@voiceRoomInvite": {"description": "Invite button label"},
+  "voiceRoomCloseConfirmTitle": "방을 닫으시겠습니까?",
+  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "voiceRoomCloseConfirmBody": "모든 참가자의 통화가 종료됩니다.",
+  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "voiceRoomNoMessagesYet": "아직 메시지가 없습니다",
+  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "voiceRoomTypeMessage": "메시지를 입력하세요...",
+  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "voiceRoomStageFull": "스테이지 만석",
+  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "voiceRoomListenerCount": "청취자 {count}명",
+  "@voiceRoomListenerCount": {
+    "description": "Listener count for accessibility",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "voiceRoomRemoveFromStage": "스테이지에서 내리기",
+  "voiceRoomRemoveFromStageConfirm": "{name}님을 스테이지에서 내릴까요? 청취자로 전환됩니다.",
+  "@voiceRoomRemoveFromStageConfirm": {
+    "description": "Confirm dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomDemote": "내리기",
+  "voiceRoomRemoveFromRoom": "방에서 내보내기",
+  "voiceRoomRemoveFromRoomConfirm": "{name}님을 방에서 내보낼까요? 연결이 끊어집니다.",
+  "@voiceRoomRemoveFromRoomConfirm": {
+    "description": "Confirm dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomRemove": "내보내기",
+  "voiceRoomPressBackToLeave": "한 번 더 누르면 나갑니다",
+  "voiceRoomLeaveTitle": "방에서 나가시겠습니까?",
+  "voiceRoomLeaveBody": "현재 스테이지에 있습니다. 정말 나가시겠습니까?",
+
+  "voiceRoomReturningToList": "대화방 목록으로 돌아갑니다...",
+  "voiceRoomConnected": "연결되었습니다!",
+  "voiceRoomStageFailedToLoad": "스테이지를 불러올 수 없습니다",
+  "voiceRoomPreparingStage": "스테이지 준비 중...",
+  "voiceRoomAcceptToStage": "{name}님을 스테이지에 수락",
+  "voiceRoomRejectFromStage": "{name}님 거절",
+  "voiceRoomQuickCreate": "빠른 생성",
+  "voiceRoomRoomType": "방 유형",
+  "voiceRoomSessionDuration": "세션 시간",
+  "voiceRoomOptionalTimer": "선택 사항: 세션 타이머",
+  "voiceRoomDurationNone": "없음",
+  "voiceRoomDuration15": "15분",
+  "voiceRoomDuration30": "30분",
+  "voiceRoomDuration45": "45분",
+  "voiceRoomDuration60": "60분",
+  "voiceRoomTypeFreeTalk": "자유 대화",
+  "voiceRoomTypePronunciation": "발음 연습",
+  "voiceRoomTypeRolePlay": "역할극",
+  "voiceRoomTypeQnA": "질문 & 답변",
+  "voiceRoomTypeListening": "듣기 연습",
+  "voiceRoomTypeDebate": "토론",
+  "voiceRoomTemplateFreeTalk": "한국어 자유 대화",
+  "voiceRoomTemplatePronunciation": "발음 연습",
+  "voiceRoomTemplateDailyKorean": "데일리 한국어",
+  "voiceRoomTemplateTopikSpeaking": "TOPIK 말하기",
+  "voiceRoomCreateTooltip": "음성 대화방 만들기",
+  "voiceRoomSendReaction": "리액션 보내기",
+  "voiceRoomLeaveRoom": "방 나가기",
+  "voiceRoomUnmuteMic": "마이크 음소거 해제",
+  "voiceRoomMuteMic": "마이크 음소거",
+  "voiceRoomCancelHandRaise": "손들기 취소",
+  "voiceRoomRaiseHandSemantic": "손들기",
+  "voiceRoomSendGesture": "제스처 보내기",
+  "voiceRoomLeaveStageAction": "스테이지 내리기",
+  "voiceRoomManageStage": "스테이지 관리",
+  "voiceRoomMoreOptions": "더 보기",
+  "voiceRoomMore": "더보기",
+  "voiceRoomStageWithSpeakers": "스피커가 있는 음성 대화 스테이지",
+  "voiceRoomStageRequestsPending": "스테이지 요청, {count}건 대기 중",
+  "voiceRoomSpeakerListenerCount": "스피커 {speakers}/{maxSpeakers}명, 청취자 {listeners}명",
+  "voiceRoomChatInput": "채팅 메시지 입력",
+  "voiceRoomSendMessage": "메시지 보내기",
+  "voiceRoomSendReactionNamed": "{name} 리액션 보내기",
+  "voiceRoomCloseReactionTray": "리액션 트레이 닫기",
+  "voiceRoomPerformGesture": "{name} 제스처 수행",
+  "voiceRoomCloseGestureTray": "제스처 트레이 닫기",
+  "voiceRoomGestureWave": "흔들기",
+  "voiceRoomGestureBow": "인사",
+  "voiceRoomGestureDance": "춤추기",
+  "voiceRoomGestureJump": "점프",
+  "voiceRoomGestureClap": "박수",
+  "voiceRoomStageLabel": "스테이지",
+  "voiceRoomYouLabel": "(나)",
+  "voiceRoomListenerTapToManage": "청취자 {name}, 탭하여 관리",
+  "voiceRoomListenerName": "청취자 {name}",
+  "voiceRoomMicPermissionDenied": "마이크 접근이 거부되었습니다. 음성 기능을 사용하려면 기기 설정에서 권한을 활성화해 주세요.",
+  "voiceRoomMicPermissionTitle": "마이크 권한",
+  "voiceRoomOpenSettings": "설정 열기",
+  "voiceRoomMicNeededForStage": "스테이지에서 발언하려면 마이크 권한이 필요합니다",
 
   "batchimDescriptionText": "한국어 받침은 7가지 소리로 발음됩니다.\n여러 받침이 같은 소리로 발음되는 것을 \"받침 대표음\"이라고 합니다.",
   "syllableInputLabel": "음절 입력",
@@ -1918,5 +2036,37 @@
   "hangulPracticeSuggestion": "거의 다 배웠어요! 활동으로 실력을 다져보세요",
   "hangulStartActivities": "활동 시작",
   "hangulMastered": "축하합니다! 한글 자모를 마스터했어요!",
-  "hangulGoToLevel1": "Level 1 시작"
+  "hangulGoToLevel1": "Level 1 시작",
+  "completedLessonsLabel": "완료 레슨",
+  "wordsLearnedLabel": "습득 단어",
+  "totalStudyTimeLabel": "학습 시간",
+  "streakDetails": "연속 학습 기록",
+  "consecutiveDays": "연속 학습일",
+  "totalStudyDaysLabel": "총 학습일",
+  "studyRecord": "학습 기록",
+  "noFriendsPrompt": "함께 공부할 친구를 찾아보세요!",
+  "moreStats": "전체 보기",
+  "remainingLessons": "{count}개 더 하면 오늘 목표 달성!",
+  "@remainingLessons": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "streakMotivation0": "오늘부터 시작해보세요!",
+  "streakMotivation1": "좋은 시작이에요! 계속 이어가세요!",
+  "streakMotivation7": "일주일 넘게 연속 학습 중! 대단해요!",
+  "streakMotivation14": "2주 넘게 꾸준히! 습관이 되고 있어요!",
+  "streakMotivation30": "한 달 이상 연속 학습! 진정한 학습자입니다!",
+  "minutesShort": "{count}분",
+  "@minutesShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hoursShort": "{count}시간",
+  "@hoursShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

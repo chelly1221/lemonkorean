@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
 
@@ -59,10 +59,10 @@ class FloatingReaction {
   FloatingReaction({
     required this.emoji,
     required this.userId,
-    this.userName,
     required this.startX,
     required this.startY,
     required this.createdAt,
+    this.userName,
   });
 }
 
@@ -102,7 +102,6 @@ class VoiceRoomProvider with ChangeNotifier {
   // Position update throttle
   DateTime? _lastPositionSent;
   static const Duration _positionThrottle = Duration(milliseconds: 100);
-  static const double _positionMinDelta = 0.005;
 
   // Gesture cooldown
   DateTime? _lastGestureSent;
@@ -119,6 +118,17 @@ class VoiceRoomProvider with ChangeNotifier {
   int _reconnectAttempts = 0;
   static const int _maxReconnectAttempts = 3;
   Timer? _reconnectTimer;
+  bool _justReconnected = false;
+  Timer? _reconnectedBannerTimer;
+
+  // Mic error state (for UI SnackBar notification)
+  String? _micError;
+
+  // Speaking indicator states (userId → isSpeaking)
+  final Map<int, bool> _speakingStates = {};
+
+  // Chat rate limiting
+  DateTime? _lastMessageTime;
 
   // Socket.IO subscriptions
   final List<StreamSubscription> _socketSubscriptions = [];
@@ -145,6 +155,9 @@ class VoiceRoomProvider with ChangeNotifier {
   bool get isConnected => _isConnected;
   bool get isReconnecting => _isReconnecting;
   int get reconnectAttempts => _reconnectAttempts;
+  bool get justReconnected => _justReconnected;
+  String? get micError => _micError;
+  Map<int, bool> get speakingStates => Map.unmodifiable(_speakingStates);
   String get myRole => _myRole;
   bool get isSpeaker => _myRole == 'speaker';
   bool get isListener => _myRole == 'listener';
@@ -219,13 +232,28 @@ class VoiceRoomProvider with ChangeNotifier {
 
       _roomListener = _livekitRoom!.createListener();
 
+      // Track active speakers for speaking indicators
+      _livekitRoom!.addListener(_onActiveSpeakersChanged);
+
       _roomListener!
         ..on<lk.RoomConnectedEvent>((_) {
+          final wasReconnecting =
+              _isReconnecting || _reconnectAttempts > 0;
           _isConnecting = false;
           _isConnected = true;
           _isReconnecting = false;
           _reconnectAttempts = 0;
           _error = null;
+
+          // Show "Reconnected!" banner briefly after successful reconnect
+          if (wasReconnecting) {
+            _justReconnected = true;
+            _reconnectedBannerTimer?.cancel();
+            _reconnectedBannerTimer = Timer(const Duration(seconds: 3), () {
+              _justReconnected = false;
+              notifyListeners();
+            });
+          }
           notifyListeners();
         })
         ..on<lk.RoomDisconnectedEvent>((_) {
@@ -255,6 +283,9 @@ class VoiceRoomProvider with ChangeNotifier {
             } catch (e) {
               AppLogger.w('Mic enable after permission update failed',
                   tag: 'VoiceRoomProvider', error: e);
+              _micError =
+                  'Microphone could not be enabled. Check your permissions and try unmuting.';
+              notifyListeners();
             }
           } else if (!canPublish && _myRole == 'listener') {
             // Demoted — ensure mic is off
@@ -292,15 +323,19 @@ class VoiceRoomProvider with ChangeNotifier {
       if (isSpeaker) {
         try {
           await _livekitRoom!.localParticipant?.setMicrophoneEnabled(true);
-        } catch (micError) {
+        } catch (micErr) {
           AppLogger.w('Microphone enable failed',
-              tag: 'VoiceRoomProvider', error: micError);
+              tag: 'VoiceRoomProvider', error: micErr);
+          _micError =
+              'Microphone could not be enabled. Check your permissions and try unmuting.';
+          notifyListeners();
         }
       }
     } on TimeoutException {
       _isConnecting = false;
       _isConnected = false;
-      _error = 'Connection timed out';
+      _error = 'Connection timed out. Please try again.';
+      _livekitRoom?.removeListener(_onActiveSpeakersChanged);
       _livekitRoom?.dispose();
       _livekitRoom = null;
       _roomListener?.dispose();
@@ -311,7 +346,8 @@ class VoiceRoomProvider with ChangeNotifier {
           tag: 'VoiceRoomProvider', error: e);
       _isConnecting = false;
       _isConnected = false;
-      _error = 'Failed to connect to voice server';
+      _error = 'Could not connect to the voice server. Please check your connection.';
+      _livekitRoom?.removeListener(_onActiveSpeakersChanged);
       _livekitRoom?.dispose();
       _livekitRoom = null;
       _roomListener?.dispose();
@@ -362,10 +398,14 @@ class VoiceRoomProvider with ChangeNotifier {
   void _cleanupLiveKit() {
     _reconnectTimer?.cancel();
     _reconnectTimer = null;
+    _reconnectedBannerTimer?.cancel();
     _isReconnecting = false;
     _reconnectAttempts = 0;
+    _justReconnected = false;
     _roomListener?.dispose();
     _roomListener = null;
+    _livekitRoom?.removeListener(_onActiveSpeakersChanged);
+    _speakingStates.clear();
     _livekitRoom?.disconnect();
     _livekitRoom?.dispose();
     _livekitRoom = null;
@@ -460,9 +500,12 @@ class VoiceRoomProvider with ChangeNotifier {
           _stageRequests = [];
           _stageCharacters.clear();
           _reactions.clear();
+          _speakingStates.clear();
           _isMuted = false;
           _myRole = 'listener';
           _hasRaisedHand = false;
+          _micError = null;
+          _lastMessageTime = null;
           _error = 'Room was closed by the host';
           notifyListeners();
         }
@@ -521,6 +564,7 @@ class VoiceRoomProvider with ChangeNotifier {
             name: speaker.name,
             equippedItems: speaker.equippedItems,
             skinColor: speaker.skinColor,
+            isHost: _activeRoom != null && userId == _activeRoom!.creatorId,
           ));
         } else {
           // Move from speakers to listeners
@@ -579,6 +623,21 @@ class VoiceRoomProvider with ChangeNotifier {
       }),
     );
 
+    // Stage request rejected by creator
+    _socketSubscriptions.add(
+      _socket.onVoiceStageRequestRejected.listen((data) {
+        if (_activeRoom != null && data['room_id'] == _activeRoom!.id) {
+          final userId = data['user_id'] as int?;
+          _stageRequests.removeWhere((r) => r.userId == userId);
+          // If I was the one rejected, lower my hand
+          if (userId == _myUserId) {
+            _hasRaisedHand = false;
+          }
+          notifyListeners();
+        }
+      }),
+    );
+
     // Stage granted (promoted to speaker — permissions updated server-side)
     _socketSubscriptions.add(
       _socket.onVoiceStageGranted.listen((data) async {
@@ -606,6 +665,9 @@ class VoiceRoomProvider with ChangeNotifier {
             } catch (e) {
               AppLogger.w('Mic enable on stage grant failed',
                   tag: 'VoiceRoomProvider', error: e);
+              _micError =
+                  'Microphone could not be enabled. Check your permissions and try unmuting.';
+              notifyListeners();
             }
           }
           notifyListeners();
@@ -721,9 +783,12 @@ class VoiceRoomProvider with ChangeNotifier {
           _stageRequests = [];
           _stageCharacters.clear();
           _reactions.clear();
+          _speakingStates.clear();
           _isMuted = false;
           _myRole = 'listener';
           _hasRaisedHand = false;
+          _micError = null;
+          _lastMessageTime = null;
           _error = 'You were removed from the room by the host';
           notifyListeners();
         }
@@ -798,7 +863,11 @@ class VoiceRoomProvider with ChangeNotifier {
     try {
       _rooms = await _repository.getActiveRooms();
     } catch (e) {
-      _error = 'Failed to load rooms';
+      if (e is DioException && e.response == null) {
+        _error = 'No internet connection. Please check your network.';
+      } else {
+        _error = 'Could not load rooms. Please try again.';
+      }
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -813,7 +882,9 @@ class VoiceRoomProvider with ChangeNotifier {
     required String title,
     String? topic,
     String languageLevel = 'all',
+    String roomType = 'free_talk',
     int maxSpeakers = 4,
+    int? duration,
   }) async {
     _isLoading = true;
     _error = null;
@@ -824,7 +895,9 @@ class VoiceRoomProvider with ChangeNotifier {
         title: title,
         topic: topic,
         languageLevel: languageLevel,
+        roomType: roomType,
         maxSpeakers: maxSpeakers,
+        duration: duration,
       );
 
       if (result.room != null) {
@@ -871,12 +944,21 @@ class VoiceRoomProvider with ChangeNotifier {
         return true;
       }
 
-      _error = 'Failed to create room';
+      _error = 'Could not create the room. Please try again.';
       _isLoading = false;
       notifyListeners();
       return false;
     } catch (e) {
-      _error = 'Failed to create room';
+      if (e is DioException) {
+        if (e.response == null) {
+          _error = 'No internet connection. Please check your network.';
+        } else {
+          _error = e.response?.data?['error']?.toString() ??
+              'Could not create the room. Please try again.';
+        }
+      } else {
+        _error = 'Could not create the room. Please try again.';
+      }
       _isLoading = false;
       notifyListeners();
       return false;
@@ -935,12 +1017,21 @@ class VoiceRoomProvider with ChangeNotifier {
         return true;
       }
 
-      _error = result.error ?? 'Failed to join room';
+      _error = result.error ?? 'Could not join the room. Please check your connection.';
       _isLoading = false;
       notifyListeners();
       return false;
     } catch (e) {
-      _error = 'Failed to join room';
+      if (e is DioException) {
+        if (e.response == null) {
+          _error = 'No internet connection. Please check your network.';
+        } else {
+          _error = e.response?.data?['error']?.toString() ??
+              'Could not join the room. Please check your connection.';
+        }
+      } else {
+        _error = 'Could not join the room. Please check your connection.';
+      }
       _isLoading = false;
       notifyListeners();
       return false;
@@ -970,9 +1061,12 @@ class VoiceRoomProvider with ChangeNotifier {
     _stageRequests = [];
     _stageCharacters.clear();
     _reactions.clear();
+    _speakingStates.clear();
     _isMuted = false;
     _myRole = 'listener';
     _hasRaisedHand = false;
+    _micError = null;
+    _lastMessageTime = null;
     _error = null;
     notifyListeners();
 
@@ -1000,8 +1094,11 @@ class VoiceRoomProvider with ChangeNotifier {
         _stageRequests = [];
         _stageCharacters.clear();
         _reactions.clear();
+        _speakingStates.clear();
         _myRole = 'listener';
         _hasRaisedHand = false;
+        _micError = null;
+        _lastMessageTime = null;
         _error = null;
         notifyListeners();
         loadRooms();
@@ -1044,6 +1141,23 @@ class VoiceRoomProvider with ChangeNotifier {
 
   Future<void> sendMessage(String content) async {
     if (_activeRoom == null || content.trim().isEmpty) return;
+
+    // Client-side rate limiting: 1 message per second
+    final now = DateTime.now();
+    if (_lastMessageTime != null &&
+        now.difference(_lastMessageTime!) < const Duration(seconds: 1)) {
+      _error = 'You are sending messages too fast. Please wait a moment.';
+      notifyListeners();
+      // Auto-clear the rate limit error after 2 seconds
+      Future.delayed(const Duration(seconds: 2), () {
+        if (_error == 'You are sending messages too fast. Please wait a moment.') {
+          _error = null;
+          notifyListeners();
+        }
+      });
+      return;
+    }
+    _lastMessageTime = now;
 
     // Send via REST for persistence
     await _repository.sendMessage(_activeRoom!.id, content.trim());
@@ -1108,6 +1222,19 @@ class VoiceRoomProvider with ChangeNotifier {
   Future<void> grantStage(int userId) async {
     if (_activeRoom == null || !isCreator) return;
     await _repository.grantStage(_activeRoom!.id, userId);
+  }
+
+  Future<void> rejectStageRequest(int userId) async {
+    if (_activeRoom == null || !isCreator) return;
+    // Optimistic: remove from local list immediately
+    _stageRequests.removeWhere((r) => r.userId == userId);
+    notifyListeners();
+    final success =
+        await _repository.rejectStageRequest(_activeRoom!.id, userId);
+    if (!success) {
+      // Notify to refresh UI on failure
+      notifyListeners();
+    }
   }
 
   Future<void> removeFromStage(int userId) async {
@@ -1261,6 +1388,11 @@ class VoiceRoomProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearMicError() {
+    _micError = null;
+    notifyListeners();
+  }
+
   /// Remove expired reactions (called from UI timer)
   void cleanupReactions() {
     final now = DateTime.now();
@@ -1268,10 +1400,52 @@ class VoiceRoomProvider with ChangeNotifier {
         (r) => now.difference(r.createdAt).inMilliseconds > 2000);
   }
 
+  // ==========================================================================
+  // Active Speakers (LiveKit audio level tracking)
+  // ==========================================================================
+
+  void _onActiveSpeakersChanged() {
+    final activeSpeakers = _livekitRoom?.activeSpeakers ?? [];
+    final newStates = <int, bool>{};
+
+    // Mark all known speakers as not speaking by default
+    for (final userId in _stageCharacters.keys) {
+      newStates[userId] = false;
+    }
+
+    // Mark active speakers
+    for (final participant in activeSpeakers) {
+      final identity = participant.identity;
+      final idStr = identity.startsWith('user_')
+          ? identity.substring(5)
+          : identity;
+      final userId = int.tryParse(idStr);
+      if (userId != null) {
+        newStates[userId] = true;
+      }
+    }
+
+    // Only notify if states actually changed
+    bool changed = false;
+    for (final entry in newStates.entries) {
+      if (_speakingStates[entry.key] != entry.value) {
+        changed = true;
+        break;
+      }
+    }
+    if (changed || _speakingStates.length != newStates.length) {
+      _speakingStates
+        ..clear()
+        ..addAll(newStates);
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
     _cleanupLiveKit();
     _cleanupSocketListeners();
+    _reconnectedBannerTimer?.cancel();
     detachGameBridge();
     super.dispose();
   }

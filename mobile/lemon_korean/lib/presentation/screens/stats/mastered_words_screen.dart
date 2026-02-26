@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/progress_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../widgets/convertible_text.dart';
 
 /// Screen showing all mastered vocabulary words
@@ -90,19 +91,20 @@ class _MasteredWordsScreenState extends State<MasteredWordsScreen> {
                   ],
                 ),
               ),
-              PopupMenuItem(
-                value: 'chinese',
-                child: Row(
-                  children: [
-                    Icon(
-                      _sortBy == 'chinese' ? Icons.check : null,
-                      size: 18,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(l10n.sortByChinese),
-                  ],
+              if (context.read<SettingsProvider>().isChinese)
+                PopupMenuItem(
+                  value: 'chinese',
+                  child: Row(
+                    children: [
+                      Icon(
+                        _sortBy == 'chinese' ? Icons.check : null,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(l10n.sortByChinese),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ],

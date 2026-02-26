@@ -161,9 +161,36 @@ class ProgressProvider with ChangeNotifier {
     if (queue.isEmpty) return;
 
     try {
-      final response = await _apiClient.syncProgress(queue);
+      const progressTypes = {
+        'lesson_start',
+        'lesson_complete',
+        'stage_progress',
+        'progress_update',
+      };
+      final progressItems = queue
+          .where((item) => progressTypes.contains(item['type']))
+          .toList();
+      if (progressItems.isEmpty) return;
+
+      final progressData = progressItems
+          .map((item) => item['data'])
+          .whereType<Map>()
+          .map((data) => Map<String, dynamic>.from(data))
+          .toList();
+      if (progressData.isEmpty) return;
+
+      final response = await _apiClient.syncProgress(progressData);
       if (response.statusCode == 200) {
-        await LocalStorage.clearSyncQueue();
+        // Remove only synced progress items, keep other queue items intact.
+        final indexes = <int>[];
+        for (var i = 0; i < queue.length; i++) {
+          if (progressTypes.contains(queue[i]['type'])) {
+            indexes.add(i);
+          }
+        }
+        for (final index in indexes.reversed) {
+          await LocalStorage.removeFromSyncQueue(index);
+        }
       }
     } catch (e) {
       debugPrint('[ProgressProvider] Queue sync failed: $e');

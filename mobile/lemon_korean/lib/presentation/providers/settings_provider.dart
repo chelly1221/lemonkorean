@@ -81,6 +81,10 @@ class SettingsProvider extends ChangeNotifier {
   int get weeklyGoalTarget => _weeklyGoalTarget;
   bool get isInitialized => _isInitialized;
 
+  /// Whether the current app language is Chinese (simplified or traditional)
+  bool get isChinese =>
+      _appLanguage == AppLanguage.zhCN || _appLanguage == AppLanguage.zhTW;
+
   /// Get the content language code for API requests
   /// Maps AppLanguage enum to API-compatible language codes
   String get contentLanguageCode {

@@ -61,7 +61,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String minCharacters(int count) {
-    return 'Al menos $count caracteres';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Al menos $count caracteres',
+      one: 'Al menos $count carácter',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -93,7 +99,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get networkError =>
-      'Error de conexión de red. Por favor verifica tu configuración de red.';
+      'Error de conexión. Por favor verifica tu configuración de red.';
 
   @override
   String get invalidCredentials => 'Correo electrónico o contraseña inválidos';
@@ -106,8 +112,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Tiempo de solicitud agotado. Por favor intenta de nuevo.';
 
   @override
-  String get operationFailed =>
-      'Operación fallida. Por favor intenta más tarde.';
+  String get operationFailed => 'Algo salió mal. Por favor intenta más tarde.';
 
   @override
   String get settings => 'Configuración';
@@ -276,7 +281,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get appIntroContent =>
-      'Una aplicación de aprendizaje de coreano diseñada para hablantes de chino, con soporte para aprendizaje sin conexión, recordatorios inteligentes de repaso y más.';
+      'Una aplicación de aprendizaje de coreano con aprendizaje sin conexión, recordatorios inteligentes de repaso y mucho más.';
 
   @override
   String get termsOfService => 'Términos de servicio';
@@ -318,7 +323,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String daysLater(int count) {
-    return 'En $count días';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'En $count días',
+      one: 'En $count día',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -349,9 +360,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lowSimilarity => 'Baja similitud';
 
   @override
-  String get lessonComplete => '¡Lección completada! Progreso guardado';
-
-  @override
   String get learningComplete => 'Aprendizaje completado';
 
   @override
@@ -367,7 +375,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String streakDaysCount(int days) {
-    return 'Racha de $days días';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Racha de $days días',
+      one: 'Racha de $days día',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -383,19 +397,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dialogues => 'Diálogos';
 
   @override
-  String get grammarExplanation => 'Explicación gramatical';
-
-  @override
-  String get exampleSentences => 'Oraciones de ejemplo';
-
-  @override
   String get previous => 'Anterior';
 
   @override
   String get next => 'Siguiente';
-
-  @override
-  String get continueBtn => 'Continuar';
 
   @override
   String get topicParticle => 'Partícula de tema';
@@ -440,7 +445,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get listenAndChoose => 'Escucha y elige la traducción correcta';
 
   @override
-  String get fillInBlank => 'Llena con la partícula correcta';
+  String get fillInBlank => 'Completa con la partícula correcta';
 
   @override
   String get chooseTranslation => 'Elige la traducción correcta';
@@ -489,30 +494,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get listening => 'Escucha';
 
   @override
-  String get fillBlank => 'Llenar el espacio';
-
-  @override
   String get translation => 'Traducción';
 
   @override
   String get wordOrder => 'Orden de palabras';
 
   @override
-  String get pronunciation => 'Pronunciación';
-
-  @override
   String get excellent => '¡Excelente!';
 
   @override
   String get correctOrderIs => 'Orden correcto:';
-
-  @override
-  String correctAnswerIs(String answer) {
-    return 'Respuesta correcta: $answer';
-  }
-
-  @override
-  String get previousQuestion => 'Pregunta anterior';
 
   @override
   String get nextQuestion => 'Siguiente pregunta';
@@ -539,7 +530,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get reviewSuggestion =>
-      '¡Intenta revisar el contenido de la lección antes de intentar de nuevo!';
+      'Repasa el contenido de la lección antes de volver a intentarlo.';
 
   @override
   String timeUsed(String time) {
@@ -613,12 +604,24 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String lessonsCompleted(int count) {
-    return '$count lecciones completadas';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lecciones completadas',
+      one: '$count lección completada',
+    );
+    return '$_temp0';
   }
 
   @override
   String minutesLearned(int minutes) {
-    return '$minutes minutos aprendidos';
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes minutos de estudio',
+      one: '$minutes minuto de estudio',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -722,7 +725,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String wordsWaitingReview(int count) {
-    return '$count palabras esperando repaso';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count palabras esperando repaso',
+      one: '$count palabra esperando repaso',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -853,7 +862,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get goalSeriousTime => '~50-60 min/semana';
 
   @override
-  String get goalSeriousHelper => 'Comprometido con mejora rápida';
+  String get goalSeriousHelper => 'Para quienes buscan mejorar rápido';
 
   @override
   String get goalIntensive => 'Intensivo';
@@ -924,7 +933,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String daysAgo(int count) {
-    return 'Hace $count días';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hace $count días',
+      one: 'Hace $count día',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -988,7 +1003,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String confirmClearAllDownloads(int count) {
-    return '¿Seguro que quieres eliminar las $count descargas?';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '¿Seguro que quieres eliminar las $count descargas?',
+      one: '¿Seguro que quieres eliminar la $count descarga?',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1009,7 +1030,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String wordCount(int count) {
-    return '$count palabras';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count palabras',
+      one: '$count palabra',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1100,7 +1127,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get filterAdvanced => 'Avanzado (nivel 4-5)';
 
   @override
-  String get searchWordsNotesChinese => 'Buscar palabras, chino o notas...';
+  String get searchWordsNotesChinese =>
+      'Buscar palabras, significado o notas...';
 
   @override
   String startReviewCount(int count) {
@@ -1115,7 +1143,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String confirmRemoveWord(String word) {
-    return '¿Eliminar「$word」del libro de vocabulario?';
+    return '¿Eliminar \"$word\" del libro de vocabulario?';
   }
 
   @override
@@ -1130,7 +1158,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String weeksAgo(int count) {
-    return 'Hace $count semanas';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hace $count semanas',
+      one: 'Hace $count semana',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1138,7 +1172,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String reviewCompleteCount(int count) {
-    return '$count palabras repasadas';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count palabras repasadas',
+      one: '$count palabra repasada',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1235,7 +1275,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String lessonsCompletedCount(int count) {
-    return '$count completadas';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count completadas',
+      one: '$count completada',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1280,7 +1326,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String charactersCount(int count) {
-    return '$count caracteres';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count caracteres',
+      one: '$count carácter',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1311,7 +1363,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lesson5Title => 'Lección 5: Consonantes dobles';
 
   @override
-  String get lesson5Desc => 'Aprende 5 consonantes dobles - sonidos fuertes';
+  String get lesson5Desc => 'Aprende 5 consonantes dobles - sonidos tensos';
 
   @override
   String get lesson6Title => 'Lección 6: Vocales compuestas (1)';
@@ -1365,14 +1417,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get dailyLearningReminderBody =>
-      '¡Completa tu estudio de coreano de hoy~';
+      '¡Completa tu estudio de coreano de hoy!';
 
   @override
   String get reviewReminderTitle => '¡Hora de repasar!';
 
   @override
   String reviewReminderBody(String title) {
-    return 'Es hora de repasar「$title」~';
+    return 'Es hora de repasar \"$title\"';
   }
 
   @override
@@ -1417,12 +1469,24 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String charactersNeedReview(int count) {
-    return '$count caracteres necesitan repaso';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count caracteres necesitan repaso',
+      one: '$count carácter necesita repaso',
+    );
+    return '$_temp0';
   }
 
   @override
   String charactersAvailable(int count) {
-    return '$count caracteres disponibles';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count caracteres disponibles',
+      one: '$count carácter disponible',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1507,7 +1571,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String strokesCount(int count) {
-    return '$count trazos';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count trazos',
+      one: '$count trazo',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1565,6 +1635,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exitBtn => 'Salir';
 
   @override
+  String get lessonComplete => '¡Lección completada! Progreso guardado';
+
+  @override
   String loadingLesson(String title) {
     return 'Cargando $title...';
   }
@@ -1588,7 +1661,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String wordsCount(int count) {
-    return '$count palabras';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count palabras',
+      one: '$count palabra',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1605,6 +1684,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get nextItem => 'Siguiente';
+
+  @override
+  String get continueBtn => 'Continuar';
+
+  @override
+  String get previousQuestion => 'Pregunta anterior';
 
   @override
   String get playingAudio => 'Reproduciendo...';
@@ -1627,15 +1712,24 @@ class AppLocalizationsEs extends AppLocalizations {
   String get playingAudioShort => 'Reproduciendo audio...';
 
   @override
+  String get pronunciation => 'Pronunciación';
+
+  @override
   String grammarPattern(String pattern) {
     return 'Gramática · $pattern';
   }
+
+  @override
+  String get grammarExplanation => 'Explicación gramatical';
 
   @override
   String get conjugationRule => 'Regla de conjugación';
 
   @override
   String get comparisonWithChinese => 'Comparación con el chino';
+
+  @override
+  String get exampleSentences => 'Oraciones de ejemplo';
 
   @override
   String get dialogueTitle => 'Práctica de diálogo';
@@ -1655,7 +1749,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get practiceInstructions => 'Completa los siguientes ejercicios';
 
   @override
+  String get fillBlank => 'Llenar el espacio';
+
+  @override
   String get checkAnswerBtn => 'Verificar respuesta';
+
+  @override
+  String correctAnswerIs(String answer) {
+    return 'Respuesta correcta: $answer';
+  }
 
   @override
   String get quizTitle => 'Examen';
@@ -1825,18 +1927,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notificationStudyReminder =>
-      'No olvides completar tu práctica diaria de coreano~';
+      'No olvides completar tu práctica diaria de coreano';
 
   @override
   String get notificationReviewTime => '¡Hora de repasar!';
 
   @override
   String get notificationReviewReminder =>
-      'Repasemos lo que has aprendido antes~';
+      'Repasemos lo que has aprendido antes';
 
   @override
   String notificationReviewLesson(String lessonTitle) {
-    return '¡Es hora de repasar \"$lessonTitle\"~';
+    return '¡Es hora de repasar \"$lessonTitle\"!';
   }
 
   @override
@@ -1889,7 +1991,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get hanjaWord => 'Palabra Hanja';
 
   @override
-  String get tapToFlipBack => 'Toca para voltear';
+  String get tapToFlipBack => 'Toca para volver';
 
   @override
   String get similarityWithChinese => 'Similitud con chino';
@@ -2104,7 +2206,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get recordingNotSupported =>
-      'La grabación no está soportada en esta plataforma';
+      'La grabación no es compatible con esta plataforma';
 
   @override
   String get showMeaning => 'Mostrar significado';
@@ -2330,17 +2432,35 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String likesCount(int count) {
-    return '$count me gusta';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count me gusta',
+      one: '$count me gusta',
+    );
+    return '$_temp0';
   }
 
   @override
   String commentsCount(int count) {
-    return '$count comentarios';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count comentarios',
+      one: '$count comentario',
+    );
+    return '$_temp0';
   }
 
   @override
   String followersCount(int count) {
-    return '$count seguidores';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count seguidores',
+      one: '$count seguidor',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2356,7 +2476,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String maxPhotos(int count) {
-    return 'Máximo $count fotos';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Máximo $count fotos',
+      one: 'Máximo $count foto',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2545,6 +2671,315 @@ class AppLocalizationsEs extends AppLocalizations {
   String get createRoom => 'Crear Sala';
 
   @override
+  String get voiceRoomMicPermission =>
+      'Se requiere permiso de micrófono para las salas de voz';
+
+  @override
+  String get voiceRoomEnterTitle => 'Por favor, ingresa un título para la sala';
+
+  @override
+  String get voiceRoomCreateFailed => 'No se pudo crear la sala';
+
+  @override
+  String get voiceRoomNotAvailable => 'Sala no disponible';
+
+  @override
+  String get voiceRoomGoBack => 'Volver';
+
+  @override
+  String get voiceRoomConnecting => 'Conectando...';
+
+  @override
+  String voiceRoomReconnecting(int attempts, int max) {
+    return 'Reconectando ($attempts/$max)...';
+  }
+
+  @override
+  String get voiceRoomDisconnected => 'Desconectado';
+
+  @override
+  String get voiceRoomRetry => 'Reintentar';
+
+  @override
+  String get voiceRoomHostLabel => '(Anfitrión)';
+
+  @override
+  String get voiceRoomDemoteToListener => 'Pasar a oyente';
+
+  @override
+  String get voiceRoomKickFromRoom => 'Expulsar de la sala';
+
+  @override
+  String get voiceRoomListeners => 'Oyentes';
+
+  @override
+  String get voiceRoomInviteToStage => 'Invitar al Escenario';
+
+  @override
+  String voiceRoomInviteConfirm(String name) {
+    return '¿Invitar a $name a hablar en el escenario?';
+  }
+
+  @override
+  String get voiceRoomInvite => 'Invitar';
+
+  @override
+  String get voiceRoomCloseConfirmTitle => '¿Cerrar Sala?';
+
+  @override
+  String get voiceRoomCloseConfirmBody =>
+      'Esto terminará la llamada para todos.';
+
+  @override
+  String get voiceRoomNoMessagesYet => 'Aún no hay mensajes';
+
+  @override
+  String get voiceRoomTypeMessage => 'Escribe un mensaje...';
+
+  @override
+  String get voiceRoomStageFull => 'Escenario Lleno';
+
+  @override
+  String voiceRoomListenerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count oyentes',
+      one: '$count oyente',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get voiceRoomRemoveFromStage => '¿Quitar del Escenario?';
+
+  @override
+  String voiceRoomRemoveFromStageConfirm(String name) {
+    return '¿Quitar a $name del escenario? Se convertirá en oyente.';
+  }
+
+  @override
+  String get voiceRoomDemote => 'Degradar';
+
+  @override
+  String get voiceRoomRemoveFromRoom => '¿Quitar de la Sala?';
+
+  @override
+  String voiceRoomRemoveFromRoomConfirm(String name) {
+    return '¿Quitar a $name de la sala? Se desconectará.';
+  }
+
+  @override
+  String get voiceRoomRemove => 'Quitar';
+
+  @override
+  String get voiceRoomPressBackToLeave => 'Presiona atrás de nuevo para salir';
+
+  @override
+  String get voiceRoomLeaveTitle => '¿Salir de la Sala?';
+
+  @override
+  String get voiceRoomLeaveBody =>
+      'Estás actualmente en el escenario. ¿Estás seguro de que quieres salir?';
+
+  @override
+  String get voiceRoomReturningToList => 'Volviendo a la lista de salas...';
+
+  @override
+  String get voiceRoomConnected => '¡Conectado!';
+
+  @override
+  String get voiceRoomStageFailedToLoad => 'No se pudo cargar el escenario';
+
+  @override
+  String get voiceRoomPreparingStage => 'Preparando escenario...';
+
+  @override
+  String voiceRoomAcceptToStage(Object name) {
+    return 'Aceptar a $name en el escenario';
+  }
+
+  @override
+  String voiceRoomRejectFromStage(Object name) {
+    return 'Rechazar a $name';
+  }
+
+  @override
+  String get voiceRoomQuickCreate => 'Creación Rápida';
+
+  @override
+  String get voiceRoomRoomType => 'Tipo de Sala';
+
+  @override
+  String get voiceRoomSessionDuration => 'Duración de Sesión';
+
+  @override
+  String get voiceRoomOptionalTimer => 'Temporizador opcional para la sesión';
+
+  @override
+  String get voiceRoomDurationNone => 'Ninguno';
+
+  @override
+  String get voiceRoomDuration15 => '15 min';
+
+  @override
+  String get voiceRoomDuration30 => '30 min';
+
+  @override
+  String get voiceRoomDuration45 => '45 min';
+
+  @override
+  String get voiceRoomDuration60 => '60 min';
+
+  @override
+  String get voiceRoomTypeFreeTalk => 'Charla Libre';
+
+  @override
+  String get voiceRoomTypePronunciation => 'Pronunciación';
+
+  @override
+  String get voiceRoomTypeRolePlay => 'Juego de Roles';
+
+  @override
+  String get voiceRoomTypeQnA => 'Preguntas y Respuestas';
+
+  @override
+  String get voiceRoomTypeListening => 'Escucha';
+
+  @override
+  String get voiceRoomTypeDebate => 'Debate';
+
+  @override
+  String get voiceRoomTemplateFreeTalk => 'Charla Libre en Coreano';
+
+  @override
+  String get voiceRoomTemplatePronunciation => 'Práctica de Pronunciación';
+
+  @override
+  String get voiceRoomTemplateDailyKorean => 'Coreano Diario';
+
+  @override
+  String get voiceRoomTemplateTopikSpeaking => 'Expresión Oral TOPIK';
+
+  @override
+  String get voiceRoomCreateTooltip => 'Crear sala de voz';
+
+  @override
+  String get voiceRoomSendReaction => 'Enviar reacción';
+
+  @override
+  String get voiceRoomLeaveRoom => 'Salir de la sala';
+
+  @override
+  String get voiceRoomUnmuteMic => 'Activar micrófono';
+
+  @override
+  String get voiceRoomMuteMic => 'Silenciar micrófono';
+
+  @override
+  String get voiceRoomCancelHandRaise => 'Cancelar mano levantada';
+
+  @override
+  String get voiceRoomRaiseHandSemantic => 'Levantar la mano';
+
+  @override
+  String get voiceRoomSendGesture => 'Enviar gesto';
+
+  @override
+  String get voiceRoomLeaveStageAction => 'Dejar el escenario';
+
+  @override
+  String get voiceRoomManageStage => 'Gestionar escenario';
+
+  @override
+  String get voiceRoomMoreOptions => 'Más opciones';
+
+  @override
+  String get voiceRoomMore => 'Más';
+
+  @override
+  String get voiceRoomStageWithSpeakers =>
+      'Escenario de sala de voz con hablantes';
+
+  @override
+  String voiceRoomStageRequestsPending(int count) {
+    return 'Solicitudes de escenario, $count pendientes';
+  }
+
+  @override
+  String voiceRoomSpeakerListenerCount(
+      int speakers, int maxSpeakers, int listeners) {
+    return '$speakers de $maxSpeakers hablantes, $listeners oyentes';
+  }
+
+  @override
+  String get voiceRoomChatInput => 'Entrada de mensaje de chat';
+
+  @override
+  String get voiceRoomSendMessage => 'Enviar mensaje';
+
+  @override
+  String voiceRoomSendReactionNamed(Object name) {
+    return 'Enviar reacción de $name';
+  }
+
+  @override
+  String get voiceRoomCloseReactionTray => 'Cerrar bandeja de reacciones';
+
+  @override
+  String voiceRoomPerformGesture(Object name) {
+    return 'Realizar gesto de $name';
+  }
+
+  @override
+  String get voiceRoomCloseGestureTray => 'Cerrar bandeja de gestos';
+
+  @override
+  String get voiceRoomGestureWave => 'Saludar';
+
+  @override
+  String get voiceRoomGestureBow => 'Reverencia';
+
+  @override
+  String get voiceRoomGestureDance => 'Bailar';
+
+  @override
+  String get voiceRoomGestureJump => 'Saltar';
+
+  @override
+  String get voiceRoomGestureClap => 'Aplaudir';
+
+  @override
+  String get voiceRoomStageLabel => 'ESCENARIO';
+
+  @override
+  String get voiceRoomYouLabel => '(Tú)';
+
+  @override
+  String voiceRoomListenerTapToManage(Object name) {
+    return 'Oyente $name, toca para gestionar';
+  }
+
+  @override
+  String voiceRoomListenerName(Object name) {
+    return 'Oyente $name';
+  }
+
+  @override
+  String get voiceRoomMicPermissionDenied =>
+      'Se denegó el acceso al micrófono. Para usar las funciones de voz, actívalo en la configuración del dispositivo.';
+
+  @override
+  String get voiceRoomMicPermissionTitle => 'Permiso de Micrófono';
+
+  @override
+  String get voiceRoomOpenSettings => 'Abrir Configuración';
+
+  @override
+  String get voiceRoomMicNeededForStage =>
+      'Se necesita permiso de micrófono para hablar en el escenario';
+
+  @override
   String get batchimDescriptionText =>
       'Las consonantes finales coreanas (batchim) se pronuncian con 7 sonidos.\nVarios batchim que comparten la misma pronunciación se llaman \"sonidos representativos\".';
 
@@ -2556,7 +2991,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String totalPracticedCount(int count) {
-    return 'Total: $count caracteres practicados';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Total: $count caracteres practicados',
+      one: 'Total: $count carácter practicado',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2657,7 +3098,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String balanceLemons(int count) {
-    return 'Saldo: $count limones';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Saldo: $count limones',
+      one: 'Saldo: $count limón',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2678,12 +3125,24 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String hangulLearnedCount(int count) {
-    return '¡$count/40 letras aprendidas!';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '¡$count/40 letras aprendidas!',
+      one: '¡$count/40 letra aprendida!',
+    );
+    return '$_temp0';
   }
 
   @override
   String hangulReviewNeeded(int count) {
-    return '¡$count letras para repasar hoy!';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '¡$count letras para repasar hoy!',
+      one: '¡$count letra para repasar hoy!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2701,4 +3160,63 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get hangulGoToLevel1 => 'Ir al Nivel 1';
+
+  @override
+  String get completedLessonsLabel => 'Completadas';
+
+  @override
+  String get wordsLearnedLabel => 'Palabras';
+
+  @override
+  String get totalStudyTimeLabel => 'Tiempo';
+
+  @override
+  String get streakDetails => 'Detalles de racha';
+
+  @override
+  String get consecutiveDays => 'Días consecutivos';
+
+  @override
+  String get totalStudyDaysLabel => 'Días totales';
+
+  @override
+  String get studyRecord => 'Historial';
+
+  @override
+  String get noFriendsPrompt => '¡Encuentra amigos para estudiar juntos!';
+
+  @override
+  String get moreStats => 'Ver todo';
+
+  @override
+  String remainingLessons(int count) {
+    return '¡$count más para la meta de hoy!';
+  }
+
+  @override
+  String get streakMotivation0 => '¡Empieza a aprender hoy!';
+
+  @override
+  String get streakMotivation1 => '¡Buen comienzo! ¡Sigue así!';
+
+  @override
+  String get streakMotivation7 => '¡Más de una semana! ¡Increíble!';
+
+  @override
+  String get streakMotivation14 =>
+      '¡Dos semanas! ¡Se está volviendo un hábito!';
+
+  @override
+  String get streakMotivation30 =>
+      '¡Más de un mes! ¡Eres un verdadero estudiante!';
+
+  @override
+  String minutesShort(int count) {
+    return '${count}min';
+  }
+
+  @override
+  String hoursShort(int count) {
+    return '${count}h';
+  }
 }

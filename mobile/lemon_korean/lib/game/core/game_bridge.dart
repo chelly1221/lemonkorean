@@ -92,12 +92,14 @@ class RemoteCharacterAdded extends GameEvent {
   final Map<String, dynamic>? equippedItems;
   final String? skinColor;
   final bool isMuted;
+  final bool isHost;
   RemoteCharacterAdded({
     required this.userId,
     required this.name,
     this.equippedItems,
     this.skinColor,
     this.isMuted = false,
+    this.isHost = false,
   });
 }
 

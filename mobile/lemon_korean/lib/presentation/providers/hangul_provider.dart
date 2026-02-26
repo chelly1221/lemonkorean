@@ -370,15 +370,58 @@ class HangulProvider with ChangeNotifier {
       return;
     }
 
-    final progress = HangulLessonProgressModel(
+    await saveLessonCheckpoint(
       lessonId: lessonId,
-      userId: 0, // Will be set by repository
       completedSteps: totalSteps,
       totalSteps: totalSteps,
       isCompleted: true,
       bestScore: bestScore,
       lemonsEarned: lemonsEarned,
-      completedAt: DateTime.now(),
+    );
+  }
+
+  /// Save in-progress lesson checkpoint (step-by-step auto save).
+  Future<void> saveLessonCheckpoint({
+    required String lessonId,
+    required int completedSteps,
+    required int totalSteps,
+    bool isCompleted = false,
+    int? bestScore,
+    int? lemonsEarned,
+  }) async {
+    final existing = _lessonProgress[lessonId];
+    final mergedCompletedSteps = existing == null
+        ? completedSteps
+        : (completedSteps > existing.completedSteps
+              ? completedSteps
+              : existing.completedSteps);
+
+    final mergedBestScore = existing == null
+        ? (bestScore ?? 0)
+        : (bestScore == null
+              ? existing.bestScore
+              : (bestScore > existing.bestScore
+                    ? bestScore
+                    : existing.bestScore));
+
+    final mergedLemons = existing == null
+        ? (lemonsEarned ?? 0)
+        : (lemonsEarned == null
+              ? existing.lemonsEarned
+              : (lemonsEarned > existing.lemonsEarned
+                    ? lemonsEarned
+                    : existing.lemonsEarned));
+
+    final progress = HangulLessonProgressModel(
+      lessonId: lessonId,
+      userId: existing?.userId ?? 0,
+      completedSteps: mergedCompletedSteps,
+      totalSteps: totalSteps,
+      isCompleted: (existing?.isCompleted ?? false) || isCompleted,
+      bestScore: mergedBestScore,
+      lemonsEarned: mergedLemons,
+      completedAt: isCompleted ? DateTime.now() : existing?.completedAt,
+      lastAccessedAt: DateTime.now(),
     );
 
     _lessonProgress[lessonId] = progress;

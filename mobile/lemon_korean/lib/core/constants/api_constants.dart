@@ -1,7 +1,11 @@
 /// API Configuration Constants
 class ApiConstants {
   // Base URL - Single domain for all services
-  static const String baseUrl = 'https://lemon.3chan.kr';
+  static const String _defaultBaseUrl = 'https://lemon.3chan.kr';
+  static const String baseUrl = String.fromEnvironment(
+    'BASE_URL',
+    defaultValue: _defaultBaseUrl,
+  );
   static const String apiVersion = 'v1';
 
   // API Endpoints - Using Nginx API Gateway (no port-specific URLs)
@@ -29,7 +33,8 @@ class ApiConstants {
   static const String userProgressEndpoint = '$progressBaseUrl/user';
   static const String completeEndpoint = '$progressBaseUrl/complete';
   static const String syncEndpoint = '$progressBaseUrl/sync';
-  static const String reviewScheduleEndpoint = '$progressBaseUrl/review-schedule';
+  static const String reviewScheduleEndpoint =
+      '$progressBaseUrl/review-schedule';
 
   // SNS Endpoints
   static const String snsBaseUrl = '$baseUrl/api/sns';

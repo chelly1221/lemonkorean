@@ -37,7 +37,8 @@ class CharacterCard extends StatelessWidget {
               : Colors.white,
           borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
           border: Border.all(
-            color: isSelected ? AppConstants.primaryColor : Colors.grey.shade300,
+            color:
+                isSelected ? AppConstants.primaryColor : Colors.grey.shade300,
             width: isSelected ? 2 : 1,
           ),
           boxShadow: [

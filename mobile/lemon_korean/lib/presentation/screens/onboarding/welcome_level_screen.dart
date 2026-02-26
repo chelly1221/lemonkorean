@@ -156,9 +156,7 @@ class _WelcomeLevelScreenState extends State<WelcomeLevelScreen> {
                           fontWeight: FontWeight.w600,
                           color: Colors.grey.shade800,
                         ),
-                      )
-                          .animate()
-                          .fadeIn(delay: 300.ms, duration: 400.ms),
+                      ).animate().fadeIn(delay: 300.ms, duration: 400.ms),
 
                       const SizedBox(height: 20),
 
@@ -168,10 +166,9 @@ class _WelcomeLevelScreenState extends State<WelcomeLevelScreen> {
                         final level = entry.value;
 
                         return LevelSelectionCard(
-                          emoji: level['emoji']!,
                           title: level['name']!,
                           description: level['description']!,
-                          topikLevel: '',  // Not used in this screen
+                          topikLevel: '', // Not used in this screen
                           isSelected: _selectedLevel == level['id'],
                           onTap: () {
                             setState(() {
@@ -215,7 +212,9 @@ class _WelcomeLevelScreenState extends State<WelcomeLevelScreen> {
                     ),
                   ),
                   child: Text(
-                    _selectedLevel == null ? l10n.onboardingStartWithoutLevel : l10n.onboardingStart,
+                    _selectedLevel == null
+                        ? l10n.onboardingStartWithoutLevel
+                        : l10n.onboardingStart,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

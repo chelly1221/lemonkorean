@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:ui' show Color;
 
@@ -26,6 +27,8 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
   final GameBridge bridge;
   final int? myUserId;
   final bool isSpeaker;
+  final bool isHost;
+  final int maxSpeakers;
   final List<CharacterItemModel> myEquippedItems;
   final String mySkinColor;
   final String myName;
@@ -41,6 +44,9 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
   // Remote characters
   final Map<int, RemoteCharacter> _remoteCharacters = {};
 
+  // Stage spot markers
+  final List<_StageSpotMarker> _spotMarkers = [];
+
   // Effects
   late ParticleManager _particles;
   late GestureEffects _gestureEffects;
@@ -52,7 +58,16 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     required this.mySkinColor,
     required this.myName,
     this.myUserId,
+    this.isHost = false,
+    this.maxSpeakers = 4,
   });
+
+  /// Calculate dynamic display scale based on stage area size.
+  double calcDisplayScale() {
+    final stageHeight = size.y * (GameConstants.stageMaxY - GameConstants.stageMinY);
+    final idealCharHeight = stageHeight * 0.35;
+    return (idealCharHeight / GameConstants.frameHeight).clamp(2.0, 4.0);
+  }
 
   @override
   Color backgroundColor() => const ui.Color(0xFF1A1A2E);
@@ -65,9 +80,13 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     // Stage label
     add(_StageLabel());
 
+    // Stage spot markers
+    _addStageSpots();
+
     // Particles
     _particles = ParticleManager();
     add(_particles);
+    _particles.spawnAmbientSparkles(8);
     _gestureEffects = GestureEffects(particles: _particles);
 
     // My character (if speaker)
@@ -79,13 +98,38 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     bridge.gameEvents.listen(_handleGameEvent);
   }
 
+  void _addStageSpots() {
+    final List<double> xPositions;
+    switch (maxSpeakers) {
+      case 2:
+        xPositions = [0.35, 0.65];
+        break;
+      case 3:
+        xPositions = [0.25, 0.50, 0.75];
+        break;
+      case 4:
+      default:
+        xPositions = [0.20, 0.40, 0.60, 0.80];
+        break;
+    }
+
+    const spotY = 0.65;
+    for (final spotX in xPositions) {
+      final marker = _StageSpotMarker(normX: spotX, normY: spotY);
+      _spotMarkers.add(marker);
+      add(marker);
+    }
+  }
+
   void _setupMyCharacter() {
     final items = myEquippedItems.where((i) => i.isCharacterPart).toList();
+    final scale = calcDisplayScale();
 
     _myCharacter = PixelCharacter(
       equippedItems: items,
       skinColor: mySkinColor,
       position: Vector2(size.x * 0.5, size.y * 0.75),
+      displayScale: scale,
     );
     _myCharacter!.priority = 100;
     _myCharacter!.onPositionChanged = (x, y, dir) {
@@ -97,27 +141,40 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     };
     add(_myCharacter!);
 
-    _myAura = SpeakingAura(isMuted: _myMuted);
-    _myAura!.position = Vector2(size.x * 0.5, size.y * 0.75 - GameConstants.displayHeight / 2);
+    final charW = GameConstants.frameWidth * scale;
+    final charH = GameConstants.frameHeight * scale;
+
+    _myAura = SpeakingAura(isMuted: _myMuted, isHost: isHost);
+    _myAura!.position = Vector2(size.x * 0.5, size.y * 0.75 - charH / 2);
     add(_myAura!);
 
-    _myNameLabel = NameLabel(name: myName, isLocalPlayer: true);
-    _myNameLabel!.position = Vector2(size.x * 0.5, size.y * 0.75 - GameConstants.displayHeight - 4);
+    _myNameLabel = NameLabel(name: myName, isLocalPlayer: true, isHost: isHost);
+    _myNameLabel!.position = Vector2(size.x * 0.5, size.y * 0.75 - charH - 4);
     add(_myNameLabel!);
 
     _myMuteBadge = MuteBadge(isMuted: _myMuted);
     _myMuteBadge!.position = Vector2(
-      size.x * 0.5 + GameConstants.displayWidth / 2 - 5,
+      size.x * 0.5 + charW / 2 - 5,
       size.y * 0.75 - 5,
     );
     add(_myMuteBadge!);
 
     _myQualityBadge = ConnectionQualityBadge();
     _myQualityBadge!.position = Vector2(
-      size.x * 0.5 + GameConstants.displayWidth / 2 - 5,
-      size.y * 0.75 - GameConstants.displayHeight - 12,
+      size.x * 0.5 + charW / 2 - 5,
+      size.y * 0.75 - charH - 12,
     );
     add(_myQualityBadge!);
+  }
+
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+    // Recalculate dynamic scale for characters on resize
+    if (_myCharacter != null) {
+      final scale = calcDisplayScale();
+      _myCharacter!.displayScale = scale;
+    }
   }
 
   @override
@@ -174,9 +231,9 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
           _remoteCharacters[userId]?.updateConnectionQuality(quality);
         }
 
-      case RemoteCharacterAdded(:final userId, :final name, :final equippedItems, :final skinColor, :final isMuted):
+      case RemoteCharacterAdded(:final userId, :final name, :final equippedItems, :final skinColor, :final isMuted, :final isHost):
         if (userId == myUserId) return;
-        _addRemoteCharacter(userId, name, equippedItems, skinColor, isMuted);
+        _addRemoteCharacter(userId, name, equippedItems, skinColor, isMuted, isHost);
 
       case RemoteCharacterRemoved(:final userId):
         _removeRemoteCharacter(userId);
@@ -195,6 +252,7 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     Map<String, dynamic>? equippedItems,
     String? skinColor,
     bool isMuted,
+    bool isHost,
   ) {
     if (_remoteCharacters.containsKey(userId)) return;
 
@@ -203,6 +261,7 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
       name: name,
       equippedItems: equippedItems,
       skinColor: skinColor,
+      isHost: isHost,
       isMuted: isMuted,
     );
     _remoteCharacters[userId] = remote;
@@ -253,18 +312,18 @@ class _StageLabel extends PositionComponent with HasGameReference {
 
   @override
   Future<void> onLoad() async {
-    position = Vector2(0, 8);
+    position = Vector2(0, 12);
     size = Vector2(game.size.x, 20);
 
     final builder = ui.ParagraphBuilder(ui.ParagraphStyle(
       textAlign: ui.TextAlign.center,
-      fontSize: 14,
+      fontSize: 12,
     ))
       ..pushStyle(ui.TextStyle(
         color: const ui.Color(0x26FFFFFF),
-        fontSize: 14,
-        fontWeight: ui.FontWeight.bold,
-        letterSpacing: 4,
+        fontSize: 12,
+        fontWeight: ui.FontWeight.w500,
+        letterSpacing: 6,
       ))
       ..addText('STAGE');
 
@@ -277,5 +336,102 @@ class _StageLabel extends PositionComponent with HasGameReference {
     if (_paragraph != null) {
       canvas.drawParagraph(_paragraph!, ui.Offset.zero);
     }
+  }
+}
+
+/// Subtle spot marker showing where speakers can stand on the stage.
+///
+/// Renders a dotted ring at a normalized position. Fades out when
+/// a character is close by (within 0.1 normalized distance).
+class _StageSpotMarker extends PositionComponent with HasGameReference<VoiceStageGame> {
+  final double normX;
+  final double normY;
+
+  static const double _radius = 20.0;
+  static const double _fadeDistance = 0.1; // normalized distance threshold
+
+  _StageSpotMarker({required this.normX, required this.normY})
+      : super(
+          size: Vector2(_radius * 2 + 4, _radius * 2 + 4),
+          anchor: Anchor.center,
+          priority: 5,
+        );
+
+  @override
+  Future<void> onLoad() async {
+    _updatePosition();
+  }
+
+  void _updatePosition() {
+    position = Vector2(
+      game.size.x * normX,
+      game.size.y * normY,
+    );
+  }
+
+  @override
+  void render(ui.Canvas canvas) {
+    // Compute proximity fade based on all characters on stage
+    final fade = _computeFade();
+    if (fade < 0.01) return;
+
+    final center = ui.Offset(size.x / 2, size.y / 2);
+
+    // Filled circle background (very subtle)
+    canvas.drawCircle(
+      center,
+      _radius,
+      ui.Paint()..color = ui.Color.fromRGBO(255, 255, 255, 0.08 * fade),
+    );
+
+    // Dashed ring
+    final ringPaint = ui.Paint()
+      ..color = ui.Color.fromRGBO(255, 255, 255, 0.15 * fade)
+      ..style = ui.PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    const dashCount = 16;
+    const dashAngle = (2 * pi) / dashCount;
+    const gapFraction = 0.4;
+    const dashSweep = dashAngle * (1 - gapFraction);
+
+    for (var i = 0; i < dashCount; i++) {
+      final startAngle = i * dashAngle;
+      canvas.drawArc(
+        ui.Rect.fromCircle(center: center, radius: _radius),
+        startAngle,
+        dashSweep,
+        false,
+        ringPaint,
+      );
+    }
+  }
+
+  /// Returns 0.0 (fully hidden) to 1.0 (fully visible) based on how
+  /// close any character is to this spot.
+  double _computeFade() {
+    double minDist = double.infinity;
+
+    // Check local character
+    final local = game._myCharacter;
+    if (local != null) {
+      final charNormX = local.position.x / game.size.x;
+      final charNormY = local.position.y / game.size.y;
+      final dx = charNormX - normX;
+      final dy = charNormY - normY;
+      minDist = min(minDist, sqrt(dx * dx + dy * dy));
+    }
+
+    // Check remote characters
+    for (final remote in game._remoteCharacters.values) {
+      final charNormX = remote.position.x / game.size.x;
+      final charNormY = remote.position.y / game.size.y;
+      final dx = charNormX - normX;
+      final dy = charNormY - normY;
+      minDist = min(minDist, sqrt(dx * dx + dy * dy));
+    }
+
+    if (minDist >= _fadeDistance) return 1.0;
+    return (minDist / _fadeDistance).clamp(0.0, 1.0);
   }
 }

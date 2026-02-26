@@ -2,10 +2,12 @@ import 'dart:ui' as ui;
 
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
+import 'package:flutter/foundation.dart';
 
 /// Room wallpaper/background sprite that fills the game viewport.
-class RoomBackground extends SpriteComponent with HasGameReference {
+class RoomBackground extends PositionComponent with HasGameReference {
   final String? assetKey;
+  Sprite? _sprite;
 
   /// Fallback gradient colors when no asset is available.
   static const _defaultTopColor = 0xFFD6EAF8;
@@ -16,12 +18,18 @@ class RoomBackground extends SpriteComponent with HasGameReference {
   @override
   Future<void> onLoad() async {
     size = game.size;
+    position = Vector2.zero();
 
     if (assetKey != null) {
+      if (!_isSupportedRaster(assetKey!)) {
+        debugPrint('[RoomBackground] Skip unsupported asset: $assetKey');
+        return;
+      }
       try {
         final image = await Flame.images.load(assetKey!);
-        sprite = Sprite(image);
-      } catch (_) {
+        _sprite = Sprite(image);
+      } catch (e) {
+        debugPrint('[RoomBackground] Failed to load $assetKey: $e');
         // Fallback: no sprite, render gradient in render()
       }
     }
@@ -35,8 +43,8 @@ class RoomBackground extends SpriteComponent with HasGameReference {
 
   @override
   void render(ui.Canvas canvas) {
-    if (sprite != null) {
-      super.render(canvas);
+    if (_sprite != null) {
+      _sprite!.render(canvas, size: size);
     } else {
       // Default gradient background
       final rect = size.toRect();
@@ -48,5 +56,14 @@ class RoomBackground extends SpriteComponent with HasGameReference {
         );
       canvas.drawRect(rect, paint);
     }
+  }
+
+  bool _isSupportedRaster(String key) {
+    final lower = key.toLowerCase();
+    return lower.endsWith('.png') ||
+        lower.endsWith('.jpg') ||
+        lower.endsWith('.jpeg') ||
+        lower.endsWith('.webp') ||
+        lower.endsWith('.bmp');
   }
 }

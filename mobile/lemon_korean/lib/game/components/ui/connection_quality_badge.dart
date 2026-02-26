@@ -35,8 +35,8 @@ class ConnectionQualityBadge extends PositionComponent {
         : const ui.Color(0xFFF44336); // red
     final barCount = isGood ? 2 : 1;
 
-    final barWidth = 3.0;
-    final gap = 2.0;
+    const barWidth = 3.0;
+    const gap = 2.0;
     final totalWidth = barCount * barWidth + (barCount - 1) * gap;
     final startX = (size.x - totalWidth) / 2;
 

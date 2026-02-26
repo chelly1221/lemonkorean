@@ -5,12 +5,15 @@ import 'package:flame/components.dart';
 
 import '../../core/game_constants.dart';
 
-/// Pulsing green glow around unmuted speakers on the voice stage.
+/// Pulsing glow around unmuted speakers on the voice stage.
+///
+/// Default color is green. When [isHost] is true, uses amber/gold instead.
 class SpeakingAura extends PositionComponent {
   bool isMuted;
+  final bool isHost;
   double _timer = 0;
 
-  SpeakingAura({this.isMuted = false})
+  SpeakingAura({this.isMuted = false, this.isHost = false})
       : super(
           size: Vector2(
             GameConstants.displayWidth + 16,
@@ -38,11 +41,16 @@ class SpeakingAura extends PositionComponent {
     final center = ui.Offset(size.x / 2, size.y / 2);
     final radius = size.x / 2 + spread;
 
+    // Host uses gold; default uses green
+    final color = isHost
+        ? ui.Color.fromRGBO(255, 215, 0, alpha)  // gold (#FFD700)
+        : ui.Color.fromRGBO(76, 175, 80, alpha);  // green
+
     canvas.drawCircle(
       center,
       radius,
       ui.Paint()
-        ..color = ui.Color.fromRGBO(76, 175, 80, alpha)
+        ..color = color
         ..maskFilter = const ui.MaskFilter.blur(ui.BlurStyle.normal, 12),
     );
   }

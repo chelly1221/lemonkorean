@@ -21,12 +21,14 @@ enum PlaybackSpeed {
 /// Displays pronunciation guide with speed control and repeat functionality
 class PronunciationPlayer extends StatefulWidget {
   final HangulCharacterModel character;
+  final String? userLanguage;
   final bool autoPlay;
   final bool showSpeedControl;
   final bool showRepeatControl;
 
   const PronunciationPlayer({
     required this.character,
+    this.userLanguage,
     this.autoPlay = false,
     this.showSpeedControl = true,
     this.showRepeatControl = true,
@@ -45,6 +47,11 @@ class _PronunciationPlayerState extends State<PronunciationPlayer> {
   PlaybackSpeed _currentSpeed = PlaybackSpeed.normal;
   int _repeatCount = 0;
   static const int _maxRepeats = 3;
+
+  bool get _isChinese {
+    final lang = widget.userLanguage;
+    return lang == null || lang == 'zh' || lang == 'zh_TW';
+  }
 
   @override
   void initState() {
@@ -244,63 +251,64 @@ class _PronunciationPlayerState extends State<PronunciationPlayer> {
             ],
           ),
 
-          const SizedBox(height: 8),
-
-          // Chinese pronunciation
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.pronunciationLabel,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: AppConstants.textSecondary,
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  widget.character.pronunciationZh,
+          // Chinese pronunciation (only for Chinese users)
+          if (_isChinese) ...[
+            const SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.pronunciationLabel,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: AppConstants.textSecondary,
                   ),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.character.pronunciationZh,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // Pronunciation tip if available
+            if (widget.character.hasTip) ...[
+              const SizedBox(height: 12),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.amber.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.amber.shade200),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.lightbulb_outline,
+                      color: Colors.amber.shade700,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        widget.character.pronunciationTipZh!,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.amber.shade900,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
-          ),
-
-          // Pronunciation tip if available
-          if (widget.character.hasTip) ...[
-            const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.amber.shade50,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.amber.shade200),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.lightbulb_outline,
-                    color: Colors.amber.shade700,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      widget.character.pronunciationTipZh!,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.amber.shade900,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
 
           // Repeat indicator

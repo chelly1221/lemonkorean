@@ -10,9 +10,10 @@ import '../../core/game_constants.dart';
 enum PetState { idle, wandering, following }
 
 /// Pixel art pet with wander/idle/follow AI.
-class PixelPet extends SpriteComponent with HasGameReference {
+class PixelPet extends PositionComponent with HasGameReference {
   final String? assetKey;
   final PositionComponent? owner; // Character to follow
+  Sprite? _sprite;
 
   PetState _state = PetState.idle;
   final _random = Random();
@@ -35,7 +36,7 @@ class PixelPet extends SpriteComponent with HasGameReference {
     if (assetKey != null) {
       try {
         final image = await Flame.images.load(assetKey!);
-        sprite = Sprite(image);
+        _sprite = Sprite(image);
       } catch (_) {
         // No sprite, render placeholder
       }
@@ -132,8 +133,8 @@ class PixelPet extends SpriteComponent with HasGameReference {
 
   @override
   void render(ui.Canvas canvas) {
-    if (sprite != null) {
-      super.render(canvas);
+    if (_sprite != null) {
+      _sprite!.render(canvas, size: size);
     } else {
       // Placeholder: small colored circle
       canvas.drawCircle(

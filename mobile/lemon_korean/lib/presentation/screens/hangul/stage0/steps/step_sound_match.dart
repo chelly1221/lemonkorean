@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -57,14 +58,21 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
     if (_showFeedback) return;
     final correct = _current['answer'] as String;
     final isCorrect = choice == correct;
-    if (isCorrect) _correctCount++;
+    if (isCorrect) {
+      _correctCount++;
+      HapticFeedback.lightImpact();
+    } else {
+      HapticFeedback.mediumImpact();
+    }
 
     setState(() {
       _selectedAnswer = choice;
       _showFeedback = true;
     });
 
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    // B2: longer delay on wrong answer so learner can see correct highlight
+    final delay = isCorrect ? 1000 : 1800;
+    Future.delayed(Duration(milliseconds: delay), () {
       if (!mounted) return;
       if (_currentIndex < _questions.length - 1) {
         setState(() {

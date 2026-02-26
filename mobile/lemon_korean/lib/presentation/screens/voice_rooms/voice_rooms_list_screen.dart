@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
@@ -102,20 +100,9 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
                   child: RoomCard(
                     room: room,
                     onTap: () async {
-                      // Request microphone permission on mobile
-                      if (!kIsWeb) {
-                        final status = await Permission.microphone.request();
-                        if (!status.isGranted && context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Microphone permission is required for voice rooms'),
-                            ),
-                          );
-                          return;
-                        }
-                      }
-
+                      // Listeners join without mic permission.
+                      // Mic is requested later only when raising hand or
+                      // creating a room.
                       final success = await provider.joinRoom(room.id);
                       if (success && context.mounted) {
                         Navigator.push(
@@ -138,6 +125,7 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        tooltip: l10n?.voiceRoomCreateTooltip ?? 'Create voice room',
         onPressed: () async {
           final created = await Navigator.push<bool>(
             context,
@@ -145,7 +133,7 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
               builder: (context) => const CreateVoiceRoomScreen(),
             ),
           );
-          if (created == true && mounted) {
+          if (created == true && context.mounted) {
             final provider =
                 Provider.of<VoiceRoomProvider>(context, listen: false);
             if (provider.activeRoom != null) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/models/voice_room_model.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/voice_room_provider.dart';
 
 /// Chat widget for voice room (ephemeral messages)
@@ -58,6 +59,7 @@ class _VoiceChatWidgetState extends State<VoiceChatWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Consumer<VoiceRoomProvider>(
       builder: (context, provider, child) {
         return Column(
@@ -67,9 +69,9 @@ class _VoiceChatWidgetState extends State<VoiceChatWidget> {
               child: provider.messages.isEmpty
                   ? Center(
                       child: Text(
-                        'No messages yet',
+                        l10n?.voiceRoomNoMessagesYet ?? 'No messages yet',
                         style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.3),
+                          color: Colors.white.withValues(alpha: 0.6),
                           fontSize: 12,
                         ),
                       ),
@@ -100,43 +102,62 @@ class _VoiceChatWidgetState extends State<VoiceChatWidget> {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      focusNode: _focusNode,
-                      style: const TextStyle(
-                          color: Colors.white, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Type a message...',
-                        hintStyle: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.3),
-                          fontSize: 14,
+                    child: Semantics(
+                      textField: true,
+                      label: l10n?.voiceRoomChatInput ?? 'Chat message input',
+                      child: TextField(
+                        controller: _controller,
+                        focusNode: _focusNode,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: l10n?.voiceRoomTypeMessage ?? 'Type a message...',
+                          hintStyle: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.5),
+                            fontSize: 14,
+                          ),
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white.withValues(alpha: 0.08),
                         ),
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide.none,
-                        ),
-                        filled: true,
-                        fillColor: Colors.white.withValues(alpha: 0.08),
+                        maxLines: 1,
+                        textInputAction: TextInputAction.send,
+                        onSubmitted: (_) => _handleSend(),
                       ),
-                      maxLines: 1,
-                      textInputAction: TextInputAction.send,
-                      onSubmitted: (_) => _handleSend(),
                     ),
                   ),
                   const SizedBox(width: 6),
-                  GestureDetector(
-                    onTap: _handleSend,
-                    child: Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: Colors.amber.withValues(alpha: 0.8),
-                        shape: BoxShape.circle,
+                  Semantics(
+                    button: true,
+                    label: l10n?.voiceRoomSendMessage ?? 'Send message',
+                    child: Material(
+                      color: Colors.transparent,
+                      shape: const CircleBorder(),
+                      clipBehavior: Clip.antiAlias,
+                      child: InkWell(
+                        onTap: _handleSend,
+                        customBorder: const CircleBorder(),
+                        splashColor: Colors.amber.withValues(alpha: 0.3),
+                        highlightColor: Colors.amber.withValues(alpha: 0.15),
+                        child: ExcludeSemantics(
+                          child: Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: Colors.amber.withValues(alpha: 0.8),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                                Icons.send, size: 18, color: Colors.black87),
+                          ),
+                        ),
                       ),
-                      child: const Icon(Icons.send, size: 18, color: Colors.black87),
                     ),
                   ),
                 ],
@@ -163,7 +184,7 @@ class _MessageBubble extends StatelessWidget {
           child: Text(
             message.content,
             style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.4),
+              color: Colors.white.withValues(alpha: 0.6),
               fontSize: 11,
               fontStyle: FontStyle.italic,
             ),

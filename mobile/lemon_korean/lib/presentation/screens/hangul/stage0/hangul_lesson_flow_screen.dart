@@ -5,7 +5,6 @@ import '../../../providers/gamification_provider.dart';
 import '../../../providers/hangul_provider.dart';
 import 'stage0_lesson_content.dart';
 import 'steps/step_intro.dart';
-import 'steps/step_syllable_animation.dart';
 import 'steps/step_drag_drop_assembly.dart';
 import 'steps/step_sound_explore.dart';
 import 'steps/step_sound_match.dart';
@@ -40,7 +39,15 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    final hangul = context.read<HangulProvider>();
+    final saved = hangul.getLessonProgress(widget.lesson.id);
+    final canResume =
+        saved != null && !saved.isCompleted && saved.completedSteps > 0;
+    final maxIndex = widget.lesson.steps.length - 1;
+    if (canResume) {
+      _currentStep = saved.completedSteps.clamp(0, maxIndex);
+    }
+    _pageController = PageController(initialPage: _currentStep);
   }
 
   @override
@@ -51,7 +58,14 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
 
   void _goNext() {
     if (_currentStep < widget.lesson.steps.length - 1) {
-      setState(() => _currentStep++);
+      final nextStep = _currentStep + 1;
+      final hangul = context.read<HangulProvider>();
+      hangul.saveLessonCheckpoint(
+        lessonId: widget.lesson.id,
+        completedSteps: nextStep,
+        totalSteps: widget.lesson.totalSteps,
+      );
+      setState(() => _currentStep = nextStep);
       _pageController.nextPage(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeInOut,
@@ -115,13 +129,12 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
   /// Convert lesson ID (e.g. '0-1') to a unique numeric key for gamification.
   /// Uses 90000+ range to avoid collision with regular lesson IDs.
   static int _hangulLessonKey(String lessonId) {
-    const keyMap = {
-      '0-1': 90001,
-      '0-2': 90002,
-      '0-3': 90003,
-      '0-M': 90004,
-    };
-    return keyMap[lessonId] ?? 90000;
+    final match = RegExp(r'^(\d+)-(\d+)$').firstMatch(lessonId);
+    if (match == null) return 90000;
+    final stage = int.tryParse(match.group(1) ?? '');
+    final lesson = int.tryParse(match.group(2) ?? '');
+    if (stage == null || lesson == null) return 90000;
+    return 90000 + (stage * 100) + lesson;
   }
 
   @override
@@ -162,7 +175,7 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
             icon: const Icon(Icons.close, size: 22),
             onPressed: () => _showExitDialog(context),
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+            constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -172,7 +185,8 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
                 value: progress,
                 minHeight: 8,
                 backgroundColor: Colors.grey.shade200,
-                valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFFFD54F)),
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(Color(0xFFFFD54F)),
               ),
             ),
           ),
@@ -195,7 +209,7 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('레슨 나가기'),
-        content: const Text('진행 중인 레슨을 종료하시겠어요?\n진행 상태는 저장되지 않습니다.'),
+        content: const Text('진행 중인 레슨을 종료하시겠어요?\n현재 단계까지 자동 저장됩니다.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
@@ -217,11 +231,6 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
     switch (step.type) {
       case StepType.intro:
         return StepIntro(
-          step: step,
-          onNext: _goNext,
-        );
-      case StepType.syllableAnimation:
-        return StepSyllableAnimation(
           step: step,
           onNext: _goNext,
         );
@@ -262,8 +271,8 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
       case StepType.timedMission:
         return StepTimedMission(
           step: step,
-          onCompleted: (timeSeconds, completed) =>
-              _onMissionCompleted(timeSeconds: timeSeconds, completed: completed),
+          onCompleted: (timeSeconds, completed) => _onMissionCompleted(
+              timeSeconds: timeSeconds, completed: completed),
         );
       case StepType.missionResults:
         return StepMissionResults(

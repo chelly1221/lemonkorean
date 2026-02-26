@@ -104,6 +104,7 @@ dev_dependencies:
   build_runner: ^2.4.7
   mockito: ^5.4.4
   analyzer: ^6.4.1
+  image: ^4.2.0
 
 dependency_overrides:
   record_linux: ^1.3.0
@@ -122,6 +123,8 @@ flutter:
     - assets/hangul/pronunciation/mouth/
     - assets/hangul/pronunciation/tongue/
     - assets/hangul/pronunciation/airflow/
+    # Pre-rendered stroke-order animations (uXXXX.webp/gif)
+    - assets/hangul/stroke_order/
     # Character customization assets
     - assets/character/body/
     - assets/character/hair/

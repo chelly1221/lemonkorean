@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../constants/app_constants.dart';
@@ -14,7 +13,6 @@ class SocketService {
 
   io.Socket? _socket;
   bool _isConnected = false;
-  String? _currentToken;
 
   bool get isConnected => _isConnected;
 
@@ -47,6 +45,8 @@ class SocketService {
   final _onVoiceStageRequest =
       StreamController<Map<String, dynamic>>.broadcast();
   final _onVoiceStageRequestCancelled =
+      StreamController<Map<String, dynamic>>.broadcast();
+  final _onVoiceStageRequestRejected =
       StreamController<Map<String, dynamic>>.broadcast();
   final _onVoiceStageGranted =
       StreamController<Map<String, dynamic>>.broadcast();
@@ -90,6 +90,8 @@ class SocketService {
       _onVoiceStageRequest.stream;
   Stream<Map<String, dynamic>> get onVoiceStageRequestCancelled =>
       _onVoiceStageRequestCancelled.stream;
+  Stream<Map<String, dynamic>> get onVoiceStageRequestRejected =>
+      _onVoiceStageRequestRejected.stream;
   Stream<Map<String, dynamic>> get onVoiceStageGranted =>
       _onVoiceStageGranted.stream;
   Stream<Map<String, dynamic>> get onVoiceStageRemoved =>
@@ -116,8 +118,7 @@ class SocketService {
         return;
       }
 
-      _currentToken = token;
-      final baseUrl = AppConstants.baseUrl;
+      const baseUrl = AppConstants.baseUrl;
 
       _socket = io.io(
         baseUrl,
@@ -259,6 +260,12 @@ class SocketService {
       }
     });
 
+    s.on('voice:stage_request_rejected', (data) {
+      if (data is Map) {
+        _onVoiceStageRequestRejected.add(Map<String, dynamic>.from(data));
+      }
+    });
+
     s.on('voice:stage_granted', (data) {
       if (data is Map) {
         _onVoiceStageGranted.add(Map<String, dynamic>.from(data));
@@ -394,7 +401,6 @@ class SocketService {
     _socket?.dispose();
     _socket = null;
     _isConnected = false;
-    _currentToken = null;
   }
 
   /// Dispose all stream controllers
@@ -417,6 +423,7 @@ class SocketService {
     _onVoiceRoleChanged.close();
     _onVoiceStageRequest.close();
     _onVoiceStageRequestCancelled.close();
+    _onVoiceStageRequestRejected.close();
     _onVoiceStageGranted.close();
     _onVoiceStageRemoved.close();
     _onVoiceCharacterPosition.close();

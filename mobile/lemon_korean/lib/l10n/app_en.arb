@@ -53,7 +53,7 @@
   "passwordRequirements": "Password Requirements",
   "@passwordRequirements": {"description": "Password requirements title"},
 
-  "minCharacters": "At least {count} characters",
+  "minCharacters": "{count, plural, one{At least {count} character} other{At least {count} characters}}",
   "@minCharacters": {
     "description": "Minimum characters requirement",
     "placeholders": {
@@ -88,7 +88,7 @@
   "loginFailed": "Login failed",
   "@loginFailed": {"description": "Login failed message"},
 
-  "networkError": "Network connection failed. Please check your network settings.",
+  "networkError": "Unable to connect. Please check your internet connection and try again.",
   "@networkError": {"description": "Network error message"},
 
   "invalidCredentials": "Invalid email or password",
@@ -100,7 +100,7 @@
   "requestTimeout": "Request timed out. Please try again.",
   "@requestTimeout": {"description": "Request timeout message"},
 
-  "operationFailed": "Operation failed. Please try again later.",
+  "operationFailed": "Something went wrong. Please try again later.",
   "@operationFailed": {"description": "Generic operation failed message"},
 
   "settings": "Settings",
@@ -142,7 +142,7 @@
   "dailyReminder": "Daily Reminder",
   "@dailyReminder": {"description": "Daily reminder toggle"},
 
-  "dailyReminderDesc": "Receive a reminder at a fixed time every day",
+  "dailyReminderDesc": "Get a daily reminder at your chosen time",
   "@dailyReminderDesc": {"description": "Daily reminder description"},
 
   "reminderTime": "Reminder Time",
@@ -159,7 +159,7 @@
   "reviewReminder": "Review Reminder",
   "@reviewReminder": {"description": "Review reminder toggle"},
 
-  "reviewReminderDesc": "Receive reminders based on memory curve",
+  "reviewReminderDesc": "Get review reminders based on spaced repetition",
   "@reviewReminderDesc": {"description": "Review reminder description"},
 
   "notificationTip": "Tip:",
@@ -252,7 +252,7 @@
   "appIntro": "App Introduction",
   "@appIntro": {"description": "App introduction label"},
 
-  "appIntroContent": "A Korean learning app designed for Chinese speakers, supporting offline learning, smart review reminders, and more.",
+  "appIntroContent": "A Korean learning app with offline learning, smart review reminders, and more.",
   "@appIntroContent": {"description": "App introduction content"},
 
   "termsOfService": "Terms of Service",
@@ -291,7 +291,7 @@
   "tomorrow": "Tomorrow",
   "@tomorrow": {"description": "Tomorrow"},
 
-  "daysLater": "{count} days later",
+  "daysLater": "{count, plural, one{In {count} day} other{In {count} days}}",
   "@daysLater": {
     "description": "Days later",
     "placeholders": {
@@ -326,9 +326,6 @@
   "lowSimilarity": "Low Similarity",
   "@lowSimilarity": {"description": "Low similarity level"},
 
-  "lessonComplete": "Lesson Complete!",
-  "@lessonComplete": {"description": "Lesson complete message"},
-
   "learningComplete": "Learning Complete",
   "@learningComplete": {"description": "Learning complete title"},
 
@@ -346,7 +343,7 @@
   "streakDays": "Streak +1 day",
   "@streakDays": {"description": "Streak days increased"},
 
-  "streakDaysCount": "{days} day streak",
+  "streakDaysCount": "{days, plural, one{Learning streak: {days} day} other{Learning streak: {days} days}}",
   "@streakDaysCount": {
     "description": "Streak days count",
     "placeholders": {
@@ -366,20 +363,11 @@
   "dialogues": "Dialogues",
   "@dialogues": {"description": "Dialogues label"},
 
-  "grammarExplanation": "Grammar Explanation",
-  "@grammarExplanation": {"description": "Grammar explanation title"},
-
-  "exampleSentences": "Example Sentences",
-  "@exampleSentences": {"description": "Example sentences label"},
-
   "previous": "Previous",
   "@previous": {"description": "Previous button"},
 
   "next": "Next",
   "@next": {"description": "Next button"},
-
-  "continueBtn": "Continue",
-  "@continueBtn": {"description": "Continue button"},
 
   "topicParticle": "Topic Particle",
   "@topicParticle": {"description": "Topic particle grammar"},
@@ -471,29 +459,17 @@
   "listening": "Listening",
   "@listening": {"description": "Listening question type"},
 
-  "fillBlank": "Fill in the Blank",
-  "@fillBlank": {"description": "Fill in blank question type"},
-
   "translation": "Translation",
   "@translation": {"description": "Translation question type"},
 
   "wordOrder": "Word Order",
   "@wordOrder": {"description": "Word order question type"},
 
-  "pronunciation": "Pronunciation",
-  "@pronunciation": {"description": "Pronunciation question type"},
-
   "excellent": "Excellent!",
   "@excellent": {"description": "Excellent feedback"},
 
   "correctOrderIs": "Correct order:",
   "@correctOrderIs": {"description": "Correct order is prefix"},
-
-  "correctAnswerIs": "Correct answer:",
-  "@correctAnswerIs": {"description": "Correct answer is prefix"},
-
-  "previousQuestion": "Previous Question",
-  "@previousQuestion": {"description": "Previous question button"},
 
   "nextQuestion": "Next Question",
   "@nextQuestion": {"description": "Next question button"},
@@ -601,7 +577,7 @@
   "dailyGoal": "Daily Goal",
   "@dailyGoal": {"description": "Daily goal title"},
 
-  "lessonsCompleted": "{count} lessons completed",
+  "lessonsCompleted": "{count, plural, one{{count} lesson completed} other{{count} lessons completed}}",
   "@lessonsCompleted": {
     "description": "Lessons completed count",
     "placeholders": {
@@ -609,7 +585,7 @@
     }
   },
 
-  "minutesLearned": "{minutes} minutes learned",
+  "minutesLearned": "{minutes, plural, one{{minutes} min studied} other{{minutes} min studied}}",
   "@minutesLearned": {
     "description": "Minutes learned count",
     "placeholders": {
@@ -716,7 +692,7 @@
   "freeUser": "Free User",
   "@freeUser": {"description": "Free user label"},
 
-  "wordsWaitingReview": "{count} words waiting for review",
+  "wordsWaitingReview": "{count, plural, one{{count} word to review} other{{count} words to review}}",
   "@wordsWaitingReview": {
     "description": "Words waiting for review",
     "placeholders": {
@@ -915,7 +891,7 @@
   "yesterday": "Yesterday",
   "@yesterday": {"description": "Yesterday"},
 
-  "daysAgo": "{count} days ago",
+  "daysAgo": "{count, plural, one{{count} day ago} other{{count} days ago}}",
   "@daysAgo": {
     "description": "Days ago",
     "placeholders": {
@@ -955,7 +931,7 @@
     }
   },
 
-  "confirmClearAllDownloads": "Are you sure you want to delete all {count} downloads?",
+  "confirmClearAllDownloads": "{count, plural, one{Are you sure you want to delete {count} download?} other{Are you sure you want to delete all {count} downloads?}}",
   "@confirmClearAllDownloads": {
     "description": "Confirm clear all downloads",
     "placeholders": {
@@ -985,7 +961,7 @@
   "searchWords": "Search words...",
   "@searchWords": {"description": "Search words placeholder"},
 
-  "wordCount": "{count} words",
+  "wordCount": "{count, plural, one{{count} word} other{{count} words}}",
   "@wordCount": {
     "description": "Word count",
     "placeholders": {
@@ -1026,7 +1002,7 @@
   "filterBeginner": "Beginner (Level 1)",
   "filterIntermediate": "Intermediate (Level 2-3)",
   "filterAdvanced": "Advanced (Level 4-5)",
-  "searchWordsNotesChinese": "Search words, Chinese, or notes...",
+  "searchWordsNotesChinese": "Search words, meaning, or notes...",
   "startReviewCount": "Start Review ({count})",
   "remove": "Remove",
   "confirmRemove": "Confirm Remove",
@@ -1034,15 +1010,27 @@
   "noBookmarkedWords": "No bookmarked words yet",
   "bookmarkHint": "Tap the bookmark icon on word cards while learning",
   "noMatchingWords": "No matching words found",
-  "weeksAgo": "{count} weeks ago",
+  "weeksAgo": "{count, plural, one{{count} week ago} other{{count} weeks ago}}",
+  "@weeksAgo": {
+    "description": "Weeks ago",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "reviewComplete": "Review Complete!",
-  "reviewCompleteCount": "Reviewed {count} words",
+  "reviewCompleteCount": "{count, plural, one{Reviewed {count} word} other{Reviewed {count} words}}",
+  "@reviewCompleteCount": {
+    "description": "Review complete word count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "correct": "Correct",
   "wrong": "Wrong",
   "accuracy": "Accuracy",
   "vocabularyBookReview": "Vocabulary Book Review",
   "noWordsToReview": "No words to review",
-  "bookmarkWordsToReview": "Bookmark words during learning to start reviewing",
+  "bookmarkWordsToReview": "Bookmark words while learning to review them later",
   "returnToVocabularyBook": "Return to Vocabulary Book",
   "exit": "Exit",
   "showAnswer": "Show Answer",
@@ -1064,7 +1052,13 @@
   "similarityPercent": "Similarity: {percent}%",
   "addedOrRemoved": "{added, select, true{Added to vocabulary book} other{Bookmark removed}}",
   "days": "days",
-  "lessonsCompletedCount": "{count} completed",
+  "lessonsCompletedCount": "{count, plural, one{{count} lesson completed} other{{count} lessons completed}}",
+  "@lessonsCompletedCount": {
+    "description": "Lessons completed count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "dailyGoalComplete": "Daily goal achieved!",
   "hangulAlphabet": "Hangul",
   "alphabetTable": "Table",
@@ -1077,7 +1071,13 @@
   "learned": "Learned",
   "dueForReview": "Due for Review",
   "overallAccuracy": "Overall accuracy: {percent}%",
-  "charactersCount": "{count} characters",
+  "charactersCount": "{count, plural, one{{count} character} other{{count} characters}}",
+  "@charactersCount": {
+    "description": "Characters count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "lesson1Title": "Lesson 1: Basic Consonants (1)",
   "lesson1Desc": "Learn 7 most common consonants",
   "lesson2Title": "Lesson 2: Basic Consonants (2)",
@@ -1092,11 +1092,10 @@
   "lesson6Desc": "Learn 6 compound vowels",
   "lesson7Title": "Lesson 7: Compound Vowels (2)",
   "lesson7Desc": "Learn remaining compound vowels",
-  "loadAlphabetFirst": "Please load alphabet data first",
+  "loadAlphabetFirst": "Please visit the Alphabet section first",
   "noContentForLesson": "No content for this lesson",
   "exampleWords": "Example Words",
   "thisLessonCharacters": "Characters in this lesson",
-  "lessonComplete": "Lesson Complete!",
   "congratsLessonComplete": "Congratulations on completing {title}!",
   "continuePractice": "Continue Practice",
   "nextLesson": "Next Lesson",
@@ -1105,9 +1104,9 @@
   "basicVowels": "Basic Vowels",
   "compoundVowels": "Compound Vowels",
   "dailyLearningReminderTitle": "Daily Learning Reminder",
-  "dailyLearningReminderBody": "Time to complete today's Korean study~",
+  "dailyLearningReminderBody": "Time to complete today's Korean study!",
   "reviewReminderTitle": "Time to Review!",
-  "reviewReminderBody": "Time to review \"{title}\"~",
+  "reviewReminderBody": "Time to review \"{title}\"!",
   "korean": "한국어",
   "english": "English",
   "japanese": "日本語",
@@ -1121,8 +1120,20 @@
   "learnedCount": "Learned: {count}",
 
   "hangulPractice": "Hangul Practice",
-  "charactersNeedReview": "{count} characters need review",
-  "charactersAvailable": "{count} characters available",
+  "charactersNeedReview": "{count, plural, one{{count} character needs review} other{{count} characters need review}}",
+  "@charactersNeedReview": {
+    "description": "Characters needing review count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "charactersAvailable": "{count, plural, one{{count} character available} other{{count} characters available}}",
+  "@charactersAvailable": {
+    "description": "Characters available count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "selectPracticeMode": "Select Practice Mode",
   "characterRecognition": "Character Recognition",
   "characterRecognitionDesc": "See the character, choose the correct pronunciation",
@@ -1144,11 +1155,17 @@
   "mnemonics": "Memory Tips",
   "nextReviewLabel": "Next review: {date}",
   "expired": "Expired",
-  "practiceFunctionDeveloping": "Practice function under development",
+  "practiceFunctionDeveloping": "Practice mode coming soon",
   "romanization": "Romanization: ",
   "pronunciationLabel": "Pronunciation: ",
   "playPronunciation": "Play pronunciation",
-  "strokesCount": "{count} strokes",
+  "strokesCount": "{count, plural, one{{count} stroke} other{{count} strokes}}",
+  "@strokesCount": {
+    "description": "Stroke count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "perfectCount": "Perfect",
   "loadFailed": "Load failed",
   "countUnit": "{count}",
@@ -1174,7 +1191,13 @@
   "noLessonContent": "No content available for this lesson",
   "stageProgress": "Stage {current} / {total}",
   "unknownStageType": "Unknown stage type: {type}",
-  "wordsCount": "{count} words",
+  "wordsCount": "{count, plural, one{{count} word} other{{count} words}}",
+  "@wordsCount": {
+    "description": "Words count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "startLearning": "Start Learning",
   "vocabularyLearning": "Vocabulary Learning",
   "noImage": "No image",
@@ -1234,7 +1257,7 @@
   "statusNotStarted": "Not Started",
   "statusInProgress": "In Progress",
   "statusCompleted": "Completed",
-  "statusFailed": "Failed",
+  "statusFailed": "Not Passed",
   "masteryNew": "New",
   "masteryLearning": "Learning",
   "masteryFamiliar": "Familiar",
@@ -1257,10 +1280,10 @@
   "reviewReminderChannel": "Review Reminder",
   "reviewReminderChannelDesc": "Spaced repetition based review reminders",
   "notificationStudyTime": "Time to study!",
-  "notificationStudyReminder": "Don't forget to complete your daily Korean practice~",
+  "notificationStudyReminder": "Don't forget to complete your daily Korean practice!",
   "notificationReviewTime": "Time to review!",
-  "notificationReviewReminder": "Let's review what you've learned before~",
-  "notificationReviewLesson": "Time to review \"{lessonTitle}\"~",
+  "notificationReviewReminder": "Let's review what you've learned!",
+  "notificationReviewLesson": "Time to review \"{lessonTitle}\"!",
 
   "keepGoing": "Keep going!",
   "scoreDisplay": "Score: {correct} / {total}",
@@ -1504,14 +1527,14 @@
       "count": {"type": "int"}
     }
   },
-  "commentsCount": "{count} comments",
+  "commentsCount": "{count, plural, one{{count} comment} other{{count} comments}}",
   "@commentsCount": {
     "description": "Comments count",
     "placeholders": {
       "count": {"type": "int"}
     }
   },
-  "followersCount": "{count} followers",
+  "followersCount": "{count, plural, one{{count} follower} other{{count} followers}}",
   "@followersCount": {
     "description": "Followers count",
     "placeholders": {
@@ -1529,7 +1552,7 @@
   "@findFriends": {"description": "Find friends button"},
   "addPhotos": "Add Photos",
   "@addPhotos": {"description": "Add photos button"},
-  "maxPhotos": "Maximum {count} photos",
+  "maxPhotos": "{count, plural, one{Max {count} photo} other{Max {count} photos}}",
   "@maxPhotos": {
     "description": "Maximum photos message",
     "placeholders": {
@@ -1581,7 +1604,7 @@
   "beginner": "Beginner",
   "intermediate": "Intermediate",
   "advanced": "Advanced",
-  "stageSlots": "Stage Slots",
+  "stageSlots": "Max Speakers",
   "anyoneCanListen": "Anyone can join to listen",
   "createAndJoin": "Create & Join",
   "unmute": "Unmute",
@@ -1602,11 +1625,267 @@
   "stageRequests": "Stage Requests",
   "noPendingRequests": "No pending requests",
   "onStage": "On Stage",
+  "voiceRoomMicPermission": "Microphone permission is required for voice rooms",
+  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "voiceRoomEnterTitle": "Please enter a room title",
+  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "voiceRoomCreateFailed": "Failed to create room",
+  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "voiceRoomNotAvailable": "Room not available",
+  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "voiceRoomGoBack": "Go Back",
+  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "voiceRoomConnecting": "Connecting...",
+  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "voiceRoomReconnecting": "Reconnecting ({attempts}/{max})...",
+  "@voiceRoomReconnecting": {
+    "description": "Reconnection status with attempt count",
+    "placeholders": {
+      "attempts": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "voiceRoomDisconnected": "Disconnected",
+  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "voiceRoomRetry": "Retry",
+  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "voiceRoomHostLabel": "(Host)",
+  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "voiceRoomDemoteToListener": "Demote to listener",
+  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "voiceRoomKickFromRoom": "Kick from room",
+  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "voiceRoomListeners": "Listeners",
+  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "voiceRoomInviteToStage": "Invite to Stage",
+  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "voiceRoomInviteConfirm": "Invite {name} to speak on stage?",
+  "@voiceRoomInviteConfirm": {
+    "description": "Confirmation message for stage invitation",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomInvite": "Invite",
+  "@voiceRoomInvite": {"description": "Invite button label"},
+  "voiceRoomCloseConfirmTitle": "Close Room?",
+  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "voiceRoomCloseConfirmBody": "This will end the call for everyone.",
+  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "voiceRoomNoMessagesYet": "No messages yet",
+  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "voiceRoomTypeMessage": "Type a message...",
+  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "voiceRoomStageFull": "Stage Full",
+  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "voiceRoomListenerCount": "{count, plural, one{{count} listener} other{{count} listeners}}",
+  "@voiceRoomListenerCount": {
+    "description": "Listener count for accessibility",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "voiceRoomRemoveFromStage": "Remove from Stage?",
+  "@voiceRoomRemoveFromStage": {"description": "Confirm demote dialog title"},
+  "voiceRoomRemoveFromStageConfirm": "Remove {name} from stage? They will become a listener.",
+  "@voiceRoomRemoveFromStageConfirm": {
+    "description": "Confirm demote dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomDemote": "Demote",
+  "@voiceRoomDemote": {"description": "Demote button label"},
+  "voiceRoomRemoveFromRoom": "Remove from Room?",
+  "@voiceRoomRemoveFromRoom": {"description": "Confirm kick dialog title"},
+  "voiceRoomRemoveFromRoomConfirm": "Remove {name} from the room? They will be disconnected.",
+  "@voiceRoomRemoveFromRoomConfirm": {
+    "description": "Confirm kick dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomRemove": "Remove",
+  "@voiceRoomRemove": {"description": "Remove button label"},
+  "voiceRoomPressBackToLeave": "Press back again to leave",
+  "@voiceRoomPressBackToLeave": {"description": "Double-tap back to leave snackbar"},
+  "voiceRoomLeaveTitle": "Leave Room?",
+  "@voiceRoomLeaveTitle": {"description": "Leave room confirmation dialog title"},
+  "voiceRoomLeaveBody": "You are currently on stage. Are you sure you want to leave?",
+  "@voiceRoomLeaveBody": {"description": "Leave room confirmation dialog body"},
+
+  "voiceRoomReturningToList": "Returning to room list...",
+  "@voiceRoomReturningToList": {"description": "Auto-navigation message when room is closed"},
+  "voiceRoomConnected": "Connected!",
+  "@voiceRoomConnected": {"description": "Banner shown briefly after reconnecting"},
+  "voiceRoomStageFailedToLoad": "Stage failed to load",
+  "@voiceRoomStageFailedToLoad": {"description": "Error when stage game fails to initialize"},
+  "voiceRoomPreparingStage": "Preparing stage...",
+  "@voiceRoomPreparingStage": {"description": "Loading indicator while stage initializes"},
+  "voiceRoomAcceptToStage": "Accept {name} to stage",
+  "@voiceRoomAcceptToStage": {
+    "description": "Tooltip for accepting a stage request",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomRejectFromStage": "Reject {name}",
+  "@voiceRoomRejectFromStage": {
+    "description": "Tooltip for rejecting a stage request",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomQuickCreate": "Quick Create",
+  "@voiceRoomQuickCreate": {"description": "Quick create templates section title"},
+  "voiceRoomRoomType": "Room Type",
+  "@voiceRoomRoomType": {"description": "Room type selector label"},
+  "voiceRoomSessionDuration": "Session Duration",
+  "@voiceRoomSessionDuration": {"description": "Session duration selector label"},
+  "voiceRoomOptionalTimer": "Optional timer for the session",
+  "@voiceRoomOptionalTimer": {"description": "Session duration helper text"},
+  "voiceRoomDurationNone": "None",
+  "@voiceRoomDurationNone": {"description": "No duration limit option"},
+  "voiceRoomDuration15": "15 min",
+  "@voiceRoomDuration15": {"description": "15 minute duration option"},
+  "voiceRoomDuration30": "30 min",
+  "@voiceRoomDuration30": {"description": "30 minute duration option"},
+  "voiceRoomDuration45": "45 min",
+  "@voiceRoomDuration45": {"description": "45 minute duration option"},
+  "voiceRoomDuration60": "60 min",
+  "@voiceRoomDuration60": {"description": "60 minute duration option"},
+  "voiceRoomTypeFreeTalk": "Free Talk",
+  "@voiceRoomTypeFreeTalk": {"description": "Free talk room type label"},
+  "voiceRoomTypePronunciation": "Pronunciation",
+  "@voiceRoomTypePronunciation": {"description": "Pronunciation practice room type label"},
+  "voiceRoomTypeRolePlay": "Role Play",
+  "@voiceRoomTypeRolePlay": {"description": "Role play room type label"},
+  "voiceRoomTypeQnA": "Q&A",
+  "@voiceRoomTypeQnA": {"description": "Q&A room type label"},
+  "voiceRoomTypeListening": "Listening",
+  "@voiceRoomTypeListening": {"description": "Listening practice room type label"},
+  "voiceRoomTypeDebate": "Debate",
+  "@voiceRoomTypeDebate": {"description": "Debate room type label"},
+  "voiceRoomTemplateFreeTalk": "Korean Free Talk",
+  "@voiceRoomTemplateFreeTalk": {"description": "Quick create template: free talk"},
+  "voiceRoomTemplatePronunciation": "Pronunciation Practice",
+  "@voiceRoomTemplatePronunciation": {"description": "Quick create template: pronunciation"},
+  "voiceRoomTemplateDailyKorean": "Daily Korean",
+  "@voiceRoomTemplateDailyKorean": {"description": "Quick create template: daily Korean"},
+  "voiceRoomTemplateTopikSpeaking": "TOPIK Speaking",
+  "@voiceRoomTemplateTopikSpeaking": {"description": "Quick create template: TOPIK speaking"},
+  "voiceRoomCreateTooltip": "Create voice room",
+  "@voiceRoomCreateTooltip": {"description": "FAB tooltip for creating a voice room"},
+  "voiceRoomSendReaction": "Send reaction",
+  "@voiceRoomSendReaction": {"description": "Semantic label for reaction button"},
+  "voiceRoomLeaveRoom": "Leave room",
+  "@voiceRoomLeaveRoom": {"description": "Semantic label for leave room button"},
+  "voiceRoomUnmuteMic": "Unmute microphone",
+  "@voiceRoomUnmuteMic": {"description": "Semantic label for unmute button"},
+  "voiceRoomMuteMic": "Mute microphone",
+  "@voiceRoomMuteMic": {"description": "Semantic label for mute button"},
+  "voiceRoomCancelHandRaise": "Cancel hand raise",
+  "@voiceRoomCancelHandRaise": {"description": "Semantic label for cancelling hand raise"},
+  "voiceRoomRaiseHandSemantic": "Raise hand",
+  "@voiceRoomRaiseHandSemantic": {"description": "Semantic label for raising hand"},
+  "voiceRoomSendGesture": "Send gesture",
+  "@voiceRoomSendGesture": {"description": "Semantic label for gesture button"},
+  "voiceRoomLeaveStageAction": "Leave stage",
+  "@voiceRoomLeaveStageAction": {"description": "Semantic label for leave stage button"},
+  "voiceRoomManageStage": "Manage stage",
+  "@voiceRoomManageStage": {"description": "Semantic label for manage stage button"},
+  "voiceRoomMoreOptions": "More options",
+  "@voiceRoomMoreOptions": {"description": "Tooltip and semantic label for overflow menu"},
+  "voiceRoomMore": "More",
+  "@voiceRoomMore": {"description": "Label under overflow menu button"},
+  "voiceRoomStageWithSpeakers": "Voice room stage with speakers",
+  "@voiceRoomStageWithSpeakers": {"description": "Semantic label for the stage area"},
+  "voiceRoomStageRequestsPending": "Stage requests, {count} pending",
+  "@voiceRoomStageRequestsPending": {
+    "description": "Semantic label for stage requests badge",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "voiceRoomSpeakerListenerCount": "{speakers} of {maxSpeakers} speakers, {listeners} listeners",
+  "@voiceRoomSpeakerListenerCount": {
+    "description": "Semantic label for speaker and listener count",
+    "placeholders": {
+      "speakers": {"type": "int"},
+      "maxSpeakers": {"type": "int"},
+      "listeners": {"type": "int"}
+    }
+  },
+  "voiceRoomChatInput": "Chat message input",
+  "@voiceRoomChatInput": {"description": "Semantic label for chat input field"},
+  "voiceRoomSendMessage": "Send message",
+  "@voiceRoomSendMessage": {"description": "Semantic label for send message button"},
+  "voiceRoomSendReactionNamed": "Send {name} reaction",
+  "@voiceRoomSendReactionNamed": {
+    "description": "Semantic label for specific reaction button",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomCloseReactionTray": "Close reaction tray",
+  "@voiceRoomCloseReactionTray": {"description": "Semantic label for closing reaction tray"},
+  "voiceRoomPerformGesture": "Perform {name} gesture",
+  "@voiceRoomPerformGesture": {
+    "description": "Semantic label for specific gesture button",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomCloseGestureTray": "Close gesture tray",
+  "@voiceRoomCloseGestureTray": {"description": "Semantic label for closing gesture tray"},
+  "voiceRoomGestureWave": "Wave",
+  "@voiceRoomGestureWave": {"description": "Wave gesture label"},
+  "voiceRoomGestureBow": "Bow",
+  "@voiceRoomGestureBow": {"description": "Bow gesture label"},
+  "voiceRoomGestureDance": "Dance",
+  "@voiceRoomGestureDance": {"description": "Dance gesture label"},
+  "voiceRoomGestureJump": "Jump",
+  "@voiceRoomGestureJump": {"description": "Jump gesture label"},
+  "voiceRoomGestureClap": "Clap",
+  "@voiceRoomGestureClap": {"description": "Clap gesture label"},
+  "voiceRoomStageLabel": "STAGE",
+  "@voiceRoomStageLabel": {"description": "Label text displayed on the stage area"},
+  "voiceRoomYouLabel": "(You)",
+  "@voiceRoomYouLabel": {"description": "Label appended to own character name on stage"},
+  "voiceRoomListenerTapToManage": "Listener {name}, tap to manage",
+  "@voiceRoomListenerTapToManage": {
+    "description": "Semantic label for listener avatar when host can manage",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomListenerName": "Listener {name}",
+  "@voiceRoomListenerName": {
+    "description": "Semantic label for listener avatar",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomMicPermissionDenied": "Microphone access was denied. To use voice features, please enable it in your device settings.",
+  "@voiceRoomMicPermissionDenied": {"description": "Detailed mic permission denied message for dialog"},
+  "voiceRoomMicPermissionTitle": "Microphone Permission",
+  "@voiceRoomMicPermissionTitle": {"description": "Mic permission dialog title"},
+  "voiceRoomOpenSettings": "Open Settings",
+  "@voiceRoomOpenSettings": {"description": "Button to open device settings for permissions"},
+  "voiceRoomMicNeededForStage": "Microphone permission is needed to speak on stage",
+  "@voiceRoomMicNeededForStage": {"description": "Snackbar message when mic denied while raising hand"},
 
   "batchimDescriptionText": "Korean final consonants (batchim) are pronounced as 7 sounds.\nMultiple batchim sharing the same pronunciation are called \"representative sounds\".",
   "syllableInputLabel": "Enter syllable",
   "syllableInputHint": "e.g. 한",
-  "totalPracticedCount": "Total: {count} characters practiced",
+  "totalPracticedCount": "{count, plural, one{Total: {count} character practiced} other{Total: {count} characters practiced}}",
+  "@totalPracticedCount": {
+    "description": "Total practiced characters count",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "audioLoadError": "Failed to load audio",
   "writingPracticeCompleteMessage": "Writing practice complete!",
   "sevenRepresentativeSounds": "7 Representative Sounds",
@@ -1645,7 +1924,7 @@
   "owned": "Owned",
   "free": "Free",
   "comingSoon": "Coming soon!",
-  "balanceLemons": "Balance: {count} lemons",
+  "balanceLemons": "{count, plural, one{Balance: {count} lemon} other{Balance: {count} lemons}}",
   "@balanceLemons": {
     "description": "Lemon balance display",
     "placeholders": {
@@ -1661,14 +1940,14 @@
   "@hangulStartLearning": {"description": "Hangul dashboard CTA for beginners"},
   "hangulLearnNext": "Learn Next",
   "@hangulLearnNext": {"description": "Hangul dashboard CTA to learn next character"},
-  "hangulLearnedCount": "{count}/40 letters learned!",
+  "hangulLearnedCount": "{count, plural, one{{count}/40 letter learned!} other{{count}/40 letters learned!}}",
   "@hangulLearnedCount": {
     "description": "Hangul dashboard learned count",
     "placeholders": {
       "count": {"type": "int"}
     }
   },
-  "hangulReviewNeeded": "{count} letters due for review today!",
+  "hangulReviewNeeded": "{count, plural, one{{count} letter due for review today!} other{{count} letters due for review today!}}",
   "@hangulReviewNeeded": {
     "description": "Hangul dashboard review needed message",
     "placeholders": {
@@ -1684,5 +1963,37 @@
   "hangulMastered": "Congratulations! You've mastered Hangul!",
   "@hangulMastered": {"description": "Hangul dashboard mastery congratulation"},
   "hangulGoToLevel1": "Go to Level 1",
-  "@hangulGoToLevel1": {"description": "Hangul dashboard CTA to proceed to level 1"}
+  "@hangulGoToLevel1": {"description": "Hangul dashboard CTA to proceed to level 1"},
+  "completedLessonsLabel": "Completed",
+  "wordsLearnedLabel": "Words",
+  "totalStudyTimeLabel": "Study Time",
+  "streakDetails": "Streak Details",
+  "consecutiveDays": "Consecutive Days",
+  "totalStudyDaysLabel": "Total Study Days",
+  "studyRecord": "Study Record",
+  "noFriendsPrompt": "Find friends to study together!",
+  "moreStats": "View All",
+  "remainingLessons": "{count} more to reach today's goal!",
+  "@remainingLessons": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "streakMotivation0": "Start learning today!",
+  "streakMotivation1": "Great start! Keep going!",
+  "streakMotivation7": "Over a week of learning! Amazing!",
+  "streakMotivation14": "Two weeks strong! It's becoming a habit!",
+  "streakMotivation30": "Over a month! You're a true learner!",
+  "minutesShort": "{count}m",
+  "@minutesShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hoursShort": "{count}h",
+  "@hoursShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

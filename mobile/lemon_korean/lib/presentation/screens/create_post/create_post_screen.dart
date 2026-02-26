@@ -8,7 +8,8 @@ import '../../providers/feed_provider.dart';
 import 'widgets/image_picker_grid.dart';
 
 /// Post creation screen
-/// Allows users to compose a new post with text content, category, and images
+/// Allows users to compose a new post with text content, category, images,
+/// learning templates, and tags
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
 
@@ -18,12 +19,31 @@ class CreatePostScreen extends StatefulWidget {
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
   final TextEditingController _contentController = TextEditingController();
+  final TextEditingController _tagController = TextEditingController();
   final FocusNode _contentFocusNode = FocusNode();
+  final FocusNode _tagFocusNode = FocusNode();
   String _selectedCategory = 'general';
+  String? _selectedTemplate;
   final List<String> _imageUrls = [];
+  final List<String> _tags = [];
   bool _isPosting = false;
+  bool _isAddingTag = false;
 
   static const int _maxContentLength = 500;
+  static const int _maxTags = 5;
+
+  // Learning templates
+  static const Map<String, String> _learningTemplates = {
+    'Today I Learned': '\u{1f4dd} Today I learned:\n\n\u{1f1f0}\u{1f1f7} Korean: \n\u{1f310} Meaning: \n\u{270f}\u{fe0f} Example: \n\n',
+    'Practice Writing': '\u{270d}\u{fe0f} Practice writing:\n\n',
+    'Question': '\u{2753} Question:\n\n',
+  };
+
+  // Suggested tags by category
+  static const Map<String, List<String>> _suggestedTags = {
+    'learning': ['hangul', 'grammar', 'vocabulary', 'pronunciation', 'practice'],
+    'general': ['culture', 'kdrama', 'kpop', 'food', 'travel'],
+  };
 
   @override
   void initState() {
@@ -36,7 +56,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   void dispose() {
     _contentController.dispose();
+    _tagController.dispose();
     _contentFocusNode.dispose();
+    _tagFocusNode.dispose();
     super.dispose();
   }
 
@@ -45,6 +67,53 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   int get _remainingChars =>
       _maxContentLength - _contentController.text.length;
+
+  void _applyTemplate(String templateName) {
+    final template = _learningTemplates[templateName];
+    if (template == null) return;
+
+    setState(() {
+      _selectedTemplate = templateName;
+    });
+
+    _contentController.text = template;
+
+    // Place cursor at a useful position (after the first placeholder)
+    // Find the first colon-space pattern where user should type
+    final colonIndex = template.indexOf(': \n');
+    if (colonIndex != -1) {
+      _contentController.selection = TextSelection.collapsed(
+        offset: colonIndex + 2,
+      );
+    } else {
+      // Place cursor at end
+      _contentController.selection = TextSelection.collapsed(
+        offset: template.length,
+      );
+    }
+
+    _contentFocusNode.requestFocus();
+  }
+
+  void _addTag(String tag) {
+    // Strip # prefix and lowercase
+    tag = tag.replaceAll('#', '').trim().toLowerCase();
+    if (tag.isEmpty) return;
+    if (_tags.length >= _maxTags) return;
+    if (_tags.contains(tag)) return;
+
+    setState(() {
+      _tags.add(tag);
+      _tagController.clear();
+      _isAddingTag = false;
+    });
+  }
+
+  void _removeTag(String tag) {
+    setState(() {
+      _tags.remove(tag);
+    });
+  }
 
   Future<void> _submitPost() async {
     if (!_canSubmit) return;
@@ -60,6 +129,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       content: _contentController.text.trim(),
       category: _selectedCategory,
       imageUrls: _imageUrls,
+      tags: _tags,
     );
 
     if (!mounted) return;
@@ -148,15 +218,33 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
             const SizedBox(height: AppConstants.paddingMedium),
 
+            // Learning templates (only when learning category selected)
+            if (_selectedCategory == 'learning') ...[
+              _buildTemplateSelector(),
+              const SizedBox(height: AppConstants.paddingMedium),
+            ],
+
             // Content text field
             _buildContentField(l10n),
 
-            const SizedBox(height: AppConstants.paddingMedium),
+            const SizedBox(height: AppConstants.paddingSmall),
 
             // Character counter
             _buildCharacterCounter(),
 
+            const SizedBox(height: AppConstants.paddingMedium),
+
+            // Tags section
+            _buildTagsSection(),
+
             const SizedBox(height: AppConstants.paddingLarge),
+
+            // Post preview
+            if (_contentController.text.trim().isNotEmpty)
+              _buildPostPreview(),
+
+            if (_contentController.text.trim().isNotEmpty)
+              const SizedBox(height: AppConstants.paddingLarge),
 
             // Image picker
             ImagePickerGrid(
@@ -224,7 +312,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          final previousCategory = _selectedCategory;
           _selectedCategory = value;
+          // Clear template selection when switching away from learning
+          if (previousCategory == 'learning' && value != 'learning') {
+            _selectedTemplate = null;
+          }
         });
       },
       child: AnimatedContainer(
@@ -273,6 +366,94 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     );
   }
 
+  Widget _buildTemplateSelector() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Templates',
+          style: TextStyle(
+            fontSize: AppConstants.fontSizeMedium,
+            fontWeight: FontWeight.w600,
+            color: AppConstants.textPrimary,
+          ),
+        ),
+        const SizedBox(height: AppConstants.paddingSmall),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: _learningTemplates.keys.map((name) {
+              final isSelected = _selectedTemplate == name;
+              return Padding(
+                padding: const EdgeInsets.only(right: AppConstants.paddingSmall),
+                child: GestureDetector(
+                  onTap: () => _applyTemplate(name),
+                  child: AnimatedContainer(
+                    duration: AppConstants.animationFast,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? AppConstants.infoColor.withValues(alpha: 0.15)
+                          : Colors.grey.shade50,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                      border: Border.all(
+                        color: isSelected
+                            ? AppConstants.infoColor
+                            : Colors.grey.shade300,
+                        width: isSelected ? 1.5 : 1,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _templateIcon(name),
+                          size: 16,
+                          color: isSelected
+                              ? AppConstants.infoColor
+                              : AppConstants.textSecondary,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: AppConstants.fontSizeSmall,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                            color: isSelected
+                                ? AppConstants.infoColor
+                                : AppConstants.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    ).animate().fadeIn(duration: 200.ms).slideY(begin: -0.1, end: 0);
+  }
+
+  IconData _templateIcon(String templateName) {
+    switch (templateName) {
+      case 'Today I Learned':
+        return Icons.lightbulb_outline;
+      case 'Practice Writing':
+        return Icons.edit_outlined;
+      case 'Question':
+        return Icons.help_outline;
+      default:
+        return Icons.article_outlined;
+    }
+  }
+
   Widget _buildContentField(AppLocalizations? l10n) {
     return TextField(
       controller: _contentController,
@@ -315,8 +496,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   Widget _buildCharacterCounter() {
-    final isNearLimit = _remainingChars <= 50;
     final isOverLimit = _remainingChars < 0;
+    final isDanger = _remainingChars < 20;
+    final isWarning = _remainingChars < 50;
+
+    Color counterColor;
+    if (isOverLimit || isDanger) {
+      counterColor = AppConstants.errorColor;
+    } else if (isWarning) {
+      counterColor = AppConstants.warningColor;
+    } else {
+      counterColor = AppConstants.textSecondary;
+    }
 
     return Align(
       alignment: Alignment.centerRight,
@@ -324,13 +515,341 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         '$_remainingChars',
         style: TextStyle(
           fontSize: AppConstants.fontSizeSmall,
-          color: isOverLimit
-              ? AppConstants.errorColor
-              : isNearLimit
-                  ? AppConstants.warningColor
-                  : AppConstants.textSecondary,
-          fontWeight: isNearLimit ? FontWeight.bold : FontWeight.normal,
+          color: counterColor,
+          fontWeight: isWarning ? FontWeight.bold : FontWeight.normal,
         ),
+      ),
+    );
+  }
+
+  // ================================================================
+  // TAGS SECTION
+  // ================================================================
+
+  Widget _buildTagsSection() {
+    final suggestions = _suggestedTags[_selectedCategory] ?? [];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(
+              Icons.tag,
+              size: 20,
+              color: AppConstants.textSecondary,
+            ),
+            const SizedBox(width: AppConstants.paddingSmall),
+            const Text(
+              'Tags',
+              style: TextStyle(
+                fontSize: AppConstants.fontSizeMedium,
+                fontWeight: FontWeight.w600,
+                color: AppConstants.textPrimary,
+              ),
+            ),
+            const SizedBox(width: AppConstants.paddingSmall),
+            Text(
+              '${_tags.length}/$_maxTags',
+              style: const TextStyle(
+                fontSize: AppConstants.fontSizeSmall,
+                color: AppConstants.textSecondary,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppConstants.paddingSmall),
+
+        // Added tags
+        if (_tags.isNotEmpty)
+          Wrap(
+            spacing: AppConstants.paddingSmall,
+            runSpacing: AppConstants.paddingSmall,
+            children: _tags.map((tag) {
+              return Chip(
+                label: Text(
+                  '#$tag',
+                  style: const TextStyle(
+                    fontSize: AppConstants.fontSizeSmall,
+                    color: AppConstants.textPrimary,
+                  ),
+                ),
+                deleteIcon: const Icon(Icons.close, size: 16),
+                deleteIconColor: AppConstants.textSecondary,
+                onDeleted: () => _removeTag(tag),
+                backgroundColor: AppConstants.primaryColor.withValues(alpha: 0.15),
+                side: BorderSide(
+                  color: AppConstants.primaryColor.withValues(alpha: 0.4),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                ),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                visualDensity: VisualDensity.compact,
+              );
+            }).toList(),
+          ),
+
+        // Suggested tags (show when no tags added yet)
+        if (_tags.isEmpty && suggestions.isNotEmpty) ...[
+          const SizedBox(height: AppConstants.paddingSmall),
+          Text(
+            'Suggested',
+            style: TextStyle(
+              fontSize: AppConstants.fontSizeSmall,
+              color: Colors.grey.shade500,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Wrap(
+            spacing: AppConstants.paddingSmall,
+            runSpacing: AppConstants.paddingSmall,
+            children: suggestions.map((tag) {
+              return GestureDetector(
+                onTap: () => _addTag(tag),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade50,
+                    borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                  child: Text(
+                    '#$tag',
+                    style: TextStyle(
+                      fontSize: AppConstants.fontSizeSmall,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+
+        const SizedBox(height: AppConstants.paddingSmall),
+
+        // Add tag input or button
+        if (_tags.length < _maxTags)
+          _isAddingTag
+              ? _buildTagInput()
+              : GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isAddingTag = true;
+                    });
+                    // Focus on next frame after build
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _tagFocusNode.requestFocus();
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade50,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.add,
+                          size: 16,
+                          color: Colors.grey.shade600,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Add tag',
+                          style: TextStyle(
+                            fontSize: AppConstants.fontSizeSmall,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+      ],
+    );
+  }
+
+  Widget _buildTagInput() {
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: 36,
+            child: TextField(
+              controller: _tagController,
+              focusNode: _tagFocusNode,
+              textInputAction: TextInputAction.done,
+              style: const TextStyle(fontSize: AppConstants.fontSizeSmall),
+              decoration: InputDecoration(
+                hintText: 'Type a tag...',
+                hintStyle: TextStyle(
+                  fontSize: AppConstants.fontSizeSmall,
+                  color: Colors.grey.shade400,
+                ),
+                prefixText: '# ',
+                prefixStyle: TextStyle(
+                  fontSize: AppConstants.fontSizeSmall,
+                  color: Colors.grey.shade500,
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 0,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                  borderSide: const BorderSide(
+                    color: AppConstants.primaryColor,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              onSubmitted: (value) {
+                if (value.trim().isNotEmpty) {
+                  _addTag(value);
+                } else {
+                  setState(() {
+                    _isAddingTag = false;
+                  });
+                }
+              },
+            ),
+          ),
+        ),
+        const SizedBox(width: AppConstants.paddingSmall),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _tagController.clear();
+              _isAddingTag = false;
+            });
+          },
+          child: Icon(
+            Icons.close,
+            size: 20,
+            color: Colors.grey.shade500,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ================================================================
+  // POST PREVIEW
+  // ================================================================
+
+  Widget _buildPostPreview() {
+    final content = _contentController.text.trim();
+    // Show first 2 lines of content
+    final lines = content.split('\n');
+    final previewLines = lines.take(2).join('\n');
+    final hasMore = lines.length > 2;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Preview header
+          Row(
+            children: [
+              Icon(
+                Icons.preview_outlined,
+                size: 14,
+                color: Colors.grey.shade500,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Preview',
+                style: TextStyle(
+                  fontSize: AppConstants.fontSizeSmall,
+                  color: Colors.grey.shade500,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+
+          // Category badge
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(
+              color: _selectedCategory == 'learning'
+                  ? AppConstants.infoColor.withValues(alpha: 0.1)
+                  : AppConstants.secondaryColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
+            ),
+            child: Text(
+              _selectedCategory == 'learning' ? 'Learning' : 'General',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: _selectedCategory == 'learning'
+                    ? AppConstants.infoColor
+                    : AppConstants.secondaryColor,
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+
+          // Content preview (first 2 lines)
+          Text(
+            hasMore ? '$previewLines...' : previewLines,
+            style: const TextStyle(
+              fontSize: AppConstants.fontSizeSmall,
+              color: AppConstants.textPrimary,
+              height: 1.4,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+          // Tags preview
+          if (_tags.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Wrap(
+              spacing: 4,
+              children: _tags.map((tag) {
+                return Text(
+                  '#$tag',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: AppConstants.infoColor.withValues(alpha: 0.8),
+                    fontWeight: FontWeight.w500,
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+        ],
       ),
     );
   }

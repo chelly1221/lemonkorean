@@ -8,9 +8,9 @@ import 'hangul_stats_bar.dart';
 /// Displays hangul stages as a zigzag vertical learning path with lemon-shaped
 /// nodes connected by S-curve lines. Includes a BOSS node at the end.
 class HangulStagePathView extends StatelessWidget {
-  final List<({int stage, String title, String subtitle})> stages; // 9 items
-  final List<double> stageProgress; // 9 items, mastery 0-5
-  final List<StageVisualState> stageStates; // 9 items
+  final List<({int stage, String title, String subtitle})> stages; // 11 items
+  final List<double> stageProgress; // 11 items, mastery 0-5
+  final List<StageVisualState> stageStates; // 11 items
   final Color levelColor;
   final void Function(int stageIndex) onStageTap;
   final VoidCallback? onBossTap;
@@ -45,7 +45,7 @@ class HangulStagePathView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalNodes = stages.length + 1; // 9 stages + 1 BOSS
+    final totalNodes = stages.length + 1; // 11 stages + 1 BOSS
 
     return Center(
       child: ConstrainedBox(
@@ -85,7 +85,7 @@ class HangulStagePathView extends StatelessWidget {
                     ),
                   ),
 
-                  // Stage nodes (0-8)
+                  // Stage nodes (0-10)
                   for (int i = 0; i < stages.length; i++)
                     Positioned(
                       left: nodePositions[i].dx -
@@ -115,7 +115,7 @@ class HangulStagePathView extends StatelessWidget {
                           ),
                     ),
 
-                  // BOSS node (index 9)
+                  // BOSS node (index 11)
                   Positioned(
                     left: nodePositions[totalNodes - 1].dx -
                         BossQuizNode.nodeWidth / 2,
@@ -153,7 +153,7 @@ class HangulStagePathView extends StatelessWidget {
 /// Paints S-curve connection lines between consecutive nodes.
 class _HangulPathPainter extends CustomPainter {
   final List<Offset> nodePositions;
-  final List<double> stageProgress; // mastery 0-5 for 9 stages
+  final List<double> stageProgress; // mastery 0-5 for 11 stages
   final Color levelColor;
 
   _HangulPathPainter({

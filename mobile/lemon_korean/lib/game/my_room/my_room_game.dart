@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flame/events.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 
 import '../../data/models/character_item_model.dart';
@@ -28,6 +31,10 @@ class MyRoomGame extends FlameGame with TapCallbacks {
   late FloorComponent _floor;
   late ParticleManager _particles;
   PixelPet? _pet;
+  List<CharacterItemModel>? _pendingEquippedItems;
+  String? _pendingSkinColor;
+  bool _isApplyingEquipment = false;
+  StreamSubscription<GameEvent>? _gameEventsSub;
 
   MyRoomGame({
     required this.bridge,
@@ -41,18 +48,21 @@ class MyRoomGame extends FlameGame with TapCallbacks {
 
   @override
   Future<void> onLoad() async {
+    // This project uses full asset keys like "assets/...".
+    Flame.images.prefix = '';
+
     // Background
-    add(RoomBackground(assetKey: wallpaperAssetKey));
+    await add(RoomBackground(assetKey: wallpaperAssetKey));
 
     // Floor
     _floor = FloorComponent(assetKey: floorAssetKey);
-    add(_floor);
+    await add(_floor);
 
     // Furniture
     for (final f in furnitureData) {
       final posX = (f['position_x'] as double?) ?? 0.5;
       final posY = (f['position_y'] as double?) ?? 0.7;
-      add(FurnitureComponent(
+      await add(FurnitureComponent(
         furnitureId: f['id'] as int? ?? 0,
         assetKey: f['asset_key'] as String?,
         interactionType: f['interaction_type'] as String?,
@@ -62,24 +72,15 @@ class MyRoomGame extends FlameGame with TapCallbacks {
     }
 
     // Character (centered on floor)
-    final spritesheetItems = initialEquippedItems
-        .where((i) => i.isCharacterPart)
-        .toList();
+    final spritesheetItems =
+        initialEquippedItems.where((i) => i.isCharacterPart).toList();
 
-    _character = PixelCharacter(
+    _character = _createCharacter(
       equippedItems: spritesheetItems,
       skinColor: initialSkinColor,
       position: Vector2(size.x * 0.5, size.y * 0.78),
     );
-    _character.priority = 100;
-    _character.onPositionChanged = (x, y, dir) {
-      bridge.sendToFlutter(LocalCharacterMoved(
-        x: x / size.x,
-        y: y / size.y,
-        direction: dir,
-      ));
-    };
-    add(_character);
+    await add(_character);
 
     // Pet
     if (petAssetKey != null) {
@@ -89,21 +90,52 @@ class MyRoomGame extends FlameGame with TapCallbacks {
         position: Vector2(size.x * 0.6, size.y * 0.8),
       );
       _pet!.priority = 99;
-      add(_pet!);
+      await add(_pet!);
     }
 
     // Particle manager
     _particles = ParticleManager();
-    add(_particles);
+    await add(_particles);
 
     // Ambient sparkles
     _particles.spawnAmbientSparkles(5);
 
     // Day/night overlay
-    add(DayNightOverlay());
+    await add(DayNightOverlay());
 
     // Listen for bridge events
-    bridge.gameEvents.listen(_handleGameEvent);
+    _gameEventsSub = bridge.gameEvents.listen(_handleGameEvent);
+  }
+
+  @override
+  void update(double dt) {
+    if (!isLoaded) {
+      return;
+    }
+
+    super.update(dt);
+
+    if (!_isApplyingEquipment &&
+        _pendingEquippedItems != null &&
+        _pendingSkinColor != null) {
+      final items = _pendingEquippedItems!;
+      final skin = _pendingSkinColor!;
+      _pendingEquippedItems = null;
+      _pendingSkinColor = null;
+      _isApplyingEquipment = true;
+      unawaited(_applyEquipment(items, skin));
+    }
+  }
+
+  Future<void> _applyEquipment(
+    List<CharacterItemModel> items,
+    String skinColor,
+  ) async {
+    try {
+      await _character.updateEquipment(items, skinColor);
+    } finally {
+      _isApplyingEquipment = false;
+    }
   }
 
   @override
@@ -118,7 +150,8 @@ class MyRoomGame extends FlameGame with TapCallbacks {
   void _handleGameEvent(GameEvent event) {
     switch (event) {
       case CharacterEquipmentChanged(:final equippedItems, :final skinColor):
-        _character.updateEquipment(equippedItems, skinColor);
+        _pendingEquippedItems = equippedItems;
+        _pendingSkinColor = skinColor;
       case VisitorJoined():
         // Phase 4: handle room visitors
         break;
@@ -127,6 +160,27 @@ class MyRoomGame extends FlameGame with TapCallbacks {
       default:
         break;
     }
+  }
+
+  PixelCharacter _createCharacter({
+    required List<CharacterItemModel> equippedItems,
+    required String skinColor,
+    required Vector2 position,
+  }) {
+    final character = PixelCharacter(
+      equippedItems: equippedItems,
+      skinColor: skinColor,
+      position: position,
+    );
+    character.priority = 100;
+    character.onPositionChanged = (x, y, dir) {
+      bridge.sendToFlutter(LocalCharacterMoved(
+        x: x / size.x,
+        y: y / size.y,
+        direction: dir,
+      ));
+    };
+    return character;
   }
 
   /// Update equipped items (called from Provider).
@@ -140,7 +194,9 @@ class MyRoomGame extends FlameGame with TapCallbacks {
   /// Update furniture layout.
   void updateFurniture(List<Map<String, dynamic>> furniture) {
     // Remove old furniture
-    children.whereType<FurnitureComponent>().forEach((f) => f.removeFromParent());
+    children
+        .whereType<FurnitureComponent>()
+        .forEach((f) => f.removeFromParent());
 
     // Add new furniture
     for (final f in furniture) {
@@ -154,5 +210,12 @@ class MyRoomGame extends FlameGame with TapCallbacks {
         position: Vector2(posX * size.x, posY * size.y),
       ));
     }
+  }
+
+  @override
+  void onRemove() {
+    _gameEventsSub?.cancel();
+    _gameEventsSub = null;
+    super.onRemove();
   }
 }

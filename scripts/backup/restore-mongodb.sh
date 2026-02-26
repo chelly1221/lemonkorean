@@ -21,6 +21,7 @@ CONTAINER_NAME="${MONGO_CONTAINER:-lemon-mongo}"
 DB_NAME="${POSTGRES_DB:-lemon_korean}"
 DB_USER="3chan"
 DB_PASSWORD="${DB_PASSWORD}"
+MONGO_SHELL=""
 
 # ================================================================
 # FUNCTIONS
@@ -59,6 +60,18 @@ check_container() {
     log "Container $CONTAINER_NAME is running"
 }
 
+detect_mongo_shell() {
+    if docker exec "$CONTAINER_NAME" sh -lc "command -v mongosh >/dev/null 2>&1"; then
+        MONGO_SHELL="mongosh"
+    elif docker exec "$CONTAINER_NAME" sh -lc "command -v mongo >/dev/null 2>&1"; then
+        MONGO_SHELL="mongo"
+    else
+        error "Neither 'mongosh' nor 'mongo' is available in container $CONTAINER_NAME"
+    fi
+
+    log "Using Mongo shell client: $MONGO_SHELL"
+}
+
 confirm_restore() {
     echo ""
     echo "WARNING: This will REPLACE the existing database!"
@@ -83,7 +96,7 @@ restore_database() {
 
     # Drop existing database
     log "Dropping existing database..."
-    docker exec "$CONTAINER_NAME" mongosh \
+    docker exec "$CONTAINER_NAME" "$MONGO_SHELL" \
         --username="$DB_USER" \
         --password="$DB_PASSWORD" \
         --authenticationDatabase=admin \
@@ -112,12 +125,17 @@ verify_restore() {
     log "Verifying restore..."
 
     # Check if database exists and has collections
-    local collection_count=$(docker exec "$CONTAINER_NAME" mongosh \
+    local collection_count
+    collection_count=$(docker exec "$CONTAINER_NAME" "$MONGO_SHELL" \
         --username="$DB_USER" \
         --password="$DB_PASSWORD" \
         --authenticationDatabase=admin \
         --quiet \
-        --eval "db.getSiblingDB('$DB_NAME').getCollectionNames().length" | tail -n 1)
+        --eval "db.getSiblingDB('$DB_NAME').getCollectionNames().length" | tail -n 1 | tr -d '\r[:space:]')
+
+    if ! [[ "$collection_count" =~ ^[0-9]+$ ]]; then
+        error "Restore verification failed: unexpected collection count output '$collection_count'"
+    fi
 
     if [ "$collection_count" -gt 0 ]; then
         log "Restore verified: $collection_count collections found"
@@ -144,6 +162,7 @@ main() {
     log "=== MongoDB Restore Started ==="
 
     check_container
+    detect_mongo_shell
     confirm_restore "$backup_file"
     restore_database "$backup_file"
     verify_restore

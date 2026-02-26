@@ -40,6 +40,7 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
   }
 
   Future<void> _loadPracticeQueue() async {
+    if (!mounted) return;
     setState(() => _isLoading = true);
 
     final provider = Provider.of<HangulProvider>(context, listen: false);
@@ -52,6 +53,7 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
 
     if (authProvider.currentUser != null) {
       await provider.loadReviewQueue(authProvider.currentUser!.id);
+      if (!mounted) return;
     }
 
     // If focusCharacter is provided, create a focused practice session
@@ -65,6 +67,7 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
       _practiceQueue.shuffle();
     }
 
+    if (!mounted) return;
     setState(() => _isLoading = false);
   }
 
@@ -86,7 +89,9 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
   }
 
   void _generateOptions() {
-    if (_practiceQueue.isEmpty || _currentIndex >= _practiceQueue.length) return;
+    if (_practiceQueue.isEmpty || _currentIndex >= _practiceQueue.length) {
+      return;
+    }
 
     final provider = Provider.of<HangulProvider>(context, listen: false);
     final currentChar = _practiceQueue[_currentIndex];
@@ -156,7 +161,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
   void _showSessionComplete() {
     final l10n = AppLocalizations.of(context)!;
     final total = _correctCount + _wrongCount;
-    final accuracy = total > 0 ? (_correctCount / total * 100).toStringAsFixed(0) : '0';
+    final accuracy =
+        total > 0 ? (_correctCount / total * 100).toStringAsFixed(0) : '0';
 
     showDialog(
       context: context,
@@ -167,7 +173,9 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              _correctCount > _wrongCount ? Icons.celebration : Icons.sentiment_satisfied,
+              _correctCount > _wrongCount
+                  ? Icons.celebration
+                  : Icons.sentiment_satisfied,
               size: 64,
               color: _correctCount > _wrongCount ? Colors.green : Colors.orange,
             ),
@@ -186,6 +194,7 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
+              if (!mounted) return;
               setState(() {
                 _sessionActive = false;
               });
@@ -195,6 +204,7 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
+              if (!mounted) return;
               _practiceQueue.shuffle();
               _startSession();
             },
@@ -352,7 +362,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                  borderRadius:
+                      BorderRadius.circular(AppConstants.radiusMedium),
                 ),
               ),
             ),
@@ -463,9 +474,11 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                   Row(
                     children: [
                       const Icon(Icons.check, size: 16, color: Colors.green),
-                      Text(' $_correctCount  ', style: const TextStyle(fontSize: 12)),
+                      Text(' $_correctCount  ',
+                          style: const TextStyle(fontSize: 12)),
                       const Icon(Icons.close, size: 16, color: Colors.red),
-                      Text(' $_wrongCount', style: const TextStyle(fontSize: 12)),
+                      Text(' $_wrongCount',
+                          style: const TextStyle(fontSize: 12)),
                     ],
                   ),
                 ],
@@ -495,7 +508,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                   padding: const EdgeInsets.all(AppConstants.paddingXLarge),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                    borderRadius:
+                        BorderRadius.circular(AppConstants.radiusLarge),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.05),
@@ -523,7 +537,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                             color: AppConstants.textSecondary,
                           ),
                         ),
-                      ] else if (_practiceMode == PracticeMode.pronunciation) ...[
+                      ] else if (_practiceMode ==
+                          PracticeMode.pronunciation) ...[
                         // Show pronunciation, ask for character
                         Text(
                           currentChar.pronunciationZh,
@@ -563,9 +578,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
-                    childAspectRatio: _practiceMode == PracticeMode.recognition
-                        ? 2.5
-                        : 1.5,
+                    childAspectRatio:
+                        _practiceMode == PracticeMode.recognition ? 2.5 : 1.5,
                   ),
                   itemCount: _options.length,
                   itemBuilder: (context, index) {
@@ -580,8 +594,11 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(AppConstants.paddingMedium),
                     decoration: BoxDecoration(
-                      color: _isCorrect ? Colors.green.shade50 : Colors.red.shade50,
-                      borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                      color: _isCorrect
+                          ? Colors.green.shade50
+                          : Colors.red.shade50,
+                      borderRadius:
+                          BorderRadius.circular(AppConstants.radiusMedium),
                       border: Border.all(
                         color: _isCorrect ? Colors.green : Colors.red,
                       ),
@@ -595,7 +612,9 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          _isCorrect ? l10n.correctExclamation : l10n.incorrectExclamation,
+                          _isCorrect
+                              ? l10n.correctExclamation
+                              : l10n.incorrectExclamation,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -618,7 +637,8 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                               const Text(' = '),
                               Text(
                                 currentChar.pronunciationZh,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -637,7 +657,9 @@ class _HangulPracticeScreenState extends State<HangulPracticeScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: Text(
-                        _currentIndex < _practiceQueue.length - 1 ? l10n.nextQuestionBtn : l10n.viewResults,
+                        _currentIndex < _practiceQueue.length - 1
+                            ? l10n.nextQuestionBtn
+                            : l10n.viewResults,
                       ),
                     ),
                   ),

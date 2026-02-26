@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flame/components.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../data/models/character_item_model.dart';
 import '../../core/game_constants.dart';
@@ -23,6 +25,12 @@ class EquipmentLayer extends PositionComponent {
   double _animTimer = 0;
   int _currentFrame = 0;
 
+  // Idle breathing animation
+  double _breathTimer = 0;
+
+  // Pixel-perfect paint (nearest-neighbor for crisp pixel art)
+  static final _pixelPaint = ui.Paint()..filterQuality = ui.FilterQuality.none;
+
   // Cached direction to detect changes
   CharacterDir? _lastDirection;
   CharacterAnimState? _lastState;
@@ -32,24 +40,29 @@ class EquipmentLayer extends PositionComponent {
     required this.item,
     required this.animState,
   }) : super(
-    size: Vector2(GameConstants.displayWidth, GameConstants.displayHeight),
-    priority: item.renderOrder,
-  );
+          size:
+              Vector2(GameConstants.displayWidth, GameConstants.displayHeight),
+          priority: item.renderOrder,
+        );
 
   /// Load the spritesheet image (with palette swap for body).
   Future<void> loadImage(String skinColor) async {
-    _image = await SpriteLoader.loadWithPaletteSwap(item, skinColor);
-    _meta = SpriteLoader.getMeta(item);
-    _updateAnimation();
+    try {
+      _image = await SpriteLoader.loadWithPaletteSwap(item, skinColor);
+      _meta = SpriteLoader.getMeta(item);
+      _updateAnimation();
+    } catch (e) {
+      // Ignore invalid/unsupported assets (e.g. non-spritesheet SVG).
+      _image = null;
+      _meta = null;
+      debugPrint('[EquipmentLayer] Failed to load ${item.assetKey}: $e');
+    }
   }
-
-  /// Whether this layer has a loaded image ready to render.
-  @override
-  bool get isLoaded => _image != null;
 
   @override
   void update(double dt) {
     super.update(dt);
+    _breathTimer += dt;
 
     // Check if animation needs to change
     if (animState.direction != _lastDirection ||
@@ -67,8 +80,7 @@ class EquipmentLayer extends PositionComponent {
         _currentFrame = (_currentFrame + 1) % _currentAnimation!.frames.length;
 
         // For non-looping gestures, stop at last frame
-        if (animState.isGesturing &&
-            _currentFrame == 0) {
+        if (animState.isGesturing && _currentFrame == 0) {
           _currentFrame = _currentAnimation!.frames.length - 1;
         }
       }
@@ -120,19 +132,25 @@ class EquipmentLayer extends PositionComponent {
 
     if (_currentAnimation == null || _currentAnimation!.frames.isEmpty) return;
 
-    final frame = _currentAnimation!.frames[
-        _currentFrame.clamp(0, _currentAnimation!.frames.length - 1)];
+    final frame = _currentAnimation!
+        .frames[_currentFrame.clamp(0, _currentAnimation!.frames.length - 1)];
+
+    // Subtle breathing offset when idle
+    final breathOffset = animState.isIdle ? sin(_breathTimer * 1.5) * 1.5 : 0.0;
+
+    canvas.save();
+    canvas.translate(0, breathOffset);
 
     // Apply horizontal flip for left direction
     if (animState.direction.isFlipped) {
-      canvas.save();
       canvas.scale(-1, 1);
       canvas.translate(-size.x, 0);
-      frame.sprite.render(canvas, size: size);
-      canvas.restore();
+      frame.sprite.render(canvas, size: size, overridePaint: _pixelPaint);
     } else {
-      frame.sprite.render(canvas, size: size);
+      frame.sprite.render(canvas, size: size, overridePaint: _pixelPaint);
     }
+
+    canvas.restore();
   }
 
   /// Force reload of image (e.g. after skin color change).

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../stage0_lesson_content.dart';
@@ -38,14 +39,22 @@ class _StepQuizMcqState extends State<StepQuizMcq> {
   void _selectAnswer(String choice) {
     if (_showFeedback) return;
     final correct = _current['answer'] as String;
-    if (choice == correct) _correctCount++;
+    if (choice == correct) {
+      _correctCount++;
+      HapticFeedback.lightImpact();
+    } else {
+      HapticFeedback.mediumImpact();
+    }
 
     setState(() {
       _selectedAnswer = choice;
       _showFeedback = true;
     });
 
-    Future.delayed(const Duration(milliseconds: 900), () {
+    // B2: longer delay on wrong answer so learner can see correct highlight
+    final isCorrect = choice == correct;
+    final delay = isCorrect ? 900 : 1800;
+    Future.delayed(Duration(milliseconds: delay), () {
       if (!mounted) return;
       if (_currentIndex < _questions.length - 1) {
         setState(() {

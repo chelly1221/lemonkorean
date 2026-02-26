@@ -4,6 +4,13 @@
 
 The Lemon Korean API provides endpoints for managing lessons, vocabulary, grammar, user progress, gamification, and social features. All content endpoints support multi-language content via the `?language=` query parameter.
 
+## Runtime Policy (2026-02)
+
+- Mobile app runtime follows **Minimal Server**:
+  - Required online services: `Auth`, `Progress`, `SNS`.
+  - Static learning content (Hangul/Lessons/Vocabulary/Grammar) is bundled in-app by default.
+- Content/Admin endpoints remain available for backoffice/editor workflows, migrations, and optional server-driven operations.
+
 ## Base URLs
 
 | Service | Port | Base URL |
@@ -941,6 +948,7 @@ Voice chat rooms with LiveKit integration (max 4 participants). All endpoints re
 | POST | `/:id/leave` | Leave room |
 | DELETE | `/:id` | Close room (creator only) |
 | POST | `/:id/mute` | Toggle mute status |
+| POST | `/:id/reject-stage` | Reject stage request (speaker only) |
 
 ### POST /api/sns/voice-rooms/
 
@@ -950,11 +958,17 @@ Voice chat rooms with LiveKit integration (max 4 participants). All endpoints re
   "title": "한국어 프리토킹",
   "topic": "일상 대화 연습",
   "language_level": "beginner",
-  "max_participants": 4
+  "max_participants": 4,
+  "room_type": "free_talk",
+  "duration": 30
 }
 ```
 
 **`language_level` values:** `beginner`, `intermediate`, `advanced`, `all`
+
+**`room_type` values (2026-02-27):** `free_talk`, `pronunciation`, `roleplay`, `qna`, `listening`, `debate`
+
+**`duration` values (minutes):** `15`, `30`, `45`, `60` (optional, null = unlimited)
 
 ### POST /api/sns/voice-rooms/:id/join
 
@@ -1015,6 +1029,7 @@ Real-time messaging and presence via Socket.IO.
 | `voice:participant_muted` | `{ room_id, user_id, is_muted }` | Mute status changed |
 | `voice:room_created` | Room object | New voice room created |
 | `voice:room_closed` | `{ room_id }` | Voice room closed |
+| `voice:stage_request_rejected` | `{ room_id, user_id, rejected_by }` | Stage request rejected by speaker |
 
 ### Online Status
 

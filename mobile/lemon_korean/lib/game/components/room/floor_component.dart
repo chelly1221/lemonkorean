@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/game_constants.dart';
 
@@ -26,10 +27,15 @@ class FloorComponent extends PositionComponent with HasGameReference {
     size = Vector2(gameSize.x, floorHeight);
 
     if (assetKey != null) {
+      if (!_isSupportedRaster(assetKey!)) {
+        debugPrint('[FloorComponent] Skip unsupported asset: $assetKey');
+        return;
+      }
       try {
         final image = await Flame.images.load(assetKey!);
         _floorSprite = Sprite(image);
-      } catch (_) {
+      } catch (e) {
+        debugPrint('[FloorComponent] Failed to load $assetKey: $e');
         // Use fallback color
       }
     }
@@ -75,5 +81,14 @@ class FloorComponent extends PositionComponent with HasGameReference {
         gameSize.y * GameConstants.floorBottomFraction,
       ),
     );
+  }
+
+  bool _isSupportedRaster(String key) {
+    final lower = key.toLowerCase();
+    return lower.endsWith('.png') ||
+        lower.endsWith('.jpg') ||
+        lower.endsWith('.jpeg') ||
+        lower.endsWith('.webp') ||
+        lower.endsWith('.bmp');
   }
 }

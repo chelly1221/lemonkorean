@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:just_audio/just_audio.dart';
 
+import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/draggable_character_tile.dart';
 import '../widgets/syllable_block_template.dart';
@@ -21,31 +24,56 @@ class StepDragDropAssembly extends StatefulWidget {
 }
 
 class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
-  late final List<Map<String, String>> _items;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  late final List<Map<String, dynamic>> _items;
   int _currentIndex = 0;
   String? _droppedConsonant;
   String? _droppedVowel;
   bool _showResult = false;
   int _correctCount = 0;
 
+  // A3: hint display state
+  bool _showHint = false;
+  String? _hintText;
+
+  // B4: reject feedback state
+  bool _consonantRejected = false;
+  bool _vowelRejected = false;
+
   @override
   void initState() {
     super.initState();
     final rawItems = widget.step.data['items'] as List? ?? [];
-    _items = rawItems.cast<Map<String, dynamic>>().map((e) {
-      return {
-        'consonant': e['consonant'] as String,
-        'vowel': e['vowel'] as String,
-        'result': e['result'] as String,
-      };
-    }).toList();
+    _items = rawItems.cast<Map<String, dynamic>>().toList();
+    // Show hint for the first item if it has one
+    _showHintForCurrentItem();
   }
 
-  Map<String, String> get _current => _items[_currentIndex];
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Map<String, dynamic> get _current => _items[_currentIndex];
   bool get _isLastItem => _currentIndex >= _items.length - 1;
+
+  void _showHintForCurrentItem() {
+    final hint = _current['hint'] as String?;
+    if (hint != null) {
+      setState(() {
+        _showHint = true;
+        _hintText = hint;
+      });
+      Future.delayed(const Duration(milliseconds: 800), () {
+        if (mounted) setState(() => _showHint = false);
+      });
+    }
+  }
 
   void _onConsonantAccepted(String char) {
     if (char == _current['consonant']) {
+      HapticFeedback.lightImpact();
       setState(() => _droppedConsonant = char);
       _checkComplete();
     }
@@ -53,6 +81,7 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
 
   void _onVowelAccepted(String char) {
     if (char == _current['vowel']) {
+      HapticFeedback.lightImpact();
       setState(() => _droppedVowel = char);
       _checkComplete();
     }
@@ -61,7 +90,10 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
   void _checkComplete() {
     if (_droppedConsonant != null && _droppedVowel != null) {
       _correctCount++;
+      HapticFeedback.lightImpact();
       setState(() => _showResult = true);
+      // A2: play TTS for the completed syllable
+      KoreanTtsHelper.playKoreanText(_current['result'] as String, _audioPlayer);
       // Auto-advance after showing result
       Future.delayed(const Duration(milliseconds: 1200), () {
         if (!mounted) return;
@@ -74,20 +106,38 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
             _droppedVowel = null;
             _showResult = false;
           });
+          // A3: show hint for new item
+          _showHintForCurrentItem();
         }
       });
     }
   }
 
+  void _onConsonantRejected() {
+    HapticFeedback.mediumImpact();
+    setState(() => _consonantRejected = true);
+    Future.delayed(const Duration(milliseconds: 400), () {
+      if (mounted) setState(() => _consonantRejected = false);
+    });
+  }
+
+  void _onVowelRejected() {
+    HapticFeedback.mediumImpact();
+    setState(() => _vowelRejected = true);
+    Future.delayed(const Duration(milliseconds: 400), () {
+      if (mounted) setState(() => _vowelRejected = false);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final consonant = _current['consonant']!;
-    final vowel = _current['vowel']!;
-    final result = _current['result']!;
+    final consonant = _current['consonant'] as String;
+    final vowel = _current['vowel'] as String;
+    final result = _current['result'] as String;
 
-    // Available draggable characters (pool)
-    final allConsonants = ['ㄱ', 'ㄴ', 'ㄷ'];
-    final allVowels = ['ㅏ', 'ㅗ'];
+    // Available draggable characters (pool) — read from step data with fallback
+    final allConsonants = (widget.step.data['consonants'] as List?)?.cast<String>() ?? ['ㄱ', 'ㄴ', 'ㄷ'];
+    final allVowels = (widget.step.data['vowels'] as List?)?.cast<String>() ?? ['ㅏ', 'ㅗ'];
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -114,9 +164,29 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
               '${_currentIndex + 1} / ${_items.length}',
               style: TextStyle(fontSize: 13, color: Colors.grey.shade500),
             ),
+          // A3: hint display
+          if (_showHint && _hintText != null) ...[
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF9C4),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: const Color(0xFFFFD54F)),
+              ),
+              child: Text(
+                _hintText!,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFF9A825),
+                ),
+              ),
+            ).animate().fadeIn(duration: 200.ms).fadeOut(delay: 600.ms, duration: 200.ms),
+          ],
           const Spacer(flex: 2),
           // Target area (drop zones)
-          _buildDropArea(consonant, vowel, result),
+          _buildDropArea(consonant, vowel, result, allConsonants, allVowels),
           const Spacer(),
           // Draggable characters pool
           _buildCharacterPool(allConsonants, allVowels),
@@ -126,7 +196,7 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
     );
   }
 
-  Widget _buildDropArea(String consonant, String vowel, String result) {
+  Widget _buildDropArea(String consonant, String vowel, String result, List<String> allConsonants, List<String> allVowels) {
     if (_showResult) {
       return SyllableBlockTemplate(
         showResult: true,
@@ -145,10 +215,17 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
         // Consonant drop zone
         DragTarget<String>(
           onWillAcceptWithDetails: (details) =>
-              details.data == consonant && _droppedConsonant == null,
-          onAcceptWithDetails: (details) => _onConsonantAccepted(details.data),
+              _droppedConsonant == null && allConsonants.contains(details.data),
+          onAcceptWithDetails: (details) {
+            if (details.data == consonant) {
+              _onConsonantAccepted(details.data);
+            } else {
+              _onConsonantRejected();
+            }
+          },
           builder: (context, candidateData, rejectedData) {
             final isHovering = candidateData.isNotEmpty;
+            final isRejecting = rejectedData.isNotEmpty || _consonantRejected;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               width: 72,
@@ -156,13 +233,20 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
               decoration: BoxDecoration(
                 color: _droppedConsonant != null
                     ? const Color(0xFF42A5F5).withValues(alpha: 0.15)
-                    : isHovering
-                        ? const Color(0xFF42A5F5).withValues(alpha: 0.08)
-                        : Colors.white,
+                    : isRejecting
+                        ? const Color(0xFFF44336).withValues(alpha: 0.08)
+                        : isHovering
+                            ? const Color(0xFF42A5F5).withValues(alpha: 0.08)
+                            : Colors.white,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
-                  color: isHovering ? const Color(0xFF42A5F5) : Colors.grey.shade300,
-                  width: isHovering ? 2.5 : 1.5,
+                  // B4: red border on reject
+                  color: isRejecting
+                      ? const Color(0xFFF44336)
+                      : isHovering
+                          ? const Color(0xFF42A5F5)
+                          : Colors.grey.shade300,
+                  width: (isHovering || isRejecting) ? 2.5 : 1.5,
                 ),
               ),
               child: Center(
@@ -193,10 +277,17 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
         // Vowel drop zone
         DragTarget<String>(
           onWillAcceptWithDetails: (details) =>
-              details.data == vowel && _droppedVowel == null,
-          onAcceptWithDetails: (details) => _onVowelAccepted(details.data),
+              _droppedVowel == null && allVowels.contains(details.data),
+          onAcceptWithDetails: (details) {
+            if (details.data == vowel) {
+              _onVowelAccepted(details.data);
+            } else {
+              _onVowelRejected();
+            }
+          },
           builder: (context, candidateData, rejectedData) {
             final isHovering = candidateData.isNotEmpty;
+            final isRejecting = rejectedData.isNotEmpty || _vowelRejected;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               width: 72,
@@ -204,13 +295,19 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
               decoration: BoxDecoration(
                 color: _droppedVowel != null
                     ? const Color(0xFFEF5350).withValues(alpha: 0.15)
-                    : isHovering
-                        ? const Color(0xFFEF5350).withValues(alpha: 0.08)
-                        : Colors.white,
+                    : isRejecting
+                        ? const Color(0xFFF44336).withValues(alpha: 0.08)
+                        : isHovering
+                            ? const Color(0xFFEF5350).withValues(alpha: 0.08)
+                            : Colors.white,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
-                  color: isHovering ? const Color(0xFFEF5350) : Colors.grey.shade300,
-                  width: isHovering ? 2.5 : 1.5,
+                  color: isRejecting
+                      ? const Color(0xFFF44336)
+                      : isHovering
+                          ? const Color(0xFFEF5350)
+                          : Colors.grey.shade300,
+                  width: (isHovering || isRejecting) ? 2.5 : 1.5,
                 ),
               ),
               child: Center(

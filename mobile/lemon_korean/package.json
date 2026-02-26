@@ -1,0 +1,16 @@
+{
+  "name": "lemon_korean",
+  "version": "1.0.0",
+  "description": "중국어 화자를 위한 한국어 학습 앱 - Flutter 모바일 애플리케이션",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

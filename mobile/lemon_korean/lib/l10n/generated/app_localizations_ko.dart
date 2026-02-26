@@ -334,9 +334,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lowSimilarity => '낮은 유사도';
 
   @override
-  String get lessonComplete => '과정 완료! 진행 상황이 저장되었습니다';
-
-  @override
   String get learningComplete => '학습 완료';
 
   @override
@@ -368,19 +365,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get dialogues => '대화';
 
   @override
-  String get grammarExplanation => '문법 설명';
-
-  @override
-  String get exampleSentences => '예문';
-
-  @override
   String get previous => '이전';
 
   @override
   String get next => '다음';
-
-  @override
-  String get continueBtn => '계속';
 
   @override
   String get topicParticle => '주제 조사';
@@ -473,30 +461,16 @@ class AppLocalizationsKo extends AppLocalizations {
   String get listening => '듣기';
 
   @override
-  String get fillBlank => '빈칸 채우기';
-
-  @override
   String get translation => '번역';
 
   @override
   String get wordOrder => '순서 맞추기';
 
   @override
-  String get pronunciation => '발음';
-
-  @override
   String get excellent => '훌륭합니다!';
 
   @override
   String get correctOrderIs => '올바른 순서:';
-
-  @override
-  String correctAnswerIs(String answer) {
-    return '정답: $answer';
-  }
-
-  @override
-  String get previousQuestion => '이전 문제';
 
   @override
   String get nextQuestion => '다음 문제';
@@ -1532,6 +1506,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get exitBtn => '종료';
 
   @override
+  String get lessonComplete => '과정 완료! 진행 상황이 저장되었습니다';
+
+  @override
   String loadingLesson(String title) {
     return '$title 로딩 중...';
   }
@@ -1573,6 +1550,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get nextItem => '다음';
 
   @override
+  String get continueBtn => '계속';
+
+  @override
+  String get previousQuestion => '이전 문제';
+
+  @override
   String get playingAudio => '재생 중...';
 
   @override
@@ -1593,15 +1576,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String get playingAudioShort => '오디오 재생 중...';
 
   @override
+  String get pronunciation => '발음';
+
+  @override
   String grammarPattern(String pattern) {
     return '문법 · $pattern';
   }
+
+  @override
+  String get grammarExplanation => '문법 설명';
 
   @override
   String get conjugationRule => '활용 규칙';
 
   @override
   String get comparisonWithChinese => '중국어와 비교';
+
+  @override
+  String get exampleSentences => '예문';
 
   @override
   String get dialogueTitle => '대화 연습';
@@ -1621,7 +1613,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get practiceInstructions => '다음 연습 문제를 완료하세요';
 
   @override
+  String get fillBlank => '빈칸 채우기';
+
+  @override
   String get checkAnswerBtn => '정답 확인';
+
+  @override
+  String correctAnswerIs(String answer) {
+    return '정답: $answer';
+  }
 
   @override
   String get quizTitle => '퀴즈';
@@ -2494,6 +2494,304 @@ class AppLocalizationsKo extends AppLocalizations {
   String get createRoom => '방 만들기';
 
   @override
+  String get voiceRoomMicPermission => '음성 대화방을 이용하려면 마이크 권한이 필요합니다';
+
+  @override
+  String get voiceRoomEnterTitle => '방 제목을 입력해 주세요';
+
+  @override
+  String get voiceRoomCreateFailed => '방 생성에 실패했습니다';
+
+  @override
+  String get voiceRoomNotAvailable => '방을 이용할 수 없습니다';
+
+  @override
+  String get voiceRoomGoBack => '돌아가기';
+
+  @override
+  String get voiceRoomConnecting => '연결 중...';
+
+  @override
+  String voiceRoomReconnecting(int attempts, int max) {
+    return '재연결 중 ($attempts/$max)...';
+  }
+
+  @override
+  String get voiceRoomDisconnected => '연결이 끊어졌습니다';
+
+  @override
+  String get voiceRoomRetry => '재시도';
+
+  @override
+  String get voiceRoomHostLabel => '(호스트)';
+
+  @override
+  String get voiceRoomDemoteToListener => '청취자로 내리기';
+
+  @override
+  String get voiceRoomKickFromRoom => '방에서 내보내기';
+
+  @override
+  String get voiceRoomListeners => '청취자';
+
+  @override
+  String get voiceRoomInviteToStage => '스테이지에 초대';
+
+  @override
+  String voiceRoomInviteConfirm(String name) {
+    return '$name님을 스테이지에 초대할까요?';
+  }
+
+  @override
+  String get voiceRoomInvite => '초대';
+
+  @override
+  String get voiceRoomCloseConfirmTitle => '방을 닫으시겠습니까?';
+
+  @override
+  String get voiceRoomCloseConfirmBody => '모든 참가자의 통화가 종료됩니다.';
+
+  @override
+  String get voiceRoomNoMessagesYet => '아직 메시지가 없습니다';
+
+  @override
+  String get voiceRoomTypeMessage => '메시지를 입력하세요...';
+
+  @override
+  String get voiceRoomStageFull => '스테이지 만석';
+
+  @override
+  String voiceRoomListenerCount(int count) {
+    return '청취자 $count명';
+  }
+
+  @override
+  String get voiceRoomRemoveFromStage => '스테이지에서 내리기';
+
+  @override
+  String voiceRoomRemoveFromStageConfirm(String name) {
+    return '$name님을 스테이지에서 내릴까요? 청취자로 전환됩니다.';
+  }
+
+  @override
+  String get voiceRoomDemote => '내리기';
+
+  @override
+  String get voiceRoomRemoveFromRoom => '방에서 내보내기';
+
+  @override
+  String voiceRoomRemoveFromRoomConfirm(String name) {
+    return '$name님을 방에서 내보낼까요? 연결이 끊어집니다.';
+  }
+
+  @override
+  String get voiceRoomRemove => '내보내기';
+
+  @override
+  String get voiceRoomPressBackToLeave => '한 번 더 누르면 나갑니다';
+
+  @override
+  String get voiceRoomLeaveTitle => '방에서 나가시겠습니까?';
+
+  @override
+  String get voiceRoomLeaveBody => '현재 스테이지에 있습니다. 정말 나가시겠습니까?';
+
+  @override
+  String get voiceRoomReturningToList => '대화방 목록으로 돌아갑니다...';
+
+  @override
+  String get voiceRoomConnected => '연결되었습니다!';
+
+  @override
+  String get voiceRoomStageFailedToLoad => '스테이지를 불러올 수 없습니다';
+
+  @override
+  String get voiceRoomPreparingStage => '스테이지 준비 중...';
+
+  @override
+  String voiceRoomAcceptToStage(Object name) {
+    return '$name님을 스테이지에 수락';
+  }
+
+  @override
+  String voiceRoomRejectFromStage(Object name) {
+    return '$name님 거절';
+  }
+
+  @override
+  String get voiceRoomQuickCreate => '빠른 생성';
+
+  @override
+  String get voiceRoomRoomType => '방 유형';
+
+  @override
+  String get voiceRoomSessionDuration => '세션 시간';
+
+  @override
+  String get voiceRoomOptionalTimer => '선택 사항: 세션 타이머';
+
+  @override
+  String get voiceRoomDurationNone => '없음';
+
+  @override
+  String get voiceRoomDuration15 => '15분';
+
+  @override
+  String get voiceRoomDuration30 => '30분';
+
+  @override
+  String get voiceRoomDuration45 => '45분';
+
+  @override
+  String get voiceRoomDuration60 => '60분';
+
+  @override
+  String get voiceRoomTypeFreeTalk => '자유 대화';
+
+  @override
+  String get voiceRoomTypePronunciation => '발음 연습';
+
+  @override
+  String get voiceRoomTypeRolePlay => '역할극';
+
+  @override
+  String get voiceRoomTypeQnA => '질문 & 답변';
+
+  @override
+  String get voiceRoomTypeListening => '듣기 연습';
+
+  @override
+  String get voiceRoomTypeDebate => '토론';
+
+  @override
+  String get voiceRoomTemplateFreeTalk => '한국어 자유 대화';
+
+  @override
+  String get voiceRoomTemplatePronunciation => '발음 연습';
+
+  @override
+  String get voiceRoomTemplateDailyKorean => '데일리 한국어';
+
+  @override
+  String get voiceRoomTemplateTopikSpeaking => 'TOPIK 말하기';
+
+  @override
+  String get voiceRoomCreateTooltip => '음성 대화방 만들기';
+
+  @override
+  String get voiceRoomSendReaction => '리액션 보내기';
+
+  @override
+  String get voiceRoomLeaveRoom => '방 나가기';
+
+  @override
+  String get voiceRoomUnmuteMic => '마이크 음소거 해제';
+
+  @override
+  String get voiceRoomMuteMic => '마이크 음소거';
+
+  @override
+  String get voiceRoomCancelHandRaise => '손들기 취소';
+
+  @override
+  String get voiceRoomRaiseHandSemantic => '손들기';
+
+  @override
+  String get voiceRoomSendGesture => '제스처 보내기';
+
+  @override
+  String get voiceRoomLeaveStageAction => '스테이지 내리기';
+
+  @override
+  String get voiceRoomManageStage => '스테이지 관리';
+
+  @override
+  String get voiceRoomMoreOptions => '더 보기';
+
+  @override
+  String get voiceRoomMore => '더보기';
+
+  @override
+  String get voiceRoomStageWithSpeakers => '스피커가 있는 음성 대화 스테이지';
+
+  @override
+  String voiceRoomStageRequestsPending(int count) {
+    return '스테이지 요청, $count건 대기 중';
+  }
+
+  @override
+  String voiceRoomSpeakerListenerCount(
+      int speakers, int maxSpeakers, int listeners) {
+    return '스피커 $speakers/$maxSpeakers명, 청취자 $listeners명';
+  }
+
+  @override
+  String get voiceRoomChatInput => '채팅 메시지 입력';
+
+  @override
+  String get voiceRoomSendMessage => '메시지 보내기';
+
+  @override
+  String voiceRoomSendReactionNamed(Object name) {
+    return '$name 리액션 보내기';
+  }
+
+  @override
+  String get voiceRoomCloseReactionTray => '리액션 트레이 닫기';
+
+  @override
+  String voiceRoomPerformGesture(Object name) {
+    return '$name 제스처 수행';
+  }
+
+  @override
+  String get voiceRoomCloseGestureTray => '제스처 트레이 닫기';
+
+  @override
+  String get voiceRoomGestureWave => '흔들기';
+
+  @override
+  String get voiceRoomGestureBow => '인사';
+
+  @override
+  String get voiceRoomGestureDance => '춤추기';
+
+  @override
+  String get voiceRoomGestureJump => '점프';
+
+  @override
+  String get voiceRoomGestureClap => '박수';
+
+  @override
+  String get voiceRoomStageLabel => '스테이지';
+
+  @override
+  String get voiceRoomYouLabel => '(나)';
+
+  @override
+  String voiceRoomListenerTapToManage(Object name) {
+    return '청취자 $name, 탭하여 관리';
+  }
+
+  @override
+  String voiceRoomListenerName(Object name) {
+    return '청취자 $name';
+  }
+
+  @override
+  String get voiceRoomMicPermissionDenied =>
+      '마이크 접근이 거부되었습니다. 음성 기능을 사용하려면 기기 설정에서 권한을 활성화해 주세요.';
+
+  @override
+  String get voiceRoomMicPermissionTitle => '마이크 권한';
+
+  @override
+  String get voiceRoomOpenSettings => '설정 열기';
+
+  @override
+  String get voiceRoomMicNeededForStage => '스테이지에서 발언하려면 마이크 권한이 필요합니다';
+
+  @override
   String get batchimDescriptionText =>
       '한국어 받침은 7가지 소리로 발음됩니다.\n여러 받침이 같은 소리로 발음되는 것을 \"받침 대표음\"이라고 합니다.';
 
@@ -2647,4 +2945,61 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get hangulGoToLevel1 => 'Level 1 시작';
+
+  @override
+  String get completedLessonsLabel => '완료 레슨';
+
+  @override
+  String get wordsLearnedLabel => '습득 단어';
+
+  @override
+  String get totalStudyTimeLabel => '학습 시간';
+
+  @override
+  String get streakDetails => '연속 학습 기록';
+
+  @override
+  String get consecutiveDays => '연속 학습일';
+
+  @override
+  String get totalStudyDaysLabel => '총 학습일';
+
+  @override
+  String get studyRecord => '학습 기록';
+
+  @override
+  String get noFriendsPrompt => '함께 공부할 친구를 찾아보세요!';
+
+  @override
+  String get moreStats => '전체 보기';
+
+  @override
+  String remainingLessons(int count) {
+    return '$count개 더 하면 오늘 목표 달성!';
+  }
+
+  @override
+  String get streakMotivation0 => '오늘부터 시작해보세요!';
+
+  @override
+  String get streakMotivation1 => '좋은 시작이에요! 계속 이어가세요!';
+
+  @override
+  String get streakMotivation7 => '일주일 넘게 연속 학습 중! 대단해요!';
+
+  @override
+  String get streakMotivation14 => '2주 넘게 꾸준히! 습관이 되고 있어요!';
+
+  @override
+  String get streakMotivation30 => '한 달 이상 연속 학습! 진정한 학습자입니다!';
+
+  @override
+  String minutesShort(int count) {
+    return '$count분';
+  }
+
+  @override
+  String hoursShort(int count) {
+    return '$count시간';
+  }
 }

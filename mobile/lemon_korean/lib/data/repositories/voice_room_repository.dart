@@ -45,7 +45,9 @@ class VoiceRoomRepository {
     required String title,
     String? topic,
     String languageLevel = 'all',
+    String roomType = 'free_talk',
     int maxSpeakers = 4,
+    int? duration,
   }) async {
     try {
       final response = await _dio.post(
@@ -54,7 +56,9 @@ class VoiceRoomRepository {
           'title': title,
           if (topic != null) 'topic': topic,
           'language_level': languageLevel,
+          'room_type': roomType,
           'max_speakers': maxSpeakers,
+          if (duration != null) 'duration': duration,
         },
       );
 
@@ -293,6 +297,20 @@ class VoiceRoomRepository {
     } catch (e) {
       AppLogger.e('grantStage error', tag: 'VoiceRoomRepo', error: e);
       return (success: false, livekitToken: null);
+    }
+  }
+
+  /// Reject stage request (creator only)
+  Future<bool> rejectStageRequest(int roomId, int userId) async {
+    try {
+      final response = await _dio.post(
+        '/sns/voice-rooms/$roomId/reject-stage',
+        data: {'user_id': userId},
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      AppLogger.e('rejectStageRequest error', tag: 'VoiceRoomRepo', error: e);
+      return false;
     }
   }
 

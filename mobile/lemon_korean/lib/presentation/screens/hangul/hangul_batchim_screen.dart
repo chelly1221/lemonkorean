@@ -109,7 +109,7 @@ class BatchimData {
       name: '치읓',
       pronunciation: '[t̚]',
       explanation: 'ㄷ과 같은 소리로 발음',
-      examples: ['꽃', '빛'],
+      examples: ['꽃', '빚'],
       soundGroup: 'ㄷ',
     ),
     BatchimInfo(

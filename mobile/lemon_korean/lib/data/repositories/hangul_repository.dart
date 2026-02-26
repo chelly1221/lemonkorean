@@ -7,6 +7,7 @@ import '../../core/utils/app_logger.dart';
 import '../../core/utils/result.dart';
 import '../../core/utils/app_exception.dart';
 import '../../core/platform/platform_factory.dart';
+import '../local/bundled_learning_content.dart';
 import '../models/hangul_character_model.dart';
 import '../models/hangul_lesson_progress_model.dart';
 import '../models/hangul_progress_model.dart';
@@ -17,26 +18,6 @@ class HangulRepository {
   // Hive box names
   static const String _charactersBoxName = 'hangul_characters';
   static const String _progressBoxName = 'hangul_progress';
-
-  // Helper to create Dio with token
-  Future<Dio> _createContentDio({bool includeAuth = true}) async {
-    String? token;
-    if (includeAuth) {
-      final storage = PlatformFactory.createSecureStorage();
-      token = await storage.read(key: AppConstants.tokenKey);
-    }
-
-    return Dio(BaseOptions(
-      baseUrl: AppConstants.contentUrl,
-      connectTimeout: AppConstants.connectTimeout,
-      receiveTimeout: AppConstants.receiveTimeout,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      },
-    ));
-  }
 
   Future<Dio> _createProgressDio() async {
     final storage = PlatformFactory.createSecureStorage();
@@ -63,43 +44,15 @@ class HangulRepository {
     String? characterType,
   }) async {
     try {
-      var dio = await _createContentDio();
-      var response = await dio.get(
-        '/api/content/hangul/characters',
-        queryParameters: {
-          if (characterType != null) 'character_type': characterType,
-        },
-      );
+      final allCharacters = BundledLearningContent.hangulCharacters;
+      final characters = characterType == null
+          ? allCharacters
+          : allCharacters
+              .where((char) => char.characterType == characterType)
+              .toList();
 
-      // Content endpoints are public. Retry once without auth header if token is stale.
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        dio = await _createContentDio(includeAuth: false);
-        response = await dio.get(
-          '/api/content/hangul/characters',
-          queryParameters: {
-            if (characterType != null) 'character_type': characterType,
-          },
-        );
-      }
-
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['characters'] ?? [];
-        final characters =
-            data.map((json) => HangulCharacterModel.fromJson(json)).toList();
-
-        // Save to local storage
-        await _saveCharactersLocal(characters);
-
-        return Success(characters, isFromCache: false);
-      }
-
-      // Fallback to local
-      final cached = await _getLocalCharacters(characterType: characterType);
-      return Error(
-        'Server returned status ${response.statusCode}',
-        code: ErrorCodes.serverError,
-        cachedData: cached,
-      );
+      await _saveCharactersLocal(allCharacters);
+      return Success(characters, isFromCache: true);
     } catch (e, stackTrace) {
       AppLogger.w('getCharacters error', tag: 'HangulRepository', error: e);
 
@@ -128,86 +81,12 @@ class HangulRepository {
   Future<Result<Map<String, List<HangulCharacterModel>>>>
       getAlphabetTableResult() async {
     try {
-      final dio = await _createContentDio();
-      var response = await dio.get('/api/content/hangul/table');
-
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        final publicDio = await _createContentDio(includeAuth: false);
-        response = await publicDio.get('/api/content/hangul/table');
-      }
-
-      if (response.statusCode == 200) {
-        final tableData = response.data['table'] as Map<String, dynamic>? ?? {};
-
-        final table = <String, List<HangulCharacterModel>>{};
-
-        tableData.forEach((key, value) {
-          if (value is List) {
-            table[key] = value
-                .map((json) => HangulCharacterModel.fromJson(json))
-                .toList();
-          }
-        });
-
-        final totalFromTable = table.values.fold<int>(
-          0,
-          (sum, list) => sum + list.length,
-        );
-
-        // Only accept /table result when it actually contains characters.
-        if (totalFromTable > 0) {
-          // Save all characters
-          final allCharacters = table.values.expand((list) => list).toList();
-          await _saveCharactersLocal(allCharacters);
-          return Success(table, isFromCache: false);
-        }
-      }
-
-      // Fallback: If /table endpoint fails, derive table from /characters endpoint
-      final charactersResult = await getCharactersResult();
-      final tableFromCharacters = charactersResult.when(
-        success: (characters, isFromCache) =>
-            _buildAlphabetTableFromCharacters(characters),
-        error: (_, __, cachedData) {
-          if (cachedData != null && cachedData.isNotEmpty) {
-            return _buildAlphabetTableFromCharacters(cachedData);
-          }
-          return <String, List<HangulCharacterModel>>{};
-        },
-      );
-      if (tableFromCharacters.isNotEmpty) {
-        return Success(tableFromCharacters, isFromCache: false);
-      }
-
-      // Final fallback: local
-      final cached = await _getLocalAlphabetTable();
-      return Error(
-        'Server returned status ${response.statusCode}',
-        code: ErrorCodes.serverError,
-        cachedData: cached,
-      );
+      final allCharacters = BundledLearningContent.hangulCharacters;
+      await _saveCharactersLocal(allCharacters);
+      final table = _buildAlphabetTableFromCharacters(allCharacters);
+      return Success(table, isFromCache: true);
     } catch (e, stackTrace) {
       AppLogger.w('getAlphabetTable error', tag: 'HangulRepository', error: e);
-
-      // Fallback: derive table from /characters endpoint
-      try {
-        final charactersResult = await getCharactersResult();
-        final tableFromCharacters = charactersResult.when(
-          success: (characters, isFromCache) =>
-              _buildAlphabetTableFromCharacters(characters),
-          error: (_, __, cachedData) {
-            if (cachedData != null && cachedData.isNotEmpty) {
-              return _buildAlphabetTableFromCharacters(cachedData);
-            }
-            return <String, List<HangulCharacterModel>>{};
-          },
-        );
-        if (tableFromCharacters.isNotEmpty) {
-          return Success(tableFromCharacters, isFromCache: false);
-        }
-      } catch (_) {
-        // Continue to local fallback below
-      }
 
       final cached = await _getLocalAlphabetTable();
       final exception = ExceptionHandler.handle(e, stackTrace);
@@ -222,25 +101,15 @@ class HangulRepository {
   /// Get single character by ID
   Future<HangulCharacterModel?> getCharacter(int id) async {
     try {
-      // Check local first
-      final localChar = await _getLocalCharacter(id);
-
-      // Try remote
-      var dio = await _createContentDio();
-      var response = await dio.get('/api/content/hangul/characters/$id');
-
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        dio = await _createContentDio(includeAuth: false);
-        response = await dio.get('/api/content/hangul/characters/$id');
+      final bundled = BundledLearningContent.hangulCharacters;
+      for (final char in bundled) {
+        if (char.id == id) {
+          await _saveCharacterLocal(char);
+          return char;
+        }
       }
 
-      if (response.statusCode == 200) {
-        final char = HangulCharacterModel.fromJson(response.data['character']);
-        await _saveCharacterLocal(char);
-        return char;
-      }
-
-      return localChar;
+      return _getLocalCharacter(id);
     } catch (e) {
       AppLogger.w('[HangulRepository] getCharacter error: $e');
       return _getLocalCharacter(id);
@@ -504,6 +373,18 @@ class HangulRepository {
 
   static const String _lessonProgressBoxName = 'hangul_lesson_progress';
 
+  // Deterministic lesson key for syncing Hangul lessons through /api/progress/sync.
+  // Format examples: 0-1 -> 90001, 0-M -> 90099, 1-1 -> 90101.
+  int _toSyncLessonKey(String lessonId) {
+    final parts = lessonId.split('-');
+    if (parts.length != 2) return 90000;
+
+    final stage = int.tryParse(parts[0]) ?? 0;
+    final subRaw = parts[1].toUpperCase();
+    final sub = subRaw == 'M' ? 99 : (int.tryParse(subRaw) ?? 0);
+    return 90000 + (stage * 100) + sub;
+  }
+
   /// Save lesson progress to local storage.
   Future<void> saveLessonProgress(HangulLessonProgressModel progress) async {
     try {
@@ -513,12 +394,28 @@ class HangulRepository {
         progress.toJson(),
       );
 
-      // Add to sync queue for server sync
-      await LocalStorage.addToSyncQueue({
-        'type': 'hangul_lesson_complete',
-        'data': progress.toJson(),
-        'created_at': DateTime.now().toIso8601String(),
-      });
+      // Sync only completed lessons. In-progress checkpoints are local-only.
+      if (progress.isCompleted) {
+        await LocalStorage.addToSyncQueue({
+          // Use the standard progress sync type so backend persists it to DB.
+          'type': 'lesson_complete',
+          'data': {
+            'lesson_id': _toSyncLessonKey(progress.lessonId),
+            'status': 'completed',
+            'quiz_score': progress.bestScore,
+            'time_spent': 0,
+            'completed_at':
+                (progress.completedAt ?? DateTime.now()).toIso8601String(),
+            'stage_progress': {
+              'hangul_lesson_id': progress.lessonId,
+              'total_steps': progress.totalSteps,
+              'completed_steps': progress.completedSteps,
+              'lemons_earned': progress.lemonsEarned,
+            },
+          },
+          'created_at': DateTime.now().toIso8601String(),
+        });
+      }
     } catch (e) {
       AppLogger.w('[HangulRepository] saveLessonProgress error: $e');
     }

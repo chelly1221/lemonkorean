@@ -14,22 +14,27 @@ import '../../providers/gamification_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../providers/progress_provider.dart';
 import '../../providers/settings_provider.dart';
-import '../download/download_manager_screen.dart';
+import '../../providers/social_provider.dart';
 import '../lesson/lesson_screen.dart';
-import '../review/review_screen.dart';
 import '../settings/settings_menu_screen.dart';
-import '../stats/completed_lessons_screen.dart';
-import '../stats/mastered_words_screen.dart';
 import '../vocabulary_book/vocabulary_book_screen.dart';
-import '../vocabulary_browser/vocabulary_browser_screen.dart';
 import '../community/community_screen.dart';
 import '../my_room/my_room_screen.dart';
+import '../dm/conversations_screen.dart';
+import '../friend_search/friend_search_screen.dart';
+import '../user_profile/user_profile_screen.dart';
+import '../hangul/hangul_batchim_screen.dart';
+import '../hangul/hangul_discrimination_screen.dart';
+import '../hangul/hangul_syllable_screen.dart';
+import '../hangul/hangul_table_screen.dart';
 import '../profile/widgets/lemon_tree_widget.dart';
+import '../profile/widgets/profile_stats_grid.dart';
+import '../profile/widgets/streak_detail_sheet.dart';
+import 'review_lessons_list_screen.dart';
 import 'widgets/daily_goal_card.dart';
 import 'widgets/continue_lesson_card.dart';
 import 'widgets/hangul_dashboard_view.dart';
 import 'widgets/lesson_path_view.dart';
-import 'widgets/level_selector.dart';
 import '../../../core/constants/level_constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,8 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: const [
             _HomeTab(),
             CommunityScreen(),
-            MyRoomScreen(),
-            _ReviewTab(),
+            ConversationsScreen(embedded: true),
             _ProfileTab(),
           ],
         ),
@@ -79,14 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: l10n?.community ?? 'Community',
               ),
               NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
-                label: 'My Room',
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.replay),
-                selectedIcon: const Icon(Icons.replay),
-                label: l10n?.review ?? 'Review',
+                icon: const Icon(Icons.chat_bubble_outline),
+                selectedIcon: const Icon(Icons.chat_bubble),
+                label: l10n?.messages ?? 'Messages',
               ),
               NavigationDestination(
                 icon: const Icon(Icons.account_circle),
@@ -126,13 +125,16 @@ class _HomeTabState extends State<_HomeTab> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _loadData();
+    });
   }
-
 
   Future<void> _loadData() async {
     final lessonProvider = Provider.of<LessonProvider>(context, listen: false);
-    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final progressProvider =
+        Provider.of<ProgressProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     // Step 1: Load cached data immediately for instant display
@@ -146,6 +148,7 @@ class _HomeTabState extends State<_HomeTab> {
   void _loadCachedData(LessonProvider lessonProvider) {
     // First try from provider (may already have data from splash prefetch)
     if (lessonProvider.lessons.isNotEmpty) {
+      if (!mounted) return;
       setState(() {
         _lessons = lessonProvider.lessons
             .map((json) => LessonModel.fromJson(json))
@@ -157,10 +160,10 @@ class _HomeTabState extends State<_HomeTab> {
     // Fallback to direct local storage read
     final cachedLessons = LocalStorage.getAllLessons();
     if (cachedLessons.isNotEmpty) {
+      if (!mounted) return;
       setState(() {
-        _lessons = cachedLessons
-            .map((json) => LessonModel.fromJson(json))
-            .toList();
+        _lessons =
+            cachedLessons.map((json) => LessonModel.fromJson(json)).toList();
       });
     }
   }
@@ -171,7 +174,10 @@ class _HomeTabState extends State<_HomeTab> {
     ProgressProvider progressProvider,
     AuthProvider authProvider,
   ) async {
-    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+    final settingsProvider =
+        Provider.of<SettingsProvider>(context, listen: false);
+    final gamificationProvider =
+        Provider.of<GamificationProvider>(context, listen: false);
     final language = settingsProvider.contentLanguageCode;
 
     // Parallel fetch: lessons, progress, and stats at the same time
@@ -191,7 +197,6 @@ class _HomeTabState extends State<_HomeTab> {
 
     // Load gamification data (lemons)
     try {
-      final gamificationProvider = Provider.of<GamificationProvider>(context, listen: false);
       await gamificationProvider.loadFromStorage();
       _updateLemonData(gamificationProvider);
     } catch (e) {
@@ -232,6 +237,7 @@ class _HomeTabState extends State<_HomeTab> {
       }
     }
 
+    if (!mounted) return;
     setState(() {
       _lessonProgress = lessonProgressMap;
       _levelsWithProgress = progressLevels;
@@ -247,6 +253,7 @@ class _HomeTabState extends State<_HomeTab> {
         lemonMap[lesson.id] = lemons;
       }
     }
+    if (!mounted) return;
     setState(() {
       _lessonLemons = lemonMap;
     });
@@ -254,6 +261,7 @@ class _HomeTabState extends State<_HomeTab> {
 
   /// Update lessons list from provider
   void _updateLessonsFromProvider(LessonProvider lessonProvider) {
+    if (!mounted) return;
     setState(() {
       _lessons = lessonProvider.lessons
           .map((json) => LessonModel.fromJson(json))
@@ -289,248 +297,378 @@ class _HomeTabState extends State<_HomeTab> {
     });
   }
 
+  String _levelLabel(int level) {
+    if (level == 0) return '한글';
+    return 'Lv$level';
+  }
+
+  Widget _buildHangulQuickActionButton({
+    required BuildContext context,
+    required IconData icon,
+    required String tooltip,
+    required VoidCallback onTap,
+  }) {
+    return Tooltip(
+      message: tooltip,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.grey.shade300),
+          ),
+          child: Icon(icon, size: 18, color: Colors.grey.shade700),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReviewQuickAction(BuildContext context) {
+    final reviewCount = _lessons
+        .where((lesson) => _lessonProgress.containsKey(lesson.id))
+        .length;
+    final badgeText = reviewCount > 99 ? '99+' : '$reviewCount';
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        _buildHangulQuickActionButton(
+          context: context,
+          icon: Icons.replay,
+          tooltip: '복습',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ReviewLessonsListScreen(
+                  lessons: _lessons,
+                  lessonProgress: _lessonProgress,
+                ),
+              ),
+            );
+          },
+        ),
+        if (reviewCount > 0)
+          Positioned(
+            right: -5,
+            top: -5,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+              constraints: const BoxConstraints(minWidth: 14, minHeight: 14),
+              decoration: BoxDecoration(
+                color: Colors.red.shade500,
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(color: Colors.white, width: 1),
+              ),
+              child: Text(
+                badgeText,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 8,
+                  fontWeight: FontWeight.w700,
+                  height: 1.1,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildVocabularyQuickAction(BuildContext context) {
+    return _buildHangulQuickActionButton(
+      context: context,
+      icon: Icons.bookmark_outline,
+      tooltip: '나의 단어장',
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const VocabularyBookScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildFixedHangulAction({
+    required BuildContext context,
+    required IconData icon,
+    required String tooltip,
+    required VoidCallback onTap,
+  }) {
+    return _buildHangulQuickActionButton(
+      context: context,
+      icon: icon,
+      tooltip: tooltip,
+      onTap: onTap,
+    );
+  }
+
+  Widget _buildFixedHangulActions(BuildContext context) {
+    return Positioned(
+      right: 8,
+      bottom: 8,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildFixedHangulAction(
+            context: context,
+            icon: Icons.grid_view_rounded,
+            tooltip: '자모표',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HangulTableScreen(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          _buildFixedHangulAction(
+            context: context,
+            icon: Icons.widgets_outlined,
+            tooltip: '음절조합',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HangulSyllableScreen(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          _buildFixedHangulAction(
+            context: context,
+            icon: Icons.layers_outlined,
+            tooltip: '받침연습',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HangulBatchimScreen(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          _buildFixedHangulAction(
+            context: context,
+            icon: Icons.hearing_outlined,
+            tooltip: '소리구분훈련',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HangulDiscriminationScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFixedTopActions(BuildContext context) {
+    return Positioned(
+      top: AppConstants.paddingSmall,
+      left: AppConstants.paddingMedium,
+      right: AppConstants.paddingMedium,
+      child: Row(
+        children: [
+          PopupMenuButton<int>(
+            onSelected: _onLevelSelected,
+            itemBuilder: (context) => List.generate(
+              LevelConstants.levelCount,
+              (level) => PopupMenuItem<int>(
+                value: level,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 10,
+                      color: LevelConstants.getLevelColor(level),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(_levelLabel(level))),
+                    if (_levelsWithProgress.contains(level))
+                      const Icon(
+                        Icons.check_circle,
+                        size: 16,
+                        color: AppConstants.successColor,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.circle,
+                    size: 10,
+                    color: LevelConstants.getLevelColor(_selectedLevel),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    _levelLabel(_selectedLevel),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(Icons.expand_more, size: 18),
+                ],
+              ),
+            ),
+          ),
+          const Spacer(),
+          _buildVocabularyQuickAction(context),
+          const SizedBox(width: 6),
+          _buildReviewQuickAction(context),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final filtered = _filteredLessons;
 
-    return CustomScrollView(
-      slivers: [
-        // Level Selector
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(top: AppConstants.paddingSmall),
-            child: LevelSelector(
-              selectedLevel: _selectedLevel,
-              levelsWithProgress: _levelsWithProgress,
-              onLevelSelected: _onLevelSelected,
+    return Stack(
+      children: [
+        CustomScrollView(
+          slivers: [
+            // Top fixed action bar spacer
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 72),
             ),
-          ),
-        ),
 
-        // Continue Learning Section
-        if (_currentProgress != null && _lessons.isNotEmpty)
-          SliverToBoxAdapter(
-            child: Builder(
-              builder: (context) {
-                final l10n = AppLocalizations.of(context);
-                return Padding(
-                  padding: const EdgeInsets.all(AppConstants.paddingMedium),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n?.continueLearning ?? 'Continue Learning',
-                        style: const TextStyle(
-                          fontSize: AppConstants.fontSizeLarge,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: AppConstants.paddingSmall),
-                      ContinueLessonCard(
-                        lesson: _lessons.first,
-                        progress: _currentProgress!,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LessonScreen(lesson: _lessons.first),
+            // Continue Learning Section
+            if (_currentProgress != null && _lessons.isNotEmpty)
+              SliverToBoxAdapter(
+                child: Builder(
+                  builder: (context) {
+                    final l10n = AppLocalizations.of(context);
+                    return Padding(
+                      padding: const EdgeInsets.all(AppConstants.paddingMedium),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n?.continueLearning ?? 'Continue Learning',
+                            style: const TextStyle(
+                              fontSize: AppConstants.fontSizeLarge,
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ).animate().fadeIn(duration: 400.ms).slideY(
-                      begin: 0.2,
-                      end: 0,
-                      duration: 400.ms,
-                      curve: Curves.easeOut,
-                    );
-              },
-            ),
-          ),
-
-        // Hangul Dashboard for Level 0
-        if (_selectedLevel == 0)
-          SliverToBoxAdapter(
-            child: HangulDashboardView(),
-          )
-        // Lessons Grid or Empty State
-        else if (filtered.isEmpty)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.paddingMedium,
-                vertical: AppConstants.paddingXLarge,
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.lock_outline,
-                      size: 48,
-                      color: Colors.grey.shade400,
-                    ),
-                    const SizedBox(height: AppConstants.paddingMedium),
-                    Text(
-                      'Coming soon',
-                      style: TextStyle(
-                        fontSize: AppConstants.fontSizeLarge,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        else
-          SliverToBoxAdapter(
-            child: LessonPathView(
-              lessons: filtered,
-              lessonProgress: _lessonProgress,
-              lessonLemons: _lessonLemons,
-              levelColor: LevelConstants.getLevelColor(_selectedLevel),
-              onLessonTap: (lesson) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LessonScreen(lesson: lesson),
-                  ),
-                );
-              },
-            ),
-          ),
-
-        // Bottom padding
-        const SliverToBoxAdapter(
-          child: SizedBox(height: AppConstants.paddingLarge),
-        ),
-      ],
-    );
-  }
-}
-
-// ================================================================
-// REVIEW TAB
-// ================================================================
-
-class _ReviewTab extends StatelessWidget {
-  const _ReviewTab();
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          pinned: true,
-          title: Text(
-            l10n?.reviewSchedule ?? 'Review Schedule',
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeLarge,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
-            child: Card(
-              color: AppConstants.primaryColor.withValues(alpha: 0.1),
-              child: Padding(
-                padding: const EdgeInsets.all(AppConstants.paddingLarge),
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.replay_circle_filled_outlined,
-                      size: 60,
-                      color: AppConstants.primaryColor,
-                    ),
-                    const SizedBox(height: AppConstants.paddingMedium),
-                    Text(
-                      l10n?.todayReview ?? "Today's Review",
-                      style: const TextStyle(
-                        fontSize: AppConstants.fontSizeLarge,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: AppConstants.paddingSmall),
-                    Text(
-                      l10n?.wordsWaitingReview(15) ?? '15 words waiting for review',
-                      style: const TextStyle(
-                        fontSize: AppConstants.fontSizeMedium,
-                        color: AppConstants.textSecondary,
-                      ),
-                    ),
-                    const SizedBox(height: AppConstants.paddingMedium),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ReviewScreen(),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppConstants.primaryColor,
-                        foregroundColor: Colors.black87,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppConstants.paddingLarge,
-                          vertical: AppConstants.paddingMedium,
-                        ),
+                          const SizedBox(height: AppConstants.paddingSmall),
+                          ContinueLessonCard(
+                            lesson: _lessons.first,
+                            progress: _currentProgress!,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      LessonScreen(lesson: _lessons.first),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      child: Text(l10n?.startReview ?? 'Start Review'),
-                    ),
-                  ],
+                    ).animate().fadeIn(duration: 400.ms).slideY(
+                          begin: 0.2,
+                          end: 0,
+                          duration: 400.ms,
+                          curve: Curves.easeOut,
+                        );
+                  },
                 ),
               ),
-            ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.paddingMedium,
-          ),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final days = [
-                  l10n?.today ?? 'Today',
-                  l10n?.tomorrow ?? 'Tomorrow',
-                  l10n?.daysLater(2) ?? '2 days later',
-                  l10n?.daysLater(3) ?? '3 days later',
-                ];
-                final counts = [15, 8, 12, 5];
 
-                return Card(
-                  margin: const EdgeInsets.only(
-                    bottom: AppConstants.paddingMedium,
+            // Hangul Dashboard for Level 0
+            if (_selectedLevel == 0)
+              const SliverToBoxAdapter(
+                child: HangulDashboardView(),
+              )
+            // Lessons Grid or Empty State
+            else if (filtered.isEmpty)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.paddingMedium,
+                    vertical: AppConstants.paddingXLarge,
                   ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: AppConstants.primaryColor.withValues(alpha: 0.2),
-                      child: Text(
-                        '${counts[index]}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.lock_outline,
+                          size: 48,
+                          color: Colors.grey.shade400,
                         ),
-                      ),
+                        const SizedBox(height: AppConstants.paddingMedium),
+                        Text(
+                          'Coming soon',
+                          style: TextStyle(
+                            fontSize: AppConstants.fontSizeLarge,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                      ],
                     ),
-                    title: Text(days[index]),
-                    subtitle: Text(l10n?.wordsWaitingReview(counts[index]) ?? '${counts[index]} words'),
-                    trailing: const Icon(Icons.chevron_right),
                   ),
-                );
-              },
-              childCount: 4,
+                ),
+              )
+            else
+              SliverToBoxAdapter(
+                child: LessonPathView(
+                  lessons: filtered,
+                  lessonProgress: _lessonProgress,
+                  lessonLemons: _lessonLemons,
+                  levelColor: LevelConstants.getLevelColor(_selectedLevel),
+                  onLessonTap: (lesson) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LessonScreen(lesson: lesson),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+            // Bottom padding
+            const SliverToBoxAdapter(
+              child: SizedBox(height: AppConstants.paddingLarge),
             ),
-          ),
+          ],
         ),
+        _buildFixedTopActions(context),
+        if (_selectedLevel == 0) _buildFixedHangulActions(context),
       ],
     );
   }
@@ -556,7 +694,10 @@ class _ProfileTabState extends State<_ProfileTab> {
   @override
   void initState() {
     super.initState();
-    _loadStats();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _loadStats();
+    });
   }
 
   /// Calculate streak days from progress data
@@ -582,7 +723,8 @@ class _ProfileTabState extends State<_ProfileTab> {
 
     // Check if there's activity today or yesterday
     final mostRecent = DateTime.parse(completedProgress[0]['completed_at']);
-    final mostRecentDate = DateTime(mostRecent.year, mostRecent.month, mostRecent.day);
+    final mostRecentDate =
+        DateTime(mostRecent.year, mostRecent.month, mostRecent.day);
 
     final daysSinceLastActivity = today.difference(mostRecentDate).inDays;
 
@@ -602,8 +744,7 @@ class _ProfileTabState extends State<_ProfileTab> {
       uniqueDates.add(dayDate);
     }
 
-    final sortedDates = uniqueDates.toList()
-      ..sort((a, b) => b.compareTo(a));
+    final sortedDates = uniqueDates.toList()..sort((a, b) => b.compareTo(a));
 
     // Count consecutive days
     for (int i = 1; i < sortedDates.length; i++) {
@@ -624,7 +765,8 @@ class _ProfileTabState extends State<_ProfileTab> {
 
   /// Update daily statistics (streak and progress)
   void _updateDailyStats() {
-    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final progressProvider =
+        Provider.of<ProgressProvider>(context, listen: false);
     final progressList = progressProvider.progressList;
     final today = DateTime.now();
 
@@ -634,8 +776,8 @@ class _ProfileTabState extends State<_ProfileTab> {
       try {
         final completedAt = DateTime.parse(completedAtStr.toString());
         return completedAt.year == today.year &&
-               completedAt.month == today.month &&
-               completedAt.day == today.day;
+            completedAt.month == today.month &&
+            completedAt.day == today.day;
       } catch (_) {
         return false;
       }
@@ -650,108 +792,182 @@ class _ProfileTabState extends State<_ProfileTab> {
 
   Future<void> _loadStats() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
-    final bookmarkProvider = Provider.of<BookmarkProvider>(context, listen: false);
+    final progressProvider =
+        Provider.of<ProgressProvider>(context, listen: false);
+    final bookmarkProvider =
+        Provider.of<BookmarkProvider>(context, listen: false);
+    final socialProvider = Provider.of<SocialProvider>(context, listen: false);
 
     if (authProvider.currentUser != null) {
       await Future.wait([
         progressProvider.fetchUserStats(authProvider.currentUser!.id),
         bookmarkProvider.fetchBookmarks(silent: true),
+        socialProvider.loadFollowing(authProvider.currentUser!.id),
       ]);
       _updateDailyStats();
     }
   }
 
-  Widget _buildGreetingStreak(AuthProvider authProvider) {
-    final l10n = AppLocalizations.of(context)!;
-    final user = authProvider.currentUser;
-    final hour = DateTime.now().hour;
-    String greeting = hour < 12
-        ? l10n.goodMorning
-        : hour < 18
-            ? l10n.goodAfternoon
-            : l10n.goodEvening;
-
-    return Card(
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.all(AppConstants.paddingLarge),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Greeting text (left side)
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    greeting,
-                    style: const TextStyle(
-                      fontSize: AppConstants.fontSizeMedium,
-                      color: AppConstants.textSecondary,
+  Widget _buildFriendsSection() {
+    final l10n = AppLocalizations.of(context);
+    return Consumer<SocialProvider>(
+      builder: (context, socialProvider, _) {
+        final following = socialProvider.following;
+        return Card(
+          margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.paddingMedium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.people_outline, size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      l10n?.findFriends ?? 'Friends',
+                      style: const TextStyle(
+                        fontSize: AppConstants.fontSizeMedium,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    user?.username ?? l10n.user,
-                    style: const TextStyle(
-                      fontSize: AppConstants.fontSizeLarge,
-                      fontWeight: FontWeight.bold,
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.person_add_outlined, size: 20),
+                      tooltip: l10n?.findFriends ?? 'Find Friends',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const FriendSearchScreen(),
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Streak badge (right side)
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.paddingMedium,
-                vertical: AppConstants.paddingSmall,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-                border: Border.all(
-                  color: Colors.orange.shade200,
-                  width: 1,
+                    IconButton(
+                      icon: const Icon(Icons.chat_bubble_outline, size: 20),
+                      tooltip: l10n?.messages ?? 'Messages',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ConversationsScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.local_fire_department,
-                    color: Colors.orange,
-                    size: 24,
-                  ),
-                  const SizedBox(width: 8),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '$_streakDays',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.orange,
-                        ),
+                const SizedBox(height: 8),
+                if (following.isEmpty)
+                  // Improved empty state with CTA
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: AppConstants.paddingMedium,
                       ),
-                      Text(
-                        l10n.days,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.orange.shade700,
-                        ),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.people_outline,
+                            size: 40,
+                            color: Colors.grey.shade300,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            l10n?.noFriendsPrompt ?? 'Find friends to study together!',
+                            style: const TextStyle(
+                              fontSize: AppConstants.fontSizeSmall,
+                              color: AppConstants.textSecondary,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          OutlinedButton.icon(
+                            icon: const Icon(Icons.person_add, size: 16),
+                            label: Text(l10n?.findFriends ?? 'Find Friends'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppConstants.textPrimary,
+                              side: BorderSide(color: Colors.grey.shade300),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const FriendSearchScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                  )
+                else
+                  SizedBox(
+                    height: 84,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: following.length > 10 ? 10 : following.length,
+                      separatorBuilder: (_, __) => const SizedBox(width: 10),
+                      itemBuilder: (context, index) {
+                        final friend = following[index];
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(8),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    UserProfileScreen(userId: friend.id),
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            width: 60,
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 24,
+                                  backgroundColor: AppConstants.primaryColor
+                                      .withValues(alpha: 0.25),
+                                  backgroundImage: friend.hasProfileImage
+                                      ? NetworkImage(
+                                          '${AppConstants.mediaUrl}/images/${friend.profileImageUrl}',
+                                        )
+                                      : null,
+                                  child: friend.hasProfileImage
+                                      ? null
+                                      : Text(
+                                          friend.name.isNotEmpty
+                                              ? friend.name[0].toUpperCase()
+                                              : '?',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  friend.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: AppConstants.fontSizeSmall,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ],
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -759,228 +975,214 @@ class _ProfileTabState extends State<_ProfileTab> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final progressProvider = Provider.of<ProgressProvider>(context);
-    final bookmarkProvider = Provider.of<BookmarkProvider>(context);
     final user = authProvider.currentUser;
     final l10n = AppLocalizations.of(context);
 
-    return CustomScrollView(
-      slivers: [
-        // 톱니바퀴 설정 아이콘이 있는 SliverAppBar
-        SliverAppBar(
-          pinned: false,
-          floating: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.settings_outlined,
-                color: Colors.black87,
+    return RefreshIndicator(
+      color: AppConstants.accentColor,
+      onRefresh: _loadStats,
+      child: CustomScrollView(
+        slivers: [
+          // AppBar with My Room + Settings
+          SliverAppBar(
+            pinned: false,
+            floating: true,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            scrolledUnderElevation: 0.5,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            actions: [
+              TextButton.icon(
+                icon: const Icon(Icons.bedroom_child_outlined, size: 20),
+                label: Text(l10n?.myRoom ?? 'My Room'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black87,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyRoomScreen(),
+                    ),
+                  );
+                },
               ),
-              tooltip: l10n?.settings ?? 'Settings',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsMenuScreen(),
+              IconButton(
+                icon: const Icon(
+                  Icons.settings_outlined,
+                  color: Colors.black87,
+                ),
+                tooltip: l10n?.settings ?? 'Settings',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsMenuScreen(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+
+          // Profile Header
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.all(AppConstants.paddingLarge),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppConstants.primaryColor.withValues(alpha: 0.25),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+              child: Column(
+                children: [
+                  // Avatar
+                  CircleAvatar(
+                    radius: 38,
+                    backgroundColor: AppConstants.primaryColor,
+                    child: Text(
+                      user?.username.isNotEmpty == true
+                          ? user!.username[0].toUpperCase()
+                          : '?',
+                      style: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
                   ),
-                );
-              },
+                  const SizedBox(height: 10),
+                  // Username
+                  Text(
+                    user?.username ?? (l10n?.user ?? 'User'),
+                    style: const TextStyle(
+                      fontSize: AppConstants.fontSizeXLarge,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.paddingSmall),
+                  // Streak Badge - NOW TAPPABLE
+                  GestureDetector(
+                    onTap: () {
+                      showStreakDetailSheet(
+                        context: context,
+                        currentStreak: _streakDays,
+                        totalStudyDays: progressProvider.totalStudyDays,
+                        progressList: progressProvider.progressList,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.paddingMedium,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade50,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.orange.shade200,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.local_fire_department,
+                            color: Colors.orange,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            l10n?.streakDaysCount(_streakDays) ?? '$_streakDays day streak',
+                            style: TextStyle(
+                              fontSize: AppConstants.fontSizeSmall,
+                              color: Colors.orange.shade700,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 16,
+                            color: Colors.orange.shade400,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ).animate().fadeIn(duration: 400.ms),
+          ),
+
+          // Daily Goal Card
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingSmall,
+              ),
+              child: DailyGoalCard(
+                progress: _todayProgress,
+                completedLessons: _completedToday,
+                targetLessons: _targetLessons,
+              ),
             ),
-          ],
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            padding: const EdgeInsets.all(AppConstants.paddingLarge),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppConstants.primaryColor.withValues(alpha: 0.3),
-                  Colors.transparent,
+          ),
+
+          // Learning Statistics - 2x2 Grid
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingSmall,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSection(l10n?.learningStats ?? 'Learning Statistics'),
+                  const SizedBox(height: AppConstants.paddingSmall),
+                  ProfileStatsGrid(
+                    studyDays: progressProvider.totalStudyDays,
+                    completedLessons: progressProvider.completedLessons,
+                    masteredWords: progressProvider.masteredWords,
+                    totalTimeMinutes: progressProvider.totalTimeMinutes,
+                  ),
                 ],
               ),
             ),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: AppConstants.primaryColor,
-                  child: Text(
-                    user?.username.isNotEmpty == true
-                        ? user!.username[0].toUpperCase()
-                        : '👤',
-                    style: const TextStyle(
-                      fontSize: 40,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppConstants.paddingMedium),
-                Text(
-                  user?.username ?? (l10n?.user ?? 'User'),
-                  style: const TextStyle(
-                    fontSize: AppConstants.fontSizeXLarge,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: AppConstants.paddingSmall),
-                Text(
-                  user?.email ?? '',
-                  style: const TextStyle(
-                    fontSize: AppConstants.fontSizeMedium,
-                    color: AppConstants.textSecondary,
-                  ),
-                ),
-                const SizedBox(height: AppConstants.paddingMedium),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.paddingMedium,
-                    vertical: AppConstants.paddingSmall,
-                  ),
-                  decoration: BoxDecoration(
-                    color: user?.isPremium == true
-                        ? AppConstants.primaryColor
-                        : Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    user?.isPremium == true
-                        ? (l10n?.premiumMember ?? 'Premium Member')
-                        : (l10n?.freeUser ?? 'Free User'),
-                    style: TextStyle(
-                      color: user?.isPremium == true
-                          ? Colors.black87
-                          : Colors.grey.shade700,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
-        ),
 
-        // Greeting + Streak
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
+          // Lemon Tree (compact)
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingSmall,
+              ),
+              child: LemonTreeWidget(),
             ),
-            child: _buildGreetingStreak(authProvider),
           ),
-        ),
 
-        // Daily Goal Card
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
-            ),
-            child: DailyGoalCard(
-              progress: _todayProgress,
-              completedLessons: _completedToday,
-              targetLessons: _targetLessons,
+          // Friends Section
+          SliverPadding(
+            padding: const EdgeInsets.all(AppConstants.paddingMedium),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                _buildSection(l10n?.findFriends ?? 'Friends'),
+                _buildFriendsSection(),
+                const SizedBox(height: AppConstants.paddingLarge),
+              ]),
             ),
           ),
-        ),
-
-        // Lemon Tree
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
-            ),
-            child: LemonTreeWidget(),
-          ),
-        ),
-
-        SliverPadding(
-          padding: const EdgeInsets.all(AppConstants.paddingMedium),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate([
-              _buildSection(l10n?.learningStats ?? 'Learning Statistics'),
-              _buildStatCard(
-                label: l10n?.completedLessonsCount ?? 'Completed Lessons',
-                value: '${progressProvider.completedLessons}',
-                icon: Icons.check_circle_outline,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CompletedLessonsScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildStatCard(
-                label: l10n?.studyDays ?? 'Study Days',
-                value: '${progressProvider.totalStudyDays}',
-                icon: Icons.calendar_today_outlined,
-              ),
-              _buildStatCard(
-                label: l10n?.masteredWordsCount ?? 'Mastered Words',
-                value: '${progressProvider.masteredWords}',
-                icon: Icons.translate,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MasteredWordsScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildStatCard(
-                label: l10n?.myVocabularyBook ?? 'My Vocabulary Book',
-                value: '${bookmarkProvider.bookmarkCount}',
-                icon: Icons.bookmark,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const VocabularyBookScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildStatCard(
-                label: l10n?.vocabularyBrowser ?? 'Vocabulary Browser',
-                value: 'Level 1-6',
-                icon: Icons.library_books,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const VocabularyBrowserScreen(),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: AppConstants.paddingMedium),
-              _buildSection(l10n?.storageManagement ?? 'Storage Management'),
-              _buildMenuItem(
-                icon: Icons.storage_outlined,
-                label: l10n?.storageManagement ?? 'Storage Management',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DownloadManagerScreen(),
-                    ),
-                  );
-                },
-              ),
-            ]),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -1001,72 +1203,4 @@ class _ProfileTabState extends State<_ProfileTab> {
     );
   }
 
-  Widget _buildStatCard({
-    required String label,
-    required IconData icon,
-    String? value,
-    VoidCallback? onTap,
-  }) {
-    final card = Card(
-      margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
-      child: Padding(
-        padding: const EdgeInsets.all(AppConstants.paddingMedium),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(AppConstants.paddingSmall),
-              decoration: BoxDecoration(
-                color: AppConstants.primaryColor.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
-              ),
-              child: Icon(icon, color: AppConstants.primaryColor),
-            ),
-            const SizedBox(width: AppConstants.paddingMedium),
-            Expanded(
-              child: Text(
-                label,
-                style: const TextStyle(
-                  fontSize: AppConstants.fontSizeMedium,
-                ),
-              ),
-            ),
-            if (onTap != null) ...[
-              const SizedBox(width: AppConstants.paddingSmall),
-              const Icon(
-                Icons.chevron_right,
-                color: AppConstants.textSecondary,
-                size: 20,
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-
-    if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-        child: card,
-      );
-    }
-
-    return card;
-  }
-
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: AppConstants.paddingSmall),
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(label),
-        trailing: const Icon(Icons.chevron_right, size: 20),
-        onTap: onTap,
-      ),
-    );
-  }
 }

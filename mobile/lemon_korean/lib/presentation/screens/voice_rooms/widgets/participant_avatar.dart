@@ -11,8 +11,8 @@ class ParticipantAvatar extends StatelessWidget {
   final bool isSelf;
 
   const ParticipantAvatar({
-    super.key,
     required this.name,
+    super.key,
     this.avatar,
     this.isMuted = false,
     this.isCreator = false,

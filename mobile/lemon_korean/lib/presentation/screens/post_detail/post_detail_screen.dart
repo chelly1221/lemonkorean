@@ -35,6 +35,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   int? _replyToCommentId;
   String? _replyToName;
   bool _isLoadingComments = true;
+  bool _isSubmittingComment = false;
   List<CommentModel> _comments = [];
 
   @override
@@ -81,33 +82,47 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   }
 
   Future<void> _submitComment(String content) async {
-    final comment = await _snsRepository.createComment(
-      widget.post.id,
-      content: content,
-      parentId: _replyToCommentId,
-    );
+    if (_isSubmittingComment) return;
 
-    if (comment != null && mounted) {
-      setState(() {
-        _comments.add(comment);
-        _replyToCommentId = null;
-        _replyToName = null;
-      });
+    setState(() {
+      _isSubmittingComment = true;
+    });
 
-      // Update comment count in feed provider
-      final feedProvider = Provider.of<FeedProvider>(context, listen: false);
-      feedProvider.updateCommentCount(widget.post.id, 1);
+    try {
+      final comment = await _snsRepository.createComment(
+        widget.post.id,
+        content: content,
+        parentId: _replyToCommentId,
+      );
 
-      // Scroll to bottom to show new comment
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
-            duration: AppConstants.animationNormal,
-            curve: Curves.easeOut,
-          );
-        }
-      });
+      if (comment != null && mounted) {
+        setState(() {
+          _comments.add(comment);
+          _replyToCommentId = null;
+          _replyToName = null;
+        });
+
+        // Update comment count in feed provider
+        final feedProvider = Provider.of<FeedProvider>(context, listen: false);
+        feedProvider.updateCommentCount(widget.post.id, 1);
+
+        // Scroll to bottom to show new comment
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_scrollController.hasClients) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: AppConstants.animationNormal,
+              curve: Curves.easeOut,
+            );
+          }
+        });
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSubmittingComment = false;
+        });
+      }
     }
   }
 
@@ -125,17 +140,87 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     }
   }
 
+  void _confirmDeletePost(BuildContext context, AppLocalizations? l10n) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n?.deletePost ?? 'Delete Post'),
+        content: Text(l10n?.deletePostConfirm ??
+            'Are you sure you want to delete this post?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n?.cancel ?? 'Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(dialogContext);
+              final feedProvider =
+                  Provider.of<FeedProvider>(context, listen: false);
+              final success =
+                  await feedProvider.deletePost(widget.post.id);
+              if (success && mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content:
+                        Text(l10n?.postDeleted ?? 'Post deleted'),
+                    duration: AppConstants.snackBarShort,
+                  ),
+                );
+                Navigator.pop(context);
+              }
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: Text(l10n?.delete ?? 'Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final currentUserId = authProvider.currentUser?.id ?? 0;
 
+    final isPostAuthor = widget.post.author.id == currentUserId;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n?.postDetail ?? 'Post'),
         backgroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          if (isPostAuthor)
+            PopupMenuButton<String>(
+              icon: const Icon(
+                Icons.more_vert,
+                color: AppConstants.textSecondary,
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 'delete',
+                  child: Row(
+                    children: [
+                      const Icon(Icons.delete_outline,
+                          size: 20, color: Colors.red),
+                      const SizedBox(width: AppConstants.paddingSmall),
+                      Text(
+                        l10n?.deletePost ?? 'Delete Post',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              onSelected: (value) {
+                if (value == 'delete') {
+                  _confirmDeletePost(context, l10n);
+                }
+              },
+            ),
+        ],
       ),
       body: Column(
         children: [
@@ -192,6 +277,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             onSubmit: _submitComment,
             replyToName: _replyToName,
             onCancelReply: _cancelReply,
+            isSubmitting: _isSubmittingComment,
           ),
         ],
       ),
@@ -544,6 +630,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           comment: comment,
           currentUserId: currentUserId,
           onReply: comment.isReply ? null : () => _startReply(comment),
+          onDelete: () => _deleteComment(comment.id),
         ).animate().fadeIn(
               duration: 200.ms,
               delay: Duration(milliseconds: (index * 30).clamp(0, 200)),

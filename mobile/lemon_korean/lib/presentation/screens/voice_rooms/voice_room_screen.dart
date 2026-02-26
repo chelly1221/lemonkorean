@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +32,22 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
   VoiceStageGame? _game;
   bool _gameInitialized = false;
 
+  // Connection banner: track "just connected" green flash
+  bool _showConnectedBanner = false;
+  bool _wasDisconnected = false;
+  Timer? _connectedBannerTimer;
+
+  // Stage loading timeout
+  Timer? _stageLoadingTimer;
+  bool _stageLoadingTimedOut = false;
+
+  // Room closed auto-navigation
+  Timer? _roomClosedTimer;
+  bool _roomClosedAutoNavScheduled = false;
+
+  // Back button double-tap for listeners
+  DateTime? _lastBackPressTime;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +59,13 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
         final provider = context.read<VoiceRoomProvider>();
         provider.setMyUserId(userId);
         _initializeGame(provider, userId);
+      }
+    });
+
+    // Start stage loading timeout
+    _stageLoadingTimer = Timer(const Duration(seconds: 10), () {
+      if (_game == null && mounted) {
+        setState(() => _stageLoadingTimedOut = true);
       }
     });
   }
@@ -58,6 +83,7 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     final mySkinColor = myChar?.skinColor ?? '#FFDBB4';
     final myName = myChar?.name ?? '';
 
+    final room = provider.activeRoom;
     _game = VoiceStageGame(
       bridge: provider.gameBridge,
       isSpeaker: provider.isSpeaker,
@@ -65,9 +91,17 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       mySkinColor: mySkinColor,
       myName: myName,
       myUserId: userId,
+      isHost: provider.isCreator,
+      maxSpeakers: room?.maxSpeakers ?? 4,
     );
 
+    // Cancel the loading timeout since game initialized successfully
+    _stageLoadingTimer?.cancel();
+    _stageLoadingTimer = null;
+    _stageLoadingTimedOut = false;
+
     // Send existing remote speakers to Flame
+    final creatorId = room?.creatorId;
     for (final entry in provider.stageCharacters.entries) {
       if (entry.key == userId) continue;
       final char = entry.value;
@@ -77,6 +111,7 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
         equippedItems: char.equippedItems,
         skinColor: char.skinColor,
         isMuted: char.isMuted,
+        isHost: char.userId == creatorId,
       ));
     }
 
@@ -97,6 +132,9 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
 
   @override
   void dispose() {
+    _connectedBannerTimer?.cancel();
+    _stageLoadingTimer?.cancel();
+    _roomClosedTimer?.cancel();
     // Bridge cleanup is handled by provider
     super.dispose();
   }
@@ -107,34 +145,69 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       builder: (context, provider, child) {
         final room = provider.activeRoom;
         if (room == null) {
-          // Room was closed by host
+          // Room was closed by host - auto-navigate after 3 seconds
+          if (!_roomClosedAutoNavScheduled) {
+            _roomClosedAutoNavScheduled = true;
+            _roomClosedTimer = Timer(const Duration(seconds: 3), () {
+              if (mounted && context.mounted) {
+                provider.clearError();
+                Navigator.pop(context);
+              }
+            });
+          }
           final error = provider.error;
+          final l10n = AppLocalizations.of(context);
           return Scaffold(
             backgroundColor: const Color(0xFF1A1A2E),
             appBar: AppBar(
               backgroundColor: const Color(0xFF1A1A2E),
-              title: const Text('Voice Room',
-                  style: TextStyle(color: Colors.white)),
+              title: Text(l10n?.voiceRooms ?? 'Voice Room',
+                  style: const TextStyle(color: Colors.white)),
             ),
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Icon(Icons.meeting_room_outlined,
-                      color: Colors.white54, size: 48),
+                      color: Colors.white70, size: 64),
                   const SizedBox(height: 16),
                   Text(
-                    error ?? 'Room not available',
+                    error ?? l10n?.voiceRoomNotAvailable ?? 'Room not available',
                     style:
                         const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n?.voiceRoomReturningToList ?? 'Returning to room list...',
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.6),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      provider.clearError();
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Go Back'),
+                  SizedBox(
+                    width: 180,
+                    height: 44,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        _roomClosedTimer?.cancel();
+                        provider.clearError();
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back),
+                      label: Text(l10n?.voiceRoomGoBack ?? 'Go Back'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        foregroundColor: Colors.black87,
+                        textStyle: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -146,7 +219,7 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
           canPop: false,
           onPopInvokedWithResult: (didPop, result) async {
             if (!didPop) {
-              await _handleLeave(context, provider);
+              await _handleBackPress(context, provider);
             }
           },
           child: Scaffold(
@@ -161,13 +234,24 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    room.title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: AppConstants.fontSizeMedium,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          room.title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: AppConstants.fontSizeMedium,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (room.languageLevel != 'all') ...[
+                        const SizedBox(width: 8),
+                        _buildLevelChip(room.languageLevel),
+                      ],
+                    ],
                   ),
                   if (room.topic != null)
                     Text(
@@ -182,79 +266,86 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
               actions: [
                 // Stage request badge (creator only)
                 if (provider.isCreator)
-                  IconButton(
-                    icon: Badge(
-                      isLabelVisible: provider.stageRequests.isNotEmpty,
-                      label: Text(
-                        '${provider.stageRequests.length}',
-                        style: const TextStyle(fontSize: 10),
+                  Builder(builder: (context) {
+                    final l10n = AppLocalizations.of(context);
+                    return Semantics(
+                    button: true,
+                    label: l10n?.voiceRoomStageRequestsPending(provider.stageRequests.length) ?? 'Stage requests, ${provider.stageRequests.length} pending',
+                    child: IconButton(
+                      icon: Badge(
+                        isLabelVisible: provider.stageRequests.isNotEmpty,
+                        label: Text(
+                          '${provider.stageRequests.length}',
+                          style: const TextStyle(fontSize: 10),
+                        ),
+                        backgroundColor: Colors.red,
+                        child: Icon(
+                          provider.stageRequests.isNotEmpty
+                              ? Icons.back_hand
+                              : Icons.back_hand_outlined,
+                          color: provider.stageRequests.isNotEmpty
+                              ? Colors.amber
+                              : Colors.white70,
+                          size: 20,
+                        ),
                       ),
-                      backgroundColor: Colors.red,
-                      child: Icon(
-                        provider.stageRequests.isNotEmpty
-                            ? Icons.back_hand
-                            : Icons.back_hand_outlined,
-                        color: provider.stageRequests.isNotEmpty
-                            ? Colors.amber
-                            : Colors.white54,
-                        size: 20,
+                      onPressed: () =>
+                          _showStageManagement(context, provider),
+                    ),
+                  );
+                  }),
+                // Speaker count + Listener count
+                Builder(builder: (context) {
+                  final l10n = AppLocalizations.of(context);
+                  return Semantics(
+                  label: l10n?.voiceRoomSpeakerListenerCount(provider.speakers.length, room.maxSpeakers, provider.listeners.length) ?? '${provider.speakers.length} of ${room.maxSpeakers} speakers, ${provider.listeners.length} listeners',
+                  child: ExcludeSemantics(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.mic, color: Colors.amber, size: 14),
+                          const SizedBox(width: 2),
+                          Text(
+                            '${provider.speakers.length}/${room.maxSpeakers}',
+                            style: const TextStyle(
+                                color: Colors.white70, fontSize: 12),
+                          ),
+                          const SizedBox(width: 8),
+                          Icon(Icons.visibility,
+                              color: Colors.white.withValues(alpha: 0.7),
+                              size: 14),
+                          const SizedBox(width: 2),
+                          Text(
+                            '${provider.listeners.length}',
+                            style: const TextStyle(
+                                color: Colors.white70, fontSize: 12),
+                          ),
+                        ],
                       ),
                     ),
-                    onPressed: () =>
-                        _showStageManagement(context, provider),
                   ),
-                // Speaker count + Listener count
-                Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.mic, color: Colors.amber, size: 14),
-                      const SizedBox(width: 2),
-                      Text(
-                        '${provider.speakers.length}/${room.maxSpeakers}',
-                        style: const TextStyle(
-                            color: Colors.white70, fontSize: 12),
-                      ),
-                      const SizedBox(width: 8),
-                      Icon(Icons.visibility,
-                          color: Colors.white.withValues(alpha: 0.5),
-                          size: 14),
-                      const SizedBox(width: 2),
-                      Text(
-                        '${provider.listeners.length}',
-                        style: const TextStyle(
-                            color: Colors.white54, fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
+                );
+                }),
               ],
             ),
             body: Column(
               children: [
-                // Connection status banner
+                // Connection status banner (animated)
                 _buildConnectionBanner(provider),
 
-                // Level badge
-                if (room.languageLevel != 'all')
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: _buildLevelBadge(room.languageLevel),
-                  ),
-
-                // STAGE AREA (~40%) - Flame GameWidget
+                // STAGE AREA (~30%) - Flame GameWidget
                 Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: _game != null
-                      ? GameWidget(game: _game!)
-                      : Container(
-                          color: const Color(0xFF1A1A2E),
-                          child: const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white24,
-                            ),
-                          ),
-                        ),
+                      ? Builder(builder: (context) {
+                          final l10n = AppLocalizations.of(context);
+                          return Semantics(
+                            label: l10n?.voiceRoomStageWithSpeakers ?? 'Voice room stage with speakers',
+                            child: GameWidget(game: _game!),
+                          );
+                        })
+                      : _buildStageLoadingIndicator(provider),
                 ),
 
                 // Divider
@@ -263,7 +354,7 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                   color: Colors.white.withValues(alpha: 0.08),
                 ),
 
-                // AUDIENCE BAR
+                // AUDIENCE BAR (hidden when empty)
                 AudienceBarWidget(
                   listeners: provider.listeners,
                   onListenerTap: provider.isCreator
@@ -272,15 +363,16 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                       : null,
                 ),
 
-                // Divider
-                Container(
-                  height: 1,
-                  color: Colors.white.withValues(alpha: 0.08),
-                ),
+                // Divider (only shown when audience bar is visible)
+                if (provider.listeners.isNotEmpty)
+                  Container(
+                    height: 1,
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
 
-                // CHAT (~30%)
+                // CHAT (~40%)
                 const Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: VoiceChatWidget(),
                 ),
 
@@ -321,8 +413,29 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
   }
 
   Widget _buildConnectionBanner(VoiceRoomProvider provider) {
+    // Track disconnected state for "Connected!" green flash
+    if (provider.isConnecting || provider.isReconnecting ||
+        (!provider.isConnected && provider.activeRoom != null)) {
+      _wasDisconnected = true;
+    } else if (_wasDisconnected && provider.isConnected) {
+      // Just reconnected - show green "Connected!" banner briefly
+      _wasDisconnected = false;
+      if (!_showConnectedBanner) {
+        _showConnectedBanner = true;
+        _connectedBannerTimer?.cancel();
+        _connectedBannerTimer = Timer(const Duration(seconds: 2), () {
+          if (mounted) {
+            setState(() => _showConnectedBanner = false);
+          }
+        });
+      }
+    }
+
+    Widget bannerChild;
+
     if (provider.isConnecting || provider.isReconnecting) {
-      return Container(
+      bannerChild = Container(
+        key: const ValueKey('connecting'),
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
         color: Colors.orange.shade800,
@@ -336,19 +449,23 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                   strokeWidth: 2, color: Colors.white),
             ),
             const SizedBox(width: 8),
-            Text(
-              provider.isReconnecting
-                  ? 'Reconnecting (${provider.reconnectAttempts}/3)...'
-                  : 'Connecting...',
-              style: const TextStyle(color: Colors.white, fontSize: 13),
+            Builder(
+              builder: (context) {
+                final l10n = AppLocalizations.of(context);
+                return Text(
+                  provider.isReconnecting
+                      ? l10n?.voiceRoomReconnecting(provider.reconnectAttempts, 3) ?? 'Reconnecting (${provider.reconnectAttempts}/3)...'
+                      : l10n?.voiceRoomConnecting ?? 'Connecting...',
+                  style: const TextStyle(color: Colors.white, fontSize: 13),
+                );
+              },
             ),
           ],
         ),
       );
-    }
-
-    if (!provider.isConnected && provider.activeRoom != null) {
-      return GestureDetector(
+    } else if (!provider.isConnected && provider.activeRoom != null) {
+      bannerChild = GestureDetector(
+        key: const ValueKey('disconnected'),
         onTap: () => provider.reconnect(),
         child: Container(
           width: double.infinity,
@@ -360,10 +477,15 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
               const Icon(Icons.wifi_off, color: Colors.white, size: 16),
               const SizedBox(width: 8),
               Flexible(
-                child: Text(
-                  provider.error ?? 'Disconnected',
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
-                  overflow: TextOverflow.ellipsis,
+                child: Builder(
+                  builder: (context) {
+                    final l10n = AppLocalizations.of(context);
+                    return Text(
+                      provider.error ?? l10n?.voiceRoomDisconnected ?? 'Disconnected',
+                      style: const TextStyle(color: Colors.white, fontSize: 13),
+                      overflow: TextOverflow.ellipsis,
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 8),
@@ -374,12 +496,106 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Text(
-                  'Retry',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
+                child: Builder(
+                  builder: (context) {
+                    final l10n = AppLocalizations.of(context);
+                    return Text(
+                      l10n?.voiceRoomRetry ?? 'Retry',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else if (_showConnectedBanner) {
+      bannerChild = Builder(
+        builder: (context) {
+          final l10n = AppLocalizations.of(context);
+          return Container(
+            key: const ValueKey('connected'),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+            color: Colors.green.shade700,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  l10n?.voiceRoomConnected ?? 'Connected!',
+                  style: const TextStyle(color: Colors.white, fontSize: 13),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    } else {
+      bannerChild = const SizedBox.shrink(key: ValueKey('none'));
+    }
+
+    return Semantics(
+      liveRegion: true,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: bannerChild,
+      ),
+    );
+  }
+
+  Widget _buildStageLoadingIndicator(VoiceRoomProvider provider) {
+    final l10n = AppLocalizations.of(context);
+    if (_stageLoadingTimedOut) {
+      return Container(
+        color: const Color(0xFF1A1A2E),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.error_outline, color: Colors.amber, size: 36),
+              const SizedBox(height: 12),
+              Text(
+                l10n?.voiceRoomStageFailedToLoad ?? 'Stage failed to load',
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    _stageLoadingTimedOut = false;
+                    _gameInitialized = false;
+                  });
+                  // Restart timeout
+                  _stageLoadingTimer?.cancel();
+                  _stageLoadingTimer =
+                      Timer(const Duration(seconds: 10), () {
+                    if (_game == null && mounted) {
+                      setState(() => _stageLoadingTimedOut = true);
+                    }
+                  });
+                  // Retry initialization
+                  final userId = Provider.of<AuthProvider>(context,
+                          listen: false)
+                      .currentUser
+                      ?.id;
+                  if (userId != null) {
+                    _initializeGame(provider, userId);
+                  }
+                },
+                icon: const Icon(Icons.refresh, size: 18),
+                label: Text(l10n?.voiceRoomRetry ?? 'Retry'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber,
+                  foregroundColor: Colors.black87,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
             ],
@@ -388,40 +604,56 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       );
     }
 
-    return const SizedBox.shrink();
+    return Container(
+      color: const Color(0xFF1A1A2E),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CircularProgressIndicator(color: Colors.amber),
+            const SizedBox(height: 12),
+            Text(
+              l10n?.voiceRoomPreparingStage ?? 'Preparing stage...',
+              style: const TextStyle(color: Colors.white70, fontSize: 13),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  Widget _buildLevelBadge(String level) {
+  Widget _buildLevelChip(String level) {
+    final l10n = AppLocalizations.of(context);
     Color color;
     String label;
     switch (level) {
       case 'beginner':
         color = Colors.green;
-        label = 'Beginner';
+        label = l10n?.beginner ?? 'Beginner';
         break;
       case 'intermediate':
         color = Colors.orange;
-        label = 'Intermediate';
+        label = l10n?.intermediate ?? 'Intermediate';
         break;
       case 'advanced':
         color = Colors.red;
-        label = 'Advanced';
+        label = l10n?.advanced ?? 'Advanced';
         break;
       default:
         color = Colors.grey;
-        label = 'All Levels';
+        label = l10n?.allLevels ?? 'All Levels';
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
         label,
         style: TextStyle(
-            color: color, fontSize: 12, fontWeight: FontWeight.w600),
+            color: color, fontSize: 10, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -431,186 +663,217 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     final l10n = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: const Color(0xFF16213E),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (ctx) {
-        return Consumer<VoiceRoomProvider>(
-          builder: (context, provider, child) {
-            return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n?.stageRequests ?? 'Stage Requests',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  if (provider.stageRequests.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Center(
-                        child: Text(
-                          l10n?.noPendingRequests ?? 'No pending requests',
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.5),
+        return DraggableScrollableSheet(
+          initialChildSize: 0.5,
+          maxChildSize: 0.8,
+          minChildSize: 0.3,
+          expand: false,
+          builder: (context, scrollController) {
+            return Consumer<VoiceRoomProvider>(
+              builder: (context, provider, child) {
+                return SingleChildScrollView(
+                  controller: scrollController,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Drag handle
+                        Center(
+                          child: Container(
+                            width: 40,
+                            height: 4,
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  else
-                    ...provider.stageRequests.map((req) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: req.avatar != null
-                              ? NetworkImage(req.avatar!)
-                              : null,
-                          child: req.avatar == null
-                              ? Text(req.name.isNotEmpty
-                                  ? req.name[0].toUpperCase()
-                                  : '?')
-                              : null,
+                        Text(
+                          l10n?.stageRequests ?? 'Stage Requests',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        title: Text(
-                          req.name,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.check_circle,
-                                  color: Colors.green),
-                              onPressed: () {
-                                provider.grantStage(req.userId);
-                                Navigator.pop(ctx);
-                              },
+                        const SizedBox(height: 12),
+                        if (provider.stageRequests.isEmpty)
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Center(
+                              child: Text(
+                                l10n?.noPendingRequests ??
+                                    'No pending requests',
+                                style: TextStyle(
+                                  color: Colors.white.withValues(alpha: 0.5),
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                      );
-                    }),
+                          )
+                        else
+                          ...provider.stageRequests.map((req) {
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: req.avatar != null
+                                    ? NetworkImage(req.avatar!)
+                                    : null,
+                                child: req.avatar == null
+                                    ? Text(req.name.isNotEmpty
+                                        ? req.name[0].toUpperCase()
+                                        : '?')
+                                    : null,
+                              ),
+                              title: Text(
+                                req.name,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.check_circle,
+                                        color: Colors.green),
+                                    tooltip: l10n?.voiceRoomAcceptToStage(req.name) ?? 'Accept ${req.name} to stage',
+                                    onPressed: () {
+                                      provider.grantStage(req.userId);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.cancel,
+                                        color: Colors.red),
+                                    tooltip: l10n?.voiceRoomRejectFromStage(req.name) ?? 'Reject ${req.name}',
+                                    onPressed: () {
+                                      provider.rejectStageRequest(req.userId);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
 
-                  // Current speakers on stage
-                  const SizedBox(height: 16),
-                  Text(
-                    l10n?.onStage ?? 'On Stage',
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                        // Current speakers on stage
+                        const SizedBox(height: 16),
+                        Text(
+                          l10n?.onStage ?? 'On Stage',
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        ...provider.speakers.map((speaker) {
+                          final isHost =
+                              speaker.userId == provider.activeRoom?.creatorId;
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: speaker.avatar != null
+                                  ? NetworkImage(speaker.avatar!)
+                                  : null,
+                              child: speaker.avatar == null
+                                  ? Text(speaker.name.isNotEmpty
+                                      ? speaker.name[0].toUpperCase()
+                                      : '?')
+                                  : null,
+                            ),
+                            title: Text(
+                              '${speaker.name}${isHost ? ' ${l10n?.voiceRoomHostLabel ?? '(Host)'}' : ''}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            trailing: isHost
+                                ? null
+                                : Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.arrow_downward,
+                                            color: Colors.orange),
+                                        tooltip:
+                                            l10n?.voiceRoomDemoteToListener ??
+                                                'Demote to listener',
+                                        onPressed: () => _confirmDemote(
+                                            ctx, provider, speaker),
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.logout,
+                                            color: Colors.red, size: 20),
+                                        tooltip:
+                                            l10n?.voiceRoomKickFromRoom ??
+                                                'Kick from room',
+                                        onPressed: () => _confirmKick(
+                                            ctx, provider, speaker),
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        }),
+
+                        // Listeners section
+                        if (provider.listeners.isNotEmpty) ...[
+                          const SizedBox(height: 16),
+                          Text(
+                            l10n?.voiceRoomListeners ?? 'Listeners',
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          ...provider.listeners.map((listener) {
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: listener.avatar != null
+                                    ? NetworkImage(listener.avatar!)
+                                    : null,
+                                child: listener.avatar == null
+                                    ? Text(listener.name.isNotEmpty
+                                        ? listener.name[0].toUpperCase()
+                                        : '?')
+                                    : null,
+                              ),
+                              title: Text(
+                                listener.name,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.arrow_upward,
+                                        color: Colors.green, size: 20),
+                                    tooltip: l10n?.voiceRoomInviteToStage ??
+                                        'Invite to stage',
+                                    onPressed: () {
+                                      provider.inviteToStage(listener.userId);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.logout,
+                                        color: Colors.red, size: 20),
+                                    tooltip: l10n?.voiceRoomKickFromRoom ??
+                                        'Kick from room',
+                                    onPressed: () => _confirmKick(
+                                        ctx, provider, listener),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        ],
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  ...provider.speakers.map((speaker) {
-                    final isHost =
-                        speaker.userId == provider.activeRoom?.creatorId;
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: speaker.avatar != null
-                            ? NetworkImage(speaker.avatar!)
-                            : null,
-                        child: speaker.avatar == null
-                            ? Text(speaker.name.isNotEmpty
-                                ? speaker.name[0].toUpperCase()
-                                : '?')
-                            : null,
-                      ),
-                      title: Text(
-                        '${speaker.name}${isHost ? ' (Host)' : ''}',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      trailing: isHost
-                          ? null
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.arrow_downward,
-                                      color: Colors.orange),
-                                  tooltip: 'Demote to listener',
-                                  onPressed: () {
-                                    provider.removeFromStage(speaker.userId);
-                                    Navigator.pop(ctx);
-                                  },
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.logout,
-                                      color: Colors.red, size: 20),
-                                  tooltip: 'Kick from room',
-                                  onPressed: () {
-                                    provider.kickParticipant(speaker.userId);
-                                    Navigator.pop(ctx);
-                                  },
-                                ),
-                              ],
-                            ),
-                    );
-                  }),
-
-                  // Listeners section
-                  if (provider.listeners.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Listeners',
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    ...provider.listeners.map((listener) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: listener.avatar != null
-                              ? NetworkImage(listener.avatar!)
-                              : null,
-                          child: listener.avatar == null
-                              ? Text(listener.name.isNotEmpty
-                                  ? listener.name[0].toUpperCase()
-                                  : '?')
-                              : null,
-                        ),
-                        title: Text(
-                          listener.name,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.arrow_upward,
-                                  color: Colors.green, size: 20),
-                              tooltip: 'Invite to stage',
-                              onPressed: () {
-                                provider.inviteToStage(listener.userId);
-                                Navigator.pop(ctx);
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.logout,
-                                  color: Colors.red, size: 20),
-                              tooltip: 'Kick from room',
-                              onPressed: () {
-                                provider.kickParticipant(listener.userId);
-                                Navigator.pop(ctx);
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  ],
-                ],
-              ),
+                );
+              },
             );
           },
         );
@@ -618,35 +881,159 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     );
   }
 
+  Future<void> _confirmDemote(
+    BuildContext sheetContext,
+    VoiceRoomProvider provider,
+    VoiceParticipantModel speaker,
+  ) async {
+    final l10n = AppLocalizations.of(sheetContext);
+    final confirmed = await showDialog<bool>(
+      context: sheetContext,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n?.voiceRoomRemoveFromStage ?? 'Remove from Stage?'),
+        content: Text(
+            l10n?.voiceRoomRemoveFromStageConfirm(speaker.name) ?? 'Remove ${speaker.name} from stage? They will become a listener.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(l10n?.cancel ?? 'Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: Text(l10n?.voiceRoomDemote ?? 'Demote'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) {
+      provider.removeFromStage(speaker.userId);
+    }
+  }
+
+  Future<void> _confirmKick(
+    BuildContext sheetContext,
+    VoiceRoomProvider provider,
+    VoiceParticipantModel participant,
+  ) async {
+    final l10n = AppLocalizations.of(sheetContext);
+    final confirmed = await showDialog<bool>(
+      context: sheetContext,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n?.voiceRoomRemoveFromRoom ?? 'Remove from Room?'),
+        content: Text(
+            l10n?.voiceRoomRemoveFromRoomConfirm(participant.name) ?? 'Remove ${participant.name} from the room? They will be disconnected.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(l10n?.cancel ?? 'Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: Text(l10n?.voiceRoomRemove ?? 'Remove'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) {
+      provider.kickParticipant(participant.userId);
+    }
+  }
+
   void _showInviteToStageDialog(
     BuildContext context,
     VoiceRoomProvider provider,
     VoiceParticipantModel listener,
   ) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Invite to Stage'),
-        content: Text('Invite ${listener.name} to speak on stage?'),
+        title: Text(l10n?.voiceRoomInviteToStage ?? 'Invite to Stage'),
+        content: Text(l10n?.voiceRoomInviteConfirm(listener.name) ??
+            'Invite ${listener.name} to speak on stage?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(l10n?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               provider.inviteToStage(listener.userId);
             },
-            child: const Text('Invite'),
+            child: Text(l10n?.voiceRoomInvite ?? 'Invite'),
           ),
         ],
       ),
     );
   }
 
+  /// Handle back button press with double-tap pattern for listeners
+  /// and confirmation dialog for speakers
+  Future<void> _handleBackPress(
+      BuildContext context, VoiceRoomProvider provider) async {
+    // Speakers always get a confirmation dialog
+    if (provider.isSpeaker) {
+      await _handleLeave(context, provider);
+      return;
+    }
+
+    // Listeners: double-tap back to leave
+    final now = DateTime.now();
+    if (_lastBackPressTime != null &&
+        now.difference(_lastBackPressTime!) < const Duration(seconds: 2)) {
+      // Second press within 2 seconds - actually leave
+      _lastBackPressTime = null;
+      await provider.leaveRoom();
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+      return;
+    }
+
+    // First press - show snackbar
+    _lastBackPressTime = now;
+    if (context.mounted) {
+      final l10n = AppLocalizations.of(context);
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n?.voiceRoomPressBackToLeave ?? 'Press back again to leave'),
+          duration: const Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
   Future<void> _handleLeave(
       BuildContext context, VoiceRoomProvider provider) async {
+    // Show confirmation dialog for speakers
+    if (provider.isSpeaker) {
+      final l10n = AppLocalizations.of(context);
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(l10n?.voiceRoomLeaveTitle ?? 'Leave Room?'),
+          content: Text(
+              l10n?.voiceRoomLeaveBody ?? 'You are currently on stage. Are you sure you want to leave?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(l10n?.cancel ?? 'Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              child: Text(l10n?.leave ?? 'Leave'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
+    }
+
     await provider.leaveRoom();
     if (context.mounted) {
       Navigator.pop(context);
@@ -655,20 +1042,22 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
 
   Future<void> _handleClose(
       BuildContext context, VoiceRoomProvider provider) async {
+    final l10n = AppLocalizations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Close Room?'),
-        content: const Text('This will end the call for everyone.'),
+        title: Text(l10n?.voiceRoomCloseConfirmTitle ?? 'Close Room?'),
+        content: Text(l10n?.voiceRoomCloseConfirmBody ??
+            'This will end the call for everyone.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(l10n?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Close'),
+            child: Text(l10n?.close ?? 'Close'),
           ),
         ],
       ),

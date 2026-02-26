@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:math' as math;
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/hangul_character_model.dart';
 import '../../../../l10n/generated/app_localizations.dart';
+import 'hangul_stroke_data.dart';
 
 /// Stroke Order Animation Widget
-/// Displays stroke order for hangul characters with animation
+/// Asset-only mode: plays bundled stroke-order animation when available.
 class StrokeOrderAnimation extends StatefulWidget {
   final HangulCharacterModel character;
-  final bool showControls;
+  final bool showCard;
+  final bool showHeader;
+  final bool showCanvasFrame;
+  final bool showGrid;
+  final bool showGuideCharacter;
+  final double canvasSize;
+
+  // Kept for compatibility with existing call sites.
+  final int strokeDurationMs;
+  final int fallbackDurationMs;
 
   const StrokeOrderAnimation({
     required this.character,
-    this.showControls = true,
+    this.showCard = true,
+    this.showHeader = true,
+    this.showCanvasFrame = true,
+    this.showGrid = true,
+    this.showGuideCharacter = true,
+    this.canvasSize = 180,
+    this.strokeDurationMs = 1200,
+    this.fallbackDurationMs = 2600,
     super.key,
   });
 
@@ -20,61 +39,47 @@ class StrokeOrderAnimation extends StatefulWidget {
   State<StrokeOrderAnimation> createState() => _StrokeOrderAnimationState();
 }
 
-class _StrokeOrderAnimationState extends State<StrokeOrderAnimation>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  bool _isAnimating = false;
+class _StrokeOrderAnimationState extends State<StrokeOrderAnimation> {
+  late String _characterKey;
+  String? _bundledAssetPath;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: widget.character.strokeCount * 500),
-    );
-
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        setState(() => _isAnimating = false);
-      }
-    });
+    HangulStrokeData.ensureInitialized();
+    _characterKey =
+        HangulStrokeData.normalizeCharacter(widget.character.character);
+    _resolveBundledAsset();
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void didUpdateWidget(StrokeOrderAnimation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.character.character != widget.character.character ||
+        oldWidget.character.strokeOrderUrl != widget.character.strokeOrderUrl) {
+      _characterKey =
+          HangulStrokeData.normalizeCharacter(widget.character.character);
+      _resolveBundledAsset();
+    }
   }
 
-  void _playAnimation() {
-    setState(() => _isAnimating = true);
-    _controller.forward(from: 0);
-  }
-
-  void _stopAnimation() {
-    _controller.stop();
-    setState(() => _isAnimating = false);
-  }
-
-  void _resetAnimation() {
-    _controller.reset();
-    setState(() => _isAnimating = false);
+  Future<void> _resolveBundledAsset() async {
+    final resolved = await _StrokeAssetResolver.resolve(_characterKey);
+    if (!mounted) return;
+    if (resolved != _bundledAssetPath) {
+      setState(() {
+        _bundledAssetPath = resolved;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingMedium),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-        border: Border.all(color: Colors.grey.shade200),
-      ),
-      child: Column(
-        children: [
-          // Header
+    final content = Column(
+      children: [
+        if (widget.showHeader) ...[
           Row(
             children: [
               Icon(
@@ -100,155 +105,203 @@ class _StrokeOrderAnimationState extends State<StrokeOrderAnimation>
               ),
             ],
           ),
-
           const SizedBox(height: 16),
-
-          // Character display area
-          if (widget.character.hasStrokeOrder)
-            _buildStrokeOrderImage()
-          else
-            _buildStaticCharacter(),
-
-          // Controls
-          if (widget.showControls && widget.character.hasStrokeOrder) ...[
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: _resetAnimation,
-                  icon: const Icon(Icons.replay),
-                  tooltip: l10n.reset,
-                ),
-                const SizedBox(width: 16),
-                IconButton(
-                  onPressed: _isAnimating ? _stopAnimation : _playAnimation,
-                  icon: Icon(_isAnimating ? Icons.pause : Icons.play_arrow),
-                  tooltip: _isAnimating ? l10n.pause : l10n.play,
-                  style: IconButton.styleFrom(
-                    backgroundColor: AppConstants.primaryColor,
-                    foregroundColor: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ],
         ],
-      ),
+        _buildAnimationSurface(),
+      ],
     );
-  }
 
-  Widget _buildStrokeOrderImage() {
-    // If stroke order image/SVG is available, display it
-    // For now, show placeholder with animated opacity
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          width: 150,
-          height: 150,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey.shade300),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Background grid
-              CustomPaint(
-                size: const Size(150, 150),
-                painter: _GridPainter(),
-              ),
-              // Character with animated opacity
-              Opacity(
-                opacity: _controller.value,
-                child: Text(
-                  widget.character.character,
-                  style: const TextStyle(
-                    fontSize: 80,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+    if (!widget.showCard) {
+      return content;
+    }
 
-  Widget _buildStaticCharacter() {
     return Container(
-      width: 150,
-      height: 150,
+      padding: const EdgeInsets.all(AppConstants.paddingMedium),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: content,
+    );
+  }
+
+  Widget _buildAnimationSurface() {
+    if (_bundledAssetPath != null) {
+      return _buildBundledAsset();
+    }
+    return _buildMissingAsset();
+  }
+
+  Widget _buildBundledAsset() {
+    final image = Image.asset(
+      _bundledAssetPath!,
+      width: widget.canvasSize,
+      height: widget.canvasSize,
+      fit: BoxFit.contain,
+      filterQuality: FilterQuality.medium,
+      gaplessPlayback: false,
+      errorBuilder: (context, error, stackTrace) => _buildMissingAsset(),
+    );
+    final content = Stack(
+      fit: StackFit.expand,
+      children: [
+        RepaintBoundary(child: image),
+        if (widget.showGrid)
+          IgnorePointer(
+            child: CustomPaint(
+              painter: _EightWayGuidePainter(
+                color: Colors.grey.shade400.withValues(alpha: 0.45),
+              ),
+            ),
+          ),
+      ],
+    );
+
+    if (!widget.showCanvasFrame) {
+      return SizedBox(
+        width: widget.canvasSize,
+        height: widget.canvasSize,
+        child: content,
+      );
+    }
+
+    return Container(
+      width: widget.canvasSize,
+      height: widget.canvasSize,
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
       ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Background grid
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(11),
+        child: content,
+      ),
+    );
+  }
+
+  Widget _buildMissingAsset() {
+    final content = Stack(
+      fit: StackFit.expand,
+      children: [
+        if (widget.showGrid)
           CustomPaint(
-            size: const Size(150, 150),
-            painter: _GridPainter(),
-          ),
-          // Static character
-          Text(
-            widget.character.character,
-            style: const TextStyle(
-              fontSize: 80,
-              fontWeight: FontWeight.bold,
+            painter: _EightWayGuidePainter(
+              color: Colors.grey.shade500.withValues(alpha: 0.9),
             ),
           ),
-        ],
+        Center(
+          child: Text(
+            widget.character.character,
+            style: TextStyle(
+              fontSize: widget.canvasSize * 0.52,
+              height: 1,
+              fontWeight: FontWeight.w700,
+              color: const Color(0xFF2A2A2A),
+            ),
+          ),
+        ),
+      ],
+    );
+
+    if (!widget.showCanvasFrame) {
+      return SizedBox(
+        width: widget.canvasSize,
+        height: widget.canvasSize,
+        child: content,
+      );
+    }
+
+    return Container(
+      width: widget.canvasSize,
+      height: widget.canvasSize,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
       ),
+      child: content,
     );
   }
 }
 
-/// Grid painter for writing practice
-class _GridPainter extends CustomPainter {
+class _EightWayGuidePainter extends CustomPainter {
+  final Color color;
+
+  const _EightWayGuidePainter({required this.color});
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.grey.shade200
-      ..strokeWidth = 1;
+      ..color = color
+      ..strokeWidth = 0.7
+      ..style = PaintingStyle.stroke;
 
-    // Vertical center line
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height),
-      paint,
-    );
+    final cx = size.width / 2;
+    final cy = size.height / 2;
+    _drawDashedLine(canvas, Offset(0, cy), Offset(size.width, cy), paint);
+    _drawDashedLine(canvas, Offset(cx, 0), Offset(cx, size.height), paint);
+    _drawDashedLine(
+        canvas, const Offset(0, 0), Offset(size.width, size.height), paint);
+    _drawDashedLine(
+        canvas, Offset(size.width, 0), Offset(0, size.height), paint);
+  }
 
-    // Horizontal center line
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      paint,
-    );
+  void _drawDashedLine(
+    Canvas canvas,
+    Offset start,
+    Offset end,
+    Paint paint,
+  ) {
+    const dash = 5.0;
+    const gap = 3.0;
+    final dx = end.dx - start.dx;
+    final dy = end.dy - start.dy;
+    final distance = math.sqrt(dx * dx + dy * dy);
+    if (distance <= 0) return;
 
-    // Diagonal lines (optional for practice)
-    final dashedPaint = Paint()
-      ..color = Colors.grey.shade100
-      ..strokeWidth = 1;
+    final ux = dx / distance;
+    final uy = dy / distance;
+    double progress = 0;
 
-    canvas.drawLine(
-      const Offset(0, 0),
-      Offset(size.width, size.height),
-      dashedPaint,
-    );
-
-    canvas.drawLine(
-      Offset(size.width, 0),
-      Offset(0, size.height),
-      dashedPaint,
-    );
+    while (progress < distance) {
+      final segStart =
+          Offset(start.dx + ux * progress, start.dy + uy * progress);
+      final segEndDist = math.min(progress + dash, distance);
+      final segEnd =
+          Offset(start.dx + ux * segEndDist, start.dy + uy * segEndDist);
+      canvas.drawLine(segStart, segEnd, paint);
+      progress += dash + gap;
+    }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _EightWayGuidePainter oldDelegate) =>
+      oldDelegate.color != color;
+}
+
+class _StrokeAssetResolver {
+  static const String _basePath = 'assets/hangul/stroke_order';
+
+  static Future<String?> resolve(String character) async {
+    final code = character.runes.isNotEmpty
+        ? character.runes.first.toRadixString(16).padLeft(4, '0')
+        : '';
+    if (code.isEmpty) return null;
+
+    final candidates = <String>[
+      '$_basePath/u$code.webp',
+    ];
+
+    for (final path in candidates) {
+      try {
+        await rootBundle.load(path);
+        return path;
+      } catch (_) {
+        // Try next candidate.
+      }
+    }
+    return null;
+  }
 }

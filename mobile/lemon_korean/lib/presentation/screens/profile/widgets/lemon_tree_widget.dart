@@ -146,7 +146,7 @@ class _LemonTreeWidgetState extends State<LemonTreeWidget> {
         return Card(
           margin: EdgeInsets.zero,
           child: Padding(
-            padding: const EdgeInsets.all(AppConstants.paddingLarge),
+            padding: const EdgeInsets.all(AppConstants.paddingMedium),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -192,7 +192,7 @@ class _LemonTreeWidgetState extends State<LemonTreeWidget> {
 
                 // Tree visualization
                 SizedBox(
-                  height: 240,
+                  height: 160,
                   child: CustomPaint(
                     painter: _TreePainter(),
                     child: Stack(
@@ -232,8 +232,8 @@ class _LemonTreeWidgetState extends State<LemonTreeWidget> {
     final hasLemon = index < available;
 
     return Positioned(
-      left: pos.dx * 200 - 12 + 60, // offset for tree trunk centering
-      top: pos.dy * 200 - 12,
+      left: pos.dx * 133 - 10 + 40, // offset for tree trunk centering (scaled for 160px height)
+      top: pos.dy * 133 - 10,
       child: GestureDetector(
         onTap: hasLemon && !_isHarvesting ? () => _harvestLemon(index) : null,
         child: AnimatedSwitcher(
@@ -241,8 +241,8 @@ class _LemonTreeWidgetState extends State<LemonTreeWidget> {
           child: hasLemon
               ? Container(
                   key: ValueKey('lemon_$index'),
-                  width: 28,
-                  height: 28,
+                  width: 24,
+                  height: 24,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppConstants.primaryColor,
@@ -268,8 +268,8 @@ class _LemonTreeWidgetState extends State<LemonTreeWidget> {
                     )
               : Container(
                   key: ValueKey('empty_$index'),
-                  width: 28,
-                  height: 28,
+                  width: 24,
+                  height: 24,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.green.shade100,
@@ -299,29 +299,29 @@ class _TreePainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final trunkRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(centerX - 12, size.height * 0.65, 24, size.height * 0.35),
-      const Radius.circular(4),
+      Rect.fromLTWH(centerX - 8, size.height * 0.65, 16, size.height * 0.35),
+      const Radius.circular(3),
     );
     canvas.drawRRect(trunkRect, trunkPaint);
 
     // Branches
     final branchPaint = Paint()
       ..color = const Color(0xFF8B6914)
-      ..strokeWidth = 6
+      ..strokeWidth = 4
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
     // Left branch
     canvas.drawLine(
       Offset(centerX, size.height * 0.55),
-      Offset(centerX - 40, size.height * 0.40),
+      Offset(centerX - 27, size.height * 0.40),
       branchPaint,
     );
 
     // Right branch
     canvas.drawLine(
       Offset(centerX, size.height * 0.50),
-      Offset(centerX + 45, size.height * 0.35),
+      Offset(centerX + 30, size.height * 0.35),
       branchPaint,
     );
 
@@ -331,18 +331,18 @@ class _TreePainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final canopyPositions = [
-      Offset(centerX - 30, size.height * 0.35),
-      Offset(centerX + 30, size.height * 0.35),
+      Offset(centerX - 20, size.height * 0.35),
+      Offset(centerX + 20, size.height * 0.35),
       Offset(centerX, size.height * 0.25),
-      Offset(centerX - 20, size.height * 0.20),
-      Offset(centerX + 20, size.height * 0.20),
+      Offset(centerX - 13, size.height * 0.20),
+      Offset(centerX + 13, size.height * 0.20),
       Offset(centerX, size.height * 0.40),
-      Offset(centerX - 45, size.height * 0.45),
-      Offset(centerX + 45, size.height * 0.45),
+      Offset(centerX - 30, size.height * 0.45),
+      Offset(centerX + 30, size.height * 0.45),
     ];
 
     for (final pos in canopyPositions) {
-      canvas.drawCircle(pos, 35, canopyPaint);
+      canvas.drawCircle(pos, 23, canopyPaint);
     }
 
     // Darker canopy overlay
@@ -350,7 +350,7 @@ class _TreePainter extends CustomPainter {
       ..color = const Color(0xFF388E3C).withValues(alpha: 0.3)
       ..style = PaintingStyle.fill;
 
-    canvas.drawCircle(Offset(centerX, size.height * 0.30), 40, darkCanopyPaint);
+    canvas.drawCircle(Offset(centerX, size.height * 0.30), 27, darkCanopyPaint);
   }
 
   @override

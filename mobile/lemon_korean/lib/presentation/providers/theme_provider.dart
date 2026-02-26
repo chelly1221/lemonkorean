@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../core/constants/app_constants.dart';
-import '../../core/network/api_client.dart';
 import '../../core/utils/app_logger.dart';
 import '../../data/models/app_theme_model.dart';
 
@@ -16,7 +14,6 @@ class ThemeProvider extends ChangeNotifier {
   // DEPENDENCIES
   // ================================================================
 
-  final _apiClient = ApiClient.instance;
   static const String _themeBoxName = 'app_theme';
   static const String _themeKey = 'current_theme';
 
@@ -33,7 +30,8 @@ class ThemeProvider extends ChangeNotifier {
   // ================================================================
 
   /// Current theme model (or default if not loaded)
-  AppThemeModel get currentTheme => _currentTheme ?? AppThemeModel.defaultTheme();
+  AppThemeModel get currentTheme =>
+      _currentTheme ?? AppThemeModel.defaultTheme();
 
   /// Whether theme is currently loading
   bool get isLoading => _isLoading;
@@ -59,7 +57,7 @@ class ThemeProvider extends ChangeNotifier {
       // Load from cache first
       await _loadFromCache();
 
-      // Then try to fetch from API (will update cache if successful)
+      // Keep bundled/default theme in offline-first mode.
       await refreshTheme(silent: true);
 
       _error = null;
@@ -83,7 +81,8 @@ class ThemeProvider extends ChangeNotifier {
       if (cachedData != null) {
         final themeMap = Map<String, dynamic>.from(cachedData);
         _currentTheme = AppThemeModel.fromJson(themeMap);
-        AppLogger.d('Theme loaded from cache (version: ${_currentTheme!.version})');
+        AppLogger.d(
+            'Theme loaded from cache (version: ${_currentTheme!.version})');
       } else {
         AppLogger.d('No cached theme found, using defaults');
       }
@@ -107,10 +106,8 @@ class ThemeProvider extends ChangeNotifier {
   // THEME LOADING
   // ================================================================
 
-  /// Refresh theme from API
-  ///
-  /// Fetches the latest theme configuration from the admin API.
-  /// If [silent] is true, won't show loading state or notify listeners during fetch.
+  /// Refresh theme in offline-first mode.
+  /// Keeps cached/default theme and does not fetch remote admin settings.
   Future<void> refreshTheme({bool silent = false}) async {
     try {
       if (!silent) {
@@ -118,37 +115,13 @@ class ThemeProvider extends ChangeNotifier {
         _error = null;
         notifyListeners();
       }
-
-      // Fetch theme from API (public endpoint, no auth required)
-      final response = await _apiClient.getAppTheme();
-
-      if (response.statusCode == 200 && response.data != null) {
-        final newTheme = AppThemeModel.fromJson(response.data);
-
-        // Check if version changed
-        final versionChanged = _currentTheme == null || newTheme.version != _currentTheme!.version;
-
-        if (versionChanged) {
-          _currentTheme = newTheme;
-          await _saveToCache(newTheme);
-
-          // Initialize AppConstants with new theme
-          AppConstants.initializeTheme(newTheme);
-
-          AppLogger.i('Theme updated from API (version: ${newTheme.version})');
-          if (!silent) {
-            notifyListeners();
-          }
-        } else {
-          AppLogger.d('Theme version unchanged, skipping update');
-        }
-
-        _error = null;
-      } else {
-        throw Exception('Failed to fetch theme: ${response.statusCode}');
-      }
+      final current = _currentTheme ?? AppThemeModel.defaultTheme();
+      _currentTheme = current;
+      await _saveToCache(current);
+      AppConstants.initializeTheme(current);
+      _error = null;
     } catch (e) {
-      AppLogger.e('Failed to refresh theme from API', error: e);
+      AppLogger.e('Failed to refresh local theme', error: e);
       _error = e.toString();
 
       // If this is first load and we have no cached theme, use default
@@ -355,7 +328,6 @@ class ThemeProvider extends ChangeNotifier {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-
       colorScheme: ColorScheme.dark(
         primary: theme.primary,
         secondary: theme.secondary,
@@ -364,7 +336,6 @@ class ThemeProvider extends ChangeNotifier {
         surface: theme.backgroundDarkCol,
         surfaceContainerHighest: const Color(0xFF1E1E1E),
       ),
-
       scaffoldBackgroundColor: theme.backgroundDarkCol,
       fontFamily: theme.fontFamily,
     );

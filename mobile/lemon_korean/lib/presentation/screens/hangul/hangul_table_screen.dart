@@ -18,6 +18,111 @@ class HangulTableScreen extends StatefulWidget {
 }
 
 class _HangulTableScreenState extends State<HangulTableScreen> {
+  _TableViewMode _viewMode = _TableViewMode.grouped;
+
+  static const List<String> _matrixConsonants = [
+    'ㄱ',
+    'ㄴ',
+    'ㄷ',
+    'ㄹ',
+    'ㅁ',
+    'ㅂ',
+    'ㅅ',
+    'ㅇ',
+    'ㅈ',
+    'ㅊ',
+    'ㅋ',
+    'ㅌ',
+    'ㅍ',
+    'ㅎ',
+    'ㄲ',
+    'ㄸ',
+    'ㅃ',
+    'ㅆ',
+    'ㅉ',
+  ];
+
+  static const List<String> _matrixVowels = [
+    'ㅏ',
+    'ㅑ',
+    'ㅓ',
+    'ㅕ',
+    'ㅗ',
+    'ㅛ',
+    'ㅜ',
+    'ㅠ',
+    'ㅡ',
+    'ㅣ',
+  ];
+
+  static const Map<String, int> _choseongIndex = {
+    'ㄱ': 0,
+    'ㄲ': 1,
+    'ㄴ': 2,
+    'ㄷ': 3,
+    'ㄸ': 4,
+    'ㄹ': 5,
+    'ㅁ': 6,
+    'ㅂ': 7,
+    'ㅃ': 8,
+    'ㅅ': 9,
+    'ㅆ': 10,
+    'ㅇ': 11,
+    'ㅈ': 12,
+    'ㅉ': 13,
+    'ㅊ': 14,
+    'ㅋ': 15,
+    'ㅌ': 16,
+    'ㅍ': 17,
+    'ㅎ': 18,
+  };
+
+  static const Map<String, int> _jungseongIndex = {
+    'ㅏ': 0,
+    'ㅑ': 2,
+    'ㅓ': 4,
+    'ㅕ': 6,
+    'ㅗ': 8,
+    'ㅛ': 12,
+    'ㅜ': 13,
+    'ㅠ': 17,
+    'ㅡ': 18,
+    'ㅣ': 20,
+  };
+
+  static const Map<String, String> _compatMap = {
+    'ᄀ': 'ㄱ',
+    'ᄁ': 'ㄲ',
+    'ᄂ': 'ㄴ',
+    'ᄃ': 'ㄷ',
+    'ᄄ': 'ㄸ',
+    'ᄅ': 'ㄹ',
+    'ᄆ': 'ㅁ',
+    'ᄇ': 'ㅂ',
+    'ᄈ': 'ㅃ',
+    'ᄉ': 'ㅅ',
+    'ᄊ': 'ㅆ',
+    'ᄋ': 'ㅇ',
+    'ᄌ': 'ㅈ',
+    'ᄍ': 'ㅉ',
+    'ᄎ': 'ㅊ',
+    'ᄏ': 'ㅋ',
+    'ᄐ': 'ㅌ',
+    'ᄑ': 'ㅍ',
+    'ᄒ': 'ㅎ',
+    'ᅡ': 'ㅏ',
+    'ᅣ': 'ㅑ',
+    'ᅥ': 'ㅓ',
+    'ᅧ': 'ㅕ',
+    'ᅩ': 'ㅗ',
+    'ᅭ': 'ㅛ',
+    'ᅮ': 'ㅜ',
+    'ᅲ': 'ㅠ',
+    'ᅳ': 'ㅡ',
+    'ᅵ': 'ㅣ',
+    'ᅴ': 'ㅢ',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -34,9 +139,26 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final groupedSelected = _viewMode == _TableViewMode.grouped;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('자모표')),
+      appBar: AppBar(
+        actions: [
+          _buildModeAppBarButton(
+            icon: Icons.grid_view_rounded,
+            tooltip: '그룹형',
+            selected: groupedSelected,
+            onTap: () => setState(() => _viewMode = _TableViewMode.grouped),
+          ),
+          _buildModeAppBarButton(
+            icon: Icons.table_chart_rounded,
+            tooltip: '자음×모음',
+            selected: !groupedSelected,
+            onTap: () => setState(() => _viewMode = _TableViewMode.matrix),
+          ),
+          const SizedBox(width: 6),
+        ],
+      ),
       body: Consumer<HangulProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
@@ -54,58 +176,65 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
           return RefreshIndicator(
             onRefresh: () => provider.loadAlphabetTable(),
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(AppConstants.paddingMedium),
+              padding: EdgeInsets.fromLTRB(
+                AppConstants.paddingMedium,
+                _viewMode == _TableViewMode.matrix
+                    ? 6
+                    : AppConstants.paddingMedium,
+                AppConstants.paddingMedium,
+                _viewMode == _TableViewMode.matrix
+                    ? 12
+                    : AppConstants.paddingMedium,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Stats summary
-                  _buildStatsSummary(context, provider),
+                  if (_viewMode == _TableViewMode.grouped) ...[
+                    // Basic Consonants
+                    if (provider.basicConsonants.isNotEmpty)
+                      _buildCharacterSection(
+                        '${l10n.basicConsonants} (${l10n.basicConsonantsKo})',
+                        provider.basicConsonants,
+                        Colors.blue,
+                        provider,
+                      ),
 
-                  const SizedBox(height: 24),
+                    const SizedBox(height: 20),
 
-                  // Basic Consonants
-                  if (provider.basicConsonants.isNotEmpty)
-                    _buildCharacterSection(
-                      '${l10n.basicConsonants} (${l10n.basicConsonantsKo})',
-                      provider.basicConsonants,
-                      Colors.blue,
-                      provider,
-                    ),
+                    // Double Consonants
+                    if (provider.doubleConsonants.isNotEmpty)
+                      _buildCharacterSection(
+                        '${l10n.doubleConsonants} (${l10n.doubleConsonantsKo})',
+                        provider.doubleConsonants,
+                        Colors.indigo,
+                        provider,
+                      ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  // Double Consonants
-                  if (provider.doubleConsonants.isNotEmpty)
-                    _buildCharacterSection(
-                      '${l10n.doubleConsonants} (${l10n.doubleConsonantsKo})',
-                      provider.doubleConsonants,
-                      Colors.indigo,
-                      provider,
-                    ),
+                    // Basic Vowels
+                    if (provider.basicVowels.isNotEmpty)
+                      _buildCharacterSection(
+                        '${l10n.basicVowels} (${l10n.basicVowelsKo})',
+                        provider.basicVowels,
+                        Colors.green,
+                        provider,
+                      ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  // Basic Vowels
-                  if (provider.basicVowels.isNotEmpty)
-                    _buildCharacterSection(
-                      '${l10n.basicVowels} (${l10n.basicVowelsKo})',
-                      provider.basicVowels,
-                      Colors.green,
-                      provider,
-                    ),
-
-                  const SizedBox(height: 20),
-
-                  // Compound Vowels
-                  if (provider.compoundVowels.isNotEmpty)
-                    _buildCharacterSection(
-                      '${l10n.compoundVowels} (${l10n.compoundVowelsKo})',
-                      provider.compoundVowels,
-                      Colors.teal,
-                      provider,
-                    ),
-
-                  const SizedBox(height: 32),
+                    // Compound Vowels
+                    if (provider.compoundVowels.isNotEmpty)
+                      _buildCharacterSection(
+                        '${l10n.compoundVowels} (${l10n.compoundVowelsKo})',
+                        provider.compoundVowels,
+                        Colors.teal,
+                        provider,
+                      ),
+                  ] else
+                    _buildConsonantVowelMatrix(provider),
+                  SizedBox(
+                      height: _viewMode == _TableViewMode.matrix ? 10 : 32),
                 ],
               ),
             ),
@@ -115,79 +244,163 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
     );
   }
 
-  Widget _buildStatsSummary(BuildContext context, HangulProvider provider) {
-    final l10n = AppLocalizations.of(context)!;
-    final stats = provider.stats;
-    final totalCharacters = provider.characters.length;
-
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingMedium),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppConstants.primaryColor.withValues(alpha: 0.3),
-            AppConstants.primaryColor.withValues(alpha: 0.1),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+  Widget _buildModeAppBarButton({
+    required IconData icon,
+    required String tooltip,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    return Tooltip(
+      message: tooltip,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: selected
+                ? Colors.white.withValues(alpha: 0.9)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: selected ? Colors.grey.shade300 : Colors.transparent,
+            ),
+          ),
+          child: Icon(
+            icon,
+            size: 19,
+            color: selected ? Colors.black87 : Colors.grey.shade700,
+          ),
         ),
-        borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildStatItem(
-            l10n.totalCharacters,
-            '$totalCharacters',
-            Icons.text_fields,
-            Colors.grey.shade700,
-          ),
-          _buildStatItem(
-            l10n.learned,
-            '${stats?.charactersLearned ?? 0}',
-            Icons.school,
-            Colors.blue,
-          ),
-          _buildStatItem(
-            l10n.mastered,
-            '${stats?.charactersMastered ?? 0}',
-            Icons.star,
-            Colors.orange,
-          ),
-          _buildStatItem(
-            l10n.perfectCount,
-            '${stats?.charactersPerfected ?? 0}',
-            Icons.emoji_events,
-            Colors.purple,
-          ),
-        ],
       ),
     );
   }
 
-  Widget _buildStatItem(
-      String label, String value, IconData icon, Color color) {
-    return Column(
-      children: [
-        Icon(icon, color: color, size: 24),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.grey.shade600,
-          ),
-        ),
-      ],
+  Widget _buildConsonantVowelMatrix(HangulProvider provider) {
+    final media = MediaQuery.of(context);
+    final viewportHeight = media.size.height;
+    final topInset = media.padding.top;
+    final bottomInset = media.padding.bottom;
+    final matrixRows = _matrixConsonants.length + 1;
+    final reservedHeight = topInset + kToolbarHeight + bottomInset + 56;
+    final tableAvailableHeight = viewportHeight - reservedHeight;
+    final rowHeight = (tableAvailableHeight / matrixRows).clamp(17.0, 28.0);
+
+    final byChar = <String, HangulCharacterModel>{};
+    for (final c in provider.characters) {
+      byChar[_normalizeCharacter(c.character)] = c;
+    }
+
+    final rows = <TableRow>[];
+    rows.add(
+      TableRow(
+        children: [
+          _buildMatrixHeaderCell('', rowHeight),
+          for (final v in _matrixVowels)
+            _buildMatrixHeaderCell(
+              v,
+              rowHeight,
+              onTap: byChar[v] == null
+                  ? null
+                  : () => _navigateToDetail(context, byChar[v]!),
+            ),
+        ],
+      ),
     );
+
+    for (final c in _matrixConsonants) {
+      rows.add(
+        TableRow(
+          children: [
+            _buildMatrixHeaderCell(
+              c,
+              rowHeight,
+              onTap: byChar[c] == null
+                  ? null
+                  : () => _navigateToDetail(context, byChar[c]!),
+            ),
+            for (final v in _matrixVowels)
+              _buildMatrixBodyCell(_composeSyllable(c, v), rowHeight),
+          ],
+        ),
+      );
+    }
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final totalCols = _matrixVowels.length + 1;
+        final colWidth = (constraints.maxWidth / totalCols).clamp(24.0, 64.0);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '세로: 자음 / 가로: 모음',
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 2),
+            Container(
+              width: constraints.maxWidth,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Table(
+                defaultColumnWidth: FixedColumnWidth(colWidth),
+                border: TableBorder.all(color: Colors.grey.shade200),
+                children: rows,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildMatrixHeaderCell(String text, double rowHeight,
+      {VoidCallback? onTap}) {
+    final child = Container(
+      height: rowHeight,
+      alignment: Alignment.center,
+      color: Colors.grey.shade100,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: rowHeight < 24 ? 12 : 13,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+    if (onTap == null || text.isEmpty) return child;
+    return InkWell(onTap: onTap, child: child);
+  }
+
+  Widget _buildMatrixBodyCell(String text, double rowHeight) {
+    return Container(
+      height: rowHeight,
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: rowHeight < 24 ? 12 : 13,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  String _normalizeCharacter(String value) {
+    final trimmed = value.trim();
+    return _compatMap[trimmed] ?? trimmed;
+  }
+
+  String _composeSyllable(String consonant, String vowel) {
+    final l = _choseongIndex[consonant];
+    final v = _jungseongIndex[vowel];
+    if (l == null || v == null) return '';
+    final code = 0xAC00 + ((l * 21) + v) * 28;
+    return String.fromCharCode(code);
   }
 
   Widget _buildCharacterSection(
@@ -323,4 +536,9 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
       ),
     );
   }
+}
+
+enum _TableViewMode {
+  grouped,
+  matrix,
 }

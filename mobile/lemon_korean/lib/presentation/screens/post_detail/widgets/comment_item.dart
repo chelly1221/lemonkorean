@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/comment_model.dart';
-import '../../../../data/repositories/sns_repository.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../user_profile/user_profile_screen.dart';
 
@@ -11,12 +10,14 @@ class CommentItem extends StatelessWidget {
   final CommentModel comment;
   final int currentUserId;
   final VoidCallback? onReply;
+  final VoidCallback? onDelete;
 
   const CommentItem({
     super.key,
     required this.comment,
     required this.currentUserId,
     this.onReply,
+    this.onDelete,
   });
 
   @override
@@ -197,7 +198,7 @@ class CommentItem extends StatelessWidget {
           TextButton(
             onPressed: () {
               Navigator.pop(dialogContext);
-              SnsRepository().deleteComment(comment.id);
+              onDelete?.call();
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: Text(l10n?.delete ?? 'Delete'),

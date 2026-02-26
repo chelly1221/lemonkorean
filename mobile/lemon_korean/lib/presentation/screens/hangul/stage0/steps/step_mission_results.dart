@@ -12,6 +12,7 @@ class StepMissionResults extends StatelessWidget {
   final int missionCompleted;
   final int lemonsEarned;
   final VoidCallback onNext;
+  final VoidCallback? onRetry;
 
   const StepMissionResults({
     required this.step,
@@ -20,6 +21,7 @@ class StepMissionResults extends StatelessWidget {
     required this.missionCompleted,
     required this.lemonsEarned,
     required this.onNext,
+    this.onRetry,
     super.key,
   });
 
@@ -78,6 +80,28 @@ class StepMissionResults extends StatelessWidget {
           // Lemon reward
           LemonRewardAnimation(lemonsEarned: lemonsEarned),
           const Spacer(flex: 3),
+          // Retry button
+          if (onRetry != null) ...[
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: OutlinedButton(
+                onPressed: onRetry,
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFF42A5F5),
+                  side: const BorderSide(color: Color(0xFF42A5F5)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+                child: const Text(
+                  '다시 도전',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ).animate().fadeIn(delay: 1000.ms, duration: 400.ms),
+            const SizedBox(height: 12),
+          ],
           // Next button
           SizedBox(
             width: double.infinity,

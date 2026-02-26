@@ -104,7 +104,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get requestTimeout => 'リクエストがタイムアウトしました。もう一度お試しください。';
 
   @override
-  String get operationFailed => '操作に失敗しました。しばらくしてからもう一度お試しください。';
+  String get operationFailed => 'エラーが発生しました。しばらくしてからもう一度お試しください。';
 
   @override
   String get settings => '設定';
@@ -263,7 +263,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get appIntroContent =>
-      '中国語話者向けに設計された韓国語学習アプリです。オフライン学習、スマート復習リマインダーなどの機能をサポートしています。';
+      '多言語対応の韓国語学習アプリです。オフライン学習、スマート復習リマインダーなどの機能をサポートしています。';
 
   @override
   String get termsOfService => '利用規約';
@@ -334,9 +334,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get lowSimilarity => '低い類似度';
 
   @override
-  String get lessonComplete => 'レッスン完了！進捗が保存されました';
-
-  @override
   String get learningComplete => '学習完了';
 
   @override
@@ -345,7 +342,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get keepLearning => '学習のモチベーションを維持しましょう';
+  String get keepLearning => 'この調子で学習を続けましょう！';
 
   @override
   String get streakDays => '連続学習 +1日';
@@ -368,19 +365,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get dialogues => '会話';
 
   @override
-  String get grammarExplanation => '文法説明';
-
-  @override
-  String get exampleSentences => '例文';
-
-  @override
   String get previous => '前へ';
 
   @override
   String get next => '次へ';
-
-  @override
-  String get continueBtn => '続ける';
 
   @override
   String get topicParticle => '主題助詞';
@@ -473,30 +461,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get listening => 'リスニング';
 
   @override
-  String get fillBlank => '空欄を埋める';
-
-  @override
   String get translation => '翻訳';
 
   @override
   String get wordOrder => '語順';
 
   @override
-  String get pronunciation => '発音';
-
-  @override
   String get excellent => '素晴らしい！';
 
   @override
   String get correctOrderIs => '正しい順序：';
-
-  @override
-  String correctAnswerIs(String answer) {
-    return '正解: $answer';
-  }
-
-  @override
-  String get previousQuestion => '前の問題';
 
   @override
   String get nextQuestion => '次の問題';
@@ -692,7 +666,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get myVocabularyBook => 'マイ単語帳';
 
   @override
-  String get vocabularyBrowser => '単語ブラウザ';
+  String get vocabularyBrowser => '単語一覧';
 
   @override
   String get about => '情報';
@@ -739,25 +713,25 @@ class AppLocalizationsJa extends AppLocalizations {
   String get levelBeginner => '入門';
 
   @override
-  String get levelBeginnerDesc => '大丈夫！ハングルから始めよう';
+  String get levelBeginnerDesc => '大丈夫です！ハングルから始めましょう';
 
   @override
   String get levelElementary => '初級';
 
   @override
-  String get levelElementaryDesc => '基礎会話から練習しよう！';
+  String get levelElementaryDesc => '基礎会話から練習しましょう！';
 
   @override
   String get levelIntermediate => '中級';
 
   @override
-  String get levelIntermediateDesc => 'より自然に話そう！';
+  String get levelIntermediateDesc => 'より自然に話しましょう！';
 
   @override
   String get levelAdvanced => '上級';
 
   @override
-  String get levelAdvancedDesc => '細かい表現まで極めよう！';
+  String get levelAdvancedDesc => '細かい表現まで極めましょう！';
 
   @override
   String get onboardingWelcomeTitle => 'レモン韓国語へようこそ！';
@@ -775,7 +749,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingFeature2Title => 'スマート復習システム';
 
   @override
-  String get onboardingFeature2Desc => 'AI駆動の間隔反復で記憶力向上';
+  String get onboardingFeature2Desc => 'AIを活用した間隔反復学習で記憶力アップ';
 
   @override
   String get onboardingFeature3Title => '7ステージ学習パス';
@@ -808,7 +782,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get goalCasualHelper => '忙しいスケジュールに最適';
 
   @override
-  String get goalRegular => 'レギュラー';
+  String get goalRegular => 'コツコツ';
 
   @override
   String get goalRegularDesc => '週3-4レッスン';
@@ -820,7 +794,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get goalRegularHelper => 'プレッシャーなく着実に進歩';
 
   @override
-  String get goalSerious => 'シリアス';
+  String get goalSerious => '本格派';
 
   @override
   String get goalSeriousDesc => '週5-6レッスン';
@@ -992,7 +966,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get sortByKorean => '韓国語順';
 
   @override
-  String get sortByChinese => '中国語順';
+  String get sortByChinese => '日本語順';
 
   @override
   String get noWordsFound => '単語が見つかりません';
@@ -1052,7 +1026,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get sortKorean => '韓国語順';
 
   @override
-  String get sortChinese => '中国語順';
+  String get sortChinese => '日本語';
 
   @override
   String get sortMastery => '習熟度順';
@@ -1073,7 +1047,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get filterAdvanced => '上級 (レベル4-5)';
 
   @override
-  String get searchWordsNotesChinese => '単語、中国語、メモを検索...';
+  String get searchWordsNotesChinese => '単語、日本語訳、メモを検索...';
 
   @override
   String startReviewCount(int count) {
@@ -1217,7 +1191,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get hangulAlphabet => 'ハングル';
 
   @override
-  String get alphabetTable => '五十音表';
+  String get alphabetTable => '一覧表';
 
   @override
   String get learn => '学習';
@@ -1298,7 +1272,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get lesson7Desc => '残りの合成母音を学ぶ';
 
   @override
-  String get loadAlphabetFirst => 'まず五十音表データを読み込んでください';
+  String get loadAlphabetFirst => 'まずハングル一覧データを読み込んでください';
 
   @override
   String get noContentForLesson => 'この課には内容がありません';
@@ -1336,14 +1310,14 @@ class AppLocalizationsJa extends AppLocalizations {
   String get dailyLearningReminderTitle => '毎日の学習リマインダー';
 
   @override
-  String get dailyLearningReminderBody => '今日の韓国語学習を完了しましょう～';
+  String get dailyLearningReminderBody => '今日の韓国語学習を完了しましょう！';
 
   @override
   String get reviewReminderTitle => '復習の時間です！';
 
   @override
   String reviewReminderBody(String title) {
-    return '「$title」を復習する時間です～';
+    return '「$title」を復習する時間です！';
   }
 
   @override
@@ -1532,6 +1506,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get exitBtn => '終了';
 
   @override
+  String get lessonComplete => 'レッスン完了！進捗が保存されました';
+
+  @override
   String loadingLesson(String title) {
     return '$title を読み込み中...';
   }
@@ -1573,6 +1550,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get nextItem => '次へ';
 
   @override
+  String get continueBtn => '続ける';
+
+  @override
+  String get previousQuestion => '前の問題';
+
+  @override
   String get playingAudio => '再生中...';
 
   @override
@@ -1593,15 +1576,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String get playingAudioShort => 'オーディオ再生中...';
 
   @override
+  String get pronunciation => '発音';
+
+  @override
   String grammarPattern(String pattern) {
     return '文法 · $pattern';
   }
 
   @override
+  String get grammarExplanation => '文法説明';
+
+  @override
   String get conjugationRule => '活用ルール';
 
   @override
-  String get comparisonWithChinese => '中国語との比較';
+  String get comparisonWithChinese => '日本語との比較';
+
+  @override
+  String get exampleSentences => '例文';
 
   @override
   String get dialogueTitle => '会話練習';
@@ -1621,7 +1613,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get practiceInstructions => '以下の練習問題を完成させてください';
 
   @override
+  String get fillBlank => '空欄を埋める';
+
+  @override
   String get checkAnswerBtn => '答え合わせ';
+
+  @override
+  String correctAnswerIs(String answer) {
+    return '正解: $answer';
+  }
 
   @override
   String get quizTitle => 'クイズ';
@@ -1722,7 +1722,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statusCompleted => '完了';
 
   @override
-  String get statusFailed => '不合格';
+  String get statusFailed => '未合格';
 
   @override
   String get masteryNew => '新規';
@@ -1788,17 +1788,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get notificationStudyTime => '学習の時間です！';
 
   @override
-  String get notificationStudyReminder => '今日の韓国語学習を完了しましょう〜';
+  String get notificationStudyReminder => '今日の韓国語学習を完了しましょう！';
 
   @override
   String get notificationReviewTime => '復習の時間です！';
 
   @override
-  String get notificationReviewReminder => '以前学んだ内容を復習しましょう〜';
+  String get notificationReviewReminder => '以前学んだ内容を復習しましょう！';
 
   @override
   String notificationReviewLesson(String lessonTitle) {
-    return '「$lessonTitle」を復習しましょう〜';
+    return '「$lessonTitle」を復習しましょう！';
   }
 
   @override
@@ -1854,7 +1854,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tapToFlipBack => 'タップして裏返す';
 
   @override
-  String get similarityWithChinese => '中国語との類似度';
+  String get similarityWithChinese => '日本語との類似度';
 
   @override
   String get hanjaWordSimilarPronunciation => '漢字語、発音が似ている';
@@ -1889,13 +1889,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get correctFeedback => '素晴らしい！正解！';
 
   @override
-  String get incorrectFeedback => 'もう一度考えてみてください';
+  String get incorrectFeedback => '惜しいです！もう一度挑戦してみましょう';
 
   @override
   String get allStagesPassed => '7段階すべてクリア';
 
   @override
-  String get continueToLearnMore => 'もっと学習を続ける';
+  String get continueToLearnMore => 'もっと学習を続けましょう';
 
   @override
   String timeFormatHMS(int hours, int minutes, int seconds) {
@@ -1925,7 +1925,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get playbackSpeed => '再生速度';
 
   @override
-  String get slowSpeed => '遅い';
+  String get slowSpeed => 'ゆっくり';
 
   @override
   String get normalSpeed => '通常';
@@ -2158,7 +2158,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get createPost => '投稿作成';
 
   @override
-  String get writePost => '何か共有しましょう...';
+  String get writePost => '何か書いてみましょう...';
 
   @override
   String get postCategory => 'カテゴリー';
@@ -2344,7 +2344,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get category => 'カテゴリー';
 
   @override
-  String get writeYourThoughts => '思ったことを共有しましょう...';
+  String get writeYourThoughts => '思ったことを書いてみましょう...';
 
   @override
   String get photos => '写真';
@@ -2368,7 +2368,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get comments => 'コメント';
 
   @override
-  String get noComments => 'まだコメントがありません。最初のコメントを！';
+  String get noComments => 'まだコメントがありません。最初のコメントを書いてみましょう！';
 
   @override
   String get deleteCommentConfirm => 'このコメントを削除しますか？';
@@ -2431,7 +2431,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get advanced => '上級';
 
   @override
-  String get stageSlots => 'ステージ枠';
+  String get stageSlots => 'スピーカー枠';
 
   @override
   String get anyoneCanListen => '誰でもリスナーとして参加できます';
@@ -2492,6 +2492,304 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get createRoom => 'ルーム作成';
+
+  @override
+  String get voiceRoomMicPermission => 'ボイスルームにはマイクの許可が必要です';
+
+  @override
+  String get voiceRoomEnterTitle => 'ルーム名を入力してください';
+
+  @override
+  String get voiceRoomCreateFailed => 'ルームの作成に失敗しました';
+
+  @override
+  String get voiceRoomNotAvailable => 'ルームは利用できません';
+
+  @override
+  String get voiceRoomGoBack => '戻る';
+
+  @override
+  String get voiceRoomConnecting => '接続中...';
+
+  @override
+  String voiceRoomReconnecting(int attempts, int max) {
+    return '再接続中 ($attempts/$max)...';
+  }
+
+  @override
+  String get voiceRoomDisconnected => '切断されました';
+
+  @override
+  String get voiceRoomRetry => '再試行';
+
+  @override
+  String get voiceRoomHostLabel => '(ホスト)';
+
+  @override
+  String get voiceRoomDemoteToListener => 'リスナーに降格';
+
+  @override
+  String get voiceRoomKickFromRoom => 'ルームから退出させる';
+
+  @override
+  String get voiceRoomListeners => 'リスナー';
+
+  @override
+  String get voiceRoomInviteToStage => 'ステージに招待';
+
+  @override
+  String voiceRoomInviteConfirm(String name) {
+    return '$nameさんをステージに招待しますか？';
+  }
+
+  @override
+  String get voiceRoomInvite => '招待';
+
+  @override
+  String get voiceRoomCloseConfirmTitle => 'ルームを閉じますか？';
+
+  @override
+  String get voiceRoomCloseConfirmBody => '全員の通話が終了します。';
+
+  @override
+  String get voiceRoomNoMessagesYet => 'まだメッセージがありません';
+
+  @override
+  String get voiceRoomTypeMessage => 'メッセージを入力...';
+
+  @override
+  String get voiceRoomStageFull => 'ステージ満席';
+
+  @override
+  String voiceRoomListenerCount(int count) {
+    return 'リスナー $count人';
+  }
+
+  @override
+  String get voiceRoomRemoveFromStage => 'ステージから降ろしますか？';
+
+  @override
+  String voiceRoomRemoveFromStageConfirm(String name) {
+    return '$nameさんをステージから降ろしますか？リスナーになります。';
+  }
+
+  @override
+  String get voiceRoomDemote => '降格';
+
+  @override
+  String get voiceRoomRemoveFromRoom => 'ルームから退出させますか？';
+
+  @override
+  String voiceRoomRemoveFromRoomConfirm(String name) {
+    return '$nameさんをルームから退出させますか？接続が切断されます。';
+  }
+
+  @override
+  String get voiceRoomRemove => '退出させる';
+
+  @override
+  String get voiceRoomPressBackToLeave => 'もう一度押すと退出します';
+
+  @override
+  String get voiceRoomLeaveTitle => 'ルームを退出しますか？';
+
+  @override
+  String get voiceRoomLeaveBody => '現在ステージ上にいます。本当に退出しますか？';
+
+  @override
+  String get voiceRoomReturningToList => 'ルーム一覧に戻ります...';
+
+  @override
+  String get voiceRoomConnected => '接続しました！';
+
+  @override
+  String get voiceRoomStageFailedToLoad => 'ステージの読み込みに失敗しました';
+
+  @override
+  String get voiceRoomPreparingStage => 'ステージを準備中...';
+
+  @override
+  String voiceRoomAcceptToStage(Object name) {
+    return '$nameさんをステージに承認';
+  }
+
+  @override
+  String voiceRoomRejectFromStage(Object name) {
+    return '$nameさんを拒否';
+  }
+
+  @override
+  String get voiceRoomQuickCreate => 'クイック作成';
+
+  @override
+  String get voiceRoomRoomType => 'ルームタイプ';
+
+  @override
+  String get voiceRoomSessionDuration => 'セッション時間';
+
+  @override
+  String get voiceRoomOptionalTimer => 'セッションのタイマー（任意）';
+
+  @override
+  String get voiceRoomDurationNone => 'なし';
+
+  @override
+  String get voiceRoomDuration15 => '15分';
+
+  @override
+  String get voiceRoomDuration30 => '30分';
+
+  @override
+  String get voiceRoomDuration45 => '45分';
+
+  @override
+  String get voiceRoomDuration60 => '60分';
+
+  @override
+  String get voiceRoomTypeFreeTalk => 'フリートーク';
+
+  @override
+  String get voiceRoomTypePronunciation => '発音練習';
+
+  @override
+  String get voiceRoomTypeRolePlay => 'ロールプレイ';
+
+  @override
+  String get voiceRoomTypeQnA => '質問＆回答';
+
+  @override
+  String get voiceRoomTypeListening => 'リスニング';
+
+  @override
+  String get voiceRoomTypeDebate => 'ディベート';
+
+  @override
+  String get voiceRoomTemplateFreeTalk => '韓国語フリートーク';
+
+  @override
+  String get voiceRoomTemplatePronunciation => '発音練習';
+
+  @override
+  String get voiceRoomTemplateDailyKorean => 'デイリー韓国語';
+
+  @override
+  String get voiceRoomTemplateTopikSpeaking => 'TOPIKスピーキング';
+
+  @override
+  String get voiceRoomCreateTooltip => 'ボイスルームを作成';
+
+  @override
+  String get voiceRoomSendReaction => 'リアクションを送る';
+
+  @override
+  String get voiceRoomLeaveRoom => 'ルームを退出';
+
+  @override
+  String get voiceRoomUnmuteMic => 'マイクのミュートを解除';
+
+  @override
+  String get voiceRoomMuteMic => 'マイクをミュート';
+
+  @override
+  String get voiceRoomCancelHandRaise => '挙手をキャンセル';
+
+  @override
+  String get voiceRoomRaiseHandSemantic => '挙手する';
+
+  @override
+  String get voiceRoomSendGesture => 'ジェスチャーを送る';
+
+  @override
+  String get voiceRoomLeaveStageAction => 'ステージを降りる';
+
+  @override
+  String get voiceRoomManageStage => 'ステージを管理';
+
+  @override
+  String get voiceRoomMoreOptions => 'その他のオプション';
+
+  @override
+  String get voiceRoomMore => 'その他';
+
+  @override
+  String get voiceRoomStageWithSpeakers => 'スピーカーのいるボイスルームステージ';
+
+  @override
+  String voiceRoomStageRequestsPending(int count) {
+    return 'ステージリクエスト、$count件待ち';
+  }
+
+  @override
+  String voiceRoomSpeakerListenerCount(
+      int speakers, int maxSpeakers, int listeners) {
+    return 'スピーカー $speakers/$maxSpeakers人、リスナー $listeners人';
+  }
+
+  @override
+  String get voiceRoomChatInput => 'チャットメッセージ入力';
+
+  @override
+  String get voiceRoomSendMessage => 'メッセージを送信';
+
+  @override
+  String voiceRoomSendReactionNamed(Object name) {
+    return '$nameリアクションを送る';
+  }
+
+  @override
+  String get voiceRoomCloseReactionTray => 'リアクショントレイを閉じる';
+
+  @override
+  String voiceRoomPerformGesture(Object name) {
+    return '$nameジェスチャーを実行';
+  }
+
+  @override
+  String get voiceRoomCloseGestureTray => 'ジェスチャートレイを閉じる';
+
+  @override
+  String get voiceRoomGestureWave => '手を振る';
+
+  @override
+  String get voiceRoomGestureBow => 'お辞儀';
+
+  @override
+  String get voiceRoomGestureDance => 'ダンス';
+
+  @override
+  String get voiceRoomGestureJump => 'ジャンプ';
+
+  @override
+  String get voiceRoomGestureClap => '拍手';
+
+  @override
+  String get voiceRoomStageLabel => 'ステージ';
+
+  @override
+  String get voiceRoomYouLabel => '（自分）';
+
+  @override
+  String voiceRoomListenerTapToManage(Object name) {
+    return 'リスナー $name、タップして管理';
+  }
+
+  @override
+  String voiceRoomListenerName(Object name) {
+    return 'リスナー $name';
+  }
+
+  @override
+  String get voiceRoomMicPermissionDenied =>
+      'マイクへのアクセスが拒否されました。音声機能を使用するには、デバイスの設定で有効にしてください。';
+
+  @override
+  String get voiceRoomMicPermissionTitle => 'マイクの許可';
+
+  @override
+  String get voiceRoomOpenSettings => '設定を開く';
+
+  @override
+  String get voiceRoomMicNeededForStage => 'ステージで話すにはマイクの許可が必要です';
 
   @override
   String get batchimDescriptionText =>
@@ -2578,7 +2876,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noItemsYet => 'アイテムなし';
 
   @override
-  String get visitShopToGetItems => 'ショップでアイテムを手に入れよう！';
+  String get visitShopToGetItems => 'ショップでアイテムを手に入れましょう！';
 
   @override
   String get alreadyOwned => '所持済み！';
@@ -2615,7 +2913,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get hangulWelcome => 'ハングルの世界へようこそ！';
 
   @override
-  String get hangulWelcomeDesc => '40文字の子母音を一つずつ学びましょう';
+  String get hangulWelcomeDesc => 'ハングル40文字を一つずつ学びましょう';
 
   @override
   String get hangulStartLearning => '学習を始める';
@@ -2647,4 +2945,61 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get hangulGoToLevel1 => 'Level 1を始める';
+
+  @override
+  String get completedLessonsLabel => '完了レッスン';
+
+  @override
+  String get wordsLearnedLabel => '習得単語';
+
+  @override
+  String get totalStudyTimeLabel => '学習時間';
+
+  @override
+  String get streakDetails => '連続学習記録';
+
+  @override
+  String get consecutiveDays => '連続学習日数';
+
+  @override
+  String get totalStudyDaysLabel => '総学習日数';
+
+  @override
+  String get studyRecord => '学習記録';
+
+  @override
+  String get noFriendsPrompt => '一緒に勉強する友達を探しましょう！';
+
+  @override
+  String get moreStats => 'すべて表示';
+
+  @override
+  String remainingLessons(int count) {
+    return 'あと$countつで今日の目標達成！';
+  }
+
+  @override
+  String get streakMotivation0 => '今日から始めましょう！';
+
+  @override
+  String get streakMotivation1 => 'いいスタート！続けましょう！';
+
+  @override
+  String get streakMotivation7 => '1週間以上連続！すごいです！';
+
+  @override
+  String get streakMotivation14 => '2週間以上！習慣になってきています！';
+
+  @override
+  String get streakMotivation30 => '1ヶ月以上連続！真の学習者です！';
+
+  @override
+  String minutesShort(int count) {
+    return '$count分';
+  }
+
+  @override
+  String hoursShort(int count) {
+    return '$count時間';
+  }
 }

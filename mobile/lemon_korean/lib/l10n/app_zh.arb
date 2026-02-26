@@ -121,7 +121,7 @@
   "switchedToTraditional": "已切换到繁体中文",
   "@switchedToTraditional": {"description": "Switched to traditional message"},
 
-  "displayTip": "提示：课程内容将使用您选择的中文字体显示。",
+  "displayTip": "提示：课程内容将使用你选择的中文字体显示。",
   "@displayTip": {"description": "Display tip text"},
 
   "notificationSettings": "通知设置",
@@ -180,7 +180,7 @@
   "howToUseDownloaded": "如何使用已下载的课程？",
   "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
 
-  "howToUseDownloadedAnswer": "即使没有网络连接，您也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。",
+  "howToUseDownloadedAnswer": "即使没有网络连接，你也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。",
   "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
 
   "storageManagement": "存储管理",
@@ -210,7 +210,7 @@
   "whatIsReviewReminder": "什么是复习提醒？",
   "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
 
-  "whatIsReviewReminderAnswer": "基于间隔重复算法（SRS），应用会在最佳时间提醒您复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。",
+  "whatIsReviewReminderAnswer": "基于间隔重复算法（SRS），应用会在最佳时间提醒你复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。",
   "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
 
   "languageSection": "语言设置",
@@ -228,7 +228,7 @@
   "howToStart": "如何开始学习？",
   "@howToStart": {"description": "How to start learning FAQ"},
 
-  "howToStartAnswer": "在主页面选择适合您水平的课程，从第1课开始。每节课包含7个学习阶段。",
+  "howToStartAnswer": "在主页面选择适合你水平的课程，从第1课开始。每节课包含7个学习阶段。",
   "@howToStartAnswer": {"description": "How to start learning answer"},
 
   "progressNotSaved": "进度没有保存怎么办？",
@@ -326,9 +326,6 @@
   "lowSimilarity": "低相似度",
   "@lowSimilarity": {"description": "Low similarity level"},
 
-  "lessonComplete": "课程完成！",
-  "@lessonComplete": {"description": "Lesson complete message"},
-
   "learningComplete": "学习完成",
   "@learningComplete": {"description": "Learning complete title"},
 
@@ -366,20 +363,11 @@
   "dialogues": "对话",
   "@dialogues": {"description": "Dialogues label"},
 
-  "grammarExplanation": "语法讲解",
-  "@grammarExplanation": {"description": "Grammar explanation title"},
-
-  "exampleSentences": "例句",
-  "@exampleSentences": {"description": "Example sentences label"},
-
   "previous": "上一个",
   "@previous": {"description": "Previous button"},
 
   "next": "下一个",
   "@next": {"description": "Next button"},
-
-  "continueBtn": "继续",
-  "@continueBtn": {"description": "Continue button"},
 
   "topicParticle": "主题助词",
   "@topicParticle": {"description": "Topic particle grammar"},
@@ -471,29 +459,17 @@
   "listening": "听力",
   "@listening": {"description": "Listening question type"},
 
-  "fillBlank": "填空",
-  "@fillBlank": {"description": "Fill in blank question type"},
-
   "translation": "翻译",
   "@translation": {"description": "Translation question type"},
 
   "wordOrder": "排序",
   "@wordOrder": {"description": "Word order question type"},
 
-  "pronunciation": "发音",
-  "@pronunciation": {"description": "Pronunciation question type"},
-
   "excellent": "太棒了！",
   "@excellent": {"description": "Excellent feedback"},
 
-  "correctOrderIs": "正确顺序是:",
+  "correctOrderIs": "正确顺序是：",
   "@correctOrderIs": {"description": "Correct order is prefix"},
-
-  "correctAnswerIs": "正确答案是:",
-  "@correctAnswerIs": {"description": "Correct answer is prefix"},
-
-  "previousQuestion": "上一题",
-  "@previousQuestion": {"description": "Previous question button"},
 
   "nextQuestion": "下一题",
   "@nextQuestion": {"description": "Next question button"},
@@ -525,7 +501,7 @@
   "reviewSuggestion": "建议复习一下课程内容，再来挑战吧！",
   "@reviewSuggestion": {"description": "Review suggestion message"},
 
-  "timeUsed": "用时: {time}",
+  "timeUsed": "用时：{time}",
   "@timeUsed": {
     "description": "Time used display",
     "placeholders": {
@@ -778,7 +754,7 @@
   "onboardingWelcomeTitle": "欢迎来到柠檬韩语！",
   "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
 
-  "onboardingWelcomeSubtitle": "你的流利之旅从这里开始",
+  "onboardingWelcomeSubtitle": "在这里开启你的韩语之旅",
   "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
 
   "onboardingFeature1Title": "随时随地离线学习",
@@ -1224,7 +1200,7 @@
   "learningProgress": "学习进度",
   "@learningProgress": {"description": "Learning progress title"},
 
-  "dueForReviewCount": "{count} 个待复习",
+  "dueForReviewCount": "{count}个待复习",
   "@dueForReviewCount": {
     "description": "Due for review count",
     "placeholders": {
@@ -1392,7 +1368,7 @@
     }
   },
 
-  "learnedCount": "已学习: {count}",
+  "learnedCount": "已学习：{count}",
   "@learnedCount": {
     "description": "Learned count",
     "placeholders": {
@@ -1403,7 +1379,7 @@
   "hangulPractice": "韩文字母练习",
   "@hangulPractice": {"description": "Hangul practice title"},
 
-  "charactersNeedReview": "{count} 个字母需要复习",
+  "charactersNeedReview": "{count}个字母需要复习",
   "@charactersNeedReview": {
     "description": "Characters need review",
     "placeholders": {
@@ -1411,7 +1387,7 @@
     }
   },
 
-  "charactersAvailable": "{count} 个字母可练习",
+  "charactersAvailable": "{count}个字母可练习",
   "@charactersAvailable": {
     "description": "Characters available for practice",
     "placeholders": {
@@ -1463,7 +1439,7 @@
   "incorrectExclamation": "错误",
   "@incorrectExclamation": {"description": "Incorrect feedback"},
 
-  "correctAnswerLabel": "正确答案: ",
+  "correctAnswerLabel": "正确答案：",
   "@correctAnswerLabel": {"description": "Correct answer label"},
 
   "nextQuestionBtn": "下一题",
@@ -1492,10 +1468,10 @@
   "practiceFunctionDeveloping": "练习功能开发中",
   "@practiceFunctionDeveloping": {"description": "Practice function developing message"},
 
-  "romanization": "罗马字: ",
+  "romanization": "罗马字：",
   "@romanization": {"description": "Romanization label"},
 
-  "pronunciationLabel": "发音: ",
+  "pronunciationLabel": "发音：",
   "@pronunciationLabel": {"description": "Pronunciation label"},
 
   "playPronunciation": "播放发音",
@@ -1571,7 +1547,7 @@
   "lessonComplete": "课程完成！进度已保存",
   "@lessonComplete": {"description": "Lesson completion message"},
 
-  "loadingLesson": "{title} 불러오는 중...",
+  "loadingLesson": "正在加载{title}...",
   "@loadingLesson": {
     "description": "Loading lesson message",
     "placeholders": {
@@ -1579,7 +1555,7 @@
     }
   },
 
-  "cannotLoadContent": "레슨 콘텐츠를 불러올 수 없습니다",
+  "cannotLoadContent": "无法加载课程内容",
   "@cannotLoadContent": {"description": "Cannot load lesson content error"},
 
   "noLessonContent": "此课程暂无内容",
@@ -1703,7 +1679,7 @@
   "checkAnswerBtn": "检查答案",
   "@checkAnswerBtn": {"description": "Check answer button"},
 
-  "correctAnswerIs": "正确答案: {answer}",
+  "correctAnswerIs": "正确答案：{answer}",
   "@correctAnswerIs": {
     "description": "Correct answer display",
     "placeholders": {
@@ -1737,10 +1713,10 @@
   "summaryTitle": "课程总结",
   "@summaryTitle": {"description": "Lesson summary title"},
 
-  "vocabLearned": "学习单词",
+  "vocabLearned": "已学单词",
   "@vocabLearned": {"description": "Vocabulary learned label"},
 
-  "grammarLearned": "学习语法",
+  "grammarLearned": "已学语法",
   "@grammarLearned": {"description": "Grammar learned label"},
 
   "finishLesson": "完成课程",
@@ -2305,18 +2281,21 @@
   "postCreated": "发布成功！",
   "likesCount": "{count}个赞",
   "@likesCount": {
+    "description": "Number of likes",
     "placeholders": {
       "count": {"type": "int"}
     }
   },
   "commentsCount": "{count}条评论",
   "@commentsCount": {
+    "description": "Number of comments",
     "placeholders": {
       "count": {"type": "int"}
     }
   },
   "followersCount": "{count}位粉丝",
   "@followersCount": {
+    "description": "Number of followers",
     "placeholders": {
       "count": {"type": "int"}
     }
@@ -2331,6 +2310,7 @@
   "addPhotos": "添加照片",
   "maxPhotos": "最多{count}张照片",
   "@maxPhotos": {
+    "description": "Maximum photos allowed",
     "placeholders": {
       "count": {"type": "int"}
     }
@@ -2377,7 +2357,7 @@
   "beginner": "初级",
   "intermediate": "中级",
   "advanced": "高级",
-  "stageSlots": "发言席位",
+  "stageSlots": "上台名额",
   "anyoneCanListen": "任何人都可以加入聆听",
   "createAndJoin": "创建并加入",
   "unmute": "取消静音",
@@ -2388,16 +2368,259 @@
   "gesture": "动作",
   "raiseHand": "举手",
   "cancelRequest": "取消",
-  "leaveStage": "离开舞台",
+  "leaveStage": "退出发言席",
   "pendingRequests": "请求",
   "typeAMessage": "输入消息...",
   "stageRequests": "上台请求",
   "noPendingRequests": "暂无待处理请求",
-  "onStage": "舞台上",
+  "onStage": "发言中",
   "voiceRooms": "语音房间",
   "noVoiceRooms": "暂无活跃语音房间",
   "createVoiceRoomHint": "创建一个开始聊天吧！",
   "createRoom": "创建房间",
+  "voiceRoomMicPermission": "语音房间需要麦克风权限",
+  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "voiceRoomEnterTitle": "请输入房间标题",
+  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "voiceRoomCreateFailed": "创建房间失败",
+  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "voiceRoomNotAvailable": "房间不可用",
+  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "voiceRoomGoBack": "返回",
+  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "voiceRoomConnecting": "连接中...",
+  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "voiceRoomReconnecting": "重新连接中 ({attempts}/{max})...",
+  "@voiceRoomReconnecting": {
+    "description": "Reconnection status with attempt count",
+    "placeholders": {
+      "attempts": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "voiceRoomDisconnected": "已断开连接",
+  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "voiceRoomRetry": "重试",
+  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "voiceRoomHostLabel": "（主持人）",
+  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "voiceRoomDemoteToListener": "降为听众",
+  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "voiceRoomKickFromRoom": "踢出房间",
+  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "voiceRoomListeners": "听众",
+  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "voiceRoomInviteToStage": "邀请上台",
+  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "voiceRoomInviteConfirm": "邀请{name}上台发言？",
+  "@voiceRoomInviteConfirm": {
+    "description": "Confirmation message for stage invitation",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomInvite": "邀请",
+  "@voiceRoomInvite": {"description": "Invite button label"},
+  "voiceRoomCloseConfirmTitle": "关闭房间？",
+  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "voiceRoomCloseConfirmBody": "这将结束所有人的通话。",
+  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "voiceRoomNoMessagesYet": "暂无消息",
+  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "voiceRoomTypeMessage": "输入消息...",
+  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "voiceRoomStageFull": "舞台已满",
+  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "voiceRoomListenerCount": "{count}位听众",
+  "@voiceRoomListenerCount": {
+    "description": "Listener count for accessibility",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "voiceRoomRemoveFromStage": "移出舞台？",
+  "voiceRoomRemoveFromStageConfirm": "将{name}移出舞台？他们将成为听众。",
+  "@voiceRoomRemoveFromStageConfirm": {
+    "description": "Confirm dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomDemote": "降级",
+  "voiceRoomRemoveFromRoom": "移出房间？",
+  "voiceRoomRemoveFromRoomConfirm": "将{name}移出房间？他们将被断开连接。",
+  "@voiceRoomRemoveFromRoomConfirm": {
+    "description": "Confirm dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomRemove": "移出",
+  "voiceRoomPressBackToLeave": "再按一次返回键退出",
+  "voiceRoomLeaveTitle": "离开房间？",
+  "voiceRoomLeaveBody": "你目前在舞台上。确定要离开吗？",
+
+  "voiceRoomReturningToList": "正在返回房间列表...",
+  "@voiceRoomReturningToList": {"description": "Auto-navigation message when room is closed"},
+  "voiceRoomConnected": "已连接！",
+  "@voiceRoomConnected": {"description": "Banner shown briefly after reconnecting"},
+  "voiceRoomStageFailedToLoad": "舞台加载失败",
+  "@voiceRoomStageFailedToLoad": {"description": "Error when stage game fails to initialize"},
+  "voiceRoomPreparingStage": "正在准备舞台...",
+  "@voiceRoomPreparingStage": {"description": "Loading indicator while stage initializes"},
+  "voiceRoomAcceptToStage": "接受{name}上台",
+  "@voiceRoomAcceptToStage": {
+    "description": "Tooltip for accepting a stage request",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomRejectFromStage": "拒绝{name}",
+  "@voiceRoomRejectFromStage": {
+    "description": "Tooltip for rejecting a stage request",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomQuickCreate": "快速创建",
+  "@voiceRoomQuickCreate": {"description": "Quick create templates section title"},
+  "voiceRoomRoomType": "房间类型",
+  "@voiceRoomRoomType": {"description": "Room type selector label"},
+  "voiceRoomSessionDuration": "会话时长",
+  "@voiceRoomSessionDuration": {"description": "Session duration selector label"},
+  "voiceRoomOptionalTimer": "可选的会话计时器",
+  "@voiceRoomOptionalTimer": {"description": "Session duration helper text"},
+  "voiceRoomDurationNone": "无限制",
+  "@voiceRoomDurationNone": {"description": "No duration limit option"},
+  "voiceRoomDuration15": "15分钟",
+  "@voiceRoomDuration15": {"description": "15 minute duration option"},
+  "voiceRoomDuration30": "30分钟",
+  "@voiceRoomDuration30": {"description": "30 minute duration option"},
+  "voiceRoomDuration45": "45分钟",
+  "@voiceRoomDuration45": {"description": "45 minute duration option"},
+  "voiceRoomDuration60": "60分钟",
+  "@voiceRoomDuration60": {"description": "60 minute duration option"},
+  "voiceRoomTypeFreeTalk": "自由聊天",
+  "@voiceRoomTypeFreeTalk": {"description": "Free talk room type label"},
+  "voiceRoomTypePronunciation": "发音练习",
+  "@voiceRoomTypePronunciation": {"description": "Pronunciation practice room type label"},
+  "voiceRoomTypeRolePlay": "角色扮演",
+  "@voiceRoomTypeRolePlay": {"description": "Role play room type label"},
+  "voiceRoomTypeQnA": "问答",
+  "@voiceRoomTypeQnA": {"description": "Q&A room type label"},
+  "voiceRoomTypeListening": "听力练习",
+  "@voiceRoomTypeListening": {"description": "Listening practice room type label"},
+  "voiceRoomTypeDebate": "辩论",
+  "@voiceRoomTypeDebate": {"description": "Debate room type label"},
+  "voiceRoomTemplateFreeTalk": "韩语自由聊天",
+  "@voiceRoomTemplateFreeTalk": {"description": "Quick create template: free talk"},
+  "voiceRoomTemplatePronunciation": "发音练习",
+  "@voiceRoomTemplatePronunciation": {"description": "Quick create template: pronunciation"},
+  "voiceRoomTemplateDailyKorean": "每日韩语",
+  "@voiceRoomTemplateDailyKorean": {"description": "Quick create template: daily Korean"},
+  "voiceRoomTemplateTopikSpeaking": "TOPIK口语",
+  "@voiceRoomTemplateTopikSpeaking": {"description": "Quick create template: TOPIK speaking"},
+  "voiceRoomCreateTooltip": "创建语音房间",
+  "@voiceRoomCreateTooltip": {"description": "FAB tooltip for creating a voice room"},
+  "voiceRoomSendReaction": "发送表情",
+  "@voiceRoomSendReaction": {"description": "Semantic label for reaction button"},
+  "voiceRoomLeaveRoom": "离开房间",
+  "@voiceRoomLeaveRoom": {"description": "Semantic label for leave room button"},
+  "voiceRoomUnmuteMic": "取消麦克风静音",
+  "@voiceRoomUnmuteMic": {"description": "Semantic label for unmute button"},
+  "voiceRoomMuteMic": "麦克风静音",
+  "@voiceRoomMuteMic": {"description": "Semantic label for mute button"},
+  "voiceRoomCancelHandRaise": "取消举手",
+  "@voiceRoomCancelHandRaise": {"description": "Semantic label for cancelling hand raise"},
+  "voiceRoomRaiseHandSemantic": "举手",
+  "@voiceRoomRaiseHandSemantic": {"description": "Semantic label for raising hand"},
+  "voiceRoomSendGesture": "发送动作",
+  "@voiceRoomSendGesture": {"description": "Semantic label for gesture button"},
+  "voiceRoomLeaveStageAction": "退出舞台",
+  "@voiceRoomLeaveStageAction": {"description": "Semantic label for leave stage button"},
+  "voiceRoomManageStage": "管理舞台",
+  "@voiceRoomManageStage": {"description": "Semantic label for manage stage button"},
+  "voiceRoomMoreOptions": "更多选项",
+  "@voiceRoomMoreOptions": {"description": "Tooltip and semantic label for overflow menu"},
+  "voiceRoomMore": "更多",
+  "@voiceRoomMore": {"description": "Label under overflow menu button"},
+  "voiceRoomStageWithSpeakers": "有发言人的语音房间舞台",
+  "@voiceRoomStageWithSpeakers": {"description": "Semantic label for the stage area"},
+  "voiceRoomStageRequestsPending": "上台请求，{count}个待处理",
+  "@voiceRoomStageRequestsPending": {
+    "description": "Semantic label for stage requests badge",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "voiceRoomSpeakerListenerCount": "发言人 {speakers}/{maxSpeakers}，听众 {listeners}",
+  "@voiceRoomSpeakerListenerCount": {
+    "description": "Semantic label for speaker and listener count",
+    "placeholders": {
+      "speakers": {"type": "int"},
+      "maxSpeakers": {"type": "int"},
+      "listeners": {"type": "int"}
+    }
+  },
+  "voiceRoomChatInput": "聊天消息输入",
+  "@voiceRoomChatInput": {"description": "Semantic label for chat input field"},
+  "voiceRoomSendMessage": "发送消息",
+  "@voiceRoomSendMessage": {"description": "Semantic label for send message button"},
+  "voiceRoomSendReactionNamed": "发送{name}表情",
+  "@voiceRoomSendReactionNamed": {
+    "description": "Semantic label for specific reaction button",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomCloseReactionTray": "关闭表情面板",
+  "@voiceRoomCloseReactionTray": {"description": "Semantic label for closing reaction tray"},
+  "voiceRoomPerformGesture": "执行{name}动作",
+  "@voiceRoomPerformGesture": {
+    "description": "Semantic label for specific gesture button",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomCloseGestureTray": "关闭动作面板",
+  "@voiceRoomCloseGestureTray": {"description": "Semantic label for closing gesture tray"},
+  "voiceRoomGestureWave": "挥手",
+  "@voiceRoomGestureWave": {"description": "Wave gesture label"},
+  "voiceRoomGestureBow": "鞠躬",
+  "@voiceRoomGestureBow": {"description": "Bow gesture label"},
+  "voiceRoomGestureDance": "跳舞",
+  "@voiceRoomGestureDance": {"description": "Dance gesture label"},
+  "voiceRoomGestureJump": "跳跃",
+  "@voiceRoomGestureJump": {"description": "Jump gesture label"},
+  "voiceRoomGestureClap": "鼓掌",
+  "@voiceRoomGestureClap": {"description": "Clap gesture label"},
+  "voiceRoomStageLabel": "舞台",
+  "@voiceRoomStageLabel": {"description": "Label text displayed on the stage area"},
+  "voiceRoomYouLabel": "（我）",
+  "@voiceRoomYouLabel": {"description": "Label appended to own character name on stage"},
+  "voiceRoomListenerTapToManage": "听众{name}，点击管理",
+  "@voiceRoomListenerTapToManage": {
+    "description": "Semantic label for listener avatar when host can manage",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomListenerName": "听众{name}",
+  "@voiceRoomListenerName": {
+    "description": "Semantic label for listener avatar",
+    "placeholders": {
+      "name": {"type": "Object"}
+    }
+  },
+  "voiceRoomMicPermissionDenied": "麦克风访问被拒绝。要使用语音功能，请在设备设置中启用。",
+  "@voiceRoomMicPermissionDenied": {"description": "Detailed mic permission denied message for dialog"},
+  "voiceRoomMicPermissionTitle": "麦克风权限",
+  "@voiceRoomMicPermissionTitle": {"description": "Mic permission dialog title"},
+  "voiceRoomOpenSettings": "打开设置",
+  "@voiceRoomOpenSettings": {"description": "Button to open device settings for permissions"},
+  "voiceRoomMicNeededForStage": "上台发言需要麦克风权限",
+  "@voiceRoomMicNeededForStage": {"description": "Snackbar message when mic denied while raising hand"},
 
   "batchimDescriptionText": "韩语收音（받침）发音为7种音。\n多个收音发同一个音的现象叫做「收音代表音」。",
   "@batchimDescriptionText": {"description": "Batchim description text"},
@@ -2487,5 +2710,37 @@
   "hangulPracticeSuggestion": "快要完成了！通过活动巩固技能吧",
   "hangulStartActivities": "开始活动",
   "hangulMastered": "恭喜！你已经掌握了韩文字母！",
-  "hangulGoToLevel1": "进入第1级"
+  "hangulGoToLevel1": "进入第1级",
+  "completedLessonsLabel": "已完成",
+  "wordsLearnedLabel": "已学单词",
+  "totalStudyTimeLabel": "学习时间",
+  "streakDetails": "连续学习记录",
+  "consecutiveDays": "连续天数",
+  "totalStudyDaysLabel": "总学习天数",
+  "studyRecord": "学习记录",
+  "noFriendsPrompt": "找朋友一起学习吧！",
+  "moreStats": "查看全部",
+  "remainingLessons": "再完成{count}个即可达成今日目标！",
+  "@remainingLessons": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "streakMotivation0": "今天开始学习吧！",
+  "streakMotivation1": "好的开始！继续加油！",
+  "streakMotivation7": "连续学习超过一周！太棒了！",
+  "streakMotivation14": "坚持两周了！正在养成习惯！",
+  "streakMotivation30": "连续一个月以上！你是真正的学习者！",
+  "minutesShort": "{count}分钟",
+  "@minutesShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hoursShort": "{count}小时",
+  "@hoursShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

@@ -7,11 +7,12 @@ import 'package:flame/flame.dart';
 import '../../core/game_bridge.dart';
 
 /// A tappable furniture item placed in the room.
-class FurnitureComponent extends SpriteComponent with TapCallbacks, HasGameReference {
+class FurnitureComponent extends PositionComponent with TapCallbacks, HasGameReference {
   final int furnitureId;
   final String? assetKey;
   final String? interactionType; // 'mini_game', 'animation', null
   final GameBridge? bridge;
+  Sprite? _sprite;
 
   FurnitureComponent({
     required this.furnitureId,
@@ -30,7 +31,7 @@ class FurnitureComponent extends SpriteComponent with TapCallbacks, HasGameRefer
     if (assetKey != null) {
       try {
         final image = await Flame.images.load(assetKey!);
-        sprite = Sprite(image);
+        _sprite = Sprite(image);
       } catch (_) {
         // No sprite available, render placeholder
       }
@@ -53,8 +54,8 @@ class FurnitureComponent extends SpriteComponent with TapCallbacks, HasGameRefer
 
   @override
   void render(ui.Canvas canvas) {
-    if (sprite != null) {
-      super.render(canvas);
+    if (_sprite != null) {
+      _sprite!.render(canvas, size: size);
     } else {
       // Placeholder rectangle
       canvas.drawRRect(

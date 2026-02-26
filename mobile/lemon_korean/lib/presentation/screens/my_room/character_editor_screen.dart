@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
@@ -296,12 +297,19 @@ class _CharacterEditorScreenState extends State<CharacterEditorScreen>
                   child: Padding(
                     padding: const EdgeInsets.all(4),
                     child: item.isBundled
-                        ? Image.asset(
-                            item.assetKey,
-                            fit: BoxFit.contain,
-                            errorBuilder: (_, __, ___) =>
-                                Icon(Icons.image, color: Colors.grey.shade300),
-                          )
+                        ? (item.assetKey.toLowerCase().endsWith('.svg')
+                              ? SvgPicture.asset(
+                                  item.assetKey,
+                                  fit: BoxFit.contain,
+                                  placeholderBuilder: (_) =>
+                                      Icon(Icons.image, color: Colors.grey.shade300),
+                                )
+                              : Image.asset(
+                                  item.assetKey,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, __, ___) =>
+                                      Icon(Icons.image, color: Colors.grey.shade300),
+                                ))
                         : Icon(Icons.image, color: Colors.grey.shade400),
                   ),
                 ),

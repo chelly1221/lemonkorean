@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../data/models/character_item_model.dart';
 import '../../../presentation/providers/character_provider.dart';
@@ -31,6 +32,7 @@ class PixelCharacter extends PositionComponent {
 
   List<CharacterItemModel> _equippedItems;
   String _skinColor;
+  double _displayScale;
   final CharacterAnimationState animState = CharacterAnimationState();
 
   // Walking
@@ -42,6 +44,8 @@ class PixelCharacter extends PositionComponent {
   // Layers
   final List<EquipmentLayer> _layers = [];
   late CharacterShadow _shadow;
+  bool _isRebuildingLayers = false;
+  bool _needsRebuildLayers = false;
 
   // Callback when character finishes walking
   void Function(double x, double y, String direction)? onPositionChanged;
@@ -50,56 +54,87 @@ class PixelCharacter extends PositionComponent {
     required List<CharacterItemModel> equippedItems,
     required String skinColor,
     Vector2? position,
+    double? displayScale,
   })  : _equippedItems = equippedItems,
         _skinColor = skinColor,
+        _displayScale = displayScale ?? GameConstants.displayScale,
         super(
           position: position ?? Vector2.zero(),
-          size: Vector2(GameConstants.displayWidth, GameConstants.displayHeight),
+          size: Vector2(
+            GameConstants.frameWidth * (displayScale ?? GameConstants.displayScale),
+            GameConstants.frameHeight * (displayScale ?? GameConstants.displayScale),
+          ),
           anchor: Anchor.bottomCenter,
         );
+
+  /// Update the display scale at runtime (e.g. on game resize).
+  set displayScale(double value) {
+    if (value == _displayScale) return;
+    _displayScale = value;
+    final newW = GameConstants.frameWidth * value;
+    final newH = GameConstants.frameHeight * value;
+    size = Vector2(newW, newH);
+    // Propagate to child layers
+    for (final layer in _layers) {
+      layer.size = Vector2(newW, newH);
+    }
+    _shadow.position = Vector2(newW / 2, newH);
+  }
+
+  double get displayScale => _displayScale;
 
   @override
   Future<void> onLoad() async {
     _shadow = CharacterShadow();
     _shadow.position = Vector2(size.x / 2, size.y);
-    add(_shadow);
+    await _safeAddChild(_shadow);
 
     await _buildLayers();
   }
 
   /// Rebuild all equipment layers from the current equipped items.
   Future<void> _buildLayers() async {
-    // Remove old layers
-    for (final layer in _layers) {
-      layer.removeFromParent();
+    if (_isRebuildingLayers) {
+      _needsRebuildLayers = true;
+      return;
     }
-    _layers.clear();
+    _isRebuildingLayers = true;
 
-    // Prefer bundledDefaults for items with matching IDs
-    // (ensures bundled sprites always use latest code-side paths/metadata)
-    final bundledLookup = {
-      for (final item in CharacterProvider.bundledDefaults) item.id: item,
-    };
+    do {
+      _needsRebuildLayers = false;
 
-    var characterItems = _equippedItems
-        .map((i) => bundledLookup[i.id] ?? i)
-        .where((i) => i.isCharacterPart && i.hasSpritesheet)
-        .toList()
-      ..sort((a, b) => a.renderOrder.compareTo(b.renderOrder));
+      // Remove old layers
+      removeAll(_layers);
+      _layers.clear();
 
-    // Fallback: use default body spritesheet if no items have spritesheet data
-    if (characterItems.isEmpty) {
-      characterItems = _defaultSpritesheetItems;
-    }
+      // Prefer bundledDefaults for items with matching IDs
+      // (ensures bundled sprites always use latest code-side paths/metadata)
+      final bundledLookup = {
+        for (final item in CharacterProvider.bundledDefaults) item.id: item,
+      };
 
-    // Create layers
-    for (final item in characterItems) {
-      final layer = EquipmentLayer(item: item, animState: animState);
-      _layers.add(layer);
-      add(layer);
-      // Load images async (non-blocking per layer)
-      layer.loadImage(_skinColor);
-    }
+      var characterItems = _equippedItems
+          .map((i) => bundledLookup[i.id] ?? i)
+          .where((i) => i.isCharacterPart && i.hasSpritesheet)
+          .toList()
+        ..sort((a, b) => a.renderOrder.compareTo(b.renderOrder));
+
+      // Fallback: use default body spritesheet if no items have spritesheet data
+      if (characterItems.isEmpty) {
+        characterItems = _defaultSpritesheetItems;
+      }
+
+      // Create layers
+      for (final item in characterItems) {
+        final layer = EquipmentLayer(item: item, animState: animState);
+        _layers.add(layer);
+        await _safeAddChild(layer);
+        // Load images async (non-blocking per layer)
+        layer.loadImage(_skinColor);
+      }
+    } while (_needsRebuildLayers);
+
+    _isRebuildingLayers = false;
   }
 
   /// Update equipped items and rebuild layers.
@@ -109,7 +144,11 @@ class PixelCharacter extends PositionComponent {
   ) async {
     _equippedItems = items;
     _skinColor = skinColor;
-    await _buildLayers();
+    try {
+      await _buildLayers();
+    } catch (e) {
+      debugPrint('[PixelCharacter] updateEquipment failed: $e');
+    }
   }
 
   /// Start walking to a target position (in game world coordinates).
@@ -220,4 +259,13 @@ class PixelCharacter extends PositionComponent {
 
   /// Current direction as string.
   String get directionString => animState.direction.name;
+
+  Future<void> _safeAddChild(Component component) async {
+    if (component.isMounted ||
+        component.isRemoving ||
+        component.parent != null) {
+      return;
+    }
+    await add(component);
+  }
 }

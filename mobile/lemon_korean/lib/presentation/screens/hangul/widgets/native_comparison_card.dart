@@ -569,8 +569,19 @@ class _NativeComparisonCardState extends State<NativeComparisonCard> {
   @override
   void initState() {
     super.initState();
-    // Use user's preferred language or default to Korean
-    _selectedLanguage = widget.userLanguage ?? 'ko';
+    _selectedLanguage = _resolveLanguage(widget.userLanguage ?? 'ko');
+  }
+
+  /// Resolve the user's language to one available in comparisons.
+  /// zh_TW maps to zh (comparison data uses zh key).
+  /// For ko users (or if no match), fall back to first available language.
+  String _resolveLanguage(String lang) {
+    // Map zh_TW to zh since comparison data uses zh key
+    final mapped = lang == 'zh_TW' ? 'zh' : lang;
+    final available = _comparisons.keys.toList();
+    if (available.contains(mapped)) return mapped;
+    // Fallback to first available language
+    return available.isNotEmpty ? available.first : mapped;
   }
 
   Map<String, List<NativeComparison>> get _comparisons =>
@@ -603,7 +614,7 @@ class _NativeComparisonCardState extends State<NativeComparisonCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header with language selector
+          // Header
           Row(
             children: [
               Icon(
@@ -619,37 +630,6 @@ class _NativeComparisonCardState extends State<NativeComparisonCard> {
                   fontSize: 14,
                 ),
               ),
-              const Spacer(),
-              // Language selector
-              if (availableLanguages.length > 1)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.green.shade200),
-                  ),
-                  child: DropdownButton<String>(
-                    value: _selectedLanguage,
-                    underline: const SizedBox.shrink(),
-                    isDense: true,
-                    items: availableLanguages.map((lang) {
-                      return DropdownMenuItem(
-                        value: lang,
-                        child: Text(
-                          _getLanguageFlag(lang),
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => _selectedLanguage = value);
-                      }
-                    },
-                  ),
-                ),
             ],
           ),
 

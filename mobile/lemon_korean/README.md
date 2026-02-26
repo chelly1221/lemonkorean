@@ -12,6 +12,21 @@
 - 🧠 SRS (Spaced Repetition System) 복습
 - 🎨 Material Design 3
 
+### 2026-02 아키텍처 기준 (필수)
+
+- 앱 런타임 기본 원칙은 **Minimal Server**입니다.
+- 서버 필수 의존:
+  - `Auth` (로그인/토큰)
+  - `Progress` (진도/동기화/SRS)
+  - `SNS` (커뮤니티/DM/음성)
+- 앱 내장(서버 비의존) 대상:
+  - 한글/레슨/단어/문법 콘텐츠
+  - 테마 기본값, 게임화 기본값
+  - 캐릭터 카탈로그(상점 기본 아이템)
+- 신규 기능 개발 시:
+  - 사용자별 동기화 상태 -> 서버
+  - 정적/버전형 학습 데이터 -> 앱 번들(`lib/data/local/`) 우선
+
 ---
 
 ## 기술 스택
@@ -74,6 +89,9 @@ lib/
 │       ├── chinese_converter.dart  # 간체/번체 변환
 │       └── storage_utils.dart      # 저장소 유틸
 ├── data/
+│   ├── local/                      # 앱 내장 정적 콘텐츠
+│   │   ├── bundled_learning_content.dart  # 한글/레슨/단어 번들
+│   │   └── conversation_prompts.dart     # 음성방 대화 주제 59개
 │   ├── models/                     # 데이터 모델
 │   └── repositories/               # 레포지토리 패턴
 ├── presentation/
@@ -99,6 +117,9 @@ lib/
 │   │       ├── welcome_level_screen.dart
 │   │       ├── utils/              # 디자인 시스템 (2개)
 │   │       └── widgets/            # 재사용 위젯 (7개)
+│   │   ├── hangul/                 # 한글 학습 모듈
+│   │   │   ├── stage0/ ~ stage11/  # 12단계 레슨 (각 2파일)
+│   │   │   └── widgets/            # 한글 위젯 (10+개)
 │   │   ├── community/              # 커뮤니티 피드
 │   │   ├── create_post/            # 게시물 작성
 │   │   ├── friend_search/          # 친구 검색
@@ -107,16 +128,19 @@ lib/
 │   │   ├── dm/                     # DM (1:1 메시징)
 │   │   │   ├── dm_list_screen.dart         # 대화 목록
 │   │   │   └── dm_chat_screen.dart         # 채팅 화면
-│   │   ├── voice_rooms/            # 음성 대화방
-│   │   │   ├── voice_room_list_screen.dart  # 방 목록
-│   │   │   ├── voice_room_screen.dart       # 음성 대화 화면
-│   │   │   └── widgets/                     # 6개 위젯
+│   │   ├── voice_rooms/            # 음성 대화방 (6가지 방 유형)
+│   │   │   ├── voice_rooms_list_screen.dart  # 방 목록
+│   │   │   ├── voice_room_screen.dart        # 음성 대화 화면
+│   │   │   ├── create_voice_room_screen.dart # 방 생성 (유형/시간 선택)
+│   │   │   └── widgets/                      # 8개 위젯
 │   │   │       ├── stage_area_widget.dart
 │   │   │       ├── audience_bar_widget.dart
 │   │   │       ├── voice_chat_widget.dart
 │   │   │       ├── stage_controls_widget.dart
 │   │   │       ├── reaction_tray_widget.dart
-│   │   │       └── gesture_tray_widget.dart
+│   │   │       ├── gesture_tray_widget.dart
+│   │   │       ├── room_card.dart
+│   │   │       └── participant_avatar.dart
 │   │   └── my_room/                # 캐릭터 커스터마이징 & 마이룸
 │   │       ├── my_room_screen.dart          # 마이룸 메인
 │   │       ├── character_editor_screen.dart # 캐릭터 편집
@@ -138,7 +162,7 @@ lib/
 └── main.dart                       # 앱 진입점
 ```
 
-**총 Dart 파일 수**: 230+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방 + 캐릭터 커스터마이징)
+**총 Dart 파일 수**: 300+개 (소스 + 생성 + l10n + 온보딩 + 게임화 + SNS + DM + 음성대화방 + 캐릭터 + 한글 12단계)
 
 ---
 
@@ -263,56 +287,83 @@ flutter run -d chrome
 
 ---
 
-### Hangul Learning Module (2026-02-03)
+### Hangul Learning Module (2026-02-03, 2026-02-27 확장)
 
-Comprehensive Korean alphabet learning system with level-0 roadmap and practice screens.
+12단계(Stage 0~11) 체계적 한글 커리큘럼. 80개 인터랙티브 레슨, 필기 애니메이션, 음성 비교.
 
 **Location**: `lib/presentation/screens/hangul/`
 
+**12단계 커리큘럼 (Stage 0~11)**:
+
+| Stage | 주제 | 학습 내용 | 레슨 수 |
+|-------|------|----------|---------|
+| 0 | 한글 소개 | 한글 블록 구조, 조합 원리 | 4 |
+| 1 | 기본 모음 - ㅏ | ㅏ 모음 학습 | 4 |
+| 2 | 기본 모음 - ㅑㅓㅕ | 추가 모음 | 4 |
+| 3 | 기본 모음 - ㅗㅜㅠㅣㅡ | 나머지 기본 모음 | 4 |
+| 4 | 기본 자음 1 | ㄱ,ㄴ,ㄷ,ㄹ,ㅁ,ㅂ | 4 |
+| 5 | 기본 자음 2 | ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ | 4 |
+| 6 | 조합 자음 | 쌍자음 (ㄲ,ㄸ,ㅃ,ㅆ,ㅉ) | 4 |
+| 7 | 경음화 (된소리) | 경음/격음 구별 | 4 |
+| 8 | 받침 기초 | 기본 받침 7개 | 4 |
+| 9 | 받침 심화 | 확장 받침 | 4 |
+| 10 | 겹받침 | 이중 받침 | 4 |
+| 11 | 단어 읽기 확장 | 실전 단어 읽기 | 4 |
+
+**레슨 구조 (각 레슨 6단계)**:
+1. `intro` - 소개 (이모지 + 하이라이트)
+2. `soundExplore` - 음성 탐색 (입모양 애니메이션)
+3. `soundMatch` - 소리-글자 매칭 퀴즈
+4. `syllableBuild` - 드래그앤드롭 음절 조합
+5. `quizMcq` - 객관식 퀴즈
+6. `summary` - 레슨 완료 요약
+
 **Screens**:
-- `hangul_level0_learning_screen.dart` - Level 0 roadmap (0~8 stages) and lesson skeletons
-- `hangul_table_screen.dart` - Organized alphabet table (consonants/vowels)
-- `hangul_lesson_screen.dart` - Structured sequential lessons
-- `hangul_practice_screen.dart` - General character practice
-- `hangul_character_detail.dart` - Character details with pronunciation guide
-- `hangul_discrimination_screen.dart` - Sound discrimination training
-- `hangul_syllable_screen.dart` - Syllable combination practice
-- `hangul_batchim_screen.dart` - Final consonant (받침) practice
-- `hangul_shadowing_screen.dart` - Pronunciation recording (mobile only, web stub exists)
+- `hangul_level0_learning_screen.dart` - 12단계 학습 로드맵
+- `hangul_table_screen.dart` - 자모 표 (자음/모음 정리)
+- `hangul_practice_screen.dart` - 일반 문자 연습
+- `hangul_character_detail.dart` - 문자 상세 (발음 가이드)
+- `hangul_batchim_screen.dart` - 받침 연습
+- `stage0/` ~ `stage11/` - 각 단계별 레슨 목록 + 콘텐츠
 
 **Widgets** (`lib/presentation/screens/hangul/widgets/`):
-- `pronunciation_player.dart` - Audio playback with speed control (0.5x, 0.75x, 1x, 1.5x)
-- `writing_canvas.dart` - Handwriting practice with perfect_freehand
-- `mouth_animation_widget.dart` - Mouth shape and tongue position visualization
-- `native_comparison_card.dart` - Native language pronunciation comparisons
-- `recording_widget.dart` - Audio recording for shadowing practice (mobile only)
+- `pronunciation_player.dart` - 속도 조절 오디오 (0.5x~1.5x)
+- `stroke_order_animation.dart` - 필기 순서 애니메이션 (region clipping)
+- `hangul_stroke_data.dart` - 35개 문자 필기 데이터 (7가지 방향)
+- `native_comparison_card.dart` - 모국어 발음 비교 (6개 언어)
+- `hangul_stage_path_view.dart` - 단계별 경로 시각화
+- `hangul_stage_path_node.dart` - 경로 노드 (완료/진행/잠금)
+- `hangul_stats_bar.dart` - 학습 진행률 바
+- `character_card.dart` - 문자 카드
+- `block_combine_intro_animation.dart` - 블록 조합 애니메이션 (5단계)
+
+**필기 애니메이션 시스템** (2026-02-27):
+- Region-based 클리핑: 정규화 사각형(0.0~1.0) + wipe 방향
+- 7가지 방향: leftToRight, rightToLeft, topToBottom, bottomToTop, 대각선 3종, radial
+- 35개 문자 지원 (자음 19 + 모음 16+)
+- 쌍자음: `_double()` 헬퍼로 자동 생성
+- 에셋: `assets/hangul/stroke_order/` (83개 WebP/GIF)
 
 **Features**:
-- 🌱 Level 0 roadmap with stage-by-stage lesson planning (0~8)
-- 🎵 Pronunciation guides with native language comparisons (6 languages)
-- 🎨 Visual pronunciation mechanics (mouth shapes, tongue positions, airflow)
-- 🎧 Speed-controlled audio playback (0.5x to 1.5x)
-- ✍️ Writing practice with stroke guidance (guide → trace → free-write)
-- 👂 Sound discrimination training for similar characters (ㄱ/ㅋ, ㅂ/ㅍ, etc.)
-- 🔤 Interactive syllable combination tool
-- 🗣️ Shadowing mode with self-assessment (mobile only, uses `record` package)
-- 📊 Progress tracking for all practice types
+- 🌱 12단계 로드맵 (80개 레슨)
+- 🎵 모국어 발음 비교 (6개 언어)
+- 🎨 입모양/혀 위치 시각화
+- 🎧 속도 조절 오디오 (0.5x~1.5x)
+- ✍️ 필기 순서 애니메이션 (region clipping 방식)
+- 👂 소리 구분 훈련
+- 🔤 드래그앤드롭 음절 조합
+- 🗣️ 쉐도잉 모드 (모바일 전용)
+- 📊 단계별 진도 추적
 
-**Backend Integration**:
-- **9 API endpoints** in Content Service (`/api/content/hangul/*`)
-- **6 database tables** for hangul data (characters, guides, syllables, etc.)
-- **4-language pronunciation comparisons** (Chinese, English, Japanese, Spanish)
-- **SVG assets** for visual pronunciation guides
-
-**New Packages** (2026-02-03):
-- `just_audio: ^0.9.36` - Speed-controlled audio playback
-- `record: ^5.0.4` - Audio recording (mobile platforms only)
-- `audio_waveforms: ^1.0.5` - Waveform visualization during recording
-- `perfect_freehand: ^2.3.0` - Smooth handwriting stroke rendering
+**Packages**:
+- `just_audio` - 속도 조절 오디오
+- `record` - 오디오 녹음 (모바일 전용)
+- `audio_waveforms` - 파형 시각화
+- `perfect_freehand` - 필기 렌더링
 
 **Platform Support**:
-- ✅ Mobile (Android/iOS): Full support including recording
-- ✅ Web: Visual practice only (recording disabled, stub implementations)
+- ✅ Mobile (Android/iOS): 전체 지원 (녹음 포함)
+- ✅ Web: 시각 연습만 (녹음 비활성)
 
 ---
 
@@ -480,31 +531,92 @@ Real-time 1:1 messaging with Socket.IO.
 
 ---
 
-### Voice Rooms (2026-02-10)
+### Voice Rooms (2026-02-10, 2026-02-27 UX 대폭 개선)
 
-Voice chat rooms with LiveKit integration (max 4 participants).
+LiveKit 기반 음성 대화방. 6가지 방 유형, Flame 게임 엔진 시각화, 대화 주제 자동 제공.
 
-**New Files**:
-- `lib/presentation/providers/voice_room_provider.dart` - Voice room state management
-- `lib/presentation/screens/voice_rooms/voice_room_list_screen.dart` - Room list
-- `lib/presentation/screens/voice_rooms/voice_room_screen.dart` - Voice room UI
+**Files**:
+- `lib/presentation/providers/voice_room_provider.dart` - 음성방 상태 관리
+- `lib/presentation/screens/voice_rooms/voice_rooms_list_screen.dart` - 방 목록
+- `lib/presentation/screens/voice_rooms/voice_room_screen.dart` - 음성 대화 UI
+- `lib/presentation/screens/voice_rooms/create_voice_room_screen.dart` - 방 생성
+- `lib/presentation/screens/voice_rooms/widgets/` - 8개 위젯
+- `lib/data/local/conversation_prompts.dart` - 59개 대화 주제 번들
+
+**6가지 방 유형** (2026-02-27):
+| 유형 | 설명 |
+|------|------|
+| `free_talk` | 자유 대화 |
+| `pronunciation` | 발음 연습 |
+| `roleplay` | 역할극 (식당, 편의점 등) |
+| `qna` | 질의응답 |
+| `listening` | 듣기 연습 |
+| `debate` | 토론 |
 
 **Features**:
-- 🎤 Real-time voice chat via LiveKit
-- 🏠 Create rooms with title, topic, and language level
-- 👥 Max 4 participants per room
-- 🔇 Mute/unmute toggle
-- 📊 Participant list with mute status
-- 🚪 Join/leave rooms with token-based auth
+- 🎤 LiveKit 실시간 음성 채팅
+- 🏠 6가지 유형 + 시간 제한 (15/30/45/60분)
+- 👥 최대 4명 참가자
+- 🔇 뮤트/언뮤트 토글
+- 👑 호스트 표시 (왕관 아이콘, 골드 오라)
+- 🎮 Flame 게임 엔진 무대 시각화 (캐릭터 배치, 스파클 효과)
+- 💬 59개 대화 주제 자동 제공 (수준별/유형별 필터)
+- 😄 리액션 트레이 (슬라이드/페이드 애니메이션, 3초 자동 닫기)
+- 🤟 제스처 트레이 (쿨다운 인디케이터)
+- ♿ WCAG AA 색상 대비, Semantics 라벨
+- 🔗 연결 상태 배너, 재접속 로직
+
+**Flame 게임 엔진 연동** (`lib/game/voice_stage/`):
+- `voice_stage_game.dart` - 무대 렌더링, 앰비언트 스파클
+- `remote_character.dart` - 원격 참가자 캐릭터 (프레임 독립 보간)
+- 호스트 왕관, 골드 오라, 스팟 마커
 
 **Backend Integration**:
-- **7 API endpoints** in SNS Service (`/api/sns/voice-rooms/*`)
+- **8 API endpoints** in SNS Service (`/api/sns/voice-rooms/*`)
 - **LiveKit token** generated server-side on join
 - **2 database tables**: `voice_rooms`, `voice_room_participants`
+- **Socket.IO**: `voice:stage_request_rejected` 이벤트 추가
 
 **Platform Support**:
 - ✅ Mobile (Android): Full LiveKit audio support
 - ⚠️ Web: UI only, LiveKit skipped (`kIsWeb` check), no audio
+
+---
+
+### Bundled Content (2026-02-27)
+
+앱 내장 정적 콘텐츠로 서버 의존도 최소화.
+
+**Location**: `lib/data/local/`
+
+**bundled_learning_content.dart** (387줄):
+- 41개 한글 문자 (자음 19 + 모음 21 + 확장)
+- 24개 레슨 (6레벨 × 4레슨)
+- 72개 단어 (레슨당 3개, 한-중 이중언어)
+- 7단계 레슨 구조 정의
+
+**conversation_prompts.dart** (456줄):
+- 59개 대화 주제 (수준별/유형별)
+- `getPrompts(level?, roomType?)` - 필터 검색
+- `getRandomPrompt()` - 랜덤 선택
+- `getDailyTopic()` - 일일 주제 (전 사용자 동일)
+
+---
+
+### New Profile Widgets (2026-02-27)
+
+**profile_stats_grid.dart** - 2×2 학습 통계 그리드:
+- 학습 일수, 완료 레슨, 숙달 단어, 총 학습 시간
+- 스태거 페이드+슬라이드 입장 애니메이션
+
+**streak_detail_sheet.dart** - 연속 학습 상세 시트:
+- 현재 스트릭 표시 (불꽃 애니메이션)
+- 30일 캘린더 히트맵
+- 5단계 동기부여 메시지
+
+**review_lessons_list_screen.dart** - SRS 복습 인터페이스:
+- 진행률 표시 레슨 목록
+- 레벨별 그룹핑
 
 ---
 
@@ -812,8 +924,8 @@ Text(AppLocalizations.of(context)!.appTitle)
 
 ### 번역 키 수
 
-- **총 키 수**: 206개
-- **카테고리**: UI, 레슨, 설정, 오류 메시지, 알림 등
+- **총 키 수**: 930+개
+- **카테고리**: UI, 레슨, 한글 학습, 음성 대화방, 커뮤니티, 설정, 오류 메시지, 알림 등
 
 ### 언어 변경
 

@@ -14,6 +14,7 @@ const {
   requestStage,
   cancelStageRequest,
   grantStage,
+  rejectStageRequest,
   removeFromStage,
   leaveStage,
   kickParticipant,
@@ -40,6 +41,7 @@ router.post('/:id/messages', sendMessage);
 router.post('/:id/request-stage', requestStage);
 router.delete('/:id/request-stage', cancelStageRequest);
 router.post('/:id/grant-stage', grantStage);
+router.post('/:id/reject-stage', rejectStageRequest);
 router.post('/:id/remove-from-stage', removeFromStage);
 router.post('/:id/leave-stage', leaveStage);
 router.post('/:id/kick', kickParticipant);

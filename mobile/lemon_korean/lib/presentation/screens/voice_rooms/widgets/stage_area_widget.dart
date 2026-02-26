@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/models/character_item_model.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/voice_room_provider.dart';
 import '../../../widgets/character_avatar_widget.dart';
 
@@ -119,6 +120,7 @@ class _StageAreaWidgetState extends State<StageAreaWidget>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Consumer<VoiceRoomProvider>(
       builder: (context, provider, child) {
         return LayoutBuilder(
@@ -168,7 +170,7 @@ class _StageAreaWidgetState extends State<StageAreaWidget>
                       right: 0,
                       child: Center(
                         child: Text(
-                          'STAGE',
+                          l10n?.voiceRoomStageLabel ?? 'STAGE',
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.15),
                             fontSize: 14,
@@ -183,7 +185,7 @@ class _StageAreaWidgetState extends State<StageAreaWidget>
                     ...provider.stageCharacters.entries.map((entry) {
                       final char = entry.value;
                       final isMe = entry.key == widget.myUserId;
-                      final charSize = 120.0;
+                      const charSize = 120.0;
 
                       // Apply bob animation for walking
                       final bobOffset = isMe && _walkTarget != null
@@ -234,7 +236,7 @@ class _StageAreaWidgetState extends State<StageAreaWidget>
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
-                                  isMe ? '${char.name} (You)' : char.name,
+                                  isMe ? '${char.name} ${l10n?.voiceRoomYouLabel ?? '(You)'}' : char.name,
                                   style: TextStyle(
                                     color:
                                         isMe ? Colors.black87 : Colors.white,

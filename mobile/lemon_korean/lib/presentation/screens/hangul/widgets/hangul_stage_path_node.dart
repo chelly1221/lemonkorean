@@ -23,6 +23,13 @@ class HangulStagePathNode extends StatelessWidget {
 
   static const double nodeWidth = 80;
   static const double nodeHeight = 80;
+  static const TextStyle _stageNumberBaseStyle = TextStyle(
+    fontFamily: 'Pretendard',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    height: 1.0,
+    color: Color(0xFFBDBDBD),
+  );
 
   const HangulStagePathNode({
     required this.stageIndex,
@@ -50,7 +57,8 @@ class HangulStagePathNode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalLessons = kStageLessonCounts[stageIndex];
-    final completedLessons = completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
+    final completedLessons =
+        completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
 
     return GestureDetector(
       onTap: onTap,
@@ -126,7 +134,8 @@ class HangulStagePathNode extends StatelessWidget {
 
   Widget _buildStaticNode() {
     final totalLessons = kStageLessonCounts[stageIndex];
-    final completedLessons = ((mastery / 5.0) * totalLessons).round();
+    final completedLessons =
+        completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
 
     return CustomPaint(
       painter: LemonCrossSectionPainter(
@@ -138,21 +147,15 @@ class HangulStagePathNode extends StatelessWidget {
       child: Center(
         child: _isCompleted
             ? const Icon(Icons.check, color: Colors.white, size: 16)
-            : Text(
-                '$stageIndex',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400,
-                ),
-              ),
+            : _buildStageNumberText(),
       ),
     );
   }
 
   Widget _buildAnimatedNode() {
     final totalLessons = kStageLessonCounts[stageIndex];
-    final completedLessons = ((mastery / 5.0) * totalLessons).round();
+    final completedLessons =
+        completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
 
     return Animate(
       onPlay: (controller) => controller.repeat(reverse: true),
@@ -175,14 +178,20 @@ class HangulStagePathNode extends StatelessWidget {
         ),
       ],
       child: Center(
-        child: Text(
-          '$stageIndex',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: levelColor,
-          ),
-        ),
+        child: _buildStageNumberText(),
+      ),
+    );
+  }
+
+  Widget _buildStageNumberText() {
+    return Text(
+      '$stageIndex',
+      style: _stageNumberBaseStyle,
+      textScaler: TextScaler.noScaling,
+      textAlign: TextAlign.center,
+      textHeightBehavior: const TextHeightBehavior(
+        applyHeightToFirstAscent: false,
+        applyHeightToLastDescent: false,
       ),
     );
   }

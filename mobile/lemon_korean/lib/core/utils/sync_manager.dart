@@ -144,8 +144,15 @@ class SyncManager {
       }
 
       // Group items by type
-      // Include all progress-related types (lesson_start, lesson_complete, stage_progress, progress_update)
-      final progressTypes = ['lesson_start', 'lesson_complete', 'stage_progress', 'progress_update'];
+      // Include all progress-related types.
+      // hangul_lesson_complete is legacy and will be normalized before sync.
+      final progressTypes = [
+        'lesson_start',
+        'lesson_complete',
+        'stage_progress',
+        'progress_update',
+        'hangul_lesson_complete',
+      ];
       final progressItems = queue.where((item) => progressTypes.contains(item['type'])).toList();
       // Include both 'review_complete' and 'review_submit' types
       final reviewItems = queue.where((item) =>
@@ -256,8 +263,16 @@ class SyncManager {
     try {
       // Batch sync progress
       final progressData = items
-          .map((item) => item['data'] as Map<String, dynamic>)
+          .map((item) => _normalizeProgressItem(item))
+          .whereType<Map<String, dynamic>>()
           .toList();
+
+      if (progressData.isEmpty) {
+        return _SyncItemResult(
+          syncedCount: 0,
+          failedCount: items.length,
+        );
+      }
 
       final response = await _apiClient.syncProgress(progressData);
 
@@ -283,6 +298,50 @@ class SyncManager {
       syncedCount: syncedCount,
       failedCount: failedCount,
     );
+  }
+
+  Map<String, dynamic>? _normalizeProgressItem(Map<String, dynamic> item) {
+    final type = item['type'] as String?;
+    if (type == null) return null;
+
+    // Legacy Hangul lesson queue item format.
+    if (type == 'hangul_lesson_complete') {
+      final raw = item['data'];
+      if (raw is! Map) return null;
+      final data = Map<String, dynamic>.from(raw);
+      final lessonId = data['lesson_id']?.toString() ?? '';
+      final syncLessonId = _toSyncLessonKey(lessonId);
+      final completedAt =
+          (data['completed_at']?.toString() ?? DateTime.now().toIso8601String());
+
+      return {
+        'lesson_id': syncLessonId,
+        'status': 'completed',
+        'quiz_score': data['best_score'] as int? ?? 0,
+        'time_spent': 0,
+        'completed_at': completedAt,
+        'stage_progress': {
+          'hangul_lesson_id': lessonId,
+          'total_steps': data['total_steps'] as int? ?? 0,
+          'completed_steps': data['completed_steps'] as int? ?? 0,
+          'lemons_earned': data['lemons_earned'] as int? ?? 0,
+        },
+      };
+    }
+
+    final raw = item['data'];
+    if (raw is Map) return Map<String, dynamic>.from(raw);
+    return null;
+  }
+
+  int _toSyncLessonKey(String lessonId) {
+    final parts = lessonId.split('-');
+    if (parts.length != 2) return 90000;
+
+    final stage = int.tryParse(parts[0]) ?? 0;
+    final subRaw = parts[1].toUpperCase();
+    final sub = subRaw == 'M' ? 99 : (int.tryParse(subRaw) ?? 0);
+    return 90000 + (stage * 100) + sub;
   }
 
   /// Sync review items

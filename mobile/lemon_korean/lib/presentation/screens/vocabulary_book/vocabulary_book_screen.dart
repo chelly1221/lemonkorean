@@ -5,6 +5,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../data/models/bookmark_model.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/bookmark_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../widgets/convertible_text.dart';
 import 'vocabulary_book_review_screen.dart';
 
@@ -109,11 +110,12 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
               BookmarkSortType.korean,
               Icons.sort_by_alpha,
             ),
-            _buildSortOption(
-              l10n.sortChinese,
-              BookmarkSortType.chinese,
-              Icons.translate,
-            ),
+            if (context.read<SettingsProvider>().isChinese)
+              _buildSortOption(
+                l10n.sortChinese,
+                BookmarkSortType.chinese,
+                Icons.translate,
+              ),
             _buildSortOption(
               l10n.sortMastery,
               BookmarkSortType.mastery,
@@ -220,7 +222,9 @@ class _VocabularyBookScreenState extends State<VocabularyBookScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: l10n.searchWordsNotesChinese,
+                hintText: context.read<SettingsProvider>().isChinese
+                    ? l10n.searchWordsNotesChinese
+                    : l10n.searchWords,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(

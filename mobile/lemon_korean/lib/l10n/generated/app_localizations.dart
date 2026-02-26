@@ -336,7 +336,7 @@ abstract class AppLocalizations {
   /// Display tip text
   ///
   /// In zh, this message translates to:
-  /// **'提示：课程内容将使用您选择的中文字体显示。'**
+  /// **'提示：课程内容将使用你选择的中文字体显示。'**
   String get displayTip;
 
   /// Notification settings title
@@ -444,7 +444,7 @@ abstract class AppLocalizations {
   /// How to use downloaded answer
   ///
   /// In zh, this message translates to:
-  /// **'即使没有网络连接，您也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。'**
+  /// **'即使没有网络连接，你也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。'**
   String get howToUseDownloadedAnswer;
 
   /// Storage management section
@@ -504,7 +504,7 @@ abstract class AppLocalizations {
   /// What is review reminder answer
   ///
   /// In zh, this message translates to:
-  /// **'基于间隔重复算法（SRS），应用会在最佳时间提醒您复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。'**
+  /// **'基于间隔重复算法（SRS），应用会在最佳时间提醒你复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。'**
   String get whatIsReviewReminderAnswer;
 
   /// Language section in help
@@ -540,7 +540,7 @@ abstract class AppLocalizations {
   /// How to start learning answer
   ///
   /// In zh, this message translates to:
-  /// **'在主页面选择适合您水平的课程，从第1课开始。每节课包含7个学习阶段。'**
+  /// **'在主页面选择适合你水平的课程，从第1课开始。每节课包含7个学习阶段。'**
   String get howToStartAnswer;
 
   /// Progress not saved FAQ
@@ -723,12 +723,6 @@ abstract class AppLocalizations {
   /// **'低相似度'**
   String get lowSimilarity;
 
-  /// Lesson completion message
-  ///
-  /// In zh, this message translates to:
-  /// **'课程完成！进度已保存'**
-  String get lessonComplete;
-
   /// Learning complete title
   ///
   /// In zh, this message translates to:
@@ -783,18 +777,6 @@ abstract class AppLocalizations {
   /// **'对话'**
   String get dialogues;
 
-  /// Grammar explanation section
-  ///
-  /// In zh, this message translates to:
-  /// **'语法解释'**
-  String get grammarExplanation;
-
-  /// Example sentences section
-  ///
-  /// In zh, this message translates to:
-  /// **'例句'**
-  String get exampleSentences;
-
   /// Previous button
   ///
   /// In zh, this message translates to:
@@ -806,12 +788,6 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'下一个'**
   String get next;
-
-  /// Continue button
-  ///
-  /// In zh, this message translates to:
-  /// **'继续'**
-  String get continueBtn;
 
   /// Topic particle grammar
   ///
@@ -993,12 +969,6 @@ abstract class AppLocalizations {
   /// **'听力'**
   String get listening;
 
-  /// Fill in the blank
-  ///
-  /// In zh, this message translates to:
-  /// **'填空'**
-  String get fillBlank;
-
   /// Translation question type
   ///
   /// In zh, this message translates to:
@@ -1011,12 +981,6 @@ abstract class AppLocalizations {
   /// **'排序'**
   String get wordOrder;
 
-  /// Pronunciation label
-  ///
-  /// In zh, this message translates to:
-  /// **'发音'**
-  String get pronunciation;
-
   /// Excellent feedback
   ///
   /// In zh, this message translates to:
@@ -1026,20 +990,8 @@ abstract class AppLocalizations {
   /// Correct order is prefix
   ///
   /// In zh, this message translates to:
-  /// **'正确顺序是:'**
+  /// **'正确顺序是：'**
   String get correctOrderIs;
-
-  /// Correct answer display
-  ///
-  /// In zh, this message translates to:
-  /// **'正确答案: {answer}'**
-  String correctAnswerIs(String answer);
-
-  /// Previous question button
-  ///
-  /// In zh, this message translates to:
-  /// **'上一题'**
-  String get previousQuestion;
 
   /// Next question button
   ///
@@ -1092,7 +1044,7 @@ abstract class AppLocalizations {
   /// Time used display
   ///
   /// In zh, this message translates to:
-  /// **'用时: {time}'**
+  /// **'用时：{time}'**
   String timeUsed(String time);
 
   /// Play audio button
@@ -1548,7 +1500,7 @@ abstract class AppLocalizations {
   /// Welcome screen subtitle
   ///
   /// In zh, this message translates to:
-  /// **'你的流利之旅从这里开始'**
+  /// **'在这里开启你的韩语之旅'**
   String get onboardingWelcomeSubtitle;
 
   /// Feature 1 title
@@ -2400,7 +2352,7 @@ abstract class AppLocalizations {
   /// Due for review count
   ///
   /// In zh, this message translates to:
-  /// **'{count} 个待复习'**
+  /// **'{count}个待复习'**
   String dueForReviewCount(int count);
 
   /// Completion label
@@ -2676,7 +2628,7 @@ abstract class AppLocalizations {
   /// Learned count
   ///
   /// In zh, this message translates to:
-  /// **'已学习: {count}'**
+  /// **'已学习：{count}'**
   String learnedCount(int count);
 
   /// Hangul practice title
@@ -2688,13 +2640,13 @@ abstract class AppLocalizations {
   /// Characters need review
   ///
   /// In zh, this message translates to:
-  /// **'{count} 个字母需要复习'**
+  /// **'{count}个字母需要复习'**
   String charactersNeedReview(int count);
 
   /// Characters available for practice
   ///
   /// In zh, this message translates to:
-  /// **'{count} 个字母可练习'**
+  /// **'{count}个字母可练习'**
   String charactersAvailable(int count);
 
   /// Select practice mode
@@ -2784,7 +2736,7 @@ abstract class AppLocalizations {
   /// Correct answer label
   ///
   /// In zh, this message translates to:
-  /// **'正确答案: '**
+  /// **'正确答案：'**
   String get correctAnswerLabel;
 
   /// Next question button
@@ -2832,13 +2784,13 @@ abstract class AppLocalizations {
   /// Romanization label
   ///
   /// In zh, this message translates to:
-  /// **'罗马字: '**
+  /// **'罗马字：'**
   String get romanization;
 
   /// Pronunciation label
   ///
   /// In zh, this message translates to:
-  /// **'发音: '**
+  /// **'发音：'**
   String get pronunciationLabel;
 
   /// Play pronunciation tooltip
@@ -2955,16 +2907,22 @@ abstract class AppLocalizations {
   /// **'退出'**
   String get exitBtn;
 
+  /// Lesson completion message
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！进度已保存'**
+  String get lessonComplete;
+
   /// Loading lesson message
   ///
   /// In zh, this message translates to:
-  /// **'{title} 불러오는 중...'**
+  /// **'正在加载{title}...'**
   String loadingLesson(String title);
 
   /// Cannot load lesson content error
   ///
   /// In zh, this message translates to:
-  /// **'레슨 콘텐츠를 불러올 수 없습니다'**
+  /// **'无法加载课程内容'**
   String get cannotLoadContent;
 
   /// No lesson content message
@@ -3021,6 +2979,18 @@ abstract class AppLocalizations {
   /// **'下一个'**
   String get nextItem;
 
+  /// Continue button
+  ///
+  /// In zh, this message translates to:
+  /// **'继续'**
+  String get continueBtn;
+
+  /// Previous question button
+  ///
+  /// In zh, this message translates to:
+  /// **'上一题'**
+  String get previousQuestion;
+
   /// Playing audio status
   ///
   /// In zh, this message translates to:
@@ -3057,11 +3027,23 @@ abstract class AppLocalizations {
   /// **'播放音频...'**
   String get playingAudioShort;
 
+  /// Pronunciation label
+  ///
+  /// In zh, this message translates to:
+  /// **'发音'**
+  String get pronunciation;
+
   /// Grammar pattern title
   ///
   /// In zh, this message translates to:
   /// **'语法 · {pattern}'**
   String grammarPattern(String pattern);
+
+  /// Grammar explanation section
+  ///
+  /// In zh, this message translates to:
+  /// **'语法解释'**
+  String get grammarExplanation;
 
   /// Conjugation rule section
   ///
@@ -3074,6 +3056,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'与中文对比'**
   String get comparisonWithChinese;
+
+  /// Example sentences section
+  ///
+  /// In zh, this message translates to:
+  /// **'例句'**
+  String get exampleSentences;
 
   /// Dialogue practice title
   ///
@@ -3105,11 +3093,23 @@ abstract class AppLocalizations {
   /// **'请完成以下练习题'**
   String get practiceInstructions;
 
+  /// Fill in the blank
+  ///
+  /// In zh, this message translates to:
+  /// **'填空'**
+  String get fillBlank;
+
   /// Check answer button
   ///
   /// In zh, this message translates to:
   /// **'检查答案'**
   String get checkAnswerBtn;
+
+  /// Correct answer display
+  ///
+  /// In zh, this message translates to:
+  /// **'正确答案：{answer}'**
+  String correctAnswerIs(String answer);
 
   /// Quiz section title
   ///
@@ -3144,13 +3144,13 @@ abstract class AppLocalizations {
   /// Vocabulary learned label
   ///
   /// In zh, this message translates to:
-  /// **'学习单词'**
+  /// **'已学单词'**
   String get vocabLearned;
 
   /// Grammar learned label
   ///
   /// In zh, this message translates to:
-  /// **'学习语法'**
+  /// **'已学语法'**
   String get grammarLearned;
 
   /// Finish lesson button
@@ -4347,19 +4347,19 @@ abstract class AppLocalizations {
   /// **'发布成功！'**
   String get postCreated;
 
-  /// No description provided for @likesCount.
+  /// Number of likes
   ///
   /// In zh, this message translates to:
   /// **'{count}个赞'**
   String likesCount(int count);
 
-  /// No description provided for @commentsCount.
+  /// Number of comments
   ///
   /// In zh, this message translates to:
   /// **'{count}条评论'**
   String commentsCount(int count);
 
-  /// No description provided for @followersCount.
+  /// Number of followers
   ///
   /// In zh, this message translates to:
   /// **'{count}位粉丝'**
@@ -4383,7 +4383,7 @@ abstract class AppLocalizations {
   /// **'添加照片'**
   String get addPhotos;
 
-  /// No description provided for @maxPhotos.
+  /// Maximum photos allowed
   ///
   /// In zh, this message translates to:
   /// **'最多{count}张照片'**
@@ -4632,7 +4632,7 @@ abstract class AppLocalizations {
   /// No description provided for @stageSlots.
   ///
   /// In zh, this message translates to:
-  /// **'发言席位'**
+  /// **'上台名额'**
   String get stageSlots;
 
   /// No description provided for @anyoneCanListen.
@@ -4698,7 +4698,7 @@ abstract class AppLocalizations {
   /// No description provided for @leaveStage.
   ///
   /// In zh, this message translates to:
-  /// **'离开舞台'**
+  /// **'退出发言席'**
   String get leaveStage;
 
   /// No description provided for @pendingRequests.
@@ -4728,7 +4728,7 @@ abstract class AppLocalizations {
   /// No description provided for @onStage.
   ///
   /// In zh, this message translates to:
-  /// **'舞台上'**
+  /// **'发言中'**
   String get onStage;
 
   /// No description provided for @voiceRooms.
@@ -4754,6 +4754,547 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'创建房间'**
   String get createRoom;
+
+  /// Microphone permission required message
+  ///
+  /// In zh, this message translates to:
+  /// **'语音房间需要麦克风权限'**
+  String get voiceRoomMicPermission;
+
+  /// Validation message when room title is empty
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入房间标题'**
+  String get voiceRoomEnterTitle;
+
+  /// Error when room creation fails
+  ///
+  /// In zh, this message translates to:
+  /// **'创建房间失败'**
+  String get voiceRoomCreateFailed;
+
+  /// Message when room is no longer available
+  ///
+  /// In zh, this message translates to:
+  /// **'房间不可用'**
+  String get voiceRoomNotAvailable;
+
+  /// Button to go back from unavailable room
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get voiceRoomGoBack;
+
+  /// Connection status banner
+  ///
+  /// In zh, this message translates to:
+  /// **'连接中...'**
+  String get voiceRoomConnecting;
+
+  /// Reconnection status with attempt count
+  ///
+  /// In zh, this message translates to:
+  /// **'重新连接中 ({attempts}/{max})...'**
+  String voiceRoomReconnecting(int attempts, int max);
+
+  /// Disconnected status
+  ///
+  /// In zh, this message translates to:
+  /// **'已断开连接'**
+  String get voiceRoomDisconnected;
+
+  /// Retry connection button
+  ///
+  /// In zh, this message translates to:
+  /// **'重试'**
+  String get voiceRoomRetry;
+
+  /// Label for room host
+  ///
+  /// In zh, this message translates to:
+  /// **'（主持人）'**
+  String get voiceRoomHostLabel;
+
+  /// Tooltip for demoting speaker to listener
+  ///
+  /// In zh, this message translates to:
+  /// **'降为听众'**
+  String get voiceRoomDemoteToListener;
+
+  /// Tooltip for kicking participant
+  ///
+  /// In zh, this message translates to:
+  /// **'踢出房间'**
+  String get voiceRoomKickFromRoom;
+
+  /// Section header for listeners list
+  ///
+  /// In zh, this message translates to:
+  /// **'听众'**
+  String get voiceRoomListeners;
+
+  /// Dialog title and tooltip for inviting to stage
+  ///
+  /// In zh, this message translates to:
+  /// **'邀请上台'**
+  String get voiceRoomInviteToStage;
+
+  /// Confirmation message for stage invitation
+  ///
+  /// In zh, this message translates to:
+  /// **'邀请{name}上台发言？'**
+  String voiceRoomInviteConfirm(String name);
+
+  /// Invite button label
+  ///
+  /// In zh, this message translates to:
+  /// **'邀请'**
+  String get voiceRoomInvite;
+
+  /// Close room confirmation dialog title
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭房间？'**
+  String get voiceRoomCloseConfirmTitle;
+
+  /// Close room confirmation dialog body
+  ///
+  /// In zh, this message translates to:
+  /// **'这将结束所有人的通话。'**
+  String get voiceRoomCloseConfirmBody;
+
+  /// Empty chat placeholder
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无消息'**
+  String get voiceRoomNoMessagesYet;
+
+  /// Chat input placeholder
+  ///
+  /// In zh, this message translates to:
+  /// **'输入消息...'**
+  String get voiceRoomTypeMessage;
+
+  /// Indicator when stage is full
+  ///
+  /// In zh, this message translates to:
+  /// **'舞台已满'**
+  String get voiceRoomStageFull;
+
+  /// Listener count for accessibility
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}位听众'**
+  String voiceRoomListenerCount(int count);
+
+  /// No description provided for @voiceRoomRemoveFromStage.
+  ///
+  /// In zh, this message translates to:
+  /// **'移出舞台？'**
+  String get voiceRoomRemoveFromStage;
+
+  /// Confirm dialog body
+  ///
+  /// In zh, this message translates to:
+  /// **'将{name}移出舞台？他们将成为听众。'**
+  String voiceRoomRemoveFromStageConfirm(String name);
+
+  /// No description provided for @voiceRoomDemote.
+  ///
+  /// In zh, this message translates to:
+  /// **'降级'**
+  String get voiceRoomDemote;
+
+  /// No description provided for @voiceRoomRemoveFromRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'移出房间？'**
+  String get voiceRoomRemoveFromRoom;
+
+  /// Confirm dialog body
+  ///
+  /// In zh, this message translates to:
+  /// **'将{name}移出房间？他们将被断开连接。'**
+  String voiceRoomRemoveFromRoomConfirm(String name);
+
+  /// No description provided for @voiceRoomRemove.
+  ///
+  /// In zh, this message translates to:
+  /// **'移出'**
+  String get voiceRoomRemove;
+
+  /// No description provided for @voiceRoomPressBackToLeave.
+  ///
+  /// In zh, this message translates to:
+  /// **'再按一次返回键退出'**
+  String get voiceRoomPressBackToLeave;
+
+  /// No description provided for @voiceRoomLeaveTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'离开房间？'**
+  String get voiceRoomLeaveTitle;
+
+  /// No description provided for @voiceRoomLeaveBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'你目前在舞台上。确定要离开吗？'**
+  String get voiceRoomLeaveBody;
+
+  /// Auto-navigation message when room is closed
+  ///
+  /// In zh, this message translates to:
+  /// **'正在返回房间列表...'**
+  String get voiceRoomReturningToList;
+
+  /// Banner shown briefly after reconnecting
+  ///
+  /// In zh, this message translates to:
+  /// **'已连接！'**
+  String get voiceRoomConnected;
+
+  /// Error when stage game fails to initialize
+  ///
+  /// In zh, this message translates to:
+  /// **'舞台加载失败'**
+  String get voiceRoomStageFailedToLoad;
+
+  /// Loading indicator while stage initializes
+  ///
+  /// In zh, this message translates to:
+  /// **'正在准备舞台...'**
+  String get voiceRoomPreparingStage;
+
+  /// Tooltip for accepting a stage request
+  ///
+  /// In zh, this message translates to:
+  /// **'接受{name}上台'**
+  String voiceRoomAcceptToStage(Object name);
+
+  /// Tooltip for rejecting a stage request
+  ///
+  /// In zh, this message translates to:
+  /// **'拒绝{name}'**
+  String voiceRoomRejectFromStage(Object name);
+
+  /// Quick create templates section title
+  ///
+  /// In zh, this message translates to:
+  /// **'快速创建'**
+  String get voiceRoomQuickCreate;
+
+  /// Room type selector label
+  ///
+  /// In zh, this message translates to:
+  /// **'房间类型'**
+  String get voiceRoomRoomType;
+
+  /// Session duration selector label
+  ///
+  /// In zh, this message translates to:
+  /// **'会话时长'**
+  String get voiceRoomSessionDuration;
+
+  /// Session duration helper text
+  ///
+  /// In zh, this message translates to:
+  /// **'可选的会话计时器'**
+  String get voiceRoomOptionalTimer;
+
+  /// No duration limit option
+  ///
+  /// In zh, this message translates to:
+  /// **'无限制'**
+  String get voiceRoomDurationNone;
+
+  /// 15 minute duration option
+  ///
+  /// In zh, this message translates to:
+  /// **'15分钟'**
+  String get voiceRoomDuration15;
+
+  /// 30 minute duration option
+  ///
+  /// In zh, this message translates to:
+  /// **'30分钟'**
+  String get voiceRoomDuration30;
+
+  /// 45 minute duration option
+  ///
+  /// In zh, this message translates to:
+  /// **'45分钟'**
+  String get voiceRoomDuration45;
+
+  /// 60 minute duration option
+  ///
+  /// In zh, this message translates to:
+  /// **'60分钟'**
+  String get voiceRoomDuration60;
+
+  /// Free talk room type label
+  ///
+  /// In zh, this message translates to:
+  /// **'自由聊天'**
+  String get voiceRoomTypeFreeTalk;
+
+  /// Pronunciation practice room type label
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get voiceRoomTypePronunciation;
+
+  /// Role play room type label
+  ///
+  /// In zh, this message translates to:
+  /// **'角色扮演'**
+  String get voiceRoomTypeRolePlay;
+
+  /// Q&A room type label
+  ///
+  /// In zh, this message translates to:
+  /// **'问答'**
+  String get voiceRoomTypeQnA;
+
+  /// Listening practice room type label
+  ///
+  /// In zh, this message translates to:
+  /// **'听力练习'**
+  String get voiceRoomTypeListening;
+
+  /// Debate room type label
+  ///
+  /// In zh, this message translates to:
+  /// **'辩论'**
+  String get voiceRoomTypeDebate;
+
+  /// Quick create template: free talk
+  ///
+  /// In zh, this message translates to:
+  /// **'韩语自由聊天'**
+  String get voiceRoomTemplateFreeTalk;
+
+  /// Quick create template: pronunciation
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get voiceRoomTemplatePronunciation;
+
+  /// Quick create template: daily Korean
+  ///
+  /// In zh, this message translates to:
+  /// **'每日韩语'**
+  String get voiceRoomTemplateDailyKorean;
+
+  /// Quick create template: TOPIK speaking
+  ///
+  /// In zh, this message translates to:
+  /// **'TOPIK口语'**
+  String get voiceRoomTemplateTopikSpeaking;
+
+  /// FAB tooltip for creating a voice room
+  ///
+  /// In zh, this message translates to:
+  /// **'创建语音房间'**
+  String get voiceRoomCreateTooltip;
+
+  /// Semantic label for reaction button
+  ///
+  /// In zh, this message translates to:
+  /// **'发送表情'**
+  String get voiceRoomSendReaction;
+
+  /// Semantic label for leave room button
+  ///
+  /// In zh, this message translates to:
+  /// **'离开房间'**
+  String get voiceRoomLeaveRoom;
+
+  /// Semantic label for unmute button
+  ///
+  /// In zh, this message translates to:
+  /// **'取消麦克风静音'**
+  String get voiceRoomUnmuteMic;
+
+  /// Semantic label for mute button
+  ///
+  /// In zh, this message translates to:
+  /// **'麦克风静音'**
+  String get voiceRoomMuteMic;
+
+  /// Semantic label for cancelling hand raise
+  ///
+  /// In zh, this message translates to:
+  /// **'取消举手'**
+  String get voiceRoomCancelHandRaise;
+
+  /// Semantic label for raising hand
+  ///
+  /// In zh, this message translates to:
+  /// **'举手'**
+  String get voiceRoomRaiseHandSemantic;
+
+  /// Semantic label for gesture button
+  ///
+  /// In zh, this message translates to:
+  /// **'发送动作'**
+  String get voiceRoomSendGesture;
+
+  /// Semantic label for leave stage button
+  ///
+  /// In zh, this message translates to:
+  /// **'退出舞台'**
+  String get voiceRoomLeaveStageAction;
+
+  /// Semantic label for manage stage button
+  ///
+  /// In zh, this message translates to:
+  /// **'管理舞台'**
+  String get voiceRoomManageStage;
+
+  /// Tooltip and semantic label for overflow menu
+  ///
+  /// In zh, this message translates to:
+  /// **'更多选项'**
+  String get voiceRoomMoreOptions;
+
+  /// Label under overflow menu button
+  ///
+  /// In zh, this message translates to:
+  /// **'更多'**
+  String get voiceRoomMore;
+
+  /// Semantic label for the stage area
+  ///
+  /// In zh, this message translates to:
+  /// **'有发言人的语音房间舞台'**
+  String get voiceRoomStageWithSpeakers;
+
+  /// Semantic label for stage requests badge
+  ///
+  /// In zh, this message translates to:
+  /// **'上台请求，{count}个待处理'**
+  String voiceRoomStageRequestsPending(int count);
+
+  /// Semantic label for speaker and listener count
+  ///
+  /// In zh, this message translates to:
+  /// **'发言人 {speakers}/{maxSpeakers}，听众 {listeners}'**
+  String voiceRoomSpeakerListenerCount(
+      int speakers, int maxSpeakers, int listeners);
+
+  /// Semantic label for chat input field
+  ///
+  /// In zh, this message translates to:
+  /// **'聊天消息输入'**
+  String get voiceRoomChatInput;
+
+  /// Semantic label for send message button
+  ///
+  /// In zh, this message translates to:
+  /// **'发送消息'**
+  String get voiceRoomSendMessage;
+
+  /// Semantic label for specific reaction button
+  ///
+  /// In zh, this message translates to:
+  /// **'发送{name}表情'**
+  String voiceRoomSendReactionNamed(Object name);
+
+  /// Semantic label for closing reaction tray
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭表情面板'**
+  String get voiceRoomCloseReactionTray;
+
+  /// Semantic label for specific gesture button
+  ///
+  /// In zh, this message translates to:
+  /// **'执行{name}动作'**
+  String voiceRoomPerformGesture(Object name);
+
+  /// Semantic label for closing gesture tray
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭动作面板'**
+  String get voiceRoomCloseGestureTray;
+
+  /// Wave gesture label
+  ///
+  /// In zh, this message translates to:
+  /// **'挥手'**
+  String get voiceRoomGestureWave;
+
+  /// Bow gesture label
+  ///
+  /// In zh, this message translates to:
+  /// **'鞠躬'**
+  String get voiceRoomGestureBow;
+
+  /// Dance gesture label
+  ///
+  /// In zh, this message translates to:
+  /// **'跳舞'**
+  String get voiceRoomGestureDance;
+
+  /// Jump gesture label
+  ///
+  /// In zh, this message translates to:
+  /// **'跳跃'**
+  String get voiceRoomGestureJump;
+
+  /// Clap gesture label
+  ///
+  /// In zh, this message translates to:
+  /// **'鼓掌'**
+  String get voiceRoomGestureClap;
+
+  /// Label text displayed on the stage area
+  ///
+  /// In zh, this message translates to:
+  /// **'舞台'**
+  String get voiceRoomStageLabel;
+
+  /// Label appended to own character name on stage
+  ///
+  /// In zh, this message translates to:
+  /// **'（我）'**
+  String get voiceRoomYouLabel;
+
+  /// Semantic label for listener avatar when host can manage
+  ///
+  /// In zh, this message translates to:
+  /// **'听众{name}，点击管理'**
+  String voiceRoomListenerTapToManage(Object name);
+
+  /// Semantic label for listener avatar
+  ///
+  /// In zh, this message translates to:
+  /// **'听众{name}'**
+  String voiceRoomListenerName(Object name);
+
+  /// Detailed mic permission denied message for dialog
+  ///
+  /// In zh, this message translates to:
+  /// **'麦克风访问被拒绝。要使用语音功能，请在设备设置中启用。'**
+  String get voiceRoomMicPermissionDenied;
+
+  /// Mic permission dialog title
+  ///
+  /// In zh, this message translates to:
+  /// **'麦克风权限'**
+  String get voiceRoomMicPermissionTitle;
+
+  /// Button to open device settings for permissions
+  ///
+  /// In zh, this message translates to:
+  /// **'打开设置'**
+  String get voiceRoomOpenSettings;
+
+  /// Snackbar message when mic denied while raising hand
+  ///
+  /// In zh, this message translates to:
+  /// **'上台发言需要麦克风权限'**
+  String get voiceRoomMicNeededForStage;
 
   /// Batchim description text
   ///
@@ -5042,6 +5583,108 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'进入第1级'**
   String get hangulGoToLevel1;
+
+  /// No description provided for @completedLessonsLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成'**
+  String get completedLessonsLabel;
+
+  /// No description provided for @wordsLearnedLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'已学单词'**
+  String get wordsLearnedLabel;
+
+  /// No description provided for @totalStudyTimeLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习时间'**
+  String get totalStudyTimeLabel;
+
+  /// No description provided for @streakDetails.
+  ///
+  /// In zh, this message translates to:
+  /// **'连续学习记录'**
+  String get streakDetails;
+
+  /// No description provided for @consecutiveDays.
+  ///
+  /// In zh, this message translates to:
+  /// **'连续天数'**
+  String get consecutiveDays;
+
+  /// No description provided for @totalStudyDaysLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'总学习天数'**
+  String get totalStudyDaysLabel;
+
+  /// No description provided for @studyRecord.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习记录'**
+  String get studyRecord;
+
+  /// No description provided for @noFriendsPrompt.
+  ///
+  /// In zh, this message translates to:
+  /// **'找朋友一起学习吧！'**
+  String get noFriendsPrompt;
+
+  /// No description provided for @moreStats.
+  ///
+  /// In zh, this message translates to:
+  /// **'查看全部'**
+  String get moreStats;
+
+  /// No description provided for @remainingLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'再完成{count}个即可达成今日目标！'**
+  String remainingLessons(int count);
+
+  /// No description provided for @streakMotivation0.
+  ///
+  /// In zh, this message translates to:
+  /// **'今天开始学习吧！'**
+  String get streakMotivation0;
+
+  /// No description provided for @streakMotivation1.
+  ///
+  /// In zh, this message translates to:
+  /// **'好的开始！继续加油！'**
+  String get streakMotivation1;
+
+  /// No description provided for @streakMotivation7.
+  ///
+  /// In zh, this message translates to:
+  /// **'连续学习超过一周！太棒了！'**
+  String get streakMotivation7;
+
+  /// No description provided for @streakMotivation14.
+  ///
+  /// In zh, this message translates to:
+  /// **'坚持两周了！正在养成习惯！'**
+  String get streakMotivation14;
+
+  /// No description provided for @streakMotivation30.
+  ///
+  /// In zh, this message translates to:
+  /// **'连续一个月以上！你是真正的学习者！'**
+  String get streakMotivation30;
+
+  /// No description provided for @minutesShort.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}分钟'**
+  String minutesShort(int count);
+
+  /// No description provided for @hoursShort.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count}小时'**
+  String hoursShort(int count);
 }
 
 class _AppLocalizationsDelegate

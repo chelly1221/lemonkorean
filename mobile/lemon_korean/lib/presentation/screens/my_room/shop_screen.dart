@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
@@ -38,6 +39,28 @@ class _ShopScreenState extends State<ShopScreen>
       'furniture': l10n.furnitureItem,
     };
     return _tabKeys.map((k) => (k, labels[k] ?? k)).toList();
+  }
+
+  Widget _buildItemPreview(CharacterItemModel item, {double iconSize = 40}) {
+    if (!item.isBundled) {
+      return Icon(Icons.image, size: iconSize, color: Colors.grey.shade400);
+    }
+
+    if (item.assetKey.toLowerCase().endsWith('.svg')) {
+      return SvgPicture.asset(
+        item.assetKey,
+        fit: BoxFit.contain,
+        placeholderBuilder: (_) =>
+            Icon(Icons.image, size: iconSize, color: Colors.grey.shade300),
+      );
+    }
+
+    return Image.asset(
+      item.assetKey,
+      fit: BoxFit.contain,
+      errorBuilder: (_, __, ___) =>
+          Icon(Icons.image, size: iconSize, color: Colors.grey.shade300),
+    );
   }
 
   @override
@@ -87,15 +110,7 @@ class _ShopScreenState extends State<ShopScreen>
                 borderRadius: BorderRadius.circular(12),
               ),
               child: item.isBundled
-                  ? Image.asset(
-                      item.assetKey,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(
-                        Icons.image,
-                        size: 40,
-                        color: Colors.grey.shade400,
-                      ),
-                    )
+                  ? _buildItemPreview(item)
                   : Icon(Icons.image, size: 40, color: Colors.grey.shade400),
             ),
             const SizedBox(height: 16),
@@ -262,17 +277,7 @@ class _ShopScreenState extends State<ShopScreen>
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.all(12),
-                            child: item.isBundled
-                                ? Image.asset(
-                                    item.assetKey,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (_, __, ___) => Icon(
-                                      Icons.image,
-                                      size: 40,
-                                      color: Colors.grey.shade300,
-                                    ),
-                                  )
-                                : Icon(Icons.image, size: 40, color: Colors.grey.shade400),
+                            child: _buildItemPreview(item),
                           ),
                         ),
                         // Rarity badge

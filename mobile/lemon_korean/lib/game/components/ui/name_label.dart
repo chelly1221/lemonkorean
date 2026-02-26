@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 class NameLabel extends PositionComponent {
   String name;
   final bool isLocalPlayer;
+  final bool isHost;
 
   ui.Paragraph? _paragraph;
   double _labelWidth = 0;
@@ -13,8 +14,9 @@ class NameLabel extends PositionComponent {
   NameLabel({
     required this.name,
     this.isLocalPlayer = false,
+    this.isHost = false,
   }) : super(
-    size: Vector2(100, 20),
+    size: Vector2(120, 20),
     anchor: Anchor.bottomCenter,
   );
 
@@ -30,7 +32,9 @@ class NameLabel extends PositionComponent {
   }
 
   void _buildParagraph() {
-    final displayName = isLocalPlayer ? '$name (You)' : name;
+    final prefix = isHost ? '\u{1F451} ' : ''; // crown emoji for host
+    final suffix = isLocalPlayer ? ' (You)' : '';
+    final displayName = '$prefix$name$suffix';
 
     final builder = ui.ParagraphBuilder(ui.ParagraphStyle(
       textAlign: ui.TextAlign.center,
@@ -48,7 +52,7 @@ class NameLabel extends PositionComponent {
       ..addText(displayName);
 
     _paragraph = builder.build()
-      ..layout(const ui.ParagraphConstraints(width: 100));
+      ..layout(const ui.ParagraphConstraints(width: 120));
 
     _labelWidth = _paragraph!.longestLine + 12;
   }
@@ -57,9 +61,14 @@ class NameLabel extends PositionComponent {
   void render(ui.Canvas canvas) {
     if (_paragraph == null) return;
 
-    final bgColor = isLocalPlayer
-        ? const ui.Color(0xCCFFC107) // amber
-        : const ui.Color(0x88000000); // black54
+    final ui.Color bgColor;
+    if (isLocalPlayer) {
+      bgColor = const ui.Color(0xCCFFC107); // amber
+    } else if (isHost) {
+      bgColor = const ui.Color(0xCC3D3520); // subtle gold tint
+    } else {
+      bgColor = const ui.Color(0x88000000); // black54
+    }
 
     final bgRect = ui.RRect.fromRectAndRadius(
       ui.Rect.fromCenter(

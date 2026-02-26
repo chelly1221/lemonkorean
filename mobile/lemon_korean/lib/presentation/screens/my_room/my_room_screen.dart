@@ -31,7 +31,10 @@ class _MyRoomScreenState extends State<MyRoomScreen> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _loadData();
+    });
   }
 
   @override
@@ -75,8 +78,7 @@ class _MyRoomScreenState extends State<MyRoomScreen> {
     final floorId = character.getEquippedItem('floor');
     final wallpaperItem =
         wallpaperId != null ? provider.getItemById(wallpaperId) : null;
-    final floorItem =
-        floorId != null ? provider.getItemById(floorId) : null;
+    final floorItem = floorId != null ? provider.getItemById(floorId) : null;
 
     // Pet asset key
     final petId = character.getEquippedItem('pet');
@@ -87,14 +89,11 @@ class _MyRoomScreenState extends State<MyRoomScreen> {
       bridge: _bridge!,
       initialEquippedItems: equippedItems,
       initialSkinColor: character.skinColor,
-      wallpaperAssetKey:
-          wallpaperItem != null && wallpaperItem.isBundled
-              ? wallpaperItem.assetKey
-              : null,
+      wallpaperAssetKey: wallpaperItem != null && wallpaperItem.isBundled
+          ? wallpaperItem.assetKey
+          : null,
       floorAssetKey:
-          floorItem != null && floorItem.isBundled
-              ? floorItem.assetKey
-              : null,
+          floorItem != null && floorItem.isBundled ? floorItem.assetKey : null,
       furnitureData: provider.roomFurniture,
       petAssetKey: petItem?.assetKey,
     );
@@ -125,127 +124,113 @@ class _MyRoomScreenState extends State<MyRoomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<CharacterProvider, GamificationProvider>(
-      builder: (context, characterProvider, gamificationProvider, _) {
-        // Sync equipment changes to running game
-        if (_game != null && !_isLoading) {
-          final equippedItems = _getEquippedItems(characterProvider);
-          final character = characterProvider.character;
-          _game!.updateEquipment(equippedItems, character.skinColor);
-        }
+    final totalLemons =
+        context.select<GamificationProvider, int>((p) => p.totalLemons);
 
-        return Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: [
-                // Top bar with lemon balance
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.paddingMedium,
-                    vertical: AppConstants.paddingSmall,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Top bar with lemon balance
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingSmall,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.myRoom,
+                    style: const TextStyle(
+                      fontSize: AppConstants.fontSizeXLarge,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.myRoom,
-                        style: const TextStyle(
-                          fontSize: AppConstants.fontSizeXLarge,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Spacer(),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: AppConstants.primaryColor
-                              .withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text('🍋',
-                                style: TextStyle(fontSize: 18)),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${gamificationProvider.totalLemons}',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Room area — Flame GameWidget
-                Expanded(
-                  child: _isLoading || _game == null
-                      ? const Center(child: CircularProgressIndicator())
-                      : ClipRect(
-                          child: GameWidget(game: _game!),
-                        ),
-                ),
-
-                // Action buttons
-                Padding(
-                  padding:
-                      const EdgeInsets.all(AppConstants.paddingMedium),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _ActionButton(
-                          icon: Icons.face,
-                          label:
-                              AppLocalizations.of(context)!.character,
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  const CharacterEditorScreen(),
-                            ),
+                  const Spacer(),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: AppConstants.primaryColor.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text('🍋', style: TextStyle(fontSize: 18)),
+                        const SizedBox(width: 4),
+                        Text(
+                          '$totalLemons',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: _ActionButton(
-                          icon: Icons.weekend,
-                          label: AppLocalizations.of(context)!.room,
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  const RoomEditorScreen(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: _ActionButton(
-                          icon: Icons.shopping_bag,
-                          label: AppLocalizations.of(context)!.shop,
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const ShopScreen(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+
+            // Room area — Flame GameWidget
+            Expanded(
+              child: _isLoading || _game == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : ClipRect(
+                      child: GameWidget(game: _game!),
+                    ),
+            ),
+
+            // Action buttons
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.paddingMedium),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _ActionButton(
+                      icon: Icons.face,
+                      label: AppLocalizations.of(context)!.character,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const CharacterEditorScreen(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: _ActionButton(
+                      icon: Icons.weekend,
+                      label: AppLocalizations.of(context)!.room,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const RoomEditorScreen(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: _ActionButton(
+                      icon: Icons.shopping_bag,
+                      label: AppLocalizations.of(context)!.shop,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ShopScreen(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

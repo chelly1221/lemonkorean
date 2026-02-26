@@ -100,7 +100,7 @@
   "requestTimeout": "リクエストがタイムアウトしました。もう一度お試しください。",
   "@requestTimeout": {"description": "Request timeout message"},
 
-  "operationFailed": "操作に失敗しました。しばらくしてからもう一度お試しください。",
+  "operationFailed": "エラーが発生しました。しばらくしてからもう一度お試しください。",
   "@operationFailed": {"description": "Generic operation failed message"},
 
   "settings": "設定",
@@ -252,7 +252,7 @@
   "appIntro": "アプリ紹介",
   "@appIntro": {"description": "App introduction label"},
 
-  "appIntroContent": "中国語話者向けに設計された韓国語学習アプリです。オフライン学習、スマート復習リマインダーなどの機能をサポートしています。",
+  "appIntroContent": "多言語対応の韓国語学習アプリです。オフライン学習、スマート復習リマインダーなどの機能をサポートしています。",
   "@appIntroContent": {"description": "App introduction content"},
 
   "termsOfService": "利用規約",
@@ -326,9 +326,6 @@
   "lowSimilarity": "低い類似度",
   "@lowSimilarity": {"description": "Low similarity level"},
 
-  "lessonComplete": "レッスン完了！",
-  "@lessonComplete": {"description": "Lesson complete message"},
-
   "learningComplete": "学習完了",
   "@learningComplete": {"description": "Learning complete title"},
 
@@ -340,7 +337,7 @@
     }
   },
 
-  "keepLearning": "学習のモチベーションを維持しましょう",
+  "keepLearning": "この調子で学習を続けましょう！",
   "@keepLearning": {"description": "Keep learning message"},
 
   "streakDays": "連続学習 +1日",
@@ -366,20 +363,11 @@
   "dialogues": "会話",
   "@dialogues": {"description": "Dialogues label"},
 
-  "grammarExplanation": "文法説明",
-  "@grammarExplanation": {"description": "Grammar explanation title"},
-
-  "exampleSentences": "例文",
-  "@exampleSentences": {"description": "Example sentences label"},
-
   "previous": "前へ",
   "@previous": {"description": "Previous button"},
 
   "next": "次へ",
   "@next": {"description": "Next button"},
-
-  "continueBtn": "続ける",
-  "@continueBtn": {"description": "Continue button"},
 
   "topicParticle": "主題助詞",
   "@topicParticle": {"description": "Topic particle grammar"},
@@ -471,29 +459,17 @@
   "listening": "リスニング",
   "@listening": {"description": "Listening question type"},
 
-  "fillBlank": "穴埋め",
-  "@fillBlank": {"description": "Fill in blank question type"},
-
   "translation": "翻訳",
   "@translation": {"description": "Translation question type"},
 
   "wordOrder": "語順",
   "@wordOrder": {"description": "Word order question type"},
 
-  "pronunciation": "発音",
-  "@pronunciation": {"description": "Pronunciation question type"},
-
   "excellent": "素晴らしい！",
   "@excellent": {"description": "Excellent feedback"},
 
   "correctOrderIs": "正しい順序：",
   "@correctOrderIs": {"description": "Correct order is prefix"},
-
-  "correctAnswerIs": "正解：",
-  "@correctAnswerIs": {"description": "Correct answer is prefix"},
-
-  "previousQuestion": "前の問題",
-  "@previousQuestion": {"description": "Previous question button"},
 
   "nextQuestion": "次の問題",
   "@nextQuestion": {"description": "Next question button"},
@@ -704,7 +680,7 @@
   "myVocabularyBook": "マイ単語帳",
   "@myVocabularyBook": {"description": "My vocabulary book"},
 
-  "vocabularyBrowser": "単語ブラウザ",
+  "vocabularyBrowser": "単語一覧",
   "@vocabularyBrowser": {"description": "Vocabulary browser"},
 
   "about": "情報",
@@ -754,25 +730,25 @@
   "levelBeginner": "入門",
   "@levelBeginner": {"description": "Beginner level"},
 
-  "levelBeginnerDesc": "大丈夫！ハングルから始めよう",
+  "levelBeginnerDesc": "大丈夫です！ハングルから始めましょう",
   "@levelBeginnerDesc": {"description": "Beginner level description"},
 
   "levelElementary": "初級",
   "@levelElementary": {"description": "Elementary level"},
 
-  "levelElementaryDesc": "基礎会話から練習しよう！",
+  "levelElementaryDesc": "基礎会話から練習しましょう！",
   "@levelElementaryDesc": {"description": "Elementary level description"},
 
   "levelIntermediate": "中級",
   "@levelIntermediate": {"description": "Intermediate level"},
 
-  "levelIntermediateDesc": "より自然に話そう！",
+  "levelIntermediateDesc": "より自然に話しましょう！",
   "@levelIntermediateDesc": {"description": "Intermediate level description"},
 
   "levelAdvanced": "上級",
   "@levelAdvanced": {"description": "Advanced level"},
 
-  "levelAdvancedDesc": "細かい表現まで極めよう！",
+  "levelAdvancedDesc": "細かい表現まで極めましょう！",
   "@levelAdvancedDesc": {"description": "Advanced level description"},
 
   "onboardingWelcomeTitle": "レモン韓国語へようこそ！",
@@ -790,7 +766,7 @@
   "onboardingFeature2Title": "スマート復習システム",
   "@onboardingFeature2Title": {"description": "Feature 2 title"},
 
-  "onboardingFeature2Desc": "AI駆動の間隔反復で記憶力向上",
+  "onboardingFeature2Desc": "AIを活用した間隔反復学習で記憶力アップ",
   "@onboardingFeature2Desc": {"description": "Feature 2 description"},
 
   "onboardingFeature3Title": "7ステージ学習パス",
@@ -823,7 +799,7 @@
   "goalCasualHelper": "忙しいスケジュールに最適",
   "@goalCasualHelper": {"description": "Casual goal helper text"},
 
-  "goalRegular": "レギュラー",
+  "goalRegular": "コツコツ",
   "@goalRegular": {"description": "Regular goal option"},
 
   "goalRegularDesc": "週3-4レッスン",
@@ -835,7 +811,7 @@
   "goalRegularHelper": "プレッシャーなく着実に進歩",
   "@goalRegularHelper": {"description": "Regular goal helper text"},
 
-  "goalSerious": "シリアス",
+  "goalSerious": "本格派",
   "@goalSerious": {"description": "Serious goal option"},
 
   "goalSeriousDesc": "週5-6レッスン",
@@ -994,7 +970,7 @@
   },
   "sortByLesson": "レッスン順",
   "sortByKorean": "韓国語順",
-  "sortByChinese": "中国語順",
+  "sortByChinese": "日本語順",
   "noWordsFound": "単語が見つかりません",
   "noMasteredWords": "習得した単語はまだありません",
   "hanja": "漢字",
@@ -1033,7 +1009,7 @@
   "sortKorean": "韓国語順",
   "@sortKorean": {"description": "Sort by Korean"},
 
-  "sortChinese": "中国語順",
+  "sortChinese": "日本語",
   "@sortChinese": {"description": "Sort by Chinese"},
 
   "sortMastery": "習熟度順",
@@ -1054,7 +1030,7 @@
   "filterAdvanced": "上級 (レベル4-5)",
   "@filterAdvanced": {"description": "Filter advanced"},
 
-  "searchWordsNotesChinese": "単語、中国語、メモを検索...",
+  "searchWordsNotesChinese": "単語、日本語訳、メモを検索...",
   "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
 
   "startReviewCount": "復習を始める ({count})",
@@ -1212,7 +1188,7 @@
   "hangulAlphabet": "ハングル",
   "@hangulAlphabet": {"description": "Hangul alphabet"},
 
-  "alphabetTable": "五十音表",
+  "alphabetTable": "一覧表",
   "@alphabetTable": {"description": "Alphabet table tab"},
 
   "learn": "学習",
@@ -1302,7 +1278,7 @@
   "lesson7Desc": "残りの合成母音を学ぶ",
   "@lesson7Desc": {"description": "Lesson 7 description"},
 
-  "loadAlphabetFirst": "まず五十音表データを読み込んでください",
+  "loadAlphabetFirst": "まずハングル一覧データを読み込んでください",
   "@loadAlphabetFirst": {"description": "Load alphabet first message"},
 
   "noContentForLesson": "この課には内容がありません",
@@ -1343,13 +1319,13 @@
   "dailyLearningReminderTitle": "毎日の学習リマインダー",
   "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
 
-  "dailyLearningReminderBody": "今日の韓国語学習を完了しましょう～",
+  "dailyLearningReminderBody": "今日の韓国語学習を完了しましょう！",
   "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
 
   "reviewReminderTitle": "復習の時間です！",
   "@reviewReminderTitle": {"description": "Review reminder notification title"},
 
-  "reviewReminderBody": "「{title}」を復習する時間です～",
+  "reviewReminderBody": "「{title}」を復習する時間です！",
   "@reviewReminderBody": {
     "description": "Review reminder notification body",
     "placeholders": {
@@ -1472,7 +1448,7 @@
   "grammarPattern": "文法 · {pattern}",
   "grammarExplanation": "文法説明",
   "conjugationRule": "活用ルール",
-  "comparisonWithChinese": "中国語との比較",
+  "comparisonWithChinese": "日本語との比較",
   "exampleSentences": "例文",
   "dialogueTitle": "会話練習",
   "dialogueExplanation": "会話解説",
@@ -1514,7 +1490,7 @@
   "statusNotStarted": "未開始",
   "statusInProgress": "進行中",
   "statusCompleted": "完了",
-  "statusFailed": "不合格",
+  "statusFailed": "未合格",
   "masteryNew": "新規",
   "masteryLearning": "学習中",
   "masteryFamiliar": "習得中",
@@ -1537,10 +1513,10 @@
   "reviewReminderChannel": "復習リマインダー",
   "reviewReminderChannelDesc": "間隔反復アルゴリズムに基づく復習通知",
   "notificationStudyTime": "学習の時間です！",
-  "notificationStudyReminder": "今日の韓国語学習を完了しましょう〜",
+  "notificationStudyReminder": "今日の韓国語学習を完了しましょう！",
   "notificationReviewTime": "復習の時間です！",
-  "notificationReviewReminder": "以前学んだ内容を復習しましょう〜",
-  "notificationReviewLesson": "「{lessonTitle}」を復習しましょう〜",
+  "notificationReviewReminder": "以前学んだ内容を復習しましょう！",
+  "notificationReviewLesson": "「{lessonTitle}」を復習しましょう！",
 
   "keepGoing": "頑張って！",
   "scoreDisplay": "スコア：{correct} / {total}",
@@ -1556,7 +1532,7 @@
 
   "hanjaWord": "漢字語",
   "tapToFlipBack": "タップして裏返す",
-  "similarityWithChinese": "中国語との類似度",
+  "similarityWithChinese": "日本語との類似度",
   "hanjaWordSimilarPronunciation": "漢字語、発音が似ている",
   "sameEtymologyEasyToRemember": "語源が同じで覚えやすい",
   "someConnection": "ある程度の関連性あり",
@@ -1567,9 +1543,9 @@
   "exampleNumber": "例 {number}",
   "fillInBlankPrompt": "空欄を埋める：",
   "correctFeedback": "素晴らしい！正解！",
-  "incorrectFeedback": "もう一度考えてみてください",
+  "incorrectFeedback": "惜しいです！もう一度挑戦してみましょう",
   "allStagesPassed": "7段階すべてクリア",
-  "continueToLearnMore": "もっと学習を続ける",
+  "continueToLearnMore": "もっと学習を続けましょう",
 
   "timeFormatHMS": "{hours}時間{minutes}分{seconds}秒",
   "timeFormatMS": "{minutes}分{seconds}秒",
@@ -1579,7 +1555,7 @@
   "repeatDisabled": "リピート無効",
   "stop": "停止",
   "playbackSpeed": "再生速度",
-  "slowSpeed": "遅い",
+  "slowSpeed": "ゆっくり",
   "normalSpeed": "通常",
 
   "mouthShape": "口の形",
@@ -1665,7 +1641,7 @@
   "following": "フォロー中",
   "discover": "発見",
   "createPost": "投稿作成",
-  "writePost": "何か共有しましょう...",
+  "writePost": "何か書いてみましょう...",
   "postCategory": "カテゴリー",
   "categoryLearning": "学習",
   "categoryGeneral": "一般",
@@ -1724,7 +1700,7 @@
   "postFailed": "投稿に失敗しました",
   "newPost": "新しい投稿",
   "category": "カテゴリー",
-  "writeYourThoughts": "思ったことを共有しましょう...",
+  "writeYourThoughts": "思ったことを書いてみましょう...",
   "photos": "写真",
   "addPhoto": "写真を追加",
   "imageUrlHint": "画像URLを入力",
@@ -1732,7 +1708,7 @@
   "noResults": "ユーザーが見つかりません",
   "postDetail": "投稿",
   "comments": "コメント",
-  "noComments": "まだコメントがありません。最初のコメントを！",
+  "noComments": "まだコメントがありません。最初のコメントを書いてみましょう！",
   "deleteCommentConfirm": "このコメントを削除しますか？",
   "failedToLoadProfile": "プロフィールの読み込みに失敗しました",
   "userNotFound": "ユーザーが見つかりません",
@@ -1754,7 +1730,7 @@
   "beginner": "初級",
   "intermediate": "中級",
   "advanced": "上級",
-  "stageSlots": "ステージ枠",
+  "stageSlots": "スピーカー枠",
   "anyoneCanListen": "誰でもリスナーとして参加できます",
   "createAndJoin": "作成して参加",
   "unmute": "ミュート解除",
@@ -1775,6 +1751,148 @@
   "noVoiceRooms": "アクティブなボイスルームはありません",
   "createVoiceRoomHint": "ルームを作成して会話を始めましょう！",
   "createRoom": "ルーム作成",
+  "voiceRoomMicPermission": "ボイスルームにはマイクの許可が必要です",
+  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "voiceRoomEnterTitle": "ルーム名を入力してください",
+  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "voiceRoomCreateFailed": "ルームの作成に失敗しました",
+  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "voiceRoomNotAvailable": "ルームは利用できません",
+  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "voiceRoomGoBack": "戻る",
+  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "voiceRoomConnecting": "接続中...",
+  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "voiceRoomReconnecting": "再接続中 ({attempts}/{max})...",
+  "@voiceRoomReconnecting": {
+    "description": "Reconnection status with attempt count",
+    "placeholders": {
+      "attempts": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "voiceRoomDisconnected": "切断されました",
+  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "voiceRoomRetry": "再試行",
+  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "voiceRoomHostLabel": "(ホスト)",
+  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "voiceRoomDemoteToListener": "リスナーに降格",
+  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "voiceRoomKickFromRoom": "ルームから退出させる",
+  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "voiceRoomListeners": "リスナー",
+  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "voiceRoomInviteToStage": "ステージに招待",
+  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "voiceRoomInviteConfirm": "{name}さんをステージに招待しますか？",
+  "@voiceRoomInviteConfirm": {
+    "description": "Confirmation message for stage invitation",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomInvite": "招待",
+  "@voiceRoomInvite": {"description": "Invite button label"},
+  "voiceRoomCloseConfirmTitle": "ルームを閉じますか？",
+  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "voiceRoomCloseConfirmBody": "全員の通話が終了します。",
+  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "voiceRoomNoMessagesYet": "まだメッセージがありません",
+  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "voiceRoomTypeMessage": "メッセージを入力...",
+  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "voiceRoomStageFull": "ステージ満席",
+  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "voiceRoomListenerCount": "リスナー {count}人",
+  "@voiceRoomListenerCount": {
+    "description": "Listener count for accessibility",
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "voiceRoomRemoveFromStage": "ステージから降ろしますか？",
+  "voiceRoomRemoveFromStageConfirm": "{name}さんをステージから降ろしますか？リスナーになります。",
+  "@voiceRoomRemoveFromStageConfirm": {
+    "description": "Confirm dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomDemote": "降格",
+  "voiceRoomRemoveFromRoom": "ルームから退出させますか？",
+  "voiceRoomRemoveFromRoomConfirm": "{name}さんをルームから退出させますか？接続が切断されます。",
+  "@voiceRoomRemoveFromRoomConfirm": {
+    "description": "Confirm dialog body",
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "voiceRoomRemove": "退出させる",
+  "voiceRoomPressBackToLeave": "もう一度押すと退出します",
+  "voiceRoomLeaveTitle": "ルームを退出しますか？",
+  "voiceRoomLeaveBody": "現在ステージ上にいます。本当に退出しますか？",
+
+  "voiceRoomReturningToList": "ルーム一覧に戻ります...",
+  "voiceRoomConnected": "接続しました！",
+  "voiceRoomStageFailedToLoad": "ステージの読み込みに失敗しました",
+  "voiceRoomPreparingStage": "ステージを準備中...",
+  "voiceRoomAcceptToStage": "{name}さんをステージに承認",
+  "voiceRoomRejectFromStage": "{name}さんを拒否",
+  "voiceRoomQuickCreate": "クイック作成",
+  "voiceRoomRoomType": "ルームタイプ",
+  "voiceRoomSessionDuration": "セッション時間",
+  "voiceRoomOptionalTimer": "セッションのタイマー（任意）",
+  "voiceRoomDurationNone": "なし",
+  "voiceRoomDuration15": "15分",
+  "voiceRoomDuration30": "30分",
+  "voiceRoomDuration45": "45分",
+  "voiceRoomDuration60": "60分",
+  "voiceRoomTypeFreeTalk": "フリートーク",
+  "voiceRoomTypePronunciation": "発音練習",
+  "voiceRoomTypeRolePlay": "ロールプレイ",
+  "voiceRoomTypeQnA": "質問＆回答",
+  "voiceRoomTypeListening": "リスニング",
+  "voiceRoomTypeDebate": "ディベート",
+  "voiceRoomTemplateFreeTalk": "韓国語フリートーク",
+  "voiceRoomTemplatePronunciation": "発音練習",
+  "voiceRoomTemplateDailyKorean": "デイリー韓国語",
+  "voiceRoomTemplateTopikSpeaking": "TOPIKスピーキング",
+  "voiceRoomCreateTooltip": "ボイスルームを作成",
+  "voiceRoomSendReaction": "リアクションを送る",
+  "voiceRoomLeaveRoom": "ルームを退出",
+  "voiceRoomUnmuteMic": "マイクのミュートを解除",
+  "voiceRoomMuteMic": "マイクをミュート",
+  "voiceRoomCancelHandRaise": "挙手をキャンセル",
+  "voiceRoomRaiseHandSemantic": "挙手する",
+  "voiceRoomSendGesture": "ジェスチャーを送る",
+  "voiceRoomLeaveStageAction": "ステージを降りる",
+  "voiceRoomManageStage": "ステージを管理",
+  "voiceRoomMoreOptions": "その他のオプション",
+  "voiceRoomMore": "その他",
+  "voiceRoomStageWithSpeakers": "スピーカーのいるボイスルームステージ",
+  "voiceRoomStageRequestsPending": "ステージリクエスト、{count}件待ち",
+  "voiceRoomSpeakerListenerCount": "スピーカー {speakers}/{maxSpeakers}人、リスナー {listeners}人",
+  "voiceRoomChatInput": "チャットメッセージ入力",
+  "voiceRoomSendMessage": "メッセージを送信",
+  "voiceRoomSendReactionNamed": "{name}リアクションを送る",
+  "voiceRoomCloseReactionTray": "リアクショントレイを閉じる",
+  "voiceRoomPerformGesture": "{name}ジェスチャーを実行",
+  "voiceRoomCloseGestureTray": "ジェスチャートレイを閉じる",
+  "voiceRoomGestureWave": "手を振る",
+  "voiceRoomGestureBow": "お辞儀",
+  "voiceRoomGestureDance": "ダンス",
+  "voiceRoomGestureJump": "ジャンプ",
+  "voiceRoomGestureClap": "拍手",
+  "voiceRoomStageLabel": "ステージ",
+  "voiceRoomYouLabel": "（自分）",
+  "voiceRoomListenerTapToManage": "リスナー {name}、タップして管理",
+  "voiceRoomListenerName": "リスナー {name}",
+  "voiceRoomMicPermissionDenied": "マイクへのアクセスが拒否されました。音声機能を使用するには、デバイスの設定で有効にしてください。",
+  "voiceRoomMicPermissionTitle": "マイクの許可",
+  "voiceRoomOpenSettings": "設定を開く",
+  "voiceRoomMicNeededForStage": "ステージで話すにはマイクの許可が必要です",
 
   "batchimDescriptionText": "韓国語のパッチム（받침）は7つの音で発音されます。\n複数のパッチムが同じ音で発音されることを「パッチム代表音」と言います。",
   "syllableInputLabel": "音節入力",
@@ -1804,7 +1922,7 @@
   "petItem": "ペット",
   "none": "なし",
   "noItemsYet": "アイテムなし",
-  "visitShopToGetItems": "ショップでアイテムを手に入れよう！",
+  "visitShopToGetItems": "ショップでアイテムを手に入れましょう！",
   "alreadyOwned": "所持済み！",
   "buy": "購入",
   "purchasedItem": "{name}を購入！",
@@ -1827,7 +1945,7 @@
   },
   "furnitureItem": "家具",
   "hangulWelcome": "ハングルの世界へようこそ！",
-  "hangulWelcomeDesc": "40文字の子母音を一つずつ学びましょう",
+  "hangulWelcomeDesc": "ハングル40文字を一つずつ学びましょう",
   "hangulStartLearning": "学習を始める",
   "hangulLearnNext": "次の文字を学ぶ",
   "hangulLearnedCount": "{count}/40文字を学びました！",
@@ -1846,5 +1964,37 @@
   "hangulPracticeSuggestion": "もう少し！アクティビティで実力を固めましょう",
   "hangulStartActivities": "アクティビティ開始",
   "hangulMastered": "おめでとうございます！ハングルをマスターしました！",
-  "hangulGoToLevel1": "Level 1を始める"
+  "hangulGoToLevel1": "Level 1を始める",
+  "completedLessonsLabel": "完了レッスン",
+  "wordsLearnedLabel": "習得単語",
+  "totalStudyTimeLabel": "学習時間",
+  "streakDetails": "連続学習記録",
+  "consecutiveDays": "連続学習日数",
+  "totalStudyDaysLabel": "総学習日数",
+  "studyRecord": "学習記録",
+  "noFriendsPrompt": "一緒に勉強する友達を探しましょう！",
+  "moreStats": "すべて表示",
+  "remainingLessons": "あと{count}つで今日の目標達成！",
+  "@remainingLessons": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "streakMotivation0": "今日から始めましょう！",
+  "streakMotivation1": "いいスタート！続けましょう！",
+  "streakMotivation7": "1週間以上連続！すごいです！",
+  "streakMotivation14": "2週間以上！習慣になってきています！",
+  "streakMotivation30": "1ヶ月以上連続！真の学習者です！",
+  "minutesShort": "{count}分",
+  "@minutesShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "hoursShort": "{count}時間",
+  "@hoursShort": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

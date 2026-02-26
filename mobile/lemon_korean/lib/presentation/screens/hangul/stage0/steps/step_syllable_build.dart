@@ -1,6 +1,10 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:just_audio/just_audio.dart';
 
+import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/syllable_block_template.dart';
 
@@ -19,7 +23,9 @@ class StepSyllableBuild extends StatefulWidget {
   State<StepSyllableBuild> createState() => _StepSyllableBuildState();
 }
 
-class _StepSyllableBuildState extends State<StepSyllableBuild> {
+class _StepSyllableBuildState extends State<StepSyllableBuild>
+    with SingleTickerProviderStateMixin {
+  final AudioPlayer _audioPlayer = AudioPlayer();
   late final List<_BuildTarget> _targets;
   int _currentTargetIndex = 0;
   String? _selectedConsonant;
@@ -27,10 +33,25 @@ class _StepSyllableBuildState extends State<StepSyllableBuild> {
   bool _showResult = false;
   int _correctCount = 0;
 
+  // B1: shake + error state
+  late final AnimationController _shakeController;
+  bool _showError = false;
+
   @override
   void initState() {
     super.initState();
     _targets = _parseTargets();
+    _shakeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    _audioPlayer.dispose();
+    super.dispose();
   }
 
   List<_BuildTarget> _parseTargets() {
@@ -64,13 +85,13 @@ class _StepSyllableBuildState extends State<StepSyllableBuild> {
   _BuildTarget get _current => _targets[_currentTargetIndex];
 
   void _selectConsonant(String c) {
-    if (_showResult) return;
+    if (_showResult || _showError) return;
     setState(() => _selectedConsonant = c);
     _checkMatch();
   }
 
   void _selectVowel(String v) {
-    if (_showResult) return;
+    if (_showResult || _showError) return;
     setState(() => _selectedVowel = v);
     _checkMatch();
   }
@@ -83,7 +104,11 @@ class _StepSyllableBuildState extends State<StepSyllableBuild> {
 
     if (isCorrect) {
       _correctCount++;
+      HapticFeedback.lightImpact();
       setState(() => _showResult = true);
+
+      // A2: play TTS for the completed syllable
+      KoreanTtsHelper.playKoreanText(_current.result, _audioPlayer);
 
       Future.delayed(const Duration(milliseconds: 1200), () {
         if (!mounted) return;
@@ -99,10 +124,16 @@ class _StepSyllableBuildState extends State<StepSyllableBuild> {
         }
       });
     } else {
-      // Wrong — shake and reset
+      // B1: shake + error message + haptic
+      HapticFeedback.mediumImpact();
+      _shakeController.forward(from: 0);
       setState(() {
+        _showError = true;
         _selectedConsonant = null;
         _selectedVowel = null;
+      });
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        if (mounted) setState(() => _showError = false);
       });
     }
   }
@@ -141,14 +172,41 @@ class _StepSyllableBuildState extends State<StepSyllableBuild> {
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 20),
-          SyllableBlockTemplate(
-            consonant: _selectedConsonant,
-            vowel: _selectedVowel,
-            consonantFilled: _selectedConsonant != null,
-            vowelFilled: _selectedVowel != null,
-            showResult: _showResult,
-            resultChar: _current.result,
-          ).animate().fadeIn(duration: 300.ms),
+          // B1: wrap block in shake animation
+          AnimatedBuilder(
+            animation: _shakeController,
+            builder: (context, child) {
+              final shakeOffset = _shakeController.isAnimating
+                  ? sin(_shakeController.value * pi * 6) *
+                      8 *
+                      (1 - _shakeController.value)
+                  : 0.0;
+              return Transform.translate(
+                offset: Offset(shakeOffset, 0),
+                child: child,
+              );
+            },
+            child: SyllableBlockTemplate(
+              consonant: _selectedConsonant,
+              vowel: _selectedVowel,
+              consonantFilled: _selectedConsonant != null,
+              vowelFilled: _selectedVowel != null,
+              showResult: _showResult,
+              resultChar: _current.result,
+            ),
+          ),
+          // B1: error message
+          if (_showError) ...[
+            const SizedBox(height: 12),
+            Text(
+              '다시 시도해보세요',
+              style: TextStyle(
+                fontSize: 14,
+                color: const Color(0xFFF44336),
+                fontWeight: FontWeight.w500,
+              ),
+            ).animate().fadeIn(duration: 200.ms),
+          ],
           const Spacer(),
           // Consonant choices
           Text('자음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),

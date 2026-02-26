@@ -21,6 +21,13 @@ class LessonPathNode extends StatelessWidget {
   static const double nodeWidth = 80;
   static const double nodeHeight = 80;
   static const int _totalSteps = 7; // 7단계 레슨
+  static const TextStyle _centerNumberStyle = TextStyle(
+    fontFamily: 'Pretendard',
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFFBDBDBD),
+    height: 1.0,
+  );
 
   const LessonPathNode({
     required this.lesson,
@@ -33,7 +40,8 @@ class LessonPathNode extends StatelessWidget {
   });
 
   bool get _isCompleted => progress != null && progress! >= 1.0;
-  bool get _isInProgress => progress != null && progress! > 0 && progress! < 1.0;
+  bool get _isInProgress =>
+      progress != null && progress! > 0 && progress! < 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -110,9 +118,8 @@ class LessonPathNode extends StatelessWidget {
     );
   }
 
-  int get _filledSteps => progress != null
-      ? (progress! * _totalSteps).round()
-      : 0;
+  int get _filledSteps =>
+      progress != null ? (progress! * _totalSteps).round() : 0;
 
   Widget _buildStaticNode() {
     return CustomPaint(
@@ -127,11 +134,8 @@ class LessonPathNode extends StatelessWidget {
             ? const Icon(Icons.check, color: Colors.white, size: 16)
             : Text(
                 '${lesson.id}',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400,
-                ),
+                style: _centerNumberStyle,
+                textScaler: TextScaler.noScaling,
               ),
       ),
     );
@@ -161,11 +165,8 @@ class LessonPathNode extends StatelessWidget {
       child: Center(
         child: Text(
           '${lesson.id}',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: levelColor,
-          ),
+          style: _centerNumberStyle,
+          textScaler: TextScaler.noScaling,
         ),
       ),
     );

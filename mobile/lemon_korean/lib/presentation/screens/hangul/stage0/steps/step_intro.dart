@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../stage0_lesson_content.dart';
+import '../widgets/block_combine_intro_animation.dart';
 
-/// Intro step: shows a title, description, and emoji with a "다음" button.
+/// Intro step: shows a title, description, and emoji/animation with a "다음" button.
 class StepIntro extends StatelessWidget {
   final LessonStep step;
   final VoidCallback onNext;
@@ -12,6 +13,7 @@ class StepIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final animation = step.data['animation'] as Map<String, dynamic>?;
     final emoji = step.data['emoji'] as String? ?? '📖';
     final highlights = (step.data['highlights'] as List?)?.cast<String>() ?? [];
 
@@ -21,16 +23,23 @@ class StepIntro extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(flex: 2),
-          // Emoji
-          Text(emoji, style: const TextStyle(fontSize: 64))
-              .animate()
-              .scale(
-                begin: const Offset(0.5, 0.5),
-                end: const Offset(1.0, 1.0),
-                duration: 500.ms,
-                curve: Curves.easeOutBack,
-              )
-              .fadeIn(duration: 400.ms),
+          // Block combine animation or emoji
+          if (animation != null)
+            BlockCombineIntroAnimation(
+              consonant: animation['consonant'] as String,
+              vowel: animation['vowel'] as String,
+              result: animation['result'] as String,
+            )
+          else
+            Text(emoji, style: const TextStyle(fontSize: 64))
+                .animate()
+                .scale(
+                  begin: const Offset(0.5, 0.5),
+                  end: const Offset(1.0, 1.0),
+                  duration: 500.ms,
+                  curve: Curves.easeOutBack,
+                )
+                .fadeIn(duration: 400.ms),
           const SizedBox(height: 32),
           // Title
           Text(

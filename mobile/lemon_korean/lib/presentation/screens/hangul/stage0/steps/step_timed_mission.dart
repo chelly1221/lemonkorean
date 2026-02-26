@@ -1,7 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:just_audio/just_audio.dart';
 
+import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/countdown_timer_widget.dart';
 
@@ -20,9 +23,11 @@ class StepTimedMission extends StatefulWidget {
   State<StepTimedMission> createState() => _StepTimedMissionState();
 }
 
-class _StepTimedMissionState extends State<StepTimedMission> {
+class _StepTimedMissionState extends State<StepTimedMission>
+    with SingleTickerProviderStateMixin {
   final _random = Random();
   final _timerKey = GlobalKey<CountdownTimerWidgetState>();
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   late final int _timeLimit;
   late final int _targetCount;
@@ -40,14 +45,31 @@ class _StepTimedMissionState extends State<StepTimedMission> {
   String? _selectedVowel;
   bool _showResult = false;
 
+  // B1: shake + error state
+  late final AnimationController _shakeController;
+  bool _showError = false;
+
   @override
   void initState() {
     super.initState();
     _timeLimit = widget.step.data['timeLimitSeconds'] as int? ?? 180;
     _targetCount = widget.step.data['targetCount'] as int? ?? 5;
-    _consonants = (widget.step.data['consonants'] as List?)?.cast<String>() ?? ['ㄱ', 'ㄴ', 'ㄷ'];
-    _vowels = (widget.step.data['vowels'] as List?)?.cast<String>() ?? ['ㅏ', 'ㅗ'];
+    _consonants = (widget.step.data['consonants'] as List?)?.cast<String>() ??
+        ['ㄱ', 'ㄴ', 'ㄷ'];
+    _vowels =
+        (widget.step.data['vowels'] as List?)?.cast<String>() ?? ['ㅏ', 'ㅗ'];
+    _shakeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
     _generatePuzzle();
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    _audioPlayer.dispose();
+    super.dispose();
   }
 
   void _generatePuzzle() {
@@ -59,10 +81,21 @@ class _StepTimedMissionState extends State<StepTimedMission> {
     _showResult = false;
   }
 
-  /// Simple syllable combination for ㄱㄴㄷ + ㅏㅗ.
+  /// Syllable composition helper for selected consonant/vowel pairs.
   String _combineSyllable(String consonant, String vowel) {
-    const consonantMap = {'ㄱ': 0, 'ㄴ': 2, 'ㄷ': 3};
-    const vowelMap = {'ㅏ': 0, 'ㅗ': 8};
+    const consonantMap = {'ㄱ': 0, 'ㄴ': 2, 'ㄷ': 3, 'ㅇ': 11};
+    const vowelMap = {
+      'ㅏ': 0,
+      'ㅑ': 2,
+      'ㅓ': 4,
+      'ㅕ': 6,
+      'ㅗ': 8,
+      'ㅛ': 12,
+      'ㅜ': 13,
+      'ㅠ': 17,
+      'ㅡ': 18,
+      'ㅣ': 20,
+    };
     final cIndex = consonantMap[consonant] ?? 0;
     final vIndex = vowelMap[vowel] ?? 0;
     final code = 0xAC00 + (cIndex * 21 + vIndex) * 28;
@@ -70,13 +103,13 @@ class _StepTimedMissionState extends State<StepTimedMission> {
   }
 
   void _selectConsonant(String c) {
-    if (_showResult || _isDone) return;
+    if (_showResult || _isDone || _showError) return;
     setState(() => _selectedConsonant = c);
     _checkMatch();
   }
 
   void _selectVowel(String v) {
-    if (_showResult || _isDone) return;
+    if (_showResult || _isDone || _showError) return;
     setState(() => _selectedVowel = v);
     _checkMatch();
   }
@@ -84,11 +117,16 @@ class _StepTimedMissionState extends State<StepTimedMission> {
   void _checkMatch() {
     if (_selectedConsonant == null || _selectedVowel == null) return;
 
-    if (_selectedConsonant == _targetConsonant && _selectedVowel == _targetVowel) {
+    if (_selectedConsonant == _targetConsonant &&
+        _selectedVowel == _targetVowel) {
+      HapticFeedback.lightImpact();
       setState(() {
         _showResult = true;
         _completedCount++;
       });
+
+      // A2: play TTS for the completed syllable (short delay for mission pace)
+      KoreanTtsHelper.playKoreanText(_targetResult, _audioPlayer);
 
       if (_completedCount >= _targetCount) {
         _finish();
@@ -100,10 +138,16 @@ class _StepTimedMissionState extends State<StepTimedMission> {
         });
       }
     } else {
-      // Wrong — reset selection
+      // B1: wrong — shake + error message + haptic
+      HapticFeedback.mediumImpact();
+      _shakeController.forward(from: 0);
       setState(() {
+        _showError = true;
         _selectedConsonant = null;
         _selectedVowel = null;
+      });
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        if (mounted) setState(() => _showError = false);
       });
     }
   }
@@ -137,7 +181,8 @@ class _StepTimedMissionState extends State<StepTimedMission> {
                 onTimeUp: _finish,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFFE8F5E9),
                   borderRadius: BorderRadius.circular(12),
@@ -160,40 +205,34 @@ class _StepTimedMissionState extends State<StepTimedMission> {
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 24),
-          // Result or slots
-          if (_showResult)
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFF9C4),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFF4CAF50), width: 3),
+          // B1: wrap result/slots in shake animation
+          AnimatedBuilder(
+            animation: _shakeController,
+            builder: (context, child) {
+              final shakeOffset = _shakeController.isAnimating
+                  ? sin(_shakeController.value * pi * 6) *
+                      8 *
+                      (1 - _shakeController.value)
+                  : 0.0;
+              return Transform.translate(
+                offset: Offset(shakeOffset, 0),
+                child: child,
+              );
+            },
+            child: _buildPuzzleArea(),
+          ),
+          // B1: error message
+          if (_showError) ...[
+            const SizedBox(height: 12),
+            const Text(
+              '다시 시도해보세요',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFFF44336),
+                fontWeight: FontWeight.w500,
               ),
-              child: Center(
-                child: Text(
-                  _targetResult,
-                  style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ).animate().scale(
-                  begin: const Offset(0.8, 0.8),
-                  end: const Offset(1.0, 1.0),
-                  duration: 300.ms,
-                  curve: Curves.easeOutBack,
-                )
-          else
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildSlot(_selectedConsonant, '자음', const Color(0xFF42A5F5)),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text('+', style: TextStyle(fontSize: 24, color: Colors.grey)),
-                ),
-                _buildSlot(_selectedVowel, '모음', const Color(0xFFEF5350)),
-              ],
-            ),
+            ).animate().fadeIn(duration: 200.ms),
+          ],
           const Spacer(),
           // Consonant choices
           Row(
@@ -204,7 +243,8 @@ class _StepTimedMissionState extends State<StepTimedMission> {
                 padding: const EdgeInsets.symmetric(horizontal: 6),
                 child: GestureDetector(
                   onTap: () => _selectConsonant(c),
-                  child: _buildChoiceTile(c, isSelected, const Color(0xFF42A5F5)),
+                  child:
+                      _buildChoiceTile(c, isSelected, const Color(0xFF42A5F5)),
                 ),
               );
             }).toList(),
@@ -219,7 +259,8 @@ class _StepTimedMissionState extends State<StepTimedMission> {
                 padding: const EdgeInsets.symmetric(horizontal: 6),
                 child: GestureDetector(
                   onTap: () => _selectVowel(v),
-                  child: _buildChoiceTile(v, isSelected, const Color(0xFFEF5350)),
+                  child:
+                      _buildChoiceTile(v, isSelected, const Color(0xFFEF5350)),
                 ),
               );
             }).toList(),
@@ -227,6 +268,43 @@ class _StepTimedMissionState extends State<StepTimedMission> {
           const Spacer(flex: 2),
         ],
       ),
+    );
+  }
+
+  Widget _buildPuzzleArea() {
+    if (_showResult) {
+      return Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFF9C4),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF4CAF50), width: 3),
+        ),
+        child: Center(
+          child: Text(
+            _targetResult,
+            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ).animate().scale(
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1.0, 1.0),
+            duration: 300.ms,
+            curve: Curves.easeOutBack,
+          );
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildSlot(_selectedConsonant, '자음', const Color(0xFF42A5F5)),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text('+', style: TextStyle(fontSize: 24, color: Colors.grey)),
+        ),
+        _buildSlot(_selectedVowel, '모음', const Color(0xFFEF5350)),
+      ],
     );
   }
 
@@ -246,9 +324,11 @@ class _StepTimedMissionState extends State<StepTimedMission> {
         child: char != null
             ? Text(
                 char,
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                    fontSize: 32, fontWeight: FontWeight.bold, color: color),
               )
-            : Text(label, style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
+            : Text(label,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
       ),
     );
   }

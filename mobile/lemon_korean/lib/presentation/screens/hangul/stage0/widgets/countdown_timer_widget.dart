@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// A countdown timer widget that displays remaining time and calls onTimeUp.
 class CountdownTimerWidget extends StatefulWidget {
@@ -18,9 +19,11 @@ class CountdownTimerWidget extends StatefulWidget {
   State<CountdownTimerWidget> createState() => CountdownTimerWidgetState();
 }
 
-class CountdownTimerWidgetState extends State<CountdownTimerWidget> {
+class CountdownTimerWidgetState extends State<CountdownTimerWidget>
+    with SingleTickerProviderStateMixin {
   late int _remaining;
   Timer? _timer;
+  late final AnimationController _pulseController;
 
   int get elapsed => widget.totalSeconds - _remaining;
 
@@ -28,6 +31,10 @@ class CountdownTimerWidgetState extends State<CountdownTimerWidget> {
   void initState() {
     super.initState();
     _remaining = widget.totalSeconds;
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (_remaining <= 0) {
         _timer?.cancel();
@@ -36,17 +43,37 @@ class CountdownTimerWidgetState extends State<CountdownTimerWidget> {
       }
       setState(() => _remaining--);
       widget.onTick?.call(_remaining);
+      _updatePulse();
     });
+  }
+
+  void _updatePulse() {
+    if (_remaining <= 10) {
+      // B5: fast pulse + haptic at ≤10s
+      _pulseController.duration = const Duration(milliseconds: 300);
+      if (!_pulseController.isAnimating) {
+        _pulseController.repeat(reverse: true);
+      }
+      HapticFeedback.lightImpact();
+    } else if (_remaining <= 30) {
+      // B5: normal pulse at ≤30s
+      _pulseController.duration = const Duration(milliseconds: 500);
+      if (!_pulseController.isAnimating) {
+        _pulseController.repeat(reverse: true);
+      }
+    }
   }
 
   @override
   void dispose() {
     _timer?.cancel();
+    _pulseController.dispose();
     super.dispose();
   }
 
   void stop() {
     _timer?.cancel();
+    _pulseController.stop();
   }
 
   @override
@@ -55,7 +82,7 @@ class CountdownTimerWidgetState extends State<CountdownTimerWidget> {
     final seconds = _remaining % 60;
     final isLow = _remaining <= 30;
 
-    return Container(
+    Widget timerWidget = Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: isLow
@@ -87,5 +114,18 @@ class CountdownTimerWidgetState extends State<CountdownTimerWidget> {
         ],
       ),
     );
+
+    if (isLow) {
+      return AnimatedBuilder(
+        animation: _pulseController,
+        builder: (context, child) {
+          final scale = 1.0 + _pulseController.value * 0.08;
+          return Transform.scale(scale: scale, child: child);
+        },
+        child: timerWidget,
+      );
+    }
+
+    return timerWidget;
   }
 }

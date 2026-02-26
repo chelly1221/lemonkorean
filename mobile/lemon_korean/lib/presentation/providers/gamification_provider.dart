@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../core/constants/api_constants.dart';
 import '../../core/storage/local_storage.dart'
     if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
 import '../../data/models/lemon_reward_model.dart';
@@ -68,7 +66,8 @@ class GamificationProvider with ChangeNotifier {
     _rewards.clear();
     for (final raw in allRewards) {
       try {
-        final reward = LemonRewardModel.fromJson(Map<String, dynamic>.from(raw));
+        final reward =
+            LemonRewardModel.fromJson(Map<String, dynamic>.from(raw));
         _rewards[reward.lessonId] = reward;
       } catch (e) {
         debugPrint('[Gamification] Failed to parse reward: $e');
@@ -93,34 +92,9 @@ class GamificationProvider with ChangeNotifier {
       }
     }
 
-    // Fetch server settings (best-effort, keep defaults on failure)
-    await _fetchServerSettings();
+    // Offline-first: keep bundled defaults for global settings.
 
     notifyListeners();
-  }
-
-  /// Fetch gamification settings from server.
-  Future<void> _fetchServerSettings() async {
-    try {
-      final dio = Dio()..options.connectTimeout = const Duration(seconds: 5);
-      final response = await dio.get(
-        '${ApiConstants.adminBaseUrl}/gamification/settings',
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.data as Map<String, dynamic>;
-        _lemon3Threshold = data['lemon_3_threshold'] as int? ?? 95;
-        _lemon2Threshold = data['lemon_2_threshold'] as int? ?? 80;
-        _bossQuizBonus = data['boss_quiz_bonus'] as int? ?? 5;
-        _bossQuizPassPercent = data['boss_quiz_pass_percent'] as int? ?? 70;
-        _maxTreeLemons = data['max_tree_lemons'] as int? ?? 10;
-        _adsEnabled = data['ads_enabled'] as bool? ?? true;
-        _admobRewardedAdId = data['admob_rewarded_ad_id'] as String? ?? '';
-        debugPrint('[Gamification] Server settings loaded (v${data['version']})');
-      }
-    } catch (e) {
-      debugPrint('[Gamification] Failed to fetch server settings, using defaults: $e');
-    }
   }
 
   /// Record lemon reward for a completed lesson.
@@ -152,7 +126,8 @@ class GamificationProvider with ChangeNotifier {
 
     // Save reward
     _rewards[lessonId] = reward;
-    await LocalStorage.saveToBox(_rewardsBox, 'lesson_$lessonId', reward.toJson());
+    await LocalStorage.saveToBox(
+        _rewardsBox, 'lesson_$lessonId', reward.toJson());
 
     // Update currency
     _totalLemons += additionalLemons;
@@ -187,7 +162,8 @@ class GamificationProvider with ChangeNotifier {
     if (_bossQuizCompleted[key] == true) return; // Already completed
 
     _bossQuizCompleted[key] = true;
-    await LocalStorage.saveToBox(_bossBox, key, {'key': key, 'completed_at': DateTime.now().toIso8601String()});
+    await LocalStorage.saveToBox(_bossBox, key,
+        {'key': key, 'completed_at': DateTime.now().toIso8601String()});
 
     // Add bonus lemons
     _totalLemons += bonusLemons;

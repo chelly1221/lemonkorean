@@ -125,7 +125,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get switchedToTraditional => '已切换到繁体中文';
 
   @override
-  String get displayTip => '提示：课程内容将使用您选择的中文字体显示。';
+  String get displayTip => '提示：课程内容将使用你选择的中文字体显示。';
 
   @override
   String get notificationSettings => '通知设置';
@@ -182,7 +182,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get howToUseDownloadedAnswer =>
-      '即使没有网络连接，您也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。';
+      '即使没有网络连接，你也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。';
 
   @override
   String get storageManagement => '存储管理';
@@ -214,7 +214,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get whatIsReviewReminderAnswer =>
-      '基于间隔重复算法（SRS），应用会在最佳时间提醒您复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。';
+      '基于间隔重复算法（SRS），应用会在最佳时间提醒你复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。';
 
   @override
   String get languageSection => '语言设置';
@@ -233,7 +233,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get howToStart => '如何开始学习？';
 
   @override
-  String get howToStartAnswer => '在主页面选择适合您水平的课程，从第1课开始。每节课包含7个学习阶段。';
+  String get howToStartAnswer => '在主页面选择适合你水平的课程，从第1课开始。每节课包含7个学习阶段。';
 
   @override
   String get progressNotSaved => '进度没有保存怎么办？';
@@ -328,9 +328,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lowSimilarity => '低相似度';
 
   @override
-  String get lessonComplete => '课程完成！进度已保存';
-
-  @override
   String get learningComplete => '学习完成';
 
   @override
@@ -362,19 +359,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get dialogues => '对话';
 
   @override
-  String get grammarExplanation => '语法解释';
-
-  @override
-  String get exampleSentences => '例句';
-
-  @override
   String get previous => '上一个';
 
   @override
   String get next => '下一个';
-
-  @override
-  String get continueBtn => '继续';
 
   @override
   String get topicParticle => '主题助词';
@@ -467,30 +455,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get listening => '听力';
 
   @override
-  String get fillBlank => '填空';
-
-  @override
   String get translation => '翻译';
 
   @override
   String get wordOrder => '排序';
 
   @override
-  String get pronunciation => '发音';
-
-  @override
   String get excellent => '太棒了！';
 
   @override
-  String get correctOrderIs => '正确顺序是:';
-
-  @override
-  String correctAnswerIs(String answer) {
-    return '正确答案: $answer';
-  }
-
-  @override
-  String get previousQuestion => '上一题';
+  String get correctOrderIs => '正确顺序是：';
 
   @override
   String get nextQuestion => '下一题';
@@ -520,7 +494,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String timeUsed(String time) {
-    return '用时: $time';
+    return '用时：$time';
   }
 
   @override
@@ -757,7 +731,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingWelcomeTitle => '欢迎来到柠檬韩语！';
 
   @override
-  String get onboardingWelcomeSubtitle => '你的流利之旅从这里开始';
+  String get onboardingWelcomeSubtitle => '在这里开启你的韩语之旅';
 
   @override
   String get onboardingFeature1Title => '随时随地离线学习';
@@ -1224,7 +1198,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String dueForReviewCount(int count) {
-    return '$count 个待复习';
+    return '$count个待复习';
   }
 
   @override
@@ -1374,7 +1348,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String learnedCount(int count) {
-    return '已学习: $count';
+    return '已学习：$count';
   }
 
   @override
@@ -1382,12 +1356,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String charactersNeedReview(int count) {
-    return '$count 个字母需要复习';
+    return '$count个字母需要复习';
   }
 
   @override
   String charactersAvailable(int count) {
-    return '$count 个字母可练习';
+    return '$count个字母可练习';
   }
 
   @override
@@ -1433,7 +1407,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get incorrectExclamation => '错误';
 
   @override
-  String get correctAnswerLabel => '正确答案: ';
+  String get correctAnswerLabel => '正确答案：';
 
   @override
   String get nextQuestionBtn => '下一题';
@@ -1459,10 +1433,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get practiceFunctionDeveloping => '练习功能开发中';
 
   @override
-  String get romanization => '罗马字: ';
+  String get romanization => '罗马字：';
 
   @override
-  String get pronunciationLabel => '发音: ';
+  String get pronunciationLabel => '发音：';
 
   @override
   String get playPronunciation => '播放发音';
@@ -1526,12 +1500,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get exitBtn => '退出';
 
   @override
+  String get lessonComplete => '课程完成！进度已保存';
+
+  @override
   String loadingLesson(String title) {
-    return '$title 불러오는 중...';
+    return '正在加载$title...';
   }
 
   @override
-  String get cannotLoadContent => '레슨 콘텐츠를 불러올 수 없습니다';
+  String get cannotLoadContent => '无法加载课程内容';
 
   @override
   String get noLessonContent => '此课程暂无内容';
@@ -1567,6 +1544,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get nextItem => '下一个';
 
   @override
+  String get continueBtn => '继续';
+
+  @override
+  String get previousQuestion => '上一题';
+
+  @override
   String get playingAudio => '播放中...';
 
   @override
@@ -1587,15 +1570,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String get playingAudioShort => '播放音频...';
 
   @override
+  String get pronunciation => '发音';
+
+  @override
   String grammarPattern(String pattern) {
     return '语法 · $pattern';
   }
+
+  @override
+  String get grammarExplanation => '语法解释';
 
   @override
   String get conjugationRule => '活用规则';
 
   @override
   String get comparisonWithChinese => '与中文对比';
+
+  @override
+  String get exampleSentences => '例句';
 
   @override
   String get dialogueTitle => '对话练习';
@@ -1615,7 +1607,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get practiceInstructions => '请完成以下练习题';
 
   @override
+  String get fillBlank => '填空';
+
+  @override
   String get checkAnswerBtn => '检查答案';
+
+  @override
+  String correctAnswerIs(String answer) {
+    return '正确答案：$answer';
+  }
 
   @override
   String get quizTitle => '测验';
@@ -1637,10 +1637,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get summaryTitle => '课程总结';
 
   @override
-  String get vocabLearned => '学习单词';
+  String get vocabLearned => '已学单词';
 
   @override
-  String get grammarLearned => '学习语法';
+  String get grammarLearned => '已学语法';
 
   @override
   String get finishLesson => '完成课程';
@@ -2425,7 +2425,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get advanced => '高级';
 
   @override
-  String get stageSlots => '发言席位';
+  String get stageSlots => '上台名额';
 
   @override
   String get anyoneCanListen => '任何人都可以加入聆听';
@@ -2458,7 +2458,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cancelRequest => '取消';
 
   @override
-  String get leaveStage => '离开舞台';
+  String get leaveStage => '退出发言席';
 
   @override
   String get pendingRequests => '请求';
@@ -2473,7 +2473,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noPendingRequests => '暂无待处理请求';
 
   @override
-  String get onStage => '舞台上';
+  String get onStage => '发言中';
 
   @override
   String get voiceRooms => '语音房间';
@@ -2486,6 +2486,303 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get createRoom => '创建房间';
+
+  @override
+  String get voiceRoomMicPermission => '语音房间需要麦克风权限';
+
+  @override
+  String get voiceRoomEnterTitle => '请输入房间标题';
+
+  @override
+  String get voiceRoomCreateFailed => '创建房间失败';
+
+  @override
+  String get voiceRoomNotAvailable => '房间不可用';
+
+  @override
+  String get voiceRoomGoBack => '返回';
+
+  @override
+  String get voiceRoomConnecting => '连接中...';
+
+  @override
+  String voiceRoomReconnecting(int attempts, int max) {
+    return '重新连接中 ($attempts/$max)...';
+  }
+
+  @override
+  String get voiceRoomDisconnected => '已断开连接';
+
+  @override
+  String get voiceRoomRetry => '重试';
+
+  @override
+  String get voiceRoomHostLabel => '（主持人）';
+
+  @override
+  String get voiceRoomDemoteToListener => '降为听众';
+
+  @override
+  String get voiceRoomKickFromRoom => '踢出房间';
+
+  @override
+  String get voiceRoomListeners => '听众';
+
+  @override
+  String get voiceRoomInviteToStage => '邀请上台';
+
+  @override
+  String voiceRoomInviteConfirm(String name) {
+    return '邀请$name上台发言？';
+  }
+
+  @override
+  String get voiceRoomInvite => '邀请';
+
+  @override
+  String get voiceRoomCloseConfirmTitle => '关闭房间？';
+
+  @override
+  String get voiceRoomCloseConfirmBody => '这将结束所有人的通话。';
+
+  @override
+  String get voiceRoomNoMessagesYet => '暂无消息';
+
+  @override
+  String get voiceRoomTypeMessage => '输入消息...';
+
+  @override
+  String get voiceRoomStageFull => '舞台已满';
+
+  @override
+  String voiceRoomListenerCount(int count) {
+    return '$count位听众';
+  }
+
+  @override
+  String get voiceRoomRemoveFromStage => '移出舞台？';
+
+  @override
+  String voiceRoomRemoveFromStageConfirm(String name) {
+    return '将$name移出舞台？他们将成为听众。';
+  }
+
+  @override
+  String get voiceRoomDemote => '降级';
+
+  @override
+  String get voiceRoomRemoveFromRoom => '移出房间？';
+
+  @override
+  String voiceRoomRemoveFromRoomConfirm(String name) {
+    return '将$name移出房间？他们将被断开连接。';
+  }
+
+  @override
+  String get voiceRoomRemove => '移出';
+
+  @override
+  String get voiceRoomPressBackToLeave => '再按一次返回键退出';
+
+  @override
+  String get voiceRoomLeaveTitle => '离开房间？';
+
+  @override
+  String get voiceRoomLeaveBody => '你目前在舞台上。确定要离开吗？';
+
+  @override
+  String get voiceRoomReturningToList => '正在返回房间列表...';
+
+  @override
+  String get voiceRoomConnected => '已连接！';
+
+  @override
+  String get voiceRoomStageFailedToLoad => '舞台加载失败';
+
+  @override
+  String get voiceRoomPreparingStage => '正在准备舞台...';
+
+  @override
+  String voiceRoomAcceptToStage(Object name) {
+    return '接受$name上台';
+  }
+
+  @override
+  String voiceRoomRejectFromStage(Object name) {
+    return '拒绝$name';
+  }
+
+  @override
+  String get voiceRoomQuickCreate => '快速创建';
+
+  @override
+  String get voiceRoomRoomType => '房间类型';
+
+  @override
+  String get voiceRoomSessionDuration => '会话时长';
+
+  @override
+  String get voiceRoomOptionalTimer => '可选的会话计时器';
+
+  @override
+  String get voiceRoomDurationNone => '无限制';
+
+  @override
+  String get voiceRoomDuration15 => '15分钟';
+
+  @override
+  String get voiceRoomDuration30 => '30分钟';
+
+  @override
+  String get voiceRoomDuration45 => '45分钟';
+
+  @override
+  String get voiceRoomDuration60 => '60分钟';
+
+  @override
+  String get voiceRoomTypeFreeTalk => '自由聊天';
+
+  @override
+  String get voiceRoomTypePronunciation => '发音练习';
+
+  @override
+  String get voiceRoomTypeRolePlay => '角色扮演';
+
+  @override
+  String get voiceRoomTypeQnA => '问答';
+
+  @override
+  String get voiceRoomTypeListening => '听力练习';
+
+  @override
+  String get voiceRoomTypeDebate => '辩论';
+
+  @override
+  String get voiceRoomTemplateFreeTalk => '韩语自由聊天';
+
+  @override
+  String get voiceRoomTemplatePronunciation => '发音练习';
+
+  @override
+  String get voiceRoomTemplateDailyKorean => '每日韩语';
+
+  @override
+  String get voiceRoomTemplateTopikSpeaking => 'TOPIK口语';
+
+  @override
+  String get voiceRoomCreateTooltip => '创建语音房间';
+
+  @override
+  String get voiceRoomSendReaction => '发送表情';
+
+  @override
+  String get voiceRoomLeaveRoom => '离开房间';
+
+  @override
+  String get voiceRoomUnmuteMic => '取消麦克风静音';
+
+  @override
+  String get voiceRoomMuteMic => '麦克风静音';
+
+  @override
+  String get voiceRoomCancelHandRaise => '取消举手';
+
+  @override
+  String get voiceRoomRaiseHandSemantic => '举手';
+
+  @override
+  String get voiceRoomSendGesture => '发送动作';
+
+  @override
+  String get voiceRoomLeaveStageAction => '退出舞台';
+
+  @override
+  String get voiceRoomManageStage => '管理舞台';
+
+  @override
+  String get voiceRoomMoreOptions => '更多选项';
+
+  @override
+  String get voiceRoomMore => '更多';
+
+  @override
+  String get voiceRoomStageWithSpeakers => '有发言人的语音房间舞台';
+
+  @override
+  String voiceRoomStageRequestsPending(int count) {
+    return '上台请求，$count个待处理';
+  }
+
+  @override
+  String voiceRoomSpeakerListenerCount(
+      int speakers, int maxSpeakers, int listeners) {
+    return '发言人 $speakers/$maxSpeakers，听众 $listeners';
+  }
+
+  @override
+  String get voiceRoomChatInput => '聊天消息输入';
+
+  @override
+  String get voiceRoomSendMessage => '发送消息';
+
+  @override
+  String voiceRoomSendReactionNamed(Object name) {
+    return '发送$name表情';
+  }
+
+  @override
+  String get voiceRoomCloseReactionTray => '关闭表情面板';
+
+  @override
+  String voiceRoomPerformGesture(Object name) {
+    return '执行$name动作';
+  }
+
+  @override
+  String get voiceRoomCloseGestureTray => '关闭动作面板';
+
+  @override
+  String get voiceRoomGestureWave => '挥手';
+
+  @override
+  String get voiceRoomGestureBow => '鞠躬';
+
+  @override
+  String get voiceRoomGestureDance => '跳舞';
+
+  @override
+  String get voiceRoomGestureJump => '跳跃';
+
+  @override
+  String get voiceRoomGestureClap => '鼓掌';
+
+  @override
+  String get voiceRoomStageLabel => '舞台';
+
+  @override
+  String get voiceRoomYouLabel => '（我）';
+
+  @override
+  String voiceRoomListenerTapToManage(Object name) {
+    return '听众$name，点击管理';
+  }
+
+  @override
+  String voiceRoomListenerName(Object name) {
+    return '听众$name';
+  }
+
+  @override
+  String get voiceRoomMicPermissionDenied => '麦克风访问被拒绝。要使用语音功能，请在设备设置中启用。';
+
+  @override
+  String get voiceRoomMicPermissionTitle => '麦克风权限';
+
+  @override
+  String get voiceRoomOpenSettings => '打开设置';
+
+  @override
+  String get voiceRoomMicNeededForStage => '上台发言需要麦克风权限';
 
   @override
   String get batchimDescriptionText =>
@@ -2641,6 +2938,63 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get hangulGoToLevel1 => '进入第1级';
+
+  @override
+  String get completedLessonsLabel => '已完成';
+
+  @override
+  String get wordsLearnedLabel => '已学单词';
+
+  @override
+  String get totalStudyTimeLabel => '学习时间';
+
+  @override
+  String get streakDetails => '连续学习记录';
+
+  @override
+  String get consecutiveDays => '连续天数';
+
+  @override
+  String get totalStudyDaysLabel => '总学习天数';
+
+  @override
+  String get studyRecord => '学习记录';
+
+  @override
+  String get noFriendsPrompt => '找朋友一起学习吧！';
+
+  @override
+  String get moreStats => '查看全部';
+
+  @override
+  String remainingLessons(int count) {
+    return '再完成$count个即可达成今日目标！';
+  }
+
+  @override
+  String get streakMotivation0 => '今天开始学习吧！';
+
+  @override
+  String get streakMotivation1 => '好的开始！继续加油！';
+
+  @override
+  String get streakMotivation7 => '连续学习超过一周！太棒了！';
+
+  @override
+  String get streakMotivation14 => '坚持两周了！正在养成习惯！';
+
+  @override
+  String get streakMotivation30 => '连续一个月以上！你是真正的学习者！';
+
+  @override
+  String minutesShort(int count) {
+    return '$count分钟';
+  }
+
+  @override
+  String hoursShort(int count) {
+    return '$count小时';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2651,13 +3005,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get appName => '檸檬韓語';
 
   @override
-  String get login => '登錄';
+  String get login => '登入';
 
   @override
   String get register => '註冊';
 
   @override
-  String get email => '郵箱';
+  String get email => 'Email';
 
   @override
   String get password => '密碼';
@@ -2669,7 +3023,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get username => '用戶名';
 
   @override
-  String get enterEmail => '請輸入郵箱地址';
+  String get enterEmail => '請輸入 Email 地址';
 
   @override
   String get enterPassword => '請輸入密碼';
@@ -2681,7 +3035,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get enterUsername => '請輸入用戶名';
 
   @override
-  String get createAccount => '創建賬號';
+  String get createAccount => '建立帳號';
 
   @override
   String get startJourney => '開始你的韓語學習之旅';
@@ -2707,13 +3061,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get containLettersNumbers => '包含字母和數字';
 
   @override
-  String get haveAccount => '已有賬號？';
+  String get haveAccount => '已有帳號？';
 
   @override
-  String get noAccount => '沒有賬號？';
+  String get noAccount => '沒有帳號？';
 
   @override
-  String get loginNow => '立即登錄';
+  String get loginNow => '立即登入';
 
   @override
   String get registerNow => '立即註冊';
@@ -2725,19 +3079,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get registerFailed => '註冊失敗';
 
   @override
-  String get loginSuccess => '登錄成功';
+  String get loginSuccess => '登入成功';
 
   @override
-  String get loginFailed => '登錄失敗';
+  String get loginFailed => '登入失敗';
 
   @override
-  String get networkError => '網絡連接失敗，請檢查網絡設置';
+  String get networkError => '網路連接失敗，請檢查網路設定';
 
   @override
-  String get invalidCredentials => '郵箱或密碼錯誤';
+  String get invalidCredentials => 'Email 或密碼錯誤';
 
   @override
-  String get emailAlreadyExists => '郵箱已被註冊';
+  String get emailAlreadyExists => '此 Email 已被註冊';
 
   @override
   String get requestTimeout => '請求超時，請重試';
@@ -2746,10 +3100,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get operationFailed => '操作失敗，請稍後重試';
 
   @override
-  String get settings => '設置';
+  String get settings => '設定';
 
   @override
-  String get languageSettings => '語言設置';
+  String get languageSettings => '語言設定';
 
   @override
   String get chineseDisplay => '中文顯示';
@@ -2767,7 +3121,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get displayTip => '提示：課程內容將使用您選擇的中文字體顯示。';
 
   @override
-  String get notificationSettings => '通知設置';
+  String get notificationSettings => '通知設定';
 
   @override
   String get enableNotifications => '啟用通知';
@@ -2776,7 +3130,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get enableNotificationsDesc => '開啟後可以接收學習提醒';
 
   @override
-  String get permissionRequired => '請在系統設置中允許通知權限';
+  String get permissionRequired => '請在系統設定中允許通知權限';
 
   @override
   String get dailyLearningReminder => '每日學習提醒';
@@ -2792,7 +3146,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String reminderTimeSet(String time) {
-    return '提醒時間已設置為 $time';
+    return '提醒時間已設定為 $time';
   }
 
   @override
@@ -2814,39 +3168,39 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get howToDownload => '如何下載課程？';
 
   @override
-  String get howToDownloadAnswer => '在課程列表中，點擊右側的下載圖標即可下載課程。下載後可以離線學習。';
+  String get howToDownloadAnswer => '在課程列表中，點擊右側的下載圖示即可下載課程。下載後可以離線學習。';
 
   @override
   String get howToUseDownloaded => '如何使用已下載的課程？';
 
   @override
   String get howToUseDownloadedAnswer =>
-      '即使沒有網絡連接，您也可以正常學習已下載的課程。進度會在本地保存，聯網後自動同步。';
+      '即使沒有網路連接，您也可以正常學習已下載的課程。進度會在本地儲存，聯網後自動同步。';
 
   @override
-  String get storageManagement => '存儲管理';
+  String get storageManagement => '儲存空間管理';
 
   @override
-  String get howToCheckStorage => '如何查看存儲空間？';
+  String get howToCheckStorage => '如何查看儲存空間？';
 
   @override
-  String get howToCheckStorageAnswer => '進入【設置 → 存儲管理】可以查看已使用和可用的存儲空間。';
+  String get howToCheckStorageAnswer => '進入【設定 → 儲存空間管理】可以查看已使用和可用的儲存空間。';
 
   @override
   String get howToDeleteDownloaded => '如何刪除已下載的課程？';
 
   @override
-  String get howToDeleteDownloadedAnswer => '在【存儲管理】頁面，點擊課程旁邊的刪除按鈕即可刪除。';
+  String get howToDeleteDownloadedAnswer => '在【儲存空間管理】頁面，點擊課程旁邊的刪除按鈕即可刪除。';
 
   @override
-  String get notificationSection => '通知設置';
+  String get notificationSection => '通知設定';
 
   @override
   String get howToEnableReminder => '如何開啟學習提醒？';
 
   @override
   String get howToEnableReminderAnswer =>
-      '進入【設置 → 通知設置】，打開【啟用通知】開關。首次使用需要授予通知權限。';
+      '進入【設定 → 通知設定】，打開【啟用通知】開關。首次使用需要授予通知權限。';
 
   @override
   String get whatIsReviewReminder => '什麼是複習提醒？';
@@ -2856,14 +3210,14 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
       '基於間隔重複算法（SRS），應用會在最佳時間提醒您複習已學課程。複習間隔：1天 → 3天 → 7天 → 14天 → 30天。';
 
   @override
-  String get languageSection => '語言設置';
+  String get languageSection => '語言設定';
 
   @override
   String get howToSwitchChinese => '如何切換簡繁體中文？';
 
   @override
   String get howToSwitchChineseAnswer =>
-      '進入【設置 → 語言設置】，選擇【簡體中文】或【繁體中文】。更改後立即生效。';
+      '進入【設定 → 語言設定】，選擇【簡體中文】或【繁體中文】。更改後立即生效。';
 
   @override
   String get faq => '常見問題';
@@ -2875,19 +3229,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get howToStartAnswer => '在主頁面選擇適合您水平的課程，從第1課開始。每節課包含7個學習階段。';
 
   @override
-  String get progressNotSaved => '進度沒有保存怎麼辦？';
+  String get progressNotSaved => '進度沒有儲存怎麼辦？';
 
   @override
-  String get progressNotSavedAnswer => '進度會自動保存到本地。如果聯網，會自動同步到服務器。請檢查網絡連接。';
+  String get progressNotSavedAnswer => '進度會自動儲存到本地。如果聯網，會自動同步到伺服器。請檢查網路連接。';
 
   @override
   String get aboutApp => '關於應用';
 
   @override
-  String get moreInfo => '更多信息';
+  String get moreInfo => '更多資訊';
 
   @override
-  String get versionInfo => '版本信息';
+  String get versionInfo => '版本資訊';
 
   @override
   String get developer => '開發者';
@@ -2896,7 +3250,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get appIntro => '應用介紹';
 
   @override
-  String get appIntroContent => '專為中文使用者設計的韓語學習應用，支持離線學習、智能複習提醒等功能。';
+  String get appIntroContent => '支援離線學習、智慧複習提醒等功能的韓語學習應用。';
 
   @override
   String get termsOfService => '服務條款';
@@ -2967,9 +3321,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get lowSimilarity => '低相似度';
 
   @override
-  String get lessonComplete => '課程完成！進度已保存';
-
-  @override
   String get learningComplete => '學習完成';
 
   @override
@@ -3001,19 +3352,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get dialogues => '對話';
 
   @override
-  String get grammarExplanation => '語法解釋';
-
-  @override
-  String get exampleSentences => '例句';
-
-  @override
   String get previous => '上一個';
 
   @override
   String get next => '下一個';
-
-  @override
-  String get continueBtn => '繼續';
 
   @override
   String get topicParticle => '主題助詞';
@@ -3055,7 +3397,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get whatDoingPolite => '在做什麼？';
 
   @override
-  String get listenAndChoose => '聽音頻，選擇正確的翻譯';
+  String get listenAndChoose => '聽音訊，選擇正確的翻譯';
 
   @override
   String get fillInBlank => '填入正確的助詞';
@@ -3106,30 +3448,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get listening => '聽力';
 
   @override
-  String get fillBlank => '填空';
-
-  @override
   String get translation => '翻譯';
 
   @override
   String get wordOrder => '排序';
 
   @override
-  String get pronunciation => '發音';
-
-  @override
   String get excellent => '太棒了！';
 
   @override
   String get correctOrderIs => '正確順序是:';
-
-  @override
-  String correctAnswerIs(String answer) {
-    return '正確答案: $answer';
-  }
-
-  @override
-  String get previousQuestion => '上一題';
 
   @override
   String get nextQuestion => '下一題';
@@ -3163,7 +3491,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get playAudio => '播放音頻';
+  String get playAudio => '播放音訊';
 
   @override
   String get replayAudio => '重新播放';
@@ -3250,10 +3578,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get goodEvening => '晚上好';
 
   @override
-  String get logout => '退出登錄';
+  String get logout => '登出';
 
   @override
-  String get confirmLogout => '確定要退出登錄嗎？';
+  String get confirmLogout => '確定要登出嗎？';
 
   @override
   String get cancel => '取消';
@@ -3265,7 +3593,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get delete => '刪除';
 
   @override
-  String get save => '保存';
+  String get save => '儲存';
 
   @override
   String get edit => '編輯';
@@ -3277,10 +3605,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get retry => '重試';
 
   @override
-  String get loading => '加載中...';
+  String get loading => '載入中...';
 
   @override
-  String get noData => '暫無數據';
+  String get noData => '暫無資料';
 
   @override
   String get error => '出錯了';
@@ -3402,10 +3730,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get onboardingFeature1Title => '隨時隨地離線學習';
 
   @override
-  String get onboardingFeature1Desc => '下載課程，無需網絡即可學習';
+  String get onboardingFeature1Desc => '下載課程，無需網路即可學習';
 
   @override
-  String get onboardingFeature2Title => '智能複習系統';
+  String get onboardingFeature2Title => '智慧複習系統';
 
   @override
   String get onboardingFeature2Desc => 'AI驅動的間隔重複，提升記憶效果';
@@ -3524,7 +3852,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get notificationTipContent =>
-      '• 複習提醒會在完成課程後自動安排\n• 部分手機需要在系統設置中關閉省電模式才能正常接收通知';
+      '• 複習提醒會在完成課程後自動安排\n• 部分手機需要在系統設定中關閉省電模式才能正常接收通知';
 
   @override
   String get yesterday => '昨天';
@@ -3543,7 +3871,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get downloadManager => '下載管理';
 
   @override
-  String get storageInfo => '存儲信息';
+  String get storageInfo => '儲存空間資訊';
 
   @override
   String get clearAllDownloads => '清空下載';
@@ -3564,7 +3892,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get usedStorage => '使用中';
 
   @override
-  String get cacheStorage => '緩存';
+  String get cacheStorage => '快取';
 
   @override
   String get totalStorage => '總計';
@@ -3611,7 +3939,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get searchWords => '搜索單詞...';
+  String get searchWords => '搜尋單詞...';
 
   @override
   String wordCount(int count) {
@@ -3706,7 +4034,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get filterAdvanced => '高級 (4-5級)';
 
   @override
-  String get searchWordsNotesChinese => '搜索單詞、中文或筆記...';
+  String get searchWordsNotesChinese => '搜尋單詞、中文或筆記...';
 
   @override
   String startReviewCount(int count) {
@@ -3728,7 +4056,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get noBookmarkedWords => '還沒有收藏的單詞';
 
   @override
-  String get bookmarkHint => '在學習過程中點擊單詞卡片上的書籤圖標';
+  String get bookmarkHint => '在學習過程中點擊單詞卡片上的書籤圖示';
 
   @override
   String get noMatchingWords => '沒有找到匹配的單詞';
@@ -3931,7 +4259,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get lesson7Desc => '學習剩餘的複合元音';
 
   @override
-  String get loadAlphabetFirst => '請先加載字母表數據';
+  String get loadAlphabetFirst => '請先載入字母表資料';
 
   @override
   String get noContentForLesson => '本課無內容';
@@ -4008,7 +4336,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String loadingFailed(String error) {
-    return '加載失敗: $error';
+    return '載入失敗: $error';
   }
 
   @override
@@ -4115,7 +4443,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get perfectCount => '完美';
 
   @override
-  String get loadFailed => '加載失敗';
+  String get loadFailed => '載入失敗';
 
   @override
   String countUnit(int count) {
@@ -4159,10 +4487,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get exitLesson => '退出學習';
 
   @override
-  String get exitLessonConfirm => '確定要退出當前課程嗎？進度將會保存。';
+  String get exitLessonConfirm => '確定要退出當前課程嗎？進度將會儲存。';
 
   @override
   String get exitBtn => '退出';
+
+  @override
+  String get lessonComplete => '課程完成！進度已儲存';
 
   @override
   String loadingLesson(String title) {
@@ -4206,6 +4537,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get nextItem => '下一個';
 
   @override
+  String get continueBtn => '繼續';
+
+  @override
+  String get previousQuestion => '上一題';
+
+  @override
   String get playingAudio => '播放中...';
 
   @override
@@ -4213,17 +4550,20 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String audioPlayFailed(String error) {
-    return '音頻播放失敗: $error';
+    return '音訊播放失敗: $error';
   }
 
   @override
   String get stopBtn => '停止';
 
   @override
-  String get playAudioBtn => '播放音頻';
+  String get playAudioBtn => '播放音訊';
 
   @override
-  String get playingAudioShort => '播放音頻...';
+  String get playingAudioShort => '播放音訊...';
+
+  @override
+  String get pronunciation => '發音';
 
   @override
   String grammarPattern(String pattern) {
@@ -4231,10 +4571,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
+  String get grammarExplanation => '語法解釋';
+
+  @override
   String get conjugationRule => '活用規則';
 
   @override
   String get comparisonWithChinese => '與中文對比';
+
+  @override
+  String get exampleSentences => '例句';
 
   @override
   String get dialogueTitle => '對話練習';
@@ -4254,7 +4600,15 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get practiceInstructions => '請完成以下練習題';
 
   @override
+  String get fillBlank => '填空';
+
+  @override
   String get checkAnswerBtn => '檢查答案';
+
+  @override
+  String correctAnswerIs(String answer) {
+    return '正確答案: $answer';
+  }
 
   @override
   String get quizTitle => '測驗';
@@ -4508,7 +4862,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get koreanLanguage => '🇰🇷 韓語';
 
   @override
-  String get chineseLanguage => '🇨🇳 中文';
+  String get chineseLanguage => '中文';
 
   @override
   String exampleNumber(int number) {
@@ -5127,6 +5481,303 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get createRoom => '建立房間';
 
   @override
+  String get voiceRoomMicPermission => '語音房間需要麥克風權限';
+
+  @override
+  String get voiceRoomEnterTitle => '請輸入房間標題';
+
+  @override
+  String get voiceRoomCreateFailed => '建立房間失敗';
+
+  @override
+  String get voiceRoomNotAvailable => '房間不可用';
+
+  @override
+  String get voiceRoomGoBack => '返回';
+
+  @override
+  String get voiceRoomConnecting => '連線中...';
+
+  @override
+  String voiceRoomReconnecting(int attempts, int max) {
+    return '重新連線中 ($attempts/$max)...';
+  }
+
+  @override
+  String get voiceRoomDisconnected => '已斷開連線';
+
+  @override
+  String get voiceRoomRetry => '重試';
+
+  @override
+  String get voiceRoomHostLabel => '（主持人）';
+
+  @override
+  String get voiceRoomDemoteToListener => '降為聽眾';
+
+  @override
+  String get voiceRoomKickFromRoom => '踢出房間';
+
+  @override
+  String get voiceRoomListeners => '聽眾';
+
+  @override
+  String get voiceRoomInviteToStage => '邀請上台';
+
+  @override
+  String voiceRoomInviteConfirm(String name) {
+    return '邀請$name上台發言？';
+  }
+
+  @override
+  String get voiceRoomInvite => '邀請';
+
+  @override
+  String get voiceRoomCloseConfirmTitle => '關閉房間？';
+
+  @override
+  String get voiceRoomCloseConfirmBody => '這將結束所有人的通話。';
+
+  @override
+  String get voiceRoomNoMessagesYet => '暫無訊息';
+
+  @override
+  String get voiceRoomTypeMessage => '輸入訊息...';
+
+  @override
+  String get voiceRoomStageFull => '舞台已滿';
+
+  @override
+  String voiceRoomListenerCount(int count) {
+    return '$count位聽眾';
+  }
+
+  @override
+  String get voiceRoomRemoveFromStage => '移出舞台？';
+
+  @override
+  String voiceRoomRemoveFromStageConfirm(String name) {
+    return '將$name移出舞台？他們將成為聽眾。';
+  }
+
+  @override
+  String get voiceRoomDemote => '降級';
+
+  @override
+  String get voiceRoomRemoveFromRoom => '移出房間？';
+
+  @override
+  String voiceRoomRemoveFromRoomConfirm(String name) {
+    return '將$name移出房間？他們將被斷開連線。';
+  }
+
+  @override
+  String get voiceRoomRemove => '移出';
+
+  @override
+  String get voiceRoomPressBackToLeave => '再按一次返回鍵離開';
+
+  @override
+  String get voiceRoomLeaveTitle => '離開房間？';
+
+  @override
+  String get voiceRoomLeaveBody => '你目前在舞台上。確定要離開嗎？';
+
+  @override
+  String get voiceRoomReturningToList => '正在返回房間列表...';
+
+  @override
+  String get voiceRoomConnected => '已連線！';
+
+  @override
+  String get voiceRoomStageFailedToLoad => '舞台載入失敗';
+
+  @override
+  String get voiceRoomPreparingStage => '正在準備舞台...';
+
+  @override
+  String voiceRoomAcceptToStage(Object name) {
+    return '接受$name上台';
+  }
+
+  @override
+  String voiceRoomRejectFromStage(Object name) {
+    return '拒絕$name';
+  }
+
+  @override
+  String get voiceRoomQuickCreate => '快速建立';
+
+  @override
+  String get voiceRoomRoomType => '房間類型';
+
+  @override
+  String get voiceRoomSessionDuration => '會話時長';
+
+  @override
+  String get voiceRoomOptionalTimer => '可選的會話計時器';
+
+  @override
+  String get voiceRoomDurationNone => '無限制';
+
+  @override
+  String get voiceRoomDuration15 => '15分鐘';
+
+  @override
+  String get voiceRoomDuration30 => '30分鐘';
+
+  @override
+  String get voiceRoomDuration45 => '45分鐘';
+
+  @override
+  String get voiceRoomDuration60 => '60分鐘';
+
+  @override
+  String get voiceRoomTypeFreeTalk => '自由聊天';
+
+  @override
+  String get voiceRoomTypePronunciation => '發音練習';
+
+  @override
+  String get voiceRoomTypeRolePlay => '角色扮演';
+
+  @override
+  String get voiceRoomTypeQnA => '問答';
+
+  @override
+  String get voiceRoomTypeListening => '聽力練習';
+
+  @override
+  String get voiceRoomTypeDebate => '辯論';
+
+  @override
+  String get voiceRoomTemplateFreeTalk => '韓語自由聊天';
+
+  @override
+  String get voiceRoomTemplatePronunciation => '發音練習';
+
+  @override
+  String get voiceRoomTemplateDailyKorean => '每日韓語';
+
+  @override
+  String get voiceRoomTemplateTopikSpeaking => 'TOPIK口說';
+
+  @override
+  String get voiceRoomCreateTooltip => '建立語音房間';
+
+  @override
+  String get voiceRoomSendReaction => '傳送表情';
+
+  @override
+  String get voiceRoomLeaveRoom => '離開房間';
+
+  @override
+  String get voiceRoomUnmuteMic => '取消麥克風靜音';
+
+  @override
+  String get voiceRoomMuteMic => '麥克風靜音';
+
+  @override
+  String get voiceRoomCancelHandRaise => '取消舉手';
+
+  @override
+  String get voiceRoomRaiseHandSemantic => '舉手';
+
+  @override
+  String get voiceRoomSendGesture => '傳送動作';
+
+  @override
+  String get voiceRoomLeaveStageAction => '離開舞台';
+
+  @override
+  String get voiceRoomManageStage => '管理舞台';
+
+  @override
+  String get voiceRoomMoreOptions => '更多選項';
+
+  @override
+  String get voiceRoomMore => '更多';
+
+  @override
+  String get voiceRoomStageWithSpeakers => '有發言人的語音房間舞台';
+
+  @override
+  String voiceRoomStageRequestsPending(int count) {
+    return '上台請求，$count個待處理';
+  }
+
+  @override
+  String voiceRoomSpeakerListenerCount(
+      int speakers, int maxSpeakers, int listeners) {
+    return '發言人 $speakers/$maxSpeakers，聽眾 $listeners';
+  }
+
+  @override
+  String get voiceRoomChatInput => '聊天訊息輸入';
+
+  @override
+  String get voiceRoomSendMessage => '傳送訊息';
+
+  @override
+  String voiceRoomSendReactionNamed(Object name) {
+    return '傳送$name表情';
+  }
+
+  @override
+  String get voiceRoomCloseReactionTray => '關閉表情面板';
+
+  @override
+  String voiceRoomPerformGesture(Object name) {
+    return '執行$name動作';
+  }
+
+  @override
+  String get voiceRoomCloseGestureTray => '關閉動作面板';
+
+  @override
+  String get voiceRoomGestureWave => '揮手';
+
+  @override
+  String get voiceRoomGestureBow => '鞠躬';
+
+  @override
+  String get voiceRoomGestureDance => '跳舞';
+
+  @override
+  String get voiceRoomGestureJump => '跳躍';
+
+  @override
+  String get voiceRoomGestureClap => '鼓掌';
+
+  @override
+  String get voiceRoomStageLabel => '舞台';
+
+  @override
+  String get voiceRoomYouLabel => '（我）';
+
+  @override
+  String voiceRoomListenerTapToManage(Object name) {
+    return '聽眾$name，點擊管理';
+  }
+
+  @override
+  String voiceRoomListenerName(Object name) {
+    return '聽眾$name';
+  }
+
+  @override
+  String get voiceRoomMicPermissionDenied => '麥克風存取被拒絕。要使用語音功能，請在裝置設定中啟用。';
+
+  @override
+  String get voiceRoomMicPermissionTitle => '麥克風權限';
+
+  @override
+  String get voiceRoomOpenSettings => '開啟設定';
+
+  @override
+  String get voiceRoomMicNeededForStage => '上台發言需要麥克風權限';
+
+  @override
   String get batchimDescriptionText =>
       '韓語收音（받침）發音為7種音。\n多個收音發同一個音的現象叫做「收音代表音」。';
 
@@ -5280,4 +5931,61 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get hangulGoToLevel1 => '進入第1級';
+
+  @override
+  String get completedLessonsLabel => '已完成';
+
+  @override
+  String get wordsLearnedLabel => '已學單字';
+
+  @override
+  String get totalStudyTimeLabel => '學習時間';
+
+  @override
+  String get streakDetails => '連續學習記錄';
+
+  @override
+  String get consecutiveDays => '連續天數';
+
+  @override
+  String get totalStudyDaysLabel => '總學習天數';
+
+  @override
+  String get studyRecord => '學習記錄';
+
+  @override
+  String get noFriendsPrompt => '找朋友一起學習吧！';
+
+  @override
+  String get moreStats => '查看全部';
+
+  @override
+  String remainingLessons(int count) {
+    return '再完成$count個即可達成今日目標！';
+  }
+
+  @override
+  String get streakMotivation0 => '今天開始學習吧！';
+
+  @override
+  String get streakMotivation1 => '好的開始！繼續加油！';
+
+  @override
+  String get streakMotivation7 => '連續學習超過一週！太棒了！';
+
+  @override
+  String get streakMotivation14 => '堅持兩週了！正在養成習慣！';
+
+  @override
+  String get streakMotivation30 => '連續一個月以上！你是真正的學習者！';
+
+  @override
+  String minutesShort(int count) {
+    return '$count分鐘';
+  }
+
+  @override
+  String hoursShort(int count) {
+    return '$count小時';
+  }
 }

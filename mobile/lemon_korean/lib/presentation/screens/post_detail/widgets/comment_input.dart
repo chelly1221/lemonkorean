@@ -10,6 +10,7 @@ class CommentInput extends StatefulWidget {
   final String? replyToName;
   final VoidCallback? onCancelReply;
   final FocusNode? focusNode;
+  final bool isSubmitting;
 
   const CommentInput({
     super.key,
@@ -17,6 +18,7 @@ class CommentInput extends StatefulWidget {
     this.replyToName,
     this.onCancelReply,
     this.focusNode,
+    this.isSubmitting = false,
   });
 
   @override
@@ -43,7 +45,7 @@ class _CommentInputState extends State<CommentInput> {
 
   void _handleSubmit() {
     final text = _controller.text.trim();
-    if (text.isEmpty) return;
+    if (text.isEmpty || widget.isSubmitting) return;
 
     widget.onSubmit(text);
     _controller.clear();
@@ -167,24 +169,38 @@ class _CommentInputState extends State<CommentInput> {
 
                   // Send button
                   Material(
-                    color: _controller.text.trim().isNotEmpty
-                        ? AppConstants.primaryColor
-                        : Colors.grey.shade200,
+                    color: widget.isSubmitting
+                        ? Colors.grey.shade200
+                        : _controller.text.trim().isNotEmpty
+                            ? AppConstants.primaryColor
+                            : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(20),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(20),
-                      onTap: _controller.text.trim().isNotEmpty
+                      onTap: !widget.isSubmitting &&
+                              _controller.text.trim().isNotEmpty
                           ? _handleSubmit
                           : null,
                       child: Padding(
                         padding: const EdgeInsets.all(10),
-                        child: Icon(
-                          Icons.send,
-                          size: 20,
-                          color: _controller.text.trim().isNotEmpty
-                              ? Colors.black87
-                              : AppConstants.textHint,
-                        ),
+                        child: widget.isSubmitting
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppConstants.textHint,
+                                  ),
+                                ),
+                              )
+                            : Icon(
+                                Icons.send,
+                                size: 20,
+                                color: _controller.text.trim().isNotEmpty
+                                    ? Colors.black87
+                                    : AppConstants.textHint,
+                              ),
                       ),
                     ),
                   ),
