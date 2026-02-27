@@ -1995,5 +1995,74 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "speechPractice": "Pronunciation Practice",
+  "@speechPractice": {"description": "Speech practice step title"},
+
+  "tapToRecord": "Tap to record",
+  "@tapToRecord": {"description": "Tap to record instruction"},
+
+  "recording": "Recording...",
+  "@recording": {"description": "Recording status"},
+
+  "analyzing": "Analyzing...",
+  "@analyzing": {"description": "Analyzing status"},
+
+  "pronunciationScore": "Pronunciation Score",
+  "@pronunciationScore": {"description": "Pronunciation score label"},
+
+  "phonemeBreakdown": "Phoneme Breakdown",
+  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
+
+  "tryAgainCount": "Try again ({current}/{max})",
+  "@tryAgainCount": {
+    "description": "Try again with attempt count",
+    "placeholders": {
+      "current": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+
+  "nextCharacter": "Next character",
+  "@nextCharacter": {"description": "Next character button"},
+
+  "excellentPronunciation": "Excellent!",
+  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
+
+  "goodPronunciation": "Good job!",
+  "@goodPronunciation": {"description": "Good pronunciation feedback"},
+
+  "fairPronunciation": "Getting better!",
+  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
+
+  "needsMorePractice": "Keep practicing!",
+  "@needsMorePractice": {"description": "Needs more practice feedback"},
+
+  "downloadModels": "Download",
+  "@downloadModels": {"description": "Download models button"},
+
+  "modelDownloading": "Downloading model",
+  "@modelDownloading": {"description": "Model downloading status"},
+
+  "modelReady": "Ready",
+  "@modelReady": {"description": "Model ready status"},
+
+  "modelNotReady": "Not installed",
+  "@modelNotReady": {"description": "Model not installed status"},
+
+  "modelSize": "Model size",
+  "@modelSize": {"description": "Model size label"},
+
+  "speechModelTitle": "Speech Recognition AI Model",
+  "@speechModelTitle": {"description": "Speech recognition AI model title"},
+
+  "skipSpeechPractice": "Skip",
+  "@skipSpeechPractice": {"description": "Skip speech practice button"},
+
+  "deleteModel": "Delete model",
+  "@deleteModel": {"description": "Delete model button"},
+
+  "overallScore": "Overall Score",
+  "@overallScore": {"description": "Overall score label"}
 }

@@ -28,6 +28,7 @@ import 'presentation/providers/dm_provider.dart';
 import 'presentation/providers/feed_provider.dart';
 import 'presentation/providers/social_provider.dart';
 import 'presentation/providers/character_provider.dart';
+import 'presentation/providers/speech_provider.dart';
 import 'presentation/providers/voice_room_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
@@ -159,6 +160,8 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DmProvider()),
         ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider(create: (_) => VoiceRoomProvider()),
+        // Speech recognition provider (mobile only - on-device AI)
+        if (!kIsWeb) ChangeNotifierProvider(create: (_) => SpeechProvider()),
         // Download provider only on mobile (web doesn't support file downloads)
         if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),
       ],

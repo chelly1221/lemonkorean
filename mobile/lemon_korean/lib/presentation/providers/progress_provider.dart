@@ -38,13 +38,20 @@ class ProgressProvider with ChangeNotifier {
       final response = await _apiClient.getUserProgress(userId);
 
       if (response.statusCode == 200) {
-        _progressList = List<Map<String, dynamic>>.from(
-          response.data['progress'],
-        );
+        final serverData = response.data['progress'];
+        final serverProgress = serverData != null
+            ? List<Map<String, dynamic>>.from(serverData)
+            : <Map<String, dynamic>>[];
 
-        // Save to local storage
-        for (final progress in _progressList) {
-          await LocalStorage.saveProgress(progress);
+        // Don't overwrite local data if server returned empty
+        if (serverProgress.isNotEmpty) {
+          _progressList = serverProgress;
+          for (final progress in _progressList) {
+            await LocalStorage.saveProgress(progress);
+          }
+        } else {
+          // Server returned empty - keep local data
+          _progressList = LocalStorage.getAllProgress();
         }
 
         _isLoading = false;
@@ -361,9 +368,11 @@ class ProgressProvider with ChangeNotifier {
             await LocalStorage.removeFromSyncQueue(index);
           }
 
-          // Refresh stats and progress immediately
+          // Refresh stats from server (safe - stats won't overwrite progress)
           await fetchUserStats(userId);
-          await fetchProgress(userId);
+          // Refresh progress list from local storage (already saved above)
+          _progressList = LocalStorage.getAllProgress();
+          notifyListeners();
         }
       } catch (e) {
         // Network error - will be synced later

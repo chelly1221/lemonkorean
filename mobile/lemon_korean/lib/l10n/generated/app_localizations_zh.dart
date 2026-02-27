@@ -2995,6 +2995,71 @@ class AppLocalizationsZh extends AppLocalizations {
   String hoursShort(int count) {
     return '$count小时';
   }
+
+  @override
+  String get speechPractice => '发音练习';
+
+  @override
+  String get tapToRecord => '点击录音';
+
+  @override
+  String get recording => '录音中...';
+
+  @override
+  String get analyzing => '分析中...';
+
+  @override
+  String get pronunciationScore => '发音分数';
+
+  @override
+  String get phonemeBreakdown => '音素分析';
+
+  @override
+  String tryAgainCount(String current, String max) {
+    return '重试 ($current/$max)';
+  }
+
+  @override
+  String get nextCharacter => '下一个字';
+
+  @override
+  String get excellentPronunciation => '太棒了！';
+
+  @override
+  String get goodPronunciation => '做得好！';
+
+  @override
+  String get fairPronunciation => '继续加油！';
+
+  @override
+  String get needsMorePractice => '继续练习！';
+
+  @override
+  String get downloadModels => '下载';
+
+  @override
+  String get modelDownloading => '正在下载模型';
+
+  @override
+  String get modelReady => '已就绪';
+
+  @override
+  String get modelNotReady => '未安装';
+
+  @override
+  String get modelSize => '模型大小';
+
+  @override
+  String get speechModelTitle => '语音识别AI模型';
+
+  @override
+  String get skipSpeechPractice => '跳过';
+
+  @override
+  String get deleteModel => '删除模型';
+
+  @override
+  String get overallScore => '综合分数';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -5988,4 +6053,69 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String hoursShort(int count) {
     return '$count小時';
   }
+
+  @override
+  String get speechPractice => '發音練習';
+
+  @override
+  String get tapToRecord => '點擊錄音';
+
+  @override
+  String get recording => '錄音中...';
+
+  @override
+  String get analyzing => '分析中...';
+
+  @override
+  String get pronunciationScore => '發音分數';
+
+  @override
+  String get phonemeBreakdown => '音素分析';
+
+  @override
+  String tryAgainCount(String current, String max) {
+    return '重試 ($current/$max)';
+  }
+
+  @override
+  String get nextCharacter => '下一個字';
+
+  @override
+  String get excellentPronunciation => '太棒了！';
+
+  @override
+  String get goodPronunciation => '做得好！';
+
+  @override
+  String get fairPronunciation => '繼續加油！';
+
+  @override
+  String get needsMorePractice => '繼續練習！';
+
+  @override
+  String get downloadModels => '下載';
+
+  @override
+  String get modelDownloading => '正在下載模型';
+
+  @override
+  String get modelReady => '已就緒';
+
+  @override
+  String get modelNotReady => '未安裝';
+
+  @override
+  String get modelSize => '模型大小';
+
+  @override
+  String get speechModelTitle => '語音識別AI模型';
+
+  @override
+  String get skipSpeechPractice => '跳過';
+
+  @override
+  String get deleteModel => '刪除模型';
+
+  @override
+  String get overallScore => '綜合分數';
 }

@@ -38,6 +38,17 @@ const stage10Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['몫', '넋'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.quizMcq,
         title: '읽기 확인',
         description: '단어를 보고 고르세요',
@@ -78,6 +89,17 @@ const stage10Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['앉다', '많다'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: '듣고 고르기',
         description: '정답 단어를 선택하세요',
@@ -113,6 +135,17 @@ const stage10Lessons = <LessonData>[
         data: {
           'characters': ['읽다', '삶'],
           'type': 'word'
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['읽다', '삶'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -164,6 +197,17 @@ const stage10Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['넓다', '핥다', '읊다', '싫다'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: '레슨 완료!',
         data: {'lessonId': '10-4', 'message': '좋아요!\n고급 묶음 1을 익혔어요.'},
@@ -182,6 +226,17 @@ const stage10Lessons = <LessonData>[
         data: {
           'characters': ['없다', '없어'],
           'type': 'word'
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['없다', '없어'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

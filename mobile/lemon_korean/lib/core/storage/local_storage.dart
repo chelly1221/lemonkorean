@@ -12,6 +12,7 @@ class LocalStorage {
   static late Box _settingsBox;
   static late Box _reviewsBox;
   static late Box _bookmarksBox;
+  static late Box _pronunciationBox;
 
   /// Initialize all Hive boxes
   static Future<void> init() async {
@@ -25,6 +26,7 @@ class LocalStorage {
     _settingsBox = await Hive.openBox(AppConstants.settingsBox);
     _reviewsBox = await Hive.openBox('reviews');
     _bookmarksBox = await Hive.openBox('bookmarks');
+    _pronunciationBox = await Hive.openBox('pronunciation');
   }
 
   // ================================================================
@@ -501,8 +503,94 @@ class LocalStorage {
   }
 
   // ================================================================
+  // PRONUNCIATION (speech recognition results)
+  // ================================================================
+
+  /// Save pronunciation record for a character
+  static Future<void> savePronunciationRecord(String character, Map<String, dynamic> record) async {
+    await _pronunciationBox.put('pron_$character', record);
+  }
+
+  /// Get pronunciation record for a character
+  static Map<String, dynamic>? getPronunciationRecord(String character) {
+    final data = _pronunciationBox.get('pron_$character');
+    return data != null ? Map<String, dynamic>.from(data) : null;
+  }
+
+  /// Get all pronunciation records
+  static List<Map<String, dynamic>> getAllPronunciationRecords() {
+    return _pronunciationBox.keys
+        .where((key) => key.toString().startsWith('pron_'))
+        .map((key) => Map<String, dynamic>.from(_pronunciationBox.get(key) as Map))
+        .toList();
+  }
+
+  /// Update pronunciation stats for a character (attempts, best/avg score, mastery)
+  static Future<void> updatePronunciationStats({
+    required String character,
+    required int score,
+  }) async {
+    final existing = getPronunciationRecord(character);
+    final attempts = (existing?['attempts'] as int? ?? 0) + 1;
+    final bestScore = score > (existing?['bestScore'] as int? ?? 0)
+        ? score
+        : existing?['bestScore'] as int? ?? 0;
+    final totalScore = (existing?['totalScore'] as int? ?? 0) + score;
+    final avgScore = (totalScore / attempts).round();
+
+    // Mastery levels: 0=untried, 1=<50, 2=50-69, 3=70-84, 4=85-94, 5=95+ (3x consecutive)
+    int mastery = 0;
+    final consecutiveHigh = score >= 95
+        ? (existing?['consecutiveHigh'] as int? ?? 0) + 1
+        : 0;
+
+    if (consecutiveHigh >= 3) {
+      mastery = 5;
+    } else if (bestScore >= 85) {
+      mastery = 4;
+    } else if (bestScore >= 70) {
+      mastery = 3;
+    } else if (bestScore >= 50) {
+      mastery = 2;
+    } else if (attempts > 0) {
+      mastery = 1;
+    }
+
+    await savePronunciationRecord(character, {
+      'character': character,
+      'attempts': attempts,
+      'bestScore': bestScore,
+      'avgScore': avgScore,
+      'totalScore': totalScore,
+      'mastery': mastery,
+      'consecutiveHigh': consecutiveHigh,
+      'lastAttempt': DateTime.now().toIso8601String(),
+    });
+  }
+
+  /// Get pronunciation mastery level for a character (0-5)
+  static int getPronunciationMastery(String character) {
+    final record = getPronunciationRecord(character);
+    return record?['mastery'] as int? ?? 0;
+  }
+
+  /// Clear all pronunciation data
+  static Future<void> clearPronunciation() async {
+    await _pronunciationBox.clear();
+  }
+
+  // ================================================================
   // GENERAL
   // ================================================================
+
+  /// Clear only authentication data, preserving learning progress
+  static Future<void> clearAuthOnly() async {
+    await Future.wait([
+      clearUserId(),
+      clearCachedUser(),
+      clearSyncQueue(),
+    ]);
+  }
 
   /// Clear all data
   static Future<void> clearAll() async {
@@ -513,6 +601,7 @@ class LocalStorage {
       clearSyncQueue(),
       clearSettings(),
       clearReviews(),
+      clearPronunciation(),
     ]);
   }
 
@@ -525,6 +614,7 @@ class LocalStorage {
       _syncQueueBox.close(),
       _settingsBox.close(),
       _reviewsBox.close(),
+      _pronunciationBox.close(),
     ]);
   }
 }

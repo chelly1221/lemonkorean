@@ -28,6 +28,17 @@ const stage5Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['아', '오', '우'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.syllableBuild,
         title: 'ㅇ으로 글자 만들기',
         description: 'ㅇ + 모음을 조합해보세요',
@@ -73,6 +84,17 @@ const stage5Lessons = <LessonData>[
           'characters': ['자', '조', '주'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['자', '조', '주'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -145,6 +167,17 @@ const stage5Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['차', '초', '추'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅊ 소리 고르기',
         description: '차/자를 구분해요',
@@ -197,6 +230,17 @@ const stage5Lessons = <LessonData>[
           'characters': ['카', '코', '쿠'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['카', '코', '쿠'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -255,6 +299,17 @@ const stage5Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['타', '토', '투'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅌ 소리 고르기',
         description: '타/다를 구분해요',
@@ -310,6 +365,17 @@ const stage5Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['파', '포', '푸'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅍ 소리 고르기',
         description: '파/바를 구분해요',
@@ -362,6 +428,17 @@ const stage5Lessons = <LessonData>[
           'characters': ['하', '호', '후'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['하', '호', '후'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

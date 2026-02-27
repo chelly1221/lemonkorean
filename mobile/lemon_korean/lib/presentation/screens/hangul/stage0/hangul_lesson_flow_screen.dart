@@ -14,6 +14,7 @@ import 'steps/step_mission_intro.dart';
 import 'steps/step_timed_mission.dart';
 import 'steps/step_mission_results.dart';
 import 'steps/step_summary.dart';
+import 'steps/step_speech_practice.dart';
 import 'steps/step_stage_complete.dart';
 
 /// Runs a lesson as a PageView of steps with a progress bar.
@@ -35,6 +36,7 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
   int _totalAnswers = 0;
   int _missionTimeSeconds = 0;
   int _missionCompleted = 0;
+  bool _lessonCompleted = false;
 
   @override
   void initState() {
@@ -107,6 +109,9 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
   }
 
   Future<void> _completeLesson() async {
+    if (_lessonCompleted) return;
+    _lessonCompleted = true;
+
     final hangul = context.read<HangulProvider>();
     final gamification = context.read<GamificationProvider>();
     final lemons = _calculateLemonsEarned();
@@ -126,14 +131,17 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
     );
   }
 
-  /// Convert lesson ID (e.g. '0-1') to a unique numeric key for gamification.
+  /// Convert lesson ID (e.g. '0-1', '5-M') to a unique numeric key for gamification.
   /// Uses 90000+ range to avoid collision with regular lesson IDs.
+  /// Mission lessons (suffix 'M') use 99 as the lesson number.
   static int _hangulLessonKey(String lessonId) {
-    final match = RegExp(r'^(\d+)-(\d+)$').firstMatch(lessonId);
+    final match = RegExp(r'^(\d+)-(\d+|M)$').firstMatch(lessonId);
     if (match == null) return 90000;
     final stage = int.tryParse(match.group(1) ?? '');
-    final lesson = int.tryParse(match.group(2) ?? '');
-    if (stage == null || lesson == null) return 90000;
+    if (stage == null) return 90000;
+    final lessonPart = match.group(2) ?? '';
+    final lesson = lessonPart == 'M' ? 99 : int.tryParse(lessonPart);
+    if (lesson == null) return 90000;
     return 90000 + (stage * 100) + lesson;
   }
 
@@ -251,6 +259,12 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
           onCompleted: (correct, total) =>
               _onStepCompleted(correct: correct, total: total),
         );
+      case StepType.speechPractice:
+        return StepSpeechPractice(
+          step: step,
+          onCompleted: (correct, total) =>
+              _onStepCompleted(correct: correct, total: total),
+        );
       case StepType.syllableBuild:
         return StepSyllableBuild(
           step: step,
@@ -287,13 +301,21 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
           },
         );
       case StepType.summary:
+        final hasNextStep = index < widget.lesson.steps.length - 1;
+        final nextIsStageComplete = hasNextStep &&
+            widget.lesson.steps[index + 1].type == StepType.stageComplete;
         return StepSummary(
           step: step,
           scorePercent: _scorePercent,
           lemonsEarned: _calculateLemonsEarned(),
           onComplete: () async {
             await _completeLesson();
-            if (mounted) Navigator.pop(context);
+            if (!mounted) return;
+            if (nextIsStageComplete) {
+              _goNext();
+            } else {
+              Navigator.pop(context);
+            }
           },
         );
       case StepType.stageComplete:

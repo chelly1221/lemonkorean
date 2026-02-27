@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -448,7 +447,7 @@ class _CompactPronunciationPlayerState
   }
 
   void _cycleSpeed() {
-    final speeds = PlaybackSpeed.values;
+    const speeds = PlaybackSpeed.values;
     final currentIndex = speeds.indexOf(_currentSpeed);
     final nextIndex = (currentIndex + 1) % speeds.length;
     setState(() {

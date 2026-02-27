@@ -304,14 +304,14 @@ class HangulProvider with ChangeNotifier {
 
   /// Move to next review item
   void nextReviewItem() {
-    if (_currentReviewIndex < _reviewQueue.length - 1) {
+    if (_currentReviewIndex < _reviewQueue.length) {
       _currentReviewIndex++;
       notifyListeners();
     }
   }
 
   /// Check if review session is complete
-  bool get isReviewComplete => _currentReviewIndex >= _reviewQueue.length - 1;
+  bool get isReviewComplete => _reviewQueue.isEmpty || _currentReviewIndex >= _reviewQueue.length;
 
   /// Reset review session
   void resetReview() {
@@ -346,13 +346,17 @@ class HangulProvider with ChangeNotifier {
   Future<void> loadLessonProgress() async {
     try {
       final allData = await _repository.getAllLessonProgress();
-      _lessonProgress.clear();
-      for (final p in allData) {
-        _lessonProgress[p.lessonId] = p;
+      // Only update if we got data, or if we have no existing progress
+      if (allData.isNotEmpty || _lessonProgress.isEmpty) {
+        _lessonProgress.clear();
+        for (final p in allData) {
+          _lessonProgress[p.lessonId] = p;
+        }
+        notifyListeners();
       }
-      notifyListeners();
     } catch (e) {
       AppLogger.w('[HangulProvider] loadLessonProgress error: $e');
+      // On error, keep existing in-memory progress intact
     }
   }
 

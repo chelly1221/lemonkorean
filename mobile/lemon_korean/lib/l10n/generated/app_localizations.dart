@@ -5685,6 +5685,132 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'{count}小时'**
   String hoursShort(int count);
+
+  /// Speech practice step title
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get speechPractice;
+
+  /// Tap to record instruction
+  ///
+  /// In zh, this message translates to:
+  /// **'点击录音'**
+  String get tapToRecord;
+
+  /// Recording status
+  ///
+  /// In zh, this message translates to:
+  /// **'录音中...'**
+  String get recording;
+
+  /// Analyzing status
+  ///
+  /// In zh, this message translates to:
+  /// **'分析中...'**
+  String get analyzing;
+
+  /// Pronunciation score label
+  ///
+  /// In zh, this message translates to:
+  /// **'发音分数'**
+  String get pronunciationScore;
+
+  /// Phoneme breakdown label
+  ///
+  /// In zh, this message translates to:
+  /// **'音素分析'**
+  String get phonemeBreakdown;
+
+  /// Try again with attempt count
+  ///
+  /// In zh, this message translates to:
+  /// **'重试 ({current}/{max})'**
+  String tryAgainCount(String current, String max);
+
+  /// Next character button
+  ///
+  /// In zh, this message translates to:
+  /// **'下一个字'**
+  String get nextCharacter;
+
+  /// Excellent pronunciation feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！'**
+  String get excellentPronunciation;
+
+  /// Good pronunciation feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'做得好！'**
+  String get goodPronunciation;
+
+  /// Fair pronunciation feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'继续加油！'**
+  String get fairPronunciation;
+
+  /// Needs more practice feedback
+  ///
+  /// In zh, this message translates to:
+  /// **'继续练习！'**
+  String get needsMorePractice;
+
+  /// Download models button
+  ///
+  /// In zh, this message translates to:
+  /// **'下载'**
+  String get downloadModels;
+
+  /// Model downloading status
+  ///
+  /// In zh, this message translates to:
+  /// **'正在下载模型'**
+  String get modelDownloading;
+
+  /// Model ready status
+  ///
+  /// In zh, this message translates to:
+  /// **'已就绪'**
+  String get modelReady;
+
+  /// Model not installed status
+  ///
+  /// In zh, this message translates to:
+  /// **'未安装'**
+  String get modelNotReady;
+
+  /// Model size label
+  ///
+  /// In zh, this message translates to:
+  /// **'模型大小'**
+  String get modelSize;
+
+  /// Speech recognition AI model title
+  ///
+  /// In zh, this message translates to:
+  /// **'语音识别AI模型'**
+  String get speechModelTitle;
+
+  /// Skip speech practice button
+  ///
+  /// In zh, this message translates to:
+  /// **'跳过'**
+  String get skipSpeechPractice;
+
+  /// Delete model button
+  ///
+  /// In zh, this message translates to:
+  /// **'删除模型'**
+  String get deleteModel;
+
+  /// Overall score label
+  ///
+  /// In zh, this message translates to:
+  /// **'综合分数'**
+  String get overallScore;
 }
 
 class _AppLocalizationsDelegate

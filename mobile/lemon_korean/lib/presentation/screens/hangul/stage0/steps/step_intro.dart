@@ -20,81 +20,89 @@ class StepIntro extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(flex: 2),
-          // Block combine animation or emoji
-          if (animation != null)
-            BlockCombineIntroAnimation(
-              consonant: animation['consonant'] as String,
-              vowel: animation['vowel'] as String,
-              result: animation['result'] as String,
-            )
-          else
-            Text(emoji, style: const TextStyle(fontSize: 64))
-                .animate()
-                .scale(
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1.0, 1.0),
-                  duration: 500.ms,
-                  curve: Curves.easeOutBack,
-                )
-                .fadeIn(duration: 400.ms),
-          const SizedBox(height: 32),
-          // Title
-          Text(
-            step.title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          )
-              .animate()
-              .fadeIn(delay: 200.ms, duration: 400.ms)
-              .slideY(begin: 0.2, end: 0, duration: 400.ms),
-          const SizedBox(height: 16),
-          // Description
-          if (step.description != null)
-            Text(
-              step.description!,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey.shade700,
-                height: 1.5,
-              ),
-              textAlign: TextAlign.center,
-            )
-                .animate()
-                .fadeIn(delay: 400.ms, duration: 400.ms),
-          // Highlight chips
-          if (highlights.isNotEmpty) ...[
-            const SizedBox(height: 20),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.center,
-              children: highlights.map((h) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF9C4),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: const Color(0xFFFFD54F)),
-                  ),
-                  child: Text(
-                    h,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 24),
+                  // Block combine animation or emoji
+                  if (animation != null)
+                    BlockCombineIntroAnimation(
+                      consonant: animation['consonant'] as String,
+                      vowel: animation['vowel'] as String,
+                      result: animation['result'] as String,
+                    )
+                  else
+                    Text(emoji, style: const TextStyle(fontSize: 64))
+                        .animate()
+                        .scale(
+                          begin: const Offset(0.5, 0.5),
+                          end: const Offset(1.0, 1.0),
+                          duration: 500.ms,
+                          curve: Curves.easeOutBack,
+                        )
+                        .fadeIn(duration: 400.ms),
+                  const SizedBox(height: 32),
+                  // Title
+                  Text(
+                    step.title,
                     style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                );
-              }).toList(),
-            ).animate().fadeIn(delay: 600.ms, duration: 400.ms),
-          ],
-          const Spacer(flex: 3),
-          // Next button
+                    textAlign: TextAlign.center,
+                  )
+                      .animate()
+                      .fadeIn(delay: 200.ms, duration: 400.ms)
+                      .slideY(begin: 0.2, end: 0, duration: 400.ms),
+                  const SizedBox(height: 16),
+                  // Description
+                  if (step.description != null)
+                    Text(
+                      step.description!,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey.shade700,
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                        .animate()
+                        .fadeIn(delay: 400.ms, duration: 400.ms),
+                  // Highlight chips
+                  if (highlights.isNotEmpty) ...[
+                    const SizedBox(height: 20),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      children: highlights.map((h) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFF9C4),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: const Color(0xFFFFD54F)),
+                          ),
+                          child: Text(
+                            h,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ).animate().fadeIn(delay: 600.ms, duration: 400.ms),
+                  ],
+                  const SizedBox(height: 24),
+                ],
+              ),
+            ),
+          ),
+          // Next button (always visible at bottom)
           SizedBox(
             width: double.infinity,
             height: 52,

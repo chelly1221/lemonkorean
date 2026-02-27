@@ -54,6 +54,10 @@ dependencies:
   record: ^5.0.4              # Audio recording
   audio_waveforms: ^1.0.5     # Waveform visualization
 
+  # Speech Recognition (on-device, offline)
+  whisper_flutter_new: ^1.0.1  # Whisper on-device transcription (whisper.cpp)
+  onnxruntime: ^1.4.1          # ONNX Runtime for wav2vec2 GOP model
+
   # Game Engine
   flame: ^1.22.0
   flame_audio: ^2.10.0
@@ -117,6 +121,9 @@ flutter:
   assets:
     - .env.development
     - .env.production
+    # AI speech recognition models (bundled for offline use)
+    - assets/models/whisper/
+    - assets/models/gop/
     # Level icons
     - assets/levels/
     # Hangul pronunciation visualization assets

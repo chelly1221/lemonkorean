@@ -2,8 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/syllable_block_template.dart';
@@ -25,7 +23,6 @@ class StepSyllableBuild extends StatefulWidget {
 
 class _StepSyllableBuildState extends State<StepSyllableBuild>
     with SingleTickerProviderStateMixin {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   late final List<_BuildTarget> _targets;
   int _currentTargetIndex = 0;
   String? _selectedConsonant;
@@ -50,7 +47,6 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
   @override
   void dispose() {
     _shakeController.dispose();
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -108,7 +104,7 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
       setState(() => _showResult = true);
 
       // A2: play TTS for the completed syllable
-      KoreanTtsHelper.playKoreanText(_current.result, _audioPlayer);
+      KoreanTtsHelper.playKoreanText(_current.result);
 
       Future.delayed(const Duration(milliseconds: 1200), () {
         if (!mounted) return;
@@ -198,11 +194,11 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
           // B1: error message
           if (_showError) ...[
             const SizedBox(height: 12),
-            Text(
+            const Text(
               '다시 시도해보세요',
               style: TextStyle(
                 fontSize: 14,
-                color: const Color(0xFFF44336),
+                color: Color(0xFFF44336),
                 fontWeight: FontWeight.w500,
               ),
             ).animate().fadeIn(duration: 200.ms),
@@ -211,38 +207,37 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
           // Consonant choices
           Text('자음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 12,
+            runSpacing: 10,
             children: _consonantChoices.map((c) {
               final isSelected = _selectedConsonant == c;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: GestureDetector(
-                  onTap: () => _selectConsonant(c),
-                  child: AnimatedContainer(
-                    duration: 200.ms,
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
+              return GestureDetector(
+                onTap: () => _selectConsonant(c),
+                child: AnimatedContainer(
+                  duration: 200.ms,
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? const Color(0xFF42A5F5).withValues(alpha: 0.2)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
                       color: isSelected
-                          ? const Color(0xFF42A5F5).withValues(alpha: 0.2)
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                        color: isSelected
-                            ? const Color(0xFF42A5F5)
-                            : Colors.grey.shade300,
-                        width: isSelected ? 2.5 : 1.5,
-                      ),
+                          ? const Color(0xFF42A5F5)
+                          : Colors.grey.shade300,
+                      width: isSelected ? 2.5 : 1.5,
                     ),
-                    child: Center(
-                      child: Text(
-                        c,
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: isSelected ? const Color(0xFF42A5F5) : Colors.black87,
-                        ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      c,
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? const Color(0xFF42A5F5) : Colors.black87,
                       ),
                     ),
                   ),
@@ -254,38 +249,37 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
           // Vowel choices
           Text('모음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 12,
+            runSpacing: 10,
             children: _vowelChoices.map((v) {
               final isSelected = _selectedVowel == v;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: GestureDetector(
-                  onTap: () => _selectVowel(v),
-                  child: AnimatedContainer(
-                    duration: 200.ms,
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
+              return GestureDetector(
+                onTap: () => _selectVowel(v),
+                child: AnimatedContainer(
+                  duration: 200.ms,
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? const Color(0xFFEF5350).withValues(alpha: 0.2)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
                       color: isSelected
-                          ? const Color(0xFFEF5350).withValues(alpha: 0.2)
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                        color: isSelected
-                            ? const Color(0xFFEF5350)
-                            : Colors.grey.shade300,
-                        width: isSelected ? 2.5 : 1.5,
-                      ),
+                          ? const Color(0xFFEF5350)
+                          : Colors.grey.shade300,
+                      width: isSelected ? 2.5 : 1.5,
                     ),
-                    child: Center(
-                      child: Text(
-                        v,
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: isSelected ? const Color(0xFFEF5350) : Colors.black87,
-                        ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      v,
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? const Color(0xFFEF5350) : Colors.black87,
                       ),
                     ),
                   ),

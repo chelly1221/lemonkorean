@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/draggable_character_tile.dart';
@@ -24,7 +22,6 @@ class StepDragDropAssembly extends StatefulWidget {
 }
 
 class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   late final List<Map<String, dynamic>> _items;
   int _currentIndex = 0;
   String? _droppedConsonant;
@@ -51,7 +48,6 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -93,7 +89,7 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
       HapticFeedback.lightImpact();
       setState(() => _showResult = true);
       // A2: play TTS for the completed syllable
-      KoreanTtsHelper.playKoreanText(_current['result'] as String, _audioPlayer);
+      KoreanTtsHelper.playKoreanText(_current['result'] as String);
       // Auto-advance after showing result
       Future.delayed(const Duration(milliseconds: 1200), () {
         if (!mounted) return;

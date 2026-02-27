@@ -25,6 +25,17 @@ const stage9Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['닫', '곧', '묻'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.quizMcq,
         title: '받침 구분',
         description: 'ㄷ 받침을 선택하세요',
@@ -65,6 +76,17 @@ const stage9Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['낮', '잊', '젖'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: '듣고 고르기',
         description: 'ㅈ 받침 음절을 고르세요',
@@ -100,6 +122,17 @@ const stage9Lessons = <LessonData>[
         data: {
           'characters': ['꽃', '닻', '빚'],
           'type': 'syllable'
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['꽃', '닻', '빚'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -151,6 +184,17 @@ const stage9Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['부엌', '밭', '앞'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.quizMcq,
         title: '받침 구분',
         description: '세 받침을 구분해요',
@@ -188,6 +232,17 @@ const stage9Lessons = <LessonData>[
         data: {
           'characters': ['좋', '놓', '않'],
           'type': 'syllable'
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['좋', '놓', '않'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

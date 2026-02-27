@@ -88,7 +88,7 @@ class LemonCrossSectionPainter extends CustomPainter {
     // === Layer 4: Segments (fan/wedge) + straight membrane walls ===
     if (totalSlices > 0) {
       final sliceAngle = 2 * math.pi / totalSlices;
-      final startAngle = -math.pi / 2;
+      const startAngle = -math.pi / 2;
       final columellaRadius = pithInner * 0.18;
       final segOuterR = pithInner * 0.95;
       final segInnerR = columellaRadius * 1.15;
@@ -97,7 +97,6 @@ class LemonCrossSectionPainter extends CustomPainter {
       for (int i = 0; i < totalSlices; i++) {
         final isFull = isFilled || i < filledSlices;
         final angle = startAngle + sliceAngle * i;
-        final midAngle = angle + sliceAngle / 2;
 
         // Fan wedge with rounded corners at all 3 vertices
         final a0 = angle;

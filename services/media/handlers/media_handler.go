@@ -688,6 +688,70 @@ func isValidImageType(filename string) bool {
 	return false
 }
 
+// ================================================================
+// HANDLER: SERVE MODEL FILE
+// ================================================================
+
+// ServeModel serves AI model files for on-device speech recognition.
+// GET /media/models/*filepath
+func (h *MediaHandler) ServeModel(c *gin.Context) {
+	filepath := c.Param("filepath")
+	if filepath == "" || filepath == "/" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Bad Request",
+			"message": "Model file path is required",
+		})
+		return
+	}
+
+	// Strip leading slash
+	if filepath[0] == '/' {
+		filepath = filepath[1:]
+	}
+
+	objectKey := "models/" + filepath
+
+	log.Printf("[MEDIA] Serving model file: %s", objectKey)
+
+	ctx := context.Background()
+
+	object, err := h.minioClient.GetObject(ctx, config.UnifiedBucket, objectKey, minio.GetObjectOptions{})
+	if err != nil {
+		log.Printf("[MEDIA] Error fetching model: %v", err)
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":   "Not Found",
+			"message": "Model file not found",
+		})
+		return
+	}
+	defer object.Close()
+
+	stat, err := object.Stat()
+	if err != nil {
+		log.Printf("[MEDIA] Error getting model stat: %v", err)
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":   "Not Found",
+			"message": "Model file not found",
+		})
+		return
+	}
+
+	clientETag := c.GetHeader("If-None-Match")
+	if clientETag == stat.ETag {
+		c.Status(http.StatusNotModified)
+		return
+	}
+
+	c.Header("Content-Type", "application/octet-stream")
+	c.Header("Content-Length", fmt.Sprintf("%d", stat.Size))
+	c.Header("Cache-Control", "public, max-age=604800") // 7 days
+	c.Header("ETag", stat.ETag)
+	c.Header("Last-Modified", stat.LastModified.UTC().Format(http.TimeFormat))
+
+	c.Status(http.StatusOK)
+	io.Copy(c.Writer, object)
+}
+
 // isValidAudioType checks if the file is a valid audio type
 func isValidAudioType(filename string) bool {
 	ext := strings.ToLower(filepath.Ext(filename))

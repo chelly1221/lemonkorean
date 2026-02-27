@@ -3002,4 +3002,69 @@ class AppLocalizationsKo extends AppLocalizations {
   String hoursShort(int count) {
     return '$count시간';
   }
+
+  @override
+  String get speechPractice => '발음 연습';
+
+  @override
+  String get tapToRecord => '탭하여 녹음';
+
+  @override
+  String get recording => '녹음 중...';
+
+  @override
+  String get analyzing => '분석 중...';
+
+  @override
+  String get pronunciationScore => '발음 점수';
+
+  @override
+  String get phonemeBreakdown => '음소별 분석';
+
+  @override
+  String tryAgainCount(String current, String max) {
+    return '다시 시도 ($current/$max)';
+  }
+
+  @override
+  String get nextCharacter => '다음 글자';
+
+  @override
+  String get excellentPronunciation => '훌륭해요!';
+
+  @override
+  String get goodPronunciation => '잘했어요!';
+
+  @override
+  String get fairPronunciation => '괜찮아요!';
+
+  @override
+  String get needsMorePractice => '더 연습해요!';
+
+  @override
+  String get downloadModels => '다운로드';
+
+  @override
+  String get modelDownloading => '모델 다운로드 중';
+
+  @override
+  String get modelReady => '준비완료';
+
+  @override
+  String get modelNotReady => '미설치';
+
+  @override
+  String get modelSize => '모델 크기';
+
+  @override
+  String get speechModelTitle => '발음 인식 AI 모델';
+
+  @override
+  String get skipSpeechPractice => '건너뛰기';
+
+  @override
+  String get deleteModel => '모델 삭제';
+
+  @override
+  String get overallScore => '종합 점수';
 }

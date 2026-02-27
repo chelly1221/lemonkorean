@@ -94,6 +94,10 @@ coverage/
 # Logs
 *.log
 
+# AI model binaries (bundled at build time, too large for git)
+assets/models/whisper/*.bin
+assets/models/gop/*.onnx
+
 # macOS
 .DS_Store
 .AppleDouble

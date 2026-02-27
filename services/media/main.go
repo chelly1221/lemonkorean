@@ -63,6 +63,7 @@ func main() {
 		media.GET("/images/:key", mediaHandler.ServeImage)    // Supports ?width=X&height=Y&format=webp
 		media.GET("/audio/:key", mediaHandler.ServeAudio)     // Supports range requests for streaming
 		media.GET("/thumbnails/:key", mediaHandler.ServeThumbnail) // Supports ?size=X
+		media.GET("/models/*filepath", mediaHandler.ServeModel)     // AI model files (speech recognition)
 
 		// Admin endpoints - Upload and delete (require authentication)
 		media.POST("/upload", middleware.AuthMiddleware(), mediaHandler.UploadMedia)       // ?type=images|audio|video

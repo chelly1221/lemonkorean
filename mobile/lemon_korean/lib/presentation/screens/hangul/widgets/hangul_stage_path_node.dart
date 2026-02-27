@@ -56,7 +56,9 @@ class HangulStagePathNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalLessons = kStageLessonCounts[stageIndex];
+    final totalLessons = stageIndex < kStageLessonCounts.length
+        ? kStageLessonCounts[stageIndex]
+        : 1;
     final completedLessons =
         completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
 
@@ -133,7 +135,9 @@ class HangulStagePathNode extends StatelessWidget {
   }
 
   Widget _buildStaticNode() {
-    final totalLessons = kStageLessonCounts[stageIndex];
+    final totalLessons = stageIndex < kStageLessonCounts.length
+        ? kStageLessonCounts[stageIndex]
+        : 1;
     final completedLessons =
         completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
 
@@ -153,7 +157,9 @@ class HangulStagePathNode extends StatelessWidget {
   }
 
   Widget _buildAnimatedNode() {
-    final totalLessons = kStageLessonCounts[stageIndex];
+    final totalLessons = stageIndex < kStageLessonCounts.length
+        ? kStageLessonCounts[stageIndex]
+        : 1;
     final completedLessons =
         completedLessonsOverride ?? ((mastery / 5.0) * totalLessons).round();
 

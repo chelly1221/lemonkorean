@@ -2068,5 +2068,74 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "speechPractice": "발음 연습",
+  "@speechPractice": {"description": "Speech practice step title"},
+
+  "tapToRecord": "탭하여 녹음",
+  "@tapToRecord": {"description": "Tap to record instruction"},
+
+  "recording": "녹음 중...",
+  "@recording": {"description": "Recording status"},
+
+  "analyzing": "분석 중...",
+  "@analyzing": {"description": "Analyzing status"},
+
+  "pronunciationScore": "발음 점수",
+  "@pronunciationScore": {"description": "Pronunciation score label"},
+
+  "phonemeBreakdown": "음소별 분석",
+  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
+
+  "tryAgainCount": "다시 시도 ({current}/{max})",
+  "@tryAgainCount": {
+    "description": "Try again with attempt count",
+    "placeholders": {
+      "current": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+
+  "nextCharacter": "다음 글자",
+  "@nextCharacter": {"description": "Next character button"},
+
+  "excellentPronunciation": "훌륭해요!",
+  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
+
+  "goodPronunciation": "잘했어요!",
+  "@goodPronunciation": {"description": "Good pronunciation feedback"},
+
+  "fairPronunciation": "괜찮아요!",
+  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
+
+  "needsMorePractice": "더 연습해요!",
+  "@needsMorePractice": {"description": "Needs more practice feedback"},
+
+  "downloadModels": "다운로드",
+  "@downloadModels": {"description": "Download models button"},
+
+  "modelDownloading": "모델 다운로드 중",
+  "@modelDownloading": {"description": "Model downloading status"},
+
+  "modelReady": "준비완료",
+  "@modelReady": {"description": "Model ready status"},
+
+  "modelNotReady": "미설치",
+  "@modelNotReady": {"description": "Model not installed status"},
+
+  "modelSize": "모델 크기",
+  "@modelSize": {"description": "Model size label"},
+
+  "speechModelTitle": "발음 인식 AI 모델",
+  "@speechModelTitle": {"description": "Speech recognition AI model title"},
+
+  "skipSpeechPractice": "건너뛰기",
+  "@skipSpeechPractice": {"description": "Skip speech practice button"},
+
+  "deleteModel": "모델 삭제",
+  "@deleteModel": {"description": "Delete model button"},
+
+  "overallScore": "종합 점수",
+  "@overallScore": {"description": "Overall score label"}
 }

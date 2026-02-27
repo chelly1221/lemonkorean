@@ -26,6 +26,17 @@ const stage7Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['가', '카', '까'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: '듣고 고르기',
         description: '세 보기 중 정답을 선택하세요',
@@ -96,6 +107,17 @@ const stage7Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['다', '타', '따'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: '듣고 고르기',
         description: '세 보기 중 정답을 선택하세요',
@@ -144,6 +166,17 @@ const stage7Lessons = <LessonData>[
           'characters': ['바', '파', '빠'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['바', '파', '빠'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -198,6 +231,17 @@ const stage7Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['사', '싸'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: '듣고 고르기',
         description: '두 보기 중 정답을 선택하세요',
@@ -212,7 +256,7 @@ const stage7Lessons = <LessonData>[
               'choices': ['사', '싸']
             },
             {
-              'answer': '싸',
+              'answer': '사',
               'choices': ['사', '싸']
             },
           ],
@@ -246,6 +290,17 @@ const stage7Lessons = <LessonData>[
           'characters': ['자', '차', '짜'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['자', '차', '짜'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

@@ -26,6 +26,17 @@ const stage6Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['가', '거', '고', '구', '그', '기'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.quizMcq,
         title: '패턴 퀴즈',
         description: '같은 자음 패턴을 맞춰요',
@@ -76,6 +87,17 @@ const stage6Lessons = <LessonData>[
         data: {
           'characters': ['나', '너', '노', '누', '느', '니'],
           'type': 'syllable',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['나', '너', '노', '누', '느', '니'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -269,6 +291,17 @@ const stage6Lessons = <LessonData>[
         data: {
           'characters': ['와', '워', '과', '권'],
           'type': 'syllable',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['와', '워', '과'],
+          'maxAttempts': 4,
+          'passScore': 55,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

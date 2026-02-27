@@ -25,6 +25,17 @@ const stage11Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['바나나', '나비', '하마', '모자'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: '레슨 완료!',
         data: {'lessonId': '11-1', 'message': '좋아요!\n받침 없는 단어 읽기를 시작했어요.'},
@@ -43,6 +54,17 @@ const stage11Lessons = <LessonData>[
         data: {
           'characters': ['학교', '친구', '한국', '공부'],
           'type': 'word'
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['학교', '친구', '한국', '공부'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -120,6 +142,17 @@ const stage11Lessons = <LessonData>[
         data: {
           'characters': ['김치', '라면', '학교', '시장', '학생', '선생님'],
           'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['김치', '라면', '학교', '시장', '학생', '선생님'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -269,6 +302,17 @@ const stage11Lessons = <LessonData>[
         data: {
           'characters': ['안녕하세요', '감사합니다', '네', '아니요'],
           'descriptions': ['Hello', 'Thank you', 'Yes', 'No'],
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['안녕하세요', '감사합니다', '네', '아니요'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

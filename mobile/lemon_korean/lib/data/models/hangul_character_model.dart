@@ -167,7 +167,7 @@ class HangulCharacterModel {
       tonguePositionUrl: json['tongue_position_url'] as String?,
       airFlowDescription: json['air_flow_description'] as Map<String, dynamic>?,
       similarCharacterIds: json['similar_character_ids'] != null
-          ? (json['similar_character_ids'] as List).cast<int>()
+          ? (json['similar_character_ids'] as List).map((e) => (e as num).toInt()).toList()
           : null,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'] as String)

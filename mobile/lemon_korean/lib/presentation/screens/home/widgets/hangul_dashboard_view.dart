@@ -90,19 +90,22 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
           progress[0] < lessonBasedMastery ? lessonBasedMastery : progress[0];
     }
 
-    // Split Stage 4 into two outer nodes (4-1 / 4-2) using real completion.
+    // Stage 4 and 5 - use real lesson completion counts.
     final stage4Completed = provider.getCompletedLessonCount(4);
-    if (stage4Completed > 0 && progress.length > 5) {
-      final stage41Mastery =
-          (((stage4Completed.clamp(0, 7)) / 7) * 5.0).clamp(0.0, 5.0);
-      progress[4] = progress[4] < stage41Mastery ? stage41Mastery : progress[4];
-
-      final stage42Completed = (stage4Completed - 7).clamp(0, 10);
-      if (stage42Completed > 0) {
-        final stage42Mastery = ((stage42Completed / 10) * 5.0).clamp(0.0, 5.0);
-        progress[5] =
-            progress[5] < stage42Mastery ? stage42Mastery : progress[5];
-      }
+    if (stage4Completed > 0 && progress.length > 4) {
+      final stage4Total = kStageLessonCounts[4];
+      final stage4Mastery =
+          ((stage4Completed / stage4Total) * 5.0).clamp(0.0, 5.0);
+      progress[4] =
+          progress[4] < stage4Mastery ? stage4Mastery : progress[4];
+    }
+    final stage5Completed = provider.getCompletedLessonCount(5);
+    if (stage5Completed > 0 && progress.length > 5) {
+      final stage5Total = kStageLessonCounts[5];
+      final stage5Mastery =
+          ((stage5Completed / stage5Total) * 5.0).clamp(0.0, 5.0);
+      progress[5] =
+          progress[5] < stage5Mastery ? stage5Mastery : progress[5];
     }
 
     return progress;
@@ -181,10 +184,8 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
 
         final stageProgress = _getStageProgress(hangul);
         final stageStates = _getStageStates(stageProgress);
-        final stage4Completed = hangul.getCompletedLessonCount(4);
-        final stage41Completed = stage4Completed > 7 ? 7 : stage4Completed;
-        final stage42Raw = stage4Completed > 7 ? stage4Completed - 7 : 0;
-        final stage42Completed = stage42Raw > 10 ? 10 : stage42Raw;
+        final stage4LessonCount = hangul.getCompletedLessonCount(4);
+        final stage5LessonCount = hangul.getCompletedLessonCount(5);
         final isBossUnlocked =
             stageStates.every((s) => s == StageVisualState.completed);
 
@@ -207,14 +208,14 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
                     1: hangul.getCompletedLessonCount(1),
                     2: hangul.getCompletedLessonCount(2),
                     3: hangul.getCompletedLessonCount(3),
-                    4: stage41Completed,
-                    5: stage42Completed,
-                    6: hangul.getCompletedLessonCount(5),
-                    7: hangul.getCompletedLessonCount(6),
-                    8: hangul.getCompletedLessonCount(7),
-                    9: hangul.getCompletedLessonCount(8),
-                    10: hangul.getCompletedLessonCount(9),
-                    11: hangul.getCompletedLessonCount(10),
+                    4: stage4LessonCount,
+                    5: stage5LessonCount,
+                    6: hangul.getCompletedLessonCount(6),
+                    7: hangul.getCompletedLessonCount(7),
+                    8: hangul.getCompletedLessonCount(8),
+                    9: hangul.getCompletedLessonCount(9),
+                    10: hangul.getCompletedLessonCount(10),
+                    11: hangul.getCompletedLessonCount(11),
                   },
                   onBossTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(

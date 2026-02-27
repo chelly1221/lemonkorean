@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 
@@ -22,7 +20,6 @@ class StepSoundMatch extends StatefulWidget {
 }
 
 class _StepSoundMatchState extends State<StepSoundMatch> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   late final List<Map<String, dynamic>> _questions;
   int _currentIndex = 0;
   int _correctCount = 0;
@@ -43,7 +40,6 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -51,7 +47,7 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
 
   Future<void> _playCurrentSound() async {
     final answer = _current['answer'] as String;
-    await KoreanTtsHelper.playKoreanText(answer, _audioPlayer);
+    await KoreanTtsHelper.playKoreanText(answer);
   }
 
   void _selectAnswer(String choice) {
@@ -140,8 +136,10 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
           ),
           const Spacer(),
           // Choice buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 0,
+            runSpacing: 12,
             children: choices.map((choice) {
               final isSelected = _selectedAnswer == choice;
               final isCorrect = choice == answer;
@@ -188,6 +186,7 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
             }).toList(),
           ),
           const Spacer(flex: 2),
+
         ],
       ),
     );

@@ -193,9 +193,6 @@ class AuthProvider extends ChangeNotifier {
   /// Force logout - clears all session data including cached user
   Future<void> _forceLogout() async {
     try {
-      // Clear cached user for offline-first auth
-      await _authRepository.clearCachedUser();
-
       await _authRepository.logout();
       await _secureStorage.delete(key: AppConstants.tokenKey);
       await _secureStorage.delete(key: AppConstants.refreshTokenKey);
@@ -343,10 +340,7 @@ class AuthProvider extends ChangeNotifier {
     _clearError();
 
     try {
-      // Clear cached user for offline-first auth
-      await _authRepository.clearCachedUser();
-
-      // Logout from repository (clears local storage and SecureStorage user_id)
+      // Logout from repository (clears auth data, preserves learning progress)
       await _authRepository.logout();
 
       // Clear tokens and user_id from secure storage

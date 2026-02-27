@@ -12,7 +12,8 @@ class StepStageComplete extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stage = step.data['stage'] as int? ?? 0;
+    final stage = step.data['stageNumber'] as int? ?? step.data['stage'] as int? ?? 0;
+    final message = step.data['message'] as String?;
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -83,7 +84,7 @@ class StepStageComplete extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '한글 구조 이해 완료!',
+                  message ?? step.title,
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.brown.shade400,

@@ -33,6 +33,17 @@ const stage2Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['야', '갸', '냐'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅏ vs ㅑ 듣기',
         description: '비슷한 소리를 구분해요',
@@ -133,6 +144,17 @@ const stage2Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['여', '겨', '녀'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅓ vs ㅕ 듣기',
         description: '어/여를 구분해요',
@@ -206,6 +228,17 @@ const stage2Lessons = <LessonData>[
           'characters': ['요', '교', '뇨'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['요', '교', '뇨'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -285,6 +318,17 @@ const stage2Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['유', '규', '뉴'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅜ vs ㅠ 듣기',
         description: '우/유를 구분해요',
@@ -354,6 +398,17 @@ const stage2Lessons = <LessonData>[
           'characters': ['야', '여', '요', '유'],
           'type': 'syllable',
           'showMouth': false,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['야', '여', '요', '유'],
+          'maxAttempts': 3,
+          'passScore': 60,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

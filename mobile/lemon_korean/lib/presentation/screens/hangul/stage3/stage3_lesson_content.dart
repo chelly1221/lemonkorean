@@ -32,6 +32,17 @@ const stage3Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['애', '개', '내'],
+          'maxAttempts': 3,
+          'passScore': 65,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.soundMatch,
         title: 'ㅏ vs ㅐ 듣기',
         description: '아/애를 구분해요',
@@ -89,6 +100,17 @@ const stage3Lessons = <LessonData>[
           'characters': ['에', '게', '네'],
           'type': 'syllable',
           'showMouth': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['에', '게', '네'],
+          'maxAttempts': 3,
+          'passScore': 65,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(
@@ -205,6 +227,17 @@ const stage3Lessons = <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['얘', '걔', '냬'],
+          'maxAttempts': 3,
+          'passScore': 65,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: '레슨 완료!',
         data: {
@@ -240,6 +273,17 @@ const stage3Lessons = <LessonData>[
           'characters': ['예', '계', '녜'],
           'type': 'syllable',
           'showMouth': false,
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '발음 연습',
+        description: '글자를 직접 소리내어 보세요',
+        data: {
+          'characters': ['예', '계', '녜'],
+          'maxAttempts': 3,
+          'passScore': 65,
+          'showPhonemeDetail': true,
         },
       ),
       LessonStep(

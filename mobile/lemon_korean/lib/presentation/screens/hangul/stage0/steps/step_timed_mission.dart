@@ -2,8 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../../../core/utils/korean_tts_helper.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/countdown_timer_widget.dart';
@@ -27,7 +25,6 @@ class _StepTimedMissionState extends State<StepTimedMission>
     with SingleTickerProviderStateMixin {
   final _random = Random();
   final _timerKey = GlobalKey<CountdownTimerWidgetState>();
-  final AudioPlayer _audioPlayer = AudioPlayer();
 
   late final int _timeLimit;
   late final int _targetCount;
@@ -68,7 +65,6 @@ class _StepTimedMissionState extends State<StepTimedMission>
   @override
   void dispose() {
     _shakeController.dispose();
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -83,17 +79,17 @@ class _StepTimedMissionState extends State<StepTimedMission>
 
   /// Syllable composition helper for selected consonant/vowel pairs.
   String _combineSyllable(String consonant, String vowel) {
-    const consonantMap = {'ㄱ': 0, 'ㄴ': 2, 'ㄷ': 3, 'ㅇ': 11};
+    const consonantMap = {
+      'ㄱ': 0, 'ㄲ': 1, 'ㄴ': 2, 'ㄷ': 3, 'ㄸ': 4,
+      'ㄹ': 5, 'ㅁ': 6, 'ㅂ': 7, 'ㅃ': 8, 'ㅅ': 9,
+      'ㅆ': 10, 'ㅇ': 11, 'ㅈ': 12, 'ㅉ': 13, 'ㅊ': 14,
+      'ㅋ': 15, 'ㅌ': 16, 'ㅍ': 17, 'ㅎ': 18,
+    };
     const vowelMap = {
-      'ㅏ': 0,
-      'ㅑ': 2,
-      'ㅓ': 4,
-      'ㅕ': 6,
-      'ㅗ': 8,
-      'ㅛ': 12,
-      'ㅜ': 13,
-      'ㅠ': 17,
-      'ㅡ': 18,
+      'ㅏ': 0, 'ㅐ': 1, 'ㅑ': 2, 'ㅒ': 3, 'ㅓ': 4,
+      'ㅔ': 5, 'ㅕ': 6, 'ㅖ': 7, 'ㅗ': 8, 'ㅘ': 9,
+      'ㅙ': 10, 'ㅚ': 11, 'ㅛ': 12, 'ㅜ': 13, 'ㅝ': 14,
+      'ㅞ': 15, 'ㅟ': 16, 'ㅠ': 17, 'ㅡ': 18, 'ㅢ': 19,
       'ㅣ': 20,
     };
     final cIndex = consonantMap[consonant] ?? 0;
@@ -126,7 +122,7 @@ class _StepTimedMissionState extends State<StepTimedMission>
       });
 
       // A2: play TTS for the completed syllable (short delay for mission pace)
-      KoreanTtsHelper.playKoreanText(_targetResult, _audioPlayer);
+      KoreanTtsHelper.playKoreanText(_targetResult);
 
       if (_completedCount >= _targetCount) {
         _finish();
@@ -235,33 +231,31 @@ class _StepTimedMissionState extends State<StepTimedMission>
           ],
           const Spacer(),
           // Consonant choices
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 12,
+            runSpacing: 10,
             children: _consonants.map((c) {
               final isSelected = _selectedConsonant == c;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: GestureDetector(
-                  onTap: () => _selectConsonant(c),
-                  child:
-                      _buildChoiceTile(c, isSelected, const Color(0xFF42A5F5)),
-                ),
+              return GestureDetector(
+                onTap: () => _selectConsonant(c),
+                child:
+                    _buildChoiceTile(c, isSelected, const Color(0xFF42A5F5)),
               );
             }).toList(),
           ),
           const SizedBox(height: 12),
           // Vowel choices
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 12,
+            runSpacing: 10,
             children: _vowels.map((v) {
               final isSelected = _selectedVowel == v;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: GestureDetector(
-                  onTap: () => _selectVowel(v),
-                  child:
-                      _buildChoiceTile(v, isSelected, const Color(0xFFEF5350)),
-                ),
+              return GestureDetector(
+                onTap: () => _selectVowel(v),
+                child:
+                    _buildChoiceTile(v, isSelected, const Color(0xFFEF5350)),
               );
             }).toList(),
           ),

@@ -3002,4 +3002,69 @@ class AppLocalizationsJa extends AppLocalizations {
   String hoursShort(int count) {
     return '$count時間';
   }
+
+  @override
+  String get speechPractice => '発音練習';
+
+  @override
+  String get tapToRecord => 'タップして録音';
+
+  @override
+  String get recording => '録音中...';
+
+  @override
+  String get analyzing => '分析中...';
+
+  @override
+  String get pronunciationScore => '発音スコア';
+
+  @override
+  String get phonemeBreakdown => '音素別分析';
+
+  @override
+  String tryAgainCount(String current, String max) {
+    return 'もう一度 ($current/$max)';
+  }
+
+  @override
+  String get nextCharacter => '次の文字';
+
+  @override
+  String get excellentPronunciation => '素晴らしい！';
+
+  @override
+  String get goodPronunciation => 'よくできました！';
+
+  @override
+  String get fairPronunciation => 'もう少し！';
+
+  @override
+  String get needsMorePractice => '練習を続けよう！';
+
+  @override
+  String get downloadModels => 'ダウンロード';
+
+  @override
+  String get modelDownloading => 'モデルダウンロード中';
+
+  @override
+  String get modelReady => '準備完了';
+
+  @override
+  String get modelNotReady => '未インストール';
+
+  @override
+  String get modelSize => 'モデルサイズ';
+
+  @override
+  String get speechModelTitle => '音声認識AIモデル';
+
+  @override
+  String get skipSpeechPractice => 'スキップ';
+
+  @override
+  String get deleteModel => 'モデルを削除';
+
+  @override
+  String get overallScore => '総合スコア';
 }

@@ -597,12 +597,16 @@ class _NativeComparisonCardState extends State<NativeComparisonCard> {
     }
 
     final availableLanguages = _comparisons.keys.toList();
-    if (!availableLanguages.contains(_selectedLanguage) &&
+    var effectiveLanguage = _selectedLanguage;
+    if (!availableLanguages.contains(effectiveLanguage) &&
         availableLanguages.isNotEmpty) {
-      _selectedLanguage = availableLanguages.first;
+      effectiveLanguage = availableLanguages.first;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) setState(() => _selectedLanguage = effectiveLanguage);
+      });
     }
 
-    final currentComparisons = _comparisons[_selectedLanguage] ?? [];
+    final currentComparisons = _comparisons[effectiveLanguage] ?? [];
 
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingMedium),

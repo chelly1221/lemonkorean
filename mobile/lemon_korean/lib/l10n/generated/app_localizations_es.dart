@@ -3219,4 +3219,69 @@ class AppLocalizationsEs extends AppLocalizations {
   String hoursShort(int count) {
     return '${count}h';
   }
+
+  @override
+  String get speechPractice => 'Práctica de pronunciación';
+
+  @override
+  String get tapToRecord => 'Toca para grabar';
+
+  @override
+  String get recording => 'Grabando...';
+
+  @override
+  String get analyzing => 'Analizando...';
+
+  @override
+  String get pronunciationScore => 'Puntuación de pronunciación';
+
+  @override
+  String get phonemeBreakdown => 'Análisis de fonemas';
+
+  @override
+  String tryAgainCount(String current, String max) {
+    return 'Reintentar ($current/$max)';
+  }
+
+  @override
+  String get nextCharacter => 'Siguiente carácter';
+
+  @override
+  String get excellentPronunciation => '¡Excelente!';
+
+  @override
+  String get goodPronunciation => '¡Buen trabajo!';
+
+  @override
+  String get fairPronunciation => '¡Mejorando!';
+
+  @override
+  String get needsMorePractice => '¡Sigue practicando!';
+
+  @override
+  String get downloadModels => 'Descargar';
+
+  @override
+  String get modelDownloading => 'Descargando modelo';
+
+  @override
+  String get modelReady => 'Listo';
+
+  @override
+  String get modelNotReady => 'No instalado';
+
+  @override
+  String get modelSize => 'Tamaño del modelo';
+
+  @override
+  String get speechModelTitle => 'Modelo de IA de reconocimiento de voz';
+
+  @override
+  String get skipSpeechPractice => 'Omitir';
+
+  @override
+  String get deleteModel => 'Eliminar modelo';
+
+  @override
+  String get overallScore => 'Puntuación total';
 }

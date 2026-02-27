@@ -1996,5 +1996,74 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "speechPractice": "発音練習",
+  "@speechPractice": {"description": "Speech practice step title"},
+
+  "tapToRecord": "タップして録音",
+  "@tapToRecord": {"description": "Tap to record instruction"},
+
+  "recording": "録音中...",
+  "@recording": {"description": "Recording status"},
+
+  "analyzing": "分析中...",
+  "@analyzing": {"description": "Analyzing status"},
+
+  "pronunciationScore": "発音スコア",
+  "@pronunciationScore": {"description": "Pronunciation score label"},
+
+  "phonemeBreakdown": "音素別分析",
+  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
+
+  "tryAgainCount": "もう一度 ({current}/{max})",
+  "@tryAgainCount": {
+    "description": "Try again with attempt count",
+    "placeholders": {
+      "current": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+
+  "nextCharacter": "次の文字",
+  "@nextCharacter": {"description": "Next character button"},
+
+  "excellentPronunciation": "素晴らしい！",
+  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
+
+  "goodPronunciation": "よくできました！",
+  "@goodPronunciation": {"description": "Good pronunciation feedback"},
+
+  "fairPronunciation": "もう少し！",
+  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
+
+  "needsMorePractice": "練習を続けよう！",
+  "@needsMorePractice": {"description": "Needs more practice feedback"},
+
+  "downloadModels": "ダウンロード",
+  "@downloadModels": {"description": "Download models button"},
+
+  "modelDownloading": "モデルダウンロード中",
+  "@modelDownloading": {"description": "Model downloading status"},
+
+  "modelReady": "準備完了",
+  "@modelReady": {"description": "Model ready status"},
+
+  "modelNotReady": "未インストール",
+  "@modelNotReady": {"description": "Model not installed status"},
+
+  "modelSize": "モデルサイズ",
+  "@modelSize": {"description": "Model size label"},
+
+  "speechModelTitle": "音声認識AIモデル",
+  "@speechModelTitle": {"description": "Speech recognition AI model title"},
+
+  "skipSpeechPractice": "スキップ",
+  "@skipSpeechPractice": {"description": "Skip speech practice button"},
+
+  "deleteModel": "モデルを削除",
+  "@deleteModel": {"description": "Delete model button"},
+
+  "overallScore": "総合スコア",
+  "@overallScore": {"description": "Overall score label"}
 }

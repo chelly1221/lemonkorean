@@ -1996,5 +1996,74 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "speechPractice": "Práctica de pronunciación",
+  "@speechPractice": {"description": "Speech practice step title"},
+
+  "tapToRecord": "Toca para grabar",
+  "@tapToRecord": {"description": "Tap to record instruction"},
+
+  "recording": "Grabando...",
+  "@recording": {"description": "Recording status"},
+
+  "analyzing": "Analizando...",
+  "@analyzing": {"description": "Analyzing status"},
+
+  "pronunciationScore": "Puntuación de pronunciación",
+  "@pronunciationScore": {"description": "Pronunciation score label"},
+
+  "phonemeBreakdown": "Análisis de fonemas",
+  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
+
+  "tryAgainCount": "Reintentar ({current}/{max})",
+  "@tryAgainCount": {
+    "description": "Try again with attempt count",
+    "placeholders": {
+      "current": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+
+  "nextCharacter": "Siguiente carácter",
+  "@nextCharacter": {"description": "Next character button"},
+
+  "excellentPronunciation": "¡Excelente!",
+  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
+
+  "goodPronunciation": "¡Buen trabajo!",
+  "@goodPronunciation": {"description": "Good pronunciation feedback"},
+
+  "fairPronunciation": "¡Mejorando!",
+  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
+
+  "needsMorePractice": "¡Sigue practicando!",
+  "@needsMorePractice": {"description": "Needs more practice feedback"},
+
+  "downloadModels": "Descargar",
+  "@downloadModels": {"description": "Download models button"},
+
+  "modelDownloading": "Descargando modelo",
+  "@modelDownloading": {"description": "Model downloading status"},
+
+  "modelReady": "Listo",
+  "@modelReady": {"description": "Model ready status"},
+
+  "modelNotReady": "No instalado",
+  "@modelNotReady": {"description": "Model not installed status"},
+
+  "modelSize": "Tamaño del modelo",
+  "@modelSize": {"description": "Model size label"},
+
+  "speechModelTitle": "Modelo de IA de reconocimiento de voz",
+  "@speechModelTitle": {"description": "Speech recognition AI model title"},
+
+  "skipSpeechPractice": "Omitir",
+  "@skipSpeechPractice": {"description": "Skip speech practice button"},
+
+  "deleteModel": "Eliminar modelo",
+  "@deleteModel": {"description": "Delete model button"},
+
+  "overallScore": "Puntuación total",
+  "@overallScore": {"description": "Overall score label"}
 }

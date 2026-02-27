@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../../../core/utils/korean_tts_helper.dart';
 import '../../widgets/mouth_animation_widget.dart';
 import '../stage0_lesson_content.dart';
@@ -18,7 +16,6 @@ class StepSoundExplore extends StatefulWidget {
 }
 
 class _StepSoundExploreState extends State<StepSoundExplore> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   int _currentCharIndex = 0;
   bool _isPlaying = false;
   // B3: track which characters have been listened to
@@ -60,7 +57,6 @@ class _StepSoundExploreState extends State<StepSoundExplore> {
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -69,7 +65,7 @@ class _StepSoundExploreState extends State<StepSoundExplore> {
       _listenedSet.add(index);
       _isPlaying = true;
     });
-    await KoreanTtsHelper.playKoreanText(_spokenTextFor(char), _audioPlayer);
+    await KoreanTtsHelper.playKoreanText(_spokenTextFor(char));
     if (mounted) {
       setState(() => _isPlaying = false);
     }
@@ -127,57 +123,60 @@ class _StepSoundExploreState extends State<StepSoundExplore> {
           // Character tabs (if multiple)
           if (chars.length > 1) ...[
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(chars.length, (i) {
-                final isActive = i == _currentCharIndex;
-                final hasListened = _listenedSet.contains(i);
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: GestureDetector(
-                    onTap: () => setState(() => _currentCharIndex = i),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                          decoration: BoxDecoration(
-                            color: isActive
-                                ? const Color(0xFFFFD54F)
-                                : Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(20),
-                            border: isActive
-                                ? Border.all(color: const Color(0xFFF9A825), width: 2)
-                                : null,
-                          ),
-                          child: Text(
-                            chars[i],
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: isActive ? Colors.black87 : Colors.grey,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(chars.length, (i) {
+                  final isActive = i == _currentCharIndex;
+                  final hasListened = _listenedSet.contains(i);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: GestureDetector(
+                      onTap: () => setState(() => _currentCharIndex = i),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            decoration: BoxDecoration(
+                              color: isActive
+                                  ? const Color(0xFFFFD54F)
+                                  : Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(20),
+                              border: isActive
+                                  ? Border.all(color: const Color(0xFFF9A825), width: 2)
+                                  : null,
                             ),
-                          ),
-                        ),
-                        // B3: red dot badge for unlistened characters
-                        if (!hasListened)
-                          Positioned(
-                            top: -2,
-                            right: -2,
-                            child: Container(
-                              width: 8,
-                              height: 8,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFF44336),
-                                shape: BoxShape.circle,
+                            child: Text(
+                              chars[i],
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: isActive ? Colors.black87 : Colors.grey,
                               ),
                             ),
                           ),
-                      ],
+                          // B3: red dot badge for unlistened characters
+                          if (!hasListened)
+                            Positioned(
+                              top: -2,
+                              right: -2,
+                              child: Container(
+                                width: 8,
+                                height: 8,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFF44336),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             ),
           ],
           const Spacer(),

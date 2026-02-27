@@ -1087,5 +1087,74 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "speechPractice": "發音練習",
+  "@speechPractice": {"description": "Speech practice step title"},
+
+  "tapToRecord": "點擊錄音",
+  "@tapToRecord": {"description": "Tap to record instruction"},
+
+  "recording": "錄音中...",
+  "@recording": {"description": "Recording status"},
+
+  "analyzing": "分析中...",
+  "@analyzing": {"description": "Analyzing status"},
+
+  "pronunciationScore": "發音分數",
+  "@pronunciationScore": {"description": "Pronunciation score label"},
+
+  "phonemeBreakdown": "音素分析",
+  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
+
+  "tryAgainCount": "重試 ({current}/{max})",
+  "@tryAgainCount": {
+    "description": "Try again with attempt count",
+    "placeholders": {
+      "current": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+
+  "nextCharacter": "下一個字",
+  "@nextCharacter": {"description": "Next character button"},
+
+  "excellentPronunciation": "太棒了！",
+  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
+
+  "goodPronunciation": "做得好！",
+  "@goodPronunciation": {"description": "Good pronunciation feedback"},
+
+  "fairPronunciation": "繼續加油！",
+  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
+
+  "needsMorePractice": "繼續練習！",
+  "@needsMorePractice": {"description": "Needs more practice feedback"},
+
+  "downloadModels": "下載",
+  "@downloadModels": {"description": "Download models button"},
+
+  "modelDownloading": "正在下載模型",
+  "@modelDownloading": {"description": "Model downloading status"},
+
+  "modelReady": "已就緒",
+  "@modelReady": {"description": "Model ready status"},
+
+  "modelNotReady": "未安裝",
+  "@modelNotReady": {"description": "Model not installed status"},
+
+  "modelSize": "模型大小",
+  "@modelSize": {"description": "Model size label"},
+
+  "speechModelTitle": "語音識別AI模型",
+  "@speechModelTitle": {"description": "Speech recognition AI model title"},
+
+  "skipSpeechPractice": "跳過",
+  "@skipSpeechPractice": {"description": "Skip speech practice button"},
+
+  "deleteModel": "刪除模型",
+  "@deleteModel": {"description": "Delete model button"},
+
+  "overallScore": "綜合分數",
+  "@overallScore": {"description": "Overall score label"}
 }

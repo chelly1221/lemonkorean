@@ -4,6 +4,7 @@ enum StepType {
   dragDrop,
   soundExplore,
   soundMatch,
+  speechPractice,
   syllableBuild,
   quizMcq,
   missionIntro,

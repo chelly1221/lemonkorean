@@ -3189,4 +3189,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String hoursShort(int count) {
     return '${count}h';
   }
+
+  @override
+  String get speechPractice => 'Pronunciation Practice';
+
+  @override
+  String get tapToRecord => 'Tap to record';
+
+  @override
+  String get recording => 'Recording...';
+
+  @override
+  String get analyzing => 'Analyzing...';
+
+  @override
+  String get pronunciationScore => 'Pronunciation Score';
+
+  @override
+  String get phonemeBreakdown => 'Phoneme Breakdown';
+
+  @override
+  String tryAgainCount(String current, String max) {
+    return 'Try again ($current/$max)';
+  }
+
+  @override
+  String get nextCharacter => 'Next character';
+
+  @override
+  String get excellentPronunciation => 'Excellent!';
+
+  @override
+  String get goodPronunciation => 'Good job!';
+
+  @override
+  String get fairPronunciation => 'Getting better!';
+
+  @override
+  String get needsMorePractice => 'Keep practicing!';
+
+  @override
+  String get downloadModels => 'Download';
+
+  @override
+  String get modelDownloading => 'Downloading model';
+
+  @override
+  String get modelReady => 'Ready';
+
+  @override
+  String get modelNotReady => 'Not installed';
+
+  @override
+  String get modelSize => 'Model size';
+
+  @override
+  String get speechModelTitle => 'Speech Recognition AI Model';
+
+  @override
+  String get skipSpeechPractice => 'Skip';
+
+  @override
+  String get deleteModel => 'Delete model';
+
+  @override
+  String get overallScore => 'Overall Score';
 }

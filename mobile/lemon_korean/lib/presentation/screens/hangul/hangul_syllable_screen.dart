@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/korean_tts_helper.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -77,20 +75,17 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
   String? _selectedMedial;
   String? _selectedFinal;
   late TabController _tabController;
-  late AudioPlayer _audioPlayer;
   PlaybackSpeed _playbackSpeed = PlaybackSpeed.normal;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _audioPlayer = AudioPlayer();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -110,7 +105,6 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
     try {
       await KoreanTtsHelper.playKoreanText(
         syllable,
-        _audioPlayer,
         speed: _playbackSpeed.value,
       );
     } catch (e) {

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/korean_tts_helper.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -198,18 +196,9 @@ class HangulBatchimScreen extends StatefulWidget {
 class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
   String? _selectedGroup;
   BatchimInfo? _selectedBatchim;
-  late AudioPlayer _audioPlayer;
-
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
   }
 
   @override
@@ -693,7 +682,7 @@ class _HangulBatchimScreenState extends State<HangulBatchimScreen> {
           IconButton(
             onPressed: () async {
               try {
-                await KoreanTtsHelper.playKoreanText(example, _audioPlayer);
+                await KoreanTtsHelper.playKoreanText(example);
               } catch (e) {
                 if (mounted) {
                   final l10n = AppLocalizations.of(context)!;

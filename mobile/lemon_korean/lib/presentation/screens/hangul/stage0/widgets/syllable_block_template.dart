@@ -99,9 +99,9 @@ class _Slot extends StatelessWidget {
 
   const _Slot({
     required this.label,
-    this.char,
     required this.isFilled,
     required this.color,
+    this.char,
   });
 
   @override

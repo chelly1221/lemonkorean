@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,7 @@ import 'language_settings_screen.dart';
 import 'notification_settings_screen.dart';
 import 'help_center_screen.dart';
 import 'app_info_screen.dart';
+import 'widgets/speech_model_manager_widget.dart';
 
 /// Settings Menu Screen
 /// 마이페이지에서 톱니바퀴 아이콘 탭 시 표시되는 설정 메뉴 화면
@@ -64,6 +66,16 @@ class SettingsMenuScreen extends StatelessWidget {
 
           const SizedBox(height: AppConstants.paddingMedium),
           const Divider(),
+
+          // ================================================================
+          // SPEECH MODEL SECTION (mobile only)
+          // ================================================================
+          if (!kIsWeb) ...[
+            _buildSectionHeader('데이터 관리'),
+            const SpeechModelManagerWidget(),
+            const SizedBox(height: AppConstants.paddingMedium),
+            const Divider(),
+          ],
 
           // ================================================================
           // ABOUT SECTION

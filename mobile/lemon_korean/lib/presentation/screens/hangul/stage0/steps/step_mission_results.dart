@@ -70,7 +70,7 @@ class StepMissionResults extends StatelessWidget {
                 _StatRow(
                   icon: Icons.timer,
                   label: '소요 시간',
-                  value: '${minutes}분 ${seconds}초',
+                  value: '$minutes분 $seconds초',
                   color: const Color(0xFF42A5F5),
                 ),
               ],

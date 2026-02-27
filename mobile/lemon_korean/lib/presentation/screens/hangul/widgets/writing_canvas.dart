@@ -171,7 +171,7 @@ class _WritingCanvasState extends State<WritingCanvas>
     }
 
     // 2. Area coverage (30%): Divide canvas into 3x3 grid, check distribution
-    final gridSize = 3;
+    const gridSize = 3;
     final coveredCells = <int>{};
     for (final p in allPoints) {
       if (width < 10 || height < 10) continue;
@@ -411,10 +411,7 @@ class _StrokePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _StrokePainter oldDelegate) {
-    return strokes != oldDelegate.strokes ||
-        currentStroke != oldDelegate.currentStroke;
-  }
+  bool shouldRepaint(covariant _StrokePainter oldDelegate) => true;
 }
 
 /// Animated character painter for stroke order animation

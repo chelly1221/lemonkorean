@@ -184,12 +184,8 @@ class AuthRepository {
       // Clear API tokens
       await _apiClient.logout();
 
-      // Clear cached user for offline-first auth
-      await clearCachedUser();
-
-      // Clear local storage (Hive)
-      await LocalStorage.clearUserId();
-      await LocalStorage.clearAll();
+      // Clear only auth data, preserving learning progress
+      await LocalStorage.clearAuthOnly();
 
       // Clear SecureStorage user_id
       await _secureStorage.delete(key: AppConstants.secureUserIdKey);

@@ -127,6 +127,15 @@ final localPath = await DatabaseHelper.getLocalPath(remoteKey);
 return localPath ?? '${ApiConstants.baseUrl}/media/$remoteKey';
 ```
 
+### 폴백(Fallback) 금지 원칙
+- ❌ **폴백 함수/로직을 만들지 않는다.** 서비스가 정상 동작하지 않으면 에러가 명확히 드러나야 한다.
+- 각 서비스는 **단일 구현 경로**만 가진다. 서버 → 로컬 폴백, 고급 → 저급 폴백 등 이중 경로 금지.
+- 예시:
+  - ✅ `KoreanTtsHelper`: `flutter_tts`만 사용 (서버 오디오 폴백 없음)
+  - ✅ `SpeechModelManager`: 번들 모델만 사용 (서버 다운로드 폴백 없음)
+  - ❌ `try serverAudio() catch → try localTts()` 같은 폴백 체인
+- **이유**: 폴백이 있으면 서비스 장애가 숨겨져 문제를 발견할 수 없다.
+
 ---
 
 ## 중요 주의사항
