@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
-import 'utils/onboarding_colors.dart';
-import 'utils/onboarding_text_styles.dart';
 import 'widgets/language_selection_card.dart';
 import 'widgets/onboarding_button.dart';
 import 'level_selection_screen.dart';

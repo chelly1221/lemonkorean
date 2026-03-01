@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/auth_provider.dart';
 import '../../../providers/gamification_provider.dart';
 import '../../../providers/hangul_provider.dart';
@@ -162,7 +163,7 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$stage단계 상세 내용은 다음 지시 후 추가됩니다.')),
+          SnackBar(content: Text(AppLocalizations.of(context)?.stageDetailComingSoon ?? '$stage단계 상세 내용은 다음 지시 후 추가됩니다.')),
         );
         return;
     }
@@ -219,8 +220,8 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
                   },
                   onBossTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('보스 퀴즈는 준비 중입니다.'),
+                      SnackBar(
+                        content: Text(AppLocalizations.of(context)?.bossQuizComingSoon ?? '보스 퀴즈는 준비 중입니다.'),
                       ),
                     );
                   },

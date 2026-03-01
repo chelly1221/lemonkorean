@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/hangul_provider.dart';
 import '../stage0/hangul_lesson_flow_screen.dart';
 import '../stage0/stage0_lesson_content.dart';
@@ -13,21 +14,25 @@ class HangulStage2LessonListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    final lessons = getStage2Lessons(l10n!);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('2단계: Y-모음')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)?.hangulStage2Title ?? '2단계: Y-모음')),
       body: Consumer<HangulProvider>(
         builder: (context, hangul, _) {
           return ListView.separated(
             padding: const EdgeInsets.all(16),
-            itemCount: stage2Lessons.length,
+            itemCount: lessons.length,
             separatorBuilder: (_, __) => const SizedBox(height: 12),
             itemBuilder: (context, index) {
-              final lesson = stage2Lessons[index];
+              final lesson = lessons[index];
               final progress = hangul.getLessonProgress(lesson.id);
               final isCompleted = progress?.isCompleted ?? false;
               final lemonsEarned = progress?.lemonsEarned ?? 0;
               final isLocked =
-                  index > 0 && !_isPreviousCompleted(hangul, index);
+                  index > 0 && !_isPreviousCompleted(hangul, index, lessons);
 
               return _LessonCard(
                 lesson: lesson,
@@ -52,9 +57,9 @@ class HangulStage2LessonListScreen extends StatelessWidget {
     );
   }
 
-  bool _isPreviousCompleted(HangulProvider hangul, int index) {
+  bool _isPreviousCompleted(HangulProvider hangul, int index, List<LessonData> lessons) {
     if (index == 0) return true;
-    final prevLesson = stage2Lessons[index - 1];
+    final prevLesson = lessons[index - 1];
     final prevProgress = hangul.getLessonProgress(prevLesson.id);
     return prevProgress?.isCompleted ?? false;
   }

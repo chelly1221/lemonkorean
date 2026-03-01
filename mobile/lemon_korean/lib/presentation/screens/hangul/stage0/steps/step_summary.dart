@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/lemon_reward_animation.dart';
 
@@ -21,7 +22,7 @@ class StepSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final message = step.data['message'] as String? ?? '레슨을 완료했어요!';
+    final message = step.data['message'] as String? ?? AppLocalizations.of(context)?.lessonCompletedMsg ?? 'Lesson complete!';
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -74,9 +75,9 @@ class StepSummary extends StatelessWidget {
                 ),
                 elevation: 2,
               ),
-              child: const Text(
-                '완료',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                AppLocalizations.of(context)?.doneButton ?? 'Done',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ).animate().fadeIn(delay: 1000.ms, duration: 400.ms),

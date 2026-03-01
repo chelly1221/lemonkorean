@@ -13,8 +13,8 @@ class CommentInput extends StatefulWidget {
   final bool isSubmitting;
 
   const CommentInput({
-    super.key,
     required this.onSubmit,
+    super.key,
     this.replyToName,
     this.onCancelReply,
     this.focusNode,

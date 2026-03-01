@@ -12,8 +12,8 @@ class UserSearchCard extends StatelessWidget {
   final SnsUserModel user;
 
   const UserSearchCard({
-    super.key,
     required this.user,
+    super.key,
   });
 
   @override

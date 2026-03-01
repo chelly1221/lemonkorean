@@ -30,16 +30,18 @@ class Stage7Summary extends StatelessWidget {
     final lemonsEarned = LemonRewardModel.calculateLemons(quizScore);
 
     return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(AppConstants.paddingLarge),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConstants.paddingMedium,
+        vertical: AppConstants.paddingSmall,
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
 
           // Completion Icon
           Container(
-            width: 120,
-            height: 120,
+            width: 96,
+            height: 96,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
@@ -60,7 +62,7 @@ class Stage7Summary extends StatelessWidget {
             ),
             child: const Icon(
               Icons.celebration,
-              size: 64,
+              size: 48,
               color: Colors.black87,
             ),
           )
@@ -73,30 +75,30 @@ class Stage7Summary extends StatelessWidget {
               .then()
               .shake(duration: 500.ms),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 24),
 
           // Completion Title
           Text(
             l10n.lessonComplete,
             style: const TextStyle(
-              fontSize: 36,
+              fontSize: 28,
               fontWeight: FontWeight.bold,
             ),
           ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
 
           // Lesson Title
           Text(
             lesson.title,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               color: AppConstants.textSecondary,
             ),
           ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 24),
 
           // Lemon Reward Display (replaces XP card)
           _buildLemonRewardCard(context, lemonsEarned)
@@ -129,7 +131,7 @@ class Stage7Summary extends StatelessWidget {
               .fadeIn(delay: 1200.ms, duration: 600.ms)
               .slideX(begin: -0.2, end: 0, delay: 1200.ms),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 24),
 
           // Review Stats
           Container(
@@ -172,7 +174,7 @@ class Stage7Summary extends StatelessWidget {
             ),
           ).animate().fadeIn(delay: 1400.ms, duration: 600.ms),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 16),
 
           // Next Lesson Preview
           Container(
@@ -235,7 +237,7 @@ class Stage7Summary extends StatelessWidget {
             ),
           ).animate().fadeIn(delay: 1600.ms, duration: 600.ms),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
 
           // Complete Button
           SizedBox(
@@ -272,7 +274,6 @@ class Stage7Summary extends StatelessWidget {
 
           const SizedBox(height: 16),
         ],
-      ),
       ),
     );
   }

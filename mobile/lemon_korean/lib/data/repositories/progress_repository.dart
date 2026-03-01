@@ -210,7 +210,7 @@ class ProgressRepository {
 
       final updatedProgress = progress.copyWith(
         stageProgress: currentStageProgress,
-        timeSpent: (progress.timeSpent ?? 0) + 1, // Increment time
+        timeSpent: progress.timeSpent + 1, // Increment time
         updatedAt: DateTime.now(),
         isSynced: false,
       );

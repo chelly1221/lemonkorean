@@ -11,8 +11,8 @@ class PostImageGrid extends StatelessWidget {
   final List<String> imageUrls;
 
   const PostImageGrid({
-    super.key,
     required this.imageUrls,
+    super.key,
   });
 
   String _buildImageUrl(String key) {

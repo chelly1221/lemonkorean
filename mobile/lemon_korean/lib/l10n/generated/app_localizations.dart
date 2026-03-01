@@ -4524,7 +4524,7 @@ abstract class AppLocalizations {
   /// No description provided for @userNotFound.
   ///
   /// In zh, this message translates to:
-  /// **'用户不存在'**
+  /// **'找不到用户'**
   String get userNotFound;
 
   /// No description provided for @message.
@@ -5811,6 +5811,8460 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'综合分数'**
   String get overallScore;
+
+  /// App tagline on login screen
+  ///
+  /// In zh, this message translates to:
+  /// **'像柠檬一样清新，实力稳稳的！'**
+  String get appTagline;
+
+  /// Password field hint text
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入包含字母和数字的8位以上密码'**
+  String get passwordHint;
+
+  /// Find account link
+  ///
+  /// In zh, this message translates to:
+  /// **'找回账号'**
+  String get findAccount;
+
+  /// Reset password link
+  ///
+  /// In zh, this message translates to:
+  /// **'重置密码'**
+  String get resetPassword;
+
+  /// Register screen title
+  ///
+  /// In zh, this message translates to:
+  /// **'清新的韩语之旅，现在出发！'**
+  String get registerTitle;
+
+  /// Register screen subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'轻松起步也没关系！我会牢牢带着你'**
+  String get registerSubtitle;
+
+  /// Nickname field label
+  ///
+  /// In zh, this message translates to:
+  /// **'昵称'**
+  String get nickname;
+
+  /// Nickname field hint text
+  ///
+  /// In zh, this message translates to:
+  /// **'15个字符以内：字母、数字、下划线'**
+  String get nicknameHint;
+
+  /// Confirm password hint text
+  ///
+  /// In zh, this message translates to:
+  /// **'请再次输入密码'**
+  String get confirmPasswordHint;
+
+  /// Account choice screen title
+  ///
+  /// In zh, this message translates to:
+  /// **'欢迎！和莫尼一起\n建立学习习惯吧！'**
+  String get accountChoiceTitle;
+
+  /// Account choice screen subtitle
+  ///
+  /// In zh, this message translates to:
+  /// **'清新出发，实力我来帮你守住！'**
+  String get accountChoiceSubtitle;
+
+  /// Start with email button
+  ///
+  /// In zh, this message translates to:
+  /// **'使用邮箱开始'**
+  String get startWithEmail;
+
+  /// Delete message dialog title
+  ///
+  /// In zh, this message translates to:
+  /// **'删除消息？'**
+  String get deleteMessageTitle;
+
+  /// Delete message dialog content
+  ///
+  /// In zh, this message translates to:
+  /// **'此消息将对所有人删除。'**
+  String get deleteMessageContent;
+
+  /// Deleted message placeholder
+  ///
+  /// In zh, this message translates to:
+  /// **'消息已删除'**
+  String get messageDeleted;
+
+  /// Empty state first post prompt
+  ///
+  /// In zh, this message translates to:
+  /// **'来发第一条帖子吧！'**
+  String get beFirstToPost;
+
+  /// Tag input hint
+  ///
+  /// In zh, this message translates to:
+  /// **'输入标签...'**
+  String get typeTagHint;
+
+  /// User info load failed error
+  ///
+  /// In zh, this message translates to:
+  /// **'加载用户信息失败'**
+  String get userInfoLoadFailed;
+
+  /// Login error occurred
+  ///
+  /// In zh, this message translates to:
+  /// **'登录过程中发生错误'**
+  String get loginErrorOccurred;
+
+  /// Register error occurred
+  ///
+  /// In zh, this message translates to:
+  /// **'注册过程中发生错误'**
+  String get registerErrorOccurred;
+
+  /// Logout error occurred
+  ///
+  /// In zh, this message translates to:
+  /// **'退出登录过程中发生错误'**
+  String get logoutErrorOccurred;
+
+  /// No description provided for @hangulStage0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第0阶段：理解韩文结构'**
+  String get hangulStage0Title;
+
+  /// No description provided for @hangulStage1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第1阶段：基本元音'**
+  String get hangulStage1Title;
+
+  /// No description provided for @hangulStage2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第2阶段：Y元音'**
+  String get hangulStage2Title;
+
+  /// No description provided for @hangulStage3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第3阶段：ㅐ/ㅔ元音'**
+  String get hangulStage3Title;
+
+  /// No description provided for @hangulStage4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第4阶段：基本辅音1'**
+  String get hangulStage4Title;
+
+  /// No description provided for @hangulStage5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第5阶段：基本辅音2'**
+  String get hangulStage5Title;
+
+  /// No description provided for @hangulStage6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第6阶段：音节组合训练'**
+  String get hangulStage6Title;
+
+  /// No description provided for @hangulStage7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第7阶段：紧音/送气音'**
+  String get hangulStage7Title;
+
+  /// No description provided for @hangulStage8Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第8阶段：收音（终声）1'**
+  String get hangulStage8Title;
+
+  /// No description provided for @hangulStage9Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第9阶段：收音扩展'**
+  String get hangulStage9Title;
+
+  /// No description provided for @hangulStage10Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第10阶段：复合收音'**
+  String get hangulStage10Title;
+
+  /// No description provided for @hangulStage11Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第11阶段：扩展词汇阅读'**
+  String get hangulStage11Title;
+
+  /// No description provided for @sortAlphabetical.
+  ///
+  /// In zh, this message translates to:
+  /// **'字母顺序'**
+  String get sortAlphabetical;
+
+  /// No description provided for @sortByLevel.
+  ///
+  /// In zh, this message translates to:
+  /// **'按级别'**
+  String get sortByLevel;
+
+  /// No description provided for @sortBySimilarity.
+  ///
+  /// In zh, this message translates to:
+  /// **'按相似度'**
+  String get sortBySimilarity;
+
+  /// No description provided for @searchWordsKoreanMeaning.
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索单词（韩语/含义）'**
+  String get searchWordsKoreanMeaning;
+
+  /// No description provided for @groupedView.
+  ///
+  /// In zh, this message translates to:
+  /// **'分组视图'**
+  String get groupedView;
+
+  /// No description provided for @matrixView.
+  ///
+  /// In zh, this message translates to:
+  /// **'辅音×元音'**
+  String get matrixView;
+
+  /// No description provided for @reviewLessons.
+  ///
+  /// In zh, this message translates to:
+  /// **'复习课程'**
+  String get reviewLessons;
+
+  /// No description provided for @stageDetailComingSoon.
+  ///
+  /// In zh, this message translates to:
+  /// **'详细内容正在准备中。'**
+  String get stageDetailComingSoon;
+
+  /// No description provided for @bossQuizComingSoon.
+  ///
+  /// In zh, this message translates to:
+  /// **'Boss测验正在准备中。'**
+  String get bossQuizComingSoon;
+
+  /// No description provided for @exitLessonDialogTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'退出课程'**
+  String get exitLessonDialogTitle;
+
+  /// No description provided for @exitLessonDialogContent.
+  ///
+  /// In zh, this message translates to:
+  /// **'要退出课程吗？\n当前步骤的进度将自动保存。'**
+  String get exitLessonDialogContent;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'继续'**
+  String get continueButton;
+
+  /// No description provided for @exitLessonButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'退出'**
+  String get exitLessonButton;
+
+  /// No description provided for @noQuestions.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有可用的问题'**
+  String get noQuestions;
+
+  /// No description provided for @noCharactersDefined.
+  ///
+  /// In zh, this message translates to:
+  /// **'未定义字符'**
+  String get noCharactersDefined;
+
+  /// No description provided for @recordingStartFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'录音启动失败'**
+  String get recordingStartFailed;
+
+  /// No description provided for @consonant.
+  ///
+  /// In zh, this message translates to:
+  /// **'辅音'**
+  String get consonant;
+
+  /// No description provided for @vowel.
+  ///
+  /// In zh, this message translates to:
+  /// **'元音'**
+  String get vowel;
+
+  /// No description provided for @validationEmailRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入电子邮箱'**
+  String get validationEmailRequired;
+
+  /// No description provided for @validationEmailTooLong.
+  ///
+  /// In zh, this message translates to:
+  /// **'电子邮箱地址过长'**
+  String get validationEmailTooLong;
+
+  /// No description provided for @validationEmailInvalid.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入有效的电子邮箱地址'**
+  String get validationEmailInvalid;
+
+  /// No description provided for @validationPasswordRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入密码'**
+  String get validationPasswordRequired;
+
+  /// No description provided for @validationPasswordMinLength.
+  ///
+  /// In zh, this message translates to:
+  /// **'密码至少需要{minLength}个字符'**
+  String validationPasswordMinLength(int minLength);
+
+  /// No description provided for @validationPasswordNeedLetter.
+  ///
+  /// In zh, this message translates to:
+  /// **'密码必须包含字母'**
+  String get validationPasswordNeedLetter;
+
+  /// No description provided for @validationPasswordNeedNumber.
+  ///
+  /// In zh, this message translates to:
+  /// **'密码必须包含数字'**
+  String get validationPasswordNeedNumber;
+
+  /// No description provided for @validationPasswordNeedSpecial.
+  ///
+  /// In zh, this message translates to:
+  /// **'密码必须包含特殊字符'**
+  String get validationPasswordNeedSpecial;
+
+  /// No description provided for @validationPasswordTooLong.
+  ///
+  /// In zh, this message translates to:
+  /// **'密码过长'**
+  String get validationPasswordTooLong;
+
+  /// No description provided for @validationConfirmPasswordRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'请再次输入密码'**
+  String get validationConfirmPasswordRequired;
+
+  /// No description provided for @validationPasswordMismatch.
+  ///
+  /// In zh, this message translates to:
+  /// **'两次输入的密码不一致'**
+  String get validationPasswordMismatch;
+
+  /// No description provided for @validationUsernameRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入用户名'**
+  String get validationUsernameRequired;
+
+  /// No description provided for @validationUsernameTooShort.
+  ///
+  /// In zh, this message translates to:
+  /// **'用户名至少需要{minLength}个字符'**
+  String validationUsernameTooShort(int minLength);
+
+  /// No description provided for @validationUsernameTooLong.
+  ///
+  /// In zh, this message translates to:
+  /// **'用户名不能超过{maxLength}个字符'**
+  String validationUsernameTooLong(int maxLength);
+
+  /// No description provided for @validationUsernameInvalidChars.
+  ///
+  /// In zh, this message translates to:
+  /// **'用户名只能包含字母、数字和下划线'**
+  String get validationUsernameInvalidChars;
+
+  /// No description provided for @validationFieldRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入{fieldName}'**
+  String validationFieldRequired(String fieldName);
+
+  /// No description provided for @validationFieldMinLength.
+  ///
+  /// In zh, this message translates to:
+  /// **'{fieldName}至少需要{minLength}个字符'**
+  String validationFieldMinLength(String fieldName, int minLength);
+
+  /// No description provided for @validationFieldMaxLength.
+  ///
+  /// In zh, this message translates to:
+  /// **'{fieldName}不能超过{maxLength}个字符'**
+  String validationFieldMaxLength(String fieldName, int maxLength);
+
+  /// No description provided for @validationFieldNumeric.
+  ///
+  /// In zh, this message translates to:
+  /// **'{fieldName}必须是数字'**
+  String validationFieldNumeric(String fieldName);
+
+  /// No description provided for @errorNetworkConnection.
+  ///
+  /// In zh, this message translates to:
+  /// **'网络连接失败，请检查网络设置'**
+  String get errorNetworkConnection;
+
+  /// No description provided for @errorServer.
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器错误，请稍后重试'**
+  String get errorServer;
+
+  /// No description provided for @errorAuthFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'认证失败，请重新登录'**
+  String get errorAuthFailed;
+
+  /// No description provided for @errorUnknown.
+  ///
+  /// In zh, this message translates to:
+  /// **'未知错误，请稍后重试'**
+  String get errorUnknown;
+
+  /// No description provided for @errorTimeout.
+  ///
+  /// In zh, this message translates to:
+  /// **'连接超时，请检查网络'**
+  String get errorTimeout;
+
+  /// No description provided for @errorRequestCancelled.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求已取消'**
+  String get errorRequestCancelled;
+
+  /// No description provided for @errorForbidden.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有访问权限'**
+  String get errorForbidden;
+
+  /// No description provided for @errorNotFound.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求的资源不存在'**
+  String get errorNotFound;
+
+  /// No description provided for @errorRequestParam.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求参数错误'**
+  String get errorRequestParam;
+
+  /// No description provided for @errorParseData.
+  ///
+  /// In zh, this message translates to:
+  /// **'数据解析错误'**
+  String get errorParseData;
+
+  /// No description provided for @errorParseFormat.
+  ///
+  /// In zh, this message translates to:
+  /// **'数据格式错误'**
+  String get errorParseFormat;
+
+  /// No description provided for @errorRateLimited.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求过多，请稍后重试'**
+  String get errorRateLimited;
+
+  /// No description provided for @successLogin.
+  ///
+  /// In zh, this message translates to:
+  /// **'登录成功'**
+  String get successLogin;
+
+  /// No description provided for @successRegister.
+  ///
+  /// In zh, this message translates to:
+  /// **'注册成功'**
+  String get successRegister;
+
+  /// No description provided for @successSync.
+  ///
+  /// In zh, this message translates to:
+  /// **'同步成功'**
+  String get successSync;
+
+  /// No description provided for @successDownload.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载成功'**
+  String get successDownload;
+
+  /// No description provided for @failedToCreateComment.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建评论失败'**
+  String get failedToCreateComment;
+
+  /// No description provided for @failedToDeleteComment.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除评论失败'**
+  String get failedToDeleteComment;
+
+  /// No description provided for @failedToSubmitReport.
+  ///
+  /// In zh, this message translates to:
+  /// **'提交举报失败'**
+  String get failedToSubmitReport;
+
+  /// No description provided for @failedToBlockUser.
+  ///
+  /// In zh, this message translates to:
+  /// **'屏蔽用户失败'**
+  String get failedToBlockUser;
+
+  /// No description provided for @failedToUnblockUser.
+  ///
+  /// In zh, this message translates to:
+  /// **'取消屏蔽用户失败'**
+  String get failedToUnblockUser;
+
+  /// No description provided for @failedToCreatePost.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建帖子失败'**
+  String get failedToCreatePost;
+
+  /// No description provided for @failedToDeletePost.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除帖子失败'**
+  String get failedToDeletePost;
+
+  /// No description provided for @noVocabularyForLevel.
+  ///
+  /// In zh, this message translates to:
+  /// **'未找到{level}级词汇'**
+  String noVocabularyForLevel(int level);
+
+  /// No description provided for @uploadingImage.
+  ///
+  /// In zh, this message translates to:
+  /// **'[图片上传中...]'**
+  String get uploadingImage;
+
+  /// No description provided for @uploadingVoice.
+  ///
+  /// In zh, this message translates to:
+  /// **'[语音上传中...]'**
+  String get uploadingVoice;
+
+  /// No description provided for @imagePreview.
+  ///
+  /// In zh, this message translates to:
+  /// **'[图片]'**
+  String get imagePreview;
+
+  /// No description provided for @voicePreview.
+  ///
+  /// In zh, this message translates to:
+  /// **'[语音]'**
+  String get voicePreview;
+
+  /// No description provided for @voiceServerConnectFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'无法连接语音服务器，请检查您的连接。'**
+  String get voiceServerConnectFailed;
+
+  /// No description provided for @connectionLostRetry.
+  ///
+  /// In zh, this message translates to:
+  /// **'连接断开，点击重试。'**
+  String get connectionLostRetry;
+
+  /// No description provided for @noInternetConnection.
+  ///
+  /// In zh, this message translates to:
+  /// **'无网络连接，请检查您的网络。'**
+  String get noInternetConnection;
+
+  /// No description provided for @couldNotLoadRooms.
+  ///
+  /// In zh, this message translates to:
+  /// **'无法加载房间列表，请重试。'**
+  String get couldNotLoadRooms;
+
+  /// No description provided for @couldNotCreateRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'无法创建房间，请重试。'**
+  String get couldNotCreateRoom;
+
+  /// No description provided for @couldNotJoinRoom.
+  ///
+  /// In zh, this message translates to:
+  /// **'无法加入房间，请检查您的连接。'**
+  String get couldNotJoinRoom;
+
+  /// No description provided for @roomClosedByHost.
+  ///
+  /// In zh, this message translates to:
+  /// **'主持人已关闭房间。'**
+  String get roomClosedByHost;
+
+  /// No description provided for @removedFromRoomByHost.
+  ///
+  /// In zh, this message translates to:
+  /// **'您已被主持人移出房间。'**
+  String get removedFromRoomByHost;
+
+  /// No description provided for @connectionTimedOut.
+  ///
+  /// In zh, this message translates to:
+  /// **'连接超时，请重试。'**
+  String get connectionTimedOut;
+
+  /// No description provided for @missingLiveKitCredentials.
+  ///
+  /// In zh, this message translates to:
+  /// **'缺少语音连接凭据。'**
+  String get missingLiveKitCredentials;
+
+  /// No description provided for @microphoneEnableFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'无法启用麦克风。请检查权限并尝试取消静音。'**
+  String get microphoneEnableFailed;
+
+  /// No description provided for @voiceRoomNewMessages.
+  ///
+  /// In zh, this message translates to:
+  /// **'新消息'**
+  String get voiceRoomNewMessages;
+
+  /// No description provided for @voiceRoomChatRateLimited.
+  ///
+  /// In zh, this message translates to:
+  /// **'消息发送过快，请稍候再试。'**
+  String get voiceRoomChatRateLimited;
+
+  /// No description provided for @voiceRoomMessageSendFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'消息发送失败，请重试。'**
+  String get voiceRoomMessageSendFailed;
+
+  /// No description provided for @voiceRoomChatError.
+  ///
+  /// In zh, this message translates to:
+  /// **'聊天出错。'**
+  String get voiceRoomChatError;
+
+  /// No description provided for @retryAttempt.
+  ///
+  /// In zh, this message translates to:
+  /// **'重试 ({current}/{max})'**
+  String retryAttempt(int current, int max);
+
+  /// No description provided for @nextButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'下一步'**
+  String get nextButton;
+
+  /// No description provided for @completeButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成'**
+  String get completeButton;
+
+  /// No description provided for @startButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始'**
+  String get startButton;
+
+  /// No description provided for @doneButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成'**
+  String get doneButton;
+
+  /// No description provided for @goBackButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get goBackButton;
+
+  /// No description provided for @tapToListen.
+  ///
+  /// In zh, this message translates to:
+  /// **'点击听发音'**
+  String get tapToListen;
+
+  /// No description provided for @listenAllSoundsFirst.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先听完所有发音'**
+  String get listenAllSoundsFirst;
+
+  /// No description provided for @nextCharButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'下一个字'**
+  String get nextCharButton;
+
+  /// No description provided for @listenAndChooseCorrect.
+  ///
+  /// In zh, this message translates to:
+  /// **'听发音，选出正确的字'**
+  String get listenAndChooseCorrect;
+
+  /// No description provided for @lessonCompletedMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你完成了课程！'**
+  String get lessonCompletedMsg;
+
+  /// No description provided for @stageMasterLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'第{stage}阶段大师'**
+  String stageMasterLabel(int stage);
+
+  /// No description provided for @hangulS0L0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文是怎么来的？'**
+  String get hangulS0L0Title;
+
+  /// No description provided for @hangulS0L0Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'简单了解韩文的诞生过程'**
+  String get hangulS0L0Subtitle;
+
+  /// No description provided for @hangulS0L0Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'很久以前，学习文字非常困难'**
+  String get hangulS0L0Step0Title;
+
+  /// No description provided for @hangulS0L0Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'古代朝鲜半岛主要借用汉字书写，\n许多百姓难以学习。'**
+  String get hangulS0L0Step0Desc;
+
+  /// No description provided for @hangulS0L0Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'汉字,困难,阅读,书写'**
+  String get hangulS0L0Step0Highlights;
+
+  /// No description provided for @hangulS0L0Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'世宗大王创造了新的文字'**
+  String get hangulS0L0Step1Title;
+
+  /// No description provided for @hangulS0L0Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'为了让百姓轻松学习，\n世宗大王亲自创制了训民正音。\n（1443年创制，1446年颁布）'**
+  String get hangulS0L0Step1Desc;
+
+  /// No description provided for @hangulS0L0Step1Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'世宗大王,训民正音,1443,1446'**
+  String get hangulS0L0Step1Highlights;
+
+  /// No description provided for @hangulS0L0Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'于是有了今天的韩文'**
+  String get hangulS0L0Step2Title;
+
+  /// No description provided for @hangulS0L0Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文是为了方便记录声音而创造的文字。\n在下一课中，我们将学习辅音和元音的结构。'**
+  String get hangulS0L0Step2Desc;
+
+  /// No description provided for @hangulS0L0Step2Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音,简易文字,韩文'**
+  String get hangulS0L0Step2Highlights;
+
+  /// No description provided for @hangulS0L0SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'介绍课完成！'**
+  String get hangulS0L0SummaryTitle;
+
+  /// No description provided for @hangulS0L0SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n现在你知道韩文为什么被创造了。\n接下来学习辅音和元音的结构吧。'**
+  String get hangulS0L0SummaryMsg;
+
+  /// No description provided for @hangulS0L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组装가字块'**
+  String get hangulS0L1Title;
+
+  /// No description provided for @hangulS0L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'通过拖拽体验拼字过程'**
+  String get hangulS0L1Subtitle;
+
+  /// No description provided for @hangulS0L1IntroTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文就像积木！'**
+  String get hangulS0L1IntroTitle;
+
+  /// No description provided for @hangulS0L1IntroDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文通过组合辅音和元音来构成文字。\n辅音（ㄱ）+ 元音（ㅏ）= 가\n\n更复杂的文字下面还会有收音（받침）。\n（以后再学！）'**
+  String get hangulS0L1IntroDesc;
+
+  /// No description provided for @hangulS0L1IntroHighlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'辅音,元音,文字'**
+  String get hangulS0L1IntroHighlights;
+
+  /// No description provided for @hangulS0L1DragGaTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'组装가'**
+  String get hangulS0L1DragGaTitle;
+
+  /// No description provided for @hangulS0L1DragGaDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将ㄱ和ㅏ拖到空格中'**
+  String get hangulS0L1DragGaDesc;
+
+  /// No description provided for @hangulS0L1DragNaTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'组装나'**
+  String get hangulS0L1DragNaTitle;
+
+  /// No description provided for @hangulS0L1DragNaDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试试使用新的辅音ㄴ'**
+  String get hangulS0L1DragNaDesc;
+
+  /// No description provided for @hangulS0L1DragDaTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'组装다'**
+  String get hangulS0L1DragDaTitle;
+
+  /// No description provided for @hangulS0L1DragDaDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试试使用新的辅音ㄷ'**
+  String get hangulS0L1DragDaDesc;
+
+  /// No description provided for @hangulS0L1SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS0L1SummaryTitle;
+
+  /// No description provided for @hangulS0L1SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'辅音 + 元音 = 文字块！\nㄱ+ㅏ=가, ㄴ+ㅏ=나, ㄷ+ㅏ=다'**
+  String get hangulS0L1SummaryMsg;
+
+  /// No description provided for @hangulS0L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音探索'**
+  String get hangulS0L2Title;
+
+  /// No description provided for @hangulS0L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'通过声音感受辅音和元音'**
+  String get hangulS0L2Subtitle;
+
+  /// No description provided for @hangulS0L2IntroTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'感受声音'**
+  String get hangulS0L2IntroTitle;
+
+  /// No description provided for @hangulS0L2IntroDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文的每个辅音和元音都有独特的声音。\n听一听，感受一下。'**
+  String get hangulS0L2IntroDesc;
+
+  /// No description provided for @hangulS0L2Sound1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辅音ㄱ、ㄴ、ㄷ的基本发音'**
+  String get hangulS0L2Sound1Title;
+
+  /// No description provided for @hangulS0L2Sound1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听辅音加上ㅏ后的发音（가、나、다）'**
+  String get hangulS0L2Sound1Desc;
+
+  /// No description provided for @hangulS0L2Sound2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ、ㅗ元音发音'**
+  String get hangulS0L2Sound2Title;
+
+  /// No description provided for @hangulS0L2Sound2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听这两个元音的发音'**
+  String get hangulS0L2Sound2Desc;
+
+  /// No description provided for @hangulS0L2Sound3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听가、나、다的发音'**
+  String get hangulS0L2Sound3Title;
+
+  /// No description provided for @hangulS0L2Sound3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听辅音和元音组合而成的文字发音'**
+  String get hangulS0L2Sound3Desc;
+
+  /// No description provided for @hangulS0L2SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS0L2SummaryTitle;
+
+  /// No description provided for @hangulS0L2SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'每个辅音都有配上ㅏ的标准读音，比如가、나、다。\n现在你对元音的发音也有感觉了！'**
+  String get hangulS0L2SummaryMsg;
+
+  /// No description provided for @hangulS0L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS0L3Title;
+
+  /// No description provided for @hangulS0L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'通过声音区分文字'**
+  String get hangulS0L3Subtitle;
+
+  /// No description provided for @hangulS0L3IntroTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'这次用耳朵来分辨'**
+  String get hangulS0L3IntroTitle;
+
+  /// No description provided for @hangulS0L3IntroDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'比起看屏幕，更要专注于声音。\n听音辨字，找出正确答案！'**
+  String get hangulS0L3IntroDesc;
+
+  /// No description provided for @hangulS0L3Sound1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认가/나/다/고/노的发音'**
+  String get hangulS0L3Sound1Title;
+
+  /// No description provided for @hangulS0L3Sound1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'先充分听一下这5个发音'**
+  String get hangulS0L3Sound1Desc;
+
+  /// No description provided for @hangulS0L3Match1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选择相同的文字'**
+  String get hangulS0L3Match1Title;
+
+  /// No description provided for @hangulS0L3Match1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择与播放的声音相匹配的文字'**
+  String get hangulS0L3Match1Desc;
+
+  /// No description provided for @hangulS0L3Match2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㅏ / ㅗ的发音'**
+  String get hangulS0L3Match2Title;
+
+  /// No description provided for @hangulS0L3Match2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'辅音相同时，靠元音来区分发音'**
+  String get hangulS0L3Match2Desc;
+
+  /// No description provided for @hangulS0L3SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS0L3SummaryTitle;
+
+  /// No description provided for @hangulS0L3SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n现在你可以同时用眼睛（组装）和耳朵（声音）\n来理解韩文的结构了。'**
+  String get hangulS0L3SummaryMsg;
+
+  /// No description provided for @hangulS0CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第0阶段完成！'**
+  String get hangulS0CompleteTitle;
+
+  /// No description provided for @hangulS0CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已经理解了韩文的结构！'**
+  String get hangulS0CompleteMsg;
+
+  /// No description provided for @hangulS1L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ的形状与读音'**
+  String get hangulS1L1Title;
+
+  /// No description provided for @hangulS1L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖线右侧短横: ㅏ'**
+  String get hangulS1L1Subtitle;
+
+  /// No description provided for @hangulS1L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习第一个元音ㅏ'**
+  String get hangulS1L1Step0Title;
+
+  /// No description provided for @hangulS1L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ发出明亮的\"아\"音。\n让我们一起学习形状和读音。'**
+  String get hangulS1L1Step0Desc;
+
+  /// No description provided for @hangulS1L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ,아,基本元音'**
+  String get hangulS1L1Step0Highlights;
+
+  /// No description provided for @hangulS1L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅏ的读音'**
+  String get hangulS1L1Step1Title;
+
+  /// No description provided for @hangulS1L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听含有ㅏ的读音'**
+  String get hangulS1L1Step1Desc;
+
+  /// No description provided for @hangulS1L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L1Step2Title;
+
+  /// No description provided for @hangulS1L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读这些文字'**
+  String get hangulS1L1Step2Desc;
+
+  /// No description provided for @hangulS1L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅏ的读音'**
+  String get hangulS1L1Step3Title;
+
+  /// No description provided for @hangulS1L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音后选择正确的文字'**
+  String get hangulS1L1Step3Desc;
+
+  /// No description provided for @hangulS1L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状测验'**
+  String get hangulS1L1Step4Title;
+
+  /// No description provided for @hangulS1L1Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确找出ㅏ'**
+  String get hangulS1L1Step4Desc;
+
+  /// No description provided for @hangulS1L1Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅏ？'**
+  String get hangulS1L1Step4Q0;
+
+  /// No description provided for @hangulS1L1Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个含有ㅏ？'**
+  String get hangulS1L1Step4Q1;
+
+  /// No description provided for @hangulS1L1Step4Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅏ = ?'**
+  String get hangulS1L1Step4Q2;
+
+  /// No description provided for @hangulS1L1Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅏ组字'**
+  String get hangulS1L1Step5Title;
+
+  /// No description provided for @hangulS1L1Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将辅音与ㅏ组合完成文字'**
+  String get hangulS1L1Step5Desc;
+
+  /// No description provided for @hangulS1L1Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'综合测验'**
+  String get hangulS1L1Step6Title;
+
+  /// No description provided for @hangulS1L1Step6Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'整理本节课所学内容'**
+  String get hangulS1L1Step6Desc;
+
+  /// No description provided for @hangulS1L1Step6Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'\"아\"的元音是什么？'**
+  String get hangulS1L1Step6Q0;
+
+  /// No description provided for @hangulS1L1Step6Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅏ = ?'**
+  String get hangulS1L1Step6Q1;
+
+  /// No description provided for @hangulS1L1Step6Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个字含有ㅏ？'**
+  String get hangulS1L1Step6Q2;
+
+  /// No description provided for @hangulS1L1Step6Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个音与ㅏ最不同？'**
+  String get hangulS1L1Step6Q3;
+
+  /// No description provided for @hangulS1L1Step7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L1Step7Title;
+
+  /// No description provided for @hangulS1L1Step7Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你学会了ㅏ的形状和读音。'**
+  String get hangulS1L1Step7Msg;
+
+  /// No description provided for @hangulS1L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅓ的形状与读音'**
+  String get hangulS1L2Title;
+
+  /// No description provided for @hangulS1L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖线左侧短横: ㅓ'**
+  String get hangulS1L2Subtitle;
+
+  /// No description provided for @hangulS1L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第二个元音ㅓ'**
+  String get hangulS1L2Step0Title;
+
+  /// No description provided for @hangulS1L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅓ发出\"어\"的音。\n注意笔画方向与ㅏ相反。'**
+  String get hangulS1L2Step0Desc;
+
+  /// No description provided for @hangulS1L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅓ,어,与ㅏ方向相反'**
+  String get hangulS1L2Step0Highlights;
+
+  /// No description provided for @hangulS1L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅓ的读音'**
+  String get hangulS1L2Step1Title;
+
+  /// No description provided for @hangulS1L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听含有ㅓ的读音'**
+  String get hangulS1L2Step1Desc;
+
+  /// No description provided for @hangulS1L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L2Step2Title;
+
+  /// No description provided for @hangulS1L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读这些文字'**
+  String get hangulS1L2Step2Desc;
+
+  /// No description provided for @hangulS1L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅓ的读音'**
+  String get hangulS1L2Step3Title;
+
+  /// No description provided for @hangulS1L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'用耳朵区分ㅏ/ㅓ'**
+  String get hangulS1L2Step3Desc;
+
+  /// No description provided for @hangulS1L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状测验'**
+  String get hangulS1L2Step4Title;
+
+  /// No description provided for @hangulS1L2Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'找出ㅓ'**
+  String get hangulS1L2Step4Desc;
+
+  /// No description provided for @hangulS1L2Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅓ？'**
+  String get hangulS1L2Step4Q0;
+
+  /// No description provided for @hangulS1L2Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅓ = ?'**
+  String get hangulS1L2Step4Q1;
+
+  /// No description provided for @hangulS1L2Step4Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个字含有ㅓ？'**
+  String get hangulS1L2Step4Q2;
+
+  /// No description provided for @hangulS1L2Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅓ组字'**
+  String get hangulS1L2Step5Title;
+
+  /// No description provided for @hangulS1L2Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将辅音与ㅓ组合'**
+  String get hangulS1L2Step5Desc;
+
+  /// No description provided for @hangulS1L2Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L2Step6Title;
+
+  /// No description provided for @hangulS1L2Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你学会了ㅓ(어)的读音。'**
+  String get hangulS1L2Step6Msg;
+
+  /// No description provided for @hangulS1L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ的形状与读音'**
+  String get hangulS1L3Title;
+
+  /// No description provided for @hangulS1L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'横线上方竖画: ㅗ'**
+  String get hangulS1L3Subtitle;
+
+  /// No description provided for @hangulS1L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第三个元音ㅗ'**
+  String get hangulS1L3Step0Title;
+
+  /// No description provided for @hangulS1L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ发出\"오\"的音。\n竖画向横线上方延伸。'**
+  String get hangulS1L3Step0Desc;
+
+  /// No description provided for @hangulS1L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ,오,横型元音'**
+  String get hangulS1L3Step0Highlights;
+
+  /// No description provided for @hangulS1L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅗ的读音'**
+  String get hangulS1L3Step1Title;
+
+  /// No description provided for @hangulS1L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听含有ㅗ的读音（오/고/노）'**
+  String get hangulS1L3Step1Desc;
+
+  /// No description provided for @hangulS1L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L3Step2Title;
+
+  /// No description provided for @hangulS1L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读这些文字'**
+  String get hangulS1L3Step2Desc;
+
+  /// No description provided for @hangulS1L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅗ的读音'**
+  String get hangulS1L3Step3Title;
+
+  /// No description provided for @hangulS1L3Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分오/우的读音'**
+  String get hangulS1L3Step3Desc;
+
+  /// No description provided for @hangulS1L3Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅗ组字'**
+  String get hangulS1L3Step4Title;
+
+  /// No description provided for @hangulS1L3Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将辅音与ㅗ组合'**
+  String get hangulS1L3Step4Desc;
+
+  /// No description provided for @hangulS1L3Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状与读音测验'**
+  String get hangulS1L3Step5Title;
+
+  /// No description provided for @hangulS1L3Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确选出ㅗ'**
+  String get hangulS1L3Step5Desc;
+
+  /// No description provided for @hangulS1L3Step5Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅗ？'**
+  String get hangulS1L3Step5Q0;
+
+  /// No description provided for @hangulS1L3Step5Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅗ = ?'**
+  String get hangulS1L3Step5Q1;
+
+  /// No description provided for @hangulS1L3Step5Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个含有ㅗ？'**
+  String get hangulS1L3Step5Q2;
+
+  /// No description provided for @hangulS1L3Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L3Step6Title;
+
+  /// No description provided for @hangulS1L3Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你学会了ㅗ(오)的读音。'**
+  String get hangulS1L3Step6Msg;
+
+  /// No description provided for @hangulS1L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅜ的形状与读音'**
+  String get hangulS1L4Title;
+
+  /// No description provided for @hangulS1L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'横线下方竖画: ㅜ'**
+  String get hangulS1L4Subtitle;
+
+  /// No description provided for @hangulS1L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第四个元音ㅜ'**
+  String get hangulS1L4Step0Title;
+
+  /// No description provided for @hangulS1L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅜ发出\"우\"的音。\n竖画位置与ㅗ相反。'**
+  String get hangulS1L4Step0Desc;
+
+  /// No description provided for @hangulS1L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅜ,우,与ㅗ位置对比'**
+  String get hangulS1L4Step0Highlights;
+
+  /// No description provided for @hangulS1L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅜ的读音'**
+  String get hangulS1L4Step1Title;
+
+  /// No description provided for @hangulS1L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听우/구/누'**
+  String get hangulS1L4Step1Desc;
+
+  /// No description provided for @hangulS1L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L4Step2Title;
+
+  /// No description provided for @hangulS1L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读这些文字'**
+  String get hangulS1L4Step2Desc;
+
+  /// No description provided for @hangulS1L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅜ的读音'**
+  String get hangulS1L4Step3Title;
+
+  /// No description provided for @hangulS1L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㅗ/ㅜ'**
+  String get hangulS1L4Step3Desc;
+
+  /// No description provided for @hangulS1L4Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅜ组字'**
+  String get hangulS1L4Step4Title;
+
+  /// No description provided for @hangulS1L4Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将辅音与ㅜ组合'**
+  String get hangulS1L4Step4Desc;
+
+  /// No description provided for @hangulS1L4Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状与读音测验'**
+  String get hangulS1L4Step5Title;
+
+  /// No description provided for @hangulS1L4Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确选出ㅜ'**
+  String get hangulS1L4Step5Desc;
+
+  /// No description provided for @hangulS1L4Step5Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅜ？'**
+  String get hangulS1L4Step5Q0;
+
+  /// No description provided for @hangulS1L4Step5Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅜ = ?'**
+  String get hangulS1L4Step5Q1;
+
+  /// No description provided for @hangulS1L4Step5Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个含有ㅜ？'**
+  String get hangulS1L4Step5Q2;
+
+  /// No description provided for @hangulS1L4Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L4Step6Title;
+
+  /// No description provided for @hangulS1L4Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你学会了ㅜ(우)的读音。'**
+  String get hangulS1L4Step6Msg;
+
+  /// No description provided for @hangulS1L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅡ的形状与读音'**
+  String get hangulS1L5Title;
+
+  /// No description provided for @hangulS1L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'单横线元音: ㅡ'**
+  String get hangulS1L5Subtitle;
+
+  /// No description provided for @hangulS1L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第五个元音ㅡ'**
+  String get hangulS1L5Step0Title;
+
+  /// No description provided for @hangulS1L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅡ是嘴巴横向拉伸发出的音。\n形状是一条横线。'**
+  String get hangulS1L5Step0Desc;
+
+  /// No description provided for @hangulS1L5Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅡ,으,单横线'**
+  String get hangulS1L5Step0Highlights;
+
+  /// No description provided for @hangulS1L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅡ的读音'**
+  String get hangulS1L5Step1Title;
+
+  /// No description provided for @hangulS1L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听으/그/느的读音'**
+  String get hangulS1L5Step1Desc;
+
+  /// No description provided for @hangulS1L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L5Step2Title;
+
+  /// No description provided for @hangulS1L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读这些文字'**
+  String get hangulS1L5Step2Desc;
+
+  /// No description provided for @hangulS1L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅡ的读音'**
+  String get hangulS1L5Step3Title;
+
+  /// No description provided for @hangulS1L5Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㅡ和ㅜ的读音'**
+  String get hangulS1L5Step3Desc;
+
+  /// No description provided for @hangulS1L5Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅡ组字'**
+  String get hangulS1L5Step4Title;
+
+  /// No description provided for @hangulS1L5Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将辅音与ㅡ组合'**
+  String get hangulS1L5Step4Desc;
+
+  /// No description provided for @hangulS1L5Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状与读音测验'**
+  String get hangulS1L5Step5Title;
+
+  /// No description provided for @hangulS1L5Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确选出ㅡ'**
+  String get hangulS1L5Step5Desc;
+
+  /// No description provided for @hangulS1L5Step5Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅡ？'**
+  String get hangulS1L5Step5Q0;
+
+  /// No description provided for @hangulS1L5Step5Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅡ = ?'**
+  String get hangulS1L5Step5Q1;
+
+  /// No description provided for @hangulS1L5Step5Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个含有ㅡ？'**
+  String get hangulS1L5Step5Q2;
+
+  /// No description provided for @hangulS1L5Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L5Step6Title;
+
+  /// No description provided for @hangulS1L5Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你学会了ㅡ(으)的读音。'**
+  String get hangulS1L5Step6Msg;
+
+  /// No description provided for @hangulS1L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅣ的形状与读音'**
+  String get hangulS1L6Title;
+
+  /// No description provided for @hangulS1L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'单竖线元音: ㅣ'**
+  String get hangulS1L6Subtitle;
+
+  /// No description provided for @hangulS1L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第六个元音ㅣ'**
+  String get hangulS1L6Step0Title;
+
+  /// No description provided for @hangulS1L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅣ发出\"이\"的音。\n形状是一条竖线。'**
+  String get hangulS1L6Step0Desc;
+
+  /// No description provided for @hangulS1L6Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅣ,이,单竖线'**
+  String get hangulS1L6Step0Highlights;
+
+  /// No description provided for @hangulS1L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅣ的读音'**
+  String get hangulS1L6Step1Title;
+
+  /// No description provided for @hangulS1L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听이/기/니的读音'**
+  String get hangulS1L6Step1Desc;
+
+  /// No description provided for @hangulS1L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L6Step2Title;
+
+  /// No description provided for @hangulS1L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读这些文字'**
+  String get hangulS1L6Step2Desc;
+
+  /// No description provided for @hangulS1L6Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅣ的读音'**
+  String get hangulS1L6Step3Title;
+
+  /// No description provided for @hangulS1L6Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㅣ和ㅡ的读音'**
+  String get hangulS1L6Step3Desc;
+
+  /// No description provided for @hangulS1L6Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅣ组字'**
+  String get hangulS1L6Step4Title;
+
+  /// No description provided for @hangulS1L6Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将辅音与ㅣ组合'**
+  String get hangulS1L6Step4Desc;
+
+  /// No description provided for @hangulS1L6Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状与读音测验'**
+  String get hangulS1L6Step5Title;
+
+  /// No description provided for @hangulS1L6Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确选出ㅣ'**
+  String get hangulS1L6Step5Desc;
+
+  /// No description provided for @hangulS1L6Step5Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅣ？'**
+  String get hangulS1L6Step5Q0;
+
+  /// No description provided for @hangulS1L6Step5Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅣ = ?'**
+  String get hangulS1L6Step5Q1;
+
+  /// No description provided for @hangulS1L6Step5Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个含有ㅣ？'**
+  String get hangulS1L6Step5Q2;
+
+  /// No description provided for @hangulS1L6Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L6Step6Title;
+
+  /// No description provided for @hangulS1L6Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你学会了ㅣ(이)的读音。'**
+  String get hangulS1L6Step6Msg;
+
+  /// No description provided for @hangulS1L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖向元音区分'**
+  String get hangulS1L7Title;
+
+  /// No description provided for @hangulS1L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速区分 ㅏ · ㅓ · ㅣ'**
+  String get hangulS1L7Subtitle;
+
+  /// No description provided for @hangulS1L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖向元音组复习'**
+  String get hangulS1L7Step0Title;
+
+  /// No description provided for @hangulS1L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ、ㅓ、ㅣ 是竖轴元音。\n一起区分笔画位置和发音。'**
+  String get hangulS1L7Step0Desc;
+
+  /// No description provided for @hangulS1L7Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ,ㅓ,ㅣ,竖向元音'**
+  String get hangulS1L7Step0Highlights;
+
+  /// No description provided for @hangulS1L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'再听一遍'**
+  String get hangulS1L7Step1Title;
+
+  /// No description provided for @hangulS1L7Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认 아/어/이 的发音'**
+  String get hangulS1L7Step1Desc;
+
+  /// No description provided for @hangulS1L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L7Step2Title;
+
+  /// No description provided for @hangulS1L7Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读每个文字'**
+  String get hangulS1L7Step2Desc;
+
+  /// No description provided for @hangulS1L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖向元音听力测验'**
+  String get hangulS1L7Step3Title;
+
+  /// No description provided for @hangulS1L7Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将声音与正确文字对应'**
+  String get hangulS1L7Step3Desc;
+
+  /// No description provided for @hangulS1L7Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖向元音形状测验'**
+  String get hangulS1L7Step4Title;
+
+  /// No description provided for @hangulS1L7Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'精确区分各自的形状'**
+  String get hangulS1L7Step4Desc;
+
+  /// No description provided for @hangulS1L7Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'右侧有短笔画的是？'**
+  String get hangulS1L7Step4Q0;
+
+  /// No description provided for @hangulS1L7Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'左侧有短笔画的是？'**
+  String get hangulS1L7Step4Q1;
+
+  /// No description provided for @hangulS1L7Step4Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'单竖线是？'**
+  String get hangulS1L7Step4Q2;
+
+  /// No description provided for @hangulS1L7Step4Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ + ㅓ = ?'**
+  String get hangulS1L7Step4Q3;
+
+  /// No description provided for @hangulS1L7Step4Q4.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅣ = ?'**
+  String get hangulS1L7Step4Q4;
+
+  /// No description provided for @hangulS1L7Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L7Step5Title;
+
+  /// No description provided for @hangulS1L7Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n竖向元音（ㅏ/ㅓ/ㅣ）的区分已经稳固了。'**
+  String get hangulS1L7Step5Msg;
+
+  /// No description provided for @hangulS1L8Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'横向元音区分'**
+  String get hangulS1L8Title;
+
+  /// No description provided for @hangulS1L8Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速区分 ㅗ · ㅜ · ㅡ'**
+  String get hangulS1L8Subtitle;
+
+  /// No description provided for @hangulS1L8Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'横向元音组复习'**
+  String get hangulS1L8Step0Title;
+
+  /// No description provided for @hangulS1L8Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ、ㅜ、ㅡ 是以横轴为中心的元音。\n一起记住竖画位置和嘴型。'**
+  String get hangulS1L8Step0Desc;
+
+  /// No description provided for @hangulS1L8Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ,ㅜ,ㅡ,横向元音'**
+  String get hangulS1L8Step0Highlights;
+
+  /// No description provided for @hangulS1L8Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'再听一遍'**
+  String get hangulS1L8Step1Title;
+
+  /// No description provided for @hangulS1L8Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认 오/우/으 的发音'**
+  String get hangulS1L8Step1Desc;
+
+  /// No description provided for @hangulS1L8Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L8Step2Title;
+
+  /// No description provided for @hangulS1L8Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读每个文字'**
+  String get hangulS1L8Step2Desc;
+
+  /// No description provided for @hangulS1L8Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'横向元音听力测验'**
+  String get hangulS1L8Step3Title;
+
+  /// No description provided for @hangulS1L8Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将声音与正确文字对应'**
+  String get hangulS1L8Step3Desc;
+
+  /// No description provided for @hangulS1L8Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'横向元音形状测验'**
+  String get hangulS1L8Step4Title;
+
+  /// No description provided for @hangulS1L8Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'一起检查形状和发音'**
+  String get hangulS1L8Step4Desc;
+
+  /// No description provided for @hangulS1L8Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖画在横线上方的是？'**
+  String get hangulS1L8Step4Q0;
+
+  /// No description provided for @hangulS1L8Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'竖画在横线下方的是？'**
+  String get hangulS1L8Step4Q1;
+
+  /// No description provided for @hangulS1L8Step4Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'单横线是？'**
+  String get hangulS1L8Step4Q2;
+
+  /// No description provided for @hangulS1L8Step4Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅗ = ?'**
+  String get hangulS1L8Step4Q3;
+
+  /// No description provided for @hangulS1L8Step4Q4.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ + ㅜ = ?'**
+  String get hangulS1L8Step4Q4;
+
+  /// No description provided for @hangulS1L8Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS1L8Step5Title;
+
+  /// No description provided for @hangulS1L8Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n横向元音（ㅗ/ㅜ/ㅡ）的区分已经稳固了。'**
+  String get hangulS1L8Step5Msg;
+
+  /// No description provided for @hangulS1L9Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'基本元音任务'**
+  String get hangulS1L9Title;
+
+  /// No description provided for @hangulS1L9Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'在时间限制内完成元音组合'**
+  String get hangulS1L9Subtitle;
+
+  /// No description provided for @hangulS1L9Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第1阶段最终任务'**
+  String get hangulS1L9Step0Title;
+
+  /// No description provided for @hangulS1L9Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'在限定时间内完成文字组合。\n以准确率和速度获得柠檬奖励！'**
+  String get hangulS1L9Step0Desc;
+
+  /// No description provided for @hangulS1L9Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'限时任务'**
+  String get hangulS1L9Step1Title;
+
+  /// No description provided for @hangulS1L9Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS1L9Step2Title;
+
+  /// No description provided for @hangulS1L9Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第1阶段完成！'**
+  String get hangulS1L9Step3Title;
+
+  /// No description provided for @hangulS1L9Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n第1阶段的基本元音全部完成了。'**
+  String get hangulS1L9Step3Msg;
+
+  /// No description provided for @hangulS1L10Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第一批韩语单词！'**
+  String get hangulS1L10Title;
+
+  /// No description provided for @hangulS1L10Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'用学过的文字阅读真实单词'**
+  String get hangulS1L10Subtitle;
+
+  /// No description provided for @hangulS1L10Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'现在可以读单词了！'**
+  String get hangulS1L10Step0Title;
+
+  /// No description provided for @hangulS1L10Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'学会了元音和基本辅音，\n来读一读真实的韩语单词吧？'**
+  String get hangulS1L10Step0Desc;
+
+  /// No description provided for @hangulS1L10Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'真实单词,阅读挑战'**
+  String get hangulS1L10Step0Highlights;
+
+  /// No description provided for @hangulS1L10Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读第一批单词'**
+  String get hangulS1L10Step1Title;
+
+  /// No description provided for @hangulS1L10Step1Descs.
+  ///
+  /// In zh, this message translates to:
+  /// **'孩子,牛奶,黄瓜,这/牙齿,弟弟'**
+  String get hangulS1L10Step1Descs;
+
+  /// No description provided for @hangulS1L10Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS1L10Step2Title;
+
+  /// No description provided for @hangulS1L10Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声朗读每个文字'**
+  String get hangulS1L10Step2Desc;
+
+  /// No description provided for @hangulS1L10Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听，选一选'**
+  String get hangulS1L10Step3Title;
+
+  /// No description provided for @hangulS1L10Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！'**
+  String get hangulS1L10Step4Title;
+
+  /// No description provided for @hangulS1L10Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你读出了韩语单词！\n再学更多辅音，\n就能读更多单词了。'**
+  String get hangulS1L10Step4Msg;
+
+  /// No description provided for @hangulS1CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第1阶段完成！'**
+  String get hangulS1CompleteTitle;
+
+  /// No description provided for @hangulS1CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已掌握全部6个基本元音！'**
+  String get hangulS1CompleteMsg;
+
+  /// No description provided for @hangulS2L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅑ的形状与发音'**
+  String get hangulS2L1Title;
+
+  /// No description provided for @hangulS2L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ加一笔: ㅑ'**
+  String get hangulS2L1Subtitle;
+
+  /// No description provided for @hangulS2L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ变成ㅑ'**
+  String get hangulS2L1Step0Title;
+
+  /// No description provided for @hangulS2L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'在ㅏ上加一笔就得到ㅑ。\n发音从\"啊\"变成更有弹性的\"呀\"。'**
+  String get hangulS2L1Step0Desc;
+
+  /// No description provided for @hangulS2L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ → ㅑ,야,Y元音'**
+  String get hangulS2L1Step0Highlights;
+
+  /// No description provided for @hangulS2L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅑ的发音'**
+  String get hangulS2L1Step1Title;
+
+  /// No description provided for @hangulS2L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听야/갸/냐的发音'**
+  String get hangulS2L1Step1Desc;
+
+  /// No description provided for @hangulS2L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS2L1Step2Title;
+
+  /// No description provided for @hangulS2L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS2L1Step2Desc;
+
+  /// No description provided for @hangulS2L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听辨ㅏ vs ㅑ'**
+  String get hangulS2L1Step3Title;
+
+  /// No description provided for @hangulS2L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分相似的发音'**
+  String get hangulS2L1Step3Desc;
+
+  /// No description provided for @hangulS2L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅑ组成音节'**
+  String get hangulS2L1Step4Title;
+
+  /// No description provided for @hangulS2L1Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成辅音 + ㅑ 的组合'**
+  String get hangulS2L1Step4Desc;
+
+  /// No description provided for @hangulS2L1Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状与发音测验'**
+  String get hangulS2L1Step5Title;
+
+  /// No description provided for @hangulS2L1Step5Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确选出ㅑ'**
+  String get hangulS2L1Step5Desc;
+
+  /// No description provided for @hangulS2L1Step5Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅑ？'**
+  String get hangulS2L1Step5Q0;
+
+  /// No description provided for @hangulS2L1Step5Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅑ = ?'**
+  String get hangulS2L1Step5Q1;
+
+  /// No description provided for @hangulS2L1Step5Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个含有ㅑ？'**
+  String get hangulS2L1Step5Q2;
+
+  /// No description provided for @hangulS2L1Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS2L1Step6Title;
+
+  /// No description provided for @hangulS2L1Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已掌握ㅑ（야）的发音。'**
+  String get hangulS2L1Step6Msg;
+
+  /// No description provided for @hangulS2L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅕ的形状与发音'**
+  String get hangulS2L2Title;
+
+  /// No description provided for @hangulS2L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅓ加一笔: ㅕ'**
+  String get hangulS2L2Subtitle;
+
+  /// No description provided for @hangulS2L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅓ变成ㅕ'**
+  String get hangulS2L2Step0Title;
+
+  /// No description provided for @hangulS2L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'在ㅓ上加一笔就得到ㅕ。\n发音从\"呃\"变成\"耶\"。'**
+  String get hangulS2L2Step0Desc;
+
+  /// No description provided for @hangulS2L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅓ → ㅕ,여,Y元音'**
+  String get hangulS2L2Step0Highlights;
+
+  /// No description provided for @hangulS2L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅕ的发音'**
+  String get hangulS2L2Step1Title;
+
+  /// No description provided for @hangulS2L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听여/겨/녀的发音'**
+  String get hangulS2L2Step1Desc;
+
+  /// No description provided for @hangulS2L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS2L2Step2Title;
+
+  /// No description provided for @hangulS2L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS2L2Step2Desc;
+
+  /// No description provided for @hangulS2L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听辨ㅓ vs ㅕ'**
+  String get hangulS2L2Step3Title;
+
+  /// No description provided for @hangulS2L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分어和여'**
+  String get hangulS2L2Step3Desc;
+
+  /// No description provided for @hangulS2L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅕ组成音节'**
+  String get hangulS2L2Step4Title;
+
+  /// No description provided for @hangulS2L2Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成辅音 + ㅕ 的组合'**
+  String get hangulS2L2Step4Desc;
+
+  /// No description provided for @hangulS2L2Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS2L2Step5Title;
+
+  /// No description provided for @hangulS2L2Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已掌握ㅕ（여）的发音。'**
+  String get hangulS2L2Step5Msg;
+
+  /// No description provided for @hangulS2L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅛ的形状与发音'**
+  String get hangulS2L3Title;
+
+  /// No description provided for @hangulS2L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ加一笔: ㅛ'**
+  String get hangulS2L3Subtitle;
+
+  /// No description provided for @hangulS2L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ变成ㅛ'**
+  String get hangulS2L3Step0Title;
+
+  /// No description provided for @hangulS2L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'在ㅗ上加一笔就得到ㅛ。\n发音从\"哦\"变成\"哟\"。'**
+  String get hangulS2L3Step0Desc;
+
+  /// No description provided for @hangulS2L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅗ → ㅛ,요,Y元音'**
+  String get hangulS2L3Step0Highlights;
+
+  /// No description provided for @hangulS2L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅛ的发音'**
+  String get hangulS2L3Step1Title;
+
+  /// No description provided for @hangulS2L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听요/교/뇨的发音'**
+  String get hangulS2L3Step1Desc;
+
+  /// No description provided for @hangulS2L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS2L3Step2Title;
+
+  /// No description provided for @hangulS2L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS2L3Step2Desc;
+
+  /// No description provided for @hangulS2L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听辨ㅗ vs ㅛ'**
+  String get hangulS2L3Step3Title;
+
+  /// No description provided for @hangulS2L3Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分오和요'**
+  String get hangulS2L3Step3Desc;
+
+  /// No description provided for @hangulS2L3Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅛ组成音节'**
+  String get hangulS2L3Step4Title;
+
+  /// No description provided for @hangulS2L3Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成辅音 + ㅛ 的组合'**
+  String get hangulS2L3Step4Desc;
+
+  /// No description provided for @hangulS2L3Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS2L3Step5Title;
+
+  /// No description provided for @hangulS2L3Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已掌握ㅛ（요）的发音。'**
+  String get hangulS2L3Step5Msg;
+
+  /// No description provided for @hangulS2L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅠ的形状与发音'**
+  String get hangulS2L4Title;
+
+  /// No description provided for @hangulS2L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅜ加一笔: ㅠ'**
+  String get hangulS2L4Subtitle;
+
+  /// No description provided for @hangulS2L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅜ变成ㅠ'**
+  String get hangulS2L4Step0Title;
+
+  /// No description provided for @hangulS2L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'在ㅜ上加一笔就得到ㅠ。\n发音从\"呜\"变成\"鱼\"。'**
+  String get hangulS2L4Step0Desc;
+
+  /// No description provided for @hangulS2L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅜ → ㅠ,유,Y元音'**
+  String get hangulS2L4Step0Highlights;
+
+  /// No description provided for @hangulS2L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅠ的发音'**
+  String get hangulS2L4Step1Title;
+
+  /// No description provided for @hangulS2L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听유/규/뉴的发音'**
+  String get hangulS2L4Step1Desc;
+
+  /// No description provided for @hangulS2L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS2L4Step2Title;
+
+  /// No description provided for @hangulS2L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS2L4Step2Desc;
+
+  /// No description provided for @hangulS2L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听辨ㅜ vs ㅠ'**
+  String get hangulS2L4Step3Title;
+
+  /// No description provided for @hangulS2L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分우和유'**
+  String get hangulS2L4Step3Desc;
+
+  /// No description provided for @hangulS2L4Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅠ组成音节'**
+  String get hangulS2L4Step4Title;
+
+  /// No description provided for @hangulS2L4Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成辅音 + ㅠ 的组合'**
+  String get hangulS2L4Step4Desc;
+
+  /// No description provided for @hangulS2L4Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS2L4Step5Title;
+
+  /// No description provided for @hangulS2L4Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已掌握ㅠ（유）的发音。'**
+  String get hangulS2L4Step5Msg;
+
+  /// No description provided for @hangulS2L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'Y元音组合训练'**
+  String get hangulS2L5Title;
+
+  /// No description provided for @hangulS2L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅑ · ㅕ · ㅛ · ㅠ 强化训练'**
+  String get hangulS2L5Subtitle;
+
+  /// No description provided for @hangulS2L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'一次看清所有Y元音'**
+  String get hangulS2L5Step0Title;
+
+  /// No description provided for @hangulS2L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅑ/ㅕ/ㅛ/ㅠ是基础元音加一笔的元音。\n快速区分它们的形状和发音。'**
+  String get hangulS2L5Step0Desc;
+
+  /// No description provided for @hangulS2L5Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅑ,ㅕ,ㅛ,ㅠ'**
+  String get hangulS2L5Step0Highlights;
+
+  /// No description provided for @hangulS2L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'再听四个发音'**
+  String get hangulS2L5Step1Title;
+
+  /// No description provided for @hangulS2L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'复习야/여/요/유的发音'**
+  String get hangulS2L5Step1Desc;
+
+  /// No description provided for @hangulS2L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS2L5Step2Title;
+
+  /// No description provided for @hangulS2L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS2L5Step2Desc;
+
+  /// No description provided for @hangulS2L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音辨别测验'**
+  String get hangulS2L5Step3Title;
+
+  /// No description provided for @hangulS2L5Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分Y元音的发音'**
+  String get hangulS2L5Step3Desc;
+
+  /// No description provided for @hangulS2L5Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状辨别测验'**
+  String get hangulS2L5Step4Title;
+
+  /// No description provided for @hangulS2L5Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确区分形状'**
+  String get hangulS2L5Step4Desc;
+
+  /// No description provided for @hangulS2L5Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅑ？'**
+  String get hangulS2L5Step4Q0;
+
+  /// No description provided for @hangulS2L5Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅕ？'**
+  String get hangulS2L5Step4Q1;
+
+  /// No description provided for @hangulS2L5Step4Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅛ？'**
+  String get hangulS2L5Step4Q2;
+
+  /// No description provided for @hangulS2L5Step4Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个是ㅠ？'**
+  String get hangulS2L5Step4Q3;
+
+  /// No description provided for @hangulS2L5Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS2L5Step5Title;
+
+  /// No description provided for @hangulS2L5Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你对4个Y元音的区分越来越好了。'**
+  String get hangulS2L5Step5Msg;
+
+  /// No description provided for @hangulS2L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'基础元音 vs Y元音对比'**
+  String get hangulS2L6Title;
+
+  /// No description provided for @hangulS2L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ/ㅑ · ㅓ/ㅕ · ㅗ/ㅛ · ㅜ/ㅠ'**
+  String get hangulS2L6Subtitle;
+
+  /// No description provided for @hangulS2L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'整理容易混淆的配对'**
+  String get hangulS2L6Step0Title;
+
+  /// No description provided for @hangulS2L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将基础元音和Y元音配对比较。'**
+  String get hangulS2L6Step0Desc;
+
+  /// No description provided for @hangulS2L6Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅏ/ㅑ,ㅓ/ㅕ,ㅗ/ㅛ,ㅜ/ㅠ'**
+  String get hangulS2L6Step0Highlights;
+
+  /// No description provided for @hangulS2L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'配对发音辨别'**
+  String get hangulS2L6Step1Title;
+
+  /// No description provided for @hangulS2L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从相似的发音中选出正确答案'**
+  String get hangulS2L6Step1Desc;
+
+  /// No description provided for @hangulS2L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'配对形状辨别'**
+  String get hangulS2L6Step2Title;
+
+  /// No description provided for @hangulS2L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'判断是否有额外的一笔'**
+  String get hangulS2L6Step2Desc;
+
+  /// No description provided for @hangulS2L6Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个元音加了一笔？'**
+  String get hangulS2L6Step2Q0;
+
+  /// No description provided for @hangulS2L6Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个元音加了一笔？'**
+  String get hangulS2L6Step2Q1;
+
+  /// No description provided for @hangulS2L6Step2Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个元音加了一笔？'**
+  String get hangulS2L6Step2Q2;
+
+  /// No description provided for @hangulS2L6Step2Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个元音加了一笔？'**
+  String get hangulS2L6Step2Q3;
+
+  /// No description provided for @hangulS2L6Step2Q4.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅠ = ?'**
+  String get hangulS2L6Step2Q4;
+
+  /// No description provided for @hangulS2L6Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS2L6Step3Title;
+
+  /// No description provided for @hangulS2L6Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n基础元音/Y元音对比已经稳定了。'**
+  String get hangulS2L6Step3Msg;
+
+  /// No description provided for @hangulS2L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'Y元音任务'**
+  String get hangulS2L7Title;
+
+  /// No description provided for @hangulS2L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'在限时内完成Y元音组合'**
+  String get hangulS2L7Subtitle;
+
+  /// No description provided for @hangulS2L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第2阶段最终任务'**
+  String get hangulS2L7Step0Title;
+
+  /// No description provided for @hangulS2L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速准确地完成Y元音组合。\n完成数和时间决定你的柠檬奖励。'**
+  String get hangulS2L7Step0Desc;
+
+  /// No description provided for @hangulS2L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'限时任务'**
+  String get hangulS2L7Step1Title;
+
+  /// No description provided for @hangulS2L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS2L7Step2Title;
+
+  /// No description provided for @hangulS2L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第2阶段完成！'**
+  String get hangulS2L7Step3Title;
+
+  /// No description provided for @hangulS2L7Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你已完成第2阶段所有Y元音。'**
+  String get hangulS2L7Step3Msg;
+
+  /// No description provided for @hangulS2CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第2阶段完成！'**
+  String get hangulS2CompleteTitle;
+
+  /// No description provided for @hangulS2CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已征服Y元音！'**
+  String get hangulS2CompleteMsg;
+
+  /// No description provided for @hangulS3L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ的形状和发音'**
+  String get hangulS3L1Title;
+
+  /// No description provided for @hangulS3L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'感受ㅏ + ㅣ的组合感觉'**
+  String get hangulS3L1Subtitle;
+
+  /// No description provided for @hangulS3L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ是这个样子'**
+  String get hangulS3L1Step0Title;
+
+  /// No description provided for @hangulS3L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ是从ㅏ系列派生的元音。\n以\"애\"为代表音来记忆。'**
+  String get hangulS3L1Step0Desc;
+
+  /// No description provided for @hangulS3L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ,애,形状识别'**
+  String get hangulS3L1Step0Highlights;
+
+  /// No description provided for @hangulS3L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅐ的发音'**
+  String get hangulS3L1Step1Title;
+
+  /// No description provided for @hangulS3L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听애/개/내的发音'**
+  String get hangulS3L1Step1Desc;
+
+  /// No description provided for @hangulS3L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS3L1Step2Title;
+
+  /// No description provided for @hangulS3L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请直接把文字发出声来'**
+  String get hangulS3L1Step2Desc;
+
+  /// No description provided for @hangulS3L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听辨ㅏ vs ㅐ'**
+  String get hangulS3L1Step3Title;
+
+  /// No description provided for @hangulS3L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分아/애'**
+  String get hangulS3L1Step3Desc;
+
+  /// No description provided for @hangulS3L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS3L1Step4Title;
+
+  /// No description provided for @hangulS3L1Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n已掌握ㅐ(애)的形状和发音。'**
+  String get hangulS3L1Step4Msg;
+
+  /// No description provided for @hangulS3L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅔ的形状和发音'**
+  String get hangulS3L2Title;
+
+  /// No description provided for @hangulS3L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'感受ㅓ + ㅣ的组合感觉'**
+  String get hangulS3L2Subtitle;
+
+  /// No description provided for @hangulS3L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅔ是这个样子'**
+  String get hangulS3L2Step0Title;
+
+  /// No description provided for @hangulS3L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅔ是从ㅓ系列派生的元音。\n以\"에\"为代表音来记忆。'**
+  String get hangulS3L2Step0Desc;
+
+  /// No description provided for @hangulS3L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅔ,에,形状识别'**
+  String get hangulS3L2Step0Highlights;
+
+  /// No description provided for @hangulS3L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅔ的发音'**
+  String get hangulS3L2Step1Title;
+
+  /// No description provided for @hangulS3L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听에/게/네的发音'**
+  String get hangulS3L2Step1Desc;
+
+  /// No description provided for @hangulS3L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS3L2Step2Title;
+
+  /// No description provided for @hangulS3L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请直接把文字发出声来'**
+  String get hangulS3L2Step2Desc;
+
+  /// No description provided for @hangulS3L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听辨ㅓ vs ㅔ'**
+  String get hangulS3L2Step3Title;
+
+  /// No description provided for @hangulS3L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分어/에'**
+  String get hangulS3L2Step3Desc;
+
+  /// No description provided for @hangulS3L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS3L2Step4Title;
+
+  /// No description provided for @hangulS3L2Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n已掌握ㅔ(에)的形状和发音。'**
+  String get hangulS3L2Step4Msg;
+
+  /// No description provided for @hangulS3L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㅐ vs ㅔ'**
+  String get hangulS3L3Title;
+
+  /// No description provided for @hangulS3L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'以形状为中心的区分训练'**
+  String get hangulS3L3Subtitle;
+
+  /// No description provided for @hangulS3L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'关键在于区分形状'**
+  String get hangulS3L3Step0Title;
+
+  /// No description provided for @hangulS3L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'在初级阶段，ㅐ/ㅔ听起来可能很相似。\n所以先准确区分它们的形状。'**
+  String get hangulS3L3Step0Desc;
+
+  /// No description provided for @hangulS3L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ,ㅔ,形状区分'**
+  String get hangulS3L3Step0Highlights;
+
+  /// No description provided for @hangulS3L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状区分测验'**
+  String get hangulS3L3Step1Title;
+
+  /// No description provided for @hangulS3L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'准确选择ㅐ和ㅔ'**
+  String get hangulS3L3Step1Desc;
+
+  /// No description provided for @hangulS3L3Step1Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'下列哪个是ㅐ？'**
+  String get hangulS3L3Step1Q0;
+
+  /// No description provided for @hangulS3L3Step1Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'下列哪个是ㅔ？'**
+  String get hangulS3L3Step1Q1;
+
+  /// No description provided for @hangulS3L3Step1Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅐ = ?'**
+  String get hangulS3L3Step1Q2;
+
+  /// No description provided for @hangulS3L3Step1Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅔ = ?'**
+  String get hangulS3L3Step1Q3;
+
+  /// No description provided for @hangulS3L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS3L3Step2Title;
+
+  /// No description provided for @hangulS3L3Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\nㅐ/ㅔ的区分更准确了。'**
+  String get hangulS3L3Step2Msg;
+
+  /// No description provided for @hangulS3L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅒ的形状和发音'**
+  String get hangulS3L4Title;
+
+  /// No description provided for @hangulS3L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'Y-ㅐ系列元音'**
+  String get hangulS3L4Subtitle;
+
+  /// No description provided for @hangulS3L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㅒ吧'**
+  String get hangulS3L4Step0Title;
+
+  /// No description provided for @hangulS3L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅒ是ㅐ系列的Y元音。\n代表音是\"얘\"。'**
+  String get hangulS3L4Step0Desc;
+
+  /// No description provided for @hangulS3L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅒ,얘'**
+  String get hangulS3L4Step0Highlights;
+
+  /// No description provided for @hangulS3L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅒ的发音'**
+  String get hangulS3L4Step1Title;
+
+  /// No description provided for @hangulS3L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听얘/걔/냬的发音'**
+  String get hangulS3L4Step1Desc;
+
+  /// No description provided for @hangulS3L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS3L4Step2Title;
+
+  /// No description provided for @hangulS3L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请直接把文字发出声来'**
+  String get hangulS3L4Step2Desc;
+
+  /// No description provided for @hangulS3L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS3L4Step3Title;
+
+  /// No description provided for @hangulS3L4Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n已掌握ㅒ(얘)的形状。'**
+  String get hangulS3L4Step3Msg;
+
+  /// No description provided for @hangulS3L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅖ的形状和发音'**
+  String get hangulS3L5Title;
+
+  /// No description provided for @hangulS3L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'Y-ㅔ系列元音'**
+  String get hangulS3L5Subtitle;
+
+  /// No description provided for @hangulS3L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㅖ吧'**
+  String get hangulS3L5Step0Title;
+
+  /// No description provided for @hangulS3L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅖ是ㅔ系列的Y元音。\n代表音是\"예\"。'**
+  String get hangulS3L5Step0Desc;
+
+  /// No description provided for @hangulS3L5Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅖ,예'**
+  String get hangulS3L5Step0Highlights;
+
+  /// No description provided for @hangulS3L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅖ的发音'**
+  String get hangulS3L5Step1Title;
+
+  /// No description provided for @hangulS3L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听예/계/녜的发音'**
+  String get hangulS3L5Step1Desc;
+
+  /// No description provided for @hangulS3L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS3L5Step2Title;
+
+  /// No description provided for @hangulS3L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请直接把文字发出声来'**
+  String get hangulS3L5Step2Desc;
+
+  /// No description provided for @hangulS3L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS3L5Step3Title;
+
+  /// No description provided for @hangulS3L5Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n已掌握ㅖ(예)的形状。'**
+  String get hangulS3L5Step3Msg;
+
+  /// No description provided for @hangulS3L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ/ㅔ系列综合复习'**
+  String get hangulS3L6Title;
+
+  /// No description provided for @hangulS3L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ ㅔ ㅒ ㅖ综合检验'**
+  String get hangulS3L6Subtitle;
+
+  /// No description provided for @hangulS3L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'一次性区分四种'**
+  String get hangulS3L6Step0Title;
+
+  /// No description provided for @hangulS3L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'同时用形状和发音来检验ㅐ/ㅔ/ㅒ/ㅖ。'**
+  String get hangulS3L6Step0Desc;
+
+  /// No description provided for @hangulS3L6Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅐ,ㅔ,ㅒ,ㅖ'**
+  String get hangulS3L6Step0Highlights;
+
+  /// No description provided for @hangulS3L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音区分'**
+  String get hangulS3L6Step1Title;
+
+  /// No description provided for @hangulS3L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从相似的声音中选出正确答案'**
+  String get hangulS3L6Step1Desc;
+
+  /// No description provided for @hangulS3L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状区分'**
+  String get hangulS3L6Step2Title;
+
+  /// No description provided for @hangulS3L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'看形状，快速选择'**
+  String get hangulS3L6Step2Desc;
+
+  /// No description provided for @hangulS3L6Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'下列哪个属于Y-ㅐ系列？'**
+  String get hangulS3L6Step2Q0;
+
+  /// No description provided for @hangulS3L6Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'下列哪个属于Y-ㅔ系列？'**
+  String get hangulS3L6Step2Q1;
+
+  /// No description provided for @hangulS3L6Step2Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅖ = ?'**
+  String get hangulS3L6Step2Q2;
+
+  /// No description provided for @hangulS3L6Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS3L6Step3Title;
+
+  /// No description provided for @hangulS3L6Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n第3阶段核心元音的区分已经稳固了。'**
+  String get hangulS3L6Step3Msg;
+
+  /// No description provided for @hangulS3L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第3阶段任务'**
+  String get hangulS3L7Title;
+
+  /// No description provided for @hangulS3L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速区分任务：ㅐ/ㅔ系列'**
+  String get hangulS3L7Subtitle;
+
+  /// No description provided for @hangulS3L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第3阶段最终任务'**
+  String get hangulS3L7Step0Title;
+
+  /// No description provided for @hangulS3L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速准确地完成ㅐ/ㅔ系列的组合。'**
+  String get hangulS3L7Step0Desc;
+
+  /// No description provided for @hangulS3L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'限时任务'**
+  String get hangulS3L7Step1Title;
+
+  /// No description provided for @hangulS3L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS3L7Step2Title;
+
+  /// No description provided for @hangulS3L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第3阶段完成！'**
+  String get hangulS3L7Step3Title;
+
+  /// No description provided for @hangulS3L7Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n已完成第3阶段全部ㅐ/ㅔ系列元音。'**
+  String get hangulS3L7Step3Msg;
+
+  /// No description provided for @hangulS3L7Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第3阶段完成！'**
+  String get hangulS3L7Step4Title;
+
+  /// No description provided for @hangulS3L7Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'已学完所有元音！'**
+  String get hangulS3L7Step4Msg;
+
+  /// No description provided for @hangulS3CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第3阶段完成！'**
+  String get hangulS3CompleteTitle;
+
+  /// No description provided for @hangulS3CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'已学完所有元音！'**
+  String get hangulS3CompleteMsg;
+
+  /// No description provided for @hangulS4L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ的形状与发音'**
+  String get hangulS4L1Title;
+
+  /// No description provided for @hangulS4L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'基本辅音的开始：ㄱ'**
+  String get hangulS4L1Subtitle;
+
+  /// No description provided for @hangulS4L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㄱ吧'**
+  String get hangulS4L1Step0Title;
+
+  /// No description provided for @hangulS4L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ是基本辅音的开始。\n与ㅏ组合发出「가」的音。'**
+  String get hangulS4L1Step0Desc;
+
+  /// No description provided for @hangulS4L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ,가,基本辅音'**
+  String get hangulS4L1Step0Highlights;
+
+  /// No description provided for @hangulS4L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㄱ的发音'**
+  String get hangulS4L1Step1Title;
+
+  /// No description provided for @hangulS4L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听가/고/구的发音'**
+  String get hangulS4L1Step1Desc;
+
+  /// No description provided for @hangulS4L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L1Step2Title;
+
+  /// No description provided for @hangulS4L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L1Step2Desc;
+
+  /// No description provided for @hangulS4L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㄱ的发音'**
+  String get hangulS4L1Step3Title;
+
+  /// No description provided for @hangulS4L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选出正确的字'**
+  String get hangulS4L1Step3Desc;
+
+  /// No description provided for @hangulS4L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㄱ组合文字'**
+  String get hangulS4L1Step4Title;
+
+  /// No description provided for @hangulS4L1Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㄱ＋元音的组合'**
+  String get hangulS4L1Step4Desc;
+
+  /// No description provided for @hangulS4L1SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS4L1SummaryTitle;
+
+  /// No description provided for @hangulS4L1SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很棒！\n你已经掌握了ㄱ的发音和形状。'**
+  String get hangulS4L1SummaryMsg;
+
+  /// No description provided for @hangulS4L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ的形状与发音'**
+  String get hangulS4L2Title;
+
+  /// No description provided for @hangulS4L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第二个基本辅音：ㄴ'**
+  String get hangulS4L2Subtitle;
+
+  /// No description provided for @hangulS4L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㄴ吧'**
+  String get hangulS4L2Step0Title;
+
+  /// No description provided for @hangulS4L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ构成「나」系列发音。'**
+  String get hangulS4L2Step0Desc;
+
+  /// No description provided for @hangulS4L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ,나'**
+  String get hangulS4L2Step0Highlights;
+
+  /// No description provided for @hangulS4L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㄴ的发音'**
+  String get hangulS4L2Step1Title;
+
+  /// No description provided for @hangulS4L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听나/노/누的发音'**
+  String get hangulS4L2Step1Desc;
+
+  /// No description provided for @hangulS4L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L2Step2Title;
+
+  /// No description provided for @hangulS4L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L2Step2Desc;
+
+  /// No description provided for @hangulS4L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㄴ的发音'**
+  String get hangulS4L2Step3Title;
+
+  /// No description provided for @hangulS4L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分나/다'**
+  String get hangulS4L2Step3Desc;
+
+  /// No description provided for @hangulS4L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㄴ组合文字'**
+  String get hangulS4L2Step4Title;
+
+  /// No description provided for @hangulS4L2Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㄴ＋元音的组合'**
+  String get hangulS4L2Step4Desc;
+
+  /// No description provided for @hangulS4L2SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS4L2SummaryTitle;
+
+  /// No description provided for @hangulS4L2SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很棒！\n你已经掌握了ㄴ的发音和形状。'**
+  String get hangulS4L2SummaryMsg;
+
+  /// No description provided for @hangulS4L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ的形状与发音'**
+  String get hangulS4L3Title;
+
+  /// No description provided for @hangulS4L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第三个基本辅音：ㄷ'**
+  String get hangulS4L3Subtitle;
+
+  /// No description provided for @hangulS4L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㄷ吧'**
+  String get hangulS4L3Step0Title;
+
+  /// No description provided for @hangulS4L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ构成「다」系列发音。'**
+  String get hangulS4L3Step0Desc;
+
+  /// No description provided for @hangulS4L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ,다'**
+  String get hangulS4L3Step0Highlights;
+
+  /// No description provided for @hangulS4L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㄷ的发音'**
+  String get hangulS4L3Step1Title;
+
+  /// No description provided for @hangulS4L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听다/도/두的发音'**
+  String get hangulS4L3Step1Desc;
+
+  /// No description provided for @hangulS4L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L3Step2Title;
+
+  /// No description provided for @hangulS4L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L3Step2Desc;
+
+  /// No description provided for @hangulS4L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㄷ的发音'**
+  String get hangulS4L3Step3Title;
+
+  /// No description provided for @hangulS4L3Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分다/나'**
+  String get hangulS4L3Step3Desc;
+
+  /// No description provided for @hangulS4L3Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㄷ组合文字'**
+  String get hangulS4L3Step4Title;
+
+  /// No description provided for @hangulS4L3Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㄷ＋元音的组合'**
+  String get hangulS4L3Step4Desc;
+
+  /// No description provided for @hangulS4L3SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS4L3SummaryTitle;
+
+  /// No description provided for @hangulS4L3SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很棒！\n你已经掌握了ㄷ的发音和形状。'**
+  String get hangulS4L3SummaryMsg;
+
+  /// No description provided for @hangulS4L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄹ的形状与发音'**
+  String get hangulS4L4Title;
+
+  /// No description provided for @hangulS4L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第四个基本辅音：ㄹ'**
+  String get hangulS4L4Subtitle;
+
+  /// No description provided for @hangulS4L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㄹ吧'**
+  String get hangulS4L4Step0Title;
+
+  /// No description provided for @hangulS4L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄹ构成「라」系列发音。'**
+  String get hangulS4L4Step0Desc;
+
+  /// No description provided for @hangulS4L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄹ,라'**
+  String get hangulS4L4Step0Highlights;
+
+  /// No description provided for @hangulS4L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㄹ的发音'**
+  String get hangulS4L4Step1Title;
+
+  /// No description provided for @hangulS4L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听라/로/루的发音'**
+  String get hangulS4L4Step1Desc;
+
+  /// No description provided for @hangulS4L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L4Step2Title;
+
+  /// No description provided for @hangulS4L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L4Step2Desc;
+
+  /// No description provided for @hangulS4L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㄹ的发音'**
+  String get hangulS4L4Step3Title;
+
+  /// No description provided for @hangulS4L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分라/나'**
+  String get hangulS4L4Step3Desc;
+
+  /// No description provided for @hangulS4L4Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㄹ组合文字'**
+  String get hangulS4L4Step4Title;
+
+  /// No description provided for @hangulS4L4Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㄹ＋元音的组合'**
+  String get hangulS4L4Step4Desc;
+
+  /// No description provided for @hangulS4L4SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS4L4SummaryTitle;
+
+  /// No description provided for @hangulS4L4SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很棒！\n你已经掌握了ㄹ的发音和形状。'**
+  String get hangulS4L4SummaryMsg;
+
+  /// No description provided for @hangulS4L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅁ的形状与发音'**
+  String get hangulS4L5Title;
+
+  /// No description provided for @hangulS4L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第五个基本辅音：ㅁ'**
+  String get hangulS4L5Subtitle;
+
+  /// No description provided for @hangulS4L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㅁ吧'**
+  String get hangulS4L5Step0Title;
+
+  /// No description provided for @hangulS4L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅁ构成「마」系列发音。'**
+  String get hangulS4L5Step0Desc;
+
+  /// No description provided for @hangulS4L5Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅁ,마'**
+  String get hangulS4L5Step0Highlights;
+
+  /// No description provided for @hangulS4L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅁ的发音'**
+  String get hangulS4L5Step1Title;
+
+  /// No description provided for @hangulS4L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听마/모/무的发音'**
+  String get hangulS4L5Step1Desc;
+
+  /// No description provided for @hangulS4L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L5Step2Title;
+
+  /// No description provided for @hangulS4L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L5Step2Desc;
+
+  /// No description provided for @hangulS4L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅁ的发音'**
+  String get hangulS4L5Step3Title;
+
+  /// No description provided for @hangulS4L5Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分마/바'**
+  String get hangulS4L5Step3Desc;
+
+  /// No description provided for @hangulS4L5Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅁ组合文字'**
+  String get hangulS4L5Step4Title;
+
+  /// No description provided for @hangulS4L5Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㅁ＋元音的组合'**
+  String get hangulS4L5Step4Desc;
+
+  /// No description provided for @hangulS4L5SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS4L5SummaryTitle;
+
+  /// No description provided for @hangulS4L5SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很棒！\n你已经掌握了ㅁ的发音和形状。'**
+  String get hangulS4L5SummaryMsg;
+
+  /// No description provided for @hangulS4L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ的形状与发音'**
+  String get hangulS4L6Title;
+
+  /// No description provided for @hangulS4L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第六个基本辅音：ㅂ'**
+  String get hangulS4L6Subtitle;
+
+  /// No description provided for @hangulS4L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㅂ吧'**
+  String get hangulS4L6Step0Title;
+
+  /// No description provided for @hangulS4L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ构成「바」系列发音。'**
+  String get hangulS4L6Step0Desc;
+
+  /// No description provided for @hangulS4L6Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ,바'**
+  String get hangulS4L6Step0Highlights;
+
+  /// No description provided for @hangulS4L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅂ的发音'**
+  String get hangulS4L6Step1Title;
+
+  /// No description provided for @hangulS4L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听바/보/부的发音'**
+  String get hangulS4L6Step1Desc;
+
+  /// No description provided for @hangulS4L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L6Step2Title;
+
+  /// No description provided for @hangulS4L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L6Step2Desc;
+
+  /// No description provided for @hangulS4L6Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅂ的发音'**
+  String get hangulS4L6Step3Title;
+
+  /// No description provided for @hangulS4L6Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分바/마'**
+  String get hangulS4L6Step3Desc;
+
+  /// No description provided for @hangulS4L6Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅂ组合文字'**
+  String get hangulS4L6Step4Title;
+
+  /// No description provided for @hangulS4L6Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㅂ＋元音的组合'**
+  String get hangulS4L6Step4Desc;
+
+  /// No description provided for @hangulS4L6SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS4L6SummaryTitle;
+
+  /// No description provided for @hangulS4L6SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很棒！\n你已经掌握了ㅂ的发音和形状。'**
+  String get hangulS4L6SummaryMsg;
+
+  /// No description provided for @hangulS4L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅅ的形状与发音'**
+  String get hangulS4L7Title;
+
+  /// No description provided for @hangulS4L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第七个基本辅音：ㅅ'**
+  String get hangulS4L7Subtitle;
+
+  /// No description provided for @hangulS4L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来学ㅅ吧'**
+  String get hangulS4L7Step0Title;
+
+  /// No description provided for @hangulS4L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅅ构成「사」系列发音。'**
+  String get hangulS4L7Step0Desc;
+
+  /// No description provided for @hangulS4L7Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅅ,사'**
+  String get hangulS4L7Step0Highlights;
+
+  /// No description provided for @hangulS4L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听ㅅ的发音'**
+  String get hangulS4L7Step1Title;
+
+  /// No description provided for @hangulS4L7Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听사/소/수的发音'**
+  String get hangulS4L7Step1Desc;
+
+  /// No description provided for @hangulS4L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L7Step2Title;
+
+  /// No description provided for @hangulS4L7Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L7Step2Desc;
+
+  /// No description provided for @hangulS4L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅅ的发音'**
+  String get hangulS4L7Step3Title;
+
+  /// No description provided for @hangulS4L7Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分사/자'**
+  String get hangulS4L7Step3Desc;
+
+  /// No description provided for @hangulS4L7Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅅ组合文字'**
+  String get hangulS4L7Step4Title;
+
+  /// No description provided for @hangulS4L7Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尝试ㅅ＋元音的组合'**
+  String get hangulS4L7Step4Desc;
+
+  /// No description provided for @hangulS4L7SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第4阶段完成！'**
+  String get hangulS4L7SummaryTitle;
+
+  /// No description provided for @hangulS4L7SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你完成了第4阶段基本辅音1（ㄱ~ㅅ）。'**
+  String get hangulS4L7SummaryMsg;
+
+  /// No description provided for @hangulS4L8Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'单词阅读挑战！'**
+  String get hangulS4L8Title;
+
+  /// No description provided for @hangulS4L8Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'用辅音和元音读单词'**
+  String get hangulS4L8Subtitle;
+
+  /// No description provided for @hangulS4L8Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'现在你能读更多单词了！'**
+  String get hangulS4L8Step0Title;
+
+  /// No description provided for @hangulS4L8Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已经学完了全部7个基本辅音和元音。\n来读读由这些字组成的真实单词吧？'**
+  String get hangulS4L8Step0Desc;
+
+  /// No description provided for @hangulS4L8Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'7个辅音,元音,真实单词'**
+  String get hangulS4L8Step0Highlights;
+
+  /// No description provided for @hangulS4L8Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'读单词'**
+  String get hangulS4L8Step1Title;
+
+  /// No description provided for @hangulS4L8Step1Descs.
+  ///
+  /// In zh, this message translates to:
+  /// **'树,海,蝴蝶,帽子,家具,豆腐'**
+  String get hangulS4L8Step1Descs;
+
+  /// No description provided for @hangulS4L8Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS4L8Step2Title;
+
+  /// No description provided for @hangulS4L8Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着大声读出这些字'**
+  String get hangulS4L8Step2Desc;
+
+  /// No description provided for @hangulS4L8Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听后选出'**
+  String get hangulS4L8Step3Title;
+
+  /// No description provided for @hangulS4L8Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'是什么意思？'**
+  String get hangulS4L8Step4Title;
+
+  /// No description provided for @hangulS4L8Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'\"나비\"的中文是？'**
+  String get hangulS4L8Step4Q0;
+
+  /// No description provided for @hangulS4L8Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'\"바다\"的中文是？'**
+  String get hangulS4L8Step4Q1;
+
+  /// No description provided for @hangulS4L8SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！'**
+  String get hangulS4L8SummaryTitle;
+
+  /// No description provided for @hangulS4L8SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你读了6个韩文单词！\n继续学习更多辅音，就能读出更多单词。'**
+  String get hangulS4L8SummaryMsg;
+
+  /// No description provided for @hangulS4LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务：基本辅音组合！'**
+  String get hangulS4LMTitle;
+
+  /// No description provided for @hangulS4LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'在时间限制内组合音节'**
+  String get hangulS4LMSubtitle;
+
+  /// No description provided for @hangulS4LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务开始！'**
+  String get hangulS4LMStep0Title;
+
+  /// No description provided for @hangulS4LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将基本辅音ㄱ~ㅅ与元音组合。\n在限定时间内达成目标！'**
+  String get hangulS4LMStep0Desc;
+
+  /// No description provided for @hangulS4LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'来组合音节吧！'**
+  String get hangulS4LMStep1Title;
+
+  /// No description provided for @hangulS4LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS4LMStep2Title;
+
+  /// No description provided for @hangulS4LMSummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务完成！'**
+  String get hangulS4LMSummaryTitle;
+
+  /// No description provided for @hangulS4LMSummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你可以自由组合全部7个基本辅音了！'**
+  String get hangulS4LMSummaryMsg;
+
+  /// No description provided for @hangulS4CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第4阶段完成！'**
+  String get hangulS4CompleteTitle;
+
+  /// No description provided for @hangulS4CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已掌握全部7个基本辅音！'**
+  String get hangulS4CompleteMsg;
+
+  /// No description provided for @hangulS5L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'理解ㅇ的位置'**
+  String get hangulS5L1Title;
+
+  /// No description provided for @hangulS5L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习初声ㅇ的读法'**
+  String get hangulS5L1Subtitle;
+
+  /// No description provided for @hangulS5L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ是特殊辅音'**
+  String get hangulS5L1Step0Title;
+
+  /// No description provided for @hangulS5L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'初声ㅇ几乎没有声音，\n与元音结合后读作아/오/우。'**
+  String get hangulS5L1Step0Desc;
+
+  /// No description provided for @hangulS5L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ,아,初声位置'**
+  String get hangulS5L1Step0Highlights;
+
+  /// No description provided for @hangulS5L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅇ的组合音'**
+  String get hangulS5L1Step1Title;
+
+  /// No description provided for @hangulS5L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听아/오/우的发音'**
+  String get hangulS5L1Step1Desc;
+
+  /// No description provided for @hangulS5L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L1Step2Title;
+
+  /// No description provided for @hangulS5L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L1Step2Desc;
+
+  /// No description provided for @hangulS5L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅇ组字'**
+  String get hangulS5L1Step3Title;
+
+  /// No description provided for @hangulS5L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合ㅇ + 元音'**
+  String get hangulS5L1Step3Desc;
+
+  /// No description provided for @hangulS5L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L1Step4Title;
+
+  /// No description provided for @hangulS5L1Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经理解了ㅇ的用法。'**
+  String get hangulS5L1Step4Msg;
+
+  /// No description provided for @hangulS5L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ的形状与发音'**
+  String get hangulS5L2Title;
+
+  /// No description provided for @hangulS5L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ的基础读法'**
+  String get hangulS5L2Subtitle;
+
+  /// No description provided for @hangulS5L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习ㅈ'**
+  String get hangulS5L2Step0Title;
+
+  /// No description provided for @hangulS5L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ产生「자」系列的音。'**
+  String get hangulS5L2Step0Desc;
+
+  /// No description provided for @hangulS5L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ,자'**
+  String get hangulS5L2Step0Highlights;
+
+  /// No description provided for @hangulS5L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅈ的发音'**
+  String get hangulS5L2Step1Title;
+
+  /// No description provided for @hangulS5L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听자/조/주'**
+  String get hangulS5L2Step1Desc;
+
+  /// No description provided for @hangulS5L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L2Step2Title;
+
+  /// No description provided for @hangulS5L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L2Step2Desc;
+
+  /// No description provided for @hangulS5L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅈ的音'**
+  String get hangulS5L2Step3Title;
+
+  /// No description provided for @hangulS5L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分자和사'**
+  String get hangulS5L2Step3Desc;
+
+  /// No description provided for @hangulS5L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'用ㅈ组字'**
+  String get hangulS5L2Step4Title;
+
+  /// No description provided for @hangulS5L2Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合ㅈ + 元音'**
+  String get hangulS5L2Step4Desc;
+
+  /// No description provided for @hangulS5L2Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L2Step5Title;
+
+  /// No description provided for @hangulS5L2Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经学会了ㅈ的发音和形状。'**
+  String get hangulS5L2Step5Msg;
+
+  /// No description provided for @hangulS5L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅊ的形状与发音'**
+  String get hangulS5L3Title;
+
+  /// No description provided for @hangulS5L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅊ的基础读法'**
+  String get hangulS5L3Subtitle;
+
+  /// No description provided for @hangulS5L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习ㅊ'**
+  String get hangulS5L3Step0Title;
+
+  /// No description provided for @hangulS5L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅊ产生「차」系列的音。'**
+  String get hangulS5L3Step0Desc;
+
+  /// No description provided for @hangulS5L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅊ,차'**
+  String get hangulS5L3Step0Highlights;
+
+  /// No description provided for @hangulS5L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅊ的发音'**
+  String get hangulS5L3Step1Title;
+
+  /// No description provided for @hangulS5L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听차/초/추'**
+  String get hangulS5L3Step1Desc;
+
+  /// No description provided for @hangulS5L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L3Step2Title;
+
+  /// No description provided for @hangulS5L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L3Step2Desc;
+
+  /// No description provided for @hangulS5L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅊ的音'**
+  String get hangulS5L3Step3Title;
+
+  /// No description provided for @hangulS5L3Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分차和자'**
+  String get hangulS5L3Step3Desc;
+
+  /// No description provided for @hangulS5L3Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L3Step4Title;
+
+  /// No description provided for @hangulS5L3Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经学会了ㅊ的发音和形状。'**
+  String get hangulS5L3Step4Msg;
+
+  /// No description provided for @hangulS5L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅋ的形状与发音'**
+  String get hangulS5L4Title;
+
+  /// No description provided for @hangulS5L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅋ的基础读法'**
+  String get hangulS5L4Subtitle;
+
+  /// No description provided for @hangulS5L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习ㅋ'**
+  String get hangulS5L4Step0Title;
+
+  /// No description provided for @hangulS5L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅋ产生「카」系列的音。'**
+  String get hangulS5L4Step0Desc;
+
+  /// No description provided for @hangulS5L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅋ,카'**
+  String get hangulS5L4Step0Highlights;
+
+  /// No description provided for @hangulS5L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅋ的发音'**
+  String get hangulS5L4Step1Title;
+
+  /// No description provided for @hangulS5L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听카/코/쿠'**
+  String get hangulS5L4Step1Desc;
+
+  /// No description provided for @hangulS5L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L4Step2Title;
+
+  /// No description provided for @hangulS5L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L4Step2Desc;
+
+  /// No description provided for @hangulS5L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅋ的音'**
+  String get hangulS5L4Step3Title;
+
+  /// No description provided for @hangulS5L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分카和가'**
+  String get hangulS5L4Step3Desc;
+
+  /// No description provided for @hangulS5L4Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L4Step4Title;
+
+  /// No description provided for @hangulS5L4Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经学会了ㅋ的发音和形状。'**
+  String get hangulS5L4Step4Msg;
+
+  /// No description provided for @hangulS5L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅌ的形状与发音'**
+  String get hangulS5L5Title;
+
+  /// No description provided for @hangulS5L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅌ的基础读法'**
+  String get hangulS5L5Subtitle;
+
+  /// No description provided for @hangulS5L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习ㅌ'**
+  String get hangulS5L5Step0Title;
+
+  /// No description provided for @hangulS5L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅌ产生「타」系列的音。'**
+  String get hangulS5L5Step0Desc;
+
+  /// No description provided for @hangulS5L5Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅌ,타'**
+  String get hangulS5L5Step0Highlights;
+
+  /// No description provided for @hangulS5L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅌ的发音'**
+  String get hangulS5L5Step1Title;
+
+  /// No description provided for @hangulS5L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听타/토/투'**
+  String get hangulS5L5Step1Desc;
+
+  /// No description provided for @hangulS5L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L5Step2Title;
+
+  /// No description provided for @hangulS5L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L5Step2Desc;
+
+  /// No description provided for @hangulS5L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅌ的音'**
+  String get hangulS5L5Step3Title;
+
+  /// No description provided for @hangulS5L5Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分타和다'**
+  String get hangulS5L5Step3Desc;
+
+  /// No description provided for @hangulS5L5Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L5Step4Title;
+
+  /// No description provided for @hangulS5L5Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经学会了ㅌ的发音和形状。'**
+  String get hangulS5L5Step4Msg;
+
+  /// No description provided for @hangulS5L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅍ的形状与发音'**
+  String get hangulS5L6Title;
+
+  /// No description provided for @hangulS5L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅍ的基础读法'**
+  String get hangulS5L6Subtitle;
+
+  /// No description provided for @hangulS5L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习ㅍ'**
+  String get hangulS5L6Step0Title;
+
+  /// No description provided for @hangulS5L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅍ产生「파」系列的音。'**
+  String get hangulS5L6Step0Desc;
+
+  /// No description provided for @hangulS5L6Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅍ,파'**
+  String get hangulS5L6Step0Highlights;
+
+  /// No description provided for @hangulS5L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅍ的发音'**
+  String get hangulS5L6Step1Title;
+
+  /// No description provided for @hangulS5L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听파/포/푸'**
+  String get hangulS5L6Step1Desc;
+
+  /// No description provided for @hangulS5L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L6Step2Title;
+
+  /// No description provided for @hangulS5L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L6Step2Desc;
+
+  /// No description provided for @hangulS5L6Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅍ的音'**
+  String get hangulS5L6Step3Title;
+
+  /// No description provided for @hangulS5L6Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分파和바'**
+  String get hangulS5L6Step3Desc;
+
+  /// No description provided for @hangulS5L6Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L6Step4Title;
+
+  /// No description provided for @hangulS5L6Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经学会了ㅍ的发音和形状。'**
+  String get hangulS5L6Step4Msg;
+
+  /// No description provided for @hangulS5L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅎ的形状与发音'**
+  String get hangulS5L7Title;
+
+  /// No description provided for @hangulS5L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅎ的基础读法'**
+  String get hangulS5L7Subtitle;
+
+  /// No description provided for @hangulS5L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'学习ㅎ'**
+  String get hangulS5L7Step0Title;
+
+  /// No description provided for @hangulS5L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅎ产生「하」系列的音。'**
+  String get hangulS5L7Step0Desc;
+
+  /// No description provided for @hangulS5L7Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅎ,하'**
+  String get hangulS5L7Step0Highlights;
+
+  /// No description provided for @hangulS5L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅎ的发音'**
+  String get hangulS5L7Step1Title;
+
+  /// No description provided for @hangulS5L7Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听하/호/후'**
+  String get hangulS5L7Step1Desc;
+
+  /// No description provided for @hangulS5L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS5L7Step2Title;
+
+  /// No description provided for @hangulS5L7Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个文字'**
+  String get hangulS5L7Step2Desc;
+
+  /// No description provided for @hangulS5L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅎ的音'**
+  String get hangulS5L7Step3Title;
+
+  /// No description provided for @hangulS5L7Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分하和아'**
+  String get hangulS5L7Step3Desc;
+
+  /// No description provided for @hangulS5L7Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L7Step4Title;
+
+  /// No description provided for @hangulS5L7Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经学会了ㅎ的发音和形状。'**
+  String get hangulS5L7Step4Msg;
+
+  /// No description provided for @hangulS5L8Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'额外辅音随机朗读'**
+  String get hangulS5L8Title;
+
+  /// No description provided for @hangulS5L8Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合复习ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ'**
+  String get hangulS5L8Subtitle;
+
+  /// No description provided for @hangulS5L8Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机复习'**
+  String get hangulS5L8Step0Title;
+
+  /// No description provided for @hangulS5L8Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'把7个额外辅音混在一起读一读吧。'**
+  String get hangulS5L8Step0Desc;
+
+  /// No description provided for @hangulS5L8Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ'**
+  String get hangulS5L8Step0Highlights;
+
+  /// No description provided for @hangulS5L8Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'形状/发音测验'**
+  String get hangulS5L8Step1Title;
+
+  /// No description provided for @hangulS5L8Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将发音与文字对应起来'**
+  String get hangulS5L8Step1Desc;
+
+  /// No description provided for @hangulS5L8Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L8Step2Title;
+
+  /// No description provided for @hangulS5L8Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你随机复习了7个额外辅音。'**
+  String get hangulS5L8Step2Msg;
+
+  /// No description provided for @hangulS5L9Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'易混淆对的预习'**
+  String get hangulS5L9Title;
+
+  /// No description provided for @hangulS5L9Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'为下一阶段做准备的区分练习'**
+  String get hangulS5L9Subtitle;
+
+  /// No description provided for @hangulS5L9Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'先看看容易混淆的对'**
+  String get hangulS5L9Step0Title;
+
+  /// No description provided for @hangulS5L9Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'提前练习区分ㅈ/ㅊ、ㄱ/ㅋ、ㄷ/ㅌ、ㅂ/ㅍ。'**
+  String get hangulS5L9Step0Desc;
+
+  /// No description provided for @hangulS5L9Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ/ㅊ,ㄱ/ㅋ,ㄷ/ㅌ,ㅂ/ㅍ'**
+  String get hangulS5L9Step0Highlights;
+
+  /// No description provided for @hangulS5L9Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'对比听音'**
+  String get hangulS5L9Step1Title;
+
+  /// No description provided for @hangulS5L9Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从两个选项中选出正确的音'**
+  String get hangulS5L9Step1Desc;
+
+  /// No description provided for @hangulS5L9Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS5L9Step2Title;
+
+  /// No description provided for @hangulS5L9Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'太棒了！\n你已经为下一阶段做好准备了。'**
+  String get hangulS5L9Step2Msg;
+
+  /// No description provided for @hangulS5LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第5阶段任务'**
+  String get hangulS5LMTitle;
+
+  /// No description provided for @hangulS5LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'基本辅音2 综合任务'**
+  String get hangulS5LMSubtitle;
+
+  /// No description provided for @hangulS5LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务开始！'**
+  String get hangulS5LMStep0Title;
+
+  /// No description provided for @hangulS5LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将基本辅音2（ㅇ~ㅎ）与元音组合。\n在限定时间内达成目标！'**
+  String get hangulS5LMStep0Desc;
+
+  /// No description provided for @hangulS5LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节！'**
+  String get hangulS5LMStep1Title;
+
+  /// No description provided for @hangulS5LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS5LMStep2Title;
+
+  /// No description provided for @hangulS5LMStep3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第5阶段完成！'**
+  String get hangulS5LMStep3Title;
+
+  /// No description provided for @hangulS5LMStep3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你完成了第5阶段：基本辅音2（ㅇ~ㅎ）。'**
+  String get hangulS5LMStep3Msg;
+
+  /// No description provided for @hangulS5LMStep4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第5阶段完成！'**
+  String get hangulS5LMStep4Title;
+
+  /// No description provided for @hangulS5LMStep4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已经掌握了所有基本辅音！'**
+  String get hangulS5LMStep4Msg;
+
+  /// No description provided for @hangulS5CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第5阶段完成！'**
+  String get hangulS5CompleteTitle;
+
+  /// No description provided for @hangulS5CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已经掌握了所有基本辅音！'**
+  String get hangulS5CompleteMsg;
+
+  /// No description provided for @hangulS6L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'가~기 模式阅读'**
+  String get hangulS6L1Title;
+
+  /// No description provided for @hangulS6L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + 基本元音模式'**
+  String get hangulS6L1Subtitle;
+
+  /// No description provided for @hangulS6L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始用模式阅读'**
+  String get hangulS6L1Step0Title;
+
+  /// No description provided for @hangulS6L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着改变与ㄱ组合的元音\n你会找到阅读的节奏。'**
+  String get hangulS6L1Step0Desc;
+
+  /// No description provided for @hangulS6L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'가,거,고,구,그,기'**
+  String get hangulS6L1Step0Highlights;
+
+  /// No description provided for @hangulS6L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听模式发音'**
+  String get hangulS6L1Step1Title;
+
+  /// No description provided for @hangulS6L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'按顺序听一听 가/거/고/구/그/기'**
+  String get hangulS6L1Step1Desc;
+
+  /// No description provided for @hangulS6L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS6L1Step2Title;
+
+  /// No description provided for @hangulS6L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个音节'**
+  String get hangulS6L1Step2Desc;
+
+  /// No description provided for @hangulS6L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'模式测验'**
+  String get hangulS6L1Step3Title;
+
+  /// No description provided for @hangulS6L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'配对相同的辅音模式'**
+  String get hangulS6L1Step3Desc;
+
+  /// No description provided for @hangulS6L1Step3Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅏ = ?'**
+  String get hangulS6L1Step3Q0;
+
+  /// No description provided for @hangulS6L1Step3Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅓ = ?'**
+  String get hangulS6L1Step3Q1;
+
+  /// No description provided for @hangulS6L1Step3Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅡ = ?'**
+  String get hangulS6L1Step3Q2;
+
+  /// No description provided for @hangulS6L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L1Step4Title;
+
+  /// No description provided for @hangulS6L1Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经开始学习 가~기 模式了。'**
+  String get hangulS6L1Step4Msg;
+
+  /// No description provided for @hangulS6L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展 나~니'**
+  String get hangulS6L2Title;
+
+  /// No description provided for @hangulS6L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ 模式阅读'**
+  String get hangulS6L2Subtitle;
+
+  /// No description provided for @hangulS6L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展 ㄴ 模式'**
+  String get hangulS6L2Step0Title;
+
+  /// No description provided for @hangulS6L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'改变与ㄴ组合的元音来读 나~니。'**
+  String get hangulS6L2Step0Desc;
+
+  /// No description provided for @hangulS6L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'나,너,노,누,느,니'**
+  String get hangulS6L2Step0Highlights;
+
+  /// No description provided for @hangulS6L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听 나~니'**
+  String get hangulS6L2Step1Title;
+
+  /// No description provided for @hangulS6L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请听听 ㄴ 模式的发音'**
+  String get hangulS6L2Step1Desc;
+
+  /// No description provided for @hangulS6L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS6L2Step2Title;
+
+  /// No description provided for @hangulS6L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个音节'**
+  String get hangulS6L2Step2Desc;
+
+  /// No description provided for @hangulS6L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合 ㄴ'**
+  String get hangulS6L2Step3Title;
+
+  /// No description provided for @hangulS6L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'用 ㄴ + 元音组成音节'**
+  String get hangulS6L2Step3Desc;
+
+  /// No description provided for @hangulS6L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L2Step4Title;
+
+  /// No description provided for @hangulS6L2Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了 나~니 模式。'**
+  String get hangulS6L2Step4Msg;
+
+  /// No description provided for @hangulS6L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展 다~디 和 라~리'**
+  String get hangulS6L3Title;
+
+  /// No description provided for @hangulS6L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ/ㄹ 模式阅读'**
+  String get hangulS6L3Subtitle;
+
+  /// No description provided for @hangulS6L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'只换辅音来阅读'**
+  String get hangulS6L3Step0Title;
+
+  /// No description provided for @hangulS6L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'用相同元音只换辅音来读，\n阅读速度会越来越快。'**
+  String get hangulS6L3Step0Desc;
+
+  /// No description provided for @hangulS6L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'다/라,도/로,두/루,디/리'**
+  String get hangulS6L3Step0Highlights;
+
+  /// No description provided for @hangulS6L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听：区分 ㄷ/ㄹ'**
+  String get hangulS6L3Step1Title;
+
+  /// No description provided for @hangulS6L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选择正确的音节'**
+  String get hangulS6L3Step1Desc;
+
+  /// No description provided for @hangulS6L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读测验'**
+  String get hangulS6L3Step2Title;
+
+  /// No description provided for @hangulS6L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'检查模式'**
+  String get hangulS6L3Step2Desc;
+
+  /// No description provided for @hangulS6L3Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ + ㅣ = ?'**
+  String get hangulS6L3Step2Q0;
+
+  /// No description provided for @hangulS6L3Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄹ + ㅗ = ?'**
+  String get hangulS6L3Step2Q1;
+
+  /// No description provided for @hangulS6L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L3Step3Title;
+
+  /// No description provided for @hangulS6L3Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了 ㄷ/ㄹ 模式。'**
+  String get hangulS6L3Step3Msg;
+
+  /// No description provided for @hangulS6L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机音节阅读 1'**
+  String get hangulS6L4Title;
+
+  /// No description provided for @hangulS6L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合基本模式'**
+  String get hangulS6L4Subtitle;
+
+  /// No description provided for @hangulS6L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'无序阅读'**
+  String get hangulS6L4Step0Title;
+
+  /// No description provided for @hangulS6L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'现在像随机抽卡一样来读吧。'**
+  String get hangulS6L4Step0Desc;
+
+  /// No description provided for @hangulS6L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机阅读'**
+  String get hangulS6L4Step1Title;
+
+  /// No description provided for @hangulS6L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'识别随机出现的音节'**
+  String get hangulS6L4Step1Desc;
+
+  /// No description provided for @hangulS6L4Step1Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅗ = ?'**
+  String get hangulS6L4Step1Q0;
+
+  /// No description provided for @hangulS6L4Step1Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ + ㅜ = ?'**
+  String get hangulS6L4Step1Q1;
+
+  /// No description provided for @hangulS6L4Step1Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄹ + ㅏ = ?'**
+  String get hangulS6L4Step1Q2;
+
+  /// No description provided for @hangulS6L4Step1Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅁ + ㅣ = ?'**
+  String get hangulS6L4Step1Q3;
+
+  /// No description provided for @hangulS6L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L4Step2Title;
+
+  /// No description provided for @hangulS6L4Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你完成了随机阅读 1。'**
+  String get hangulS6L4Step2Msg;
+
+  /// No description provided for @hangulS6L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音找音节'**
+  String get hangulS6L5Title;
+
+  /// No description provided for @hangulS6L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'强化听觉与文字的联系'**
+  String get hangulS6L5Subtitle;
+
+  /// No description provided for @hangulS6L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音寻字练习'**
+  String get hangulS6L5Step0Title;
+
+  /// No description provided for @hangulS6L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选出对应音节，\n强化阅读联系。'**
+  String get hangulS6L5Step0Desc;
+
+  /// No description provided for @hangulS6L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音配对'**
+  String get hangulS6L5Step1Title;
+
+  /// No description provided for @hangulS6L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出正确的音节'**
+  String get hangulS6L5Step1Desc;
+
+  /// No description provided for @hangulS6L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L5Step2Title;
+
+  /// No description provided for @hangulS6L5Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你完成了听音找字练习。'**
+  String get hangulS6L5Step2Msg;
+
+  /// No description provided for @hangulS6L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'复合元音组合 1'**
+  String get hangulS6L6Title;
+
+  /// No description provided for @hangulS6L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读 ㅘ、ㅝ'**
+  String get hangulS6L6Subtitle;
+
+  /// No description provided for @hangulS6L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习复合元音'**
+  String get hangulS6L6Step0Title;
+
+  /// No description provided for @hangulS6L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'来读一读由 ㅘ 和 ㅝ 组成的音节。'**
+  String get hangulS6L6Step0Desc;
+
+  /// No description provided for @hangulS6L6Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅘ,ㅝ,와,워'**
+  String get hangulS6L6Step0Highlights;
+
+  /// No description provided for @hangulS6L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听 와/워'**
+  String get hangulS6L6Step1Title;
+
+  /// No description provided for @hangulS6L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请听一听代表性音节的发音'**
+  String get hangulS6L6Step1Desc;
+
+  /// No description provided for @hangulS6L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS6L6Step2Title;
+
+  /// No description provided for @hangulS6L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个音节'**
+  String get hangulS6L6Step2Desc;
+
+  /// No description provided for @hangulS6L6Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'复合元音测验'**
+  String get hangulS6L6Step3Title;
+
+  /// No description provided for @hangulS6L6Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分 ㅘ 和 ㅝ'**
+  String get hangulS6L6Step3Desc;
+
+  /// No description provided for @hangulS6L6Step3Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅘ = ?'**
+  String get hangulS6L6Step3Q0;
+
+  /// No description provided for @hangulS6L6Step3Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅝ = ?'**
+  String get hangulS6L6Step3Q1;
+
+  /// No description provided for @hangulS6L6Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L6Step4Title;
+
+  /// No description provided for @hangulS6L6Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经学会了 ㅘ/ㅝ 组合。'**
+  String get hangulS6L6Step4Msg;
+
+  /// No description provided for @hangulS6L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'复合元音组合 2'**
+  String get hangulS6L7Title;
+
+  /// No description provided for @hangulS6L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读 ㅙ、ㅞ、ㅚ、ㅟ、ㅢ'**
+  String get hangulS6L7Subtitle;
+
+  /// No description provided for @hangulS6L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展复合元音'**
+  String get hangulS6L7Step0Title;
+
+  /// No description provided for @hangulS6L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'简要学习复合元音，以阅读为中心推进。'**
+  String get hangulS6L7Step0Desc;
+
+  /// No description provided for @hangulS6L7Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'왜,웨,외,위,의'**
+  String get hangulS6L7Step0Highlights;
+
+  /// No description provided for @hangulS6L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅢ 的特殊发音'**
+  String get hangulS6L7Step1Title;
+
+  /// No description provided for @hangulS6L7Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅢ 是一个根据位置发音不同的特殊元音。\n\n• 词首：[의] → 의사、의자\n• 辅音后：[이] → 희망→[히망]\n• 助词「의」：[에] → 나의→[나에]'**
+  String get hangulS6L7Step1Desc;
+
+  /// No description provided for @hangulS6L7Step1Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅢ,의,이,에'**
+  String get hangulS6L7Step1Highlights;
+
+  /// No description provided for @hangulS6L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择复合元音'**
+  String get hangulS6L7Step2Title;
+
+  /// No description provided for @hangulS6L7Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出正确的音节'**
+  String get hangulS6L7Step2Desc;
+
+  /// No description provided for @hangulS6L7Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅙ = ?'**
+  String get hangulS6L7Step2Q0;
+
+  /// No description provided for @hangulS6L7Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅟ = ?'**
+  String get hangulS6L7Step2Q1;
+
+  /// No description provided for @hangulS6L7Step2Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ + ㅢ = ?'**
+  String get hangulS6L7Step2Q2;
+
+  /// No description provided for @hangulS6L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L7Step3Title;
+
+  /// No description provided for @hangulS6L7Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你完成了复合元音的扩展学习。'**
+  String get hangulS6L7Step3Msg;
+
+  /// No description provided for @hangulS6L8Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机音节阅读 2'**
+  String get hangulS6L8Title;
+
+  /// No description provided for @hangulS6L8Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'基本+复合元音综合'**
+  String get hangulS6L8Subtitle;
+
+  /// No description provided for @hangulS6L8Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'综合随机阅读'**
+  String get hangulS6L8Step0Title;
+
+  /// No description provided for @hangulS6L8Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'将基本元音和复合元音混合在一起阅读。'**
+  String get hangulS6L8Step0Desc;
+
+  /// No description provided for @hangulS6L8Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'综合测验'**
+  String get hangulS6L8Step1Title;
+
+  /// No description provided for @hangulS6L8Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'识别随机组合'**
+  String get hangulS6L8Step1Desc;
+
+  /// No description provided for @hangulS6L8Step1Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ + ㅢ = ?'**
+  String get hangulS6L8Step1Q0;
+
+  /// No description provided for @hangulS6L8Step1Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅎ + ㅘ = ?'**
+  String get hangulS6L8Step1Q1;
+
+  /// No description provided for @hangulS6L8Step1Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ + ㅟ = ?'**
+  String get hangulS6L8Step1Q2;
+
+  /// No description provided for @hangulS6L8Step1Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ + ㅝ = ?'**
+  String get hangulS6L8Step1Q3;
+
+  /// No description provided for @hangulS6L8Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS6L8Step2Title;
+
+  /// No description provided for @hangulS6L8Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你完成了第6阶段综合阅读。'**
+  String get hangulS6L8Step2Msg;
+
+  /// No description provided for @hangulS6LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第6阶段任务'**
+  String get hangulS6LMTitle;
+
+  /// No description provided for @hangulS6LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合阅读最终检验'**
+  String get hangulS6LMSubtitle;
+
+  /// No description provided for @hangulS6LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务开始！'**
+  String get hangulS6LMStep0Title;
+
+  /// No description provided for @hangulS6LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'这是音节组合训练的最终检验。\n在时限内达成目标吧！'**
+  String get hangulS6LMStep0Desc;
+
+  /// No description provided for @hangulS6LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节！'**
+  String get hangulS6LMStep1Title;
+
+  /// No description provided for @hangulS6LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS6LMStep2Title;
+
+  /// No description provided for @hangulS6LMStep3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第6阶段完成！'**
+  String get hangulS6LMStep3Title;
+
+  /// No description provided for @hangulS6LMStep3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你完成了第6阶段音节组合训练。'**
+  String get hangulS6LMStep3Msg;
+
+  /// No description provided for @hangulS6CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第6阶段完成！'**
+  String get hangulS6CompleteTitle;
+
+  /// No description provided for @hangulS6CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你现在可以自由组合音节了！'**
+  String get hangulS6CompleteMsg;
+
+  /// No description provided for @hangulS7L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ / ㅋ / ㄲ 辅音对比'**
+  String get hangulS7L1Title;
+
+  /// No description provided for @hangulS7L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'가 · 카 · 까 的对比'**
+  String get hangulS7L1Subtitle;
+
+  /// No description provided for @hangulS7L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'分辨三种声音'**
+  String get hangulS7L1Step0Title;
+
+  /// No description provided for @hangulS7L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㄱ（平音）、ㅋ（送气音）、ㄲ（紧音）的感觉。'**
+  String get hangulS7L1Step0Desc;
+
+  /// No description provided for @hangulS7L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ,ㅋ,ㄲ,가,카,까'**
+  String get hangulS7L1Step0Highlights;
+
+  /// No description provided for @hangulS7L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音探索'**
+  String get hangulS7L1Step1Title;
+
+  /// No description provided for @hangulS7L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'反复听가/카/까'**
+  String get hangulS7L1Step1Desc;
+
+  /// No description provided for @hangulS7L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS7L1Step2Title;
+
+  /// No description provided for @hangulS7L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着亲自发出每个字的声音'**
+  String get hangulS7L1Step2Desc;
+
+  /// No description provided for @hangulS7L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS7L1Step3Title;
+
+  /// No description provided for @hangulS7L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从三个选项中选出正确答案'**
+  String get hangulS7L1Step3Desc;
+
+  /// No description provided for @hangulS7L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速确认'**
+  String get hangulS7L1Step4Title;
+
+  /// No description provided for @hangulS7L1Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'同时确认形状和声音'**
+  String get hangulS7L1Step4Desc;
+
+  /// No description provided for @hangulS7L1Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是送气音？'**
+  String get hangulS7L1Step4Q0;
+
+  /// No description provided for @hangulS7L1Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是紧音？'**
+  String get hangulS7L1Step4Q1;
+
+  /// No description provided for @hangulS7L1Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS7L1Step5Title;
+
+  /// No description provided for @hangulS7L1Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握区分ㄱ/ㅋ/ㄲ的方法。'**
+  String get hangulS7L1Step5Msg;
+
+  /// No description provided for @hangulS7L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ / ㅌ / ㄸ 辅音对比'**
+  String get hangulS7L2Title;
+
+  /// No description provided for @hangulS7L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'다 · 타 · 따 的对比'**
+  String get hangulS7L2Subtitle;
+
+  /// No description provided for @hangulS7L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第二组对比'**
+  String get hangulS7L2Step0Title;
+
+  /// No description provided for @hangulS7L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'比较ㄷ/ㅌ/ㄸ的声音。'**
+  String get hangulS7L2Step0Desc;
+
+  /// No description provided for @hangulS7L2Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ,ㅌ,ㄸ,다,타,따'**
+  String get hangulS7L2Step0Highlights;
+
+  /// No description provided for @hangulS7L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音探索'**
+  String get hangulS7L2Step1Title;
+
+  /// No description provided for @hangulS7L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'反复听다/타/따'**
+  String get hangulS7L2Step1Desc;
+
+  /// No description provided for @hangulS7L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS7L2Step2Title;
+
+  /// No description provided for @hangulS7L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着亲自发出每个字的声音'**
+  String get hangulS7L2Step2Desc;
+
+  /// No description provided for @hangulS7L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS7L2Step3Title;
+
+  /// No description provided for @hangulS7L2Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从三个选项中选出正确答案'**
+  String get hangulS7L2Step3Desc;
+
+  /// No description provided for @hangulS7L2Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS7L2Step4Title;
+
+  /// No description provided for @hangulS7L2Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握区分ㄷ/ㅌ/ㄸ的方法。'**
+  String get hangulS7L2Step4Msg;
+
+  /// No description provided for @hangulS7L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ / ㅍ / ㅃ 辅音对比'**
+  String get hangulS7L3Title;
+
+  /// No description provided for @hangulS7L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'바 · 파 · 빠 的对比'**
+  String get hangulS7L3Subtitle;
+
+  /// No description provided for @hangulS7L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第三组对比'**
+  String get hangulS7L3Step0Title;
+
+  /// No description provided for @hangulS7L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'比较ㅂ/ㅍ/ㅃ的声音。'**
+  String get hangulS7L3Step0Desc;
+
+  /// No description provided for @hangulS7L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ,ㅍ,ㅃ,바,파,빠'**
+  String get hangulS7L3Step0Highlights;
+
+  /// No description provided for @hangulS7L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音探索'**
+  String get hangulS7L3Step1Title;
+
+  /// No description provided for @hangulS7L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'反复听바/파/빠'**
+  String get hangulS7L3Step1Desc;
+
+  /// No description provided for @hangulS7L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS7L3Step2Title;
+
+  /// No description provided for @hangulS7L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着亲自发出每个字的声音'**
+  String get hangulS7L3Step2Desc;
+
+  /// No description provided for @hangulS7L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS7L3Step3Title;
+
+  /// No description provided for @hangulS7L3Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从三个选项中选出正确答案'**
+  String get hangulS7L3Step3Desc;
+
+  /// No description provided for @hangulS7L3Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS7L3Step4Title;
+
+  /// No description provided for @hangulS7L3Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握区分ㅂ/ㅍ/ㅃ的方法。'**
+  String get hangulS7L3Step4Msg;
+
+  /// No description provided for @hangulS7L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅅ / ㅆ 辅音对比'**
+  String get hangulS7L4Title;
+
+  /// No description provided for @hangulS7L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'사 · 싸 的对比'**
+  String get hangulS7L4Subtitle;
+
+  /// No description provided for @hangulS7L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'两种声音的对比'**
+  String get hangulS7L4Step0Title;
+
+  /// No description provided for @hangulS7L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分ㅅ/ㅆ的声音。'**
+  String get hangulS7L4Step0Desc;
+
+  /// No description provided for @hangulS7L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅅ,ㅆ,사,싸'**
+  String get hangulS7L4Step0Highlights;
+
+  /// No description provided for @hangulS7L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音探索'**
+  String get hangulS7L4Step1Title;
+
+  /// No description provided for @hangulS7L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'反复听사/싸'**
+  String get hangulS7L4Step1Desc;
+
+  /// No description provided for @hangulS7L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS7L4Step2Title;
+
+  /// No description provided for @hangulS7L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着亲自发出每个字的声音'**
+  String get hangulS7L4Step2Desc;
+
+  /// No description provided for @hangulS7L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS7L4Step3Title;
+
+  /// No description provided for @hangulS7L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从两个选项中选出正确答案'**
+  String get hangulS7L4Step3Desc;
+
+  /// No description provided for @hangulS7L4Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS7L4Step4Title;
+
+  /// No description provided for @hangulS7L4Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握区分ㅅ/ㅆ的方法。'**
+  String get hangulS7L4Step4Msg;
+
+  /// No description provided for @hangulS7L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ / ㅊ / ㅉ 辅音对比'**
+  String get hangulS7L5Title;
+
+  /// No description provided for @hangulS7L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'자 · 차 · 짜 的对比'**
+  String get hangulS7L5Subtitle;
+
+  /// No description provided for @hangulS7L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'最后一组对比'**
+  String get hangulS7L5Step0Title;
+
+  /// No description provided for @hangulS7L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'比较ㅈ/ㅊ/ㅉ的声音。'**
+  String get hangulS7L5Step0Desc;
+
+  /// No description provided for @hangulS7L5Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅈ,ㅊ,ㅉ,자,차,짜'**
+  String get hangulS7L5Step0Highlights;
+
+  /// No description provided for @hangulS7L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音探索'**
+  String get hangulS7L5Step1Title;
+
+  /// No description provided for @hangulS7L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'反复听자/차/짜'**
+  String get hangulS7L5Step1Desc;
+
+  /// No description provided for @hangulS7L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS7L5Step2Title;
+
+  /// No description provided for @hangulS7L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'试着亲自发出每个字的声音'**
+  String get hangulS7L5Step2Desc;
+
+  /// No description provided for @hangulS7L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS7L5Step3Title;
+
+  /// No description provided for @hangulS7L5Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'从三个选项中选出正确答案'**
+  String get hangulS7L5Step3Desc;
+
+  /// No description provided for @hangulS7L5Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第7阶段完成！'**
+  String get hangulS7L5Step4Title;
+
+  /// No description provided for @hangulS7L5Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你已完成第7阶段的全部5组对比练习。'**
+  String get hangulS7L5Step4Msg;
+
+  /// No description provided for @hangulS7LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务：声音辨别挑战！'**
+  String get hangulS7LMTitle;
+
+  /// No description provided for @hangulS7LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分平音、送气音和紧音'**
+  String get hangulS7LMSubtitle;
+
+  /// No description provided for @hangulS7LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音辨别任务！'**
+  String get hangulS7LMStep0Title;
+
+  /// No description provided for @hangulS7LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合平音、送气音和紧音\n快速组合音节！'**
+  String get hangulS7LMStep0Desc;
+
+  /// No description provided for @hangulS7LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节！'**
+  String get hangulS7LMStep1Title;
+
+  /// No description provided for @hangulS7LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS7LMStep2Title;
+
+  /// No description provided for @hangulS7LMStep3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务完成！'**
+  String get hangulS7LMStep3Title;
+
+  /// No description provided for @hangulS7LMStep3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已能区分平音、送气音和紧音！'**
+  String get hangulS7LMStep3Msg;
+
+  /// No description provided for @hangulS7LMStep4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第7阶段完成！'**
+  String get hangulS7LMStep4Title;
+
+  /// No description provided for @hangulS7LMStep4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已能区分紧音和送气音！'**
+  String get hangulS7LMStep4Msg;
+
+  /// No description provided for @hangulS7CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第7阶段完成！'**
+  String get hangulS7CompleteTitle;
+
+  /// No description provided for @hangulS7CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已能区分紧音和送气音！'**
+  String get hangulS7CompleteMsg;
+
+  /// No description provided for @hangulS8L0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音（받침）基础'**
+  String get hangulS8L0Title;
+
+  /// No description provided for @hangulS8L0Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'藏在音节块底部的音'**
+  String get hangulS8L0Subtitle;
+
+  /// No description provided for @hangulS8L0Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音在音节的下方'**
+  String get hangulS8L0Step0Title;
+
+  /// No description provided for @hangulS8L0Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音位于音节块的底部。\n例：가 + ㄴ = 간'**
+  String get hangulS8L0Step0Desc;
+
+  /// No description provided for @hangulS8L0Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音,간,말,집'**
+  String get hangulS8L0Step0Highlights;
+
+  /// No description provided for @hangulS8L0Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音的7个代表音'**
+  String get hangulS8L0Step1Title;
+
+  /// No description provided for @hangulS8L0Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音只有7个代表音。\n\nㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\n许多收音字母都归属于这7个音之一。\n例：ㅅ, ㅈ, ㅊ, ㅎ 作为收音 → 均发[ㄷ]音'**
+  String get hangulS8L0Step1Desc;
+
+  /// No description provided for @hangulS8L0Step1Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'7个音,ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ,代表音'**
+  String get hangulS8L0Step1Highlights;
+
+  /// No description provided for @hangulS8L0Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'找出收音'**
+  String get hangulS8L0Step2Title;
+
+  /// No description provided for @hangulS8L0Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认收音的位置'**
+  String get hangulS8L0Step2Desc;
+
+  /// No description provided for @hangulS8L0Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'간的收音是？'**
+  String get hangulS8L0Step2Q0;
+
+  /// No description provided for @hangulS8L0Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'말的收音是？'**
+  String get hangulS8L0Step2Q1;
+
+  /// No description provided for @hangulS8L0SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L0SummaryTitle;
+
+  /// No description provided for @hangulS8L0SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已理解收音的概念。'**
+  String get hangulS8L0SummaryMsg;
+
+  /// No description provided for @hangulS8L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄴ收音'**
+  String get hangulS8L1Title;
+
+  /// No description provided for @hangulS8L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'간 · 난 · 단'**
+  String get hangulS8L1Subtitle;
+
+  /// No description provided for @hangulS8L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㄴ收音'**
+  String get hangulS8L1Step0Title;
+
+  /// No description provided for @hangulS8L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听간/난/단'**
+  String get hangulS8L1Step0Desc;
+
+  /// No description provided for @hangulS8L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L1Step1Title;
+
+  /// No description provided for @hangulS8L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L1Step1Desc;
+
+  /// No description provided for @hangulS8L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS8L1Step2Title;
+
+  /// No description provided for @hangulS8L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有ㄴ收音的音节'**
+  String get hangulS8L1Step2Desc;
+
+  /// No description provided for @hangulS8L1SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L1SummaryTitle;
+
+  /// No description provided for @hangulS8L1SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㄴ收音。'**
+  String get hangulS8L1SummaryMsg;
+
+  /// No description provided for @hangulS8L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄹ收音'**
+  String get hangulS8L2Title;
+
+  /// No description provided for @hangulS8L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'말 · 갈 · 물'**
+  String get hangulS8L2Subtitle;
+
+  /// No description provided for @hangulS8L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㄹ收音'**
+  String get hangulS8L2Step0Title;
+
+  /// No description provided for @hangulS8L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听말/갈/물'**
+  String get hangulS8L2Step0Desc;
+
+  /// No description provided for @hangulS8L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L2Step1Title;
+
+  /// No description provided for @hangulS8L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L2Step1Desc;
+
+  /// No description provided for @hangulS8L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS8L2Step2Title;
+
+  /// No description provided for @hangulS8L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有ㄹ收音的音节'**
+  String get hangulS8L2Step2Desc;
+
+  /// No description provided for @hangulS8L2SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L2SummaryTitle;
+
+  /// No description provided for @hangulS8L2SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㄹ收音。'**
+  String get hangulS8L2SummaryMsg;
+
+  /// No description provided for @hangulS8L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅁ收音'**
+  String get hangulS8L3Title;
+
+  /// No description provided for @hangulS8L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'감 · 밤 · 숨'**
+  String get hangulS8L3Subtitle;
+
+  /// No description provided for @hangulS8L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅁ收音'**
+  String get hangulS8L3Step0Title;
+
+  /// No description provided for @hangulS8L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听감/밤/숨'**
+  String get hangulS8L3Step0Desc;
+
+  /// No description provided for @hangulS8L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L3Step1Title;
+
+  /// No description provided for @hangulS8L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L3Step1Desc;
+
+  /// No description provided for @hangulS8L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辨别收音'**
+  String get hangulS8L3Step2Title;
+
+  /// No description provided for @hangulS8L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅁ收音的音节'**
+  String get hangulS8L3Step2Desc;
+
+  /// No description provided for @hangulS8L3Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㅁ收音？'**
+  String get hangulS8L3Step2Q0;
+
+  /// No description provided for @hangulS8L3Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㅁ收音？'**
+  String get hangulS8L3Step2Q1;
+
+  /// No description provided for @hangulS8L3SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L3SummaryTitle;
+
+  /// No description provided for @hangulS8L3SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㅁ收音。'**
+  String get hangulS8L3SummaryMsg;
+
+  /// No description provided for @hangulS8L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ收音'**
+  String get hangulS8L4Title;
+
+  /// No description provided for @hangulS8L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'방 · 공 · 종'**
+  String get hangulS8L4Subtitle;
+
+  /// No description provided for @hangulS8L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ很特别！'**
+  String get hangulS8L4Step0Title;
+
+  /// No description provided for @hangulS8L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅇ很特别！\n作为初声（上方）时无音（아, 오），\n作为收音（下方）时发\"ng\"音（방, 공）'**
+  String get hangulS8L4Step0Desc;
+
+  /// No description provided for @hangulS8L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'初声,收音,ng,방,공'**
+  String get hangulS8L4Step0Highlights;
+
+  /// No description provided for @hangulS8L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅇ收音'**
+  String get hangulS8L4Step1Title;
+
+  /// No description provided for @hangulS8L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听방/공/종'**
+  String get hangulS8L4Step1Desc;
+
+  /// No description provided for @hangulS8L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L4Step2Title;
+
+  /// No description provided for @hangulS8L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L4Step2Desc;
+
+  /// No description provided for @hangulS8L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS8L4Step3Title;
+
+  /// No description provided for @hangulS8L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有ㅇ收音的音节'**
+  String get hangulS8L4Step3Desc;
+
+  /// No description provided for @hangulS8L4SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L4SummaryTitle;
+
+  /// No description provided for @hangulS8L4SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㅇ收音。'**
+  String get hangulS8L4SummaryMsg;
+
+  /// No description provided for @hangulS8L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄱ收音'**
+  String get hangulS8L5Title;
+
+  /// No description provided for @hangulS8L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'박 · 각 · 국'**
+  String get hangulS8L5Subtitle;
+
+  /// No description provided for @hangulS8L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㄱ收音'**
+  String get hangulS8L5Step0Title;
+
+  /// No description provided for @hangulS8L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听박/각/국'**
+  String get hangulS8L5Step0Desc;
+
+  /// No description provided for @hangulS8L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L5Step1Title;
+
+  /// No description provided for @hangulS8L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L5Step1Desc;
+
+  /// No description provided for @hangulS8L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辨别收音'**
+  String get hangulS8L5Step2Title;
+
+  /// No description provided for @hangulS8L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㄱ收音的音节'**
+  String get hangulS8L5Step2Desc;
+
+  /// No description provided for @hangulS8L5Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㄱ收音？'**
+  String get hangulS8L5Step2Q0;
+
+  /// No description provided for @hangulS8L5Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㄱ收音？'**
+  String get hangulS8L5Step2Q1;
+
+  /// No description provided for @hangulS8L5SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L5SummaryTitle;
+
+  /// No description provided for @hangulS8L5SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㄱ收音。'**
+  String get hangulS8L5SummaryMsg;
+
+  /// No description provided for @hangulS8L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅂ收音'**
+  String get hangulS8L6Title;
+
+  /// No description provided for @hangulS8L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'밥 · 집 · 숲'**
+  String get hangulS8L6Subtitle;
+
+  /// No description provided for @hangulS8L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅂ收音'**
+  String get hangulS8L6Step0Title;
+
+  /// No description provided for @hangulS8L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听밥/집/숲'**
+  String get hangulS8L6Step0Desc;
+
+  /// No description provided for @hangulS8L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L6Step1Title;
+
+  /// No description provided for @hangulS8L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L6Step1Desc;
+
+  /// No description provided for @hangulS8L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS8L6Step2Title;
+
+  /// No description provided for @hangulS8L6Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有ㅂ收音的音节'**
+  String get hangulS8L6Step2Desc;
+
+  /// No description provided for @hangulS8L6SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L6SummaryTitle;
+
+  /// No description provided for @hangulS8L6SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㅂ收音。'**
+  String get hangulS8L6SummaryMsg;
+
+  /// No description provided for @hangulS8L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅅ收音'**
+  String get hangulS8L7Title;
+
+  /// No description provided for @hangulS8L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'옷 · 맛 · 빛'**
+  String get hangulS8L7Subtitle;
+
+  /// No description provided for @hangulS8L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'聆听ㅅ收音'**
+  String get hangulS8L7Step0Title;
+
+  /// No description provided for @hangulS8L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听옷/맛/빛'**
+  String get hangulS8L7Step0Desc;
+
+  /// No description provided for @hangulS8L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS8L7Step1Title;
+
+  /// No description provided for @hangulS8L7Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声朗读每个字'**
+  String get hangulS8L7Step1Desc;
+
+  /// No description provided for @hangulS8L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辨别收音'**
+  String get hangulS8L7Step2Title;
+
+  /// No description provided for @hangulS8L7Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出ㅅ收音的音节'**
+  String get hangulS8L7Step2Desc;
+
+  /// No description provided for @hangulS8L7Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㅅ收音？'**
+  String get hangulS8L7Step2Q0;
+
+  /// No description provided for @hangulS8L7Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㅅ收音？'**
+  String get hangulS8L7Step2Q1;
+
+  /// No description provided for @hangulS8L7SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L7SummaryTitle;
+
+  /// No description provided for @hangulS8L7SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你掌握了ㅅ收音。'**
+  String get hangulS8L7SummaryMsg;
+
+  /// No description provided for @hangulS8L8Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音综合复习'**
+  String get hangulS8L8Title;
+
+  /// No description provided for @hangulS8L8Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'核心收音随机检测'**
+  String get hangulS8L8Subtitle;
+
+  /// No description provided for @hangulS8L8Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'全部混合练习'**
+  String get hangulS8L8Step0Title;
+
+  /// No description provided for @hangulS8L8Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'我们来综合复习ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅ。'**
+  String get hangulS8L8Step0Desc;
+
+  /// No description provided for @hangulS8L8Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机测验'**
+  String get hangulS8L8Step1Title;
+
+  /// No description provided for @hangulS8L8Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合收音综合测试'**
+  String get hangulS8L8Step1Desc;
+
+  /// No description provided for @hangulS8L8Step1Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㄴ收音？'**
+  String get hangulS8L8Step1Q0;
+
+  /// No description provided for @hangulS8L8Step1Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㅇ收音？'**
+  String get hangulS8L8Step1Q1;
+
+  /// No description provided for @hangulS8L8Step1Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㄹ收音？'**
+  String get hangulS8L8Step1Q2;
+
+  /// No description provided for @hangulS8L8Step1Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个有ㅂ收音？'**
+  String get hangulS8L8Step1Q3;
+
+  /// No description provided for @hangulS8L8SummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS8L8SummaryTitle;
+
+  /// No description provided for @hangulS8L8SummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n完成了收音综合复习。'**
+  String get hangulS8L8SummaryMsg;
+
+  /// No description provided for @hangulS8LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务：收音挑战！'**
+  String get hangulS8LMTitle;
+
+  /// No description provided for @hangulS8LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合带收音的音节'**
+  String get hangulS8LMSubtitle;
+
+  /// No description provided for @hangulS8LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音任务！'**
+  String get hangulS8LMStep0Title;
+
+  /// No description provided for @hangulS8LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'读出带有基本收音的音节，\n快速作答！'**
+  String get hangulS8LMStep0Desc;
+
+  /// No description provided for @hangulS8LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'拼出音节！'**
+  String get hangulS8LMStep1Title;
+
+  /// No description provided for @hangulS8LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS8LMStep2Title;
+
+  /// No description provided for @hangulS8LMSummaryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务完成！'**
+  String get hangulS8LMSummaryTitle;
+
+  /// No description provided for @hangulS8LMSummaryMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已完全掌握收音基础！'**
+  String get hangulS8LMSummaryMsg;
+
+  /// No description provided for @hangulS8CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第8阶段完成！'**
+  String get hangulS8CompleteTitle;
+
+  /// No description provided for @hangulS8CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已打好收音的基础！'**
+  String get hangulS8CompleteMsg;
+
+  /// No description provided for @hangulS9L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音 ㄷ 扩展'**
+  String get hangulS9L1Title;
+
+  /// No description provided for @hangulS9L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'닫 · 곧 · 묻'**
+  String get hangulS9L1Subtitle;
+
+  /// No description provided for @hangulS9L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄷ 收音规律'**
+  String get hangulS9L1Step0Title;
+
+  /// No description provided for @hangulS9L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'读一读带有收音 ㄷ 的音节。'**
+  String get hangulS9L1Step0Desc;
+
+  /// No description provided for @hangulS9L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'닫,곧,묻'**
+  String get hangulS9L1Step0Highlights;
+
+  /// No description provided for @hangulS9L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听：收音 ㄷ'**
+  String get hangulS9L1Step1Title;
+
+  /// No description provided for @hangulS9L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听 닫/곧/묻 的发音'**
+  String get hangulS9L1Step1Desc;
+
+  /// No description provided for @hangulS9L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS9L1Step2Title;
+
+  /// No description provided for @hangulS9L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'亲自大声念出每个字'**
+  String get hangulS9L1Step2Desc;
+
+  /// No description provided for @hangulS9L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辨别收音'**
+  String get hangulS9L1Step3Title;
+
+  /// No description provided for @hangulS9L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有收音 ㄷ 的音节'**
+  String get hangulS9L1Step3Desc;
+
+  /// No description provided for @hangulS9L1Step3Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㄷ？'**
+  String get hangulS9L1Step3Q0;
+
+  /// No description provided for @hangulS9L1Step3Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㄷ？'**
+  String get hangulS9L1Step3Q1;
+
+  /// No description provided for @hangulS9L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS9L1Step4Title;
+
+  /// No description provided for @hangulS9L1Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握收音 ㄷ。'**
+  String get hangulS9L1Step4Msg;
+
+  /// No description provided for @hangulS9L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音 ㅈ 扩展'**
+  String get hangulS9L2Title;
+
+  /// No description provided for @hangulS9L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'낮 · 잊 · 젖'**
+  String get hangulS9L2Subtitle;
+
+  /// No description provided for @hangulS9L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听：收音 ㅈ'**
+  String get hangulS9L2Step0Title;
+
+  /// No description provided for @hangulS9L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听 낮/잊/젖 的发音'**
+  String get hangulS9L2Step0Desc;
+
+  /// No description provided for @hangulS9L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS9L2Step1Title;
+
+  /// No description provided for @hangulS9L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'亲自大声念出每个字'**
+  String get hangulS9L2Step1Desc;
+
+  /// No description provided for @hangulS9L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS9L2Step2Title;
+
+  /// No description provided for @hangulS9L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有收音 ㅈ 的音节'**
+  String get hangulS9L2Step2Desc;
+
+  /// No description provided for @hangulS9L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS9L2Step3Title;
+
+  /// No description provided for @hangulS9L2Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握收音 ㅈ。'**
+  String get hangulS9L2Step3Msg;
+
+  /// No description provided for @hangulS9L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音 ㅊ 扩展'**
+  String get hangulS9L3Title;
+
+  /// No description provided for @hangulS9L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'꽃 · 닻 · 빚'**
+  String get hangulS9L3Subtitle;
+
+  /// No description provided for @hangulS9L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听：收音 ㅊ'**
+  String get hangulS9L3Step0Title;
+
+  /// No description provided for @hangulS9L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听 꽃/닻/빚 的发音'**
+  String get hangulS9L3Step0Desc;
+
+  /// No description provided for @hangulS9L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS9L3Step1Title;
+
+  /// No description provided for @hangulS9L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'亲自大声念出每个字'**
+  String get hangulS9L3Step1Desc;
+
+  /// No description provided for @hangulS9L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辨别收音'**
+  String get hangulS9L3Step2Title;
+
+  /// No description provided for @hangulS9L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有收音 ㅊ 的音节'**
+  String get hangulS9L3Step2Desc;
+
+  /// No description provided for @hangulS9L3Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅊ？'**
+  String get hangulS9L3Step2Q0;
+
+  /// No description provided for @hangulS9L3Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅊ？'**
+  String get hangulS9L3Step2Q1;
+
+  /// No description provided for @hangulS9L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS9L3Step3Title;
+
+  /// No description provided for @hangulS9L3Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握收音 ㅊ。'**
+  String get hangulS9L3Step3Msg;
+
+  /// No description provided for @hangulS9L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音 ㅋ / ㅌ / ㅍ'**
+  String get hangulS9L4Title;
+
+  /// No description provided for @hangulS9L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'부엌 · 밭 · 앞'**
+  String get hangulS9L4Subtitle;
+
+  /// No description provided for @hangulS9L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'三个收音合并学习'**
+  String get hangulS9L4Step0Title;
+
+  /// No description provided for @hangulS9L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'把 ㅋ、ㅌ、ㅍ 三个收音放在一起学。'**
+  String get hangulS9L4Step0Desc;
+
+  /// No description provided for @hangulS9L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'부엌,밭,앞'**
+  String get hangulS9L4Step0Highlights;
+
+  /// No description provided for @hangulS9L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听'**
+  String get hangulS9L4Step1Title;
+
+  /// No description provided for @hangulS9L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听 부엌/밭/앞 的发音'**
+  String get hangulS9L4Step1Desc;
+
+  /// No description provided for @hangulS9L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS9L4Step2Title;
+
+  /// No description provided for @hangulS9L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'亲自大声念出每个字'**
+  String get hangulS9L4Step2Desc;
+
+  /// No description provided for @hangulS9L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'辨别收音'**
+  String get hangulS9L4Step3Title;
+
+  /// No description provided for @hangulS9L4Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分这三个收音'**
+  String get hangulS9L4Step3Desc;
+
+  /// No description provided for @hangulS9L4Step3Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅌ？'**
+  String get hangulS9L4Step3Q0;
+
+  /// No description provided for @hangulS9L4Step3Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅍ？'**
+  String get hangulS9L4Step3Q1;
+
+  /// No description provided for @hangulS9L4Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS9L4Step4Title;
+
+  /// No description provided for @hangulS9L4Step4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握收音 ㅋ/ㅌ/ㅍ。'**
+  String get hangulS9L4Step4Msg;
+
+  /// No description provided for @hangulS9L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'收音 ㅎ 扩展'**
+  String get hangulS9L5Title;
+
+  /// No description provided for @hangulS9L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'좋 · 놓 · 않'**
+  String get hangulS9L5Subtitle;
+
+  /// No description provided for @hangulS9L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听：收音 ㅎ'**
+  String get hangulS9L5Step0Title;
+
+  /// No description provided for @hangulS9L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听 좋/놓/않 的发音'**
+  String get hangulS9L5Step0Desc;
+
+  /// No description provided for @hangulS9L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS9L5Step1Title;
+
+  /// No description provided for @hangulS9L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'亲自大声念出每个字'**
+  String get hangulS9L5Step1Desc;
+
+  /// No description provided for @hangulS9L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听音选字'**
+  String get hangulS9L5Step2Title;
+
+  /// No description provided for @hangulS9L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选出带有收音 ㅎ 的音节'**
+  String get hangulS9L5Step2Desc;
+
+  /// No description provided for @hangulS9L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS9L5Step3Title;
+
+  /// No description provided for @hangulS9L5Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已掌握收音 ㅎ。'**
+  String get hangulS9L5Step3Msg;
+
+  /// No description provided for @hangulS9L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展收音随机练习'**
+  String get hangulS9L6Title;
+
+  /// No description provided for @hangulS9L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合 ㄷ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ'**
+  String get hangulS9L6Subtitle;
+
+  /// No description provided for @hangulS9L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合扩展收音'**
+  String get hangulS9L6Step0Title;
+
+  /// No description provided for @hangulS9L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机复习所有扩展收音。'**
+  String get hangulS9L6Step0Desc;
+
+  /// No description provided for @hangulS9L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'随机测验'**
+  String get hangulS9L6Step1Title;
+
+  /// No description provided for @hangulS9L6Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'解题并区分各个收音'**
+  String get hangulS9L6Step1Desc;
+
+  /// No description provided for @hangulS9L6Step1Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㄷ？'**
+  String get hangulS9L6Step1Q0;
+
+  /// No description provided for @hangulS9L6Step1Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅈ？'**
+  String get hangulS9L6Step1Q1;
+
+  /// No description provided for @hangulS9L6Step1Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅊ？'**
+  String get hangulS9L6Step1Q2;
+
+  /// No description provided for @hangulS9L6Step1Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个带有收音 ㅎ？'**
+  String get hangulS9L6Step1Q3;
+
+  /// No description provided for @hangulS9L6Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS9L6Step2Title;
+
+  /// No description provided for @hangulS9L6Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n扩展收音随机复习完成。'**
+  String get hangulS9L6Step2Msg;
+
+  /// No description provided for @hangulS9L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第9阶段综合'**
+  String get hangulS9L7Title;
+
+  /// No description provided for @hangulS9L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展收音阅读收尾'**
+  String get hangulS9L7Subtitle;
+
+  /// No description provided for @hangulS9L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'最终确认'**
+  String get hangulS9L7Step0Title;
+
+  /// No description provided for @hangulS9L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'最终复习第9阶段的核心要点'**
+  String get hangulS9L7Step0Desc;
+
+  /// No description provided for @hangulS9L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第9阶段完成！'**
+  String get hangulS9L7Step1Title;
+
+  /// No description provided for @hangulS9L7Step1Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你已完成第9阶段的扩展收音学习。'**
+  String get hangulS9L7Step1Msg;
+
+  /// No description provided for @hangulS9LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务：扩展收音挑战！'**
+  String get hangulS9LMTitle;
+
+  /// No description provided for @hangulS9LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速读出各种收音'**
+  String get hangulS9LMSubtitle;
+
+  /// No description provided for @hangulS9LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'扩展收音任务！'**
+  String get hangulS9LMStep0Title;
+
+  /// No description provided for @hangulS9LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'以最快速度组合含扩展收音的音节！'**
+  String get hangulS9LMStep0Desc;
+
+  /// No description provided for @hangulS9LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节！'**
+  String get hangulS9LMStep1Title;
+
+  /// No description provided for @hangulS9LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS9LMStep2Title;
+
+  /// No description provided for @hangulS9LMStep3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务完成！'**
+  String get hangulS9LMStep3Title;
+
+  /// No description provided for @hangulS9LMStep3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已征服扩展收音！'**
+  String get hangulS9LMStep3Msg;
+
+  /// No description provided for @hangulS9CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第9阶段完成！'**
+  String get hangulS9CompleteTitle;
+
+  /// No description provided for @hangulS9CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已征服扩展收音！'**
+  String get hangulS9CompleteMsg;
+
+  /// No description provided for @hangulS10L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄳ 收音'**
+  String get hangulS10L1Title;
+
+  /// No description provided for @hangulS10L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'以 몫・넋 为中心阅读'**
+  String get hangulS10L1Subtitle;
+
+  /// No description provided for @hangulS10L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'双收音的发音规则'**
+  String get hangulS10L1Step0Title;
+
+  /// No description provided for @hangulS10L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'双收音是由两个辅音组合而成的收音。\n\n大多数读左边的辅音：\nㄳ→[ㄱ], ㄵ→[ㄴ], ㄶ→[ㄴ], ㄻ→[ㅁ], ㅄ→[ㅂ]\n\n少数读右边的辅音：\nㄺ→[ㄹ], ㄼ→[ㄹ]'**
+  String get hangulS10L1Step0Desc;
+
+  /// No description provided for @hangulS10L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'左边辅音,右边辅音,双收音'**
+  String get hangulS10L1Step0Highlights;
+
+  /// No description provided for @hangulS10L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始学习复合收音'**
+  String get hangulS10L1Step1Title;
+
+  /// No description provided for @hangulS10L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'来读含有 ㄳ 收音的单词吧。'**
+  String get hangulS10L1Step1Desc;
+
+  /// No description provided for @hangulS10L1Step1Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'몫,넋'**
+  String get hangulS10L1Step1Highlights;
+
+  /// No description provided for @hangulS10L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听发音'**
+  String get hangulS10L1Step2Title;
+
+  /// No description provided for @hangulS10L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听 몫/넋'**
+  String get hangulS10L1Step2Desc;
+
+  /// No description provided for @hangulS10L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS10L1Step3Title;
+
+  /// No description provided for @hangulS10L1Step3Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个字'**
+  String get hangulS10L1Step3Desc;
+
+  /// No description provided for @hangulS10L1Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读检测'**
+  String get hangulS10L1Step4Title;
+
+  /// No description provided for @hangulS10L1Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'看单词并选择正确答案'**
+  String get hangulS10L1Step4Desc;
+
+  /// No description provided for @hangulS10L1Step4Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个单词有 ㄳ 收音？'**
+  String get hangulS10L1Step4Q0;
+
+  /// No description provided for @hangulS10L1Step4Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个单词有 ㄳ 收音？'**
+  String get hangulS10L1Step4Q1;
+
+  /// No description provided for @hangulS10L1Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS10L1Step5Title;
+
+  /// No description provided for @hangulS10L1Step5Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了 ㄳ 收音。'**
+  String get hangulS10L1Step5Msg;
+
+  /// No description provided for @hangulS10L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄵ / ㄶ 收音'**
+  String get hangulS10L2Title;
+
+  /// No description provided for @hangulS10L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'앉다・많다'**
+  String get hangulS10L2Subtitle;
+
+  /// No description provided for @hangulS10L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听发音'**
+  String get hangulS10L2Step0Title;
+
+  /// No description provided for @hangulS10L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听 앉다/많다'**
+  String get hangulS10L2Step0Desc;
+
+  /// No description provided for @hangulS10L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS10L2Step1Title;
+
+  /// No description provided for @hangulS10L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个字'**
+  String get hangulS10L2Step1Desc;
+
+  /// No description provided for @hangulS10L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听后选择'**
+  String get hangulS10L2Step2Title;
+
+  /// No description provided for @hangulS10L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择正确的单词'**
+  String get hangulS10L2Step2Desc;
+
+  /// No description provided for @hangulS10L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS10L2Step3Title;
+
+  /// No description provided for @hangulS10L2Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了 ㄵ/ㄶ 收音。'**
+  String get hangulS10L2Step3Msg;
+
+  /// No description provided for @hangulS10L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄺ / ㄻ 收音'**
+  String get hangulS10L3Title;
+
+  /// No description provided for @hangulS10L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'읽다・삶'**
+  String get hangulS10L3Subtitle;
+
+  /// No description provided for @hangulS10L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听发音'**
+  String get hangulS10L3Step0Title;
+
+  /// No description provided for @hangulS10L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听 읽다/삶'**
+  String get hangulS10L3Step0Desc;
+
+  /// No description provided for @hangulS10L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS10L3Step1Title;
+
+  /// No description provided for @hangulS10L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个字'**
+  String get hangulS10L3Step1Desc;
+
+  /// No description provided for @hangulS10L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'阅读检测'**
+  String get hangulS10L3Step2Title;
+
+  /// No description provided for @hangulS10L3Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择含复合收音的单词'**
+  String get hangulS10L3Step2Desc;
+
+  /// No description provided for @hangulS10L3Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个单词有 ㄺ 收音？'**
+  String get hangulS10L3Step2Q0;
+
+  /// No description provided for @hangulS10L3Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个单词有 ㄻ 收音？'**
+  String get hangulS10L3Step2Q1;
+
+  /// No description provided for @hangulS10L3Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS10L3Step3Title;
+
+  /// No description provided for @hangulS10L3Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了 ㄺ/ㄻ 收音。'**
+  String get hangulS10L3Step3Msg;
+
+  /// No description provided for @hangulS10L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'高级组合 1'**
+  String get hangulS10L4Title;
+
+  /// No description provided for @hangulS10L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㄼ・ㄾ・ㄿ・ㅀ'**
+  String get hangulS10L4Subtitle;
+
+  /// No description provided for @hangulS10L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'高级组合介绍'**
+  String get hangulS10L4Step0Title;
+
+  /// No description provided for @hangulS10L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'通过常见例子简短地学习。'**
+  String get hangulS10L4Step0Desc;
+
+  /// No description provided for @hangulS10L4Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'넓다,핥다,읊다,싫다'**
+  String get hangulS10L4Step0Highlights;
+
+  /// No description provided for @hangulS10L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听单词发音'**
+  String get hangulS10L4Step1Title;
+
+  /// No description provided for @hangulS10L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听 넓다/핥다/읊다/싫다'**
+  String get hangulS10L4Step1Desc;
+
+  /// No description provided for @hangulS10L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS10L4Step2Title;
+
+  /// No description provided for @hangulS10L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个字'**
+  String get hangulS10L4Step2Desc;
+
+  /// No description provided for @hangulS10L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS10L4Step3Title;
+
+  /// No description provided for @hangulS10L4Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了高级组合 1。'**
+  String get hangulS10L4Step3Msg;
+
+  /// No description provided for @hangulS10L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'ㅄ 收音'**
+  String get hangulS10L5Title;
+
+  /// No description provided for @hangulS10L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'以 없다 为中心阅读'**
+  String get hangulS10L5Subtitle;
+
+  /// No description provided for @hangulS10L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听发音'**
+  String get hangulS10L5Step0Title;
+
+  /// No description provided for @hangulS10L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听一听 없다/없어'**
+  String get hangulS10L5Step0Desc;
+
+  /// No description provided for @hangulS10L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS10L5Step1Title;
+
+  /// No description provided for @hangulS10L5Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'请大声读出每个字'**
+  String get hangulS10L5Step1Desc;
+
+  /// No description provided for @hangulS10L5Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听后选择'**
+  String get hangulS10L5Step2Title;
+
+  /// No description provided for @hangulS10L5Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择正确的单词'**
+  String get hangulS10L5Step2Desc;
+
+  /// No description provided for @hangulS10L5Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS10L5Step3Title;
+
+  /// No description provided for @hangulS10L5Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你已经掌握了 ㅄ 收音。'**
+  String get hangulS10L5Step3Msg;
+
+  /// No description provided for @hangulS10L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第10阶段综合'**
+  String get hangulS10L6Title;
+
+  /// No description provided for @hangulS10L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'复合收音单词综合'**
+  String get hangulS10L6Subtitle;
+
+  /// No description provided for @hangulS10L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'综合检测'**
+  String get hangulS10L6Step0Title;
+
+  /// No description provided for @hangulS10L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'对复合收音单词进行最终检测'**
+  String get hangulS10L6Step0Desc;
+
+  /// No description provided for @hangulS10L6Step0Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个单词有 ㄶ 收音？'**
+  String get hangulS10L6Step0Q0;
+
+  /// No description provided for @hangulS10L6Step0Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个单词有 ㄺ 收音？'**
+  String get hangulS10L6Step0Q1;
+
+  /// No description provided for @hangulS10L6Step0Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个单词有 ㅄ 收音？'**
+  String get hangulS10L6Step0Q2;
+
+  /// No description provided for @hangulS10L6Step0Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下哪个单词有 ㄳ 收音？'**
+  String get hangulS10L6Step0Q3;
+
+  /// No description provided for @hangulS10L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第10阶段完成！'**
+  String get hangulS10L6Step1Title;
+
+  /// No description provided for @hangulS10L6Step1Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你完成了第10阶段的复合收音。'**
+  String get hangulS10L6Step1Msg;
+
+  /// No description provided for @hangulS10LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务：双收音挑战！'**
+  String get hangulS10LMTitle;
+
+  /// No description provided for @hangulS10LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速阅读双收音单词'**
+  String get hangulS10LMSubtitle;
+
+  /// No description provided for @hangulS10LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'双收音任务！'**
+  String get hangulS10LMStep0Title;
+
+  /// No description provided for @hangulS10LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速组合包含双收音的音节！'**
+  String get hangulS10LMStep0Desc;
+
+  /// No description provided for @hangulS10LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节！'**
+  String get hangulS10LMStep1Title;
+
+  /// No description provided for @hangulS10LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS10LMStep2Title;
+
+  /// No description provided for @hangulS10LMStep3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务完成！'**
+  String get hangulS10LMStep3Title;
+
+  /// No description provided for @hangulS10LMStep3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你连双收音都掌握了！'**
+  String get hangulS10LMStep3Msg;
+
+  /// No description provided for @hangulS10LMStep4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第10阶段完成！'**
+  String get hangulS10LMStep4Title;
+
+  /// No description provided for @hangulS10CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第10阶段完成！'**
+  String get hangulS10CompleteTitle;
+
+  /// No description provided for @hangulS10CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你连双收音都掌握了！'**
+  String get hangulS10CompleteMsg;
+
+  /// No description provided for @hangulS11L1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'无收音的单词'**
+  String get hangulS11L1Title;
+
+  /// No description provided for @hangulS11L1Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'简单的2~3音节单词'**
+  String get hangulS11L1Subtitle;
+
+  /// No description provided for @hangulS11L1Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始读单词'**
+  String get hangulS11L1Step0Title;
+
+  /// No description provided for @hangulS11L1Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'先用没有收音的单词建立自信吧。'**
+  String get hangulS11L1Step0Desc;
+
+  /// No description provided for @hangulS11L1Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'바나나,나비,하마,모자'**
+  String get hangulS11L1Step0Highlights;
+
+  /// No description provided for @hangulS11L1Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听单词'**
+  String get hangulS11L1Step1Title;
+
+  /// No description provided for @hangulS11L1Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听 바나나 / 나비 / 하마 / 모자'**
+  String get hangulS11L1Step1Desc;
+
+  /// No description provided for @hangulS11L1Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS11L1Step2Title;
+
+  /// No description provided for @hangulS11L1Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声读出每个字'**
+  String get hangulS11L1Step2Desc;
+
+  /// No description provided for @hangulS11L1Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS11L1Step3Title;
+
+  /// No description provided for @hangulS11L1Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你开始读没有收音的单词了。'**
+  String get hangulS11L1Step3Msg;
+
+  /// No description provided for @hangulS11L2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'基本收音单词'**
+  String get hangulS11L2Title;
+
+  /// No description provided for @hangulS11L2Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'학교・친구・한국・공부'**
+  String get hangulS11L2Subtitle;
+
+  /// No description provided for @hangulS11L2Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听单词'**
+  String get hangulS11L2Step0Title;
+
+  /// No description provided for @hangulS11L2Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听听 학교 / 친구 / 한국 / 공부'**
+  String get hangulS11L2Step0Desc;
+
+  /// No description provided for @hangulS11L2Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS11L2Step1Title;
+
+  /// No description provided for @hangulS11L2Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声读出每个字'**
+  String get hangulS11L2Step1Desc;
+
+  /// No description provided for @hangulS11L2Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听后选择'**
+  String get hangulS11L2Step2Title;
+
+  /// No description provided for @hangulS11L2Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择你听到的单词'**
+  String get hangulS11L2Step2Desc;
+
+  /// No description provided for @hangulS11L2Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS11L2Step3Title;
+
+  /// No description provided for @hangulS11L2Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你读了基本收音的单词。'**
+  String get hangulS11L2Step3Msg;
+
+  /// No description provided for @hangulS11L3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'混合收音单词'**
+  String get hangulS11L3Title;
+
+  /// No description provided for @hangulS11L3Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'읽기・없다・많다・닭'**
+  String get hangulS11L3Subtitle;
+
+  /// No description provided for @hangulS11L3Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'提升难度'**
+  String get hangulS11L3Step0Title;
+
+  /// No description provided for @hangulS11L3Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'来读含基本和复合收音的混合单词吧。'**
+  String get hangulS11L3Step0Desc;
+
+  /// No description provided for @hangulS11L3Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'읽기,없다,많다,닭'**
+  String get hangulS11L3Step0Highlights;
+
+  /// No description provided for @hangulS11L3Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分单词'**
+  String get hangulS11L3Step1Title;
+
+  /// No description provided for @hangulS11L3Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'区分相似的单词'**
+  String get hangulS11L3Step1Desc;
+
+  /// No description provided for @hangulS11L3Step1Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是复合收音的单词？'**
+  String get hangulS11L3Step1Q0;
+
+  /// No description provided for @hangulS11L3Step1Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是复合收音的单词？'**
+  String get hangulS11L3Step1Q1;
+
+  /// No description provided for @hangulS11L3Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS11L3Step2Title;
+
+  /// No description provided for @hangulS11L3Step2Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你读了混合收音的单词。'**
+  String get hangulS11L3Step2Msg;
+
+  /// No description provided for @hangulS11L4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'分类单词包'**
+  String get hangulS11L4Title;
+
+  /// No description provided for @hangulS11L4Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'食物・地点・人物'**
+  String get hangulS11L4Subtitle;
+
+  /// No description provided for @hangulS11L4Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听分类单词'**
+  String get hangulS11L4Step0Title;
+
+  /// No description provided for @hangulS11L4Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听食物 / 地点 / 人物的单词'**
+  String get hangulS11L4Step0Desc;
+
+  /// No description provided for @hangulS11L4Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS11L4Step1Title;
+
+  /// No description provided for @hangulS11L4Step1Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声读出每个字'**
+  String get hangulS11L4Step1Desc;
+
+  /// No description provided for @hangulS11L4Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'按类别分类'**
+  String get hangulS11L4Step2Title;
+
+  /// No description provided for @hangulS11L4Step2Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'看单词，选择它的类别'**
+  String get hangulS11L4Step2Desc;
+
+  /// No description provided for @hangulS11L4Step2Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'「김치」是什么？'**
+  String get hangulS11L4Step2Q0;
+
+  /// No description provided for @hangulS11L4Step2Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'「시장」是什么？'**
+  String get hangulS11L4Step2Q1;
+
+  /// No description provided for @hangulS11L4Step2Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'「학생」是什么？'**
+  String get hangulS11L4Step2Q2;
+
+  /// No description provided for @hangulS11L4Step2CatFood.
+  ///
+  /// In zh, this message translates to:
+  /// **'食物'**
+  String get hangulS11L4Step2CatFood;
+
+  /// No description provided for @hangulS11L4Step2CatPlace.
+  ///
+  /// In zh, this message translates to:
+  /// **'地点'**
+  String get hangulS11L4Step2CatPlace;
+
+  /// No description provided for @hangulS11L4Step2CatPerson.
+  ///
+  /// In zh, this message translates to:
+  /// **'人物'**
+  String get hangulS11L4Step2CatPerson;
+
+  /// No description provided for @hangulS11L4Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS11L4Step3Title;
+
+  /// No description provided for @hangulS11L4Step3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你学习了分类单词。'**
+  String get hangulS11L4Step3Msg;
+
+  /// No description provided for @hangulS11L5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'听后选词'**
+  String get hangulS11L5Title;
+
+  /// No description provided for @hangulS11L5Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'加强听觉与阅读的联系'**
+  String get hangulS11L5Subtitle;
+
+  /// No description provided for @hangulS11L5Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音匹配'**
+  String get hangulS11L5Step0Title;
+
+  /// No description provided for @hangulS11L5Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'听后选出正确的单词'**
+  String get hangulS11L5Step0Desc;
+
+  /// No description provided for @hangulS11L5Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'课程完成！'**
+  String get hangulS11L5Step1Title;
+
+  /// No description provided for @hangulS11L5Step1Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'很好！\n你完成了听后选词训练。'**
+  String get hangulS11L5Step1Msg;
+
+  /// No description provided for @hangulS11L6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第11阶段综合复习'**
+  String get hangulS11L6Title;
+
+  /// No description provided for @hangulS11L6Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'单词阅读最终检验'**
+  String get hangulS11L6Subtitle;
+
+  /// No description provided for @hangulS11L6Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'综合测验'**
+  String get hangulS11L6Step0Title;
+
+  /// No description provided for @hangulS11L6Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'第11阶段单词综合检验'**
+  String get hangulS11L6Step0Desc;
+
+  /// No description provided for @hangulS11L6Step0Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个单词没有收音？'**
+  String get hangulS11L6Step0Q0;
+
+  /// No description provided for @hangulS11L6Step0Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是基本收音的单词？'**
+  String get hangulS11L6Step0Q1;
+
+  /// No description provided for @hangulS11L6Step0Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是复合收音的单词？'**
+  String get hangulS11L6Step0Q2;
+
+  /// No description provided for @hangulS11L6Step0Q3.
+  ///
+  /// In zh, this message translates to:
+  /// **'哪个是地点单词？'**
+  String get hangulS11L6Step0Q3;
+
+  /// No description provided for @hangulS11L6Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第11阶段完成！'**
+  String get hangulS11L6Step1Title;
+
+  /// No description provided for @hangulS11L6Step1Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！\n你完成了第11阶段扩展单词阅读。'**
+  String get hangulS11L6Step1Msg;
+
+  /// No description provided for @hangulS11L7Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'在现实中读韩语'**
+  String get hangulS11L7Title;
+
+  /// No description provided for @hangulS11L7Subtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'读咖啡菜单、地铁站名和问候语'**
+  String get hangulS11L7Subtitle;
+
+  /// No description provided for @hangulS11L7Step0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'在韩国读韩文！'**
+  String get hangulS11L7Step0Title;
+
+  /// No description provided for @hangulS11L7Step0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已经学完了所有韩文！\n来读在韩国能看到的文字吧！'**
+  String get hangulS11L7Step0Desc;
+
+  /// No description provided for @hangulS11L7Step0Highlights.
+  ///
+  /// In zh, this message translates to:
+  /// **'咖啡馆,地铁,问候语'**
+  String get hangulS11L7Step0Highlights;
+
+  /// No description provided for @hangulS11L7Step1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'读咖啡菜单'**
+  String get hangulS11L7Step1Title;
+
+  /// No description provided for @hangulS11L7Step1Descs.
+  ///
+  /// In zh, this message translates to:
+  /// **'美式咖啡,拿铁,绿茶,蛋糕'**
+  String get hangulS11L7Step1Descs;
+
+  /// No description provided for @hangulS11L7Step2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'读地铁站名'**
+  String get hangulS11L7Step2Title;
+
+  /// No description provided for @hangulS11L7Step2Descs.
+  ///
+  /// In zh, this message translates to:
+  /// **'首尔站,江南,弘大入口,明洞'**
+  String get hangulS11L7Step2Descs;
+
+  /// No description provided for @hangulS11L7Step3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'读基本问候语'**
+  String get hangulS11L7Step3Title;
+
+  /// No description provided for @hangulS11L7Step3Descs.
+  ///
+  /// In zh, this message translates to:
+  /// **'你好,谢谢,是,不是'**
+  String get hangulS11L7Step3Descs;
+
+  /// No description provided for @hangulS11L7Step4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'发音练习'**
+  String get hangulS11L7Step4Title;
+
+  /// No description provided for @hangulS11L7Step4Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'大声读出每个字'**
+  String get hangulS11L7Step4Desc;
+
+  /// No description provided for @hangulS11L7Step5Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'在哪里能看到？'**
+  String get hangulS11L7Step5Title;
+
+  /// No description provided for @hangulS11L7Step5Q0.
+  ///
+  /// In zh, this message translates to:
+  /// **'「아메리카노」在哪里能看到？'**
+  String get hangulS11L7Step5Q0;
+
+  /// No description provided for @hangulS11L7Step5Q0Ans.
+  ///
+  /// In zh, this message translates to:
+  /// **'咖啡馆'**
+  String get hangulS11L7Step5Q0Ans;
+
+  /// No description provided for @hangulS11L7Step5Q0C0.
+  ///
+  /// In zh, this message translates to:
+  /// **'咖啡馆'**
+  String get hangulS11L7Step5Q0C0;
+
+  /// No description provided for @hangulS11L7Step5Q0C1.
+  ///
+  /// In zh, this message translates to:
+  /// **'地铁'**
+  String get hangulS11L7Step5Q0C1;
+
+  /// No description provided for @hangulS11L7Step5Q0C2.
+  ///
+  /// In zh, this message translates to:
+  /// **'学校'**
+  String get hangulS11L7Step5Q0C2;
+
+  /// No description provided for @hangulS11L7Step5Q1.
+  ///
+  /// In zh, this message translates to:
+  /// **'「강남」是什么？'**
+  String get hangulS11L7Step5Q1;
+
+  /// No description provided for @hangulS11L7Step5Q1Ans.
+  ///
+  /// In zh, this message translates to:
+  /// **'地铁站名'**
+  String get hangulS11L7Step5Q1Ans;
+
+  /// No description provided for @hangulS11L7Step5Q1C0.
+  ///
+  /// In zh, this message translates to:
+  /// **'食物名称'**
+  String get hangulS11L7Step5Q1C0;
+
+  /// No description provided for @hangulS11L7Step5Q1C1.
+  ///
+  /// In zh, this message translates to:
+  /// **'地铁站名'**
+  String get hangulS11L7Step5Q1C1;
+
+  /// No description provided for @hangulS11L7Step5Q1C2.
+  ///
+  /// In zh, this message translates to:
+  /// **'问候语'**
+  String get hangulS11L7Step5Q1C2;
+
+  /// No description provided for @hangulS11L7Step5Q2.
+  ///
+  /// In zh, this message translates to:
+  /// **'「감사합니다」用中文是？'**
+  String get hangulS11L7Step5Q2;
+
+  /// No description provided for @hangulS11L7Step5Q2Ans.
+  ///
+  /// In zh, this message translates to:
+  /// **'谢谢'**
+  String get hangulS11L7Step5Q2Ans;
+
+  /// No description provided for @hangulS11L7Step5Q2C0.
+  ///
+  /// In zh, this message translates to:
+  /// **'你好'**
+  String get hangulS11L7Step5Q2C0;
+
+  /// No description provided for @hangulS11L7Step5Q2C1.
+  ///
+  /// In zh, this message translates to:
+  /// **'谢谢'**
+  String get hangulS11L7Step5Q2C1;
+
+  /// No description provided for @hangulS11L7Step5Q2C2.
+  ///
+  /// In zh, this message translates to:
+  /// **'再见'**
+  String get hangulS11L7Step5Q2C2;
+
+  /// No description provided for @hangulS11L7Step6Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'恭喜！'**
+  String get hangulS11L7Step6Title;
+
+  /// No description provided for @hangulS11L7Step6Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你现在能读韩国的咖啡菜单、地铁站名和问候语了！\n离韩文大师只差一步！'**
+  String get hangulS11L7Step6Msg;
+
+  /// No description provided for @hangulS11LMTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务：韩文速读！'**
+  String get hangulS11LMTitle;
+
+  /// No description provided for @hangulS11LMSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速读出韩语单词'**
+  String get hangulS11LMSubtitle;
+
+  /// No description provided for @hangulS11LMStep0Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文速读任务！'**
+  String get hangulS11LMStep0Title;
+
+  /// No description provided for @hangulS11LMStep0Desc.
+  ///
+  /// In zh, this message translates to:
+  /// **'尽快读出并匹配韩语单词！\n是时候证明你的实力了！'**
+  String get hangulS11LMStep0Desc;
+
+  /// No description provided for @hangulS11LMStep1Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'组合音节！'**
+  String get hangulS11LMStep1Title;
+
+  /// No description provided for @hangulS11LMStep2Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'任务结果'**
+  String get hangulS11LMStep2Title;
+
+  /// No description provided for @hangulS11LMStep3Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'韩文大师！'**
+  String get hangulS11LMStep3Title;
+
+  /// No description provided for @hangulS11LMStep3Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你已经完全掌握韩文了！\n现在可以读韩语单词和句子了！'**
+  String get hangulS11LMStep3Msg;
+
+  /// No description provided for @hangulS11LMStep4Title.
+  ///
+  /// In zh, this message translates to:
+  /// **'第11阶段完成！'**
+  String get hangulS11LMStep4Title;
+
+  /// No description provided for @hangulS11LMStep4Msg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你现在能完整地读韩文了！'**
+  String get hangulS11LMStep4Msg;
+
+  /// No description provided for @hangulS11CompleteTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'第11阶段完成！'**
+  String get hangulS11CompleteTitle;
+
+  /// No description provided for @hangulS11CompleteMsg.
+  ///
+  /// In zh, this message translates to:
+  /// **'你现在能完整地读韩文了！'**
+  String get hangulS11CompleteMsg;
+
+  /// No description provided for @stageRequestFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'发送上台请求失败，请重试。'**
+  String get stageRequestFailed;
+
+  /// No description provided for @stageRequestRejected.
+  ///
+  /// In zh, this message translates to:
+  /// **'主持人拒绝了你的上台请求。'**
+  String get stageRequestRejected;
+
+  /// No description provided for @inviteToStageFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'邀请上台失败，舞台可能已满。'**
+  String get inviteToStageFailed;
+
+  /// No description provided for @demoteFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'从舞台移除失败，请重试。'**
+  String get demoteFailed;
+
+  /// No description provided for @voiceRoomCloseRoomFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭房间失败，请重试。'**
+  String get voiceRoomCloseRoomFailed;
 }
 
 class _AppLocalizationsDelegate

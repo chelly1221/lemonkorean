@@ -695,7 +695,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               textInputAction: TextInputAction.done,
               style: const TextStyle(fontSize: AppConstants.fontSizeSmall),
               decoration: InputDecoration(
-                hintText: 'Type a tag...',
+                hintText: AppLocalizations.of(context)?.typeTagHint ?? 'Type a tag...',
                 hintStyle: TextStyle(
                   fontSize: AppConstants.fontSizeSmall,
                   color: Colors.grey.shade400,

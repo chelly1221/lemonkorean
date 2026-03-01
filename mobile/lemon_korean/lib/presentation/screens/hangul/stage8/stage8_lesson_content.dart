@@ -1,46 +1,44 @@
+import '../../../../l10n/generated/app_localizations.dart';
 import '../stage0/stage0_lesson_content.dart';
 
-/// All Stage 8 lessons — 받침(종성) 1차.
-const stage8Lessons = <LessonData>[
+/// All Stage 8 lessons — 받침(종성) 1차, localized via [l10n].
+List<LessonData> getStage8Lessons(AppLocalizations l10n) => <LessonData>[
+  // ── Lesson 8-0: 받침 개념 ──
   LessonData(
     id: '8-0',
-    title: '받침 개념',
-    subtitle: '글자 아래 들어가는 소리',
+    title: l10n.hangulS8L0Title,
+    subtitle: l10n.hangulS8L0Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: '받침은 아래에 있어요',
-        description: '받침은 음절 블록 아래쪽에 들어가요.\n'
-            '예: 가 + ㄴ = 간',
+        title: l10n.hangulS8L0Step0Title,
+        description: l10n.hangulS8L0Step0Desc,
         data: {
-          'highlights': ['받침', '간', '말', '집']
+          'highlights': l10n.hangulS8L0Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.intro,
-        title: '받침의 7가지 대표 소리',
-        description: '받침에는 7가지 대표 소리만 있어요.\n\n'
-            'ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\n'
-            '여러 받침이 이 7가지 소리 중 하나로 발음돼요.\n'
-            '예: ㅅ, ㅈ, ㅊ, ㅎ 받침 → 모두 [ㄷ] 소리',
+        title: l10n.hangulS8L0Step1Title,
+        description: l10n.hangulS8L0Step1Desc,
         data: {
           'emoji': '🔑',
-          'highlights': ['7가지', 'ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ', '대표 소리'],
+          'highlights': l10n.hangulS8L0Step1Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '위치 확인',
-        description: '받침 위치를 확인해요',
+        title: l10n.hangulS8L0Step2Title,
+        description: l10n.hangulS8L0Step2Desc,
         data: {
           'questions': [
             {
-              'question': '간에서 받침은?',
+              'question': l10n.hangulS8L0Step2Q0,
               'answer': 'ㄴ',
               'choices': ['ㄱ', 'ㅏ', 'ㄴ']
             },
             {
-              'question': '말에서 받침은?',
+              'question': l10n.hangulS8L0Step2Q1,
               'answer': 'ㄹ',
               'choices': ['ㅁ', 'ㅏ', 'ㄹ']
             },
@@ -49,20 +47,22 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-0', 'message': '좋아요!\n받침 개념을 이해했어요.'},
+        title: l10n.hangulS8L0SummaryTitle,
+        data: {'lessonId': '8-0', 'message': l10n.hangulS8L0SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-1: ㄴ 받침 ──
   LessonData(
     id: '8-1',
-    title: 'ㄴ 받침',
-    subtitle: '간 · 난 · 단',
+    title: l10n.hangulS8L1Title,
+    subtitle: l10n.hangulS8L1Subtitle,
     steps: [
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄴ 받침 소리 듣기',
-        description: '간/난/단을 들어보세요',
+        title: l10n.hangulS8L1Step0Title,
+        description: l10n.hangulS8L1Step0Desc,
         data: {
           'characters': ['간', '난', '단'],
           'type': 'syllable'
@@ -70,8 +70,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L1Step1Title,
+        description: l10n.hangulS8L1Step1Desc,
         data: {
           'characters': ['간', '난', '단'],
           'maxAttempts': 3,
@@ -81,8 +81,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: '듣고 고르기',
-        description: 'ㄴ 받침 음절을 선택하세요',
+        title: l10n.hangulS8L1Step2Title,
+        description: l10n.hangulS8L1Step2Desc,
         data: {
           'questions': [
             {
@@ -98,20 +98,22 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-1', 'message': '좋아요!\nㄴ 받침을 익혔어요.'},
+        title: l10n.hangulS8L1SummaryTitle,
+        data: {'lessonId': '8-1', 'message': l10n.hangulS8L1SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-2: ㄹ 받침 ──
   LessonData(
     id: '8-2',
-    title: 'ㄹ 받침',
-    subtitle: '말 · 갈 · 물',
+    title: l10n.hangulS8L2Title,
+    subtitle: l10n.hangulS8L2Subtitle,
     steps: [
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄹ 받침 소리 듣기',
-        description: '말/갈/물을 들어보세요',
+        title: l10n.hangulS8L2Step0Title,
+        description: l10n.hangulS8L2Step0Desc,
         data: {
           'characters': ['말', '갈', '물'],
           'type': 'syllable'
@@ -119,8 +121,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L2Step1Title,
+        description: l10n.hangulS8L2Step1Desc,
         data: {
           'characters': ['말', '갈', '물'],
           'maxAttempts': 3,
@@ -130,8 +132,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: '듣고 고르기',
-        description: 'ㄹ 받침 음절을 선택하세요',
+        title: l10n.hangulS8L2Step2Title,
+        description: l10n.hangulS8L2Step2Desc,
         data: {
           'questions': [
             {
@@ -147,20 +149,22 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-2', 'message': '좋아요!\nㄹ 받침을 익혔어요.'},
+        title: l10n.hangulS8L2SummaryTitle,
+        data: {'lessonId': '8-2', 'message': l10n.hangulS8L2SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-3: ㅁ 받침 ──
   LessonData(
     id: '8-3',
-    title: 'ㅁ 받침',
-    subtitle: '감 · 밤 · 숨',
+    title: l10n.hangulS8L3Title,
+    subtitle: l10n.hangulS8L3Subtitle,
     steps: [
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅁ 받침 소리 듣기',
-        description: '감/밤/숨을 들어보세요',
+        title: l10n.hangulS8L3Step0Title,
+        description: l10n.hangulS8L3Step0Desc,
         data: {
           'characters': ['감', '밤', '숨'],
           'type': 'syllable'
@@ -168,8 +172,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L3Step1Title,
+        description: l10n.hangulS8L3Step1Desc,
         data: {
           'characters': ['감', '밤', '숨'],
           'maxAttempts': 3,
@@ -179,17 +183,17 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '받침 구분',
-        description: 'ㅁ 받침을 골라요',
+        title: l10n.hangulS8L3Step2Title,
+        description: l10n.hangulS8L3Step2Desc,
         data: {
           'questions': [
             {
-              'question': '다음 중 ㅁ 받침은?',
+              'question': l10n.hangulS8L3Step2Q0,
               'answer': '밤',
               'choices': ['발', '밤', '밥']
             },
             {
-              'question': '다음 중 ㅁ 받침은?',
+              'question': l10n.hangulS8L3Step2Q1,
               'answer': '감',
               'choices': ['간', '감', '갓']
             },
@@ -198,31 +202,31 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-3', 'message': '좋아요!\nㅁ 받침을 익혔어요.'},
+        title: l10n.hangulS8L3SummaryTitle,
+        data: {'lessonId': '8-3', 'message': l10n.hangulS8L3SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-4: ㅇ 받침 ──
   LessonData(
     id: '8-4',
-    title: 'ㅇ 받침',
-    subtitle: '방 · 공 · 종',
+    title: l10n.hangulS8L4Title,
+    subtitle: l10n.hangulS8L4Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅇ은 특별해요!',
-        description: 'ㅇ은 특별해요!\n'
-            '위(초성)에 있으면 소리가 없지만 (아, 오)\n'
-            '아래(받침)에 있으면 "ng" 소리가 나요 (방, 공)',
+        title: l10n.hangulS8L4Step0Title,
+        description: l10n.hangulS8L4Step0Desc,
         data: {
           'emoji': '💡',
-          'highlights': ['초성', '받침', 'ng', '방', '공'],
+          'highlights': l10n.hangulS8L4Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅇ 받침 소리 듣기',
-        description: '방/공/종을 들어보세요',
+        title: l10n.hangulS8L4Step1Title,
+        description: l10n.hangulS8L4Step1Desc,
         data: {
           'characters': ['방', '공', '종'],
           'type': 'syllable'
@@ -230,8 +234,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L4Step2Title,
+        description: l10n.hangulS8L4Step2Desc,
         data: {
           'characters': ['방', '공', '종'],
           'maxAttempts': 3,
@@ -241,8 +245,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: '듣고 고르기',
-        description: 'ㅇ 받침 음절을 선택하세요',
+        title: l10n.hangulS8L4Step3Title,
+        description: l10n.hangulS8L4Step3Desc,
         data: {
           'questions': [
             {
@@ -258,20 +262,22 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-4', 'message': '좋아요!\nㅇ 받침을 익혔어요.'},
+        title: l10n.hangulS8L4SummaryTitle,
+        data: {'lessonId': '8-4', 'message': l10n.hangulS8L4SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-5: ㄱ 받침 ──
   LessonData(
     id: '8-5',
-    title: 'ㄱ 받침',
-    subtitle: '박 · 각 · 국',
+    title: l10n.hangulS8L5Title,
+    subtitle: l10n.hangulS8L5Subtitle,
     steps: [
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄱ 받침 소리 듣기',
-        description: '박/각/국을 들어보세요',
+        title: l10n.hangulS8L5Step0Title,
+        description: l10n.hangulS8L5Step0Desc,
         data: {
           'characters': ['박', '각', '국'],
           'type': 'syllable'
@@ -279,8 +285,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L5Step1Title,
+        description: l10n.hangulS8L5Step1Desc,
         data: {
           'characters': ['박', '각', '국'],
           'maxAttempts': 3,
@@ -290,17 +296,17 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '받침 구분',
-        description: 'ㄱ 받침을 골라요',
+        title: l10n.hangulS8L5Step2Title,
+        description: l10n.hangulS8L5Step2Desc,
         data: {
           'questions': [
             {
-              'question': '다음 중 ㄱ 받침은?',
+              'question': l10n.hangulS8L5Step2Q0,
               'answer': '박',
               'choices': ['박', '밤', '발']
             },
             {
-              'question': '다음 중 ㄱ 받침은?',
+              'question': l10n.hangulS8L5Step2Q1,
               'answer': '국',
               'choices': ['군', '국', '굴']
             },
@@ -309,20 +315,22 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-5', 'message': '좋아요!\nㄱ 받침을 익혔어요.'},
+        title: l10n.hangulS8L5SummaryTitle,
+        data: {'lessonId': '8-5', 'message': l10n.hangulS8L5SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-6: ㅂ 받침 ──
   LessonData(
     id: '8-6',
-    title: 'ㅂ 받침',
-    subtitle: '밥 · 집 · 숲',
+    title: l10n.hangulS8L6Title,
+    subtitle: l10n.hangulS8L6Subtitle,
     steps: [
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅂ 받침 소리 듣기',
-        description: '밥/집/숲을 들어보세요',
+        title: l10n.hangulS8L6Step0Title,
+        description: l10n.hangulS8L6Step0Desc,
         data: {
           'characters': ['밥', '집', '숲'],
           'type': 'syllable'
@@ -330,8 +338,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L6Step1Title,
+        description: l10n.hangulS8L6Step1Desc,
         data: {
           'characters': ['밥', '집', '숲'],
           'maxAttempts': 3,
@@ -341,8 +349,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: '듣고 고르기',
-        description: 'ㅂ 받침 음절을 선택하세요',
+        title: l10n.hangulS8L6Step2Title,
+        description: l10n.hangulS8L6Step2Desc,
         data: {
           'questions': [
             {
@@ -358,20 +366,22 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-6', 'message': '좋아요!\nㅂ 받침을 익혔어요.'},
+        title: l10n.hangulS8L6SummaryTitle,
+        data: {'lessonId': '8-6', 'message': l10n.hangulS8L6SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-7: ㅅ 받침 ──
   LessonData(
     id: '8-7',
-    title: 'ㅅ 받침',
-    subtitle: '옷 · 맛 · 빛',
+    title: l10n.hangulS8L7Title,
+    subtitle: l10n.hangulS8L7Subtitle,
     steps: [
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅅ 받침 소리 듣기',
-        description: '옷/맛/빛을 들어보세요',
+        title: l10n.hangulS8L7Step0Title,
+        description: l10n.hangulS8L7Step0Desc,
         data: {
           'characters': ['옷', '맛', '빛'],
           'type': 'syllable'
@@ -379,8 +389,8 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS8L7Step1Title,
+        description: l10n.hangulS8L7Step1Desc,
         data: {
           'characters': ['옷', '맛', '빛'],
           'maxAttempts': 3,
@@ -390,17 +400,17 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '받침 구분',
-        description: 'ㅅ 받침을 골라요',
+        title: l10n.hangulS8L7Step2Title,
+        description: l10n.hangulS8L7Step2Desc,
         data: {
           'questions': [
             {
-              'question': '다음 중 ㅅ 받침은?',
+              'question': l10n.hangulS8L7Step2Q0,
               'answer': '옷',
               'choices': ['옷', '온', '옹']
             },
             {
-              'question': '다음 중 ㅅ 받침은?',
+              'question': l10n.hangulS8L7Step2Q1,
               'answer': '빛',
               'choices': ['빈', '빔', '빛']
             },
@@ -409,45 +419,47 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-7', 'message': '좋아요!\nㅅ 받침을 익혔어요.'},
+        title: l10n.hangulS8L7SummaryTitle,
+        data: {'lessonId': '8-7', 'message': l10n.hangulS8L7SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-8: 받침 섞기 종합 ──
   LessonData(
     id: '8-8',
-    title: '받침 섞기 종합',
-    subtitle: '핵심 받침 랜덤 점검',
+    title: l10n.hangulS8L8Title,
+    subtitle: l10n.hangulS8L8Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: '핵심 받침 섞기',
-        description: 'ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅ을 함께 점검해요.',
+        title: l10n.hangulS8L8Step0Title,
+        description: l10n.hangulS8L8Step0Desc,
         data: {'emoji': '🧩'},
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '랜덤 퀴즈',
-        description: '여러 받침을 섞어서 확인해요',
+        title: l10n.hangulS8L8Step1Title,
+        description: l10n.hangulS8L8Step1Desc,
         data: {
           'questions': [
             {
-              'question': '다음 중 ㄴ 받침은?',
+              'question': l10n.hangulS8L8Step1Q0,
               'answer': '문',
               'choices': ['문', '물', '묵']
             },
             {
-              'question': '다음 중 ㅇ 받침은?',
+              'question': l10n.hangulS8L8Step1Q1,
               'answer': '공',
               'choices': ['공', '곱', '곤']
             },
             {
-              'question': '다음 중 ㄹ 받침은?',
+              'question': l10n.hangulS8L8Step1Q2,
               'answer': '발',
               'choices': ['반', '밥', '발']
             },
             {
-              'question': '다음 중 ㅂ 받침은?',
+              'question': l10n.hangulS8L8Step1Q3,
               'answer': '집',
               'choices': ['짐', '집', '진']
             },
@@ -456,26 +468,28 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
-        data: {'lessonId': '8-8', 'message': '좋아요!\n핵심 받침 종합을 완료했어요.'},
+        title: l10n.hangulS8L8SummaryTitle,
+        data: {'lessonId': '8-8', 'message': l10n.hangulS8L8SummaryMsg},
       ),
     ],
   ),
+
+  // ── Lesson 8-M: 미션 ──
   LessonData(
     id: '8-M',
-    title: '미션: 받침 도전!',
-    subtitle: '받침이 있는 음절을 조합해요',
+    title: l10n.hangulS8LMTitle,
+    subtitle: l10n.hangulS8LMSubtitle,
     isMission: true,
     steps: [
       LessonStep(
         type: StepType.missionIntro,
-        title: '받침 미션!',
-        description: '기본 받침이 있는 음절을 읽고\n빠르게 맞춰봐요!',
+        title: l10n.hangulS8LMStep0Title,
+        description: l10n.hangulS8LMStep0Desc,
         data: {'timeLimit': 120, 'targetCount': 8},
       ),
       LessonStep(
         type: StepType.timedMission,
-        title: '음절을 조합하세요!',
+        title: l10n.hangulS8LMStep1Title,
         data: {
           'timeLimitSeconds': 120,
           'targetCount': 8,
@@ -485,19 +499,19 @@ const stage8Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.missionResults,
-        title: '미션 결과',
+        title: l10n.hangulS8LMStep2Title,
         data: {},
       ),
       LessonStep(
         type: StepType.summary,
-        title: '미션 완료!',
-        data: {'message': '받침의 기초를 완전히 다졌어요!'},
+        title: l10n.hangulS8LMSummaryTitle,
+        data: {'message': l10n.hangulS8LMSummaryMsg},
       ),
       LessonStep(
         type: StepType.stageComplete,
-        title: 'Stage 8 완료!',
+        title: l10n.hangulS8CompleteTitle,
         data: {
-          'message': '받침의 기초를 다졌어요!',
+          'message': l10n.hangulS8CompleteMsg,
           'stageNumber': 8,
         },
       ),

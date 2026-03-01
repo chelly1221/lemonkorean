@@ -23,120 +23,136 @@ class Stage1Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Lesson Number Badge
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  AppConstants.primaryColor,
-                  AppConstants.primaryColor.withValues(alpha: 0.7),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                BoxShadow(
-                  color: AppConstants.primaryColor.withValues(alpha: 0.3),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 24),
+
+                // Lesson Number Badge
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        AppConstants.primaryColor,
+                        AppConstants.primaryColor.withValues(alpha: 0.7),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppConstants.primaryColor.withValues(alpha: 0.3),
+                        blurRadius: 16,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${lesson.level}',
+                      style: const TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                ).animate().scale(
+                      delay: 200.ms,
+                      duration: 600.ms,
+                      curve: Curves.elasticOut,
+                    ),
+
+                const SizedBox(height: 24),
+
+                // Korean Title
+                Text(
+                  lesson.titleKo,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    height: 1.3,
+                  ),
+                ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
+
+                const SizedBox(height: 12),
+
+                // Chinese Title
+                Text(
+                  lesson.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: AppConstants.textSecondary,
+                    height: 1.3,
+                  ),
+                ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
+
+                const SizedBox(height: 24),
+
+                // Description
+                if (lesson.description != null)
+                  Container(
+                    padding: const EdgeInsets.all(AppConstants.paddingMedium),
+                    decoration: BoxDecoration(
+                      color: AppConstants.primaryColor.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(
+                        AppConstants.radiusMedium,
+                      ),
+                    ),
+                    child: Text(
+                      lesson.description!,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: AppConstants.fontSizeMedium,
+                        height: 1.6,
+                      ),
+                    ),
+                  ).animate().fadeIn(delay: 800.ms, duration: 600.ms),
+
+                const SizedBox(height: 24),
+
+                // Lesson Info
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildInfoChip(
+                      Icons.access_time,
+                      lesson.estimatedTime,
+                    ),
+                    const SizedBox(width: 12),
+                    _buildInfoChip(
+                      Icons.translate,
+                      l10n.wordsCount(lesson.vocabularyCount ?? 0),
+                    ),
+                  ],
+                ).animate().fadeIn(delay: 1000.ms, duration: 600.ms),
+
+                const SizedBox(height: 24),
               ],
             ),
-            child: Center(
-              child: Text(
-                '${lesson.level}',
-                style: const TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ),
-          ).animate().scale(
-                delay: 200.ms,
-                duration: 600.ms,
-                curve: Curves.elasticOut,
-              ),
+          ),
+        ),
 
-          const SizedBox(height: 40),
-
-          // Korean Title
-          Text(
-            lesson.titleKo,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              height: 1.3,
-            ),
-          ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
-
-          const SizedBox(height: 16),
-
-          // Chinese Title
-          Text(
-            lesson.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              color: AppConstants.textSecondary,
-              height: 1.3,
-            ),
-          ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
-
-          const SizedBox(height: 40),
-
-          // Description
-          if (lesson.description != null)
-            Container(
-              padding: const EdgeInsets.all(AppConstants.paddingLarge),
-              decoration: BoxDecoration(
-                color: AppConstants.primaryColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(
-                  AppConstants.radiusMedium,
-                ),
-              ),
-              child: Text(
-                lesson.description!,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: AppConstants.fontSizeMedium,
-                  height: 1.6,
-                ),
-              ),
-            ).animate().fadeIn(delay: 800.ms, duration: 600.ms),
-
-          const SizedBox(height: 40),
-
-          // Lesson Info
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildInfoChip(
-                Icons.access_time,
-                lesson.estimatedTime,
-              ),
-              const SizedBox(width: 16),
-              _buildInfoChip(
-                Icons.translate,
-                l10n.wordsCount(lesson.vocabularyCount ?? 0),
-              ),
-            ],
-          ).animate().fadeIn(delay: 1000.ms, duration: 600.ms),
-
-          const Spacer(),
-
-          // Start Button
-          SizedBox(
+        // Start Button (fixed at bottom)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
+          ),
+          child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onNext,
@@ -144,7 +160,7 @@ class Stage1Intro extends StatelessWidget {
                 backgroundColor: AppConstants.primaryColor,
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(
-                  vertical: AppConstants.paddingLarge,
+                  vertical: AppConstants.paddingMedium,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
@@ -156,7 +172,7 @@ class Stage1Intro extends StatelessWidget {
               child: Text(
                 l10n.startLearning,
                 style: const TextStyle(
-                  fontSize: AppConstants.fontSizeXLarge,
+                  fontSize: AppConstants.fontSizeLarge,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -167,8 +183,8 @@ class Stage1Intro extends StatelessWidget {
                 delay: 1200.ms,
                 duration: 600.ms,
               ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

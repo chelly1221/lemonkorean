@@ -26,7 +26,6 @@ class _GrammarStageState extends State<GrammarStage> {
   final Map<int, String?> _userAnswers = {};
   final Map<int, bool> _showExerciseFeedback = {};
   List<Map<String, dynamic>> _grammarPoints = [];
-  bool _initialized = false;
 
   @override
   void initState() {
@@ -52,7 +51,6 @@ class _GrammarStageState extends State<GrammarStage> {
       // No data available - return empty list, UI will show appropriate message
       _grammarPoints = [];
     }
-    _initialized = true;
   }
 
   @override

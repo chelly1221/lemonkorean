@@ -155,54 +155,45 @@ class _Stage4PracticeState extends State<Stage4Practice> {
     final question = _questions[_currentQuestionIndex];
     final isCorrect = _selectedAnswer == question['correctAnswer'];
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        children: [
-          // Stage Title
-          Text(
-            l10n.practice,
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeXLarge,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        // Header: Title + Counter + Score
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, AppConstants.paddingSmall,
+            AppConstants.paddingMedium, 0,
           ),
-
-          const SizedBox(height: 20),
-
-          // Question Counter
-          Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${_currentQuestionIndex + 1} / ${_questions.length}',
+                '${l10n.practice}  ${_currentQuestionIndex + 1}/${_questions.length}',
                 style: const TextStyle(
-                  fontSize: AppConstants.fontSizeMedium,
-                  color: AppConstants.textSecondary,
+                  fontSize: AppConstants.fontSizeLarge,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              // Correct Count
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
+                  horizontal: 10,
+                  vertical: 4,
                 ),
                 decoration: BoxDecoration(
                   color: AppConstants.successColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
                     const Icon(
                       Icons.check_circle,
-                      size: 16,
+                      size: 14,
                       color: AppConstants.successColor,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       '$_correctCount',
                       style: const TextStyle(
-                        fontSize: AppConstants.fontSizeMedium,
+                        fontSize: AppConstants.fontSizeSmall,
                         color: AppConstants.successColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -212,33 +203,42 @@ class _Stage4PracticeState extends State<Stage4Practice> {
               ),
             ],
           ),
+        ),
 
-          const SizedBox(height: 30),
+        const SizedBox(height: 8),
 
-          // Question Card
-          Container(
+        // Question Card
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppConstants.paddingMedium,
+          ),
+          child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(AppConstants.paddingLarge),
+            padding: const EdgeInsets.all(AppConstants.paddingMedium),
             decoration: BoxDecoration(
               color: AppConstants.primaryColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+              borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Text(
               question['question'],
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 height: 1.4,
               ),
             ),
           ),
+        ),
 
-          const SizedBox(height: 30),
+        const SizedBox(height: 12),
 
-          // Options
-          Expanded(
-            child: ListView.builder(
+        // Options
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+            ),
               itemCount: (question['options'] as List).length,
               itemBuilder: (context, index) {
                 final option = question['options'][index];
@@ -345,13 +345,18 @@ class _Stage4PracticeState extends State<Stage4Practice> {
             ),
           ),
 
-          const SizedBox(height: 20),
-
-          // Result Message
-          if (_showResult)
-            Container(
-              padding: const EdgeInsets.all(AppConstants.paddingMedium),
-              margin: const EdgeInsets.only(bottom: 16),
+        // Result Message + Action Buttons (fixed at bottom)
+        if (_showResult)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppConstants.paddingMedium, 4,
+              AppConstants.paddingMedium, 0,
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingMedium,
+                vertical: AppConstants.paddingSmall,
+              ),
               decoration: BoxDecoration(
                 color: isCorrect
                     ? AppConstants.successColor.withValues(alpha: 0.1)
@@ -362,16 +367,17 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                 children: [
                   Icon(
                     isCorrect ? Icons.celebration : Icons.info_outline,
+                    size: 20,
                     color: isCorrect
                         ? AppConstants.successColor
                         : AppConstants.errorColor,
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       isCorrect ? l10n.correctFeedback : l10n.incorrectFeedback,
                       style: TextStyle(
-                        fontSize: AppConstants.fontSizeMedium,
+                        fontSize: AppConstants.fontSizeSmall,
                         color: isCorrect
                             ? AppConstants.successColor
                             : AppConstants.errorColor,
@@ -382,27 +388,30 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                 ],
               ),
             ),
+          ),
 
-          // Action Buttons
-          Row(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
+          ),
+          child: Row(
             children: [
-              // Previous Button
               if (_currentQuestionIndex > 0)
                 Expanded(
                   child: OutlinedButton(
                     onPressed: _previousQuestion,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                        vertical: AppConstants.paddingMedium,
+                        vertical: AppConstants.paddingSmall + 4,
                       ),
                     ),
                     child: Text(l10n.previousQuestion),
                   ),
                 ),
 
-              if (_currentQuestionIndex > 0) const SizedBox(width: 16),
+              if (_currentQuestionIndex > 0) const SizedBox(width: 12),
 
-              // Check/Next Button
               Expanded(
                 flex: 2,
                 child: ElevatedButton(
@@ -411,7 +420,7 @@ class _Stage4PracticeState extends State<Stage4Practice> {
                     backgroundColor: AppConstants.primaryColor,
                     foregroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(
-                      vertical: AppConstants.paddingMedium,
+                      vertical: AppConstants.paddingSmall + 4,
                     ),
                   ),
                   child: Text(
@@ -425,8 +434,8 @@ class _Stage4PracticeState extends State<Stage4Practice> {
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

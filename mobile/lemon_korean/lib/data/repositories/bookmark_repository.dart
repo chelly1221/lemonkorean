@@ -208,7 +208,7 @@ class BookmarkRepository {
         return Success(BookmarkModel.fromLocalJson(local), isFromCache: true);
       }
 
-      return Error('Bookmark not found', code: ErrorCodes.notFound);
+      return const Error('Bookmark not found', code: ErrorCodes.notFound);
     } catch (e, stackTrace) {
       AppLogger.e('updateNotes error', tag: 'BookmarkRepository', error: e);
       final exception = ExceptionHandler.handle(e, stackTrace);
@@ -263,7 +263,7 @@ class BookmarkRepository {
     if (bookmark != null && bookmark['id'] != null) {
       return await deleteBookmark(bookmark['id'] as int);
     }
-    return Error('Bookmark not found', code: ErrorCodes.notFound);
+    return const Error('Bookmark not found', code: ErrorCodes.notFound);
   }
 
   // ================================================================
@@ -287,37 +287,6 @@ class BookmarkRepository {
       );
     } catch (e) {
       AppLogger.e('syncBookmarks error', tag: 'BookmarkRepository', error: e);
-    }
-  }
-
-  /// Merge server bookmarks with local
-  Future<void> _mergeBookmarks(List<BookmarkModel> serverBookmarks) async {
-    final localBookmarks = await _getLocalBookmarks();
-
-    // Create map of server bookmarks by vocabulary_id
-    final serverMap = {
-      for (var b in serverBookmarks) b.vocabularyId: b,
-    };
-
-    // Merge: server data takes precedence for synced items
-    for (final local in localBookmarks) {
-      if (!local.isSynced) {
-        // Keep unsynced local bookmarks
-        continue;
-      }
-
-      final server = serverMap[local.vocabularyId];
-      if (server == null) {
-        // Deleted on server, remove from local
-        await LocalStorage.deleteBookmark(local.id);
-      }
-    }
-
-    // Add/update all server bookmarks
-    for (final server in serverBookmarks) {
-      await LocalStorage.saveBookmark(
-        server.copyWith(isSynced: true).toLocalJson(),
-      );
     }
   }
 

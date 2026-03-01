@@ -28,7 +28,7 @@ class AppException implements Exception {
 /// Network-related exceptions
 class NetworkException extends AppException {
   const NetworkException({
-    super.message = '네트워크 연결 실패. 네트워크 설정을 확인하세요',
+    super.message = 'errorNetworkConnection',
     super.code = ErrorCodes.networkError,
     super.originalError,
     super.stackTrace,
@@ -40,7 +40,7 @@ class ServerException extends AppException {
   final int? statusCode;
 
   const ServerException({
-    super.message = '서버 오류. 나중에 다시 시도하세요',
+    super.message = 'errorServer',
     super.code = ErrorCodes.serverError,
     this.statusCode,
     super.originalError,
@@ -51,7 +51,7 @@ class ServerException extends AppException {
 /// Authentication-related exceptions
 class AuthException extends AppException {
   const AuthException({
-    super.message = '인증 실패. 다시 로그인하세요',
+    super.message = 'errorAuthFailed',
     super.code = ErrorCodes.authError,
     super.originalError,
     super.stackTrace,
@@ -61,7 +61,7 @@ class AuthException extends AppException {
 /// Resource not found exceptions
 class NotFoundException extends AppException {
   const NotFoundException({
-    super.message = '요청한 리소스가 존재하지 않습니다',
+    super.message = 'errorNotFound',
     super.code = ErrorCodes.notFound,
     super.originalError,
     super.stackTrace,
@@ -73,7 +73,7 @@ class ValidationException extends AppException {
   final Map<String, String>? fieldErrors;
 
   const ValidationException({
-    super.message = '요청 파라미터 오류',
+    super.message = 'errorRequestParam',
     super.code = ErrorCodes.validationError,
     this.fieldErrors,
     super.originalError,
@@ -84,7 +84,7 @@ class ValidationException extends AppException {
 /// Parse/Decode exceptions
 class ParseException extends AppException {
   const ParseException({
-    super.message = '데이터 파싱 오류',
+    super.message = 'errorParseData',
     super.code = ErrorCodes.parseError,
     super.originalError,
     super.stackTrace,
@@ -105,7 +105,7 @@ class ExceptionHandler {
 
     if (error is FormatException) {
       return ParseException(
-        message: '데이터 형식 오류',
+        message: 'errorParseFormat',
         originalError: error,
         stackTrace: stackTrace,
       );
@@ -126,7 +126,7 @@ class ExceptionHandler {
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
         return NetworkException(
-          message: '연결 시간 초과. 네트워크를 확인하세요',
+          message: 'errorTimeout',
           code: ErrorCodes.timeout,
           originalError: error,
           stackTrace: stackTrace,
@@ -141,7 +141,7 @@ class ExceptionHandler {
 
       case DioExceptionType.cancel:
         return AppException(
-          message: '요청이 취소되었습니다',
+          message: 'errorRequestCancelled',
           code: ErrorCodes.cancelled,
           originalError: error,
           stackTrace: stackTrace,
@@ -180,7 +180,7 @@ class ExceptionHandler {
     switch (statusCode) {
       case 400:
         return ValidationException(
-          message: message ?? '요청 파라미터 오류',
+          message: message ?? 'errorRequestParam',
           originalError: error,
           stackTrace: stackTrace,
         );
@@ -194,7 +194,7 @@ class ExceptionHandler {
 
       case 403:
         return AuthException(
-          message: message ?? '접근 권한이 없습니다',
+          message: message ?? 'errorForbidden',
           code: 'FORBIDDEN',
           originalError: error,
           stackTrace: stackTrace,
@@ -202,14 +202,14 @@ class ExceptionHandler {
 
       case 404:
         return NotFoundException(
-          message: message ?? '요청한 리소스가 존재하지 않습니다',
+          message: message ?? 'errorNotFound',
           originalError: error,
           stackTrace: stackTrace,
         );
 
       case 429:
         return ServerException(
-          message: '요청이 너무 많습니다. 나중에 다시 시도하세요',
+          message: 'errorRateLimited',
           code: 'RATE_LIMITED',
           statusCode: statusCode,
           originalError: error,

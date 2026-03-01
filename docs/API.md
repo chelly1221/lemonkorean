@@ -937,7 +937,7 @@ Upload image or voice message media.
 
 ## Voice Rooms (`/api/sns/voice-rooms/`) (2026-02-10)
 
-Voice chat rooms with LiveKit integration (max 4 participants). All endpoints require authentication.
+Voice chat rooms with LiveKit integration (max 4 speakers on stage, unlimited listeners). All endpoints require authentication.
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -1009,8 +1009,13 @@ Real-time messaging and presence via Socket.IO.
 | `dm:typing_start` | `{ conversation_id }` | Notify typing started |
 | `dm:typing_stop` | `{ conversation_id }` | Notify typing stopped |
 | `dm:mark_read` | `{ conversation_id, message_id }` | Mark messages as read up to message_id |
-| `voice:join_room` | `{ room_id }` | Join voice room socket for updates |
+| `voice:join_room` | `{ room_id }` | Join voice room socket for updates (requires authentication, validates room membership) |
 | `voice:leave_room` | `{ room_id }` | Leave voice room socket |
+| `voice:send_message` | `{ room_id, content }` | Send chat message in voice room (max 500 chars, requires room membership) |
+| `voice:stage_request` | `{ room_id }` | Request to join stage as speaker (listeners only) |
+| `voice:character_position` | `{ room_id, x, y, direction }` | Update character position (x/y: 0-1 range) |
+| `voice:reaction` | `{ room_id, emoji }` | Send emoji reaction |
+| `voice:gesture` | `{ room_id, gesture }` | Send gesture animation (speakers only, per-gesture cooldown) |
 | `ping_alive` | _(none)_ | Heartbeat to refresh online TTL (300s) |
 
 ### Server → Client Events
@@ -1029,7 +1034,15 @@ Real-time messaging and presence via Socket.IO.
 | `voice:participant_muted` | `{ room_id, user_id, is_muted }` | Mute status changed |
 | `voice:room_created` | Room object | New voice room created |
 | `voice:room_closed` | `{ room_id }` | Voice room closed |
+| `voice:new_message` | `{ room_id, message }` | New chat message in voice room |
+| `voice:stage_granted` | `{ room_id, user_id, livekit_token }` | Stage access granted (sent only to target user) |
+| `voice:stage_removed` | `{ room_id, user_id }` | Removed from stage (sent only to target user) |
+| `voice:stage_request` | `{ room_id, user_id, user_name }` | New stage request from listener |
 | `voice:stage_request_rejected` | `{ room_id, user_id, rejected_by }` | Stage request rejected by speaker |
+| `voice:participant_kicked` | `{ room_id, user_id }` | Participant kicked from room |
+| `voice:character_position` | `{ room_id, user_id, x, y, direction }` | Character position update |
+| `voice:reaction` | `{ room_id, user_id, emoji }` | Emoji reaction |
+| `voice:gesture` | `{ room_id, user_id, gesture }` | Gesture animation |
 
 ### Online Status
 

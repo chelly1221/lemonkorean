@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/gamification_provider.dart';
 import '../../../providers/hangul_provider.dart';
 import 'stage0_lesson_content.dart';
@@ -216,19 +217,19 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('레슨 나가기'),
-        content: const Text('진행 중인 레슨을 종료하시겠어요?\n현재 단계까지 자동 저장됩니다.'),
+        title: Text(AppLocalizations.of(context)?.exitLessonDialogTitle ?? '레슨 나가기'),
+        content: Text(AppLocalizations.of(context)?.exitLessonDialogContent ?? '진행 중인 레슨을 종료하시겠어요?\n현재 단계까지 자동 저장됩니다.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('계속하기'),
+            child: Text(AppLocalizations.of(context)?.continueButton ?? '계속하기'),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text('나가기'),
+            child: Text(AppLocalizations.of(context)?.exitLessonButton ?? '나가기'),
           ),
         ],
       ),

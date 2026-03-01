@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/error_localizer.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/voice_room_provider.dart';
 import 'create_voice_room_screen.dart';
@@ -18,6 +19,9 @@ class VoiceRoomsListScreen extends StatefulWidget {
 }
 
 class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
+  bool _isJoining = false;
+  bool _isCreating = false;
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +55,42 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
                     AlwaysStoppedAnimation<Color>(AppConstants.primaryColor),
               ),
             );
+          }
+
+          // Error state
+          if (provider.error != null && provider.rooms.isEmpty) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(AppConstants.paddingXLarge),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.error_outline,
+                        size: 64, color: Colors.red.shade300),
+                    const SizedBox(height: AppConstants.paddingMedium),
+                    Text(
+                      l10n?.couldNotLoadRooms ??
+                          'Could not load rooms. Please try again.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: AppConstants.fontSizeNormal,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                    const SizedBox(height: AppConstants.paddingMedium),
+                    ElevatedButton.icon(
+                      onPressed: () => provider.loadRooms(),
+                      icon: const Icon(Icons.refresh),
+                      label: Text(l10n?.retry ?? 'Retry'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppConstants.primaryColor,
+                        foregroundColor: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ).animate().fadeIn(duration: 400.ms);
           }
 
           if (provider.rooms.isEmpty) {
@@ -99,24 +139,9 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
                       const EdgeInsets.only(bottom: AppConstants.paddingSmall),
                   child: RoomCard(
                     room: room,
-                    onTap: () async {
-                      // Listeners join without mic permission.
-                      // Mic is requested later only when raising hand or
-                      // creating a room.
-                      final success = await provider.joinRoom(room.id);
-                      if (success && context.mounted) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const VoiceRoomScreen(),
-                          ),
-                        );
-                      } else if (provider.error != null && context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(provider.error!)),
-                        );
-                      }
-                    },
+                    onTap: (_isJoining || provider.isLoading)
+                        ? null
+                        : () => _handleJoin(provider, room.id),
                   ),
                 );
               },
@@ -126,26 +151,40 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         tooltip: l10n?.voiceRoomCreateTooltip ?? 'Create voice room',
-        onPressed: () async {
-          final created = await Navigator.push<bool>(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CreateVoiceRoomScreen(),
-            ),
-          );
-          if (created == true && context.mounted) {
-            final provider =
-                Provider.of<VoiceRoomProvider>(context, listen: false);
-            if (provider.activeRoom != null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const VoiceRoomScreen(),
-                ),
-              );
-            }
-          }
-        },
+        onPressed: _isCreating
+            ? null
+            : () async {
+                if (_isCreating) return;
+                setState(() => _isCreating = true);
+                try {
+                  final created = await Navigator.push<bool>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateVoiceRoomScreen(),
+                    ),
+                  );
+                  if (created == true && mounted) {
+                    final provider =
+                        Provider.of<VoiceRoomProvider>(context, listen: false);
+                    if (provider.activeRoom != null) {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const VoiceRoomScreen(),
+                        ),
+                      );
+                      // Refresh rooms when returning
+                      if (mounted) {
+                        provider.loadRooms();
+                      }
+                    }
+                  }
+                } finally {
+                  if (mounted) {
+                    setState(() => _isCreating = false);
+                  }
+                }
+              },
         backgroundColor: AppConstants.primaryColor,
         icon: const Icon(Icons.add, color: Colors.black87),
         label: Text(
@@ -161,5 +200,37 @@ class _VoiceRoomsListScreenState extends State<VoiceRoomsListScreen> {
             curve: Curves.elasticOut,
           ),
     );
+  }
+
+  Future<void> _handleJoin(VoiceRoomProvider provider, int roomId) async {
+    if (_isJoining) return;
+    setState(() => _isJoining = true);
+
+    try {
+      final success = await provider.joinRoom(roomId);
+      if (success && mounted) {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const VoiceRoomScreen(),
+          ),
+        );
+        // Refresh rooms when returning from voice room
+        if (mounted) {
+          provider.loadRooms();
+        }
+      } else if (provider.error != null && mounted) {
+        final l10n = AppLocalizations.of(context);
+        final errorMsg = ErrorLocalizer.localize(provider.error!, l10n);
+        provider.clearError();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMsg)),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isJoining = false);
+      }
+    }
   }
 }

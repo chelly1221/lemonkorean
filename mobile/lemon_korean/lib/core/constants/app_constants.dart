@@ -159,17 +159,17 @@ class AppConstants {
   static const int defaultPageSize = 20;
   static const int maxPageSize = 100;
 
-  // Error Messages
-  static const String networkErrorMessage = '네트워크 연결 실패. 네트워크 설정을 확인하세요';
-  static const String serverErrorMessage = '서버 오류. 나중에 다시 시도하세요';
-  static const String authErrorMessage = '인증 실패. 다시 로그인하세요';
-  static const String unknownErrorMessage = '알 수 없는 오류. 나중에 다시 시도하세요';
+  // Error Message Codes (resolved via ErrorLocalizer in UI)
+  static const String networkErrorMessage = 'errorNetworkConnection';
+  static const String serverErrorMessage = 'errorServer';
+  static const String authErrorMessage = 'errorAuthFailed';
+  static const String unknownErrorMessage = 'errorUnknown';
 
-  // Success Messages
-  static const String loginSuccessMessage = '로그인 성공';
-  static const String registerSuccessMessage = '회원가입 성공';
-  static const String syncSuccessMessage = '동기화 성공';
-  static const String downloadSuccessMessage = '다운로드 성공';
+  // Success Message Codes (resolved via ErrorLocalizer in UI)
+  static const String loginSuccessMessage = 'successLogin';
+  static const String registerSuccessMessage = 'successRegister';
+  static const String syncSuccessMessage = 'successSync';
+  static const String downloadSuccessMessage = 'successDownload';
 
   // Feature Flags
   static const bool enableOfflineMode = true;

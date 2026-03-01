@@ -69,13 +69,13 @@ class AppThemeModel {
     required this.stage5Color,
     required this.stage6Color,
     required this.stage7Color,
+    required this.fontFamily,
+    required this.fontSource,
+    required this.version,
     this.splashLogoUrl,
     this.loginLogoUrl,
     this.faviconUrl,
-    required this.fontFamily,
-    required this.fontSource,
     this.customFontUrl,
-    required this.version,
   });
 
   /// Factory constructor from JSON

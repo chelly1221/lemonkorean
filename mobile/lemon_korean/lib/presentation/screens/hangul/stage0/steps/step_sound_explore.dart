@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../../core/utils/korean_tts_helper.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../../widgets/mouth_animation_widget.dart';
 import '../stage0_lesson_content.dart';
 
@@ -96,7 +97,7 @@ class _StepSoundExploreState extends State<StepSoundExplore> {
   Widget build(BuildContext context) {
     final chars = _characters;
     if (chars.isEmpty) {
-      return const Center(child: Text('No characters defined'));
+      return Center(child: Text(AppLocalizations.of(context)?.noCharactersDefined ?? 'No characters defined'));
     }
 
     final currentChar = chars[_currentCharIndex];
@@ -228,7 +229,7 @@ class _StepSoundExploreState extends State<StepSoundExplore> {
               ),
           const SizedBox(height: 8),
           Text(
-            '탭하여 소리 듣기',
+            AppLocalizations.of(context)?.tapToListen ?? 'Tap to listen',
             style: TextStyle(fontSize: 13, color: Colors.grey.shade500),
           ),
           const SizedBox(height: 24),
@@ -259,10 +260,10 @@ class _StepSoundExploreState extends State<StepSoundExplore> {
               ),
               child: Text(
                 (chars.length > 1 && !_allListened)
-                    ? '모든 소리를 들어보세요'
+                    ? AppLocalizations.of(context)?.listenAllSoundsFirst ?? 'Listen to all sounds first'
                     : (chars.length > 1 && _currentCharIndex < chars.length - 1)
-                        ? '다음 글자'
-                        : '다음',
+                        ? AppLocalizations.of(context)?.nextCharButton ?? 'Next character'
+                        : AppLocalizations.of(context)?.nextButton ?? 'Next',
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),

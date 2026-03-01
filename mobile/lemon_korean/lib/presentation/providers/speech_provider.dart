@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import '../../core/services/whisper_service.dart';
 import '../../core/services/gop_service.dart';
 import '../../core/services/audio_recorder_service.dart';
 import '../../core/services/speech_model_manager.dart';
@@ -42,8 +41,7 @@ class SpeechProvider extends ChangeNotifier {
       // Ensure bundled models are copied to documents directory
       await SpeechModelManager.instance.ensureModelsReady();
 
-      // Initialize speech services
-      await WhisperService.instance.initialize();
+      // Initialize GOP speech service (Whisper removed — GOP-only scoring)
       await GopService.instance.initialize();
       _servicesReady = true;
       AppLogger.i('Speech services initialized', tag: 'SpeechProvider');

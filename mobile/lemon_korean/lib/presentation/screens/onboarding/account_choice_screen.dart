@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_provider.dart';
 import '../auth/login_screen.dart';
 import '../auth/register_screen.dart';
@@ -42,6 +43,7 @@ class AccountChoiceScreen extends StatelessWidget {
     final settingsProvider = context.watch<SettingsProvider>();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final l10n = AppLocalizations.of(context);
     final hMargin = screenWidth * 0.055;
 
     return Scaffold(
@@ -66,8 +68,8 @@ class AccountChoiceScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          const Color(0xFFFFEF7E).withOpacity(0.5),
-                          const Color(0xFFFFEF7E).withOpacity(0.0),
+                          const Color(0xFFFFEF7E).withValues(alpha: 0.5),
+                          const Color(0xFFFFEF7E).withValues(alpha: 0.0),
                         ],
                         stops: const [0.0, 1.0],
                       ),
@@ -90,7 +92,7 @@ class AccountChoiceScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: hMargin),
                   child: Text(
-                    '어서와요! 모니와 함께\n공부 루틴을 만들어볼까요?',
+                    l10n?.accountChoiceTitle ?? '어서와요! 모니와 함께\n공부 루틴을 만들어볼까요?',
                     style: TextStyle(
                       fontFamily: 'Pretendard',
                       fontSize: screenWidth * 0.063,
@@ -111,7 +113,7 @@ class AccountChoiceScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: hMargin),
                   child: Text(
-                    '상큼하게 시작하고, 실력은 내가 꽉 잡아줄게!',
+                    l10n?.accountChoiceSubtitle ?? '상큼하게 시작하고, 실력은 내가 꽉 잡아줄게!',
                     style: TextStyle(
                       fontFamily: 'Pretendard',
                       fontSize: screenWidth * 0.036,
@@ -147,7 +149,7 @@ class AccountChoiceScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: screenHeight * 0.016),
                     alignment: Alignment.center,
                     child: Text(
-                      '로그인하기',
+                      l10n?.loginNow ?? '로그인하기',
                       style: TextStyle(
                         fontFamily: 'Pretendard',
                         fontSize: screenWidth * 0.042,
@@ -258,7 +260,7 @@ class _EmailButtonState extends State<_EmailButton>
               ),
               SizedBox(width: widget.screenWidth * 0.02),
               Text(
-                '이메일로 시작하기',
+                AppLocalizations.of(context)?.startWithEmail ?? '이메일로 시작하기',
                 style: TextStyle(
                   fontFamily: 'Pretendard',
                   fontSize: widget.screenWidth * 0.042,

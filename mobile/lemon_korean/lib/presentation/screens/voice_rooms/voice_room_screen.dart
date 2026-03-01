@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/error_localizer.dart';
 import '../../../data/models/character_item_model.dart';
 import '../../../data/models/voice_room_model.dart';
 import '../../../game/core/game_bridge.dart';
@@ -44,6 +45,12 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
   // Room closed auto-navigation
   Timer? _roomClosedTimer;
   bool _roomClosedAutoNavScheduled = false;
+
+  // Leave/close guard
+  bool _isLeaving = false;
+
+  // Tray toggle debounce
+  DateTime? _lastTrayToggle;
 
   // Back button double-tap for listeners
   DateTime? _lastBackPressTime;
@@ -135,6 +142,8 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     _connectedBannerTimer?.cancel();
     _stageLoadingTimer?.cancel();
     _roomClosedTimer?.cancel();
+    _game?.onRemove();
+    _game = null;
     // Bridge cleanup is handled by provider
     super.dispose();
   }
@@ -145,13 +154,17 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       builder: (context, provider, child) {
         final room = provider.activeRoom;
         if (room == null) {
-          // Room was closed by host - auto-navigate after 3 seconds
+          // Room was closed/kicked - auto-navigate
           if (!_roomClosedAutoNavScheduled) {
             _roomClosedAutoNavScheduled = true;
-            _roomClosedTimer = Timer(const Duration(seconds: 3), () {
-              if (mounted && context.mounted) {
+            final navigator = Navigator.of(context);
+            // If kicked, navigate immediately; otherwise 3 seconds
+            final isKicked = provider.error == 'removedFromRoomByHost';
+            final delay = isKicked ? Duration.zero : const Duration(seconds: 3);
+            _roomClosedTimer = Timer(delay, () {
+              if (mounted) {
                 provider.clearError();
-                Navigator.pop(context);
+                navigator.pop();
               }
             });
           }
@@ -172,7 +185,9 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                       color: Colors.white70, size: 64),
                   const SizedBox(height: 16),
                   Text(
-                    error ?? l10n?.voiceRoomNotAvailable ?? 'Room not available',
+                    error != null
+                        ? ErrorLocalizer.localize(error, l10n)
+                        : (l10n?.voiceRoomNotAvailable ?? 'Room not available'),
                     style:
                         const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
@@ -391,12 +406,24 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                   onLeaveRoom: () => _handleLeave(context, provider),
                   onCloseRoom: () => _handleClose(context, provider),
                   onShowReactions: () {
+                    final now = DateTime.now();
+                    if (_lastTrayToggle != null &&
+                        now.difference(_lastTrayToggle!) < const Duration(milliseconds: 200)) {
+                      return;
+                    }
+                    _lastTrayToggle = now;
                     setState(() {
                       _showReactionTray = !_showReactionTray;
                       _showGestureTray = false;
                     });
                   },
                   onShowGestures: () {
+                    final now = DateTime.now();
+                    if (_lastTrayToggle != null &&
+                        now.difference(_lastTrayToggle!) < const Duration(milliseconds: 200)) {
+                      return;
+                    }
+                    _lastTrayToggle = now;
                     setState(() {
                       _showGestureTray = !_showGestureTray;
                       _showReactionTray = false;
@@ -481,7 +508,9 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
                   builder: (context) {
                     final l10n = AppLocalizations.of(context);
                     return Text(
-                      provider.error ?? l10n?.voiceRoomDisconnected ?? 'Disconnected',
+                      provider.error != null
+                          ? ErrorLocalizer.localize(provider.error, l10n)
+                          : (l10n?.voiceRoomDisconnected ?? 'Disconnected'),
                       style: const TextStyle(color: Colors.white, fontSize: 13),
                       overflow: TextOverflow.ellipsis,
                     );
@@ -985,9 +1014,15 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
         now.difference(_lastBackPressTime!) < const Duration(seconds: 2)) {
       // Second press within 2 seconds - actually leave
       _lastBackPressTime = null;
-      await provider.leaveRoom();
-      if (context.mounted) {
-        Navigator.pop(context);
+      if (_isLeaving) return;
+      _isLeaving = true;
+      try {
+        await provider.leaveRoom();
+        if (mounted) {
+          Navigator.pop(context);
+        }
+      } finally {
+        _isLeaving = false;
       }
       return;
     }
@@ -1009,6 +1044,8 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
 
   Future<void> _handleLeave(
       BuildContext context, VoiceRoomProvider provider) async {
+    if (_isLeaving) return;
+
     // Show confirmation dialog for speakers
     if (provider.isSpeaker) {
       final l10n = AppLocalizations.of(context);
@@ -1031,17 +1068,24 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
           ],
         ),
       );
-      if (confirmed != true) return;
+      if (confirmed != true || !mounted) return;
     }
 
-    await provider.leaveRoom();
-    if (context.mounted) {
-      Navigator.pop(context);
+    _isLeaving = true;
+    try {
+      await provider.leaveRoom();
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } finally {
+      _isLeaving = false;
     }
   }
 
   Future<void> _handleClose(
       BuildContext context, VoiceRoomProvider provider) async {
+    if (_isLeaving) return;
+
     final l10n = AppLocalizations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
@@ -1063,10 +1107,24 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       ),
     );
 
-    if (confirm == true) {
-      await provider.closeRoom();
-      if (context.mounted) {
-        Navigator.pop(context);
+    if (confirm == true && mounted) {
+      _isLeaving = true;
+      try {
+        final success = await provider.closeRoom();
+        if (mounted) {
+          if (success) {
+            Navigator.pop(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(l10n?.voiceRoomCloseRoomFailed ?? 'Failed to close room'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
+        }
+      } finally {
+        _isLeaving = false;
       }
     }
   }

@@ -7,11 +7,11 @@ import '../../../../l10n/generated/app_localizations.dart';
 /// Card widget for voice room in the rooms list
 class RoomCard extends StatelessWidget {
   final VoiceRoomModel room;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const RoomCard({
     required this.room,
-    required this.onTap,
+    this.onTap,
     super.key,
   });
 
@@ -20,12 +20,12 @@ class RoomCard extends StatelessWidget {
           room.speakerCount, room.maxSpeakers, room.listenerCount) ??
         '${room.speakerCount} of ${room.maxSpeakers} speakers, ${room.listenerCount} listeners';
     final levelLabel = room.languageLevel == 'all'
-        ? (l10n?.allLevels ?? 'all levels')
+        ? (l10n?.allLevels ?? 'All Levels')
         : room.languageLevel;
     final parts = <String>[
       room.title,
-      room.roomTypeDisplay,
-      room.creatorName,
+      VoiceRoomModel.localizedRoomType(room.roomType, l10n),
+      room.creatorName.isNotEmpty ? room.creatorName : '?',
       speakerListenerLabel,
       levelLabel,
     ];
@@ -74,6 +74,8 @@ class RoomCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         room.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: AppConstants.fontSizeMedium,
                           fontWeight: FontWeight.bold,
@@ -178,7 +180,7 @@ class RoomCard extends StatelessWidget {
                     const SizedBox(width: 4),
                     Flexible(
                       child: Text(
-                        room.creatorName,
+                        room.creatorName.isNotEmpty ? room.creatorName : '?',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 12,
@@ -269,7 +271,7 @@ class RoomCard extends StatelessWidget {
         break;
       default:
         color = Colors.grey;
-        label = l10n?.allLevels ?? 'All';
+        label = l10n?.allLevels ?? 'All Levels';
     }
 
     return Container(

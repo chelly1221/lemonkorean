@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/block_combine_intro_animation.dart';
 
@@ -116,9 +117,9 @@ class StepIntro extends StatelessWidget {
                 ),
                 elevation: 2,
               ),
-              child: const Text(
-                '시작하기',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                AppLocalizations.of(context)?.startButton ?? 'Start',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ).animate().fadeIn(delay: 800.ms, duration: 400.ms),

@@ -72,16 +72,16 @@ class VoiceRoom {
   /**
    * Create a new voice room
    */
-  static async create({ creatorId, title, topic, languageLevel = 'all', maxSpeakers = 4 }) {
+  static async create({ creatorId, title, topic, languageLevel = 'all', maxSpeakers = 4, roomType = 'free_talk', duration = null }) {
     const livekitRoomName = `lemon-voice-${uuidv4().substring(0, 8)}`;
 
     const sql = `
-      INSERT INTO voice_rooms (creator_id, title, topic, language_level, max_speakers, livekit_room_name, created_at)
-      VALUES ($1, $2, $3, $4, $5, $6, NOW())
+      INSERT INTO voice_rooms (creator_id, title, topic, language_level, max_speakers, livekit_room_name, room_type, duration, created_at)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
       RETURNING *
     `;
 
-    const result = await query(sql, [creatorId, title, topic, languageLevel, maxSpeakers, livekitRoomName]);
+    const result = await query(sql, [creatorId, title, topic, languageLevel, maxSpeakers, livekitRoomName, roomType, duration]);
     return result.rows[0];
   }
 
@@ -595,15 +595,23 @@ class VoiceRoom {
   /**
    * Toggle mute status
    */
-  static async toggleMute(roomId, userId) {
-    const sql = `
-      UPDATE voice_room_participants
-      SET is_muted = NOT is_muted
-      WHERE room_id = $1 AND user_id = $2 AND left_at IS NULL
-      RETURNING *
-    `;
+  static async toggleMute(roomId, userId, desiredState = null) {
+    const sql = desiredState !== null
+      ? `
+        UPDATE voice_room_participants
+        SET is_muted = $3
+        WHERE room_id = $1 AND user_id = $2 AND left_at IS NULL
+        RETURNING *
+      `
+      : `
+        UPDATE voice_room_participants
+        SET is_muted = NOT is_muted
+        WHERE room_id = $1 AND user_id = $2 AND left_at IS NULL
+        RETURNING *
+      `;
 
-    const result = await query(sql, [roomId, userId]);
+    const params = desiredState !== null ? [roomId, userId, desiredState] : [roomId, userId];
+    const result = await query(sql, params);
     return result.rows[0] || null;
   }
 

@@ -1103,6 +1103,8 @@ Voice chat room sessions with LiveKit integration. Supports stage/audience syste
 | max_speakers | INTEGER | NOT NULL, DEFAULT 4, CHECK (2-10) | Max speakers on stage |
 | livekit_room_name | VARCHAR(100) | NOT NULL, UNIQUE | LiveKit room identifier |
 | status | VARCHAR(20) | NOT NULL, DEFAULT 'active', CHECK (active/closed) | Room status |
+| room_type | VARCHAR(20) | NOT NULL, DEFAULT 'free_talk', CHECK (free_talk/pronunciation/roleplay/qna/listening/debate) | Room type |
+| duration | INTEGER | | Time limit in minutes (NULL = unlimited) |
 | speaker_count | INTEGER | NOT NULL, DEFAULT 0 | Current speaker count |
 | listener_count | INTEGER | NOT NULL, DEFAULT 0 | Current listener count |
 | created_at | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | Creation time |
@@ -1288,6 +1290,12 @@ Furniture placement positions in user's room.
 | 011 | 2026-02-10 | Add DM tables (dm_conversations, dm_messages, dm_read_receipts) |
 | 012 | 2026-02-10 | Add voice room tables (voice_rooms, voice_room_participants) |
 | 013 | 2026-02-11 | Add character customization tables (character_items, user_characters, user_inventory, user_room_furniture) |
+| 014 | 2026-02-12 | Voice room stage/audience system (rename max_participants→max_speakers, add role, voice_room_messages, voice_room_stage_requests) |
+| 015 | 2026-02-12 | Add repetition_count to hangul_progress for SM-2 SRS |
+| 016 | 2026-02-12 | Fix voice room schema + add spritesheet support for character items |
+| 017 | 2026-02-19 | Update app theme colors to Toss-style warm palette |
+| 018 | 2026-02-19 | Add hangul_lesson_progress table for Stage 0+ interactive lessons |
+| 019 | 2026-03-01 | Add room_type and duration columns to voice_rooms |
 
 ---
 
@@ -1325,4 +1333,4 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 
 ---
 
-**Last Updated:** 2026-02-11
+**Last Updated:** 2026-03-01

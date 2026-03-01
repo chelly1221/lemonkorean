@@ -30,11 +30,12 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
   late final Animation<Offset> _slideAnimation;
   late final Animation<double> _fadeAnimation;
   Timer? _inactivityTimer;
-  Timer? _cooldownTimer;
+  final Map<String, Timer> _cooldownTimers = {};
+  bool _isClosing = false;
 
-  /// Cooldown progress from 0.0 (just sent) to 1.0 (ready).
-  double _cooldownProgress = 1.0;
-  double _cooldownSecondsLeft = 0.0;
+  /// Per-gesture cooldown progress from 0.0 (just sent) to 1.0 (ready).
+  final Map<String, double> _cooldownProgress = {};
+  final Map<String, double> _cooldownSecondsLeft = {};
 
   static const _autoCloseDuration = Duration(seconds: 5);
   static const _gestureCooldownMs = 3000; // must match provider's 3s
@@ -68,7 +69,10 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
   @override
   void dispose() {
     _inactivityTimer?.cancel();
-    _cooldownTimer?.cancel();
+    for (final timer in _cooldownTimers.values) {
+      timer.cancel();
+    }
+    _cooldownTimers.clear();
     _animController.dispose();
     super.dispose();
   }
@@ -79,48 +83,53 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
   }
 
   void _animateClose() {
+    if (_isClosing) return;
+    _isClosing = true;
+    _inactivityTimer?.cancel();
     _animController.reverse().then((_) {
       if (mounted) widget.onClose();
     });
   }
 
-  void _startCooldownVisualization() {
-    _cooldownTimer?.cancel();
+  void _startCooldownVisualization(String gestureId) {
+    _cooldownTimers[gestureId]?.cancel();
     final startTime = DateTime.now();
 
     setState(() {
-      _cooldownProgress = 0.0;
-      _cooldownSecondsLeft = _gestureCooldownMs / 1000.0;
+      _cooldownProgress[gestureId] = 0.0;
+      _cooldownSecondsLeft[gestureId] = _gestureCooldownMs / 1000.0;
     });
 
-    _cooldownTimer = Timer.periodic(const Duration(milliseconds: 80), (_) {
+    _cooldownTimers[gestureId] = Timer.periodic(const Duration(milliseconds: 80), (_) {
       final elapsed = DateTime.now().difference(startTime).inMilliseconds;
       final progress = (elapsed / _gestureCooldownMs).clamp(0.0, 1.0);
 
       if (!mounted) {
-        _cooldownTimer?.cancel();
+        _cooldownTimers[gestureId]?.cancel();
+        _cooldownTimers.remove(gestureId);
         return;
       }
 
       setState(() {
-        _cooldownProgress = progress;
-        _cooldownSecondsLeft =
+        _cooldownProgress[gestureId] = progress;
+        _cooldownSecondsLeft[gestureId] =
             ((_gestureCooldownMs - elapsed) / 1000.0).clamp(0.0, 3.0);
       });
 
       if (progress >= 1.0) {
-        _cooldownTimer?.cancel();
+        _cooldownTimers[gestureId]?.cancel();
+        _cooldownTimers.remove(gestureId);
       }
     });
   }
 
   void _onGestureTap(String gestureId) {
     final provider = context.read<VoiceRoomProvider>();
-    if (!provider.canSendGesture()) return;
+    if (!provider.isSpeaker || !provider.canSendGesture(gestureId)) return;
 
     provider.sendGesture(gestureId);
     _resetInactivityTimer();
-    _startCooldownVisualization();
+    _startCooldownVisualization(gestureId);
   }
 
   /// Resolve gesture label using l10n, falling back to the static English label.
@@ -147,14 +156,6 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
     final l10n = AppLocalizations.of(context);
     return Consumer<VoiceRoomProvider>(
       builder: (context, provider, child) {
-        final canSend = provider.canSendGesture();
-
-        // If provider says ready but our visual hasn't caught up, sync.
-        if (canSend && _cooldownProgress < 1.0) {
-          _cooldownProgress = 1.0;
-          _cooldownSecondsLeft = 0.0;
-        }
-
         return SlideTransition(
           position: _slideAnimation,
           child: FadeTransition(
@@ -174,6 +175,24 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ...GestureTrayWidget.gestures.map((g) {
+                        final canSend = provider.canSendGesture(g.id);
+                        final gProgress = _cooldownProgress[g.id] ?? 1.0;
+                        final gSecondsLeft = _cooldownSecondsLeft[g.id] ?? 0.0;
+
+                        // If provider says ready but our visual hasn't caught up, sync.
+                        if (canSend && gProgress < 1.0) {
+                          _cooldownTimers[g.id]?.cancel();
+                          _cooldownTimers.remove(g.id);
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            if (mounted) {
+                              setState(() {
+                                _cooldownProgress[g.id] = 1.0;
+                                _cooldownSecondsLeft[g.id] = 0.0;
+                              });
+                            }
+                          });
+                        }
+
                         final localizedLabel = _resolvedGestureLabel(l10n, g.id, g.label);
                         return Semantics(
                           button: true,
@@ -196,11 +215,11 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
                                   mainAxisAlignment:
                                       MainAxisAlignment.center,
                                   children: [
-                                    _buildGestureIcon(g, canSend),
+                                    _buildGestureIcon(g, canSend, gProgress),
                                     const SizedBox(height: 2),
                                     Text(
                                       !canSend
-                                          ? '${_cooldownSecondsLeft.toStringAsFixed(1)}s'
+                                          ? '${gSecondsLeft.toStringAsFixed(1)}s'
                                           : localizedLabel,
                                       style: TextStyle(
                                         color: canSend
@@ -251,6 +270,7 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
   Widget _buildGestureIcon(
     ({String id, String label, IconData icon}) gesture,
     bool canSend,
+    double progress,
   ) {
     const double iconContainerSize = 40.0;
 
@@ -266,7 +286,7 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
               width: iconContainerSize,
               height: iconContainerSize,
               child: CircularProgressIndicator(
-                value: _cooldownProgress,
+                value: progress,
                 strokeWidth: 2.5,
                 backgroundColor: Colors.grey.withValues(alpha: 0.2),
                 valueColor:

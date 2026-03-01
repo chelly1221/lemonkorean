@@ -146,13 +146,13 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
         actions: [
           _buildModeAppBarButton(
             icon: Icons.grid_view_rounded,
-            tooltip: '그룹형',
+            tooltip: l10n.groupedView,
             selected: groupedSelected,
             onTap: () => setState(() => _viewMode = _TableViewMode.grouped),
           ),
           _buildModeAppBarButton(
             icon: Icons.table_chart_rounded,
-            tooltip: '자음×모음',
+            tooltip: l10n.matrixView,
             selected: !groupedSelected,
             onTap: () => setState(() => _viewMode = _TableViewMode.matrix),
           ),

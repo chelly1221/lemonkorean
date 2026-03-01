@@ -36,12 +36,12 @@ class DatabaseHelper {
       final remoteKey = data['remote_key'] as String?;
       if (remoteKey != null) {
         // Store mapping in localStorage for reference
-        web.window.localStorage['lk_media_$remoteKey'] = json.encode({
+        web.window.localStorage.setItem('lk_media_$remoteKey', json.encode({
           'downloaded': true,
           'lesson_id': data['lesson_id'],
           'file_type': data['file_type'],
           'timestamp': DateTime.now().millisecondsSinceEpoch,
-        });
+        }));
       }
     } catch (e) {
       AppLogger.e('Failed to insert media file', error: e, tag: 'DatabaseHelper');
@@ -67,7 +67,7 @@ class DatabaseHelper {
         final key = storage.key(i);
         if (key != null && key.startsWith('lk_media_')) {
           try {
-            final value = storage[key];
+            final value = storage.getItem(key);
             if (value != null) {
               final data = json.decode(value) as Map<String, dynamic>;
               if (data['lesson_id'] == lessonId) {
@@ -91,7 +91,7 @@ class DatabaseHelper {
   /// Get media file info
   Future<Map<String, dynamic>?> getMediaFile(String remoteKey) async {
     try {
-      final value = web.window.localStorage['lk_media_$remoteKey'];
+      final value = web.window.localStorage.getItem('lk_media_$remoteKey');
       if (value != null) {
         final data = json.decode(value) as Map<String, dynamic>;
         return {
@@ -120,7 +120,7 @@ class DatabaseHelper {
         final key = storage.key(i);
         if (key != null && key.startsWith('lk_media_')) {
           try {
-            final value = storage[key];
+            final value = storage.getItem(key);
             if (value != null) {
               final data = json.decode(value) as Map<String, dynamic>;
               if (data['lesson_id'] == lessonId) {

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/validators.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../home/home_screen.dart';
 import 'register_screen.dart';
@@ -109,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final l10n = AppLocalizations.of(context);
     final hMargin = screenWidth * 0.061;
 
     return Scaffold(
@@ -156,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       // 제목
                       Text(
-                        '레몬 한국어',
+                        l10n?.appName ?? '레몬 한국어',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.046,
@@ -168,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       // 부제목
                       Text(
-                        '레몬처럼 상큼하게, 실력은 탄탄하게!',
+                        l10n?.appTagline ?? '레몬처럼 상큼하게, 실력은 탄탄하게!',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.036,
@@ -187,11 +189,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: screenWidth * 0.036,
                         ),
                         decoration: _inputDecoration(
-                          '이메일을 입력해주세요',
+                          l10n?.enterEmail ?? '이메일을 입력해주세요',
                           screenWidth,
                           screenHeight,
                         ),
-                        validator: Validators.emailValidator,
+                        validator: (value) => Validators.emailValidator(value, l10n: l10n),
                       ),
                       SizedBox(height: screenHeight * 0.017),
 
@@ -204,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: screenWidth * 0.036,
                         ),
                         decoration: _inputDecoration(
-                          '문자와 숫자를 포함한 8자 이상을 입력해주세요',
+                          l10n?.passwordHint ?? '문자와 숫자를 포함한 8자 이상을 입력해주세요',
                           screenWidth,
                           screenHeight,
                           suffixIcon: IconButton(
@@ -223,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 () => _isPasswordVisible = !_isPasswordVisible),
                           ),
                         ),
-                        validator: Validators.passwordBasicValidator,
+                        validator: (value) => Validators.passwordBasicValidator(value, l10n: l10n),
                       ),
                       SizedBox(height: screenHeight * 0.025),
 
@@ -240,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
                             child: Text(
-                              '아이디찾기',
+                              l10n?.findAccount ?? '아이디찾기',
                               style: TextStyle(
                                 fontFamily: 'Pretendard',
                                 fontSize: screenWidth * 0.036,
@@ -263,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
                             child: Text(
-                              '비밀번호 재설정',
+                              l10n?.resetPassword ?? '비밀번호 재설정',
                               style: TextStyle(
                                 fontFamily: 'Pretendard',
                                 fontSize: screenWidth * 0.036,
@@ -302,7 +304,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   SizedBox(width: screenWidth * 0.02),
                                   Expanded(
                                     child: Text(
-                                      authProvider.error!,
+                                      AuthProvider.localizeError(authProvider.error, l10n),
                                       style: TextStyle(
                                         fontFamily: 'Pretendard',
                                         color: AppConstants.errorColor,
@@ -361,7 +363,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   )
                                 : Text(
-                                    '로그인',
+                                    l10n?.login ?? '로그인',
                                     style: TextStyle(
                                       fontFamily: 'Pretendard',
                                       fontSize: screenWidth * 0.043,
@@ -377,7 +379,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '계정이 없으신가요?',
+                              l10n?.noAccount ?? '계정이 없으신가요?',
                               style: TextStyle(
                                 fontFamily: 'Pretendard',
                                 fontSize: screenWidth * 0.036,
@@ -400,7 +402,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
                               child: Text(
-                                '회원가입하기',
+                                l10n?.registerNow ?? '회원가입하기',
                                 style: TextStyle(
                                   fontFamily: 'Pretendard',
                                   fontSize: screenWidth * 0.036,

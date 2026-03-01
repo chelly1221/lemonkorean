@@ -4,6 +4,7 @@ const { query } = require('../config/database');
 const { getRedisClient } = require('../config/redis');
 const dmHandler = require('./dm-handler');
 const voiceRoomHandler = require('./voice-room-handler');
+const VoiceRoom = require('../models/voice-room.model');
 
 const ONLINE_TTL = 300; // 5 minutes
 
@@ -86,6 +87,42 @@ const initSocketIO = (httpServer) => {
           socket.broadcast.emit('dm:user_offline', { user_id: userId });
         } catch (e) {
           console.error('[Socket] Redis online del error:', e.message);
+        }
+      }
+
+      // Voice room cleanup with grace period for reconnection
+      if (socket._voiceRooms && socket._voiceRooms.size > 0) {
+        const roomsCopy = new Set(socket._voiceRooms);
+        socket._voiceRooms.clear();
+
+        for (const roomId of roomsCopy) {
+          // Wait 30 seconds before removing, allowing reconnection
+          setTimeout(async () => {
+            try {
+              // Check if user has reconnected to this room via another socket
+              const sockets = await io.in(`voice:${roomId}`).fetchSockets();
+              const reconnected = sockets.some(s => s.userId === userId);
+              if (reconnected) {
+                console.log(`[Socket] User ${userId} reconnected to room ${roomId}, skipping cleanup`);
+                return;
+              }
+
+              const leftParticipant = await VoiceRoom.leave(roomId, userId);
+              if (leftParticipant) {
+                io.to(`voice:${roomId}`).emit('voice:participant_left', {
+                  room_id: roomId,
+                  user_id: userId
+                });
+                // Check if room should auto-close (empty room)
+                const room = await VoiceRoom.getById(roomId);
+                if (room && room.status === 'closed') {
+                  io.emit('voice:room_closed', { room_id: roomId });
+                }
+              }
+            } catch (e) {
+              console.error(`[Socket] Voice room cleanup error for room ${roomId}:`, e.message);
+            }
+          }, 30000);
         }
       }
     });

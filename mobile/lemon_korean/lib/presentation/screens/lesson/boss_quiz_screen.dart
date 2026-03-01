@@ -215,7 +215,7 @@ class _BossQuizScreenState extends State<BossQuizScreen> {
           LinearProgressIndicator(
             value: (_currentIndex + 1) / _questions.length,
             backgroundColor: Colors.grey.shade200,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.amber),
             minHeight: 6,
           ),
           Expanded(

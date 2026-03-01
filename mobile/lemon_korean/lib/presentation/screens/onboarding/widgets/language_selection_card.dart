@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../utils/onboarding_colors.dart';
+
 
 // Local colors for redesigned card
 const _selectedBg = Color(0xFFFFF9D3);

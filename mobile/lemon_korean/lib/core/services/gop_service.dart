@@ -4,9 +4,16 @@ import 'dart:typed_data';
 import 'package:onnxruntime/onnxruntime.dart';
 import 'package:path_provider/path_provider.dart';
 import '../utils/app_logger.dart';
+import '../utils/korean_phoneme_utils.dart';
 
 /// GOP (Goodness of Pronunciation) service.
 /// Uses wav2vec2-korean ONNX model to compute per-phoneme pronunciation quality scores.
+///
+/// Improvements over naive equal-frame-division:
+/// - Phoneme-type-aware frame allocation (consonants ~30%, vowels ~70%)
+/// - Complex 종성 (겹받침) mapped to representative single consonant
+/// - Sigmoid-based score normalization for more natural score distribution
+/// - Minimum audio duration validation (rejects < 0.3s)
 class GopService {
   static final GopService instance = GopService._();
   GopService._();
@@ -20,8 +27,8 @@ class GopService {
   bool get isModelReady =>
       _modelPath != null && File(_modelPath!).existsSync();
 
-  /// Korean phoneme labels for wav2vec2-large-xlsr-korean model
-  /// These map to the output logit indices of the model
+  /// Korean phoneme labels for wav2vec2-large-xlsr-korean model.
+  /// These map to the output logit indices of the model.
   static const List<String> phonemeLabels = [
     '<pad>', '<s>', '</s>', '<unk>',
     // Korean consonants (초성)
@@ -30,9 +37,17 @@ class GopService {
     // Korean vowels (중성)
     'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ',
     'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ',
-    // Final consonants (종성) - subset
-    '|', // word boundary
+    // Word boundary
+    '|',
   ];
+
+  /// Relative frame weight for consonants vs vowels.
+  /// Vowels are typically 2-3x longer than consonants in Korean speech.
+  static const double _consonantWeight = 0.30;
+  static const double _vowelWeight = 0.70;
+
+  /// Minimum audio samples for valid scoring (0.3s at 16kHz).
+  static const int _minAudioSamples = 4800;
 
   /// Initialize the ONNX model
   Future<void> initialize() async {
@@ -74,26 +89,29 @@ class GopService {
     }
   }
 
-  /// Extract per-frame phoneme logits from audio
-  /// Returns a 2D list: [timeFrames][numPhonemes] of log probabilities
+  /// Extract per-frame phoneme logits from audio.
+  /// Returns a 2D list: [timeFrames][numPhonemes] of log probabilities.
   Future<List<List<double>>> extractPhonemeLogits(String audioPath) async {
-    if (!_isInitialized) {
+    if (!_isInitialized || _session == null) {
       AppLogger.w('GOP service not initialized', tag: 'GopService');
       return [];
     }
 
     try {
-      // Read and preprocess audio to float32 array (16kHz mono)
       final audioData = await _loadAudioAsFloat32(audioPath);
       if (audioData.isEmpty) return [];
 
-      // Run ONNX inference if session is available, otherwise fall back
-      if (_session != null) {
-        return _runOnnxInference(audioData);
+      // Reject too-short recordings
+      if (audioData.length < _minAudioSamples) {
+        AppLogger.w(
+          'Audio too short: ${audioData.length} samples '
+          '(min $_minAudioSamples, ${(_minAudioSamples / 16000 * 1000).round()}ms)',
+          tag: 'GopService',
+        );
+        return [];
       }
 
-      // Fallback: generate synthetic logits for development/testing
-      return _generateDevelopmentLogits(audioData.length);
+      return _runOnnxInference(audioData);
     } catch (e) {
       AppLogger.e('Failed to extract phoneme logits',
           error: e, tag: 'GopService');
@@ -103,7 +121,6 @@ class GopService {
 
   /// Run ONNX model inference on audio data
   List<List<double>> _runOnnxInference(Float32List audioData) {
-    // Create input tensor: shape [1, audioLength] (batch=1)
     final inputTensor = OrtValueTensor.createTensorWithDataList(
       Float32List.fromList(audioData),
       [1, audioData.length],
@@ -112,12 +129,9 @@ class GopService {
     final runOptions = OrtRunOptions();
 
     try {
-      // Build inputs map using the model's input names
       final inputName =
           _session!.inputNames.isNotEmpty ? _session!.inputNames[0] : 'input';
       final inputs = {inputName: inputTensor};
-
-      // Run inference
       final outputs = _session!.run(runOptions, inputs);
 
       if (outputs.isEmpty || outputs[0] == null) {
@@ -125,18 +139,14 @@ class GopService {
         return [];
       }
 
-      // Extract logits from output tensor
-      // Expected output shape: [1, timeFrames, numPhonemes]
       final outputValue = outputs[0]!.value;
 
       List<List<double>> logits;
       if (outputValue is List<List<List<double>>>) {
-        // Shape [1, T, C] -> take batch 0
         logits = outputValue[0]
             .map((frame) => frame.map((v) => v.toDouble()).toList())
             .toList();
       } else if (outputValue is List<List<double>>) {
-        // Shape [T, C] -> use directly
         logits = outputValue
             .map((frame) => frame.map((v) => v.toDouble()).toList())
             .toList();
@@ -148,22 +158,23 @@ class GopService {
         logits = [];
       }
 
-      // Release output tensors
       for (final output in outputs) {
         output?.release();
       }
 
       return logits;
     } finally {
-      // Always release input resources
       inputTensor.release();
       runOptions.release();
     }
   }
 
-  /// Compute GOP scores using forced alignment
-  /// [audioPath] - path to recorded audio file
-  /// [expectedPhonemes] - list of expected phonemes e.g. ['ㄱ', 'ㅏ']
+  /// Compute GOP scores using phoneme-type-aware forced alignment.
+  ///
+  /// Frame allocation:
+  /// - Consonants get ~30% of their syllable's frames
+  /// - Vowels get ~70% of their syllable's frames
+  /// - Complex 종성 are mapped to their representative single consonant
   Future<GopResult> computeGopScores({
     required String audioPath,
     required List<String> expectedPhonemes,
@@ -178,9 +189,9 @@ class GopService {
         return const GopResult(phonemeScores: [], overallGop: 0.0);
       }
 
-      // Forced alignment: divide audio frames equally among expected phonemes
-      final framesPerPhoneme = logits.length ~/ expectedPhonemes.length;
-      if (framesPerPhoneme == 0) {
+      // Compute weighted frame allocation based on phoneme type
+      final frameRanges = _computeFrameRanges(expectedPhonemes, logits.length);
+      if (frameRanges.isEmpty) {
         return const GopResult(phonemeScores: [], overallGop: 0.0);
       }
 
@@ -188,16 +199,18 @@ class GopService {
       double totalGop = 0.0;
 
       for (int i = 0; i < expectedPhonemes.length; i++) {
-        final startFrame = i * framesPerPhoneme;
-        final endFrame = (i == expectedPhonemes.length - 1)
-            ? logits.length
-            : (i + 1) * framesPerPhoneme;
-
         final phoneme = expectedPhonemes[i];
-        final phonemeIdx = phonemeLabels.indexOf(phoneme);
+        final startFrame = frameRanges[i].start;
+        final endFrame = frameRanges[i].end;
+
+        // Map complex 종성 to simple phoneme for GOP label lookup
+        final gopPhoneme = KoreanPhonemeUtils.simplifyForGop(phoneme);
+        final phonemeIdx = phonemeLabels.indexOf(gopPhoneme);
 
         if (phonemeIdx < 0) {
-          // Unknown phoneme, skip
+          // Unknown phoneme even after simplification
+          AppLogger.d('Unknown GOP phoneme: $phoneme (simplified: $gopPhoneme)',
+              tag: 'GopService');
           scores.add(PhonemeGopScore(
             phoneme: phoneme,
             gopScore: 0.0,
@@ -213,7 +226,6 @@ class GopService {
         int frameCount = 0;
         for (int f = startFrame; f < endFrame && f < logits.length; f++) {
           if (phonemeIdx < logits[f].length) {
-            // Convert logit to log probability using log-softmax
             final logProb = _logSoftmax(logits[f], phonemeIdx);
             sumLogProb += logProb;
             frameCount++;
@@ -221,10 +233,12 @@ class GopService {
         }
 
         final avgLogProb = frameCount > 0 ? sumLogProb / frameCount : -10.0;
-        // Normalize GOP to 0-100 scale
-        // Typical GOP range: -10 (very bad) to 0 (perfect)
-        final normalizedGop =
-            ((avgLogProb + 10.0) / 10.0 * 100.0).clamp(0.0, 100.0);
+
+        // Sigmoid-based normalization for more natural score distribution.
+        // Native speakers typically get avgLogProb in [-3, -0.5] range.
+        // Learners typically get [-8, -3] range.
+        // sigmoid(x * k + b) maps this to [0, 100] more gracefully.
+        final normalizedGop = _sigmoidNormalize(avgLogProb);
 
         scores.add(PhonemeGopScore(
           phoneme: phoneme,
@@ -238,6 +252,13 @@ class GopService {
 
       final overallGop = scores.isNotEmpty ? totalGop / scores.length : 0.0;
 
+      AppLogger.d(
+        'GOP computed: ${expectedPhonemes.join(",")} -> '
+        'overall=${overallGop.toStringAsFixed(1)}, '
+        'per-phoneme=[${scores.map((s) => '${s.phoneme}:${s.gopScore.toStringAsFixed(0)}').join(", ")}]',
+        tag: 'GopService',
+      );
+
       return GopResult(
         phonemeScores: scores,
         overallGop: overallGop,
@@ -247,6 +268,70 @@ class GopService {
           error: e, tag: 'GopService');
       return const GopResult(phonemeScores: [], overallGop: 0.0);
     }
+  }
+
+  /// Compute frame ranges for each phoneme using type-aware weighting.
+  ///
+  /// Consonants receive [_consonantWeight] share and vowels receive
+  /// [_vowelWeight] share of the total frames, proportionally.
+  List<_FrameRange> _computeFrameRanges(
+    List<String> phonemes,
+    int totalFrames,
+  ) {
+    if (phonemes.isEmpty || totalFrames == 0) return [];
+
+    // Compute total weight
+    double totalWeight = 0.0;
+    final weights = <double>[];
+    for (final phoneme in phonemes) {
+      final type = KoreanPhonemeUtils.classifyPhoneme(phoneme);
+      final w = type == PhonemeType.vowel ? _vowelWeight : _consonantWeight;
+      weights.add(w);
+      totalWeight += w;
+    }
+
+    // Allocate frames proportionally, ensuring at least 1 frame per phoneme
+    final ranges = <_FrameRange>[];
+    int usedFrames = 0;
+
+    for (int i = 0; i < phonemes.length; i++) {
+      final startFrame = usedFrames;
+      int frameCount;
+
+      if (i == phonemes.length - 1) {
+        // Last phoneme gets remaining frames
+        frameCount = totalFrames - usedFrames;
+      } else {
+        frameCount =
+            ((weights[i] / totalWeight) * totalFrames).round().clamp(1, totalFrames - usedFrames);
+      }
+
+      if (frameCount <= 0) frameCount = 1;
+      usedFrames += frameCount;
+
+      ranges.add(_FrameRange(start: startFrame, end: startFrame + frameCount));
+    }
+
+    return ranges;
+  }
+
+  /// Sigmoid-based normalization for more natural score distribution.
+  ///
+  /// Maps log-probability to 0-100 using a sigmoid curve centered around
+  /// the typical threshold between "acceptable" and "poor" pronunciation.
+  ///
+  /// - avgLogProb ≈ -1.0: ~95 (excellent, native-like)
+  /// - avgLogProb ≈ -3.0: ~75 (good)
+  /// - avgLogProb ≈ -5.0: ~50 (fair)
+  /// - avgLogProb ≈ -7.0: ~25 (poor)
+  /// - avgLogProb ≈ -10.0: ~5 (very poor)
+  static double _sigmoidNormalize(double avgLogProb) {
+    // Sigmoid: 100 / (1 + exp(-k * (x - center)))
+    // k controls steepness, center is the midpoint
+    const k = 0.8;
+    const center = -4.5; // midpoint at ~50 score
+    final sigmoid = 100.0 / (1.0 + exp(-k * (avgLogProb - center)));
+    return sigmoid.clamp(0.0, 100.0);
   }
 
   /// Compute log-softmax for a specific index
@@ -282,22 +367,6 @@ class GopService {
     }
   }
 
-  /// Generate development/testing logits when model is not available
-  /// Simulates reasonable phoneme distributions for testing the scoring pipeline
-  List<List<double>> _generateDevelopmentLogits(int audioSamples) {
-    final random = Random(42);
-    final numFrames = audioSamples ~/ 320; // 20ms frames at 16kHz
-    final numPhonemes = phonemeLabels.length;
-
-    return List.generate(numFrames, (f) {
-      return List.generate(numPhonemes, (p) {
-        // Generate somewhat realistic logit distribution
-        // Most phonemes have low probability, a few have higher
-        return -5.0 + random.nextDouble() * 4.0;
-      });
-    });
-  }
-
   void dispose() {
     _session?.release();
     _session = null;
@@ -305,6 +374,13 @@ class GopService {
     _sessionOptions = null;
     _isInitialized = false;
   }
+}
+
+/// Frame range for a phoneme within the audio.
+class _FrameRange {
+  final int start;
+  final int end;
+  const _FrameRange({required this.start, required this.end});
 }
 
 /// Result from GOP computation

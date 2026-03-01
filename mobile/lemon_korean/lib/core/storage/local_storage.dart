@@ -270,7 +270,7 @@ class LocalStorage {
     int userId,
     int vocabularyId,
   ) async {
-    final reviewId = '${userId}_${vocabularyId}';
+    final reviewId = '${userId}_$vocabularyId';
     final data = _reviewsBox.get('review_$reviewId');
     return data != null ? Map<String, dynamic>.from(data) : null;
   }

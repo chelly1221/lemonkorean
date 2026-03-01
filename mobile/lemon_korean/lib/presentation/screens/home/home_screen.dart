@@ -73,23 +73,23 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             destinations: [
               NavigationDestination(
-                icon: const Icon(Icons.school),
-                selectedIcon: const Icon(Icons.school),
+                icon: const Icon(Icons.school_outlined, size: 20),
+                selectedIcon: const Icon(Icons.school, size: 22),
                 label: l10n?.home ?? 'Home',
               ),
               NavigationDestination(
-                icon: const Icon(Icons.people_alt_outlined),
-                selectedIcon: const Icon(Icons.people_alt),
+                icon: const Icon(Icons.people_alt_outlined, size: 20),
+                selectedIcon: const Icon(Icons.people_alt, size: 22),
                 label: l10n?.community ?? 'Community',
               ),
               NavigationDestination(
-                icon: const Icon(Icons.chat_bubble_outline),
-                selectedIcon: const Icon(Icons.chat_bubble),
+                icon: const Icon(Icons.chat_bubble_outline, size: 20),
+                selectedIcon: const Icon(Icons.chat_bubble, size: 22),
                 label: l10n?.messages ?? 'Messages',
               ),
               NavigationDestination(
-                icon: const Icon(Icons.account_circle),
-                selectedIcon: const Icon(Icons.account_circle),
+                icon: const Icon(Icons.account_circle_outlined, size: 20),
+                selectedIcon: const Icon(Icons.account_circle, size: 22),
                 label: l10n?.profile ?? 'Profile',
               ),
             ],
@@ -298,7 +298,10 @@ class _HomeTabState extends State<_HomeTab> {
   }
 
   String _levelLabel(int level) {
-    if (level == 0) return '한글';
+    if (level == 0) {
+      final l10n = AppLocalizations.of(context);
+      return l10n?.hangulAlphabet ?? '한글';
+    }
     return 'Lv$level';
   }
 
@@ -339,7 +342,7 @@ class _HomeTabState extends State<_HomeTab> {
         _buildHangulQuickActionButton(
           context: context,
           icon: Icons.replay,
-          tooltip: '복습',
+          tooltip: AppLocalizations.of(context)?.review ?? '복습',
           onTap: () {
             Navigator.push(
               context,
@@ -384,7 +387,7 @@ class _HomeTabState extends State<_HomeTab> {
     return _buildHangulQuickActionButton(
       context: context,
       icon: Icons.bookmark_outline,
-      tooltip: '나의 단어장',
+      tooltip: AppLocalizations.of(context)?.myVocabularyBook ?? '나의 단어장',
       onTap: () {
         Navigator.push(
           context,
@@ -420,7 +423,7 @@ class _HomeTabState extends State<_HomeTab> {
           _buildFixedHangulAction(
             context: context,
             icon: Icons.grid_view_rounded,
-            tooltip: '자모표',
+            tooltip: AppLocalizations.of(context)?.alphabetTable ?? '자모표',
             onTap: () {
               Navigator.push(
                 context,
@@ -434,7 +437,7 @@ class _HomeTabState extends State<_HomeTab> {
           _buildFixedHangulAction(
             context: context,
             icon: Icons.widgets_outlined,
-            tooltip: '음절조합',
+            tooltip: AppLocalizations.of(context)?.syllableCombination ?? '음절조합',
             onTap: () {
               Navigator.push(
                 context,
@@ -448,7 +451,7 @@ class _HomeTabState extends State<_HomeTab> {
           _buildFixedHangulAction(
             context: context,
             icon: Icons.layers_outlined,
-            tooltip: '받침연습',
+            tooltip: AppLocalizations.of(context)?.batchimPractice ?? '받침연습',
             onTap: () {
               Navigator.push(
                 context,
@@ -462,7 +465,7 @@ class _HomeTabState extends State<_HomeTab> {
           _buildFixedHangulAction(
             context: context,
             icon: Icons.hearing_outlined,
-            tooltip: '소리구분훈련',
+            tooltip: AppLocalizations.of(context)?.soundDiscrimination ?? '소리구분훈련',
             onTap: () {
               Navigator.push(
                 context,

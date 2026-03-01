@@ -83,12 +83,12 @@ class VocabularyBrowserProvider with ChangeNotifier {
 
       // Fetch from API
       final words = await _repository.getVocabularyByLevel(level, language: language);
-      if (words != null && words.isNotEmpty) {
+      if (words.isNotEmpty) {
         _vocabularyByLevel[level] = words;
         // Save to cache - convert to JSON
         await LocalStorage.saveVocabularyByLevel(level, words.map((w) => w.toJson()).toList());
       } else {
-        _errorMessage = 'No vocabulary found for level $level';
+        _errorMessage = 'noVocabularyForLevel';
       }
     } catch (e) {
       _errorMessage = e.toString();

@@ -9,10 +9,10 @@ class LevelSelector extends StatefulWidget {
   final ValueChanged<int> onLevelSelected;
 
   const LevelSelector({
-    super.key,
     required this.selectedLevel,
     required this.levelsWithProgress,
     required this.onLevelSelected,
+    super.key,
   });
 
   @override

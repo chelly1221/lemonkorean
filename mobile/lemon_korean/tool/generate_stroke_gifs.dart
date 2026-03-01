@@ -159,7 +159,7 @@ void fillRingSegment(
   required img.Color color,
 }) {
   final normalizedSweep = sweep.clamp(0.0, math.pi * 2);
-  final start = -math.pi / 2;
+  const start = -math.pi / 2;
   final end = start + normalizedSweep;
   final minX = cx - outerR;
   final maxX = cx + outerR;
@@ -199,7 +199,7 @@ void fillEllipseRingSegment(
   required img.Color color,
 }) {
   final normalizedSweep = sweep.clamp(0.0, math.pi * 2);
-  final start = -math.pi / 2;
+  const start = -math.pi / 2;
   final end = start + normalizedSweep;
   final minX = cx - outerRx;
   final maxX = cx + outerRx;

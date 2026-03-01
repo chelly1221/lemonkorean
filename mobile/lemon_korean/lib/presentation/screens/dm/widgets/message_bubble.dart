@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../data/models/dm_message_model.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 /// Chat message bubble widget
 class MessageBubble extends StatelessWidget {
@@ -11,9 +12,9 @@ class MessageBubble extends StatelessWidget {
   final VoidCallback? onDelete;
 
   const MessageBubble({
-    super.key,
     required this.message,
     required this.isMe,
+    super.key,
     this.onDelete,
   });
 
@@ -197,7 +198,7 @@ class MessageBubble extends StatelessWidget {
           border: Border.all(color: Colors.grey.shade300, width: 0.5),
         ),
         child: Text(
-          'Message deleted',
+          AppLocalizations.of(context)?.messageDeleted ?? 'Message deleted',
           style: TextStyle(
             fontSize: AppConstants.fontSizeSmall,
             color: Colors.grey.shade500,
@@ -209,15 +210,16 @@ class MessageBubble extends StatelessWidget {
   }
 
   void _showDeleteDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Delete message?'),
-        content: const Text('This message will be deleted for everyone.'),
+        title: Text(l10n?.deleteMessageTitle ?? 'Delete message?'),
+        content: Text(l10n?.deleteMessageContent ?? 'This message will be deleted for everyone.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(l10n?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () {
@@ -225,7 +227,7 @@ class MessageBubble extends StatelessWidget {
               onDelete?.call();
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: Text(l10n?.delete ?? 'Delete'),
           ),
         ],
       ),

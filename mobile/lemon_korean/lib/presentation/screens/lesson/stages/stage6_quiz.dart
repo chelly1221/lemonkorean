@@ -262,121 +262,120 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     final question = _quizQuestions[_currentQuestionIndex];
     final selectedAnswer = _userAnswers[_currentQuestionIndex];
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        children: [
-          // Stage Title
-          Text(
-            l10n.stageQuiz,
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeXLarge,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        // Header: Progress bar + counters
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, AppConstants.paddingSmall,
+            AppConstants.paddingMedium, 0,
           ),
-
-          const SizedBox(height: 20),
-
-          // Progress
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: [
-              Text(
-                '${_currentQuestionIndex + 1} / ${_quizQuestions.length}',
-                style: const TextStyle(
-                  fontSize: AppConstants.fontSizeMedium,
-                  color: AppConstants.textSecondary,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _getQuestionTypeColor(question['type']).withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          _getQuestionTypeLabel(question['type']),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: _getQuestionTypeColor(question['type']),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        '${_currentQuestionIndex + 1}/${_quizQuestions.length}',
+                        style: const TextStyle(
+                          fontSize: AppConstants.fontSizeSmall,
+                          color: AppConstants.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppConstants.primaryColor.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      l10n.answeredCount(_userAnswers.length, _quizQuestions.length),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: AppConstants.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              // Answered Count
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: AppConstants.primaryColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  l10n.answeredCount(_userAnswers.length, _quizQuestions.length),
-                  style: const TextStyle(
-                    fontSize: AppConstants.fontSizeSmall,
-                    color: AppConstants.primaryColor,
-                    fontWeight: FontWeight.bold,
+              const SizedBox(height: 6),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: LinearProgressIndicator(
+                  value: (_currentQuestionIndex + 1) / _quizQuestions.length,
+                  minHeight: 4,
+                  backgroundColor: Colors.grey.shade200,
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppConstants.primaryColor,
                   ),
                 ),
               ),
             ],
           ),
+        ),
 
-          const SizedBox(height: 20),
+        const SizedBox(height: 8),
 
-          // Progress Bar
-          ClipRRect(
-            borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
-            child: LinearProgressIndicator(
-              value: (_currentQuestionIndex + 1) / _quizQuestions.length,
-              minHeight: 8,
-              backgroundColor: Colors.grey.shade200,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppConstants.primaryColor,
-              ),
-            ),
+        // Question Card
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppConstants.paddingMedium,
           ),
-
-          const SizedBox(height: 30),
-
-          // Question Type Badge
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 6,
-              ),
-              decoration: BoxDecoration(
-                color: _getQuestionTypeColor(question['type']).withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                _getQuestionTypeLabel(question['type']),
-                style: TextStyle(
-                  fontSize: AppConstants.fontSizeSmall,
-                  color: _getQuestionTypeColor(question['type']),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // Question Card
-          Container(
+          child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(AppConstants.paddingLarge),
+            padding: const EdgeInsets.all(AppConstants.paddingMedium),
             decoration: BoxDecoration(
               color: AppConstants.primaryColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+              borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
             ),
             child: Text(
               question['question'],
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 height: 1.4,
               ),
             ),
           ),
+        ),
 
-          const SizedBox(height: 30),
+        const SizedBox(height: 10),
 
-          // Options
-          Expanded(
-            child: ListView.builder(
-              itemCount: (question['options'] as List).length,
+        // Options
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+            ),
+            itemCount: (question['options'] as List).length,
               itemBuilder: (context, index) {
                 final option = question['options'][index];
                 final isSelected = selectedAnswer == option;
@@ -449,12 +448,14 @@ class _Stage6QuizState extends State<Stage6Quiz> {
             ),
           ),
 
-          const SizedBox(height: 20),
-
-          // Navigation Buttons
-          Row(
+        // Navigation Buttons (fixed at bottom)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
+          ),
+          child: Row(
             children: [
-              // Previous Button
               if (_currentQuestionIndex > 0)
                 Builder(
                   builder: (context) {
@@ -464,7 +465,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                         onPressed: _previousQuestion,
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
-                            vertical: AppConstants.paddingMedium,
+                            vertical: AppConstants.paddingSmall + 4,
                           ),
                         ),
                         child: Text(l10n.previousQuestion),
@@ -473,9 +474,8 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                   },
                 ),
 
-              if (_currentQuestionIndex > 0) const SizedBox(width: 16),
+              if (_currentQuestionIndex > 0) const SizedBox(width: 12),
 
-              // Next/Submit Button
               Builder(
                 builder: (context) {
                   final l10n = AppLocalizations.of(context)!;
@@ -487,7 +487,7 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                         backgroundColor: AppConstants.primaryColor,
                         foregroundColor: Colors.black87,
                         padding: const EdgeInsets.symmetric(
-                          vertical: AppConstants.paddingMedium,
+                          vertical: AppConstants.paddingSmall + 4,
                         ),
                       ),
                       child: Text(
@@ -501,8 +501,8 @@ class _Stage6QuizState extends State<Stage6Quiz> {
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -512,97 +512,113 @@ class _Stage6QuizState extends State<Stage6Quiz> {
     final percentage = _calculatePercentage();
     final isPassed = percentage >= 80;
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Result Icon
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isPassed
-                  ? AppConstants.successColor.withValues(alpha: 0.1)
-                  : AppConstants.errorColor.withValues(alpha: 0.1),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
             ),
-            child: Icon(
-              isPassed ? Icons.celebration : Icons.replay,
-              size: 64,
-              color: isPassed
-                  ? AppConstants.successColor
-                  : AppConstants.errorColor,
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+
+                // Result Icon
+                Container(
+                  width: 96,
+                  height: 96,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isPassed
+                        ? AppConstants.successColor.withValues(alpha: 0.1)
+                        : AppConstants.errorColor.withValues(alpha: 0.1),
+                  ),
+                  child: Icon(
+                    isPassed ? Icons.celebration : Icons.replay,
+                    size: 48,
+                    color: isPassed
+                        ? AppConstants.successColor
+                        : AppConstants.errorColor,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Result Title
+                Text(
+                  isPassed ? l10n.excellent : l10n.keepGoing,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: isPassed
+                        ? AppConstants.successColor
+                        : AppConstants.errorColor,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // Score
+                Text(
+                  l10n.scoreDisplay(score, _quizQuestions.length),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 4),
+
+                // Percentage
+                Text(
+                  '${percentage.toInt()}%',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: isPassed
+                        ? AppConstants.successColor
+                        : AppConstants.errorColor,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Pass/Fail Message
+                Container(
+                  padding: const EdgeInsets.all(AppConstants.paddingMedium),
+                  decoration: BoxDecoration(
+                    color: isPassed
+                        ? AppConstants.successColor.withValues(alpha: 0.1)
+                        : AppConstants.errorColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                  ),
+                  child: Text(
+                    isPassed ? l10n.masteredContent : l10n.reviewSuggestion,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: AppConstants.fontSizeMedium,
+                      color: isPassed
+                          ? AppConstants.successColor
+                          : AppConstants.errorColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+              ],
             ),
           ),
+        ),
 
-          const SizedBox(height: 30),
-
-          // Result Title
-          Text(
-            isPassed ? l10n.excellent : l10n.keepGoing,
-            style: TextStyle(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: isPassed
-                  ? AppConstants.successColor
-                  : AppConstants.errorColor,
-            ),
+        // Continue Button (fixed at bottom)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
           ),
-
-          const SizedBox(height: 16),
-
-          // Score
-          Text(
-            l10n.scoreDisplay(score, _quizQuestions.length),
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          // Percentage
-          Text(
-            '${percentage.toInt()}%',
-            style: TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-              color: isPassed
-                  ? AppConstants.successColor
-                  : AppConstants.errorColor,
-            ),
-          ),
-
-          const SizedBox(height: 30),
-
-          // Pass/Fail Message
-          Container(
-            padding: const EdgeInsets.all(AppConstants.paddingLarge),
-            decoration: BoxDecoration(
-              color: isPassed
-                  ? AppConstants.successColor.withValues(alpha: 0.1)
-                  : AppConstants.errorColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-            ),
-            child: Text(
-              isPassed ? l10n.masteredContent : l10n.reviewSuggestion,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: AppConstants.fontSizeMedium,
-                color: isPassed
-                    ? AppConstants.successColor
-                    : AppConstants.errorColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-
-          const Spacer(),
-
-          // Continue Button
-          SizedBox(
+          child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: widget.onNext,
@@ -610,20 +626,20 @@ class _Stage6QuizState extends State<Stage6Quiz> {
                 backgroundColor: AppConstants.primaryColor,
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(
-                  vertical: AppConstants.paddingLarge,
+                  vertical: AppConstants.paddingMedium,
                 ),
               ),
               child: Text(
                 l10n.continueBtn,
                 style: const TextStyle(
-                  fontSize: AppConstants.fontSizeXLarge,
+                  fontSize: AppConstants.fontSizeLarge,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

@@ -19,8 +19,8 @@ class PostDetailScreen extends StatefulWidget {
   final PostModel post;
 
   const PostDetailScreen({
-    super.key,
     required this.post,
+    super.key,
   });
 
   @override
@@ -157,17 +157,19 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               Navigator.pop(dialogContext);
               final feedProvider =
                   Provider.of<FeedProvider>(context, listen: false);
+              final scaffoldMessenger = ScaffoldMessenger.of(context);
+              final navigator = Navigator.of(context);
               final success =
                   await feedProvider.deletePost(widget.post.id);
               if (success && mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
+                scaffoldMessenger.showSnackBar(
                   SnackBar(
                     content:
                         Text(l10n?.postDeleted ?? 'Post deleted'),
                     duration: AppConstants.snackBarShort,
                   ),
                 );
-                Navigator.pop(context);
+                navigator.pop();
               }
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),

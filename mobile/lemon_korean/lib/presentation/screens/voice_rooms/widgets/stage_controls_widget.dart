@@ -439,7 +439,7 @@ class StageControlsWidget extends StatelessWidget {
   }) {
     final String resolvedSemantic = semanticLabel ??
         (badgeCount > 0
-            ? '$label, $badgeCount pending requests'
+            ? '$label ($badgeCount)'
             : label);
 
     return Semantics(

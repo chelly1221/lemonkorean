@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 
 /// Stage complete celebration screen.
@@ -75,7 +76,7 @@ class StepStageComplete extends StatelessWidget {
                 const Text('🍋', style: TextStyle(fontSize: 36)),
                 const SizedBox(height: 8),
                 Text(
-                  '$stage단계 마스터',
+                  AppLocalizations.of(context)?.stageMasterLabel(stage) ?? 'Stage $stage Master',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -117,9 +118,9 @@ class StepStageComplete extends StatelessWidget {
                 ),
                 elevation: 2,
               ),
-              child: const Text(
-                '돌아가기',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                AppLocalizations.of(context)?.goBackButton ?? 'Go back',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ).animate().fadeIn(delay: 1200.ms, duration: 400.ms),

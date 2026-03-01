@@ -122,7 +122,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                       ),
                       child: Text(
                         settings.dailyReminderTime.format(context),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: AppConstants.primaryColor,
@@ -138,7 +138,7 @@ class NotificationSettingsScreen extends StatelessWidget {
                               builder: (context, child) {
                                 return Theme(
                                   data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
+                                    colorScheme: const ColorScheme.light(
                                       primary: AppConstants.primaryColor,
                                     ),
                                   ),

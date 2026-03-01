@@ -167,131 +167,148 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
 
     final word = _words[_currentWordIndex];
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        children: [
-          // Stage Title
-          Text(
-            l10n.vocabularyLearning,
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeXLarge,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        // Header: Title + Counter
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, AppConstants.paddingSmall,
+            AppConstants.paddingMedium, 0,
           ),
-
-          const SizedBox(height: 20),
-
-          // Word Counter
-          Text(
-            '${_currentWordIndex + 1} / ${_words.length}',
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeMedium,
-              color: AppConstants.textSecondary,
-            ),
-          ),
-
-          const Spacer(),
-
-          // Flashcard with Bookmark Button
-          Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(40),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                // Image or Placeholder
-                Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: AppConstants.primaryColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-                    border: Border.all(
-                      color: AppConstants.primaryColor.withValues(alpha: 0.3),
-                      width: 2,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-                    child: word['imageUrl'] != null
-                        ? MediaHelper.buildImage(
-                            word['imageUrl']!,
-                            width: 200,
-                            height: 200,
-                            fit: BoxFit.cover,
-                            placeholder: _buildImagePlaceholder(context),
-                            errorWidget: _buildImagePlaceholder(context),
-                          )
-                        : _buildImagePlaceholder(context),
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-
-                // Korean
-                Text(
-                  word['korean']!,
-                  style: const TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Chinese
-                Text(
-                  word['chinese']!,
-                  style: const TextStyle(
-                    fontSize: 32,
-                    color: AppConstants.textSecondary,
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                    // Pinyin
-                    Text(
-                      word['pinyin']!,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: AppConstants.textHint,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
+              Text(
+                l10n.vocabularyLearning,
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeLarge,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-
-              // Bookmark Button (Top-Right Corner)
-              Positioned(
-                top: 8,
-                right: 8,
-                child: BookmarkButton(
-                  vocabulary: _convertToVocabularyModel(word),
-                  size: 28,
+              Text(
+                '${_currentWordIndex + 1} / ${_words.length}',
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeMedium,
+                  color: AppConstants.textSecondary,
                 ),
               ),
             ],
           ),
+        ),
 
-          const Spacer(),
+        // Flashcard (scrollable area)
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+              vertical: AppConstants.paddingSmall,
+            ),
+            child: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(AppConstants.paddingLarge),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 16,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      // Image or Placeholder
+                      Container(
+                        height: 140,
+                        width: 140,
+                        decoration: BoxDecoration(
+                          color: AppConstants.primaryColor.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                          border: Border.all(
+                            color: AppConstants.primaryColor.withValues(alpha: 0.3),
+                            width: 2,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
+                          child: word['imageUrl'] != null
+                              ? MediaHelper.buildImage(
+                                  word['imageUrl']!,
+                                  width: 140,
+                                  height: 140,
+                                  fit: BoxFit.cover,
+                                  placeholder: _buildImagePlaceholder(context),
+                                  errorWidget: _buildImagePlaceholder(context),
+                                )
+                              : _buildImagePlaceholder(context),
+                        ),
+                      ),
 
-          // Navigation Buttons
-          Row(
+                      const SizedBox(height: 20),
+
+                      // Korean
+                      Text(
+                        word['korean']!,
+                        style: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      // Chinese
+                      Text(
+                        word['chinese']!,
+                        style: const TextStyle(
+                          fontSize: 28,
+                          color: AppConstants.textSecondary,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // Pinyin
+                      Text(
+                        word['pinyin']!,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: AppConstants.textHint,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Bookmark Button (Top-Right Corner)
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: BookmarkButton(
+                    vocabulary: _convertToVocabularyModel(word),
+                    size: 28,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        // Navigation Buttons (fixed at bottom)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
+          ),
+          child: Row(
             children: [
               // Previous Button
               if (_currentWordIndex > 0)
@@ -300,14 +317,14 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                     onPressed: _previousWord,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                        vertical: AppConstants.paddingMedium,
+                        vertical: AppConstants.paddingSmall + 4,
                       ),
                     ),
                     child: Text(l10n.previousItem),
                   ),
                 ),
 
-              if (_currentWordIndex > 0) const SizedBox(width: 16),
+              if (_currentWordIndex > 0) const SizedBox(width: 12),
 
               // Next Button
               Expanded(
@@ -318,7 +335,7 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
                     backgroundColor: AppConstants.primaryColor,
                     foregroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(
-                      vertical: AppConstants.paddingMedium,
+                      vertical: AppConstants.paddingSmall + 4,
                     ),
                   ),
                   child: Text(
@@ -330,8 +347,8 @@ class _Stage2VocabularyState extends State<Stage2Vocabulary> {
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

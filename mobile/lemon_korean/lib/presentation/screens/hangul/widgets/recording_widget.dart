@@ -156,7 +156,7 @@ class _RecordingWidgetState extends State<RecordingWidget>
       debugPrint('[RecordingWidget] Failed to start recording: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to start recording: $e')),
+          SnackBar(content: Text(AppLocalizations.of(context)?.recordingStartFailed ?? 'Failed to start recording: $e')),
         );
       }
     }

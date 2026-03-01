@@ -12,7 +12,7 @@ class SecureStorageImpl implements ISecureStorage {
   @override
   Future<void> write({required String key, required String value}) async {
     try {
-      _storage[key] = value;
+      _storage.setItem(key, value);
     } catch (e) {
       AppLogger.e('Error writing $key', error: e, tag: 'SecureStorageWeb');
       // Silently fail - don't throw to avoid breaking login flow
@@ -22,7 +22,7 @@ class SecureStorageImpl implements ISecureStorage {
   @override
   Future<String?> read({required String key}) async {
     try {
-      return _storage[key];
+      return _storage.getItem(key);
     } catch (e) {
       AppLogger.e('Error reading $key', error: e, tag: 'SecureStorageWeb');
       return null;

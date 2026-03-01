@@ -15,8 +15,8 @@ class ProfileHeader extends StatelessWidget {
   final bool isOwnProfile;
 
   const ProfileHeader({
-    super.key,
     required this.user,
+    super.key,
     this.isOwnProfile = false,
   });
 

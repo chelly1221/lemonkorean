@@ -17,9 +17,10 @@ class DmMessageModel {
   final DmMessageStatus status;
 
   DmMessageModel({
-    this.id,
     required this.conversationId,
     required this.senderId,
+    required this.createdAt,
+    this.id,
     this.senderName = '',
     this.senderAvatar,
     this.messageType = 'text',
@@ -28,7 +29,6 @@ class DmMessageModel {
     this.mediaMetadata = const {},
     this.clientMessageId,
     this.isDeleted = false,
-    required this.createdAt,
     this.status = DmMessageStatus.sent,
   });
 

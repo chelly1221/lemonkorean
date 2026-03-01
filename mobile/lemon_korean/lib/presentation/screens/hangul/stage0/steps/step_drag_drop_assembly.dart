@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../../core/utils/korean_tts_helper.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/draggable_character_tile.dart';
 import '../widgets/syllable_block_template.dart';
@@ -259,7 +260,7 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.add, color: Colors.grey.shade400, size: 22),
-                          Text('자음', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+                          Text(AppLocalizations.of(context)?.consonant ?? '자음', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
                         ],
                       ),
               ),
@@ -320,7 +321,7 @@ class _StepDragDropAssemblyState extends State<StepDragDropAssembly> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.add, color: Colors.grey.shade400, size: 22),
-                          Text('모음', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+                          Text(AppLocalizations.of(context)?.vowel ?? '모음', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
                         ],
                       ),
               ),

@@ -81,6 +81,9 @@ class AudienceBarWidget extends StatelessWidget {
                               backgroundImage: listener.avatar != null
                                   ? NetworkImage(listener.avatar!)
                                   : null,
+                              onBackgroundImageError: listener.avatar != null
+                                  ? (_, __) {}
+                                  : null,
                               child: listener.avatar == null
                                   ? Text(
                                       listener.name.isNotEmpty

@@ -1,910 +1,1190 @@
 {
   "@@locale": "zh",
   "@@context": "LemonKorean App - Simplified Chinese",
-
   "appName": "柠檬韩语",
-  "@appName": {"description": "App name"},
-
+  "@appName": {
+    "description": "App name"
+  },
   "login": "登录",
-  "@login": {"description": "Login button"},
-
+  "@login": {
+    "description": "Login button"
+  },
   "register": "注册",
-  "@register": {"description": "Register button"},
-
+  "@register": {
+    "description": "Register button"
+  },
   "email": "邮箱",
-  "@email": {"description": "Email field label"},
-
+  "@email": {
+    "description": "Email field label"
+  },
   "password": "密码",
-  "@password": {"description": "Password field label"},
-
+  "@password": {
+    "description": "Password field label"
+  },
   "confirmPassword": "确认密码",
-  "@confirmPassword": {"description": "Confirm password field label"},
-
+  "@confirmPassword": {
+    "description": "Confirm password field label"
+  },
   "username": "用户名",
-  "@username": {"description": "Username field label"},
-
+  "@username": {
+    "description": "Username field label"
+  },
   "enterEmail": "请输入邮箱地址",
-  "@enterEmail": {"description": "Email placeholder"},
-
+  "@enterEmail": {
+    "description": "Email placeholder"
+  },
   "enterPassword": "请输入密码",
-  "@enterPassword": {"description": "Password placeholder"},
-
+  "@enterPassword": {
+    "description": "Password placeholder"
+  },
   "enterConfirmPassword": "请再次输入密码",
-  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
-
+  "@enterConfirmPassword": {
+    "description": "Confirm password placeholder"
+  },
   "enterUsername": "请输入用户名",
-  "@enterUsername": {"description": "Username placeholder"},
-
+  "@enterUsername": {
+    "description": "Username placeholder"
+  },
   "createAccount": "创建账号",
-  "@createAccount": {"description": "Create account title"},
-
+  "@createAccount": {
+    "description": "Create account title"
+  },
   "startJourney": "开始你的韩语学习之旅",
-  "@startJourney": {"description": "Subtitle for registration"},
-
+  "@startJourney": {
+    "description": "Subtitle for registration"
+  },
   "interfaceLanguage": "界面语言",
-  "@interfaceLanguage": {"description": "Interface language label"},
-
+  "@interfaceLanguage": {
+    "description": "Interface language label"
+  },
   "simplifiedChinese": "简体中文",
-  "@simplifiedChinese": {"description": "Simplified Chinese option"},
-
+  "@simplifiedChinese": {
+    "description": "Simplified Chinese option"
+  },
   "traditionalChinese": "繁体中文",
-  "@traditionalChinese": {"description": "Traditional Chinese option"},
-
+  "@traditionalChinese": {
+    "description": "Traditional Chinese option"
+  },
   "passwordRequirements": "密码要求",
-  "@passwordRequirements": {"description": "Password requirements title"},
-
+  "@passwordRequirements": {
+    "description": "Password requirements title"
+  },
   "minCharacters": "至少{count}个字符",
   "@minCharacters": {
     "description": "Minimum characters requirement",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "containLettersNumbers": "包含字母和数字",
-  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
-
+  "@containLettersNumbers": {
+    "description": "Letters and numbers requirement"
+  },
   "haveAccount": "已有账号？",
-  "@haveAccount": {"description": "Already have account text"},
-
+  "@haveAccount": {
+    "description": "Already have account text"
+  },
   "noAccount": "没有账号？",
-  "@noAccount": {"description": "No account text"},
-
+  "@noAccount": {
+    "description": "No account text"
+  },
   "loginNow": "立即登录",
-  "@loginNow": {"description": "Login now button"},
-
+  "@loginNow": {
+    "description": "Login now button"
+  },
   "registerNow": "立即注册",
-  "@registerNow": {"description": "Register now button"},
-
+  "@registerNow": {
+    "description": "Register now button"
+  },
   "registerSuccess": "注册成功",
-  "@registerSuccess": {"description": "Registration success message"},
-
+  "@registerSuccess": {
+    "description": "Registration success message"
+  },
   "registerFailed": "注册失败",
-  "@registerFailed": {"description": "Registration failed message"},
-
+  "@registerFailed": {
+    "description": "Registration failed message"
+  },
   "loginSuccess": "登录成功",
-  "@loginSuccess": {"description": "Login success message"},
-
+  "@loginSuccess": {
+    "description": "Login success message"
+  },
   "loginFailed": "登录失败",
-  "@loginFailed": {"description": "Login failed message"},
-
+  "@loginFailed": {
+    "description": "Login failed message"
+  },
   "networkError": "网络连接失败，请检查网络设置",
-  "@networkError": {"description": "Network error message"},
-
+  "@networkError": {
+    "description": "Network error message"
+  },
   "invalidCredentials": "邮箱或密码错误",
-  "@invalidCredentials": {"description": "Invalid credentials message"},
-
+  "@invalidCredentials": {
+    "description": "Invalid credentials message"
+  },
   "emailAlreadyExists": "邮箱已被注册",
-  "@emailAlreadyExists": {"description": "Email exists message"},
-
+  "@emailAlreadyExists": {
+    "description": "Email exists message"
+  },
   "requestTimeout": "请求超时，请重试",
-  "@requestTimeout": {"description": "Request timeout message"},
-
+  "@requestTimeout": {
+    "description": "Request timeout message"
+  },
   "operationFailed": "操作失败，请稍后重试",
-  "@operationFailed": {"description": "Generic operation failed message"},
-
+  "@operationFailed": {
+    "description": "Generic operation failed message"
+  },
   "settings": "设置",
-  "@settings": {"description": "Settings title"},
-
+  "@settings": {
+    "description": "Settings title"
+  },
   "languageSettings": "语言设置",
-  "@languageSettings": {"description": "Language settings title"},
-
+  "@languageSettings": {
+    "description": "Language settings title"
+  },
   "chineseDisplay": "中文显示",
-  "@chineseDisplay": {"description": "Chinese display section title"},
-
+  "@chineseDisplay": {
+    "description": "Chinese display section title"
+  },
   "chineseDisplayDesc": "选择中文文字显示方式。更改后将立即应用到所有界面。",
-  "@chineseDisplayDesc": {"description": "Chinese display description"},
-
+  "@chineseDisplayDesc": {
+    "description": "Chinese display description"
+  },
   "switchedToSimplified": "已切换到简体中文",
-  "@switchedToSimplified": {"description": "Switched to simplified message"},
-
+  "@switchedToSimplified": {
+    "description": "Switched to simplified message"
+  },
   "switchedToTraditional": "已切换到繁体中文",
-  "@switchedToTraditional": {"description": "Switched to traditional message"},
-
+  "@switchedToTraditional": {
+    "description": "Switched to traditional message"
+  },
   "displayTip": "提示：课程内容将使用你选择的中文字体显示。",
-  "@displayTip": {"description": "Display tip text"},
-
+  "@displayTip": {
+    "description": "Display tip text"
+  },
   "notificationSettings": "通知设置",
-  "@notificationSettings": {"description": "Notification settings title"},
-
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
   "enableNotifications": "启用通知",
-  "@enableNotifications": {"description": "Enable notifications toggle"},
-
+  "@enableNotifications": {
+    "description": "Enable notifications toggle"
+  },
   "enableNotificationsDesc": "开启后可以接收学习提醒",
-  "@enableNotificationsDesc": {"description": "Enable notifications description"},
-
+  "@enableNotificationsDesc": {
+    "description": "Enable notifications description"
+  },
   "permissionRequired": "请在系统设置中允许通知权限",
-  "@permissionRequired": {"description": "Permission required message"},
-
+  "@permissionRequired": {
+    "description": "Permission required message"
+  },
   "dailyLearningReminder": "每日学习提醒",
-  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
-
+  "@dailyLearningReminder": {
+    "description": "Daily learning reminder section"
+  },
   "dailyReminder": "每日提醒",
-  "@dailyReminder": {"description": "Daily reminder toggle"},
-
+  "@dailyReminder": {
+    "description": "Daily reminder toggle"
+  },
   "dailyReminderDesc": "每天固定时间提醒学习",
-  "@dailyReminderDesc": {"description": "Daily reminder description"},
-
+  "@dailyReminderDesc": {
+    "description": "Daily reminder description"
+  },
   "reminderTime": "提醒时间",
-  "@reminderTime": {"description": "Reminder time label"},
-
+  "@reminderTime": {
+    "description": "Reminder time label"
+  },
   "reminderTimeSet": "提醒时间已设置为 {time}",
   "@reminderTimeSet": {
     "description": "Reminder time set message",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "reviewReminder": "复习提醒",
-  "@reviewReminder": {"description": "Review reminder toggle"},
-
+  "@reviewReminder": {
+    "description": "Review reminder toggle"
+  },
   "reviewReminderDesc": "根据记忆曲线提醒复习",
-  "@reviewReminderDesc": {"description": "Review reminder description"},
-
+  "@reviewReminderDesc": {
+    "description": "Review reminder description"
+  },
   "notificationTip": "提示：",
-  "@notificationTip": {"description": "Tip prefix"},
-
+  "@notificationTip": {
+    "description": "Tip prefix"
+  },
   "helpCenter": "帮助中心",
-  "@helpCenter": {"description": "Help center title"},
-
+  "@helpCenter": {
+    "description": "Help center title"
+  },
   "offlineLearning": "离线学习",
-  "@offlineLearning": {"description": "Offline learning section"},
-
+  "@offlineLearning": {
+    "description": "Offline learning section"
+  },
   "howToDownload": "如何下载课程？",
-  "@howToDownload": {"description": "How to download FAQ"},
-
+  "@howToDownload": {
+    "description": "How to download FAQ"
+  },
   "howToDownloadAnswer": "在课程列表中，点击右侧的下载图标即可下载课程。下载后可以离线学习。",
-  "@howToDownloadAnswer": {"description": "How to download answer"},
-
+  "@howToDownloadAnswer": {
+    "description": "How to download answer"
+  },
   "howToUseDownloaded": "如何使用已下载的课程？",
-  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
-
+  "@howToUseDownloaded": {
+    "description": "How to use downloaded FAQ"
+  },
   "howToUseDownloadedAnswer": "即使没有网络连接，你也可以正常学习已下载的课程。进度会在本地保存，联网后自动同步。",
-  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
-
+  "@howToUseDownloadedAnswer": {
+    "description": "How to use downloaded answer"
+  },
   "storageManagement": "存储管理",
-  "@storageManagement": {"description": "Storage management section"},
-
+  "@storageManagement": {
+    "description": "Storage management section"
+  },
   "howToCheckStorage": "如何查看存储空间？",
-  "@howToCheckStorage": {"description": "How to check storage FAQ"},
-
+  "@howToCheckStorage": {
+    "description": "How to check storage FAQ"
+  },
   "howToCheckStorageAnswer": "进入【设置 → 存储管理】可以查看已使用和可用的存储空间。",
-  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
-
+  "@howToCheckStorageAnswer": {
+    "description": "How to check storage answer"
+  },
   "howToDeleteDownloaded": "如何删除已下载的课程？",
-  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
-
+  "@howToDeleteDownloaded": {
+    "description": "How to delete downloaded FAQ"
+  },
   "howToDeleteDownloadedAnswer": "在【存储管理】页面，点击课程旁边的删除按钮即可删除。",
-  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
-
+  "@howToDeleteDownloadedAnswer": {
+    "description": "How to delete downloaded answer"
+  },
   "notificationSection": "通知设置",
-  "@notificationSection": {"description": "Notification section in help"},
-
+  "@notificationSection": {
+    "description": "Notification section in help"
+  },
   "howToEnableReminder": "如何开启学习提醒？",
-  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
-
+  "@howToEnableReminder": {
+    "description": "How to enable reminder FAQ"
+  },
   "howToEnableReminderAnswer": "进入【设置 → 通知设置】，打开【启用通知】开关。首次使用需要授予通知权限。",
-  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
-
+  "@howToEnableReminderAnswer": {
+    "description": "How to enable reminder answer"
+  },
   "whatIsReviewReminder": "什么是复习提醒？",
-  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
-
+  "@whatIsReviewReminder": {
+    "description": "What is review reminder FAQ"
+  },
   "whatIsReviewReminderAnswer": "基于间隔重复算法（SRS），应用会在最佳时间提醒你复习已学课程。复习间隔：1天 → 3天 → 7天 → 14天 → 30天。",
-  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
-
+  "@whatIsReviewReminderAnswer": {
+    "description": "What is review reminder answer"
+  },
   "languageSection": "语言设置",
-  "@languageSection": {"description": "Language section in help"},
-
+  "@languageSection": {
+    "description": "Language section in help"
+  },
   "howToSwitchChinese": "如何切换简繁体中文？",
-  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
-
+  "@howToSwitchChinese": {
+    "description": "How to switch Chinese FAQ"
+  },
   "howToSwitchChineseAnswer": "进入【设置 → 语言设置】，选择【简体中文】或【繁体中文】。更改后立即生效。",
-  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
-
+  "@howToSwitchChineseAnswer": {
+    "description": "How to switch Chinese answer"
+  },
   "faq": "常见问题",
-  "@faq": {"description": "FAQ section title"},
-
+  "@faq": {
+    "description": "FAQ section title"
+  },
   "howToStart": "如何开始学习？",
-  "@howToStart": {"description": "How to start learning FAQ"},
-
+  "@howToStart": {
+    "description": "How to start learning FAQ"
+  },
   "howToStartAnswer": "在主页面选择适合你水平的课程，从第1课开始。每节课包含7个学习阶段。",
-  "@howToStartAnswer": {"description": "How to start learning answer"},
-
+  "@howToStartAnswer": {
+    "description": "How to start learning answer"
+  },
   "progressNotSaved": "进度没有保存怎么办？",
-  "@progressNotSaved": {"description": "Progress not saved FAQ"},
-
+  "@progressNotSaved": {
+    "description": "Progress not saved FAQ"
+  },
   "progressNotSavedAnswer": "进度会自动保存到本地。如果联网，会自动同步到服务器。请检查网络连接。",
-  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
-
+  "@progressNotSavedAnswer": {
+    "description": "Progress not saved answer"
+  },
   "aboutApp": "关于应用",
-  "@aboutApp": {"description": "About app title"},
-
+  "@aboutApp": {
+    "description": "About app title"
+  },
   "moreInfo": "更多信息",
-  "@moreInfo": {"description": "More info section"},
-
+  "@moreInfo": {
+    "description": "More info section"
+  },
   "versionInfo": "版本信息",
-  "@versionInfo": {"description": "Version info label"},
-
+  "@versionInfo": {
+    "description": "Version info label"
+  },
   "developer": "开发者",
-  "@developer": {"description": "Developer label"},
-
+  "@developer": {
+    "description": "Developer label"
+  },
   "appIntro": "应用介绍",
-  "@appIntro": {"description": "App introduction label"},
-
+  "@appIntro": {
+    "description": "App introduction label"
+  },
   "appIntroContent": "专为中文使用者设计的韩语学习应用，支持离线学习、智能复习提醒等功能。",
-  "@appIntroContent": {"description": "App introduction content"},
-
+  "@appIntroContent": {
+    "description": "App introduction content"
+  },
   "termsOfService": "服务条款",
-  "@termsOfService": {"description": "Terms of service"},
-
+  "@termsOfService": {
+    "description": "Terms of service"
+  },
   "termsComingSoon": "服务条款页面开发中...",
-  "@termsComingSoon": {"description": "Terms coming soon message"},
-
+  "@termsComingSoon": {
+    "description": "Terms coming soon message"
+  },
   "privacyPolicy": "隐私政策",
-  "@privacyPolicy": {"description": "Privacy policy"},
-
+  "@privacyPolicy": {
+    "description": "Privacy policy"
+  },
   "privacyComingSoon": "隐私政策页面开发中...",
-  "@privacyComingSoon": {"description": "Privacy coming soon message"},
-
+  "@privacyComingSoon": {
+    "description": "Privacy coming soon message"
+  },
   "openSourceLicenses": "开源许可",
-  "@openSourceLicenses": {"description": "Open source licenses"},
-
+  "@openSourceLicenses": {
+    "description": "Open source licenses"
+  },
   "notStarted": "未开始",
-  "@notStarted": {"description": "Status: not started"},
-
+  "@notStarted": {
+    "description": "Status: not started"
+  },
   "inProgress": "进行中",
-  "@inProgress": {"description": "Status: in progress"},
-
+  "@inProgress": {
+    "description": "Status: in progress"
+  },
   "completed": "已完成",
-  "@completed": {"description": "Status: completed"},
-
+  "@completed": {
+    "description": "Status: completed"
+  },
   "notPassed": "未通过",
-  "@notPassed": {"description": "Status: not passed"},
-
+  "@notPassed": {
+    "description": "Status: not passed"
+  },
   "timeToReview": "该复习了",
-  "@timeToReview": {"description": "Time to review message"},
-
+  "@timeToReview": {
+    "description": "Time to review message"
+  },
   "today": "今天",
-  "@today": {"description": "Today"},
-
+  "@today": {
+    "description": "Today"
+  },
   "tomorrow": "明天",
-  "@tomorrow": {"description": "Tomorrow"},
-
+  "@tomorrow": {
+    "description": "Tomorrow"
+  },
   "daysLater": "{count}天后",
   "@daysLater": {
     "description": "Days later",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "noun": "名词",
-  "@noun": {"description": "Part of speech: noun"},
-
+  "@noun": {
+    "description": "Part of speech: noun"
+  },
   "verb": "动词",
-  "@verb": {"description": "Part of speech: verb"},
-
+  "@verb": {
+    "description": "Part of speech: verb"
+  },
   "adjective": "形容词",
-  "@adjective": {"description": "Part of speech: adjective"},
-
+  "@adjective": {
+    "description": "Part of speech: adjective"
+  },
   "adverb": "副词",
-  "@adverb": {"description": "Part of speech: adverb"},
-
+  "@adverb": {
+    "description": "Part of speech: adverb"
+  },
   "particle": "助词",
-  "@particle": {"description": "Part of speech: particle"},
-
+  "@particle": {
+    "description": "Part of speech: particle"
+  },
   "pronoun": "代词",
-  "@pronoun": {"description": "Part of speech: pronoun"},
-
+  "@pronoun": {
+    "description": "Part of speech: pronoun"
+  },
   "highSimilarity": "高相似度",
-  "@highSimilarity": {"description": "High similarity level"},
-
+  "@highSimilarity": {
+    "description": "High similarity level"
+  },
   "mediumSimilarity": "中等相似度",
-  "@mediumSimilarity": {"description": "Medium similarity level"},
-
+  "@mediumSimilarity": {
+    "description": "Medium similarity level"
+  },
   "lowSimilarity": "低相似度",
-  "@lowSimilarity": {"description": "Low similarity level"},
-
+  "@lowSimilarity": {
+    "description": "Low similarity level"
+  },
   "learningComplete": "学习完成",
-  "@learningComplete": {"description": "Learning complete title"},
-
+  "@learningComplete": {
+    "description": "Learning complete title"
+  },
   "experiencePoints": "经验值 +{points}",
   "@experiencePoints": {
     "description": "Experience points gained",
     "placeholders": {
-      "points": {"type": "int"}
+      "points": {
+        "type": "int"
+      }
     }
   },
-
   "keepLearning": "继续保持学习热情",
-  "@keepLearning": {"description": "Keep learning message"},
-
+  "@keepLearning": {
+    "description": "Keep learning message"
+  },
   "streakDays": "学习连续天数 +1",
-  "@streakDays": {"description": "Streak days increased"},
-
+  "@streakDays": {
+    "description": "Streak days increased"
+  },
   "streakDaysCount": "已连续学习 {days} 天",
   "@streakDaysCount": {
     "description": "Streak days count",
     "placeholders": {
-      "days": {"type": "int"}
+      "days": {
+        "type": "int"
+      }
     }
   },
-
   "lessonContent": "本课学习内容",
-  "@lessonContent": {"description": "Lesson content title"},
-
+  "@lessonContent": {
+    "description": "Lesson content title"
+  },
   "words": "单词",
-  "@words": {"description": "Words label"},
-
+  "@words": {
+    "description": "Words label"
+  },
   "grammarPoints": "语法点",
-  "@grammarPoints": {"description": "Grammar points label"},
-
+  "@grammarPoints": {
+    "description": "Grammar points label"
+  },
   "dialogues": "对话",
-  "@dialogues": {"description": "Dialogues label"},
-
+  "@dialogues": {
+    "description": "Dialogues label"
+  },
   "previous": "上一个",
-  "@previous": {"description": "Previous button"},
-
+  "@previous": {
+    "description": "Previous button"
+  },
   "next": "下一个",
-  "@next": {"description": "Next button"},
-
+  "@next": {
+    "description": "Next button"
+  },
   "topicParticle": "主题助词",
-  "@topicParticle": {"description": "Topic particle grammar"},
-
+  "@topicParticle": {
+    "description": "Topic particle grammar"
+  },
   "honorificEnding": "敬语结尾",
-  "@honorificEnding": {"description": "Honorific ending grammar"},
-
+  "@honorificEnding": {
+    "description": "Honorific ending grammar"
+  },
   "questionWord": "什么",
-  "@questionWord": {"description": "Question word what"},
-
+  "@questionWord": {
+    "description": "Question word what"
+  },
   "hello": "你好",
-  "@hello": {"description": "Hello"},
-
+  "@hello": {
+    "description": "Hello"
+  },
   "thankYou": "谢谢",
-  "@thankYou": {"description": "Thank you"},
-
+  "@thankYou": {
+    "description": "Thank you"
+  },
   "goodbye": "再见",
-  "@goodbye": {"description": "Goodbye"},
-
+  "@goodbye": {
+    "description": "Goodbye"
+  },
   "sorry": "对不起",
-  "@sorry": {"description": "Sorry"},
-
+  "@sorry": {
+    "description": "Sorry"
+  },
   "imStudent": "我是学生",
-  "@imStudent": {"description": "I am a student"},
-
+  "@imStudent": {
+    "description": "I am a student"
+  },
   "bookInteresting": "书很有趣",
-  "@bookInteresting": {"description": "Book is interesting"},
-
+  "@bookInteresting": {
+    "description": "Book is interesting"
+  },
   "isStudent": "是学生",
-  "@isStudent": {"description": "Is student"},
-
+  "@isStudent": {
+    "description": "Is student"
+  },
   "isTeacher": "是老师",
-  "@isTeacher": {"description": "Is teacher"},
-
+  "@isTeacher": {
+    "description": "Is teacher"
+  },
   "whatIsThis": "这是什么？",
-  "@whatIsThis": {"description": "What is this?"},
-
+  "@whatIsThis": {
+    "description": "What is this?"
+  },
   "whatDoingPolite": "在做什么？",
-  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
-
+  "@whatDoingPolite": {
+    "description": "What are you doing? (polite)"
+  },
   "listenAndChoose": "听音频，选择正确的翻译",
-  "@listenAndChoose": {"description": "Listen and choose instruction"},
-
+  "@listenAndChoose": {
+    "description": "Listen and choose instruction"
+  },
   "fillInBlank": "填入正确的助词",
-  "@fillInBlank": {"description": "Fill in blank instruction"},
-
+  "@fillInBlank": {
+    "description": "Fill in blank instruction"
+  },
   "chooseTranslation": "选择正确的翻译",
-  "@chooseTranslation": {"description": "Choose translation instruction"},
-
+  "@chooseTranslation": {
+    "description": "Choose translation instruction"
+  },
   "arrangeWords": "按正确顺序排列单词",
-  "@arrangeWords": {"description": "Arrange words instruction"},
-
+  "@arrangeWords": {
+    "description": "Arrange words instruction"
+  },
   "choosePronunciation": "选择正确的发音",
-  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
-
+  "@choosePronunciation": {
+    "description": "Choose pronunciation instruction"
+  },
   "consonantEnding": "当名词以辅音结尾时，应该使用哪个主题助词？",
-  "@consonantEnding": {"description": "Consonant ending quiz question"},
-
+  "@consonantEnding": {
+    "description": "Consonant ending quiz question"
+  },
   "correctSentence": "选择正确的句子",
-  "@correctSentence": {"description": "Choose correct sentence instruction"},
-
+  "@correctSentence": {
+    "description": "Choose correct sentence instruction"
+  },
   "allCorrect": "以上都对",
-  "@allCorrect": {"description": "All of the above option"},
-
+  "@allCorrect": {
+    "description": "All of the above option"
+  },
   "howAreYou": "你好吗？",
-  "@howAreYou": {"description": "How are you?"},
-
+  "@howAreYou": {
+    "description": "How are you?"
+  },
   "whatIsYourName": "你叫什么名字？",
-  "@whatIsYourName": {"description": "What is your name?"},
-
+  "@whatIsYourName": {
+    "description": "What is your name?"
+  },
   "whoAreYou": "你是谁？",
-  "@whoAreYou": {"description": "Who are you?"},
-
+  "@whoAreYou": {
+    "description": "Who are you?"
+  },
   "whereAreYou": "你在哪里？",
-  "@whereAreYou": {"description": "Where are you?"},
-
+  "@whereAreYou": {
+    "description": "Where are you?"
+  },
   "niceToMeetYou": "很高兴认识你",
-  "@niceToMeetYou": {"description": "Nice to meet you"},
-
+  "@niceToMeetYou": {
+    "description": "Nice to meet you"
+  },
   "areYouStudent": "你是学生",
-  "@areYouStudent": {"description": "You are a student"},
-
+  "@areYouStudent": {
+    "description": "You are a student"
+  },
   "areYouStudentQuestion": "你是学生吗？",
-  "@areYouStudentQuestion": {"description": "Are you a student?"},
-
+  "@areYouStudentQuestion": {
+    "description": "Are you a student?"
+  },
   "amIStudent": "我是学生吗？",
-  "@amIStudent": {"description": "Am I a student?"},
-
+  "@amIStudent": {
+    "description": "Am I a student?"
+  },
   "listening": "听力",
-  "@listening": {"description": "Listening question type"},
-
+  "@listening": {
+    "description": "Listening question type"
+  },
   "translation": "翻译",
-  "@translation": {"description": "Translation question type"},
-
+  "@translation": {
+    "description": "Translation question type"
+  },
   "wordOrder": "排序",
-  "@wordOrder": {"description": "Word order question type"},
-
+  "@wordOrder": {
+    "description": "Word order question type"
+  },
   "excellent": "太棒了！",
-  "@excellent": {"description": "Excellent feedback"},
-
+  "@excellent": {
+    "description": "Excellent feedback"
+  },
   "correctOrderIs": "正确顺序是：",
-  "@correctOrderIs": {"description": "Correct order is prefix"},
-
+  "@correctOrderIs": {
+    "description": "Correct order is prefix"
+  },
   "nextQuestion": "下一题",
-  "@nextQuestion": {"description": "Next question button"},
-
+  "@nextQuestion": {
+    "description": "Next question button"
+  },
   "finish": "完成",
-  "@finish": {"description": "Finish button"},
-
+  "@finish": {
+    "description": "Finish button"
+  },
   "quizComplete": "测验完成！",
-  "@quizComplete": {"description": "Quiz complete title"},
-
+  "@quizComplete": {
+    "description": "Quiz complete title"
+  },
   "greatJob": "太棒了！",
-  "@greatJob": {"description": "Great job message"},
-
+  "@greatJob": {
+    "description": "Great job message"
+  },
   "keepPracticing": "继续加油！",
-  "@keepPracticing": {"description": "Keep practicing message"},
-
+  "@keepPracticing": {
+    "description": "Keep practicing message"
+  },
   "score": "得分：{correct} / {total}",
   "@score": {
     "description": "Score display",
     "placeholders": {
-      "correct": {"type": "int"},
-      "total": {"type": "int"}
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "masteredContent": "你已经很好地掌握了本课内容！",
-  "@masteredContent": {"description": "Mastered content message"},
-
+  "@masteredContent": {
+    "description": "Mastered content message"
+  },
   "reviewSuggestion": "建议复习一下课程内容，再来挑战吧！",
-  "@reviewSuggestion": {"description": "Review suggestion message"},
-
+  "@reviewSuggestion": {
+    "description": "Review suggestion message"
+  },
   "timeUsed": "用时：{time}",
   "@timeUsed": {
     "description": "Time used display",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "playAudio": "播放音频",
-  "@playAudio": {"description": "Play audio button"},
-
+  "@playAudio": {
+    "description": "Play audio button"
+  },
   "replayAudio": "重新播放",
-  "@replayAudio": {"description": "Replay audio button"},
-
+  "@replayAudio": {
+    "description": "Replay audio button"
+  },
   "vowelEnding": "以元音结尾，使用",
-  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
-
+  "@vowelEnding": {
+    "description": "Vowel ending explanation prefix"
+  },
   "lessonNumber": "第{number}课",
   "@lessonNumber": {
     "description": "Lesson number",
     "placeholders": {
-      "number": {"type": "int"}
+      "number": {
+        "type": "int"
+      }
     }
   },
-
   "stageIntro": "课程介绍",
-  "@stageIntro": {"description": "Stage 1: Introduction"},
-
+  "@stageIntro": {
+    "description": "Stage 1: Introduction"
+  },
   "stageVocabulary": "词汇学习",
-  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
-
+  "@stageVocabulary": {
+    "description": "Stage 2: Vocabulary"
+  },
   "stageGrammar": "语法讲解",
-  "@stageGrammar": {"description": "Stage 3: Grammar"},
-
+  "@stageGrammar": {
+    "description": "Stage 3: Grammar"
+  },
   "stagePractice": "练习",
-  "@stagePractice": {"description": "Stage 4: Practice"},
-
+  "@stagePractice": {
+    "description": "Stage 4: Practice"
+  },
   "stageDialogue": "对话练习",
-  "@stageDialogue": {"description": "Stage 5: Dialogue"},
-
+  "@stageDialogue": {
+    "description": "Stage 5: Dialogue"
+  },
   "stageQuiz": "测验",
-  "@stageQuiz": {"description": "Stage 6: Quiz"},
-
+  "@stageQuiz": {
+    "description": "Stage 6: Quiz"
+  },
   "stageSummary": "总结",
-  "@stageSummary": {"description": "Stage 7: Summary"},
-
+  "@stageSummary": {
+    "description": "Stage 7: Summary"
+  },
   "downloadLesson": "下载课程",
-  "@downloadLesson": {"description": "Download lesson button"},
-
+  "@downloadLesson": {
+    "description": "Download lesson button"
+  },
   "downloading": "下载中...",
-  "@downloading": {"description": "Downloading status"},
-
+  "@downloading": {
+    "description": "Downloading status"
+  },
   "downloaded": "已下载",
-  "@downloaded": {"description": "Downloaded status"},
-
+  "@downloaded": {
+    "description": "Downloaded status"
+  },
   "downloadFailed": "下载失败",
-  "@downloadFailed": {"description": "Download failed status"},
-
+  "@downloadFailed": {
+    "description": "Download failed status"
+  },
   "home": "首页",
-  "@home": {"description": "Home tab"},
-
+  "@home": {
+    "description": "Home tab"
+  },
   "lessons": "课程",
-  "@lessons": {"description": "Lessons tab"},
-
+  "@lessons": {
+    "description": "Lessons tab"
+  },
   "review": "复习",
-  "@review": {"description": "Review tab"},
-
+  "@review": {
+    "description": "Review tab"
+  },
   "profile": "我的",
-  "@profile": {"description": "Profile tab"},
-
+  "@profile": {
+    "description": "Profile tab"
+  },
   "continueLearning": "继续学习",
-  "@continueLearning": {"description": "Continue learning button"},
-
+  "@continueLearning": {
+    "description": "Continue learning button"
+  },
   "dailyGoal": "每日目标",
-  "@dailyGoal": {"description": "Daily goal title"},
-
+  "@dailyGoal": {
+    "description": "Daily goal title"
+  },
   "lessonsCompleted": "已完成 {count} 课",
   "@lessonsCompleted": {
     "description": "Lessons completed count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "minutesLearned": "已学习 {minutes} 分钟",
   "@minutesLearned": {
     "description": "Minutes learned count",
     "placeholders": {
-      "minutes": {"type": "int"}
+      "minutes": {
+        "type": "int"
+      }
     }
   },
-
   "welcome": "欢迎回来",
-  "@welcome": {"description": "Welcome message"},
-
+  "@welcome": {
+    "description": "Welcome message"
+  },
   "goodMorning": "早上好",
-  "@goodMorning": {"description": "Good morning greeting"},
-
+  "@goodMorning": {
+    "description": "Good morning greeting"
+  },
   "goodAfternoon": "下午好",
-  "@goodAfternoon": {"description": "Good afternoon greeting"},
-
+  "@goodAfternoon": {
+    "description": "Good afternoon greeting"
+  },
   "goodEvening": "晚上好",
-  "@goodEvening": {"description": "Good evening greeting"},
-
+  "@goodEvening": {
+    "description": "Good evening greeting"
+  },
   "logout": "退出登录",
-  "@logout": {"description": "Logout button"},
-
+  "@logout": {
+    "description": "Logout button"
+  },
   "confirmLogout": "确定要退出登录吗？",
-  "@confirmLogout": {"description": "Logout confirmation"},
-
+  "@confirmLogout": {
+    "description": "Logout confirmation"
+  },
   "cancel": "取消",
-  "@cancel": {"description": "Cancel button"},
-
+  "@cancel": {
+    "description": "Cancel button"
+  },
   "confirm": "确定",
-  "@confirm": {"description": "Confirm button"},
-
+  "@confirm": {
+    "description": "Confirm button"
+  },
   "delete": "删除",
-  "@delete": {"description": "Delete button"},
-
+  "@delete": {
+    "description": "Delete button"
+  },
   "save": "保存",
-  "@save": {"description": "Save button"},
-
+  "@save": {
+    "description": "Save button"
+  },
   "edit": "编辑",
-  "@edit": {"description": "Edit button"},
-
+  "@edit": {
+    "description": "Edit button"
+  },
   "close": "关闭",
-  "@close": {"description": "Close button"},
-
+  "@close": {
+    "description": "Close button"
+  },
   "retry": "重试",
-  "@retry": {"description": "Retry button"},
-
+  "@retry": {
+    "description": "Retry button"
+  },
   "loading": "加载中...",
-  "@loading": {"description": "Loading status"},
-
+  "@loading": {
+    "description": "Loading status"
+  },
   "noData": "暂无数据",
-  "@noData": {"description": "No data message"},
-
+  "@noData": {
+    "description": "No data message"
+  },
   "error": "出错了",
-  "@error": {"description": "Error title"},
-
+  "@error": {
+    "description": "Error title"
+  },
   "errorOccurred": "出错了",
-  "@errorOccurred": {"description": "Generic error message"},
-
+  "@errorOccurred": {
+    "description": "Generic error message"
+  },
   "reload": "重新加载",
-  "@reload": {"description": "Reload button"},
-
+  "@reload": {
+    "description": "Reload button"
+  },
   "noCharactersAvailable": "暂无可用字符",
-  "@noCharactersAvailable": {"description": "No characters message"},
-
+  "@noCharactersAvailable": {
+    "description": "No characters message"
+  },
   "success": "成功",
-  "@success": {"description": "Success title"},
-
+  "@success": {
+    "description": "Success title"
+  },
   "filter": "筛选",
-  "@filter": {"description": "Filter button"},
-
+  "@filter": {
+    "description": "Filter button"
+  },
   "reviewSchedule": "复习计划",
-  "@reviewSchedule": {"description": "Review schedule title"},
-
+  "@reviewSchedule": {
+    "description": "Review schedule title"
+  },
   "todayReview": "今日复习",
-  "@todayReview": {"description": "Today's review title"},
-
+  "@todayReview": {
+    "description": "Today's review title"
+  },
   "startReview": "开始复习",
-  "@startReview": {"description": "Start review button"},
-
+  "@startReview": {
+    "description": "Start review button"
+  },
   "learningStats": "学习统计",
-  "@learningStats": {"description": "Learning statistics section"},
-
+  "@learningStats": {
+    "description": "Learning statistics section"
+  },
   "completedLessonsCount": "已完成课程",
-  "@completedLessonsCount": {"description": "Completed lessons label"},
-
+  "@completedLessonsCount": {
+    "description": "Completed lessons label"
+  },
   "studyDays": "学习天数",
-  "@studyDays": {"description": "Study days label"},
-
+  "@studyDays": {
+    "description": "Study days label"
+  },
   "masteredWordsCount": "掌握单词",
-  "@masteredWordsCount": {"description": "Mastered words label"},
-
+  "@masteredWordsCount": {
+    "description": "Mastered words label"
+  },
   "myVocabularyBook": "我的单词本",
-  "@myVocabularyBook": {"description": "My vocabulary book"},
-
+  "@myVocabularyBook": {
+    "description": "My vocabulary book"
+  },
   "vocabularyBrowser": "单词浏览器",
-  "@vocabularyBrowser": {"description": "Vocabulary browser"},
-
+  "@vocabularyBrowser": {
+    "description": "Vocabulary browser"
+  },
   "about": "关于",
-  "@about": {"description": "About section"},
-
+  "@about": {
+    "description": "About section"
+  },
   "premiumMember": "高级会员",
-  "@premiumMember": {"description": "Premium member label"},
-
+  "@premiumMember": {
+    "description": "Premium member label"
+  },
   "freeUser": "免费用户",
-  "@freeUser": {"description": "Free user label"},
-
+  "@freeUser": {
+    "description": "Free user label"
+  },
   "wordsWaitingReview": "{count}个单词等待复习",
   "@wordsWaitingReview": {
     "description": "Words waiting for review",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "user": "用户",
-  "@user": {"description": "Default user name"},
-
+  "@user": {
+    "description": "Default user name"
+  },
   "onboardingSkip": "跳过",
-  "@onboardingSkip": {"description": "Onboarding skip button"},
-
+  "@onboardingSkip": {
+    "description": "Onboarding skip button"
+  },
   "onboardingLanguageTitle": "你好！我是莫妮",
-  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
-
+  "@onboardingLanguageTitle": {
+    "description": "Onboarding language selection title"
+  },
   "onboardingLanguagePrompt": "从哪种语言开始一起学习呢？",
-  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
-
+  "@onboardingLanguagePrompt": {
+    "description": "Onboarding language selection prompt"
+  },
   "onboardingNext": "下一步",
-  "@onboardingNext": {"description": "Onboarding next button"},
-
+  "@onboardingNext": {
+    "description": "Onboarding next button"
+  },
   "onboardingWelcome": "你好！我是柠檬韩语的柠檬 🍋\n我们一起学韩语吧？",
-  "@onboardingWelcome": {"description": "Onboarding welcome message"},
-
+  "@onboardingWelcome": {
+    "description": "Onboarding welcome message"
+  },
   "onboardingLevelQuestion": "你现在的韩语水平是？",
-  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
-
+  "@onboardingLevelQuestion": {
+    "description": "Onboarding level question"
+  },
   "onboardingStart": "开始学习",
-  "@onboardingStart": {"description": "Onboarding start button"},
-
+  "@onboardingStart": {
+    "description": "Onboarding start button"
+  },
   "onboardingStartWithoutLevel": "跳过并开始",
-  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
-
+  "@onboardingStartWithoutLevel": {
+    "description": "Onboarding start without level selection"
+  },
   "levelBeginner": "入门",
-  "@levelBeginner": {"description": "Beginner level"},
-
+  "@levelBeginner": {
+    "description": "Beginner level"
+  },
   "levelBeginnerDesc": "没关系！从韩文字母开始",
-  "@levelBeginnerDesc": {"description": "Beginner level description"},
-
+  "@levelBeginnerDesc": {
+    "description": "Beginner level description"
+  },
   "levelElementary": "初级",
-  "@levelElementary": {"description": "Elementary level"},
-
+  "@levelElementary": {
+    "description": "Elementary level"
+  },
   "levelElementaryDesc": "从基础会话开始练习！",
-  "@levelElementaryDesc": {"description": "Elementary level description"},
-
+  "@levelElementaryDesc": {
+    "description": "Elementary level description"
+  },
   "levelIntermediate": "中级",
-  "@levelIntermediate": {"description": "Intermediate level"},
-
+  "@levelIntermediate": {
+    "description": "Intermediate level"
+  },
   "levelIntermediateDesc": "说得更自然！",
-  "@levelIntermediateDesc": {"description": "Intermediate level description"},
-
+  "@levelIntermediateDesc": {
+    "description": "Intermediate level description"
+  },
   "levelAdvanced": "高级",
-  "@levelAdvanced": {"description": "Advanced level"},
-
+  "@levelAdvanced": {
+    "description": "Advanced level"
+  },
   "levelAdvancedDesc": "掌握细节表达！",
-  "@levelAdvancedDesc": {"description": "Advanced level description"},
-
+  "@levelAdvancedDesc": {
+    "description": "Advanced level description"
+  },
   "onboardingWelcomeTitle": "欢迎来到柠檬韩语！",
-  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
-
+  "@onboardingWelcomeTitle": {
+    "description": "Welcome screen title"
+  },
   "onboardingWelcomeSubtitle": "在这里开启你的韩语之旅",
-  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
-
+  "@onboardingWelcomeSubtitle": {
+    "description": "Welcome screen subtitle"
+  },
   "onboardingFeature1Title": "随时随地离线学习",
-  "@onboardingFeature1Title": {"description": "Feature 1 title"},
-
+  "@onboardingFeature1Title": {
+    "description": "Feature 1 title"
+  },
   "onboardingFeature1Desc": "下载课程，无需网络即可学习",
-  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
-
+  "@onboardingFeature1Desc": {
+    "description": "Feature 1 description"
+  },
   "onboardingFeature2Title": "智能复习系统",
-  "@onboardingFeature2Title": {"description": "Feature 2 title"},
-
+  "@onboardingFeature2Title": {
+    "description": "Feature 2 title"
+  },
   "onboardingFeature2Desc": "AI驱动的间隔重复，提升记忆效果",
-  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
-
+  "@onboardingFeature2Desc": {
+    "description": "Feature 2 description"
+  },
   "onboardingFeature3Title": "7阶段学习路径",
-  "@onboardingFeature3Title": {"description": "Feature 3 title"},
-
+  "@onboardingFeature3Title": {
+    "description": "Feature 3 title"
+  },
   "onboardingFeature3Desc": "从入门到高级的结构化课程",
-  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
-
+  "@onboardingFeature3Desc": {
+    "description": "Feature 3 description"
+  },
   "onboardingLevelTitle": "你的韩语水平如何？",
-  "@onboardingLevelTitle": {"description": "Level selection title"},
-
+  "@onboardingLevelTitle": {
+    "description": "Level selection title"
+  },
   "onboardingLevelSubtitle": "我们将为你定制学习体验",
-  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
-
+  "@onboardingLevelSubtitle": {
+    "description": "Level selection subtitle"
+  },
   "onboardingGoalTitle": "设定你的每周目标",
-  "@onboardingGoalTitle": {"description": "Goal selection title"},
-
+  "@onboardingGoalTitle": {
+    "description": "Goal selection title"
+  },
   "onboardingGoalSubtitle": "你能投入多少时间？",
-  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
-
+  "@onboardingGoalSubtitle": {
+    "description": "Goal selection subtitle"
+  },
   "goalCasual": "休闲",
-  "@goalCasual": {"description": "Casual goal option"},
-
+  "@goalCasual": {
+    "description": "Casual goal option"
+  },
   "goalCasualDesc": "每周1-2课",
-  "@goalCasualDesc": {"description": "Casual goal description"},
-
+  "@goalCasualDesc": {
+    "description": "Casual goal description"
+  },
   "goalCasualTime": "~每周10-20分钟",
-  "@goalCasualTime": {"description": "Casual goal time"},
-
+  "@goalCasualTime": {
+    "description": "Casual goal time"
+  },
   "goalCasualHelper": "适合忙碌的日程",
-  "@goalCasualHelper": {"description": "Casual goal helper text"},
-
+  "@goalCasualHelper": {
+    "description": "Casual goal helper text"
+  },
   "goalRegular": "规律",
-  "@goalRegular": {"description": "Regular goal option"},
-
+  "@goalRegular": {
+    "description": "Regular goal option"
+  },
   "goalRegularDesc": "每周3-4课",
-  "@goalRegularDesc": {"description": "Regular goal description"},
-
+  "@goalRegularDesc": {
+    "description": "Regular goal description"
+  },
   "goalRegularTime": "~每周30-40分钟",
-  "@goalRegularTime": {"description": "Regular goal time"},
-
+  "@goalRegularTime": {
+    "description": "Regular goal time"
+  },
   "goalRegularHelper": "稳定进步，无压力",
-  "@goalRegularHelper": {"description": "Regular goal helper text"},
-
+  "@goalRegularHelper": {
+    "description": "Regular goal helper text"
+  },
   "goalSerious": "认真",
-  "@goalSerious": {"description": "Serious goal option"},
-
+  "@goalSerious": {
+    "description": "Serious goal option"
+  },
   "goalSeriousDesc": "每周5-6课",
-  "@goalSeriousDesc": {"description": "Serious goal description"},
-
+  "@goalSeriousDesc": {
+    "description": "Serious goal description"
+  },
   "goalSeriousTime": "~每周50-60分钟",
-  "@goalSeriousTime": {"description": "Serious goal time"},
-
+  "@goalSeriousTime": {
+    "description": "Serious goal time"
+  },
   "goalSeriousHelper": "致力于快速提升",
-  "@goalSeriousHelper": {"description": "Serious goal helper text"},
-
+  "@goalSeriousHelper": {
+    "description": "Serious goal helper text"
+  },
   "goalIntensive": "强化",
-  "@goalIntensive": {"description": "Intensive goal option"},
-
+  "@goalIntensive": {
+    "description": "Intensive goal option"
+  },
   "goalIntensiveDesc": "每日练习",
-  "@goalIntensiveDesc": {"description": "Intensive goal description"},
-
+  "@goalIntensiveDesc": {
+    "description": "Intensive goal description"
+  },
   "goalIntensiveTime": "每周60分钟以上",
-  "@goalIntensiveTime": {"description": "Intensive goal time"},
-
+  "@goalIntensiveTime": {
+    "description": "Intensive goal time"
+  },
   "goalIntensiveHelper": "最快学习速度",
-  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
-
+  "@goalIntensiveHelper": {
+    "description": "Intensive goal helper text"
+  },
   "onboardingCompleteTitle": "一切就绪！",
-  "@onboardingCompleteTitle": {"description": "Completion screen title"},
-
+  "@onboardingCompleteTitle": {
+    "description": "Completion screen title"
+  },
   "onboardingCompleteSubtitle": "开始你的学习之旅",
-  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
-
+  "@onboardingCompleteSubtitle": {
+    "description": "Completion screen subtitle"
+  },
   "onboardingSummaryLanguage": "界面语言",
-  "@onboardingSummaryLanguage": {"description": "Summary language label"},
-
+  "@onboardingSummaryLanguage": {
+    "description": "Summary language label"
+  },
   "onboardingSummaryLevel": "韩语水平",
-  "@onboardingSummaryLevel": {"description": "Summary level label"},
-
+  "@onboardingSummaryLevel": {
+    "description": "Summary level label"
+  },
   "onboardingSummaryGoal": "每周目标",
-  "@onboardingSummaryGoal": {"description": "Summary goal label"},
-
+  "@onboardingSummaryGoal": {
+    "description": "Summary goal label"
+  },
   "onboardingStartLearning": "开始学习",
-  "@onboardingStartLearning": {"description": "Start learning button"},
-
+  "@onboardingStartLearning": {
+    "description": "Start learning button"
+  },
   "onboardingBack": "返回",
-  "@onboardingBack": {"description": "Back button"},
-
+  "@onboardingBack": {
+    "description": "Back button"
+  },
   "onboardingAccountTitle": "准备好了吗？",
-  "@onboardingAccountTitle": {"description": "Account choice screen title"},
-
+  "@onboardingAccountTitle": {
+    "description": "Account choice screen title"
+  },
   "onboardingAccountSubtitle": "登录或创建账户以保存学习进度",
-  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
-
+  "@onboardingAccountSubtitle": {
+    "description": "Account choice screen subtitle"
+  },
   "levelTopik": "TOPIK {level}",
   "@levelTopik": {
     "description": "TOPIK level indicator",
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
-
   "appLanguage": "应用语言",
-  "@appLanguage": {"description": "App language section title"},
-
+  "@appLanguage": {
+    "description": "App language section title"
+  },
   "appLanguageDesc": "选择应用界面使用的语言。",
-  "@appLanguageDesc": {"description": "App language description"},
-
+  "@appLanguageDesc": {
+    "description": "App language description"
+  },
   "languageSelected": "已选择 {language}",
   "@languageSelected": {
     "description": "Language selected message",
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
-
   "sort": "排序",
-  "@sort": {"description": "Sort button tooltip"},
-
+  "@sort": {
+    "description": "Sort button tooltip"
+  },
   "notificationTipContent": "• 复习提醒会在完成课程后自动安排\n• 部分手机需要在系统设置中关闭省电模式才能正常接收通知",
   "yesterday": "昨天",
-  "@yesterday": {"description": "Yesterday"},
-
+  "@yesterday": {
+    "description": "Yesterday"
+  },
   "daysAgo": "{count}天前",
   "@daysAgo": {
     "description": "Days ago",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "dateFormat": "{month}月{day}日",
   "@dateFormat": {
     "description": "Date format",
     "placeholders": {
-      "month": {"type": "int"},
-      "day": {"type": "int"}
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "downloadManager": "下载管理",
@@ -927,45 +1207,53 @@
   "@confirmDeleteDownload": {
     "description": "Confirm delete download",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "confirmClearAllDownloads": "确定要删除所有 {count} 个已下载课程吗？",
   "@confirmClearAllDownloads": {
     "description": "Confirm clear all downloads",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "downloadingCount": "下载中 ({count})",
   "@downloadingCount": {
     "description": "Downloading count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "preparing": "准备中...",
-  "@preparing": {"description": "Preparing status"},
-
+  "@preparing": {
+    "description": "Preparing status"
+  },
   "lessonId": "课程 {id}",
   "@lessonId": {
     "description": "Lesson ID",
     "placeholders": {
-      "id": {"type": "int"}
+      "id": {
+        "type": "int"
+      }
     }
   },
-
   "searchWords": "搜索单词...",
-  "@searchWords": {"description": "Search words placeholder"},
-
+  "@searchWords": {
+    "description": "Search words placeholder"
+  },
   "wordCount": "{count}个单词",
   "@wordCount": {
     "description": "Word count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "sortByLesson": "按课程",
@@ -981,898 +1269,1139 @@
   "startFirstLesson": "开始学习第一课吧！",
   "masteredWords": "已掌握单词",
   "download": "下载",
-
   "hangulLearning": "韩文字母学习",
-  "@hangulLearning": {"description": "Hangul learning section title"},
-
+  "@hangulLearning": {
+    "description": "Hangul learning section title"
+  },
   "hangulLearningSubtitle": "学习韩文字母表 40个字母",
-  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
-
+  "@hangulLearningSubtitle": {
+    "description": "Hangul learning subtitle"
+  },
   "editNotes": "编辑笔记",
-  "@editNotes": {"description": "Edit notes dialog title"},
-
+  "@editNotes": {
+    "description": "Edit notes dialog title"
+  },
   "notes": "笔记",
-  "@notes": {"description": "Notes field label"},
-
+  "@notes": {
+    "description": "Notes field label"
+  },
   "notesHint": "为什么要收藏这个单词？",
-  "@notesHint": {"description": "Notes hint text"},
-
+  "@notesHint": {
+    "description": "Notes hint text"
+  },
   "sortBy": "排序方式",
-  "@sortBy": {"description": "Sort by title"},
-
+  "@sortBy": {
+    "description": "Sort by title"
+  },
   "sortNewest": "最新收藏",
-  "@sortNewest": {"description": "Sort by newest"},
-
+  "@sortNewest": {
+    "description": "Sort by newest"
+  },
   "sortOldest": "最早收藏",
-  "@sortOldest": {"description": "Sort by oldest"},
-
+  "@sortOldest": {
+    "description": "Sort by oldest"
+  },
   "sortKorean": "韩文排序",
-  "@sortKorean": {"description": "Sort by Korean"},
-
+  "@sortKorean": {
+    "description": "Sort by Korean"
+  },
   "sortChinese": "中文排序",
-  "@sortChinese": {"description": "Sort by Chinese"},
-
+  "@sortChinese": {
+    "description": "Sort by Chinese"
+  },
   "sortMastery": "掌握程度",
-  "@sortMastery": {"description": "Sort by mastery"},
-
+  "@sortMastery": {
+    "description": "Sort by mastery"
+  },
   "filterAll": "全部",
-  "@filterAll": {"description": "Filter all"},
-
+  "@filterAll": {
+    "description": "Filter all"
+  },
   "filterNew": "新学 (0级)",
-  "@filterNew": {"description": "Filter new words"},
-
+  "@filterNew": {
+    "description": "Filter new words"
+  },
   "filterBeginner": "初级 (1级)",
-  "@filterBeginner": {"description": "Filter beginner"},
-
+  "@filterBeginner": {
+    "description": "Filter beginner"
+  },
   "filterIntermediate": "中级 (2-3级)",
-  "@filterIntermediate": {"description": "Filter intermediate"},
-
+  "@filterIntermediate": {
+    "description": "Filter intermediate"
+  },
   "filterAdvanced": "高级 (4-5级)",
-  "@filterAdvanced": {"description": "Filter advanced"},
-
+  "@filterAdvanced": {
+    "description": "Filter advanced"
+  },
   "searchWordsNotesChinese": "搜索单词、中文或笔记...",
-  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
-
+  "@searchWordsNotesChinese": {
+    "description": "Search placeholder for vocabulary book"
+  },
   "startReviewCount": "开始复习 ({count})",
   "@startReviewCount": {
     "description": "Start review button with count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "remove": "移除",
-  "@remove": {"description": "Remove button"},
-
+  "@remove": {
+    "description": "Remove button"
+  },
   "confirmRemove": "确认移除",
-  "@confirmRemove": {"description": "Confirm remove dialog title"},
-
+  "@confirmRemove": {
+    "description": "Confirm remove dialog title"
+  },
   "confirmRemoveWord": "确定要从单词本移除「{word}」吗？",
   "@confirmRemoveWord": {
     "description": "Confirm remove word message",
     "placeholders": {
-      "word": {"type": "String"}
+      "word": {
+        "type": "String"
+      }
     }
   },
-
   "noBookmarkedWords": "还没有收藏的单词",
-  "@noBookmarkedWords": {"description": "No bookmarked words message"},
-
+  "@noBookmarkedWords": {
+    "description": "No bookmarked words message"
+  },
   "bookmarkHint": "在学习过程中点击单词卡片上的书签图标",
-  "@bookmarkHint": {"description": "Bookmark hint"},
-
+  "@bookmarkHint": {
+    "description": "Bookmark hint"
+  },
   "noMatchingWords": "没有找到匹配的单词",
-  "@noMatchingWords": {"description": "No matching words message"},
-
+  "@noMatchingWords": {
+    "description": "No matching words message"
+  },
   "weeksAgo": "{count}周前",
   "@weeksAgo": {
     "description": "Weeks ago",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "reviewComplete": "复习完成！",
-  "@reviewComplete": {"description": "Review complete title"},
-
+  "@reviewComplete": {
+    "description": "Review complete title"
+  },
   "reviewCompleteCount": "已完成 {count} 个单词的复习",
   "@reviewCompleteCount": {
     "description": "Review complete message",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "correct": "正确",
-  "@correct": {"description": "Correct label"},
-
+  "@correct": {
+    "description": "Correct label"
+  },
   "wrong": "错误",
-  "@wrong": {"description": "Wrong label"},
-
+  "@wrong": {
+    "description": "Wrong label"
+  },
   "accuracy": "准确率",
-  "@accuracy": {"description": "Accuracy label"},
-
+  "@accuracy": {
+    "description": "Accuracy label"
+  },
   "vocabularyBookReview": "单词本复习",
-  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
-
+  "@vocabularyBookReview": {
+    "description": "Vocabulary book review title"
+  },
   "noWordsToReview": "暂无需要复习的单词",
-  "@noWordsToReview": {"description": "No words to review message"},
-
+  "@noWordsToReview": {
+    "description": "No words to review message"
+  },
   "bookmarkWordsToReview": "在学习过程中收藏单词后开始复习",
-  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
-
+  "@bookmarkWordsToReview": {
+    "description": "Bookmark words hint"
+  },
   "returnToVocabularyBook": "返回单词本",
-  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
-
+  "@returnToVocabularyBook": {
+    "description": "Return to vocabulary book button"
+  },
   "exit": "退出",
-  "@exit": {"description": "Exit button"},
-
+  "@exit": {
+    "description": "Exit button"
+  },
   "showAnswer": "显示答案",
-  "@showAnswer": {"description": "Show answer button"},
-
+  "@showAnswer": {
+    "description": "Show answer button"
+  },
   "didYouRemember": "你记住了吗？",
-  "@didYouRemember": {"description": "Did you remember question"},
-
+  "@didYouRemember": {
+    "description": "Did you remember question"
+  },
   "forgot": "忘记了",
-  "@forgot": {"description": "Forgot rating"},
-
+  "@forgot": {
+    "description": "Forgot rating"
+  },
   "hard": "困难",
-  "@hard": {"description": "Hard rating"},
-
+  "@hard": {
+    "description": "Hard rating"
+  },
   "remembered": "记得",
-  "@remembered": {"description": "Remembered rating"},
-
+  "@remembered": {
+    "description": "Remembered rating"
+  },
   "easy": "简单",
-  "@easy": {"description": "Easy rating"},
-
+  "@easy": {
+    "description": "Easy rating"
+  },
   "addedToVocabularyBook": "已添加到单词本",
-  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
-
+  "@addedToVocabularyBook": {
+    "description": "Added to vocabulary book message"
+  },
   "addFailed": "添加失败",
-  "@addFailed": {"description": "Add failed message"},
-
+  "@addFailed": {
+    "description": "Add failed message"
+  },
   "removedFromVocabularyBook": "已从单词本移除",
-  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
-
+  "@removedFromVocabularyBook": {
+    "description": "Removed from vocabulary book message"
+  },
   "removeFailed": "移除失败",
-  "@removeFailed": {"description": "Remove failed message"},
-
+  "@removeFailed": {
+    "description": "Remove failed message"
+  },
   "addToVocabularyBook": "添加到单词本",
-  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
-
+  "@addToVocabularyBook": {
+    "description": "Add to vocabulary book title"
+  },
   "notesOptional": "笔记（可选）",
-  "@notesOptional": {"description": "Notes optional label"},
-
+  "@notesOptional": {
+    "description": "Notes optional label"
+  },
   "add": "添加",
-  "@add": {"description": "Add button"},
-
+  "@add": {
+    "description": "Add button"
+  },
   "bookmarked": "已收藏",
-  "@bookmarked": {"description": "Bookmarked label"},
-
+  "@bookmarked": {
+    "description": "Bookmarked label"
+  },
   "bookmark": "收藏",
-  "@bookmark": {"description": "Bookmark label"},
-
+  "@bookmark": {
+    "description": "Bookmark label"
+  },
   "removeFromVocabularyBook": "从单词本移除",
-  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
-
+  "@removeFromVocabularyBook": {
+    "description": "Remove from vocabulary book tooltip"
+  },
   "similarityPercent": "相似度: {percent}%",
   "@similarityPercent": {
     "description": "Similarity percentage",
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
-
   "addedOrRemoved": "{added, select, true{已添加到单词本} other{已取消收藏}}",
   "@addedOrRemoved": {
     "description": "Added or removed message",
     "placeholders": {
-      "added": {"type": "String"}
+      "added": {
+        "type": "String"
+      }
     }
   },
-
   "days": "天",
-  "@days": {"description": "Days unit"},
-
+  "@days": {
+    "description": "Days unit"
+  },
   "lessonsCompletedCount": "{count} 课完成",
   "@lessonsCompletedCount": {
     "description": "Lessons completed count short",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "dailyGoalComplete": "太棒了！今日目标已完成！",
-  "@dailyGoalComplete": {"description": "Daily goal complete message"},
-
+  "@dailyGoalComplete": {
+    "description": "Daily goal complete message"
+  },
   "hangulAlphabet": "韩文字母",
-  "@hangulAlphabet": {"description": "Hangul alphabet"},
-
+  "@hangulAlphabet": {
+    "description": "Hangul alphabet"
+  },
   "alphabetTable": "字母表",
-  "@alphabetTable": {"description": "Alphabet table tab"},
-
+  "@alphabetTable": {
+    "description": "Alphabet table tab"
+  },
   "learn": "学习",
-  "@learn": {"description": "Learn tab"},
-
+  "@learn": {
+    "description": "Learn tab"
+  },
   "practice": "练习",
-  "@practice": {"description": "Practice tab"},
-
+  "@practice": {
+    "description": "Practice tab"
+  },
   "learningProgress": "学习进度",
-  "@learningProgress": {"description": "Learning progress title"},
-
+  "@learningProgress": {
+    "description": "Learning progress title"
+  },
   "dueForReviewCount": "{count}个待复习",
   "@dueForReviewCount": {
     "description": "Due for review count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "completion": "完成度",
-  "@completion": {"description": "Completion label"},
-
+  "@completion": {
+    "description": "Completion label"
+  },
   "totalCharacters": "总字母",
-  "@totalCharacters": {"description": "Total characters label"},
-
+  "@totalCharacters": {
+    "description": "Total characters label"
+  },
   "learned": "已学习",
-  "@learned": {"description": "Learned label"},
-
+  "@learned": {
+    "description": "Learned label"
+  },
   "dueForReview": "待复习",
-  "@dueForReview": {"description": "Due for review label"},
-
+  "@dueForReview": {
+    "description": "Due for review label"
+  },
   "overallAccuracy": "整体准确率: {percent}%",
   "@overallAccuracy": {
     "description": "Overall accuracy",
     "placeholders": {
-      "percent": {"type": "String"}
+      "percent": {
+        "type": "String"
+      }
     }
   },
-
   "charactersCount": "{count}个字母",
   "@charactersCount": {
     "description": "Characters count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "lesson1Title": "第1课：基本辅音 (上)",
-  "@lesson1Title": {"description": "Lesson 1 title"},
-
+  "@lesson1Title": {
+    "description": "Lesson 1 title"
+  },
   "lesson1Desc": "学习韩语最常用的7个辅音字母",
-  "@lesson1Desc": {"description": "Lesson 1 description"},
-
+  "@lesson1Desc": {
+    "description": "Lesson 1 description"
+  },
   "lesson2Title": "第2课：基本辅音 (下)",
-  "@lesson2Title": {"description": "Lesson 2 title"},
-
+  "@lesson2Title": {
+    "description": "Lesson 2 title"
+  },
   "lesson2Desc": "继续学习剩余的7个基本辅音",
-  "@lesson2Desc": {"description": "Lesson 2 description"},
-
+  "@lesson2Desc": {
+    "description": "Lesson 2 description"
+  },
   "lesson3Title": "第3课：基本元音 (上)",
-  "@lesson3Title": {"description": "Lesson 3 title"},
-
+  "@lesson3Title": {
+    "description": "Lesson 3 title"
+  },
   "lesson3Desc": "学习韩语的5个基本元音",
-  "@lesson3Desc": {"description": "Lesson 3 description"},
-
+  "@lesson3Desc": {
+    "description": "Lesson 3 description"
+  },
   "lesson4Title": "第4课：基本元音 (下)",
-  "@lesson4Title": {"description": "Lesson 4 title"},
-
+  "@lesson4Title": {
+    "description": "Lesson 4 title"
+  },
   "lesson4Desc": "学习剩余的5个基本元音",
-  "@lesson4Desc": {"description": "Lesson 4 description"},
-
+  "@lesson4Desc": {
+    "description": "Lesson 4 description"
+  },
   "lesson5Title": "第5课：双辅音",
-  "@lesson5Title": {"description": "Lesson 5 title"},
-
+  "@lesson5Title": {
+    "description": "Lesson 5 title"
+  },
   "lesson5Desc": "学习5个双辅音 - 紧音字母",
-  "@lesson5Desc": {"description": "Lesson 5 description"},
-
+  "@lesson5Desc": {
+    "description": "Lesson 5 description"
+  },
   "lesson6Title": "第6课：复合元音 (上)",
-  "@lesson6Title": {"description": "Lesson 6 title"},
-
+  "@lesson6Title": {
+    "description": "Lesson 6 title"
+  },
   "lesson6Desc": "学习前6个复合元音",
-  "@lesson6Desc": {"description": "Lesson 6 description"},
-
+  "@lesson6Desc": {
+    "description": "Lesson 6 description"
+  },
   "lesson7Title": "第7课：复合元音 (下)",
-  "@lesson7Title": {"description": "Lesson 7 title"},
-
+  "@lesson7Title": {
+    "description": "Lesson 7 title"
+  },
   "lesson7Desc": "学习剩余的复合元音",
-  "@lesson7Desc": {"description": "Lesson 7 description"},
-
+  "@lesson7Desc": {
+    "description": "Lesson 7 description"
+  },
   "loadAlphabetFirst": "请先加载字母表数据",
-  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
-
+  "@loadAlphabetFirst": {
+    "description": "Load alphabet first message"
+  },
   "noContentForLesson": "本课无内容",
-  "@noContentForLesson": {"description": "No content for lesson"},
-
+  "@noContentForLesson": {
+    "description": "No content for lesson"
+  },
   "exampleWords": "例词",
-  "@exampleWords": {"description": "Example words label"},
-
+  "@exampleWords": {
+    "description": "Example words label"
+  },
   "thisLessonCharacters": "本课字母",
-  "@thisLessonCharacters": {"description": "This lesson characters label"},
-
+  "@thisLessonCharacters": {
+    "description": "This lesson characters label"
+  },
   "congratsLessonComplete": "恭喜你完成了 {title}！",
   "@congratsLessonComplete": {
     "description": "Congratulations lesson complete",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "continuePractice": "继续练习",
-  "@continuePractice": {"description": "Continue practice button"},
-
+  "@continuePractice": {
+    "description": "Continue practice button"
+  },
   "nextLesson": "下一课",
-  "@nextLesson": {"description": "Next lesson button"},
-
+  "@nextLesson": {
+    "description": "Next lesson button"
+  },
   "basicConsonants": "基本辅音",
-  "@basicConsonants": {"description": "Basic consonants"},
-
+  "@basicConsonants": {
+    "description": "Basic consonants"
+  },
   "doubleConsonants": "双辅音",
-  "@doubleConsonants": {"description": "Double consonants"},
-
+  "@doubleConsonants": {
+    "description": "Double consonants"
+  },
   "basicVowels": "基本元音",
-  "@basicVowels": {"description": "Basic vowels"},
-
+  "@basicVowels": {
+    "description": "Basic vowels"
+  },
   "compoundVowels": "复合元音",
-  "@compoundVowels": {"description": "Compound vowels"},
-
+  "@compoundVowels": {
+    "description": "Compound vowels"
+  },
   "dailyLearningReminderTitle": "每日学习提醒",
-  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
-
+  "@dailyLearningReminderTitle": {
+    "description": "Daily learning reminder notification title"
+  },
   "dailyLearningReminderBody": "今天的韩语学习还没完成哦~",
-  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
-
+  "@dailyLearningReminderBody": {
+    "description": "Daily learning reminder notification body"
+  },
   "reviewReminderTitle": "复习时间到了！",
-  "@reviewReminderTitle": {"description": "Review reminder notification title"},
-
+  "@reviewReminderTitle": {
+    "description": "Review reminder notification title"
+  },
   "reviewReminderBody": "该复习「{title}」了~",
   "@reviewReminderBody": {
     "description": "Review reminder notification body",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "korean": "한국어",
-  "@korean": {"description": "Korean language"},
-
+  "@korean": {
+    "description": "Korean language"
+  },
   "english": "English",
-  "@english": {"description": "English language"},
-
+  "@english": {
+    "description": "English language"
+  },
   "japanese": "日本語",
-  "@japanese": {"description": "Japanese language"},
-
+  "@japanese": {
+    "description": "Japanese language"
+  },
   "spanish": "Español",
-  "@spanish": {"description": "Spanish language"},
-
+  "@spanish": {
+    "description": "Spanish language"
+  },
   "strokeOrder": "笔画顺序",
-  "@strokeOrder": {"description": "Stroke order"},
-
+  "@strokeOrder": {
+    "description": "Stroke order"
+  },
   "reset": "重置",
-  "@reset": {"description": "Reset button"},
-
+  "@reset": {
+    "description": "Reset button"
+  },
   "pronunciationGuide": "发音指南",
-  "@pronunciationGuide": {"description": "Pronunciation guide"},
-
+  "@pronunciationGuide": {
+    "description": "Pronunciation guide"
+  },
   "play": "播放",
-  "@play": {"description": "Play button"},
-
+  "@play": {
+    "description": "Play button"
+  },
   "pause": "暂停",
-  "@pause": {"description": "Pause button"},
-
+  "@pause": {
+    "description": "Pause button"
+  },
   "loadingFailed": "加载失败: {error}",
   "@loadingFailed": {
     "description": "Loading failed message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "learnedCount": "已学习：{count}",
   "@learnedCount": {
     "description": "Learned count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "hangulPractice": "韩文字母练习",
-  "@hangulPractice": {"description": "Hangul practice title"},
-
+  "@hangulPractice": {
+    "description": "Hangul practice title"
+  },
   "charactersNeedReview": "{count}个字母需要复习",
   "@charactersNeedReview": {
     "description": "Characters need review",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "charactersAvailable": "{count}个字母可练习",
   "@charactersAvailable": {
     "description": "Characters available for practice",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "selectPracticeMode": "选择练习模式",
-  "@selectPracticeMode": {"description": "Select practice mode"},
-
+  "@selectPracticeMode": {
+    "description": "Select practice mode"
+  },
   "characterRecognition": "字母识别",
-  "@characterRecognition": {"description": "Character recognition mode"},
-
+  "@characterRecognition": {
+    "description": "Character recognition mode"
+  },
   "characterRecognitionDesc": "看到字母选择正确的发音",
-  "@characterRecognitionDesc": {"description": "Character recognition description"},
-
+  "@characterRecognitionDesc": {
+    "description": "Character recognition description"
+  },
   "pronunciationPractice": "发音练习",
-  "@pronunciationPractice": {"description": "Pronunciation practice mode"},
-
+  "@pronunciationPractice": {
+    "description": "Pronunciation practice mode"
+  },
   "pronunciationPracticeDesc": "看到发音选择正确的字母",
-  "@pronunciationPracticeDesc": {"description": "Pronunciation practice description"},
-
-
+  "@pronunciationPracticeDesc": {
+    "description": "Pronunciation practice description"
+  },
   "startPractice": "开始练习",
-  "@startPractice": {"description": "Start practice button"},
-
+  "@startPractice": {
+    "description": "Start practice button"
+  },
   "learnSomeCharactersFirst": "请先在字母表中学习一些字母",
-  "@learnSomeCharactersFirst": {"description": "Learn some characters first message"},
-
+  "@learnSomeCharactersFirst": {
+    "description": "Learn some characters first message"
+  },
   "practiceComplete": "练习完成！",
-  "@practiceComplete": {"description": "Practice complete title"},
-
+  "@practiceComplete": {
+    "description": "Practice complete title"
+  },
   "back": "返回",
-  "@back": {"description": "Back button"},
-
+  "@back": {
+    "description": "Back button"
+  },
   "tryAgain": "再来一次",
-  "@tryAgain": {"description": "Try again button"},
-
+  "@tryAgain": {
+    "description": "Try again button"
+  },
   "howToReadThis": "这个字母怎么读？",
-  "@howToReadThis": {"description": "How to read this question"},
-
+  "@howToReadThis": {
+    "description": "How to read this question"
+  },
   "selectCorrectCharacter": "选择正确的字母",
-  "@selectCorrectCharacter": {"description": "Select correct character instruction"},
-
-
+  "@selectCorrectCharacter": {
+    "description": "Select correct character instruction"
+  },
   "correctExclamation": "正确！",
-  "@correctExclamation": {"description": "Correct feedback"},
-
+  "@correctExclamation": {
+    "description": "Correct feedback"
+  },
   "incorrectExclamation": "错误",
-  "@incorrectExclamation": {"description": "Incorrect feedback"},
-
+  "@incorrectExclamation": {
+    "description": "Incorrect feedback"
+  },
   "correctAnswerLabel": "正确答案：",
-  "@correctAnswerLabel": {"description": "Correct answer label"},
-
+  "@correctAnswerLabel": {
+    "description": "Correct answer label"
+  },
   "nextQuestionBtn": "下一题",
-  "@nextQuestionBtn": {"description": "Next question button"},
-
+  "@nextQuestionBtn": {
+    "description": "Next question button"
+  },
   "viewResults": "查看结果",
-  "@viewResults": {"description": "View results button"},
-
+  "@viewResults": {
+    "description": "View results button"
+  },
   "share": "分享",
-  "@share": {"description": "Share button"},
-
+  "@share": {
+    "description": "Share button"
+  },
   "mnemonics": "记忆技巧",
-  "@mnemonics": {"description": "Mnemonics section"},
-
+  "@mnemonics": {
+    "description": "Mnemonics section"
+  },
   "nextReviewLabel": "下次复习: {date}",
   "@nextReviewLabel": {
     "description": "Next review label",
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
-
   "expired": "已到期",
-  "@expired": {"description": "Expired status"},
-
+  "@expired": {
+    "description": "Expired status"
+  },
   "practiceFunctionDeveloping": "练习功能开发中",
-  "@practiceFunctionDeveloping": {"description": "Practice function developing message"},
-
+  "@practiceFunctionDeveloping": {
+    "description": "Practice function developing message"
+  },
   "romanization": "罗马字：",
-  "@romanization": {"description": "Romanization label"},
-
+  "@romanization": {
+    "description": "Romanization label"
+  },
   "pronunciationLabel": "发音：",
-  "@pronunciationLabel": {"description": "Pronunciation label"},
-
+  "@pronunciationLabel": {
+    "description": "Pronunciation label"
+  },
   "playPronunciation": "播放发音",
-  "@playPronunciation": {"description": "Play pronunciation tooltip"},
-
+  "@playPronunciation": {
+    "description": "Play pronunciation tooltip"
+  },
   "strokesCount": "{count}画",
   "@strokesCount": {
     "description": "Strokes count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "perfectCount": "完美",
-  "@perfectCount": {"description": "Perfect count label"},
-
+  "@perfectCount": {
+    "description": "Perfect count label"
+  },
   "loadFailed": "加载失败",
-  "@loadFailed": {"description": "Load failed message"},
-
+  "@loadFailed": {
+    "description": "Load failed message"
+  },
   "countUnit": "{count}个",
   "@countUnit": {
     "description": "Count unit",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "basicConsonantsKo": "기본 자음",
-  "@basicConsonantsKo": {"description": "Basic consonants in Korean"},
-
+  "@basicConsonantsKo": {
+    "description": "Basic consonants in Korean"
+  },
   "doubleConsonantsKo": "쌍자음",
-  "@doubleConsonantsKo": {"description": "Double consonants in Korean"},
-
+  "@doubleConsonantsKo": {
+    "description": "Double consonants in Korean"
+  },
   "basicVowelsKo": "기본 모음",
-  "@basicVowelsKo": {"description": "Basic vowels in Korean"},
-
+  "@basicVowelsKo": {
+    "description": "Basic vowels in Korean"
+  },
   "compoundVowelsKo": "복합 모음",
-  "@compoundVowelsKo": {"description": "Compound vowels in Korean"},
-
+  "@compoundVowelsKo": {
+    "description": "Compound vowels in Korean"
+  },
   "lesson1TitleKo": "1과: 기본 자음 (상)",
-  "@lesson1TitleKo": {"description": "Lesson 1 Korean title"},
-
+  "@lesson1TitleKo": {
+    "description": "Lesson 1 Korean title"
+  },
   "lesson2TitleKo": "2과: 기본 자음 (하)",
-  "@lesson2TitleKo": {"description": "Lesson 2 Korean title"},
-
+  "@lesson2TitleKo": {
+    "description": "Lesson 2 Korean title"
+  },
   "lesson3TitleKo": "3과: 기본 모음 (상)",
-  "@lesson3TitleKo": {"description": "Lesson 3 Korean title"},
-
+  "@lesson3TitleKo": {
+    "description": "Lesson 3 Korean title"
+  },
   "lesson4TitleKo": "4과: 기본 모음 (하)",
-  "@lesson4TitleKo": {"description": "Lesson 4 Korean title"},
-
+  "@lesson4TitleKo": {
+    "description": "Lesson 4 Korean title"
+  },
   "lesson5TitleKo": "5과: 쌍자음",
-  "@lesson5TitleKo": {"description": "Lesson 5 Korean title"},
-
+  "@lesson5TitleKo": {
+    "description": "Lesson 5 Korean title"
+  },
   "lesson6TitleKo": "6과: 복합 모음 (상)",
-  "@lesson6TitleKo": {"description": "Lesson 6 Korean title"},
-
+  "@lesson6TitleKo": {
+    "description": "Lesson 6 Korean title"
+  },
   "lesson7TitleKo": "7과: 복합 모음 (하)",
-  "@lesson7TitleKo": {"description": "Lesson 7 Korean title"},
-
+  "@lesson7TitleKo": {
+    "description": "Lesson 7 Korean title"
+  },
   "exitLesson": "退出学习",
-  "@exitLesson": {"description": "Exit lesson dialog title"},
-
+  "@exitLesson": {
+    "description": "Exit lesson dialog title"
+  },
   "exitLessonConfirm": "确定要退出当前课程吗？进度将会保存。",
-  "@exitLessonConfirm": {"description": "Exit lesson confirmation message"},
-
-  "continueLearning": "继续学习",
-  "@continueLearning": {"description": "Continue learning button"},
-
+  "@exitLessonConfirm": {
+    "description": "Exit lesson confirmation message"
+  },
   "exitBtn": "退出",
-  "@exitBtn": {"description": "Exit button"},
-
+  "@exitBtn": {
+    "description": "Exit button"
+  },
   "lessonComplete": "课程完成！进度已保存",
-  "@lessonComplete": {"description": "Lesson completion message"},
-
+  "@lessonComplete": {
+    "description": "Lesson completion message"
+  },
   "loadingLesson": "正在加载{title}...",
   "@loadingLesson": {
     "description": "Loading lesson message",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "cannotLoadContent": "无法加载课程内容",
-  "@cannotLoadContent": {"description": "Cannot load lesson content error"},
-
+  "@cannotLoadContent": {
+    "description": "Cannot load lesson content error"
+  },
   "noLessonContent": "此课程暂无内容",
-  "@noLessonContent": {"description": "No lesson content message"},
-
+  "@noLessonContent": {
+    "description": "No lesson content message"
+  },
   "stageProgress": "第 {current} 阶段 / {total}",
   "@stageProgress": {
     "description": "Stage progress indicator",
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "unknownStageType": "未知阶段类型: {type}",
   "@unknownStageType": {
     "description": "Unknown stage type error",
     "placeholders": {
-      "type": {"type": "String"}
+      "type": {
+        "type": "String"
+      }
     }
   },
-
   "wordsCount": "{count} 个单词",
   "@wordsCount": {
     "description": "Words count display",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "startLearning": "开始学习",
-  "@startLearning": {"description": "Start learning button"},
-
+  "@startLearning": {
+    "description": "Start learning button"
+  },
   "vocabularyLearning": "词汇学习",
-  "@vocabularyLearning": {"description": "Vocabulary learning section title"},
-
+  "@vocabularyLearning": {
+    "description": "Vocabulary learning section title"
+  },
   "noImage": "暂无图片",
-  "@noImage": {"description": "No image placeholder"},
-
+  "@noImage": {
+    "description": "No image placeholder"
+  },
   "previousItem": "上一个",
-  "@previousItem": {"description": "Previous item button"},
-
+  "@previousItem": {
+    "description": "Previous item button"
+  },
   "nextItem": "下一个",
-  "@nextItem": {"description": "Next item button"},
-
+  "@nextItem": {
+    "description": "Next item button"
+  },
   "continueBtn": "继续",
-  "@continueBtn": {"description": "Continue button"},
-
+  "@continueBtn": {
+    "description": "Continue button"
+  },
   "previousQuestion": "上一题",
-  "@previousQuestion": {"description": "Previous question button"},
-
+  "@previousQuestion": {
+    "description": "Previous question button"
+  },
   "playingAudio": "播放中...",
-  "@playingAudio": {"description": "Playing audio status"},
-
+  "@playingAudio": {
+    "description": "Playing audio status"
+  },
   "playAll": "播放全部",
-  "@playAll": {"description": "Play all button"},
-
+  "@playAll": {
+    "description": "Play all button"
+  },
   "audioPlayFailed": "音频播放失败: {error}",
   "@audioPlayFailed": {
     "description": "Audio playback failed",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "stopBtn": "停止",
-  "@stopBtn": {"description": "Stop button"},
-
+  "@stopBtn": {
+    "description": "Stop button"
+  },
   "playAudioBtn": "播放音频",
-  "@playAudioBtn": {"description": "Play audio button"},
-
+  "@playAudioBtn": {
+    "description": "Play audio button"
+  },
   "playingAudioShort": "播放音频...",
-  "@playingAudioShort": {"description": "Playing audio short message"},
-
+  "@playingAudioShort": {
+    "description": "Playing audio short message"
+  },
   "pronunciation": "发音",
-  "@pronunciation": {"description": "Pronunciation label"},
-
+  "@pronunciation": {
+    "description": "Pronunciation label"
+  },
   "grammarPattern": "语法 · {pattern}",
   "@grammarPattern": {
     "description": "Grammar pattern title",
     "placeholders": {
-      "pattern": {"type": "String"}
+      "pattern": {
+        "type": "String"
+      }
     }
   },
-
   "grammarExplanation": "语法解释",
-  "@grammarExplanation": {"description": "Grammar explanation section"},
-
+  "@grammarExplanation": {
+    "description": "Grammar explanation section"
+  },
   "conjugationRule": "活用规则",
-  "@conjugationRule": {"description": "Conjugation rule section"},
-
+  "@conjugationRule": {
+    "description": "Conjugation rule section"
+  },
   "comparisonWithChinese": "与中文对比",
-  "@comparisonWithChinese": {"description": "Comparison with Chinese section"},
-
+  "@comparisonWithChinese": {
+    "description": "Comparison with Chinese section"
+  },
   "exampleSentences": "例句",
-  "@exampleSentences": {"description": "Example sentences section"},
-
+  "@exampleSentences": {
+    "description": "Example sentences section"
+  },
   "dialogueTitle": "对话练习",
-  "@dialogueTitle": {"description": "Dialogue practice title"},
-
+  "@dialogueTitle": {
+    "description": "Dialogue practice title"
+  },
   "dialogueExplanation": "对话解析",
-  "@dialogueExplanation": {"description": "Dialogue explanation section"},
-
+  "@dialogueExplanation": {
+    "description": "Dialogue explanation section"
+  },
   "speaker": "发言人 {name}",
   "@speaker": {
     "description": "Speaker label",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
-
   "practiceTitle": "练习",
-  "@practiceTitle": {"description": "Practice section title"},
-
+  "@practiceTitle": {
+    "description": "Practice section title"
+  },
   "practiceInstructions": "请完成以下练习题",
-  "@practiceInstructions": {"description": "Practice instructions"},
-
+  "@practiceInstructions": {
+    "description": "Practice instructions"
+  },
   "fillBlank": "填空",
-  "@fillBlank": {"description": "Fill in the blank"},
-
+  "@fillBlank": {
+    "description": "Fill in the blank"
+  },
   "checkAnswerBtn": "检查答案",
-  "@checkAnswerBtn": {"description": "Check answer button"},
-
+  "@checkAnswerBtn": {
+    "description": "Check answer button"
+  },
   "correctAnswerIs": "正确答案：{answer}",
   "@correctAnswerIs": {
     "description": "Correct answer display",
     "placeholders": {
-      "answer": {"type": "String"}
+      "answer": {
+        "type": "String"
+      }
     }
   },
-
   "quizTitle": "测验",
-  "@quizTitle": {"description": "Quiz section title"},
-
+  "@quizTitle": {
+    "description": "Quiz section title"
+  },
   "quizResult": "测验结果",
-  "@quizResult": {"description": "Quiz result title"},
-
+  "@quizResult": {
+    "description": "Quiz result title"
+  },
   "quizScoreDisplay": "{correct}/{total}",
   "@quizScoreDisplay": {
     "description": "Quiz score display",
     "placeholders": {
-      "correct": {"type": "int"},
-      "total": {"type": "int"}
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "quizAccuracy": "准确率: {percent}%",
   "@quizAccuracy": {
     "description": "Quiz accuracy percentage",
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
-
   "summaryTitle": "课程总结",
-  "@summaryTitle": {"description": "Lesson summary title"},
-
+  "@summaryTitle": {
+    "description": "Lesson summary title"
+  },
   "vocabLearned": "已学单词",
-  "@vocabLearned": {"description": "Vocabulary learned label"},
-
+  "@vocabLearned": {
+    "description": "Vocabulary learned label"
+  },
   "grammarLearned": "已学语法",
-  "@grammarLearned": {"description": "Grammar learned label"},
-
+  "@grammarLearned": {
+    "description": "Grammar learned label"
+  },
   "finishLesson": "完成课程",
-  "@finishLesson": {"description": "Finish lesson button"},
-
+  "@finishLesson": {
+    "description": "Finish lesson button"
+  },
   "reviewVocab": "复习单词",
-  "@reviewVocab": {"description": "Review vocabulary button"},
-
+  "@reviewVocab": {
+    "description": "Review vocabulary button"
+  },
   "similarity": "相似度: {percent}%",
   "@similarity": {
     "description": "Similarity percentage",
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
-
   "partOfSpeechNoun": "名词",
-  "@partOfSpeechNoun": {"description": "Part of speech: noun"},
-
+  "@partOfSpeechNoun": {
+    "description": "Part of speech: noun"
+  },
   "partOfSpeechVerb": "动词",
-  "@partOfSpeechVerb": {"description": "Part of speech: verb"},
-
+  "@partOfSpeechVerb": {
+    "description": "Part of speech: verb"
+  },
   "partOfSpeechAdjective": "形容词",
-  "@partOfSpeechAdjective": {"description": "Part of speech: adjective"},
-
+  "@partOfSpeechAdjective": {
+    "description": "Part of speech: adjective"
+  },
   "partOfSpeechAdverb": "副词",
-  "@partOfSpeechAdverb": {"description": "Part of speech: adverb"},
-
+  "@partOfSpeechAdverb": {
+    "description": "Part of speech: adverb"
+  },
   "partOfSpeechPronoun": "代词",
-  "@partOfSpeechPronoun": {"description": "Part of speech: pronoun"},
-
+  "@partOfSpeechPronoun": {
+    "description": "Part of speech: pronoun"
+  },
   "partOfSpeechParticle": "助词",
-  "@partOfSpeechParticle": {"description": "Part of speech: particle"},
-
+  "@partOfSpeechParticle": {
+    "description": "Part of speech: particle"
+  },
   "partOfSpeechConjunction": "连词",
-  "@partOfSpeechConjunction": {"description": "Part of speech: conjunction"},
-
+  "@partOfSpeechConjunction": {
+    "description": "Part of speech: conjunction"
+  },
   "partOfSpeechInterjection": "感叹词",
-  "@partOfSpeechInterjection": {"description": "Part of speech: interjection"},
-
+  "@partOfSpeechInterjection": {
+    "description": "Part of speech: interjection"
+  },
   "noVocabulary": "暂无单词数据",
-  "@noVocabulary": {"description": "No vocabulary data"},
-
+  "@noVocabulary": {
+    "description": "No vocabulary data"
+  },
   "noGrammar": "暂无语法数据",
-  "@noGrammar": {"description": "No grammar data"},
-
+  "@noGrammar": {
+    "description": "No grammar data"
+  },
   "noPractice": "暂无练习题",
-  "@noPractice": {"description": "No practice questions"},
-
+  "@noPractice": {
+    "description": "No practice questions"
+  },
   "noDialogue": "暂无对话内容",
-  "@noDialogue": {"description": "No dialogue content"},
-
+  "@noDialogue": {
+    "description": "No dialogue content"
+  },
   "noQuiz": "暂无测验题目",
-  "@noQuiz": {"description": "No quiz questions"},
-
+  "@noQuiz": {
+    "description": "No quiz questions"
+  },
   "tapToFlip": "点击翻转",
-  "@tapToFlip": {"description": "Tap to flip card hint"},
-
+  "@tapToFlip": {
+    "description": "Tap to flip card hint"
+  },
   "listeningQuestion": "听力",
-  "@listeningQuestion": {"description": "Listening question type"},
-
+  "@listeningQuestion": {
+    "description": "Listening question type"
+  },
   "submit": "提交",
-  "@submit": {"description": "Submit button"},
-
+  "@submit": {
+    "description": "Submit button"
+  },
   "timeStudied": "已学习 {time}",
   "@timeStudied": {
     "description": "Time studied display",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "statusNotStarted": "未开始",
-  "@statusNotStarted": {"description": "Progress status: not started"},
-
+  "@statusNotStarted": {
+    "description": "Progress status: not started"
+  },
   "statusInProgress": "进行中",
-  "@statusInProgress": {"description": "Progress status: in progress"},
-
+  "@statusInProgress": {
+    "description": "Progress status: in progress"
+  },
   "statusCompleted": "已完成",
-  "@statusCompleted": {"description": "Progress status: completed"},
-
+  "@statusCompleted": {
+    "description": "Progress status: completed"
+  },
   "statusFailed": "未通过",
-  "@statusFailed": {"description": "Progress status: failed"},
-
+  "@statusFailed": {
+    "description": "Progress status: failed"
+  },
   "masteryNew": "新",
-  "@masteryNew": {"description": "Mastery level: new"},
-
+  "@masteryNew": {
+    "description": "Mastery level: new"
+  },
   "masteryLearning": "学习中",
-  "@masteryLearning": {"description": "Mastery level: learning"},
-
+  "@masteryLearning": {
+    "description": "Mastery level: learning"
+  },
   "masteryFamiliar": "熟悉",
-  "@masteryFamiliar": {"description": "Mastery level: familiar"},
-
+  "@masteryFamiliar": {
+    "description": "Mastery level: familiar"
+  },
   "masteryMastered": "掌握",
-  "@masteryMastered": {"description": "Mastery level: mastered"},
-
+  "@masteryMastered": {
+    "description": "Mastery level: mastered"
+  },
   "masteryExpert": "精通",
-  "@masteryExpert": {"description": "Mastery level: expert"},
-
+  "@masteryExpert": {
+    "description": "Mastery level: expert"
+  },
   "masteryPerfect": "完美",
-  "@masteryPerfect": {"description": "Mastery level: perfect"},
-
+  "@masteryPerfect": {
+    "description": "Mastery level: perfect"
+  },
   "masteryUnknown": "未知",
-  "@masteryUnknown": {"description": "Mastery level: unknown"},
-
+  "@masteryUnknown": {
+    "description": "Mastery level: unknown"
+  },
   "dueForReviewNow": "该复习了",
-  "@dueForReviewNow": {"description": "Due for review now"},
-
+  "@dueForReviewNow": {
+    "description": "Due for review now"
+  },
   "similarityHigh": "高相似度",
-  "@similarityHigh": {"description": "High similarity"},
-
+  "@similarityHigh": {
+    "description": "High similarity"
+  },
   "similarityMedium": "中等相似度",
-  "@similarityMedium": {"description": "Medium similarity"},
-
+  "@similarityMedium": {
+    "description": "Medium similarity"
+  },
   "similarityLow": "低相似度",
-  "@similarityLow": {"description": "Low similarity"},
-
+  "@similarityLow": {
+    "description": "Low similarity"
+  },
   "typeBasicConsonant": "基本辅音",
-  "@typeBasicConsonant": {"description": "Hangul type: basic consonant"},
-
+  "@typeBasicConsonant": {
+    "description": "Hangul type: basic consonant"
+  },
   "typeDoubleConsonant": "双辅音",
-  "@typeDoubleConsonant": {"description": "Hangul type: double consonant"},
-
+  "@typeDoubleConsonant": {
+    "description": "Hangul type: double consonant"
+  },
   "typeBasicVowel": "基本元音",
-  "@typeBasicVowel": {"description": "Hangul type: basic vowel"},
-
+  "@typeBasicVowel": {
+    "description": "Hangul type: basic vowel"
+  },
   "typeCompoundVowel": "复合元音",
-  "@typeCompoundVowel": {"description": "Hangul type: compound vowel"},
-
+  "@typeCompoundVowel": {
+    "description": "Hangul type: compound vowel"
+  },
   "typeFinalConsonant": "收音",
-  "@typeFinalConsonant": {"description": "Hangul type: final consonant"},
-
+  "@typeFinalConsonant": {
+    "description": "Hangul type: final consonant"
+  },
   "dailyReminderChannel": "每日学习提醒",
-  "@dailyReminderChannel": {"description": "Daily reminder notification channel name"},
-
+  "@dailyReminderChannel": {
+    "description": "Daily reminder notification channel name"
+  },
   "dailyReminderChannelDesc": "每天固定时间提醒你学习韩语",
-  "@dailyReminderChannelDesc": {"description": "Daily reminder channel description"},
-
+  "@dailyReminderChannelDesc": {
+    "description": "Daily reminder channel description"
+  },
   "reviewReminderChannel": "复习提醒",
-  "@reviewReminderChannel": {"description": "Review reminder notification channel name"},
-
+  "@reviewReminderChannel": {
+    "description": "Review reminder notification channel name"
+  },
   "reviewReminderChannelDesc": "基于间隔重复算法的复习提醒",
-  "@reviewReminderChannelDesc": {"description": "Review reminder channel description"},
-
+  "@reviewReminderChannelDesc": {
+    "description": "Review reminder channel description"
+  },
   "notificationStudyTime": "学习时间到了！",
-  "@notificationStudyTime": {"description": "Notification title for study time"},
-
+  "@notificationStudyTime": {
+    "description": "Notification title for study time"
+  },
   "notificationStudyReminder": "今天的韩语学习还没完成哦~",
-  "@notificationStudyReminder": {"description": "Notification body for study reminder"},
-
+  "@notificationStudyReminder": {
+    "description": "Notification body for study reminder"
+  },
   "notificationReviewTime": "该复习了！",
-  "@notificationReviewTime": {"description": "Notification title for review time"},
-
+  "@notificationReviewTime": {
+    "description": "Notification title for review time"
+  },
   "notificationReviewReminder": "复习一下之前学过的内容吧~",
-  "@notificationReviewReminder": {"description": "Notification body for review reminder"},
-
+  "@notificationReviewReminder": {
+    "description": "Notification body for review reminder"
+  },
   "notificationReviewLesson": "该复习「{lessonTitle}」了~",
   "@notificationReviewLesson": {
     "description": "Notification body for review reminder with lesson title",
@@ -1883,329 +2412,422 @@
       }
     }
   },
-
   "keepGoing": "继续加油！",
-  "@keepGoing": {"description": "Encouraging message when quiz is not passed"},
-
+  "@keepGoing": {
+    "description": "Encouraging message when quiz is not passed"
+  },
   "scoreDisplay": "得分：{correct} / {total}",
   "@scoreDisplay": {
     "description": "Quiz score display",
     "placeholders": {
-      "correct": {"type": "int"},
-      "total": {"type": "int"}
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "loadDataError": "加载数据失败: {error}",
   "@loadDataError": {
     "description": "Error loading data",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "downloadError": "下载错误: {error}",
   "@downloadError": {
     "description": "Download error message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "deleteError": "删除失败: {error}",
   "@deleteError": {
     "description": "Delete error message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "clearAllError": "清空失败: {error}",
   "@clearAllError": {
     "description": "Clear all error message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "cleanupError": "清理失败: {error}",
   "@cleanupError": {
     "description": "Cleanup error message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "downloadLessonFailed": "下载失败: {title}",
   "@downloadLessonFailed": {
     "description": "Download lesson failed message",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "comprehensive": "综合",
-  "@comprehensive": {"description": "Comprehensive quiz type"},
-
+  "@comprehensive": {
+    "description": "Comprehensive quiz type"
+  },
   "answeredCount": "已答 {answered}/{total}",
   "@answeredCount": {
     "description": "Answered count display",
     "placeholders": {
-      "answered": {"type": "int"},
-      "total": {"type": "int"}
+      "answered": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "hanjaWord": "汉字词",
-  "@hanjaWord": {"description": "Hanja (Chinese-origin) word label"},
-
+  "@hanjaWord": {
+    "description": "Hanja (Chinese-origin) word label"
+  },
   "tapToFlipBack": "点击返回",
-  "@tapToFlipBack": {"description": "Tap to flip card back"},
-
+  "@tapToFlipBack": {
+    "description": "Tap to flip card back"
+  },
   "similarityWithChinese": "与中文相似度",
-  "@similarityWithChinese": {"description": "Similarity with Chinese label"},
-
+  "@similarityWithChinese": {
+    "description": "Similarity with Chinese label"
+  },
   "hanjaWordSimilarPronunciation": "汉字词，发音相似",
-  "@hanjaWordSimilarPronunciation": {"description": "Hanja word with similar pronunciation hint"},
-
+  "@hanjaWordSimilarPronunciation": {
+    "description": "Hanja word with similar pronunciation hint"
+  },
   "sameEtymologyEasyToRemember": "词源相同，便于记忆",
-  "@sameEtymologyEasyToRemember": {"description": "Same etymology easy to remember hint"},
-
+  "@sameEtymologyEasyToRemember": {
+    "description": "Same etymology easy to remember hint"
+  },
   "someConnection": "有一定联系",
-  "@someConnection": {"description": "Some connection hint"},
-
+  "@someConnection": {
+    "description": "Some connection hint"
+  },
   "nativeWordNeedsMemorization": "固有词，需要记忆",
-  "@nativeWordNeedsMemorization": {"description": "Native Korean word needs memorization hint"},
-
+  "@nativeWordNeedsMemorization": {
+    "description": "Native Korean word needs memorization hint"
+  },
   "rules": "规则",
-  "@rules": {"description": "Rules label"},
-
+  "@rules": {
+    "description": "Rules label"
+  },
   "koreanLanguage": "🇰🇷 韩语",
-  "@koreanLanguage": {"description": "Korean language label with flag"},
-
+  "@koreanLanguage": {
+    "description": "Korean language label with flag"
+  },
   "chineseLanguage": "🇨🇳 中文",
-  "@chineseLanguage": {"description": "Chinese language label with flag"},
-
+  "@chineseLanguage": {
+    "description": "Chinese language label with flag"
+  },
   "exampleNumber": "例 {number}",
   "@exampleNumber": {
     "description": "Example number label",
     "placeholders": {
-      "number": {"type": "int"}
+      "number": {
+        "type": "int"
+      }
     }
   },
-
   "fillInBlankPrompt": "填空：",
-  "@fillInBlankPrompt": {"description": "Fill in blank prompt"},
-
+  "@fillInBlankPrompt": {
+    "description": "Fill in blank prompt"
+  },
   "correctFeedback": "太棒了！答对了！",
-  "@correctFeedback": {"description": "Correct answer feedback"},
-
+  "@correctFeedback": {
+    "description": "Correct answer feedback"
+  },
   "incorrectFeedback": "不对哦，再想想看",
-  "@incorrectFeedback": {"description": "Incorrect answer feedback"},
-
+  "@incorrectFeedback": {
+    "description": "Incorrect answer feedback"
+  },
   "allStagesPassed": "7个阶段全部通过",
-  "@allStagesPassed": {"description": "All stages passed message"},
-
+  "@allStagesPassed": {
+    "description": "All stages passed message"
+  },
   "continueToLearnMore": "继续学习更多内容",
-  "@continueToLearnMore": {"description": "Continue to learn more content"},
-
+  "@continueToLearnMore": {
+    "description": "Continue to learn more content"
+  },
   "timeFormatHMS": "{hours}时{minutes}分{seconds}秒",
   "@timeFormatHMS": {
     "description": "Time format with hours, minutes, seconds",
     "placeholders": {
-      "hours": {"type": "int"},
-      "minutes": {"type": "int"},
-      "seconds": {"type": "int"}
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
     }
   },
-
   "timeFormatMS": "{minutes}分{seconds}秒",
   "@timeFormatMS": {
     "description": "Time format with minutes and seconds",
     "placeholders": {
-      "minutes": {"type": "int"},
-      "seconds": {"type": "int"}
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
     }
   },
-
   "timeFormatS": "{seconds}秒",
   "@timeFormatS": {
     "description": "Time format with seconds only",
     "placeholders": {
-      "seconds": {"type": "int"}
+      "seconds": {
+        "type": "int"
+      }
     }
   },
-
   "repeatEnabled": "已开启重复",
-  "@repeatEnabled": {"description": "Repeat enabled message"},
-
+  "@repeatEnabled": {
+    "description": "Repeat enabled message"
+  },
   "repeatDisabled": "已关闭重复",
-  "@repeatDisabled": {"description": "Repeat disabled message"},
-
+  "@repeatDisabled": {
+    "description": "Repeat disabled message"
+  },
   "stop": "停止",
-  "@stop": {"description": "Stop button"},
-
+  "@stop": {
+    "description": "Stop button"
+  },
   "playbackSpeed": "播放速度",
-  "@playbackSpeed": {"description": "Playback speed label"},
-
+  "@playbackSpeed": {
+    "description": "Playback speed label"
+  },
   "slowSpeed": "慢速",
-  "@slowSpeed": {"description": "Slow speed option"},
-
+  "@slowSpeed": {
+    "description": "Slow speed option"
+  },
   "normalSpeed": "正常",
-  "@normalSpeed": {"description": "Normal speed option"},
-
+  "@normalSpeed": {
+    "description": "Normal speed option"
+  },
   "mouthShape": "口型",
-  "@mouthShape": {"description": "Mouth shape label"},
-
+  "@mouthShape": {
+    "description": "Mouth shape label"
+  },
   "tonguePosition": "舌位",
-  "@tonguePosition": {"description": "Tongue position label"},
-
+  "@tonguePosition": {
+    "description": "Tongue position label"
+  },
   "airFlow": "气流",
-  "@airFlow": {"description": "Air flow label"},
-
+  "@airFlow": {
+    "description": "Air flow label"
+  },
   "nativeComparison": "母语对比",
-  "@nativeComparison": {"description": "Native language comparison label"},
-
+  "@nativeComparison": {
+    "description": "Native language comparison label"
+  },
   "similarSounds": "相似音",
-  "@similarSounds": {"description": "Similar sounds label"},
-
+  "@similarSounds": {
+    "description": "Similar sounds label"
+  },
   "soundDiscrimination": "辨音练习",
-  "@soundDiscrimination": {"description": "Sound discrimination practice"},
-
+  "@soundDiscrimination": {
+    "description": "Sound discrimination practice"
+  },
   "listenAndSelect": "听音选择正确的字母",
-  "@listenAndSelect": {"description": "Listen and select instruction"},
-
+  "@listenAndSelect": {
+    "description": "Listen and select instruction"
+  },
   "similarSoundGroups": "相似音组",
-  "@similarSoundGroups": {"description": "Similar sound groups"},
-
+  "@similarSoundGroups": {
+    "description": "Similar sound groups"
+  },
   "plainSound": "平音",
-  "@plainSound": {"description": "Plain sound"},
-
+  "@plainSound": {
+    "description": "Plain sound"
+  },
   "aspiratedSound": "送气音",
-  "@aspiratedSound": {"description": "Aspirated sound"},
-
+  "@aspiratedSound": {
+    "description": "Aspirated sound"
+  },
   "tenseSound": "紧音",
-  "@tenseSound": {"description": "Tense sound"},
-
+  "@tenseSound": {
+    "description": "Tense sound"
+  },
   "writingPractice": "书写练习",
-  "@writingPractice": {"description": "Writing practice"},
-
+  "@writingPractice": {
+    "description": "Writing practice"
+  },
   "watchAnimation": "观看动画",
-  "@watchAnimation": {"description": "Watch animation step"},
-
+  "@watchAnimation": {
+    "description": "Watch animation step"
+  },
   "traceWithGuide": "描摹练习",
-  "@traceWithGuide": {"description": "Trace with guide step"},
-
+  "@traceWithGuide": {
+    "description": "Trace with guide step"
+  },
   "freehandWriting": "自由书写",
-  "@freehandWriting": {"description": "Freehand writing step"},
-
+  "@freehandWriting": {
+    "description": "Freehand writing step"
+  },
   "clearCanvas": "清除",
-  "@clearCanvas": {"description": "Clear canvas button"},
-
+  "@clearCanvas": {
+    "description": "Clear canvas button"
+  },
   "showGuide": "显示引导",
-  "@showGuide": {"description": "Show guide button"},
-
+  "@showGuide": {
+    "description": "Show guide button"
+  },
   "hideGuide": "隐藏引导",
-  "@hideGuide": {"description": "Hide guide button"},
-
+  "@hideGuide": {
+    "description": "Hide guide button"
+  },
   "writingAccuracy": "准确度",
-  "@writingAccuracy": {"description": "Writing accuracy label"},
-
+  "@writingAccuracy": {
+    "description": "Writing accuracy label"
+  },
   "tryAgainWriting": "再试一次",
-  "@tryAgainWriting": {"description": "Try again writing button"},
-
+  "@tryAgainWriting": {
+    "description": "Try again writing button"
+  },
   "nextStep": "下一步",
-  "@nextStep": {"description": "Next step button"},
-
+  "@nextStep": {
+    "description": "Next step button"
+  },
   "strokeOrderStep": "第 {current}/{total} 步",
   "@strokeOrderStep": {
     "description": "Stroke order step indicator",
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "syllableCombination": "音节组合",
-  "@syllableCombination": {"description": "Syllable combination"},
-
+  "@syllableCombination": {
+    "description": "Syllable combination"
+  },
   "selectConsonant": "选择辅音",
-  "@selectConsonant": {"description": "Select consonant instruction"},
-
+  "@selectConsonant": {
+    "description": "Select consonant instruction"
+  },
   "selectVowel": "选择元音",
-  "@selectVowel": {"description": "Select vowel instruction"},
-
+  "@selectVowel": {
+    "description": "Select vowel instruction"
+  },
   "selectFinalConsonant": "选择收音（可选）",
-  "@selectFinalConsonant": {"description": "Select final consonant instruction"},
-
+  "@selectFinalConsonant": {
+    "description": "Select final consonant instruction"
+  },
   "noFinalConsonant": "无收音",
-  "@noFinalConsonant": {"description": "No final consonant option"},
-
+  "@noFinalConsonant": {
+    "description": "No final consonant option"
+  },
   "combinedSyllable": "组合音节",
-  "@combinedSyllable": {"description": "Combined syllable label"},
-
+  "@combinedSyllable": {
+    "description": "Combined syllable label"
+  },
   "playSyllable": "播放音节",
-  "@playSyllable": {"description": "Play syllable button"},
-
+  "@playSyllable": {
+    "description": "Play syllable button"
+  },
   "decomposeSyllable": "分解音节",
-  "@decomposeSyllable": {"description": "Decompose syllable button"},
-
+  "@decomposeSyllable": {
+    "description": "Decompose syllable button"
+  },
   "batchimPractice": "收音练习",
-  "@batchimPractice": {"description": "Batchim practice"},
-
+  "@batchimPractice": {
+    "description": "Batchim practice"
+  },
   "batchimExplanation": "收音说明",
-  "@batchimExplanation": {"description": "Batchim explanation"},
-
+  "@batchimExplanation": {
+    "description": "Batchim explanation"
+  },
   "recordPronunciation": "录音练习",
-  "@recordPronunciation": {"description": "Record pronunciation"},
-
+  "@recordPronunciation": {
+    "description": "Record pronunciation"
+  },
   "startRecording": "开始录音",
-  "@startRecording": {"description": "Start recording button"},
-
+  "@startRecording": {
+    "description": "Start recording button"
+  },
   "stopRecording": "停止录音",
-  "@stopRecording": {"description": "Stop recording button"},
-
+  "@stopRecording": {
+    "description": "Stop recording button"
+  },
   "playRecording": "播放录音",
-  "@playRecording": {"description": "Play recording button"},
-
+  "@playRecording": {
+    "description": "Play recording button"
+  },
   "compareWithNative": "与原音对比",
-  "@compareWithNative": {"description": "Compare with native button"},
-
+  "@compareWithNative": {
+    "description": "Compare with native button"
+  },
   "shadowingMode": "跟读模式",
-  "@shadowingMode": {"description": "Shadowing mode"},
-
+  "@shadowingMode": {
+    "description": "Shadowing mode"
+  },
   "listenThenRepeat": "先听后说",
-  "@listenThenRepeat": {"description": "Listen then repeat instruction"},
-
+  "@listenThenRepeat": {
+    "description": "Listen then repeat instruction"
+  },
   "selfEvaluation": "自我评价",
-  "@selfEvaluation": {"description": "Self evaluation"},
-
+  "@selfEvaluation": {
+    "description": "Self evaluation"
+  },
   "accurate": "准确",
-  "@accurate": {"description": "Accurate evaluation"},
-
+  "@accurate": {
+    "description": "Accurate evaluation"
+  },
   "almostCorrect": "接近",
-  "@almostCorrect": {"description": "Almost correct evaluation"},
-
+  "@almostCorrect": {
+    "description": "Almost correct evaluation"
+  },
   "needsPractice": "需要练习",
-  "@needsPractice": {"description": "Needs practice evaluation"},
-
+  "@needsPractice": {
+    "description": "Needs practice evaluation"
+  },
   "recordingNotSupported": "此平台不支持录音功能",
-  "@recordingNotSupported": {"description": "Recording not supported message"},
-
+  "@recordingNotSupported": {
+    "description": "Recording not supported message"
+  },
   "showMeaning": "显示释义",
-  "@showMeaning": {"description": "Show meaning toggle"},
-
+  "@showMeaning": {
+    "description": "Show meaning toggle"
+  },
   "hideMeaning": "隐藏释义",
-  "@hideMeaning": {"description": "Hide meaning toggle"},
-
+  "@hideMeaning": {
+    "description": "Hide meaning toggle"
+  },
   "exampleWord": "示例单词",
-  "@exampleWord": {"description": "Example word label"},
-
+  "@exampleWord": {
+    "description": "Example word label"
+  },
   "meaningToggle": "释义显示设置",
-  "@meaningToggle": {"description": "Meaning toggle setting"},
-
+  "@meaningToggle": {
+    "description": "Meaning toggle setting"
+  },
   "microphonePermissionRequired": "录音需要麦克风权限",
-
   "activities": "活动",
   "listeningAndSpeaking": "听力 & 口语",
   "readingAndWriting": "阅读 & 写作",
@@ -2215,7 +2837,6 @@
   "batchimPracticeDesc": "练习收音发音",
   "writingPracticeDesc": "练习书写韩文字母",
   "webNotSupported": "网页版不支持",
-
   "chapter": "章节",
   "bossQuiz": "Boss测验",
   "bossQuizCleared": "Boss测验通过！",
@@ -2229,7 +2850,6 @@
   "lemonsAvailable": "个柠檬可收获",
   "completeMoreLessons": "完成更多课程来种植柠檬",
   "totalLemons": "柠檬总数",
-
   "community": "社区",
   "following": "关注",
   "discover": "发现",
@@ -2246,7 +2866,9 @@
   "replyingTo": "回复 {name}",
   "@replyingTo": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "reply": "回复",
@@ -2283,27 +2905,35 @@
   "@likesCount": {
     "description": "Number of likes",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "commentsCount": "{count}条评论",
   "@commentsCount": {
     "description": "Number of comments",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "followersCount": "{count}位粉丝",
   "@followersCount": {
     "description": "Number of followers",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "followingCount": "关注{count}人",
   "@followingCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "findFriends": "找朋友",
@@ -2312,13 +2942,14 @@
   "@maxPhotos": {
     "description": "Maximum photos allowed",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "visibility": "可见范围",
   "visibilityPublic": "公开",
   "visibilityFollowers": "仅粉丝可见",
-
   "noFollowingPosts": "关注的用户还没有发帖",
   "all": "全部",
   "learning": "学习",
@@ -2338,8 +2969,7 @@
   "noComments": "还没有评论，来抢沙发吧！",
   "deleteCommentConfirm": "确定要删除这条评论吗？",
   "failedToLoadProfile": "加载资料失败",
-  "userNotFound": "用户不存在",
-
+  "userNotFound": "找不到用户",
   "message": "私信",
   "messages": "私信",
   "noMessages": "还没有消息",
@@ -2379,72 +3009,119 @@
   "createVoiceRoomHint": "创建一个开始聊天吧！",
   "createRoom": "创建房间",
   "voiceRoomMicPermission": "语音房间需要麦克风权限",
-  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "@voiceRoomMicPermission": {
+    "description": "Microphone permission required message"
+  },
   "voiceRoomEnterTitle": "请输入房间标题",
-  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "@voiceRoomEnterTitle": {
+    "description": "Validation message when room title is empty"
+  },
   "voiceRoomCreateFailed": "创建房间失败",
-  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "@voiceRoomCreateFailed": {
+    "description": "Error when room creation fails"
+  },
   "voiceRoomNotAvailable": "房间不可用",
-  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "@voiceRoomNotAvailable": {
+    "description": "Message when room is no longer available"
+  },
   "voiceRoomGoBack": "返回",
-  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "@voiceRoomGoBack": {
+    "description": "Button to go back from unavailable room"
+  },
   "voiceRoomConnecting": "连接中...",
-  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "@voiceRoomConnecting": {
+    "description": "Connection status banner"
+  },
   "voiceRoomReconnecting": "重新连接中 ({attempts}/{max})...",
   "@voiceRoomReconnecting": {
     "description": "Reconnection status with attempt count",
     "placeholders": {
-      "attempts": {"type": "int"},
-      "max": {"type": "int"}
+      "attempts": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "voiceRoomDisconnected": "已断开连接",
-  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "@voiceRoomDisconnected": {
+    "description": "Disconnected status"
+  },
   "voiceRoomRetry": "重试",
-  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "@voiceRoomRetry": {
+    "description": "Retry connection button"
+  },
   "voiceRoomHostLabel": "（主持人）",
-  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "@voiceRoomHostLabel": {
+    "description": "Label for room host"
+  },
   "voiceRoomDemoteToListener": "降为听众",
-  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "@voiceRoomDemoteToListener": {
+    "description": "Tooltip for demoting speaker to listener"
+  },
   "voiceRoomKickFromRoom": "踢出房间",
-  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "@voiceRoomKickFromRoom": {
+    "description": "Tooltip for kicking participant"
+  },
   "voiceRoomListeners": "听众",
-  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "@voiceRoomListeners": {
+    "description": "Section header for listeners list"
+  },
   "voiceRoomInviteToStage": "邀请上台",
-  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "@voiceRoomInviteToStage": {
+    "description": "Dialog title and tooltip for inviting to stage"
+  },
   "voiceRoomInviteConfirm": "邀请{name}上台发言？",
   "@voiceRoomInviteConfirm": {
     "description": "Confirmation message for stage invitation",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomInvite": "邀请",
-  "@voiceRoomInvite": {"description": "Invite button label"},
+  "@voiceRoomInvite": {
+    "description": "Invite button label"
+  },
   "voiceRoomCloseConfirmTitle": "关闭房间？",
-  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "@voiceRoomCloseConfirmTitle": {
+    "description": "Close room confirmation dialog title"
+  },
   "voiceRoomCloseConfirmBody": "这将结束所有人的通话。",
-  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "@voiceRoomCloseConfirmBody": {
+    "description": "Close room confirmation dialog body"
+  },
   "voiceRoomNoMessagesYet": "暂无消息",
-  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "@voiceRoomNoMessagesYet": {
+    "description": "Empty chat placeholder"
+  },
   "voiceRoomTypeMessage": "输入消息...",
-  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "@voiceRoomTypeMessage": {
+    "description": "Chat input placeholder"
+  },
   "voiceRoomStageFull": "舞台已满",
-  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "@voiceRoomStageFull": {
+    "description": "Indicator when stage is full"
+  },
   "voiceRoomListenerCount": "{count}位听众",
   "@voiceRoomListenerCount": {
     "description": "Listener count for accessibility",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "voiceRoomRemoveFromStage": "移出舞台？",
   "voiceRoomRemoveFromStageConfirm": "将{name}移出舞台？他们将成为听众。",
   "@voiceRoomRemoveFromStageConfirm": {
     "description": "Confirm dialog body",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomDemote": "降级",
@@ -2453,201 +3130,330 @@
   "@voiceRoomRemoveFromRoomConfirm": {
     "description": "Confirm dialog body",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomRemove": "移出",
   "voiceRoomPressBackToLeave": "再按一次返回键退出",
   "voiceRoomLeaveTitle": "离开房间？",
   "voiceRoomLeaveBody": "你目前在舞台上。确定要离开吗？",
-
   "voiceRoomReturningToList": "正在返回房间列表...",
-  "@voiceRoomReturningToList": {"description": "Auto-navigation message when room is closed"},
+  "@voiceRoomReturningToList": {
+    "description": "Auto-navigation message when room is closed"
+  },
   "voiceRoomConnected": "已连接！",
-  "@voiceRoomConnected": {"description": "Banner shown briefly after reconnecting"},
+  "@voiceRoomConnected": {
+    "description": "Banner shown briefly after reconnecting"
+  },
   "voiceRoomStageFailedToLoad": "舞台加载失败",
-  "@voiceRoomStageFailedToLoad": {"description": "Error when stage game fails to initialize"},
+  "@voiceRoomStageFailedToLoad": {
+    "description": "Error when stage game fails to initialize"
+  },
   "voiceRoomPreparingStage": "正在准备舞台...",
-  "@voiceRoomPreparingStage": {"description": "Loading indicator while stage initializes"},
+  "@voiceRoomPreparingStage": {
+    "description": "Loading indicator while stage initializes"
+  },
   "voiceRoomAcceptToStage": "接受{name}上台",
   "@voiceRoomAcceptToStage": {
     "description": "Tooltip for accepting a stage request",
     "placeholders": {
-      "name": {"type": "Object"}
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "voiceRoomRejectFromStage": "拒绝{name}",
   "@voiceRoomRejectFromStage": {
     "description": "Tooltip for rejecting a stage request",
     "placeholders": {
-      "name": {"type": "Object"}
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "voiceRoomQuickCreate": "快速创建",
-  "@voiceRoomQuickCreate": {"description": "Quick create templates section title"},
+  "@voiceRoomQuickCreate": {
+    "description": "Quick create templates section title"
+  },
   "voiceRoomRoomType": "房间类型",
-  "@voiceRoomRoomType": {"description": "Room type selector label"},
+  "@voiceRoomRoomType": {
+    "description": "Room type selector label"
+  },
   "voiceRoomSessionDuration": "会话时长",
-  "@voiceRoomSessionDuration": {"description": "Session duration selector label"},
+  "@voiceRoomSessionDuration": {
+    "description": "Session duration selector label"
+  },
   "voiceRoomOptionalTimer": "可选的会话计时器",
-  "@voiceRoomOptionalTimer": {"description": "Session duration helper text"},
+  "@voiceRoomOptionalTimer": {
+    "description": "Session duration helper text"
+  },
   "voiceRoomDurationNone": "无限制",
-  "@voiceRoomDurationNone": {"description": "No duration limit option"},
+  "@voiceRoomDurationNone": {
+    "description": "No duration limit option"
+  },
   "voiceRoomDuration15": "15分钟",
-  "@voiceRoomDuration15": {"description": "15 minute duration option"},
+  "@voiceRoomDuration15": {
+    "description": "15 minute duration option"
+  },
   "voiceRoomDuration30": "30分钟",
-  "@voiceRoomDuration30": {"description": "30 minute duration option"},
+  "@voiceRoomDuration30": {
+    "description": "30 minute duration option"
+  },
   "voiceRoomDuration45": "45分钟",
-  "@voiceRoomDuration45": {"description": "45 minute duration option"},
+  "@voiceRoomDuration45": {
+    "description": "45 minute duration option"
+  },
   "voiceRoomDuration60": "60分钟",
-  "@voiceRoomDuration60": {"description": "60 minute duration option"},
+  "@voiceRoomDuration60": {
+    "description": "60 minute duration option"
+  },
   "voiceRoomTypeFreeTalk": "自由聊天",
-  "@voiceRoomTypeFreeTalk": {"description": "Free talk room type label"},
+  "@voiceRoomTypeFreeTalk": {
+    "description": "Free talk room type label"
+  },
   "voiceRoomTypePronunciation": "发音练习",
-  "@voiceRoomTypePronunciation": {"description": "Pronunciation practice room type label"},
+  "@voiceRoomTypePronunciation": {
+    "description": "Pronunciation practice room type label"
+  },
   "voiceRoomTypeRolePlay": "角色扮演",
-  "@voiceRoomTypeRolePlay": {"description": "Role play room type label"},
+  "@voiceRoomTypeRolePlay": {
+    "description": "Role play room type label"
+  },
   "voiceRoomTypeQnA": "问答",
-  "@voiceRoomTypeQnA": {"description": "Q&A room type label"},
+  "@voiceRoomTypeQnA": {
+    "description": "Q&A room type label"
+  },
   "voiceRoomTypeListening": "听力练习",
-  "@voiceRoomTypeListening": {"description": "Listening practice room type label"},
+  "@voiceRoomTypeListening": {
+    "description": "Listening practice room type label"
+  },
   "voiceRoomTypeDebate": "辩论",
-  "@voiceRoomTypeDebate": {"description": "Debate room type label"},
+  "@voiceRoomTypeDebate": {
+    "description": "Debate room type label"
+  },
   "voiceRoomTemplateFreeTalk": "韩语自由聊天",
-  "@voiceRoomTemplateFreeTalk": {"description": "Quick create template: free talk"},
+  "@voiceRoomTemplateFreeTalk": {
+    "description": "Quick create template: free talk"
+  },
   "voiceRoomTemplatePronunciation": "发音练习",
-  "@voiceRoomTemplatePronunciation": {"description": "Quick create template: pronunciation"},
+  "@voiceRoomTemplatePronunciation": {
+    "description": "Quick create template: pronunciation"
+  },
   "voiceRoomTemplateDailyKorean": "每日韩语",
-  "@voiceRoomTemplateDailyKorean": {"description": "Quick create template: daily Korean"},
+  "@voiceRoomTemplateDailyKorean": {
+    "description": "Quick create template: daily Korean"
+  },
   "voiceRoomTemplateTopikSpeaking": "TOPIK口语",
-  "@voiceRoomTemplateTopikSpeaking": {"description": "Quick create template: TOPIK speaking"},
+  "@voiceRoomTemplateTopikSpeaking": {
+    "description": "Quick create template: TOPIK speaking"
+  },
   "voiceRoomCreateTooltip": "创建语音房间",
-  "@voiceRoomCreateTooltip": {"description": "FAB tooltip for creating a voice room"},
+  "@voiceRoomCreateTooltip": {
+    "description": "FAB tooltip for creating a voice room"
+  },
   "voiceRoomSendReaction": "发送表情",
-  "@voiceRoomSendReaction": {"description": "Semantic label for reaction button"},
+  "@voiceRoomSendReaction": {
+    "description": "Semantic label for reaction button"
+  },
   "voiceRoomLeaveRoom": "离开房间",
-  "@voiceRoomLeaveRoom": {"description": "Semantic label for leave room button"},
+  "@voiceRoomLeaveRoom": {
+    "description": "Semantic label for leave room button"
+  },
   "voiceRoomUnmuteMic": "取消麦克风静音",
-  "@voiceRoomUnmuteMic": {"description": "Semantic label for unmute button"},
+  "@voiceRoomUnmuteMic": {
+    "description": "Semantic label for unmute button"
+  },
   "voiceRoomMuteMic": "麦克风静音",
-  "@voiceRoomMuteMic": {"description": "Semantic label for mute button"},
+  "@voiceRoomMuteMic": {
+    "description": "Semantic label for mute button"
+  },
   "voiceRoomCancelHandRaise": "取消举手",
-  "@voiceRoomCancelHandRaise": {"description": "Semantic label for cancelling hand raise"},
+  "@voiceRoomCancelHandRaise": {
+    "description": "Semantic label for cancelling hand raise"
+  },
   "voiceRoomRaiseHandSemantic": "举手",
-  "@voiceRoomRaiseHandSemantic": {"description": "Semantic label for raising hand"},
+  "@voiceRoomRaiseHandSemantic": {
+    "description": "Semantic label for raising hand"
+  },
   "voiceRoomSendGesture": "发送动作",
-  "@voiceRoomSendGesture": {"description": "Semantic label for gesture button"},
+  "@voiceRoomSendGesture": {
+    "description": "Semantic label for gesture button"
+  },
   "voiceRoomLeaveStageAction": "退出舞台",
-  "@voiceRoomLeaveStageAction": {"description": "Semantic label for leave stage button"},
+  "@voiceRoomLeaveStageAction": {
+    "description": "Semantic label for leave stage button"
+  },
   "voiceRoomManageStage": "管理舞台",
-  "@voiceRoomManageStage": {"description": "Semantic label for manage stage button"},
+  "@voiceRoomManageStage": {
+    "description": "Semantic label for manage stage button"
+  },
   "voiceRoomMoreOptions": "更多选项",
-  "@voiceRoomMoreOptions": {"description": "Tooltip and semantic label for overflow menu"},
+  "@voiceRoomMoreOptions": {
+    "description": "Tooltip and semantic label for overflow menu"
+  },
   "voiceRoomMore": "更多",
-  "@voiceRoomMore": {"description": "Label under overflow menu button"},
+  "@voiceRoomMore": {
+    "description": "Label under overflow menu button"
+  },
   "voiceRoomStageWithSpeakers": "有发言人的语音房间舞台",
-  "@voiceRoomStageWithSpeakers": {"description": "Semantic label for the stage area"},
+  "@voiceRoomStageWithSpeakers": {
+    "description": "Semantic label for the stage area"
+  },
   "voiceRoomStageRequestsPending": "上台请求，{count}个待处理",
   "@voiceRoomStageRequestsPending": {
     "description": "Semantic label for stage requests badge",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "voiceRoomSpeakerListenerCount": "发言人 {speakers}/{maxSpeakers}，听众 {listeners}",
   "@voiceRoomSpeakerListenerCount": {
     "description": "Semantic label for speaker and listener count",
     "placeholders": {
-      "speakers": {"type": "int"},
-      "maxSpeakers": {"type": "int"},
-      "listeners": {"type": "int"}
+      "speakers": {
+        "type": "int"
+      },
+      "maxSpeakers": {
+        "type": "int"
+      },
+      "listeners": {
+        "type": "int"
+      }
     }
   },
   "voiceRoomChatInput": "聊天消息输入",
-  "@voiceRoomChatInput": {"description": "Semantic label for chat input field"},
+  "@voiceRoomChatInput": {
+    "description": "Semantic label for chat input field"
+  },
   "voiceRoomSendMessage": "发送消息",
-  "@voiceRoomSendMessage": {"description": "Semantic label for send message button"},
+  "@voiceRoomSendMessage": {
+    "description": "Semantic label for send message button"
+  },
   "voiceRoomSendReactionNamed": "发送{name}表情",
   "@voiceRoomSendReactionNamed": {
     "description": "Semantic label for specific reaction button",
     "placeholders": {
-      "name": {"type": "Object"}
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "voiceRoomCloseReactionTray": "关闭表情面板",
-  "@voiceRoomCloseReactionTray": {"description": "Semantic label for closing reaction tray"},
+  "@voiceRoomCloseReactionTray": {
+    "description": "Semantic label for closing reaction tray"
+  },
   "voiceRoomPerformGesture": "执行{name}动作",
   "@voiceRoomPerformGesture": {
     "description": "Semantic label for specific gesture button",
     "placeholders": {
-      "name": {"type": "Object"}
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "voiceRoomCloseGestureTray": "关闭动作面板",
-  "@voiceRoomCloseGestureTray": {"description": "Semantic label for closing gesture tray"},
+  "@voiceRoomCloseGestureTray": {
+    "description": "Semantic label for closing gesture tray"
+  },
   "voiceRoomGestureWave": "挥手",
-  "@voiceRoomGestureWave": {"description": "Wave gesture label"},
+  "@voiceRoomGestureWave": {
+    "description": "Wave gesture label"
+  },
   "voiceRoomGestureBow": "鞠躬",
-  "@voiceRoomGestureBow": {"description": "Bow gesture label"},
+  "@voiceRoomGestureBow": {
+    "description": "Bow gesture label"
+  },
   "voiceRoomGestureDance": "跳舞",
-  "@voiceRoomGestureDance": {"description": "Dance gesture label"},
+  "@voiceRoomGestureDance": {
+    "description": "Dance gesture label"
+  },
   "voiceRoomGestureJump": "跳跃",
-  "@voiceRoomGestureJump": {"description": "Jump gesture label"},
+  "@voiceRoomGestureJump": {
+    "description": "Jump gesture label"
+  },
   "voiceRoomGestureClap": "鼓掌",
-  "@voiceRoomGestureClap": {"description": "Clap gesture label"},
+  "@voiceRoomGestureClap": {
+    "description": "Clap gesture label"
+  },
   "voiceRoomStageLabel": "舞台",
-  "@voiceRoomStageLabel": {"description": "Label text displayed on the stage area"},
+  "@voiceRoomStageLabel": {
+    "description": "Label text displayed on the stage area"
+  },
   "voiceRoomYouLabel": "（我）",
-  "@voiceRoomYouLabel": {"description": "Label appended to own character name on stage"},
+  "@voiceRoomYouLabel": {
+    "description": "Label appended to own character name on stage"
+  },
   "voiceRoomListenerTapToManage": "听众{name}，点击管理",
   "@voiceRoomListenerTapToManage": {
     "description": "Semantic label for listener avatar when host can manage",
     "placeholders": {
-      "name": {"type": "Object"}
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "voiceRoomListenerName": "听众{name}",
   "@voiceRoomListenerName": {
     "description": "Semantic label for listener avatar",
     "placeholders": {
-      "name": {"type": "Object"}
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "voiceRoomMicPermissionDenied": "麦克风访问被拒绝。要使用语音功能，请在设备设置中启用。",
-  "@voiceRoomMicPermissionDenied": {"description": "Detailed mic permission denied message for dialog"},
+  "@voiceRoomMicPermissionDenied": {
+    "description": "Detailed mic permission denied message for dialog"
+  },
   "voiceRoomMicPermissionTitle": "麦克风权限",
-  "@voiceRoomMicPermissionTitle": {"description": "Mic permission dialog title"},
+  "@voiceRoomMicPermissionTitle": {
+    "description": "Mic permission dialog title"
+  },
   "voiceRoomOpenSettings": "打开设置",
-  "@voiceRoomOpenSettings": {"description": "Button to open device settings for permissions"},
+  "@voiceRoomOpenSettings": {
+    "description": "Button to open device settings for permissions"
+  },
   "voiceRoomMicNeededForStage": "上台发言需要麦克风权限",
-  "@voiceRoomMicNeededForStage": {"description": "Snackbar message when mic denied while raising hand"},
-
+  "@voiceRoomMicNeededForStage": {
+    "description": "Snackbar message when mic denied while raising hand"
+  },
   "batchimDescriptionText": "韩语收音（받침）发音为7种音。\n多个收音发同一个音的现象叫做「收音代表音」。",
-  "@batchimDescriptionText": {"description": "Batchim description text"},
-
+  "@batchimDescriptionText": {
+    "description": "Batchim description text"
+  },
   "syllableInputLabel": "输入音节",
-  "@syllableInputLabel": {"description": "Syllable input field label"},
-
+  "@syllableInputLabel": {
+    "description": "Syllable input field label"
+  },
   "syllableInputHint": "例：한",
-  "@syllableInputHint": {"description": "Syllable input hint"},
-
+  "@syllableInputHint": {
+    "description": "Syllable input hint"
+  },
   "totalPracticedCount": "共练习了 {count} 个字",
   "@totalPracticedCount": {
     "description": "Total practiced count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "audioLoadError": "无法加载音频",
-  "@audioLoadError": {"description": "Audio load error message"},
-
+  "@audioLoadError": {
+    "description": "Audio load error message"
+  },
   "writingPracticeCompleteMessage": "书写练习完成！",
-  "@writingPracticeCompleteMessage": {"description": "Writing practice complete message"},
-
+  "@writingPracticeCompleteMessage": {
+    "description": "Writing practice complete message"
+  },
   "sevenRepresentativeSounds": "7种代表音",
-  "@sevenRepresentativeSounds": {"description": "Seven representative sounds title"},
-
+  "@sevenRepresentativeSounds": {
+    "description": "Seven representative sounds title"
+  },
   "myRoom": "我的房间",
   "characterEditor": "角色编辑",
   "roomEditor": "房间编辑",
@@ -2675,7 +3481,9 @@
   "@purchasedItem": {
     "description": "Purchase success message",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notEnoughLemons": "柠檬不够！",
@@ -2686,7 +3494,9 @@
   "@balanceLemons": {
     "description": "Lemon balance display",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "furnitureItem": "家具",
@@ -2697,13 +3507,17 @@
   "hangulLearnedCount": "已学习{count}/40个字母！",
   "@hangulLearnedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hangulReviewNeeded": "今天有{count}个字母需要复习！",
   "@hangulReviewNeeded": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hangulReviewNow": "立即复习",
@@ -2723,7 +3537,9 @@
   "remainingLessons": "再完成{count}个即可达成今日目标！",
   "@remainingLessons": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "streakMotivation0": "今天开始学习吧！",
@@ -2734,82 +3550,1660 @@
   "minutesShort": "{count}分钟",
   "@minutesShort": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hoursShort": "{count}小时",
   "@hoursShort": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "speechPractice": "发音练习",
-  "@speechPractice": {"description": "Speech practice step title"},
-
+  "@speechPractice": {
+    "description": "Speech practice step title"
+  },
   "tapToRecord": "点击录音",
-  "@tapToRecord": {"description": "Tap to record instruction"},
-
+  "@tapToRecord": {
+    "description": "Tap to record instruction"
+  },
   "recording": "录音中...",
-  "@recording": {"description": "Recording status"},
-
+  "@recording": {
+    "description": "Recording status"
+  },
   "analyzing": "分析中...",
-  "@analyzing": {"description": "Analyzing status"},
-
+  "@analyzing": {
+    "description": "Analyzing status"
+  },
   "pronunciationScore": "发音分数",
-  "@pronunciationScore": {"description": "Pronunciation score label"},
-
+  "@pronunciationScore": {
+    "description": "Pronunciation score label"
+  },
   "phonemeBreakdown": "音素分析",
-  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
-
+  "@phonemeBreakdown": {
+    "description": "Phoneme breakdown label"
+  },
   "tryAgainCount": "重试 ({current}/{max})",
   "@tryAgainCount": {
     "description": "Try again with attempt count",
     "placeholders": {
-      "current": {"type": "String"},
-      "max": {"type": "String"}
+      "current": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
     }
   },
-
   "nextCharacter": "下一个字",
-  "@nextCharacter": {"description": "Next character button"},
-
+  "@nextCharacter": {
+    "description": "Next character button"
+  },
   "excellentPronunciation": "太棒了！",
-  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
-
+  "@excellentPronunciation": {
+    "description": "Excellent pronunciation feedback"
+  },
   "goodPronunciation": "做得好！",
-  "@goodPronunciation": {"description": "Good pronunciation feedback"},
-
+  "@goodPronunciation": {
+    "description": "Good pronunciation feedback"
+  },
   "fairPronunciation": "继续加油！",
-  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
-
+  "@fairPronunciation": {
+    "description": "Fair pronunciation feedback"
+  },
   "needsMorePractice": "继续练习！",
-  "@needsMorePractice": {"description": "Needs more practice feedback"},
-
+  "@needsMorePractice": {
+    "description": "Needs more practice feedback"
+  },
   "downloadModels": "下载",
-  "@downloadModels": {"description": "Download models button"},
-
+  "@downloadModels": {
+    "description": "Download models button"
+  },
   "modelDownloading": "正在下载模型",
-  "@modelDownloading": {"description": "Model downloading status"},
-
+  "@modelDownloading": {
+    "description": "Model downloading status"
+  },
   "modelReady": "已就绪",
-  "@modelReady": {"description": "Model ready status"},
-
+  "@modelReady": {
+    "description": "Model ready status"
+  },
   "modelNotReady": "未安装",
-  "@modelNotReady": {"description": "Model not installed status"},
-
+  "@modelNotReady": {
+    "description": "Model not installed status"
+  },
   "modelSize": "模型大小",
-  "@modelSize": {"description": "Model size label"},
-
+  "@modelSize": {
+    "description": "Model size label"
+  },
   "speechModelTitle": "语音识别AI模型",
-  "@speechModelTitle": {"description": "Speech recognition AI model title"},
-
+  "@speechModelTitle": {
+    "description": "Speech recognition AI model title"
+  },
   "skipSpeechPractice": "跳过",
-  "@skipSpeechPractice": {"description": "Skip speech practice button"},
-
+  "@skipSpeechPractice": {
+    "description": "Skip speech practice button"
+  },
   "deleteModel": "删除模型",
-  "@deleteModel": {"description": "Delete model button"},
-
+  "@deleteModel": {
+    "description": "Delete model button"
+  },
   "overallScore": "综合分数",
-  "@overallScore": {"description": "Overall score label"}
+  "@overallScore": {
+    "description": "Overall score label"
+  },
+  "appTagline": "像柠檬一样清新，实力稳稳的！",
+  "@appTagline": {
+    "description": "App tagline on login screen"
+  },
+  "passwordHint": "请输入包含字母和数字的8位以上密码",
+  "@passwordHint": {
+    "description": "Password field hint text"
+  },
+  "findAccount": "找回账号",
+  "@findAccount": {
+    "description": "Find account link"
+  },
+  "resetPassword": "重置密码",
+  "@resetPassword": {
+    "description": "Reset password link"
+  },
+  "registerTitle": "清新的韩语之旅，现在出发！",
+  "@registerTitle": {
+    "description": "Register screen title"
+  },
+  "registerSubtitle": "轻松起步也没关系！我会牢牢带着你",
+  "@registerSubtitle": {
+    "description": "Register screen subtitle"
+  },
+  "nickname": "昵称",
+  "@nickname": {
+    "description": "Nickname field label"
+  },
+  "nicknameHint": "15个字符以内：字母、数字、下划线",
+  "@nicknameHint": {
+    "description": "Nickname field hint text"
+  },
+  "confirmPasswordHint": "请再次输入密码",
+  "@confirmPasswordHint": {
+    "description": "Confirm password hint text"
+  },
+  "accountChoiceTitle": "欢迎！和莫尼一起\n建立学习习惯吧！",
+  "@accountChoiceTitle": {
+    "description": "Account choice screen title"
+  },
+  "accountChoiceSubtitle": "清新出发，实力我来帮你守住！",
+  "@accountChoiceSubtitle": {
+    "description": "Account choice screen subtitle"
+  },
+  "startWithEmail": "使用邮箱开始",
+  "@startWithEmail": {
+    "description": "Start with email button"
+  },
+  "deleteMessageTitle": "删除消息？",
+  "@deleteMessageTitle": {
+    "description": "Delete message dialog title"
+  },
+  "deleteMessageContent": "此消息将对所有人删除。",
+  "@deleteMessageContent": {
+    "description": "Delete message dialog content"
+  },
+  "messageDeleted": "消息已删除",
+  "@messageDeleted": {
+    "description": "Deleted message placeholder"
+  },
+  "beFirstToPost": "来发第一条帖子吧！",
+  "@beFirstToPost": {
+    "description": "Empty state first post prompt"
+  },
+  "typeTagHint": "输入标签...",
+  "@typeTagHint": {
+    "description": "Tag input hint"
+  },
+  "userInfoLoadFailed": "加载用户信息失败",
+  "@userInfoLoadFailed": {
+    "description": "User info load failed error"
+  },
+  "loginErrorOccurred": "登录过程中发生错误",
+  "@loginErrorOccurred": {
+    "description": "Login error occurred"
+  },
+  "registerErrorOccurred": "注册过程中发生错误",
+  "@registerErrorOccurred": {
+    "description": "Register error occurred"
+  },
+  "logoutErrorOccurred": "退出登录过程中发生错误",
+  "@logoutErrorOccurred": {
+    "description": "Logout error occurred"
+  },
+  "hangulStage0Title": "第0阶段：理解韩文结构",
+  "hangulStage1Title": "第1阶段：基本元音",
+  "hangulStage2Title": "第2阶段：Y元音",
+  "hangulStage3Title": "第3阶段：ㅐ/ㅔ元音",
+  "hangulStage4Title": "第4阶段：基本辅音1",
+  "hangulStage5Title": "第5阶段：基本辅音2",
+  "hangulStage6Title": "第6阶段：音节组合训练",
+  "hangulStage7Title": "第7阶段：紧音/送气音",
+  "hangulStage8Title": "第8阶段：收音（终声）1",
+  "hangulStage9Title": "第9阶段：收音扩展",
+  "hangulStage10Title": "第10阶段：复合收音",
+  "hangulStage11Title": "第11阶段：扩展词汇阅读",
+  "sortAlphabetical": "字母顺序",
+  "sortByLevel": "按级别",
+  "sortBySimilarity": "按相似度",
+  "searchWordsKoreanMeaning": "搜索单词（韩语/含义）",
+  "groupedView": "分组视图",
+  "matrixView": "辅音×元音",
+  "reviewLessons": "复习课程",
+  "stageDetailComingSoon": "详细内容正在准备中。",
+  "bossQuizComingSoon": "Boss测验正在准备中。",
+  "exitLessonDialogTitle": "退出课程",
+  "exitLessonDialogContent": "要退出课程吗？\n当前步骤的进度将自动保存。",
+  "continueButton": "继续",
+  "exitLessonButton": "退出",
+  "noQuestions": "没有可用的问题",
+  "noCharactersDefined": "未定义字符",
+  "recordingStartFailed": "录音启动失败",
+  "consonant": "辅音",
+  "vowel": "元音",
+  "validationEmailRequired": "请输入电子邮箱",
+  "validationEmailTooLong": "电子邮箱地址过长",
+  "validationEmailInvalid": "请输入有效的电子邮箱地址",
+  "validationPasswordRequired": "请输入密码",
+  "validationPasswordMinLength": "密码至少需要{minLength}个字符",
+  "@validationPasswordMinLength": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationPasswordNeedLetter": "密码必须包含字母",
+  "validationPasswordNeedNumber": "密码必须包含数字",
+  "validationPasswordNeedSpecial": "密码必须包含特殊字符",
+  "validationPasswordTooLong": "密码过长",
+  "validationConfirmPasswordRequired": "请再次输入密码",
+  "validationPasswordMismatch": "两次输入的密码不一致",
+  "validationUsernameRequired": "请输入用户名",
+  "validationUsernameTooShort": "用户名至少需要{minLength}个字符",
+  "@validationUsernameTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationUsernameTooLong": "用户名不能超过{maxLength}个字符",
+  "@validationUsernameTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationUsernameInvalidChars": "用户名只能包含字母、数字和下划线",
+  "validationFieldRequired": "请输入{fieldName}",
+  "@validationFieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "validationFieldMinLength": "{fieldName}至少需要{minLength}个字符",
+  "@validationFieldMinLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationFieldMaxLength": "{fieldName}不能超过{maxLength}个字符",
+  "@validationFieldMaxLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationFieldNumeric": "{fieldName}必须是数字",
+  "@validationFieldNumeric": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "errorNetworkConnection": "网络连接失败，请检查网络设置",
+  "errorServer": "服务器错误，请稍后重试",
+  "errorAuthFailed": "认证失败，请重新登录",
+  "errorUnknown": "未知错误，请稍后重试",
+  "errorTimeout": "连接超时，请检查网络",
+  "errorRequestCancelled": "请求已取消",
+  "errorForbidden": "没有访问权限",
+  "errorNotFound": "请求的资源不存在",
+  "errorRequestParam": "请求参数错误",
+  "errorParseData": "数据解析错误",
+  "errorParseFormat": "数据格式错误",
+  "errorRateLimited": "请求过多，请稍后重试",
+  "successLogin": "登录成功",
+  "successRegister": "注册成功",
+  "successSync": "同步成功",
+  "successDownload": "下载成功",
+  "failedToCreateComment": "创建评论失败",
+  "failedToDeleteComment": "删除评论失败",
+  "failedToSubmitReport": "提交举报失败",
+  "failedToBlockUser": "屏蔽用户失败",
+  "failedToUnblockUser": "取消屏蔽用户失败",
+  "failedToCreatePost": "创建帖子失败",
+  "failedToDeletePost": "删除帖子失败",
+  "noVocabularyForLevel": "未找到{level}级词汇",
+  "@noVocabularyForLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "uploadingImage": "[图片上传中...]",
+  "uploadingVoice": "[语音上传中...]",
+  "imagePreview": "[图片]",
+  "voicePreview": "[语音]",
+  "voiceServerConnectFailed": "无法连接语音服务器，请检查您的连接。",
+  "connectionLostRetry": "连接断开，点击重试。",
+  "noInternetConnection": "无网络连接，请检查您的网络。",
+  "couldNotLoadRooms": "无法加载房间列表，请重试。",
+  "couldNotCreateRoom": "无法创建房间，请重试。",
+  "couldNotJoinRoom": "无法加入房间，请检查您的连接。",
+  "roomClosedByHost": "主持人已关闭房间。",
+  "removedFromRoomByHost": "您已被主持人移出房间。",
+  "connectionTimedOut": "连接超时，请重试。",
+  "missingLiveKitCredentials": "缺少语音连接凭据。",
+  "microphoneEnableFailed": "无法启用麦克风。请检查权限并尝试取消静音。",
+  "voiceRoomNewMessages": "新消息",
+  "voiceRoomChatRateLimited": "消息发送过快，请稍候再试。",
+  "voiceRoomMessageSendFailed": "消息发送失败，请重试。",
+  "voiceRoomChatError": "聊天出错。",
+  "retryAttempt": "重试 ({current}/{max})",
+  "@retryAttempt": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "nextButton": "下一步",
+  "completeButton": "完成",
+  "startButton": "开始",
+  "doneButton": "完成",
+  "goBackButton": "返回",
+  "tapToListen": "点击听发音",
+  "listenAllSoundsFirst": "请先听完所有发音",
+  "nextCharButton": "下一个字",
+  "listenAndChooseCorrect": "听发音，选出正确的字",
+  "lessonCompletedMsg": "你完成了课程！",
+  "stageMasterLabel": "第{stage}阶段大师",
+  "@stageMasterLabel": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      }
+    }
+  },
+  "hangulS0L0Title": "韩文是怎么来的？",
+  "hangulS0L0Subtitle": "简单了解韩文的诞生过程",
+  "hangulS0L0Step0Title": "很久以前，学习文字非常困难",
+  "hangulS0L0Step0Desc": "古代朝鲜半岛主要借用汉字书写，\n许多百姓难以学习。",
+  "hangulS0L0Step0Highlights": "汉字,困难,阅读,书写",
+  "hangulS0L0Step1Title": "世宗大王创造了新的文字",
+  "hangulS0L0Step1Desc": "为了让百姓轻松学习，\n世宗大王亲自创制了训民正音。\n（1443年创制，1446年颁布）",
+  "hangulS0L0Step1Highlights": "世宗大王,训民正音,1443,1446",
+  "hangulS0L0Step2Title": "于是有了今天的韩文",
+  "hangulS0L0Step2Desc": "韩文是为了方便记录声音而创造的文字。\n在下一课中，我们将学习辅音和元音的结构。",
+  "hangulS0L0Step2Highlights": "声音,简易文字,韩文",
+  "hangulS0L0SummaryTitle": "介绍课完成！",
+  "hangulS0L0SummaryMsg": "太棒了！\n现在你知道韩文为什么被创造了。\n接下来学习辅音和元音的结构吧。",
+  "hangulS0L1Title": "组装가字块",
+  "hangulS0L1Subtitle": "通过拖拽体验拼字过程",
+  "hangulS0L1IntroTitle": "韩文就像积木！",
+  "hangulS0L1IntroDesc": "韩文通过组合辅音和元音来构成文字。\n辅音（ㄱ）+ 元音（ㅏ）= 가\n\n更复杂的文字下面还会有收音（받침）。\n（以后再学！）",
+  "hangulS0L1IntroHighlights": "辅音,元音,文字",
+  "hangulS0L1DragGaTitle": "组装가",
+  "hangulS0L1DragGaDesc": "将ㄱ和ㅏ拖到空格中",
+  "hangulS0L1DragNaTitle": "组装나",
+  "hangulS0L1DragNaDesc": "试试使用新的辅音ㄴ",
+  "hangulS0L1DragDaTitle": "组装다",
+  "hangulS0L1DragDaDesc": "试试使用新的辅音ㄷ",
+  "hangulS0L1SummaryTitle": "课程完成！",
+  "hangulS0L1SummaryMsg": "辅音 + 元音 = 文字块！\nㄱ+ㅏ=가, ㄴ+ㅏ=나, ㄷ+ㅏ=다",
+  "hangulS0L2Title": "声音探索",
+  "hangulS0L2Subtitle": "通过声音感受辅音和元音",
+  "hangulS0L2IntroTitle": "感受声音",
+  "hangulS0L2IntroDesc": "韩文的每个辅音和元音都有独特的声音。\n听一听，感受一下。",
+  "hangulS0L2Sound1Title": "辅音ㄱ、ㄴ、ㄷ的基本发音",
+  "hangulS0L2Sound1Desc": "听一听辅音加上ㅏ后的发音（가、나、다）",
+  "hangulS0L2Sound2Title": "ㅏ、ㅗ元音发音",
+  "hangulS0L2Sound2Desc": "听一听这两个元音的发音",
+  "hangulS0L2Sound3Title": "听가、나、다的发音",
+  "hangulS0L2Sound3Desc": "听一听辅音和元音组合而成的文字发音",
+  "hangulS0L2SummaryTitle": "课程完成！",
+  "hangulS0L2SummaryMsg": "每个辅音都有配上ㅏ的标准读音，比如가、나、다。\n现在你对元音的发音也有感觉了！",
+  "hangulS0L3Title": "听音选字",
+  "hangulS0L3Subtitle": "通过声音区分文字",
+  "hangulS0L3IntroTitle": "这次用耳朵来分辨",
+  "hangulS0L3IntroDesc": "比起看屏幕，更要专注于声音。\n听音辨字，找出正确答案！",
+  "hangulS0L3Sound1Title": "确认가/나/다/고/노的发音",
+  "hangulS0L3Sound1Desc": "先充分听一下这5个发音",
+  "hangulS0L3Match1Title": "听音选择相同的文字",
+  "hangulS0L3Match1Desc": "选择与播放的声音相匹配的文字",
+  "hangulS0L3Match2Title": "区分ㅏ / ㅗ的发音",
+  "hangulS0L3Match2Desc": "辅音相同时，靠元音来区分发音",
+  "hangulS0L3SummaryTitle": "课程完成！",
+  "hangulS0L3SummaryMsg": "太棒了！\n现在你可以同时用眼睛（组装）和耳朵（声音）\n来理解韩文的结构了。",
+  "hangulS0CompleteTitle": "第0阶段完成！",
+  "hangulS0CompleteMsg": "你已经理解了韩文的结构！",
+  "hangulS1L1Title": "ㅏ的形状与读音",
+  "hangulS1L1Subtitle": "竖线右侧短横: ㅏ",
+  "hangulS1L1Step0Title": "学习第一个元音ㅏ",
+  "hangulS1L1Step0Desc": "ㅏ发出明亮的\"아\"音。\n让我们一起学习形状和读音。",
+  "hangulS1L1Step0Highlights": "ㅏ,아,基本元音",
+  "hangulS1L1Step1Title": "听ㅏ的读音",
+  "hangulS1L1Step1Desc": "听听含有ㅏ的读音",
+  "hangulS1L1Step2Title": "发音练习",
+  "hangulS1L1Step2Desc": "请大声朗读这些文字",
+  "hangulS1L1Step3Title": "选出ㅏ的读音",
+  "hangulS1L1Step3Desc": "听音后选择正确的文字",
+  "hangulS1L1Step4Title": "形状测验",
+  "hangulS1L1Step4Desc": "准确找出ㅏ",
+  "hangulS1L1Step4Q0": "以下哪个是ㅏ？",
+  "hangulS1L1Step4Q1": "以下哪个含有ㅏ？",
+  "hangulS1L1Step4Q2": "ㅇ + ㅏ = ?",
+  "hangulS1L1Step5Title": "用ㅏ组字",
+  "hangulS1L1Step5Desc": "将辅音与ㅏ组合完成文字",
+  "hangulS1L1Step6Title": "综合测验",
+  "hangulS1L1Step6Desc": "整理本节课所学内容",
+  "hangulS1L1Step6Q0": "\"아\"的元音是什么？",
+  "hangulS1L1Step6Q1": "ㅇ + ㅏ = ?",
+  "hangulS1L1Step6Q2": "以下哪个字含有ㅏ？",
+  "hangulS1L1Step6Q3": "哪个音与ㅏ最不同？",
+  "hangulS1L1Step7Title": "课程完成！",
+  "hangulS1L1Step7Msg": "很好！\n你学会了ㅏ的形状和读音。",
+  "hangulS1L2Title": "ㅓ的形状与读音",
+  "hangulS1L2Subtitle": "竖线左侧短横: ㅓ",
+  "hangulS1L2Step0Title": "第二个元音ㅓ",
+  "hangulS1L2Step0Desc": "ㅓ发出\"어\"的音。\n注意笔画方向与ㅏ相反。",
+  "hangulS1L2Step0Highlights": "ㅓ,어,与ㅏ方向相反",
+  "hangulS1L2Step1Title": "听ㅓ的读音",
+  "hangulS1L2Step1Desc": "听听含有ㅓ的读音",
+  "hangulS1L2Step2Title": "发音练习",
+  "hangulS1L2Step2Desc": "请大声朗读这些文字",
+  "hangulS1L2Step3Title": "选出ㅓ的读音",
+  "hangulS1L2Step3Desc": "用耳朵区分ㅏ/ㅓ",
+  "hangulS1L2Step4Title": "形状测验",
+  "hangulS1L2Step4Desc": "找出ㅓ",
+  "hangulS1L2Step4Q0": "以下哪个是ㅓ？",
+  "hangulS1L2Step4Q1": "ㅇ + ㅓ = ?",
+  "hangulS1L2Step4Q2": "以下哪个字含有ㅓ？",
+  "hangulS1L2Step5Title": "用ㅓ组字",
+  "hangulS1L2Step5Desc": "将辅音与ㅓ组合",
+  "hangulS1L2Step6Title": "课程完成！",
+  "hangulS1L2Step6Msg": "太棒了！\n你学会了ㅓ(어)的读音。",
+  "hangulS1L3Title": "ㅗ的形状与读音",
+  "hangulS1L3Subtitle": "横线上方竖画: ㅗ",
+  "hangulS1L3Step0Title": "第三个元音ㅗ",
+  "hangulS1L3Step0Desc": "ㅗ发出\"오\"的音。\n竖画向横线上方延伸。",
+  "hangulS1L3Step0Highlights": "ㅗ,오,横型元音",
+  "hangulS1L3Step1Title": "听ㅗ的读音",
+  "hangulS1L3Step1Desc": "听听含有ㅗ的读音（오/고/노）",
+  "hangulS1L3Step2Title": "发音练习",
+  "hangulS1L3Step2Desc": "请大声朗读这些文字",
+  "hangulS1L3Step3Title": "选出ㅗ的读音",
+  "hangulS1L3Step3Desc": "区分오/우的读音",
+  "hangulS1L3Step4Title": "用ㅗ组字",
+  "hangulS1L3Step4Desc": "将辅音与ㅗ组合",
+  "hangulS1L3Step5Title": "形状与读音测验",
+  "hangulS1L3Step5Desc": "准确选出ㅗ",
+  "hangulS1L3Step5Q0": "以下哪个是ㅗ？",
+  "hangulS1L3Step5Q1": "ㅇ + ㅗ = ?",
+  "hangulS1L3Step5Q2": "以下哪个含有ㅗ？",
+  "hangulS1L3Step6Title": "课程完成！",
+  "hangulS1L3Step6Msg": "很好！\n你学会了ㅗ(오)的读音。",
+  "hangulS1L4Title": "ㅜ的形状与读音",
+  "hangulS1L4Subtitle": "横线下方竖画: ㅜ",
+  "hangulS1L4Step0Title": "第四个元音ㅜ",
+  "hangulS1L4Step0Desc": "ㅜ发出\"우\"的音。\n竖画位置与ㅗ相反。",
+  "hangulS1L4Step0Highlights": "ㅜ,우,与ㅗ位置对比",
+  "hangulS1L4Step1Title": "听ㅜ的读音",
+  "hangulS1L4Step1Desc": "听听우/구/누",
+  "hangulS1L4Step2Title": "发音练习",
+  "hangulS1L4Step2Desc": "请大声朗读这些文字",
+  "hangulS1L4Step3Title": "选出ㅜ的读音",
+  "hangulS1L4Step3Desc": "区分ㅗ/ㅜ",
+  "hangulS1L4Step4Title": "用ㅜ组字",
+  "hangulS1L4Step4Desc": "将辅音与ㅜ组合",
+  "hangulS1L4Step5Title": "形状与读音测验",
+  "hangulS1L4Step5Desc": "准确选出ㅜ",
+  "hangulS1L4Step5Q0": "以下哪个是ㅜ？",
+  "hangulS1L4Step5Q1": "ㅇ + ㅜ = ?",
+  "hangulS1L4Step5Q2": "以下哪个含有ㅜ？",
+  "hangulS1L4Step6Title": "课程完成！",
+  "hangulS1L4Step6Msg": "很好！\n你学会了ㅜ(우)的读音。",
+  "hangulS1L5Title": "ㅡ的形状与读音",
+  "hangulS1L5Subtitle": "单横线元音: ㅡ",
+  "hangulS1L5Step0Title": "第五个元音ㅡ",
+  "hangulS1L5Step0Desc": "ㅡ是嘴巴横向拉伸发出的音。\n形状是一条横线。",
+  "hangulS1L5Step0Highlights": "ㅡ,으,单横线",
+  "hangulS1L5Step1Title": "听ㅡ的读音",
+  "hangulS1L5Step1Desc": "听听으/그/느的读音",
+  "hangulS1L5Step2Title": "发音练习",
+  "hangulS1L5Step2Desc": "请大声朗读这些文字",
+  "hangulS1L5Step3Title": "选出ㅡ的读音",
+  "hangulS1L5Step3Desc": "区分ㅡ和ㅜ的读音",
+  "hangulS1L5Step4Title": "用ㅡ组字",
+  "hangulS1L5Step4Desc": "将辅音与ㅡ组合",
+  "hangulS1L5Step5Title": "形状与读音测验",
+  "hangulS1L5Step5Desc": "准确选出ㅡ",
+  "hangulS1L5Step5Q0": "以下哪个是ㅡ？",
+  "hangulS1L5Step5Q1": "ㅇ + ㅡ = ?",
+  "hangulS1L5Step5Q2": "以下哪个含有ㅡ？",
+  "hangulS1L5Step6Title": "课程完成！",
+  "hangulS1L5Step6Msg": "很好！\n你学会了ㅡ(으)的读音。",
+  "hangulS1L6Title": "ㅣ的形状与读音",
+  "hangulS1L6Subtitle": "单竖线元音: ㅣ",
+  "hangulS1L6Step0Title": "第六个元音ㅣ",
+  "hangulS1L6Step0Desc": "ㅣ发出\"이\"的音。\n形状是一条竖线。",
+  "hangulS1L6Step0Highlights": "ㅣ,이,单竖线",
+  "hangulS1L6Step1Title": "听ㅣ的读音",
+  "hangulS1L6Step1Desc": "听听이/기/니的读音",
+  "hangulS1L6Step2Title": "发音练习",
+  "hangulS1L6Step2Desc": "请大声朗读这些文字",
+  "hangulS1L6Step3Title": "选出ㅣ的读音",
+  "hangulS1L6Step3Desc": "区分ㅣ和ㅡ的读音",
+  "hangulS1L6Step4Title": "用ㅣ组字",
+  "hangulS1L6Step4Desc": "将辅音与ㅣ组合",
+  "hangulS1L6Step5Title": "形状与读音测验",
+  "hangulS1L6Step5Desc": "准确选出ㅣ",
+  "hangulS1L6Step5Q0": "以下哪个是ㅣ？",
+  "hangulS1L6Step5Q1": "ㅇ + ㅣ = ?",
+  "hangulS1L6Step5Q2": "以下哪个含有ㅣ？",
+  "hangulS1L6Step6Title": "课程完成！",
+  "hangulS1L6Step6Msg": "很好！\n你学会了ㅣ(이)的读音。",
+  "hangulS1L7Title": "竖向元音区分",
+  "hangulS1L7Subtitle": "快速区分 ㅏ · ㅓ · ㅣ",
+  "hangulS1L7Step0Title": "竖向元音组复习",
+  "hangulS1L7Step0Desc": "ㅏ、ㅓ、ㅣ 是竖轴元音。\n一起区分笔画位置和发音。",
+  "hangulS1L7Step0Highlights": "ㅏ,ㅓ,ㅣ,竖向元音",
+  "hangulS1L7Step1Title": "再听一遍",
+  "hangulS1L7Step1Desc": "确认 아/어/이 的发音",
+  "hangulS1L7Step2Title": "发音练习",
+  "hangulS1L7Step2Desc": "请大声朗读每个文字",
+  "hangulS1L7Step3Title": "竖向元音听力测验",
+  "hangulS1L7Step3Desc": "将声音与正确文字对应",
+  "hangulS1L7Step4Title": "竖向元音形状测验",
+  "hangulS1L7Step4Desc": "精确区分各自的形状",
+  "hangulS1L7Step4Q0": "右侧有短笔画的是？",
+  "hangulS1L7Step4Q1": "左侧有短笔画的是？",
+  "hangulS1L7Step4Q2": "单竖线是？",
+  "hangulS1L7Step4Q3": "ㄴ + ㅓ = ?",
+  "hangulS1L7Step4Q4": "ㄱ + ㅣ = ?",
+  "hangulS1L7Step5Title": "课程完成！",
+  "hangulS1L7Step5Msg": "很好！\n竖向元音（ㅏ/ㅓ/ㅣ）的区分已经稳固了。",
+  "hangulS1L8Title": "横向元音区分",
+  "hangulS1L8Subtitle": "快速区分 ㅗ · ㅜ · ㅡ",
+  "hangulS1L8Step0Title": "横向元音组复习",
+  "hangulS1L8Step0Desc": "ㅗ、ㅜ、ㅡ 是以横轴为中心的元音。\n一起记住竖画位置和嘴型。",
+  "hangulS1L8Step0Highlights": "ㅗ,ㅜ,ㅡ,横向元音",
+  "hangulS1L8Step1Title": "再听一遍",
+  "hangulS1L8Step1Desc": "确认 오/우/으 的发音",
+  "hangulS1L8Step2Title": "发音练习",
+  "hangulS1L8Step2Desc": "请大声朗读每个文字",
+  "hangulS1L8Step3Title": "横向元音听力测验",
+  "hangulS1L8Step3Desc": "将声音与正确文字对应",
+  "hangulS1L8Step4Title": "横向元音形状测验",
+  "hangulS1L8Step4Desc": "一起检查形状和发音",
+  "hangulS1L8Step4Q0": "竖画在横线上方的是？",
+  "hangulS1L8Step4Q1": "竖画在横线下方的是？",
+  "hangulS1L8Step4Q2": "单横线是？",
+  "hangulS1L8Step4Q3": "ㄱ + ㅗ = ?",
+  "hangulS1L8Step4Q4": "ㄴ + ㅜ = ?",
+  "hangulS1L8Step5Title": "课程完成！",
+  "hangulS1L8Step5Msg": "很好！\n横向元音（ㅗ/ㅜ/ㅡ）的区分已经稳固了。",
+  "hangulS1L9Title": "基本元音任务",
+  "hangulS1L9Subtitle": "在时间限制内完成元音组合",
+  "hangulS1L9Step0Title": "第1阶段最终任务",
+  "hangulS1L9Step0Desc": "在限定时间内完成文字组合。\n以准确率和速度获得柠檬奖励！",
+  "hangulS1L9Step1Title": "限时任务",
+  "hangulS1L9Step2Title": "任务结果",
+  "hangulS1L9Step3Title": "第1阶段完成！",
+  "hangulS1L9Step3Msg": "恭喜！\n第1阶段的基本元音全部完成了。",
+  "hangulS1L10Title": "第一批韩语单词！",
+  "hangulS1L10Subtitle": "用学过的文字阅读真实单词",
+  "hangulS1L10Step0Title": "现在可以读单词了！",
+  "hangulS1L10Step0Desc": "学会了元音和基本辅音，\n来读一读真实的韩语单词吧？",
+  "hangulS1L10Step0Highlights": "真实单词,阅读挑战",
+  "hangulS1L10Step1Title": "阅读第一批单词",
+  "hangulS1L10Step1Descs": "孩子,牛奶,黄瓜,这/牙齿,弟弟",
+  "hangulS1L10Step2Title": "发音练习",
+  "hangulS1L10Step2Desc": "请大声朗读每个文字",
+  "hangulS1L10Step3Title": "听一听，选一选",
+  "hangulS1L10Step4Title": "太棒了！",
+  "hangulS1L10Step4Msg": "你读出了韩语单词！\n再学更多辅音，\n就能读更多单词了。",
+  "hangulS1CompleteTitle": "第1阶段完成！",
+  "hangulS1CompleteMsg": "你已掌握全部6个基本元音！",
+  "hangulS2L1Title": "ㅑ的形状与发音",
+  "hangulS2L1Subtitle": "ㅏ加一笔: ㅑ",
+  "hangulS2L1Step0Title": "ㅏ变成ㅑ",
+  "hangulS2L1Step0Desc": "在ㅏ上加一笔就得到ㅑ。\n发音从\"啊\"变成更有弹性的\"呀\"。",
+  "hangulS2L1Step0Highlights": "ㅏ → ㅑ,야,Y元音",
+  "hangulS2L1Step1Title": "听ㅑ的发音",
+  "hangulS2L1Step1Desc": "听听야/갸/냐的发音",
+  "hangulS2L1Step2Title": "发音练习",
+  "hangulS2L1Step2Desc": "大声朗读每个字",
+  "hangulS2L1Step3Title": "听辨ㅏ vs ㅑ",
+  "hangulS2L1Step3Desc": "区分相似的发音",
+  "hangulS2L1Step4Title": "用ㅑ组成音节",
+  "hangulS2L1Step4Desc": "完成辅音 + ㅑ 的组合",
+  "hangulS2L1Step5Title": "形状与发音测验",
+  "hangulS2L1Step5Desc": "准确选出ㅑ",
+  "hangulS2L1Step5Q0": "以下哪个是ㅑ？",
+  "hangulS2L1Step5Q1": "ㅇ + ㅑ = ?",
+  "hangulS2L1Step5Q2": "以下哪个含有ㅑ？",
+  "hangulS2L1Step6Title": "课程完成！",
+  "hangulS2L1Step6Msg": "太棒了！\n你已掌握ㅑ（야）的发音。",
+  "hangulS2L2Title": "ㅕ的形状与发音",
+  "hangulS2L2Subtitle": "ㅓ加一笔: ㅕ",
+  "hangulS2L2Step0Title": "ㅓ变成ㅕ",
+  "hangulS2L2Step0Desc": "在ㅓ上加一笔就得到ㅕ。\n发音从\"呃\"变成\"耶\"。",
+  "hangulS2L2Step0Highlights": "ㅓ → ㅕ,여,Y元音",
+  "hangulS2L2Step1Title": "听ㅕ的发音",
+  "hangulS2L2Step1Desc": "听听여/겨/녀的发音",
+  "hangulS2L2Step2Title": "发音练习",
+  "hangulS2L2Step2Desc": "大声朗读每个字",
+  "hangulS2L2Step3Title": "听辨ㅓ vs ㅕ",
+  "hangulS2L2Step3Desc": "区分어和여",
+  "hangulS2L2Step4Title": "用ㅕ组成音节",
+  "hangulS2L2Step4Desc": "完成辅音 + ㅕ 的组合",
+  "hangulS2L2Step5Title": "课程完成！",
+  "hangulS2L2Step5Msg": "太棒了！\n你已掌握ㅕ（여）的发音。",
+  "hangulS2L3Title": "ㅛ的形状与发音",
+  "hangulS2L3Subtitle": "ㅗ加一笔: ㅛ",
+  "hangulS2L3Step0Title": "ㅗ变成ㅛ",
+  "hangulS2L3Step0Desc": "在ㅗ上加一笔就得到ㅛ。\n发音从\"哦\"变成\"哟\"。",
+  "hangulS2L3Step0Highlights": "ㅗ → ㅛ,요,Y元音",
+  "hangulS2L3Step1Title": "听ㅛ的发音",
+  "hangulS2L3Step1Desc": "听听요/교/뇨的发音",
+  "hangulS2L3Step2Title": "发音练习",
+  "hangulS2L3Step2Desc": "大声朗读每个字",
+  "hangulS2L3Step3Title": "听辨ㅗ vs ㅛ",
+  "hangulS2L3Step3Desc": "区分오和요",
+  "hangulS2L3Step4Title": "用ㅛ组成音节",
+  "hangulS2L3Step4Desc": "完成辅音 + ㅛ 的组合",
+  "hangulS2L3Step5Title": "课程完成！",
+  "hangulS2L3Step5Msg": "太棒了！\n你已掌握ㅛ（요）的发音。",
+  "hangulS2L4Title": "ㅠ的形状与发音",
+  "hangulS2L4Subtitle": "ㅜ加一笔: ㅠ",
+  "hangulS2L4Step0Title": "ㅜ变成ㅠ",
+  "hangulS2L4Step0Desc": "在ㅜ上加一笔就得到ㅠ。\n发音从\"呜\"变成\"鱼\"。",
+  "hangulS2L4Step0Highlights": "ㅜ → ㅠ,유,Y元音",
+  "hangulS2L4Step1Title": "听ㅠ的发音",
+  "hangulS2L4Step1Desc": "听听유/규/뉴的发音",
+  "hangulS2L4Step2Title": "发音练习",
+  "hangulS2L4Step2Desc": "大声朗读每个字",
+  "hangulS2L4Step3Title": "听辨ㅜ vs ㅠ",
+  "hangulS2L4Step3Desc": "区分우和유",
+  "hangulS2L4Step4Title": "用ㅠ组成音节",
+  "hangulS2L4Step4Desc": "完成辅音 + ㅠ 的组合",
+  "hangulS2L4Step5Title": "课程完成！",
+  "hangulS2L4Step5Msg": "太棒了！\n你已掌握ㅠ（유）的发音。",
+  "hangulS2L5Title": "Y元音组合训练",
+  "hangulS2L5Subtitle": "ㅑ · ㅕ · ㅛ · ㅠ 强化训练",
+  "hangulS2L5Step0Title": "一次看清所有Y元音",
+  "hangulS2L5Step0Desc": "ㅑ/ㅕ/ㅛ/ㅠ是基础元音加一笔的元音。\n快速区分它们的形状和发音。",
+  "hangulS2L5Step0Highlights": "ㅑ,ㅕ,ㅛ,ㅠ",
+  "hangulS2L5Step1Title": "再听四个发音",
+  "hangulS2L5Step1Desc": "复习야/여/요/유的发音",
+  "hangulS2L5Step2Title": "发音练习",
+  "hangulS2L5Step2Desc": "大声朗读每个字",
+  "hangulS2L5Step3Title": "发音辨别测验",
+  "hangulS2L5Step3Desc": "区分Y元音的发音",
+  "hangulS2L5Step4Title": "形状辨别测验",
+  "hangulS2L5Step4Desc": "准确区分形状",
+  "hangulS2L5Step4Q0": "以下哪个是ㅑ？",
+  "hangulS2L5Step4Q1": "以下哪个是ㅕ？",
+  "hangulS2L5Step4Q2": "以下哪个是ㅛ？",
+  "hangulS2L5Step4Q3": "以下哪个是ㅠ？",
+  "hangulS2L5Step5Title": "课程完成！",
+  "hangulS2L5Step5Msg": "太棒了！\n你对4个Y元音的区分越来越好了。",
+  "hangulS2L6Title": "基础元音 vs Y元音对比",
+  "hangulS2L6Subtitle": "ㅏ/ㅑ · ㅓ/ㅕ · ㅗ/ㅛ · ㅜ/ㅠ",
+  "hangulS2L6Step0Title": "整理容易混淆的配对",
+  "hangulS2L6Step0Desc": "将基础元音和Y元音配对比较。",
+  "hangulS2L6Step0Highlights": "ㅏ/ㅑ,ㅓ/ㅕ,ㅗ/ㅛ,ㅜ/ㅠ",
+  "hangulS2L6Step1Title": "配对发音辨别",
+  "hangulS2L6Step1Desc": "从相似的发音中选出正确答案",
+  "hangulS2L6Step2Title": "配对形状辨别",
+  "hangulS2L6Step2Desc": "判断是否有额外的一笔",
+  "hangulS2L6Step2Q0": "哪个元音加了一笔？",
+  "hangulS2L6Step2Q1": "哪个元音加了一笔？",
+  "hangulS2L6Step2Q2": "哪个元音加了一笔？",
+  "hangulS2L6Step2Q3": "哪个元音加了一笔？",
+  "hangulS2L6Step2Q4": "ㅇ + ㅠ = ?",
+  "hangulS2L6Step3Title": "课程完成！",
+  "hangulS2L6Step3Msg": "太棒了！\n基础元音/Y元音对比已经稳定了。",
+  "hangulS2L7Title": "Y元音任务",
+  "hangulS2L7Subtitle": "在限时内完成Y元音组合",
+  "hangulS2L7Step0Title": "第2阶段最终任务",
+  "hangulS2L7Step0Desc": "快速准确地完成Y元音组合。\n完成数和时间决定你的柠檬奖励。",
+  "hangulS2L7Step1Title": "限时任务",
+  "hangulS2L7Step2Title": "任务结果",
+  "hangulS2L7Step3Title": "第2阶段完成！",
+  "hangulS2L7Step3Msg": "恭喜！\n你已完成第2阶段所有Y元音。",
+  "hangulS2CompleteTitle": "第2阶段完成！",
+  "hangulS2CompleteMsg": "你已征服Y元音！",
+  "hangulS3L1Title": "ㅐ的形状和发音",
+  "hangulS3L1Subtitle": "感受ㅏ + ㅣ的组合感觉",
+  "hangulS3L1Step0Title": "ㅐ是这个样子",
+  "hangulS3L1Step0Desc": "ㅐ是从ㅏ系列派生的元音。\n以\"애\"为代表音来记忆。",
+  "hangulS3L1Step0Highlights": "ㅐ,애,形状识别",
+  "hangulS3L1Step1Title": "听ㅐ的发音",
+  "hangulS3L1Step1Desc": "听听애/개/내的发音",
+  "hangulS3L1Step2Title": "发音练习",
+  "hangulS3L1Step2Desc": "请直接把文字发出声来",
+  "hangulS3L1Step3Title": "听辨ㅏ vs ㅐ",
+  "hangulS3L1Step3Desc": "区分아/애",
+  "hangulS3L1Step4Title": "课程完成！",
+  "hangulS3L1Step4Msg": "很好！\n已掌握ㅐ(애)的形状和发音。",
+  "hangulS3L2Title": "ㅔ的形状和发音",
+  "hangulS3L2Subtitle": "感受ㅓ + ㅣ的组合感觉",
+  "hangulS3L2Step0Title": "ㅔ是这个样子",
+  "hangulS3L2Step0Desc": "ㅔ是从ㅓ系列派生的元音。\n以\"에\"为代表音来记忆。",
+  "hangulS3L2Step0Highlights": "ㅔ,에,形状识别",
+  "hangulS3L2Step1Title": "听ㅔ的发音",
+  "hangulS3L2Step1Desc": "听听에/게/네的发音",
+  "hangulS3L2Step2Title": "发音练习",
+  "hangulS3L2Step2Desc": "请直接把文字发出声来",
+  "hangulS3L2Step3Title": "听辨ㅓ vs ㅔ",
+  "hangulS3L2Step3Desc": "区分어/에",
+  "hangulS3L2Step4Title": "课程完成！",
+  "hangulS3L2Step4Msg": "很好！\n已掌握ㅔ(에)的形状和发音。",
+  "hangulS3L3Title": "区分ㅐ vs ㅔ",
+  "hangulS3L3Subtitle": "以形状为中心的区分训练",
+  "hangulS3L3Step0Title": "关键在于区分形状",
+  "hangulS3L3Step0Desc": "在初级阶段，ㅐ/ㅔ听起来可能很相似。\n所以先准确区分它们的形状。",
+  "hangulS3L3Step0Highlights": "ㅐ,ㅔ,形状区分",
+  "hangulS3L3Step1Title": "形状区分测验",
+  "hangulS3L3Step1Desc": "准确选择ㅐ和ㅔ",
+  "hangulS3L3Step1Q0": "下列哪个是ㅐ？",
+  "hangulS3L3Step1Q1": "下列哪个是ㅔ？",
+  "hangulS3L3Step1Q2": "ㅇ + ㅐ = ?",
+  "hangulS3L3Step1Q3": "ㅇ + ㅔ = ?",
+  "hangulS3L3Step2Title": "课程完成！",
+  "hangulS3L3Step2Msg": "很好！\nㅐ/ㅔ的区分更准确了。",
+  "hangulS3L4Title": "ㅒ的形状和发音",
+  "hangulS3L4Subtitle": "Y-ㅐ系列元音",
+  "hangulS3L4Step0Title": "来学ㅒ吧",
+  "hangulS3L4Step0Desc": "ㅒ是ㅐ系列的Y元音。\n代表音是\"얘\"。",
+  "hangulS3L4Step0Highlights": "ㅒ,얘",
+  "hangulS3L4Step1Title": "听ㅒ的发音",
+  "hangulS3L4Step1Desc": "听听얘/걔/냬的发音",
+  "hangulS3L4Step2Title": "发音练习",
+  "hangulS3L4Step2Desc": "请直接把文字发出声来",
+  "hangulS3L4Step3Title": "课程完成！",
+  "hangulS3L4Step3Msg": "很好！\n已掌握ㅒ(얘)的形状。",
+  "hangulS3L5Title": "ㅖ的形状和发音",
+  "hangulS3L5Subtitle": "Y-ㅔ系列元音",
+  "hangulS3L5Step0Title": "来学ㅖ吧",
+  "hangulS3L5Step0Desc": "ㅖ是ㅔ系列的Y元音。\n代表音是\"예\"。",
+  "hangulS3L5Step0Highlights": "ㅖ,예",
+  "hangulS3L5Step1Title": "听ㅖ的发音",
+  "hangulS3L5Step1Desc": "听听예/계/녜的发音",
+  "hangulS3L5Step2Title": "发音练习",
+  "hangulS3L5Step2Desc": "请直接把文字发出声来",
+  "hangulS3L5Step3Title": "课程完成！",
+  "hangulS3L5Step3Msg": "很好！\n已掌握ㅖ(예)的形状。",
+  "hangulS3L6Title": "ㅐ/ㅔ系列综合复习",
+  "hangulS3L6Subtitle": "ㅐ ㅔ ㅒ ㅖ综合检验",
+  "hangulS3L6Step0Title": "一次性区分四种",
+  "hangulS3L6Step0Desc": "同时用形状和发音来检验ㅐ/ㅔ/ㅒ/ㅖ。",
+  "hangulS3L6Step0Highlights": "ㅐ,ㅔ,ㅒ,ㅖ",
+  "hangulS3L6Step1Title": "声音区分",
+  "hangulS3L6Step1Desc": "从相似的声音中选出正确答案",
+  "hangulS3L6Step2Title": "形状区分",
+  "hangulS3L6Step2Desc": "看形状，快速选择",
+  "hangulS3L6Step2Q0": "下列哪个属于Y-ㅐ系列？",
+  "hangulS3L6Step2Q1": "下列哪个属于Y-ㅔ系列？",
+  "hangulS3L6Step2Q2": "ㅇ + ㅖ = ?",
+  "hangulS3L6Step3Title": "课程完成！",
+  "hangulS3L6Step3Msg": "很好！\n第3阶段核心元音的区分已经稳固了。",
+  "hangulS3L7Title": "第3阶段任务",
+  "hangulS3L7Subtitle": "快速区分任务：ㅐ/ㅔ系列",
+  "hangulS3L7Step0Title": "第3阶段最终任务",
+  "hangulS3L7Step0Desc": "快速准确地完成ㅐ/ㅔ系列的组合。",
+  "hangulS3L7Step1Title": "限时任务",
+  "hangulS3L7Step2Title": "任务结果",
+  "hangulS3L7Step3Title": "第3阶段完成！",
+  "hangulS3L7Step3Msg": "恭喜！\n已完成第3阶段全部ㅐ/ㅔ系列元音。",
+  "hangulS3L7Step4Title": "第3阶段完成！",
+  "hangulS3L7Step4Msg": "已学完所有元音！",
+  "hangulS3CompleteTitle": "第3阶段完成！",
+  "hangulS3CompleteMsg": "已学完所有元音！",
+  "hangulS4L1Title": "ㄱ的形状与发音",
+  "hangulS4L1Subtitle": "基本辅音的开始：ㄱ",
+  "hangulS4L1Step0Title": "来学ㄱ吧",
+  "hangulS4L1Step0Desc": "ㄱ是基本辅音的开始。\n与ㅏ组合发出「가」的音。",
+  "hangulS4L1Step0Highlights": "ㄱ,가,基本辅音",
+  "hangulS4L1Step1Title": "听ㄱ的发音",
+  "hangulS4L1Step1Desc": "听听가/고/구的发音",
+  "hangulS4L1Step2Title": "发音练习",
+  "hangulS4L1Step2Desc": "试着大声读出这些字",
+  "hangulS4L1Step3Title": "选出ㄱ的发音",
+  "hangulS4L1Step3Desc": "听音选出正确的字",
+  "hangulS4L1Step4Title": "用ㄱ组合文字",
+  "hangulS4L1Step4Desc": "尝试ㄱ＋元音的组合",
+  "hangulS4L1SummaryTitle": "课程完成！",
+  "hangulS4L1SummaryMsg": "很棒！\n你已经掌握了ㄱ的发音和形状。",
+  "hangulS4L2Title": "ㄴ的形状与发音",
+  "hangulS4L2Subtitle": "第二个基本辅音：ㄴ",
+  "hangulS4L2Step0Title": "来学ㄴ吧",
+  "hangulS4L2Step0Desc": "ㄴ构成「나」系列发音。",
+  "hangulS4L2Step0Highlights": "ㄴ,나",
+  "hangulS4L2Step1Title": "听ㄴ的发音",
+  "hangulS4L2Step1Desc": "听听나/노/누的发音",
+  "hangulS4L2Step2Title": "发音练习",
+  "hangulS4L2Step2Desc": "试着大声读出这些字",
+  "hangulS4L2Step3Title": "选出ㄴ的发音",
+  "hangulS4L2Step3Desc": "区分나/다",
+  "hangulS4L2Step4Title": "用ㄴ组合文字",
+  "hangulS4L2Step4Desc": "尝试ㄴ＋元音的组合",
+  "hangulS4L2SummaryTitle": "课程完成！",
+  "hangulS4L2SummaryMsg": "很棒！\n你已经掌握了ㄴ的发音和形状。",
+  "hangulS4L3Title": "ㄷ的形状与发音",
+  "hangulS4L3Subtitle": "第三个基本辅音：ㄷ",
+  "hangulS4L3Step0Title": "来学ㄷ吧",
+  "hangulS4L3Step0Desc": "ㄷ构成「다」系列发音。",
+  "hangulS4L3Step0Highlights": "ㄷ,다",
+  "hangulS4L3Step1Title": "听ㄷ的发音",
+  "hangulS4L3Step1Desc": "听听다/도/두的发音",
+  "hangulS4L3Step2Title": "发音练习",
+  "hangulS4L3Step2Desc": "试着大声读出这些字",
+  "hangulS4L3Step3Title": "选出ㄷ的发音",
+  "hangulS4L3Step3Desc": "区分다/나",
+  "hangulS4L3Step4Title": "用ㄷ组合文字",
+  "hangulS4L3Step4Desc": "尝试ㄷ＋元音的组合",
+  "hangulS4L3SummaryTitle": "课程完成！",
+  "hangulS4L3SummaryMsg": "很棒！\n你已经掌握了ㄷ的发音和形状。",
+  "hangulS4L4Title": "ㄹ的形状与发音",
+  "hangulS4L4Subtitle": "第四个基本辅音：ㄹ",
+  "hangulS4L4Step0Title": "来学ㄹ吧",
+  "hangulS4L4Step0Desc": "ㄹ构成「라」系列发音。",
+  "hangulS4L4Step0Highlights": "ㄹ,라",
+  "hangulS4L4Step1Title": "听ㄹ的发音",
+  "hangulS4L4Step1Desc": "听听라/로/루的发音",
+  "hangulS4L4Step2Title": "发音练习",
+  "hangulS4L4Step2Desc": "试着大声读出这些字",
+  "hangulS4L4Step3Title": "选出ㄹ的发音",
+  "hangulS4L4Step3Desc": "区分라/나",
+  "hangulS4L4Step4Title": "用ㄹ组合文字",
+  "hangulS4L4Step4Desc": "尝试ㄹ＋元音的组合",
+  "hangulS4L4SummaryTitle": "课程完成！",
+  "hangulS4L4SummaryMsg": "很棒！\n你已经掌握了ㄹ的发音和形状。",
+  "hangulS4L5Title": "ㅁ的形状与发音",
+  "hangulS4L5Subtitle": "第五个基本辅音：ㅁ",
+  "hangulS4L5Step0Title": "来学ㅁ吧",
+  "hangulS4L5Step0Desc": "ㅁ构成「마」系列发音。",
+  "hangulS4L5Step0Highlights": "ㅁ,마",
+  "hangulS4L5Step1Title": "听ㅁ的发音",
+  "hangulS4L5Step1Desc": "听听마/모/무的发音",
+  "hangulS4L5Step2Title": "发音练习",
+  "hangulS4L5Step2Desc": "试着大声读出这些字",
+  "hangulS4L5Step3Title": "选出ㅁ的发音",
+  "hangulS4L5Step3Desc": "区分마/바",
+  "hangulS4L5Step4Title": "用ㅁ组合文字",
+  "hangulS4L5Step4Desc": "尝试ㅁ＋元音的组合",
+  "hangulS4L5SummaryTitle": "课程完成！",
+  "hangulS4L5SummaryMsg": "很棒！\n你已经掌握了ㅁ的发音和形状。",
+  "hangulS4L6Title": "ㅂ的形状与发音",
+  "hangulS4L6Subtitle": "第六个基本辅音：ㅂ",
+  "hangulS4L6Step0Title": "来学ㅂ吧",
+  "hangulS4L6Step0Desc": "ㅂ构成「바」系列发音。",
+  "hangulS4L6Step0Highlights": "ㅂ,바",
+  "hangulS4L6Step1Title": "听ㅂ的发音",
+  "hangulS4L6Step1Desc": "听听바/보/부的发音",
+  "hangulS4L6Step2Title": "发音练习",
+  "hangulS4L6Step2Desc": "试着大声读出这些字",
+  "hangulS4L6Step3Title": "选出ㅂ的发音",
+  "hangulS4L6Step3Desc": "区分바/마",
+  "hangulS4L6Step4Title": "用ㅂ组合文字",
+  "hangulS4L6Step4Desc": "尝试ㅂ＋元音的组合",
+  "hangulS4L6SummaryTitle": "课程完成！",
+  "hangulS4L6SummaryMsg": "很棒！\n你已经掌握了ㅂ的发音和形状。",
+  "hangulS4L7Title": "ㅅ的形状与发音",
+  "hangulS4L7Subtitle": "第七个基本辅音：ㅅ",
+  "hangulS4L7Step0Title": "来学ㅅ吧",
+  "hangulS4L7Step0Desc": "ㅅ构成「사」系列发音。",
+  "hangulS4L7Step0Highlights": "ㅅ,사",
+  "hangulS4L7Step1Title": "听ㅅ的发音",
+  "hangulS4L7Step1Desc": "听听사/소/수的发音",
+  "hangulS4L7Step2Title": "发音练习",
+  "hangulS4L7Step2Desc": "试着大声读出这些字",
+  "hangulS4L7Step3Title": "选出ㅅ的发音",
+  "hangulS4L7Step3Desc": "区分사/자",
+  "hangulS4L7Step4Title": "用ㅅ组合文字",
+  "hangulS4L7Step4Desc": "尝试ㅅ＋元音的组合",
+  "hangulS4L7SummaryTitle": "第4阶段完成！",
+  "hangulS4L7SummaryMsg": "恭喜！\n你完成了第4阶段基本辅音1（ㄱ~ㅅ）。",
+  "hangulS4L8Title": "单词阅读挑战！",
+  "hangulS4L8Subtitle": "用辅音和元音读单词",
+  "hangulS4L8Step0Title": "现在你能读更多单词了！",
+  "hangulS4L8Step0Desc": "你已经学完了全部7个基本辅音和元音。\n来读读由这些字组成的真实单词吧？",
+  "hangulS4L8Step0Highlights": "7个辅音,元音,真实单词",
+  "hangulS4L8Step1Title": "读单词",
+  "hangulS4L8Step1Descs": "树,海,蝴蝶,帽子,家具,豆腐",
+  "hangulS4L8Step2Title": "发音练习",
+  "hangulS4L8Step2Desc": "试着大声读出这些字",
+  "hangulS4L8Step3Title": "听后选出",
+  "hangulS4L8Step4Title": "是什么意思？",
+  "hangulS4L8Step4Q0": "\"나비\"的中文是？",
+  "hangulS4L8Step4Q1": "\"바다\"的中文是？",
+  "hangulS4L8SummaryTitle": "太棒了！",
+  "hangulS4L8SummaryMsg": "你读了6个韩文单词！\n继续学习更多辅音，就能读出更多单词。",
+  "hangulS4LMTitle": "任务：基本辅音组合！",
+  "hangulS4LMSubtitle": "在时间限制内组合音节",
+  "hangulS4LMStep0Title": "任务开始！",
+  "hangulS4LMStep0Desc": "将基本辅音ㄱ~ㅅ与元音组合。\n在限定时间内达成目标！",
+  "hangulS4LMStep1Title": "来组合音节吧！",
+  "hangulS4LMStep2Title": "任务结果",
+  "hangulS4LMSummaryTitle": "任务完成！",
+  "hangulS4LMSummaryMsg": "你可以自由组合全部7个基本辅音了！",
+  "hangulS4CompleteTitle": "第4阶段完成！",
+  "hangulS4CompleteMsg": "你已掌握全部7个基本辅音！",
+  "hangulS5L1Title": "理解ㅇ的位置",
+  "hangulS5L1Subtitle": "学习初声ㅇ的读法",
+  "hangulS5L1Step0Title": "ㅇ是特殊辅音",
+  "hangulS5L1Step0Desc": "初声ㅇ几乎没有声音，\n与元音结合后读作아/오/우。",
+  "hangulS5L1Step0Highlights": "ㅇ,아,初声位置",
+  "hangulS5L1Step1Title": "聆听ㅇ的组合音",
+  "hangulS5L1Step1Desc": "听一听아/오/우的发音",
+  "hangulS5L1Step2Title": "发音练习",
+  "hangulS5L1Step2Desc": "大声朗读每个文字",
+  "hangulS5L1Step3Title": "用ㅇ组字",
+  "hangulS5L1Step3Desc": "组合ㅇ + 元音",
+  "hangulS5L1Step4Title": "课程完成！",
+  "hangulS5L1Step4Msg": "太棒了！\n你已经理解了ㅇ的用法。",
+  "hangulS5L2Title": "ㅈ的形状与发音",
+  "hangulS5L2Subtitle": "ㅈ的基础读法",
+  "hangulS5L2Step0Title": "学习ㅈ",
+  "hangulS5L2Step0Desc": "ㅈ产生「자」系列的音。",
+  "hangulS5L2Step0Highlights": "ㅈ,자",
+  "hangulS5L2Step1Title": "聆听ㅈ的发音",
+  "hangulS5L2Step1Desc": "听一听자/조/주",
+  "hangulS5L2Step2Title": "发音练习",
+  "hangulS5L2Step2Desc": "大声朗读每个文字",
+  "hangulS5L2Step3Title": "选出ㅈ的音",
+  "hangulS5L2Step3Desc": "区分자和사",
+  "hangulS5L2Step4Title": "用ㅈ组字",
+  "hangulS5L2Step4Desc": "组合ㅈ + 元音",
+  "hangulS5L2Step5Title": "课程完成！",
+  "hangulS5L2Step5Msg": "太棒了！\n你已经学会了ㅈ的发音和形状。",
+  "hangulS5L3Title": "ㅊ的形状与发音",
+  "hangulS5L3Subtitle": "ㅊ的基础读法",
+  "hangulS5L3Step0Title": "学习ㅊ",
+  "hangulS5L3Step0Desc": "ㅊ产生「차」系列的音。",
+  "hangulS5L3Step0Highlights": "ㅊ,차",
+  "hangulS5L3Step1Title": "聆听ㅊ的发音",
+  "hangulS5L3Step1Desc": "听一听차/초/추",
+  "hangulS5L3Step2Title": "发音练习",
+  "hangulS5L3Step2Desc": "大声朗读每个文字",
+  "hangulS5L3Step3Title": "选出ㅊ的音",
+  "hangulS5L3Step3Desc": "区分차和자",
+  "hangulS5L3Step4Title": "课程完成！",
+  "hangulS5L3Step4Msg": "太棒了！\n你已经学会了ㅊ的发音和形状。",
+  "hangulS5L4Title": "ㅋ的形状与发音",
+  "hangulS5L4Subtitle": "ㅋ的基础读法",
+  "hangulS5L4Step0Title": "学习ㅋ",
+  "hangulS5L4Step0Desc": "ㅋ产生「카」系列的音。",
+  "hangulS5L4Step0Highlights": "ㅋ,카",
+  "hangulS5L4Step1Title": "聆听ㅋ的发音",
+  "hangulS5L4Step1Desc": "听一听카/코/쿠",
+  "hangulS5L4Step2Title": "发音练习",
+  "hangulS5L4Step2Desc": "大声朗读每个文字",
+  "hangulS5L4Step3Title": "选出ㅋ的音",
+  "hangulS5L4Step3Desc": "区分카和가",
+  "hangulS5L4Step4Title": "课程完成！",
+  "hangulS5L4Step4Msg": "太棒了！\n你已经学会了ㅋ的发音和形状。",
+  "hangulS5L5Title": "ㅌ的形状与发音",
+  "hangulS5L5Subtitle": "ㅌ的基础读法",
+  "hangulS5L5Step0Title": "学习ㅌ",
+  "hangulS5L5Step0Desc": "ㅌ产生「타」系列的音。",
+  "hangulS5L5Step0Highlights": "ㅌ,타",
+  "hangulS5L5Step1Title": "聆听ㅌ的发音",
+  "hangulS5L5Step1Desc": "听一听타/토/투",
+  "hangulS5L5Step2Title": "发音练习",
+  "hangulS5L5Step2Desc": "大声朗读每个文字",
+  "hangulS5L5Step3Title": "选出ㅌ的音",
+  "hangulS5L5Step3Desc": "区分타和다",
+  "hangulS5L5Step4Title": "课程完成！",
+  "hangulS5L5Step4Msg": "太棒了！\n你已经学会了ㅌ的发音和形状。",
+  "hangulS5L6Title": "ㅍ的形状与发音",
+  "hangulS5L6Subtitle": "ㅍ的基础读法",
+  "hangulS5L6Step0Title": "学习ㅍ",
+  "hangulS5L6Step0Desc": "ㅍ产生「파」系列的音。",
+  "hangulS5L6Step0Highlights": "ㅍ,파",
+  "hangulS5L6Step1Title": "聆听ㅍ的发音",
+  "hangulS5L6Step1Desc": "听一听파/포/푸",
+  "hangulS5L6Step2Title": "发音练习",
+  "hangulS5L6Step2Desc": "大声朗读每个文字",
+  "hangulS5L6Step3Title": "选出ㅍ的音",
+  "hangulS5L6Step3Desc": "区分파和바",
+  "hangulS5L6Step4Title": "课程完成！",
+  "hangulS5L6Step4Msg": "太棒了！\n你已经学会了ㅍ的发音和形状。",
+  "hangulS5L7Title": "ㅎ的形状与发音",
+  "hangulS5L7Subtitle": "ㅎ的基础读法",
+  "hangulS5L7Step0Title": "学习ㅎ",
+  "hangulS5L7Step0Desc": "ㅎ产生「하」系列的音。",
+  "hangulS5L7Step0Highlights": "ㅎ,하",
+  "hangulS5L7Step1Title": "聆听ㅎ的发音",
+  "hangulS5L7Step1Desc": "听一听하/호/후",
+  "hangulS5L7Step2Title": "发音练习",
+  "hangulS5L7Step2Desc": "大声朗读每个文字",
+  "hangulS5L7Step3Title": "选出ㅎ的音",
+  "hangulS5L7Step3Desc": "区分하和아",
+  "hangulS5L7Step4Title": "课程完成！",
+  "hangulS5L7Step4Msg": "太棒了！\n你已经学会了ㅎ的发音和形状。",
+  "hangulS5L8Title": "额外辅音随机朗读",
+  "hangulS5L8Subtitle": "混合复习ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ",
+  "hangulS5L8Step0Title": "随机复习",
+  "hangulS5L8Step0Desc": "把7个额外辅音混在一起读一读吧。",
+  "hangulS5L8Step0Highlights": "ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ",
+  "hangulS5L8Step1Title": "形状/发音测验",
+  "hangulS5L8Step1Desc": "将发音与文字对应起来",
+  "hangulS5L8Step2Title": "课程完成！",
+  "hangulS5L8Step2Msg": "太棒了！\n你随机复习了7个额外辅音。",
+  "hangulS5L9Title": "易混淆对的预习",
+  "hangulS5L9Subtitle": "为下一阶段做准备的区分练习",
+  "hangulS5L9Step0Title": "先看看容易混淆的对",
+  "hangulS5L9Step0Desc": "提前练习区分ㅈ/ㅊ、ㄱ/ㅋ、ㄷ/ㅌ、ㅂ/ㅍ。",
+  "hangulS5L9Step0Highlights": "ㅈ/ㅊ,ㄱ/ㅋ,ㄷ/ㅌ,ㅂ/ㅍ",
+  "hangulS5L9Step1Title": "对比听音",
+  "hangulS5L9Step1Desc": "从两个选项中选出正确的音",
+  "hangulS5L9Step2Title": "课程完成！",
+  "hangulS5L9Step2Msg": "太棒了！\n你已经为下一阶段做好准备了。",
+  "hangulS5LMTitle": "第5阶段任务",
+  "hangulS5LMSubtitle": "基本辅音2 综合任务",
+  "hangulS5LMStep0Title": "任务开始！",
+  "hangulS5LMStep0Desc": "将基本辅音2（ㅇ~ㅎ）与元音组合。\n在限定时间内达成目标！",
+  "hangulS5LMStep1Title": "组合音节！",
+  "hangulS5LMStep2Title": "任务结果",
+  "hangulS5LMStep3Title": "第5阶段完成！",
+  "hangulS5LMStep3Msg": "恭喜！\n你完成了第5阶段：基本辅音2（ㅇ~ㅎ）。",
+  "hangulS5LMStep4Title": "第5阶段完成！",
+  "hangulS5LMStep4Msg": "你已经掌握了所有基本辅音！",
+  "hangulS5CompleteTitle": "第5阶段完成！",
+  "hangulS5CompleteMsg": "你已经掌握了所有基本辅音！",
+  "hangulS6L1Title": "가~기 模式阅读",
+  "hangulS6L1Subtitle": "ㄱ + 基本元音模式",
+  "hangulS6L1Step0Title": "开始用模式阅读",
+  "hangulS6L1Step0Desc": "试着改变与ㄱ组合的元音\n你会找到阅读的节奏。",
+  "hangulS6L1Step0Highlights": "가,거,고,구,그,기",
+  "hangulS6L1Step1Title": "聆听模式发音",
+  "hangulS6L1Step1Desc": "按顺序听一听 가/거/고/구/그/기",
+  "hangulS6L1Step2Title": "发音练习",
+  "hangulS6L1Step2Desc": "请大声读出每个音节",
+  "hangulS6L1Step3Title": "模式测验",
+  "hangulS6L1Step3Desc": "配对相同的辅音模式",
+  "hangulS6L1Step3Q0": "ㄱ + ㅏ = ?",
+  "hangulS6L1Step3Q1": "ㄱ + ㅓ = ?",
+  "hangulS6L1Step3Q2": "ㄱ + ㅡ = ?",
+  "hangulS6L1Step4Title": "课程完成！",
+  "hangulS6L1Step4Msg": "很好！\n你已经开始学习 가~기 模式了。",
+  "hangulS6L2Title": "扩展 나~니",
+  "hangulS6L2Subtitle": "ㄴ 模式阅读",
+  "hangulS6L2Step0Title": "扩展 ㄴ 模式",
+  "hangulS6L2Step0Desc": "改变与ㄴ组合的元音来读 나~니。",
+  "hangulS6L2Step0Highlights": "나,너,노,누,느,니",
+  "hangulS6L2Step1Title": "聆听 나~니",
+  "hangulS6L2Step1Desc": "请听听 ㄴ 模式的发音",
+  "hangulS6L2Step2Title": "发音练习",
+  "hangulS6L2Step2Desc": "请大声读出每个音节",
+  "hangulS6L2Step3Title": "组合 ㄴ",
+  "hangulS6L2Step3Desc": "用 ㄴ + 元音组成音节",
+  "hangulS6L2Step4Title": "课程完成！",
+  "hangulS6L2Step4Msg": "很好！\n你已经掌握了 나~니 模式。",
+  "hangulS6L3Title": "扩展 다~디 和 라~리",
+  "hangulS6L3Subtitle": "ㄷ/ㄹ 模式阅读",
+  "hangulS6L3Step0Title": "只换辅音来阅读",
+  "hangulS6L3Step0Desc": "用相同元音只换辅音来读，\n阅读速度会越来越快。",
+  "hangulS6L3Step0Highlights": "다/라,도/로,두/루,디/리",
+  "hangulS6L3Step1Title": "聆听：区分 ㄷ/ㄹ",
+  "hangulS6L3Step1Desc": "听音选择正确的音节",
+  "hangulS6L3Step2Title": "阅读测验",
+  "hangulS6L3Step2Desc": "检查模式",
+  "hangulS6L3Step2Q0": "ㄷ + ㅣ = ?",
+  "hangulS6L3Step2Q1": "ㄹ + ㅗ = ?",
+  "hangulS6L3Step3Title": "课程完成！",
+  "hangulS6L3Step3Msg": "很好！\n你已经掌握了 ㄷ/ㄹ 模式。",
+  "hangulS6L4Title": "随机音节阅读 1",
+  "hangulS6L4Subtitle": "混合基本模式",
+  "hangulS6L4Step0Title": "无序阅读",
+  "hangulS6L4Step0Desc": "现在像随机抽卡一样来读吧。",
+  "hangulS6L4Step1Title": "随机阅读",
+  "hangulS6L4Step1Desc": "识别随机出现的音节",
+  "hangulS6L4Step1Q0": "ㄱ + ㅗ = ?",
+  "hangulS6L4Step1Q1": "ㄴ + ㅜ = ?",
+  "hangulS6L4Step1Q2": "ㄹ + ㅏ = ?",
+  "hangulS6L4Step1Q3": "ㅁ + ㅣ = ?",
+  "hangulS6L4Step2Title": "课程完成！",
+  "hangulS6L4Step2Msg": "很好！\n你完成了随机阅读 1。",
+  "hangulS6L5Title": "听音找音节",
+  "hangulS6L5Subtitle": "强化听觉与文字的联系",
+  "hangulS6L5Step0Title": "听音寻字练习",
+  "hangulS6L5Step0Desc": "听音选出对应音节，\n强化阅读联系。",
+  "hangulS6L5Step1Title": "声音配对",
+  "hangulS6L5Step1Desc": "选出正确的音节",
+  "hangulS6L5Step2Title": "课程完成！",
+  "hangulS6L5Step2Msg": "很好！\n你完成了听音找字练习。",
+  "hangulS6L6Title": "复合元音组合 1",
+  "hangulS6L6Subtitle": "阅读 ㅘ、ㅝ",
+  "hangulS6L6Step0Title": "开始学习复合元音",
+  "hangulS6L6Step0Desc": "来读一读由 ㅘ 和 ㅝ 组成的音节。",
+  "hangulS6L6Step0Highlights": "ㅘ,ㅝ,와,워",
+  "hangulS6L6Step1Title": "聆听 와/워",
+  "hangulS6L6Step1Desc": "请听一听代表性音节的发音",
+  "hangulS6L6Step2Title": "发音练习",
+  "hangulS6L6Step2Desc": "请大声读出每个音节",
+  "hangulS6L6Step3Title": "复合元音测验",
+  "hangulS6L6Step3Desc": "区分 ㅘ 和 ㅝ",
+  "hangulS6L6Step3Q0": "ㅇ + ㅘ = ?",
+  "hangulS6L6Step3Q1": "ㄱ + ㅝ = ?",
+  "hangulS6L6Step4Title": "课程完成！",
+  "hangulS6L6Step4Msg": "很好！\n你已经学会了 ㅘ/ㅝ 组合。",
+  "hangulS6L7Title": "复合元音组合 2",
+  "hangulS6L7Subtitle": "阅读 ㅙ、ㅞ、ㅚ、ㅟ、ㅢ",
+  "hangulS6L7Step0Title": "扩展复合元音",
+  "hangulS6L7Step0Desc": "简要学习复合元音，以阅读为中心推进。",
+  "hangulS6L7Step0Highlights": "왜,웨,외,위,의",
+  "hangulS6L7Step1Title": "ㅢ 的特殊发音",
+  "hangulS6L7Step1Desc": "ㅢ 是一个根据位置发音不同的特殊元音。\n\n• 词首：[의] → 의사、의자\n• 辅音后：[이] → 희망→[히망]\n• 助词「의」：[에] → 나의→[나에]",
+  "hangulS6L7Step1Highlights": "ㅢ,의,이,에",
+  "hangulS6L7Step2Title": "选择复合元音",
+  "hangulS6L7Step2Desc": "选出正确的音节",
+  "hangulS6L7Step2Q0": "ㅇ + ㅙ = ?",
+  "hangulS6L7Step2Q1": "ㅇ + ㅟ = ?",
+  "hangulS6L7Step2Q2": "ㅇ + ㅢ = ?",
+  "hangulS6L7Step3Title": "课程完成！",
+  "hangulS6L7Step3Msg": "很好！\n你完成了复合元音的扩展学习。",
+  "hangulS6L8Title": "随机音节阅读 2",
+  "hangulS6L8Subtitle": "基本+复合元音综合",
+  "hangulS6L8Step0Title": "综合随机阅读",
+  "hangulS6L8Step0Desc": "将基本元音和复合元音混合在一起阅读。",
+  "hangulS6L8Step1Title": "综合测验",
+  "hangulS6L8Step1Desc": "识别随机组合",
+  "hangulS6L8Step1Q0": "ㄱ + ㅢ = ?",
+  "hangulS6L8Step1Q1": "ㅎ + ㅘ = ?",
+  "hangulS6L8Step1Q2": "ㅂ + ㅟ = ?",
+  "hangulS6L8Step1Q3": "ㅈ + ㅝ = ?",
+  "hangulS6L8Step2Title": "课程完成！",
+  "hangulS6L8Step2Msg": "很好！\n你完成了第6阶段综合阅读。",
+  "hangulS6LMTitle": "第6阶段任务",
+  "hangulS6LMSubtitle": "组合阅读最终检验",
+  "hangulS6LMStep0Title": "任务开始！",
+  "hangulS6LMStep0Desc": "这是音节组合训练的最终检验。\n在时限内达成目标吧！",
+  "hangulS6LMStep1Title": "组合音节！",
+  "hangulS6LMStep2Title": "任务结果",
+  "hangulS6LMStep3Title": "第6阶段完成！",
+  "hangulS6LMStep3Msg": "恭喜！\n你完成了第6阶段音节组合训练。",
+  "hangulS6CompleteTitle": "第6阶段完成！",
+  "hangulS6CompleteMsg": "你现在可以自由组合音节了！",
+  "hangulS7L1Title": "ㄱ / ㅋ / ㄲ 辅音对比",
+  "hangulS7L1Subtitle": "가 · 카 · 까 的对比",
+  "hangulS7L1Step0Title": "分辨三种声音",
+  "hangulS7L1Step0Desc": "区分ㄱ（平音）、ㅋ（送气音）、ㄲ（紧音）的感觉。",
+  "hangulS7L1Step0Highlights": "ㄱ,ㅋ,ㄲ,가,카,까",
+  "hangulS7L1Step1Title": "声音探索",
+  "hangulS7L1Step1Desc": "反复听가/카/까",
+  "hangulS7L1Step2Title": "发音练习",
+  "hangulS7L1Step2Desc": "试着亲自发出每个字的声音",
+  "hangulS7L1Step3Title": "听音选字",
+  "hangulS7L1Step3Desc": "从三个选项中选出正确答案",
+  "hangulS7L1Step4Title": "快速确认",
+  "hangulS7L1Step4Desc": "同时确认形状和声音",
+  "hangulS7L1Step4Q0": "哪个是送气音？",
+  "hangulS7L1Step4Q1": "哪个是紧音？",
+  "hangulS7L1Step5Title": "课程完成！",
+  "hangulS7L1Step5Msg": "很好！\n你已掌握区分ㄱ/ㅋ/ㄲ的方法。",
+  "hangulS7L2Title": "ㄷ / ㅌ / ㄸ 辅音对比",
+  "hangulS7L2Subtitle": "다 · 타 · 따 的对比",
+  "hangulS7L2Step0Title": "第二组对比",
+  "hangulS7L2Step0Desc": "比较ㄷ/ㅌ/ㄸ的声音。",
+  "hangulS7L2Step0Highlights": "ㄷ,ㅌ,ㄸ,다,타,따",
+  "hangulS7L2Step1Title": "声音探索",
+  "hangulS7L2Step1Desc": "反复听다/타/따",
+  "hangulS7L2Step2Title": "发音练习",
+  "hangulS7L2Step2Desc": "试着亲自发出每个字的声音",
+  "hangulS7L2Step3Title": "听音选字",
+  "hangulS7L2Step3Desc": "从三个选项中选出正确答案",
+  "hangulS7L2Step4Title": "课程完成！",
+  "hangulS7L2Step4Msg": "很好！\n你已掌握区分ㄷ/ㅌ/ㄸ的方法。",
+  "hangulS7L3Title": "ㅂ / ㅍ / ㅃ 辅音对比",
+  "hangulS7L3Subtitle": "바 · 파 · 빠 的对比",
+  "hangulS7L3Step0Title": "第三组对比",
+  "hangulS7L3Step0Desc": "比较ㅂ/ㅍ/ㅃ的声音。",
+  "hangulS7L3Step0Highlights": "ㅂ,ㅍ,ㅃ,바,파,빠",
+  "hangulS7L3Step1Title": "声音探索",
+  "hangulS7L3Step1Desc": "反复听바/파/빠",
+  "hangulS7L3Step2Title": "发音练习",
+  "hangulS7L3Step2Desc": "试着亲自发出每个字的声音",
+  "hangulS7L3Step3Title": "听音选字",
+  "hangulS7L3Step3Desc": "从三个选项中选出正确答案",
+  "hangulS7L3Step4Title": "课程完成！",
+  "hangulS7L3Step4Msg": "很好！\n你已掌握区分ㅂ/ㅍ/ㅃ的方法。",
+  "hangulS7L4Title": "ㅅ / ㅆ 辅音对比",
+  "hangulS7L4Subtitle": "사 · 싸 的对比",
+  "hangulS7L4Step0Title": "两种声音的对比",
+  "hangulS7L4Step0Desc": "区分ㅅ/ㅆ的声音。",
+  "hangulS7L4Step0Highlights": "ㅅ,ㅆ,사,싸",
+  "hangulS7L4Step1Title": "声音探索",
+  "hangulS7L4Step1Desc": "反复听사/싸",
+  "hangulS7L4Step2Title": "发音练习",
+  "hangulS7L4Step2Desc": "试着亲自发出每个字的声音",
+  "hangulS7L4Step3Title": "听音选字",
+  "hangulS7L4Step3Desc": "从两个选项中选出正确答案",
+  "hangulS7L4Step4Title": "课程完成！",
+  "hangulS7L4Step4Msg": "很好！\n你已掌握区分ㅅ/ㅆ的方法。",
+  "hangulS7L5Title": "ㅈ / ㅊ / ㅉ 辅音对比",
+  "hangulS7L5Subtitle": "자 · 차 · 짜 的对比",
+  "hangulS7L5Step0Title": "最后一组对比",
+  "hangulS7L5Step0Desc": "比较ㅈ/ㅊ/ㅉ的声音。",
+  "hangulS7L5Step0Highlights": "ㅈ,ㅊ,ㅉ,자,차,짜",
+  "hangulS7L5Step1Title": "声音探索",
+  "hangulS7L5Step1Desc": "反复听자/차/짜",
+  "hangulS7L5Step2Title": "发音练习",
+  "hangulS7L5Step2Desc": "试着亲自发出每个字的声音",
+  "hangulS7L5Step3Title": "听音选字",
+  "hangulS7L5Step3Desc": "从三个选项中选出正确答案",
+  "hangulS7L5Step4Title": "第7阶段完成！",
+  "hangulS7L5Step4Msg": "恭喜！\n你已完成第7阶段的全部5组对比练习。",
+  "hangulS7LMTitle": "任务：声音辨别挑战！",
+  "hangulS7LMSubtitle": "区分平音、送气音和紧音",
+  "hangulS7LMStep0Title": "声音辨别任务！",
+  "hangulS7LMStep0Desc": "混合平音、送气音和紧音\n快速组合音节！",
+  "hangulS7LMStep1Title": "组合音节！",
+  "hangulS7LMStep2Title": "任务结果",
+  "hangulS7LMStep3Title": "任务完成！",
+  "hangulS7LMStep3Msg": "你已能区分平音、送气音和紧音！",
+  "hangulS7LMStep4Title": "第7阶段完成！",
+  "hangulS7LMStep4Msg": "你已能区分紧音和送气音！",
+  "hangulS7CompleteTitle": "第7阶段完成！",
+  "hangulS7CompleteMsg": "你已能区分紧音和送气音！",
+  "hangulS8L0Title": "收音（받침）基础",
+  "hangulS8L0Subtitle": "藏在音节块底部的音",
+  "hangulS8L0Step0Title": "收音在音节的下方",
+  "hangulS8L0Step0Desc": "收音位于音节块的底部。\n例：가 + ㄴ = 간",
+  "hangulS8L0Step0Highlights": "收音,간,말,집",
+  "hangulS8L0Step1Title": "收音的7个代表音",
+  "hangulS8L0Step1Desc": "收音只有7个代表音。\n\nㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\n许多收音字母都归属于这7个音之一。\n例：ㅅ, ㅈ, ㅊ, ㅎ 作为收音 → 均发[ㄷ]音",
+  "hangulS8L0Step1Highlights": "7个音,ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ,代表音",
+  "hangulS8L0Step2Title": "找出收音",
+  "hangulS8L0Step2Desc": "确认收音的位置",
+  "hangulS8L0Step2Q0": "간的收音是？",
+  "hangulS8L0Step2Q1": "말的收音是？",
+  "hangulS8L0SummaryTitle": "课程完成！",
+  "hangulS8L0SummaryMsg": "很好！\n你已理解收音的概念。",
+  "hangulS8L1Title": "ㄴ收音",
+  "hangulS8L1Subtitle": "간 · 난 · 단",
+  "hangulS8L1Step0Title": "聆听ㄴ收音",
+  "hangulS8L1Step0Desc": "听一听간/난/단",
+  "hangulS8L1Step1Title": "发音练习",
+  "hangulS8L1Step1Desc": "大声朗读每个字",
+  "hangulS8L1Step2Title": "听音选字",
+  "hangulS8L1Step2Desc": "选出带有ㄴ收音的音节",
+  "hangulS8L1SummaryTitle": "课程完成！",
+  "hangulS8L1SummaryMsg": "很好！\n你掌握了ㄴ收音。",
+  "hangulS8L2Title": "ㄹ收音",
+  "hangulS8L2Subtitle": "말 · 갈 · 물",
+  "hangulS8L2Step0Title": "聆听ㄹ收音",
+  "hangulS8L2Step0Desc": "听一听말/갈/물",
+  "hangulS8L2Step1Title": "发音练习",
+  "hangulS8L2Step1Desc": "大声朗读每个字",
+  "hangulS8L2Step2Title": "听音选字",
+  "hangulS8L2Step2Desc": "选出带有ㄹ收音的音节",
+  "hangulS8L2SummaryTitle": "课程完成！",
+  "hangulS8L2SummaryMsg": "很好！\n你掌握了ㄹ收音。",
+  "hangulS8L3Title": "ㅁ收音",
+  "hangulS8L3Subtitle": "감 · 밤 · 숨",
+  "hangulS8L3Step0Title": "聆听ㅁ收音",
+  "hangulS8L3Step0Desc": "听一听감/밤/숨",
+  "hangulS8L3Step1Title": "发音练习",
+  "hangulS8L3Step1Desc": "大声朗读每个字",
+  "hangulS8L3Step2Title": "辨别收音",
+  "hangulS8L3Step2Desc": "选出ㅁ收音的音节",
+  "hangulS8L3Step2Q0": "哪个有ㅁ收音？",
+  "hangulS8L3Step2Q1": "哪个有ㅁ收音？",
+  "hangulS8L3SummaryTitle": "课程完成！",
+  "hangulS8L3SummaryMsg": "很好！\n你掌握了ㅁ收音。",
+  "hangulS8L4Title": "ㅇ收音",
+  "hangulS8L4Subtitle": "방 · 공 · 종",
+  "hangulS8L4Step0Title": "ㅇ很特别！",
+  "hangulS8L4Step0Desc": "ㅇ很特别！\n作为初声（上方）时无音（아, 오），\n作为收音（下方）时发\"ng\"音（방, 공）",
+  "hangulS8L4Step0Highlights": "初声,收音,ng,방,공",
+  "hangulS8L4Step1Title": "聆听ㅇ收音",
+  "hangulS8L4Step1Desc": "听一听방/공/종",
+  "hangulS8L4Step2Title": "发音练习",
+  "hangulS8L4Step2Desc": "大声朗读每个字",
+  "hangulS8L4Step3Title": "听音选字",
+  "hangulS8L4Step3Desc": "选出带有ㅇ收音的音节",
+  "hangulS8L4SummaryTitle": "课程完成！",
+  "hangulS8L4SummaryMsg": "很好！\n你掌握了ㅇ收音。",
+  "hangulS8L5Title": "ㄱ收音",
+  "hangulS8L5Subtitle": "박 · 각 · 국",
+  "hangulS8L5Step0Title": "聆听ㄱ收音",
+  "hangulS8L5Step0Desc": "听一听박/각/국",
+  "hangulS8L5Step1Title": "发音练习",
+  "hangulS8L5Step1Desc": "大声朗读每个字",
+  "hangulS8L5Step2Title": "辨别收音",
+  "hangulS8L5Step2Desc": "选出ㄱ收音的音节",
+  "hangulS8L5Step2Q0": "哪个有ㄱ收音？",
+  "hangulS8L5Step2Q1": "哪个有ㄱ收音？",
+  "hangulS8L5SummaryTitle": "课程完成！",
+  "hangulS8L5SummaryMsg": "很好！\n你掌握了ㄱ收音。",
+  "hangulS8L6Title": "ㅂ收音",
+  "hangulS8L6Subtitle": "밥 · 집 · 숲",
+  "hangulS8L6Step0Title": "聆听ㅂ收音",
+  "hangulS8L6Step0Desc": "听一听밥/집/숲",
+  "hangulS8L6Step1Title": "发音练习",
+  "hangulS8L6Step1Desc": "大声朗读每个字",
+  "hangulS8L6Step2Title": "听音选字",
+  "hangulS8L6Step2Desc": "选出带有ㅂ收音的音节",
+  "hangulS8L6SummaryTitle": "课程完成！",
+  "hangulS8L6SummaryMsg": "很好！\n你掌握了ㅂ收音。",
+  "hangulS8L7Title": "ㅅ收音",
+  "hangulS8L7Subtitle": "옷 · 맛 · 빛",
+  "hangulS8L7Step0Title": "聆听ㅅ收音",
+  "hangulS8L7Step0Desc": "听一听옷/맛/빛",
+  "hangulS8L7Step1Title": "发音练习",
+  "hangulS8L7Step1Desc": "大声朗读每个字",
+  "hangulS8L7Step2Title": "辨别收音",
+  "hangulS8L7Step2Desc": "选出ㅅ收音的音节",
+  "hangulS8L7Step2Q0": "哪个有ㅅ收音？",
+  "hangulS8L7Step2Q1": "哪个有ㅅ收音？",
+  "hangulS8L7SummaryTitle": "课程完成！",
+  "hangulS8L7SummaryMsg": "很好！\n你掌握了ㅅ收音。",
+  "hangulS8L8Title": "收音综合复习",
+  "hangulS8L8Subtitle": "核心收音随机检测",
+  "hangulS8L8Step0Title": "全部混合练习",
+  "hangulS8L8Step0Desc": "我们来综合复习ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅ。",
+  "hangulS8L8Step1Title": "随机测验",
+  "hangulS8L8Step1Desc": "混合收音综合测试",
+  "hangulS8L8Step1Q0": "哪个有ㄴ收音？",
+  "hangulS8L8Step1Q1": "哪个有ㅇ收音？",
+  "hangulS8L8Step1Q2": "哪个有ㄹ收音？",
+  "hangulS8L8Step1Q3": "哪个有ㅂ收音？",
+  "hangulS8L8SummaryTitle": "课程完成！",
+  "hangulS8L8SummaryMsg": "很好！\n完成了收音综合复习。",
+  "hangulS8LMTitle": "任务：收音挑战！",
+  "hangulS8LMSubtitle": "组合带收音的音节",
+  "hangulS8LMStep0Title": "收音任务！",
+  "hangulS8LMStep0Desc": "读出带有基本收音的音节，\n快速作答！",
+  "hangulS8LMStep1Title": "拼出音节！",
+  "hangulS8LMStep2Title": "任务结果",
+  "hangulS8LMSummaryTitle": "任务完成！",
+  "hangulS8LMSummaryMsg": "你已完全掌握收音基础！",
+  "hangulS8CompleteTitle": "第8阶段完成！",
+  "hangulS8CompleteMsg": "你已打好收音的基础！",
+  "hangulS9L1Title": "收音 ㄷ 扩展",
+  "hangulS9L1Subtitle": "닫 · 곧 · 묻",
+  "hangulS9L1Step0Title": "ㄷ 收音规律",
+  "hangulS9L1Step0Desc": "读一读带有收音 ㄷ 的音节。",
+  "hangulS9L1Step0Highlights": "닫,곧,묻",
+  "hangulS9L1Step1Title": "听一听：收音 ㄷ",
+  "hangulS9L1Step1Desc": "听 닫/곧/묻 的发音",
+  "hangulS9L1Step2Title": "发音练习",
+  "hangulS9L1Step2Desc": "亲自大声念出每个字",
+  "hangulS9L1Step3Title": "辨别收音",
+  "hangulS9L1Step3Desc": "选出带有收音 ㄷ 的音节",
+  "hangulS9L1Step3Q0": "哪个带有收音 ㄷ？",
+  "hangulS9L1Step3Q1": "哪个带有收音 ㄷ？",
+  "hangulS9L1Step4Title": "课程完成！",
+  "hangulS9L1Step4Msg": "很好！\n你已掌握收音 ㄷ。",
+  "hangulS9L2Title": "收音 ㅈ 扩展",
+  "hangulS9L2Subtitle": "낮 · 잊 · 젖",
+  "hangulS9L2Step0Title": "听一听：收音 ㅈ",
+  "hangulS9L2Step0Desc": "听 낮/잊/젖 的发音",
+  "hangulS9L2Step1Title": "发音练习",
+  "hangulS9L2Step1Desc": "亲自大声念出每个字",
+  "hangulS9L2Step2Title": "听音选字",
+  "hangulS9L2Step2Desc": "选出带有收音 ㅈ 的音节",
+  "hangulS9L2Step3Title": "课程完成！",
+  "hangulS9L2Step3Msg": "很好！\n你已掌握收音 ㅈ。",
+  "hangulS9L3Title": "收音 ㅊ 扩展",
+  "hangulS9L3Subtitle": "꽃 · 닻 · 빚",
+  "hangulS9L3Step0Title": "听一听：收音 ㅊ",
+  "hangulS9L3Step0Desc": "听 꽃/닻/빚 的发音",
+  "hangulS9L3Step1Title": "发音练习",
+  "hangulS9L3Step1Desc": "亲自大声念出每个字",
+  "hangulS9L3Step2Title": "辨别收音",
+  "hangulS9L3Step2Desc": "选出带有收音 ㅊ 的音节",
+  "hangulS9L3Step2Q0": "哪个带有收音 ㅊ？",
+  "hangulS9L3Step2Q1": "哪个带有收音 ㅊ？",
+  "hangulS9L3Step3Title": "课程完成！",
+  "hangulS9L3Step3Msg": "很好！\n你已掌握收音 ㅊ。",
+  "hangulS9L4Title": "收音 ㅋ / ㅌ / ㅍ",
+  "hangulS9L4Subtitle": "부엌 · 밭 · 앞",
+  "hangulS9L4Step0Title": "三个收音合并学习",
+  "hangulS9L4Step0Desc": "把 ㅋ、ㅌ、ㅍ 三个收音放在一起学。",
+  "hangulS9L4Step0Highlights": "부엌,밭,앞",
+  "hangulS9L4Step1Title": "听一听",
+  "hangulS9L4Step1Desc": "听 부엌/밭/앞 的发音",
+  "hangulS9L4Step2Title": "发音练习",
+  "hangulS9L4Step2Desc": "亲自大声念出每个字",
+  "hangulS9L4Step3Title": "辨别收音",
+  "hangulS9L4Step3Desc": "区分这三个收音",
+  "hangulS9L4Step3Q0": "哪个带有收音 ㅌ？",
+  "hangulS9L4Step3Q1": "哪个带有收音 ㅍ？",
+  "hangulS9L4Step4Title": "课程完成！",
+  "hangulS9L4Step4Msg": "很好！\n你已掌握收音 ㅋ/ㅌ/ㅍ。",
+  "hangulS9L5Title": "收音 ㅎ 扩展",
+  "hangulS9L5Subtitle": "좋 · 놓 · 않",
+  "hangulS9L5Step0Title": "听一听：收音 ㅎ",
+  "hangulS9L5Step0Desc": "听 좋/놓/않 的发音",
+  "hangulS9L5Step1Title": "发音练习",
+  "hangulS9L5Step1Desc": "亲自大声念出每个字",
+  "hangulS9L5Step2Title": "听音选字",
+  "hangulS9L5Step2Desc": "选出带有收音 ㅎ 的音节",
+  "hangulS9L5Step3Title": "课程完成！",
+  "hangulS9L5Step3Msg": "很好！\n你已掌握收音 ㅎ。",
+  "hangulS9L6Title": "扩展收音随机练习",
+  "hangulS9L6Subtitle": "混合 ㄷ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ",
+  "hangulS9L6Step0Title": "混合扩展收音",
+  "hangulS9L6Step0Desc": "随机复习所有扩展收音。",
+  "hangulS9L6Step1Title": "随机测验",
+  "hangulS9L6Step1Desc": "解题并区分各个收音",
+  "hangulS9L6Step1Q0": "哪个带有收音 ㄷ？",
+  "hangulS9L6Step1Q1": "哪个带有收音 ㅈ？",
+  "hangulS9L6Step1Q2": "哪个带有收音 ㅊ？",
+  "hangulS9L6Step1Q3": "哪个带有收音 ㅎ？",
+  "hangulS9L6Step2Title": "课程完成！",
+  "hangulS9L6Step2Msg": "很好！\n扩展收音随机复习完成。",
+  "hangulS9L7Title": "第9阶段综合",
+  "hangulS9L7Subtitle": "扩展收音阅读收尾",
+  "hangulS9L7Step0Title": "最终确认",
+  "hangulS9L7Step0Desc": "最终复习第9阶段的核心要点",
+  "hangulS9L7Step1Title": "第9阶段完成！",
+  "hangulS9L7Step1Msg": "恭喜！\n你已完成第9阶段的扩展收音学习。",
+  "hangulS9LMTitle": "任务：扩展收音挑战！",
+  "hangulS9LMSubtitle": "快速读出各种收音",
+  "hangulS9LMStep0Title": "扩展收音任务！",
+  "hangulS9LMStep0Desc": "以最快速度组合含扩展收音的音节！",
+  "hangulS9LMStep1Title": "组合音节！",
+  "hangulS9LMStep2Title": "任务结果",
+  "hangulS9LMStep3Title": "任务完成！",
+  "hangulS9LMStep3Msg": "你已征服扩展收音！",
+  "hangulS9CompleteTitle": "第9阶段完成！",
+  "hangulS9CompleteMsg": "你已征服扩展收音！",
+  "hangulS10L1Title": "ㄳ 收音",
+  "hangulS10L1Subtitle": "以 몫・넋 为中心阅读",
+  "hangulS10L1Step0Title": "双收音的发音规则",
+  "hangulS10L1Step0Desc": "双收音是由两个辅音组合而成的收音。\n\n大多数读左边的辅音：\nㄳ→[ㄱ], ㄵ→[ㄴ], ㄶ→[ㄴ], ㄻ→[ㅁ], ㅄ→[ㅂ]\n\n少数读右边的辅音：\nㄺ→[ㄹ], ㄼ→[ㄹ]",
+  "hangulS10L1Step0Highlights": "左边辅音,右边辅音,双收音",
+  "hangulS10L1Step1Title": "开始学习复合收音",
+  "hangulS10L1Step1Desc": "来读含有 ㄳ 收音的单词吧。",
+  "hangulS10L1Step1Highlights": "몫,넋",
+  "hangulS10L1Step2Title": "听发音",
+  "hangulS10L1Step2Desc": "听一听 몫/넋",
+  "hangulS10L1Step3Title": "发音练习",
+  "hangulS10L1Step3Desc": "请大声读出每个字",
+  "hangulS10L1Step4Title": "阅读检测",
+  "hangulS10L1Step4Desc": "看单词并选择正确答案",
+  "hangulS10L1Step4Q0": "哪个单词有 ㄳ 收音？",
+  "hangulS10L1Step4Q1": "哪个单词有 ㄳ 收音？",
+  "hangulS10L1Step5Title": "课程完成！",
+  "hangulS10L1Step5Msg": "很好！\n你已经掌握了 ㄳ 收音。",
+  "hangulS10L2Title": "ㄵ / ㄶ 收音",
+  "hangulS10L2Subtitle": "앉다・많다",
+  "hangulS10L2Step0Title": "听发音",
+  "hangulS10L2Step0Desc": "听一听 앉다/많다",
+  "hangulS10L2Step1Title": "发音练习",
+  "hangulS10L2Step1Desc": "请大声读出每个字",
+  "hangulS10L2Step2Title": "听后选择",
+  "hangulS10L2Step2Desc": "选择正确的单词",
+  "hangulS10L2Step3Title": "课程完成！",
+  "hangulS10L2Step3Msg": "很好！\n你已经掌握了 ㄵ/ㄶ 收音。",
+  "hangulS10L3Title": "ㄺ / ㄻ 收音",
+  "hangulS10L3Subtitle": "읽다・삶",
+  "hangulS10L3Step0Title": "听发音",
+  "hangulS10L3Step0Desc": "听一听 읽다/삶",
+  "hangulS10L3Step1Title": "发音练习",
+  "hangulS10L3Step1Desc": "请大声读出每个字",
+  "hangulS10L3Step2Title": "阅读检测",
+  "hangulS10L3Step2Desc": "选择含复合收音的单词",
+  "hangulS10L3Step2Q0": "哪个单词有 ㄺ 收音？",
+  "hangulS10L3Step2Q1": "哪个单词有 ㄻ 收音？",
+  "hangulS10L3Step3Title": "课程完成！",
+  "hangulS10L3Step3Msg": "很好！\n你已经掌握了 ㄺ/ㄻ 收音。",
+  "hangulS10L4Title": "高级组合 1",
+  "hangulS10L4Subtitle": "ㄼ・ㄾ・ㄿ・ㅀ",
+  "hangulS10L4Step0Title": "高级组合介绍",
+  "hangulS10L4Step0Desc": "通过常见例子简短地学习。",
+  "hangulS10L4Step0Highlights": "넓다,핥다,읊다,싫다",
+  "hangulS10L4Step1Title": "听单词发音",
+  "hangulS10L4Step1Desc": "听一听 넓다/핥다/읊다/싫다",
+  "hangulS10L4Step2Title": "发音练习",
+  "hangulS10L4Step2Desc": "请大声读出每个字",
+  "hangulS10L4Step3Title": "课程完成！",
+  "hangulS10L4Step3Msg": "很好！\n你已经掌握了高级组合 1。",
+  "hangulS10L5Title": "ㅄ 收音",
+  "hangulS10L5Subtitle": "以 없다 为中心阅读",
+  "hangulS10L5Step0Title": "听发音",
+  "hangulS10L5Step0Desc": "听一听 없다/없어",
+  "hangulS10L5Step1Title": "发音练习",
+  "hangulS10L5Step1Desc": "请大声读出每个字",
+  "hangulS10L5Step2Title": "听后选择",
+  "hangulS10L5Step2Desc": "选择正确的单词",
+  "hangulS10L5Step3Title": "课程完成！",
+  "hangulS10L5Step3Msg": "很好！\n你已经掌握了 ㅄ 收音。",
+  "hangulS10L6Title": "第10阶段综合",
+  "hangulS10L6Subtitle": "复合收音单词综合",
+  "hangulS10L6Step0Title": "综合检测",
+  "hangulS10L6Step0Desc": "对复合收音单词进行最终检测",
+  "hangulS10L6Step0Q0": "以下哪个单词有 ㄶ 收音？",
+  "hangulS10L6Step0Q1": "以下哪个单词有 ㄺ 收音？",
+  "hangulS10L6Step0Q2": "以下哪个单词有 ㅄ 收音？",
+  "hangulS10L6Step0Q3": "以下哪个单词有 ㄳ 收音？",
+  "hangulS10L6Step1Title": "第10阶段完成！",
+  "hangulS10L6Step1Msg": "恭喜！\n你完成了第10阶段的复合收音。",
+  "hangulS10LMTitle": "任务：双收音挑战！",
+  "hangulS10LMSubtitle": "快速阅读双收音单词",
+  "hangulS10LMStep0Title": "双收音任务！",
+  "hangulS10LMStep0Desc": "快速组合包含双收音的音节！",
+  "hangulS10LMStep1Title": "组合音节！",
+  "hangulS10LMStep2Title": "任务结果",
+  "hangulS10LMStep3Title": "任务完成！",
+  "hangulS10LMStep3Msg": "你连双收音都掌握了！",
+  "hangulS10LMStep4Title": "第10阶段完成！",
+  "hangulS10CompleteTitle": "第10阶段完成！",
+  "hangulS10CompleteMsg": "你连双收音都掌握了！",
+  "hangulS11L1Title": "无收音的单词",
+  "hangulS11L1Subtitle": "简单的2~3音节单词",
+  "hangulS11L1Step0Title": "开始读单词",
+  "hangulS11L1Step0Desc": "先用没有收音的单词建立自信吧。",
+  "hangulS11L1Step0Highlights": "바나나,나비,하마,모자",
+  "hangulS11L1Step1Title": "听单词",
+  "hangulS11L1Step1Desc": "听听 바나나 / 나비 / 하마 / 모자",
+  "hangulS11L1Step2Title": "发音练习",
+  "hangulS11L1Step2Desc": "大声读出每个字",
+  "hangulS11L1Step3Title": "课程完成！",
+  "hangulS11L1Step3Msg": "很好！\n你开始读没有收音的单词了。",
+  "hangulS11L2Title": "基本收音单词",
+  "hangulS11L2Subtitle": "학교・친구・한국・공부",
+  "hangulS11L2Step0Title": "听单词",
+  "hangulS11L2Step0Desc": "听听 학교 / 친구 / 한국 / 공부",
+  "hangulS11L2Step1Title": "发音练习",
+  "hangulS11L2Step1Desc": "大声读出每个字",
+  "hangulS11L2Step2Title": "听后选择",
+  "hangulS11L2Step2Desc": "选择你听到的单词",
+  "hangulS11L2Step3Title": "课程完成！",
+  "hangulS11L2Step3Msg": "很好！\n你读了基本收音的单词。",
+  "hangulS11L3Title": "混合收音单词",
+  "hangulS11L3Subtitle": "읽기・없다・많다・닭",
+  "hangulS11L3Step0Title": "提升难度",
+  "hangulS11L3Step0Desc": "来读含基本和复合收音的混合单词吧。",
+  "hangulS11L3Step0Highlights": "읽기,없다,많다,닭",
+  "hangulS11L3Step1Title": "区分单词",
+  "hangulS11L3Step1Desc": "区分相似的单词",
+  "hangulS11L3Step1Q0": "哪个是复合收音的单词？",
+  "hangulS11L3Step1Q1": "哪个是复合收音的单词？",
+  "hangulS11L3Step2Title": "课程完成！",
+  "hangulS11L3Step2Msg": "很好！\n你读了混合收音的单词。",
+  "hangulS11L4Title": "分类单词包",
+  "hangulS11L4Subtitle": "食物・地点・人物",
+  "hangulS11L4Step0Title": "听分类单词",
+  "hangulS11L4Step0Desc": "听食物 / 地点 / 人物的单词",
+  "hangulS11L4Step1Title": "发音练习",
+  "hangulS11L4Step1Desc": "大声读出每个字",
+  "hangulS11L4Step2Title": "按类别分类",
+  "hangulS11L4Step2Desc": "看单词，选择它的类别",
+  "hangulS11L4Step2Q0": "「김치」是什么？",
+  "hangulS11L4Step2Q1": "「시장」是什么？",
+  "hangulS11L4Step2Q2": "「학생」是什么？",
+  "hangulS11L4Step2CatFood": "食物",
+  "hangulS11L4Step2CatPlace": "地点",
+  "hangulS11L4Step2CatPerson": "人物",
+  "hangulS11L4Step3Title": "课程完成！",
+  "hangulS11L4Step3Msg": "很好！\n你学习了分类单词。",
+  "hangulS11L5Title": "听后选词",
+  "hangulS11L5Subtitle": "加强听觉与阅读的联系",
+  "hangulS11L5Step0Title": "声音匹配",
+  "hangulS11L5Step0Desc": "听后选出正确的单词",
+  "hangulS11L5Step1Title": "课程完成！",
+  "hangulS11L5Step1Msg": "很好！\n你完成了听后选词训练。",
+  "hangulS11L6Title": "第11阶段综合复习",
+  "hangulS11L6Subtitle": "单词阅读最终检验",
+  "hangulS11L6Step0Title": "综合测验",
+  "hangulS11L6Step0Desc": "第11阶段单词综合检验",
+  "hangulS11L6Step0Q0": "哪个单词没有收音？",
+  "hangulS11L6Step0Q1": "哪个是基本收音的单词？",
+  "hangulS11L6Step0Q2": "哪个是复合收音的单词？",
+  "hangulS11L6Step0Q3": "哪个是地点单词？",
+  "hangulS11L6Step1Title": "第11阶段完成！",
+  "hangulS11L6Step1Msg": "恭喜！\n你完成了第11阶段扩展单词阅读。",
+  "hangulS11L7Title": "在现实中读韩语",
+  "hangulS11L7Subtitle": "读咖啡菜单、地铁站名和问候语",
+  "hangulS11L7Step0Title": "在韩国读韩文！",
+  "hangulS11L7Step0Desc": "你已经学完了所有韩文！\n来读在韩国能看到的文字吧！",
+  "hangulS11L7Step0Highlights": "咖啡馆,地铁,问候语",
+  "hangulS11L7Step1Title": "读咖啡菜单",
+  "hangulS11L7Step1Descs": "美式咖啡,拿铁,绿茶,蛋糕",
+  "hangulS11L7Step2Title": "读地铁站名",
+  "hangulS11L7Step2Descs": "首尔站,江南,弘大入口,明洞",
+  "hangulS11L7Step3Title": "读基本问候语",
+  "hangulS11L7Step3Descs": "你好,谢谢,是,不是",
+  "hangulS11L7Step4Title": "发音练习",
+  "hangulS11L7Step4Desc": "大声读出每个字",
+  "hangulS11L7Step5Title": "在哪里能看到？",
+  "hangulS11L7Step5Q0": "「아메리카노」在哪里能看到？",
+  "hangulS11L7Step5Q0Ans": "咖啡馆",
+  "hangulS11L7Step5Q0C0": "咖啡馆",
+  "hangulS11L7Step5Q0C1": "地铁",
+  "hangulS11L7Step5Q0C2": "学校",
+  "hangulS11L7Step5Q1": "「강남」是什么？",
+  "hangulS11L7Step5Q1Ans": "地铁站名",
+  "hangulS11L7Step5Q1C0": "食物名称",
+  "hangulS11L7Step5Q1C1": "地铁站名",
+  "hangulS11L7Step5Q1C2": "问候语",
+  "hangulS11L7Step5Q2": "「감사합니다」用中文是？",
+  "hangulS11L7Step5Q2Ans": "谢谢",
+  "hangulS11L7Step5Q2C0": "你好",
+  "hangulS11L7Step5Q2C1": "谢谢",
+  "hangulS11L7Step5Q2C2": "再见",
+  "hangulS11L7Step6Title": "恭喜！",
+  "hangulS11L7Step6Msg": "你现在能读韩国的咖啡菜单、地铁站名和问候语了！\n离韩文大师只差一步！",
+  "hangulS11LMTitle": "任务：韩文速读！",
+  "hangulS11LMSubtitle": "快速读出韩语单词",
+  "hangulS11LMStep0Title": "韩文速读任务！",
+  "hangulS11LMStep0Desc": "尽快读出并匹配韩语单词！\n是时候证明你的实力了！",
+  "hangulS11LMStep1Title": "组合音节！",
+  "hangulS11LMStep2Title": "任务结果",
+  "hangulS11LMStep3Title": "韩文大师！",
+  "hangulS11LMStep3Msg": "你已经完全掌握韩文了！\n现在可以读韩语单词和句子了！",
+  "hangulS11LMStep4Title": "第11阶段完成！",
+  "hangulS11LMStep4Msg": "你现在能完整地读韩文了！",
+  "hangulS11CompleteTitle": "第11阶段完成！",
+  "hangulS11CompleteMsg": "你现在能完整地读韩文了！",
+  "stageRequestFailed": "发送上台请求失败，请重试。",
+  "stageRequestRejected": "主持人拒绝了你的上台请求。",
+  "inviteToStageFailed": "邀请上台失败，舞台可能已满。",
+  "demoteFailed": "从舞台移除失败，请重试。",
+  "voiceRoomCloseRoomFailed": "关闭房间失败，请重试。"
 }

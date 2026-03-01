@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../../core/utils/korean_tts_helper.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 
 /// Sound match quiz: play a sound, pick the correct character from 2 choices.
@@ -86,7 +87,7 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
   @override
   Widget build(BuildContext context) {
     if (_questions.isEmpty) {
-      return const Center(child: Text('No questions'));
+      return Center(child: Text(AppLocalizations.of(context)?.noQuestions ?? 'No questions'));
     }
 
     final choices = (_current['choices'] as List).cast<String>();
@@ -131,7 +132,7 @@ class _StepSoundMatchState extends State<StepSoundMatch> {
               ),
           const SizedBox(height: 12),
           Text(
-            '소리를 듣고 맞는 글자를 고르세요',
+            AppLocalizations.of(context)?.listenAndChooseCorrect ?? 'Listen and choose the correct character',
             style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
           ),
           const Spacer(),

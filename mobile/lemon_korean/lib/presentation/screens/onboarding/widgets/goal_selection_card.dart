@@ -125,7 +125,7 @@ class _GoalSelectionCardState extends State<GoalSelectionCard>
                         letterSpacing: -0.3,
                       ),
                     ),
-                    SizedBox(height: 0),
+                    const SizedBox(height: 0),
                     // Line 2: Time
                     Text(
                       widget.timeText,
@@ -136,7 +136,7 @@ class _GoalSelectionCardState extends State<GoalSelectionCard>
                         color: const Color(0xFF907866),
                       ),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     // Line 3: Helper text
                     Text(
                       widget.helperText,

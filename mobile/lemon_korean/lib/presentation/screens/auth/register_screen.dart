@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/validators.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../home/home_screen.dart';
 
@@ -115,6 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final hMargin = screenWidth * 0.061;
@@ -157,7 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       // 제목
                       Text(
-                        '상큼한 한국어 여행, 지금 출발!',
+                        l10n?.registerTitle ?? '상큼한 한국어 여행, 지금 출발!',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.046,
@@ -169,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       // 부제목
                       Text(
-                        '가볍게 출발해도 괜찮아! 내가 꽉 잡아줄게',
+                        l10n?.registerSubtitle ?? '가볍게 출발해도 괜찮아! 내가 꽉 잡아줄게',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.036,
@@ -181,7 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       // ── 별명 ────────────────────────────────────
                       Text(
-                        '별명',
+                        l10n?.nickname ?? '별명',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.036,
@@ -197,17 +199,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: screenWidth * 0.036,
                         ),
                         decoration: _inputDecoration(
-                          '15자 이내로 문자,숫자,밑줄로 입력해주세요',
+                          l10n?.nicknameHint ?? '15자 이내로 문자,숫자,밑줄로 입력해주세요',
                           screenWidth,
                           screenHeight,
                         ),
-                        validator: Validators.usernameValidator,
+                        validator: (value) => Validators.usernameValidator(value, l10n: l10n),
                       ),
                       SizedBox(height: screenHeight * 0.013),
 
                       // ── 이메일 ──────────────────────────────────
                       Text(
-                        '이메일',
+                        l10n?.email ?? '이메일',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.036,
@@ -224,17 +226,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: screenWidth * 0.036,
                         ),
                         decoration: _inputDecoration(
-                          '이메일을 입력해주세요',
+                          l10n?.enterEmail ?? '이메일을 입력해주세요',
                           screenWidth,
                           screenHeight,
                         ),
-                        validator: Validators.emailValidator,
+                        validator: (value) => Validators.emailValidator(value, l10n: l10n),
                       ),
                       SizedBox(height: screenHeight * 0.022),
 
                       // ── 비밀번호 ─────────────────────────────────
                       Text(
-                        '비밀번호',
+                        l10n?.password ?? '비밀번호',
                         style: TextStyle(
                           fontFamily: 'Pretendard',
                           fontSize: screenWidth * 0.036,
@@ -251,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: screenWidth * 0.036,
                         ),
                         decoration: _inputDecoration(
-                          '문자와 숫자를 포함한 8자 이상을 입력해주세요',
+                          l10n?.passwordHint ?? '문자와 숫자를 포함한 8자 이상을 입력해주세요',
                           screenWidth,
                           screenHeight,
                           suffixIcon: IconButton(
@@ -270,7 +272,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 () => _isPasswordVisible = !_isPasswordVisible),
                           ),
                         ),
-                        validator: Validators.passwordStrictValidator,
+                        validator: (value) => Validators.passwordStrictValidator(value, l10n: l10n),
                       ),
                       SizedBox(height: screenHeight * 0.007),
 
@@ -283,7 +285,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: screenWidth * 0.036,
                         ),
                         decoration: _inputDecoration(
-                          '비밀번호를 한 번 더 입력해주세요',
+                          l10n?.confirmPasswordHint ?? '비밀번호를 한 번 더 입력해주세요',
                           screenWidth,
                           screenHeight,
                           suffixIcon: IconButton(
@@ -305,6 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         validator: Validators.confirmPasswordValidator(
                           () => _passwordController.text,
+                          l10n: l10n,
                         ),
                       ),
 
@@ -335,7 +338,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   SizedBox(width: screenWidth * 0.02),
                                   Expanded(
                                     child: Text(
-                                      authProvider.error!,
+                                      AuthProvider.localizeError(authProvider.error, l10n),
                                       style: TextStyle(
                                         fontFamily: 'Pretendard',
                                         color: AppConstants.errorColor,
@@ -394,7 +397,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   )
                                 : Text(
-                                    '회원가입',
+                                    l10n?.register ?? '회원가입',
                                     style: TextStyle(
                                       fontFamily: 'Pretendard',
                                       fontSize: screenWidth * 0.043,
@@ -410,7 +413,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '이미 계정이 있으신가요?',
+                              l10n?.haveAccount ?? '이미 계정이 있으신가요?',
                               style: TextStyle(
                                 fontFamily: 'Pretendard',
                                 fontSize: screenWidth * 0.036,
@@ -426,7 +429,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
                               child: Text(
-                                '로그인하기',
+                                l10n?.loginNow ?? '로그인하기',
                                 style: TextStyle(
                                   fontFamily: 'Pretendard',
                                   fontSize: screenWidth * 0.036,

@@ -12,10 +12,10 @@ class ImagePickerGrid extends StatelessWidget {
   final ValueChanged<int> onImageRemoved;
 
   const ImagePickerGrid({
-    super.key,
     required this.imageUrls,
     required this.onImageAdded,
     required this.onImageRemoved,
+    super.key,
   });
 
   static const int maxImages = 4;

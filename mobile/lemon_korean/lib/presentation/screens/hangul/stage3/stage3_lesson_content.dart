@@ -1,30 +1,31 @@
+import '../../../../l10n/generated/app_localizations.dart';
 import '../stage0/stage0_lesson_content.dart';
 
-/// All Stage 3 lessons — ㅐ/ㅔ 계열 모음.
-const stage3Lessons = <LessonData>[
+/// All Stage 3 lessons — ㅐ/ㅔ 계열 모음, localized via [l10n].
+List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
+  // ── Lesson 3-1: ㅐ ──
   LessonData(
     id: '3-1',
-    title: 'ㅐ 모양과 소리',
-    subtitle: 'ㅏ + ㅣ 조합 느낌 익히기',
+    title: l10n.hangulS3L1Title,
+    subtitle: l10n.hangulS3L1Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅐ는 이렇게 생겨요',
-        description: 'ㅐ는 ㅏ 계열에서 파생된 모음이에요.\n'
-            '대표 소리는 "애"로 익혀요.',
+        title: l10n.hangulS3L1Step0Title,
+        description: l10n.hangulS3L1Step0Desc,
         data: {
           'animation': {
             'consonant': 'ㅇ',
             'vowel': 'ㅐ',
             'result': '애',
           },
-          'highlights': ['ㅐ', '애', '모양 인식'],
+          'highlights': l10n.hangulS3L1Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅐ 소리 듣기',
-        description: '애/개/내 소리를 들어보세요',
+        title: l10n.hangulS3L1Step1Title,
+        description: l10n.hangulS3L1Step1Desc,
         data: {
           'characters': ['애', '개', '내'],
           'type': 'syllable',
@@ -33,8 +34,8 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS3L1Step2Title,
+        description: l10n.hangulS3L1Step2Desc,
         data: {
           'characters': ['애', '개', '내'],
           'maxAttempts': 3,
@@ -44,8 +45,8 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㅏ vs ㅐ 듣기',
-        description: '아/애를 구분해요',
+        title: l10n.hangulS3L1Step3Title,
+        description: l10n.hangulS3L1Step3Desc,
         data: {
           'questions': [
             {
@@ -65,37 +66,38 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS3L1Step4Title,
         data: {
           'lessonId': '3-1',
-          'message': '좋아요!\nㅐ(애) 모양과 소리를 익혔어요.',
+          'message': l10n.hangulS3L1Step4Msg,
         },
       ),
     ],
   ),
+
+  // ── Lesson 3-2: ㅔ ──
   LessonData(
     id: '3-2',
-    title: 'ㅔ 모양과 소리',
-    subtitle: 'ㅓ + ㅣ 조합 느낌 익히기',
+    title: l10n.hangulS3L2Title,
+    subtitle: l10n.hangulS3L2Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅔ는 이렇게 생겨요',
-        description: 'ㅔ는 ㅓ 계열에서 파생된 모음이에요.\n'
-            '대표 소리는 "에"로 익혀요.',
+        title: l10n.hangulS3L2Step0Title,
+        description: l10n.hangulS3L2Step0Desc,
         data: {
           'animation': {
             'consonant': 'ㅇ',
             'vowel': 'ㅔ',
             'result': '에',
           },
-          'highlights': ['ㅔ', '에', '모양 인식'],
+          'highlights': l10n.hangulS3L2Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅔ 소리 듣기',
-        description: '에/게/네 소리를 들어보세요',
+        title: l10n.hangulS3L2Step1Title,
+        description: l10n.hangulS3L2Step1Desc,
         data: {
           'characters': ['에', '게', '네'],
           'type': 'syllable',
@@ -104,8 +106,8 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS3L2Step2Title,
+        description: l10n.hangulS3L2Step2Desc,
         data: {
           'characters': ['에', '게', '네'],
           'maxAttempts': 3,
@@ -115,8 +117,8 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㅓ vs ㅔ 듣기',
-        description: '어/에를 구분해요',
+        title: l10n.hangulS3L2Step3Title,
+        description: l10n.hangulS3L2Step3Desc,
         data: {
           'questions': [
             {
@@ -136,52 +138,53 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS3L2Step4Title,
         data: {
           'lessonId': '3-2',
-          'message': '좋아요!\nㅔ(에) 모양과 소리를 익혔어요.',
+          'message': l10n.hangulS3L2Step4Msg,
         },
       ),
     ],
   ),
+
+  // ── Lesson 3-3: ㅐ vs ㅔ 구분 ──
   LessonData(
     id: '3-3',
-    title: 'ㅐ vs ㅔ 구분',
-    subtitle: '모양 중심 구분 훈련',
+    title: l10n.hangulS3L3Title,
+    subtitle: l10n.hangulS3L3Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: '핵심은 모양 구분이에요',
-        description: '초급에서는 ㅐ/ㅔ 소리가 비슷하게 들릴 수 있어요.\n'
-            '그래서 먼저 모양 구분을 정확히 해요.',
+        title: l10n.hangulS3L3Step0Title,
+        description: l10n.hangulS3L3Step0Desc,
         data: {
           'emoji': '🔍',
-          'highlights': ['ㅐ', 'ㅔ', '모양 구분'],
+          'highlights': l10n.hangulS3L3Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '모양 구분 퀴즈',
-        description: 'ㅐ와 ㅔ를 정확히 선택해요',
+        title: l10n.hangulS3L3Step1Title,
+        description: l10n.hangulS3L3Step1Desc,
         data: {
           'questions': [
             {
-              'question': '다음 중 ㅐ는?',
+              'question': l10n.hangulS3L3Step1Q0,
               'answer': 'ㅐ',
               'choices': ['ㅐ', 'ㅔ']
             },
             {
-              'question': '다음 중 ㅔ는?',
+              'question': l10n.hangulS3L3Step1Q1,
               'answer': 'ㅔ',
               'choices': ['ㅔ', 'ㅐ']
             },
             {
-              'question': 'ㅇ + ㅐ = ?',
+              'question': l10n.hangulS3L3Step1Q2,
               'answer': '애',
               'choices': ['애', '에']
             },
             {
-              'question': 'ㅇ + ㅔ = ?',
+              'question': l10n.hangulS3L3Step1Q3,
               'answer': '에',
               'choices': ['애', '에']
             },
@@ -190,36 +193,38 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS3L3Step2Title,
         data: {
           'lessonId': '3-3',
-          'message': '좋아요!\nㅐ/ㅔ 구분이 더 정확해졌어요.',
+          'message': l10n.hangulS3L3Step2Msg,
         },
       ),
     ],
   ),
+
+  // ── Lesson 3-4: ㅒ ──
   LessonData(
     id: '3-4',
-    title: 'ㅒ 모양과 소리',
-    subtitle: 'Y-ㅐ 계열 모음',
+    title: l10n.hangulS3L4Title,
+    subtitle: l10n.hangulS3L4Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅒ를 익혀요',
-        description: 'ㅒ는 ㅐ 계열의 Y-모음이에요.\n대표 소리는 "얘"예요.',
+        title: l10n.hangulS3L4Step0Title,
+        description: l10n.hangulS3L4Step0Desc,
         data: {
           'animation': {
             'consonant': 'ㅇ',
             'vowel': 'ㅒ',
             'result': '얘',
           },
-          'highlights': ['ㅒ', '얘'],
+          'highlights': l10n.hangulS3L4Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅒ 소리 듣기',
-        description: '얘/걔/냬 소리를 들어보세요',
+        title: l10n.hangulS3L4Step1Title,
+        description: l10n.hangulS3L4Step1Desc,
         data: {
           'characters': ['얘', '걔', '냬'],
           'type': 'syllable',
@@ -228,8 +233,8 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS3L4Step2Title,
+        description: l10n.hangulS3L4Step2Desc,
         data: {
           'characters': ['얘', '걔', '냬'],
           'maxAttempts': 3,
@@ -239,36 +244,38 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS3L4Step3Title,
         data: {
           'lessonId': '3-4',
-          'message': '좋아요!\nㅒ(얘) 모양을 익혔어요.',
+          'message': l10n.hangulS3L4Step3Msg,
         },
       ),
     ],
   ),
+
+  // ── Lesson 3-5: ㅖ ──
   LessonData(
     id: '3-5',
-    title: 'ㅖ 모양과 소리',
-    subtitle: 'Y-ㅔ 계열 모음',
+    title: l10n.hangulS3L5Title,
+    subtitle: l10n.hangulS3L5Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅖ를 익혀요',
-        description: 'ㅖ는 ㅔ 계열의 Y-모음이에요.\n대표 소리는 "예"예요.',
+        title: l10n.hangulS3L5Step0Title,
+        description: l10n.hangulS3L5Step0Desc,
         data: {
           'animation': {
             'consonant': 'ㅇ',
             'vowel': 'ㅖ',
             'result': '예',
           },
-          'highlights': ['ㅖ', '예'],
+          'highlights': l10n.hangulS3L5Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅖ 소리 듣기',
-        description: '예/계/녜 소리를 들어보세요',
+        title: l10n.hangulS3L5Step1Title,
+        description: l10n.hangulS3L5Step1Desc,
         data: {
           'characters': ['예', '계', '녜'],
           'type': 'syllable',
@@ -277,8 +284,8 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS3L5Step2Title,
+        description: l10n.hangulS3L5Step2Desc,
         data: {
           'characters': ['예', '계', '녜'],
           'maxAttempts': 3,
@@ -288,32 +295,34 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS3L5Step3Title,
         data: {
           'lessonId': '3-5',
-          'message': '좋아요!\nㅖ(예) 모양을 익혔어요.',
+          'message': l10n.hangulS3L5Step3Msg,
         },
       ),
     ],
   ),
+
+  // ── Lesson 3-6: ㅐ/ㅔ 계열 종합 ──
   LessonData(
     id: '3-6',
-    title: 'ㅐ/ㅔ 계열 종합',
-    subtitle: 'ㅐ ㅔ ㅒ ㅖ 통합 점검',
+    title: l10n.hangulS3L6Title,
+    subtitle: l10n.hangulS3L6Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: '네 가지를 한 번에 구분해요',
-        description: 'ㅐ/ㅔ/ㅒ/ㅖ를 모양과 소리로 함께 점검해요.',
+        title: l10n.hangulS3L6Step0Title,
+        description: l10n.hangulS3L6Step0Desc,
         data: {
           'emoji': '🧩',
-          'highlights': ['ㅐ', 'ㅔ', 'ㅒ', 'ㅖ'],
+          'highlights': l10n.hangulS3L6Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: '소리 구분',
-        description: '비슷한 소리 중 정답을 골라요',
+        title: l10n.hangulS3L6Step1Title,
+        description: l10n.hangulS3L6Step1Desc,
         data: {
           'questions': [
             {
@@ -337,22 +346,22 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '모양 구분',
-        description: '모양을 보고 빠르게 선택해요',
+        title: l10n.hangulS3L6Step2Title,
+        description: l10n.hangulS3L6Step2Desc,
         data: {
           'questions': [
             {
-              'question': '다음 중 Y-ㅐ 계열은?',
+              'question': l10n.hangulS3L6Step2Q0,
               'answer': 'ㅒ',
               'choices': ['ㅐ', 'ㅒ', 'ㅔ']
             },
             {
-              'question': '다음 중 Y-ㅔ 계열은?',
+              'question': l10n.hangulS3L6Step2Q1,
               'answer': 'ㅖ',
               'choices': ['ㅔ', 'ㅖ', 'ㅐ']
             },
             {
-              'question': 'ㅇ + ㅖ = ?',
+              'question': l10n.hangulS3L6Step2Q2,
               'answer': '예',
               'choices': ['얘', '예']
             },
@@ -361,24 +370,26 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS3L6Step3Title,
         data: {
           'lessonId': '3-6',
-          'message': '좋아요!\n3단계 핵심 모음 구분이 안정됐어요.',
+          'message': l10n.hangulS3L6Step3Msg,
         },
       ),
     ],
   ),
+
+  // ── Lesson 3-7: Stage 3 Mission ──
   LessonData(
     id: '3-7',
-    title: '3단계 미션',
-    subtitle: 'ㅐ/ㅔ 계열 빠른 구분 미션',
+    title: l10n.hangulS3L7Title,
+    subtitle: l10n.hangulS3L7Subtitle,
     isMission: true,
     steps: [
       LessonStep(
         type: StepType.missionIntro,
-        title: '3단계 최종 미션',
-        description: 'ㅐ/ㅔ 계열 조합을 빠르고 정확하게 맞춰요.',
+        title: l10n.hangulS3L7Step0Title,
+        description: l10n.hangulS3L7Step0Desc,
         data: {
           'timeLimitSeconds': 120,
           'targetCount': 8,
@@ -386,7 +397,7 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.timedMission,
-        title: '타임 미션',
+        title: l10n.hangulS3L7Step1Title,
         data: {
           'timeLimitSeconds': 120,
           'targetCount': 8,
@@ -396,21 +407,21 @@ const stage3Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.missionResults,
-        title: '미션 결과',
+        title: l10n.hangulS3L7Step2Title,
       ),
       LessonStep(
         type: StepType.summary,
-        title: '3단계 완료!',
+        title: l10n.hangulS3L7Step3Title,
         data: {
           'lessonId': '3-7',
-          'message': '축하해요!\n3단계 ㅐ/ㅔ 계열 모음을 모두 마쳤어요.',
+          'message': l10n.hangulS3L7Step3Msg,
         },
       ),
       LessonStep(
         type: StepType.stageComplete,
-        title: 'Stage 3 완료!',
+        title: l10n.hangulS3CompleteTitle,
         data: {
-          'message': '모든 모음을 배웠어요!',
+          'message': l10n.hangulS3CompleteMsg,
           'stageNumber': 3,
         },
       ),

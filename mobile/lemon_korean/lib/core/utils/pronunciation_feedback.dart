@@ -56,7 +56,6 @@ class PronunciationFeedback {
 
       final tip = _getPhoneTip(
         expected: phoneme.expected,
-        actual: phoneme.actual,
         category: category,
         position: phoneme.position,
         lang: lang,
@@ -162,7 +161,6 @@ class PronunciationFeedback {
   /// Generate a specific pronunciation tip for a problematic phoneme.
   static String? _getPhoneTip({
     required String expected,
-    required String actual,
     required String category,
     required String position,
     required String lang,

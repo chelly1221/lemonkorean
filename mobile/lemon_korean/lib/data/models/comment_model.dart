@@ -14,9 +14,9 @@ class CommentModel {
     required this.id,
     required this.postId,
     required this.author,
-    this.parentId,
     required this.content,
     required this.createdAt,
+    this.parentId,
   });
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {

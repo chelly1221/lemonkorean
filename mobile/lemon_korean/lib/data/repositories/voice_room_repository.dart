@@ -193,10 +193,13 @@ class VoiceRoomRepository {
     }
   }
 
-  /// Toggle mute
-  Future<bool?> toggleMute(int roomId) async {
+  /// Toggle mute (with optional desired state for idempotent operation)
+  Future<bool?> toggleMute(int roomId, {bool? desiredState}) async {
     try {
-      final response = await _dio.post('/sns/voice-rooms/$roomId/mute');
+      final response = await _dio.post(
+        '/sns/voice-rooms/$roomId/mute',
+        data: desiredState != null ? {'is_muted': desiredState} : null,
+      );
       if (response.statusCode == 200) {
         return response.data['is_muted'] as bool?;
       }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:ui' show Color;
@@ -51,6 +52,9 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
   late ParticleManager _particles;
   late GestureEffects _gestureEffects;
 
+  // Bridge event subscription
+  StreamSubscription? _bridgeSub;
+
   VoiceStageGame({
     required this.bridge,
     required this.isSpeaker,
@@ -95,7 +99,14 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     }
 
     // Listen for bridge events
-    bridge.gameEvents.listen(_handleGameEvent);
+    _bridgeSub = bridge.gameEvents.listen(_handleGameEvent);
+  }
+
+  @override
+  void onRemove() {
+    _bridgeSub?.cancel();
+    _bridgeSub = null;
+    super.onRemove();
   }
 
   void _addStageSpots() {

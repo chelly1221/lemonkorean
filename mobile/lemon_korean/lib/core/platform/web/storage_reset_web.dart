@@ -1,6 +1,8 @@
 import 'dart:convert';
+// ignore: avoid_web_libraries_in_flutter, deprecated_member_use
 import 'dart:js' as js;
 import 'package:flutter/foundation.dart' show kIsWeb;
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:web/web.dart' as web;
 
@@ -13,7 +15,7 @@ Future<void> checkAndHandleStorageReset() async {
 
   try {
     final storage = web.window.localStorage;
-    final cachedUserJson = storage['lk_cached_user'];
+    final cachedUserJson = storage.getItem('lk_cached_user');
     int? userId;
 
     if (cachedUserJson != null && cachedUserJson.isNotEmpty) {

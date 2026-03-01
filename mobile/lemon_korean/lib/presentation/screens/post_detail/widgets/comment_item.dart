@@ -13,9 +13,9 @@ class CommentItem extends StatelessWidget {
   final VoidCallback? onDelete;
 
   const CommentItem({
-    super.key,
     required this.comment,
     required this.currentUserId,
+    super.key,
     this.onReply,
     this.onDelete,
   });

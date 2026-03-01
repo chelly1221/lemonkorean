@@ -43,9 +43,9 @@ class StorageUtils {
       final keys = _getAllKeys(storage).where((key) => key.startsWith('lk_'));
 
       for (final key in keys) {
-        final value = storage[key] ?? '';
+        final value = storage.getItem(key) ?? '';
         // UTF-16 encoding: 2 bytes per character
-        total += ((key.length + value.length) * 2) as int;
+        total += (key.length + value.length) * 2;
       }
     } catch (e) {
       AppLogger.e('Error calculating localStorage usage', error: e, tag: 'StorageUtils');
@@ -74,12 +74,12 @@ class StorageUtils {
       final keys = _getAllKeys(storage).where((key) => key.startsWith('lk_'));
 
       for (final key in keys) {
-        final value = storage[key] ?? '';
-        final size = ((key.length + value.length) * 2) as int;
+        final value = storage.getItem(key) ?? '';
+        final size = (key.length + value.length) * 2;
 
         // Group by prefix
         final prefix = key.split('_').take(2).join('_');
-        breakdown[prefix] = ((breakdown[prefix] ?? 0) + size) as int;
+        breakdown[prefix] = (breakdown[prefix] ?? 0) + size;
       }
     } catch (e) {
       AppLogger.e('Error getting localStorage breakdown', error: e, tag: 'StorageUtils');

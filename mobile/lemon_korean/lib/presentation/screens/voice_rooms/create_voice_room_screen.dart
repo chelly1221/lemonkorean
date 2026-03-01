@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/error_localizer.dart';
 import '../../../data/local/conversation_prompts.dart';
 import '../../../data/models/voice_room_model.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -84,7 +85,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
       icon: Icons.school,
       roomType: RoomTypes.qna,
       level: 'advanced',
-      title: l10n?.voiceRoomTemplateTopikSpeaking ?? 'TOPIK Speaking Practice',
+      title: l10n?.voiceRoomTemplateTopikSpeaking ?? 'TOPIK Speaking',
     ),
   ];
 
@@ -112,6 +113,8 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
   }
 
   Future<void> _handleCreate() async {
+    if (_isCreating) return;
+
     final l10n = AppLocalizations.of(context);
     final title = _titleController.text.trim();
     if (title.isEmpty) {
@@ -123,10 +126,20 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
       return;
     }
 
+    // Capture form values before any async gap to prevent template switch race
+    final topic = _topicController.text.trim().isNotEmpty
+        ? _topicController.text.trim()
+        : null;
+    final level = _selectedLevel;
+    final roomType = _selectedRoomType;
+    final maxSpeakers = _maxSpeakers;
+    final duration = _selectedDuration;
+
     // Request microphone permission on mobile
     if (!kIsWeb) {
       final status = await Permission.microphone.request();
-      if (status.isPermanentlyDenied && mounted) {
+      if (!mounted) return;
+      if (status.isPermanentlyDenied) {
         final dialogL10n = AppLocalizations.of(context);
         showDialog(
           context: context,
@@ -152,7 +165,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
         );
         return;
       }
-      if (!status.isGranted && mounted) {
+      if (!status.isGranted) {
         final snackL10n = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -172,28 +185,35 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
     if (!mounted) return;
     setState(() => _isCreating = true);
 
-    final provider = Provider.of<VoiceRoomProvider>(context, listen: false);
-    final success = await provider.createRoom(
-      title: title,
-      topic: _topicController.text.trim().isNotEmpty
-          ? _topicController.text.trim()
-          : null,
-      languageLevel: _selectedLevel,
-      roomType: _selectedRoomType,
-      maxSpeakers: _maxSpeakers,
-      duration: _selectedDuration,
-    );
+    try {
+      final provider = Provider.of<VoiceRoomProvider>(context, listen: false);
+      provider.clearError();
+      final success = await provider.createRoom(
+        title: title,
+        topic: topic,
+        languageLevel: level,
+        roomType: roomType,
+        maxSpeakers: maxSpeakers,
+        duration: duration,
+      );
 
-    if (mounted) {
-      setState(() => _isCreating = false);
-      if (success) {
-        Navigator.pop(context, true);
-      } else {
-        final errorL10n = AppLocalizations.of(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(provider.error ?? errorL10n?.voiceRoomCreateFailed ?? 'Failed to create room')),
-        );
+      if (mounted) {
+        if (success) {
+          Navigator.pop(context, true);
+        } else {
+          final errorL10n = AppLocalizations.of(context);
+          final errorMsg = provider.error != null
+              ? ErrorLocalizer.localize(provider.error!, errorL10n)
+              : (errorL10n?.voiceRoomCreateFailed ?? 'Failed to create room');
+          provider.clearError();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(errorMsg)),
+          );
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isCreating = false);
       }
     }
   }
@@ -202,11 +222,14 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
-    return Scaffold(
+    return PopScope(
+      canPop: !_isCreating,
+      child: Scaffold(
       appBar: AppBar(
         title: Text(l10n?.createVoiceRoom ?? 'Create Voice Room'),
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: _isCreating ? const SizedBox.shrink() : null,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppConstants.paddingLarge),
@@ -336,8 +359,9 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
+              runSpacing: 8,
               children: [
-                _buildLevelChip('all', l10n?.allLevels ?? 'All'),
+                _buildLevelChip('all', l10n?.allLevels ?? 'All Levels'),
                 _buildLevelChip('beginner', l10n?.beginner ?? 'Beginner'),
                 _buildLevelChip(
                     'intermediate', l10n?.intermediate ?? 'Intermediate'),
@@ -404,6 +428,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
+              runSpacing: 8,
               children: [
                 _buildDurationChip(null, l10n?.voiceRoomDurationNone ?? 'None'),
                 _buildDurationChip(15, l10n?.voiceRoomDuration15 ?? '15 min'),
@@ -449,6 +474,7 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
           ],
         ),
       ),
+    ),
     );
   }
 

@@ -124,36 +124,44 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
 
     final point = _currentGrammarPoints[_currentPointIndex];
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        children: [
-          // Stage Title
-          Text(
-            l10n.grammarExplanation,
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeXLarge,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        // Header
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, AppConstants.paddingSmall,
+            AppConstants.paddingMedium, 0,
           ),
-
-          const SizedBox(height: 20),
-
-          // Grammar Point Counter
-          Text(
-            '${_currentPointIndex + 1} / ${_currentGrammarPoints.length}',
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeMedium,
-              color: AppConstants.textSecondary,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                l10n.grammarExplanation,
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeLarge,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '${_currentPointIndex + 1} / ${_currentGrammarPoints.length}',
+                style: const TextStyle(
+                  fontSize: AppConstants.fontSizeMedium,
+                  color: AppConstants.textSecondary,
+                ),
+              ),
+            ],
           ),
+        ),
 
-          const SizedBox(height: 20),
+        const SizedBox(height: 8),
 
-          // Grammar Point Card
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
+        // Grammar Point Card
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+            ),
+            child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(AppConstants.paddingLarge),
                 decoration: BoxDecoration(
@@ -250,28 +258,29 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
             ),
           ),
 
-          const SizedBox(height: 20),
-
-          // Navigation Buttons
-          Row(
+        // Navigation Buttons (fixed at bottom)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
+          ),
+          child: Row(
             children: [
-              // Previous Button
               if (_currentPointIndex > 0)
                 Expanded(
                   child: OutlinedButton(
                     onPressed: _previousPoint,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                        vertical: AppConstants.paddingMedium,
+                        vertical: AppConstants.paddingSmall + 4,
                       ),
                     ),
                     child: Text(l10n.previousItem),
                   ),
                 ),
 
-              if (_currentPointIndex > 0) const SizedBox(width: 16),
+              if (_currentPointIndex > 0) const SizedBox(width: 12),
 
-              // Next Button
               Expanded(
                 flex: 2,
                 child: ElevatedButton(
@@ -280,7 +289,7 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
                     backgroundColor: AppConstants.primaryColor,
                     foregroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(
-                      vertical: AppConstants.paddingMedium,
+                      vertical: AppConstants.paddingSmall + 4,
                     ),
                   ),
                   child: Text(
@@ -292,8 +301,8 @@ class _Stage3GrammarState extends State<Stage3Grammar> {
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

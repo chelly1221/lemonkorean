@@ -1,26 +1,26 @@
+import '../../../../l10n/generated/app_localizations.dart';
 import '../stage0/stage0_lesson_content.dart';
 
 /// All Stage 4 lessons — 기본 자음 1 (ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ).
-const stage4Lessons = <LessonData>[
+List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
   LessonData(
     id: '4-1',
-    title: 'ㄱ 모양과 소리',
-    subtitle: '기본 자음 시작: ㄱ',
+    title: l10n.hangulS4L1Title,
+    subtitle: l10n.hangulS4L1Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㄱ을 배워요',
-        description: 'ㄱ은 기본 자음의 시작이에요.\n'
-            'ㅏ와 합치면 "가" 소리가 나요.',
+        title: l10n.hangulS4L1Step0Title,
+        description: l10n.hangulS4L1Step0Desc,
         data: {
           'animation': {'consonant': 'ㄱ', 'vowel': 'ㅏ', 'result': '가'},
-          'highlights': ['ㄱ', '가', '기본 자음'],
+          'highlights': l10n.hangulS4L1Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄱ 소리 듣기',
-        description: '가/고/구 소리를 들어보세요',
+        title: l10n.hangulS4L1Step1Title,
+        description: l10n.hangulS4L1Step1Desc,
         data: {
           'characters': ['가', '고', '구'],
           'type': 'syllable',
@@ -29,8 +29,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L1Step2Title,
+        description: l10n.hangulS4L1Step2Desc,
         data: {
           'characters': ['가', '고', '구'],
           'maxAttempts': 3,
@@ -40,8 +40,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㄱ 소리 고르기',
-        description: '소리를 듣고 맞는 글자를 선택하세요',
+        title: l10n.hangulS4L1Step3Title,
+        description: l10n.hangulS4L1Step3Desc,
         data: {
           'questions': [
             {
@@ -61,8 +61,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㄱ으로 글자 만들기',
-        description: 'ㄱ + 모음을 조합해보세요',
+        title: l10n.hangulS4L1Step4Title,
+        description: l10n.hangulS4L1Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㄱ', 'vowel': 'ㅏ', 'result': '가'},
@@ -75,32 +75,32 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS4L1SummaryTitle,
         data: {
           'lessonId': '4-1',
-          'message': '좋아요!\nㄱ 소리와 모양을 익혔어요.',
+          'message': l10n.hangulS4L1SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-2',
-    title: 'ㄴ 모양과 소리',
-    subtitle: '두 번째 기본 자음: ㄴ',
+    title: l10n.hangulS4L2Title,
+    subtitle: l10n.hangulS4L2Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㄴ을 배워요',
-        description: 'ㄴ은 "나" 소리 계열을 만들어요.',
+        title: l10n.hangulS4L2Step0Title,
+        description: l10n.hangulS4L2Step0Desc,
         data: {
           'animation': {'consonant': 'ㄴ', 'vowel': 'ㅏ', 'result': '나'},
-          'highlights': ['ㄴ', '나'],
+          'highlights': l10n.hangulS4L2Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄴ 소리 듣기',
-        description: '나/노/누 소리를 들어보세요',
+        title: l10n.hangulS4L2Step1Title,
+        description: l10n.hangulS4L2Step1Desc,
         data: {
           'characters': ['나', '노', '누'],
           'type': 'syllable',
@@ -109,8 +109,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L2Step2Title,
+        description: l10n.hangulS4L2Step2Desc,
         data: {
           'characters': ['나', '노', '누'],
           'maxAttempts': 3,
@@ -120,8 +120,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㄴ 소리 고르기',
-        description: '나/다를 구분해요',
+        title: l10n.hangulS4L2Step3Title,
+        description: l10n.hangulS4L2Step3Desc,
         data: {
           'questions': [
             {
@@ -141,8 +141,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㄴ으로 글자 만들기',
-        description: 'ㄴ + 모음을 조합해보세요',
+        title: l10n.hangulS4L2Step4Title,
+        description: l10n.hangulS4L2Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㄴ', 'vowel': 'ㅏ', 'result': '나'},
@@ -155,32 +155,32 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS4L2SummaryTitle,
         data: {
           'lessonId': '4-2',
-          'message': '좋아요!\nㄴ 소리와 모양을 익혔어요.',
+          'message': l10n.hangulS4L2SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-3',
-    title: 'ㄷ 모양과 소리',
-    subtitle: '세 번째 기본 자음: ㄷ',
+    title: l10n.hangulS4L3Title,
+    subtitle: l10n.hangulS4L3Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㄷ을 배워요',
-        description: 'ㄷ은 "다" 소리 계열을 만들어요.',
+        title: l10n.hangulS4L3Step0Title,
+        description: l10n.hangulS4L3Step0Desc,
         data: {
           'animation': {'consonant': 'ㄷ', 'vowel': 'ㅏ', 'result': '다'},
-          'highlights': ['ㄷ', '다'],
+          'highlights': l10n.hangulS4L3Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄷ 소리 듣기',
-        description: '다/도/두 소리를 들어보세요',
+        title: l10n.hangulS4L3Step1Title,
+        description: l10n.hangulS4L3Step1Desc,
         data: {
           'characters': ['다', '도', '두'],
           'type': 'syllable',
@@ -189,8 +189,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L3Step2Title,
+        description: l10n.hangulS4L3Step2Desc,
         data: {
           'characters': ['다', '도', '두'],
           'maxAttempts': 3,
@@ -200,8 +200,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㄷ 소리 고르기',
-        description: '다/나를 구분해요',
+        title: l10n.hangulS4L3Step3Title,
+        description: l10n.hangulS4L3Step3Desc,
         data: {
           'questions': [
             {
@@ -221,8 +221,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㄷ으로 글자 만들기',
-        description: 'ㄷ + 모음을 조합해보세요',
+        title: l10n.hangulS4L3Step4Title,
+        description: l10n.hangulS4L3Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㄷ', 'vowel': 'ㅏ', 'result': '다'},
@@ -235,32 +235,32 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS4L3SummaryTitle,
         data: {
           'lessonId': '4-3',
-          'message': '좋아요!\nㄷ 소리와 모양을 익혔어요.',
+          'message': l10n.hangulS4L3SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-4',
-    title: 'ㄹ 모양과 소리',
-    subtitle: '네 번째 기본 자음: ㄹ',
+    title: l10n.hangulS4L4Title,
+    subtitle: l10n.hangulS4L4Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㄹ을 배워요',
-        description: 'ㄹ은 "라" 소리 계열을 만들어요.',
+        title: l10n.hangulS4L4Step0Title,
+        description: l10n.hangulS4L4Step0Desc,
         data: {
           'animation': {'consonant': 'ㄹ', 'vowel': 'ㅏ', 'result': '라'},
-          'highlights': ['ㄹ', '라'],
+          'highlights': l10n.hangulS4L4Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㄹ 소리 듣기',
-        description: '라/로/루 소리를 들어보세요',
+        title: l10n.hangulS4L4Step1Title,
+        description: l10n.hangulS4L4Step1Desc,
         data: {
           'characters': ['라', '로', '루'],
           'type': 'syllable',
@@ -269,8 +269,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L4Step2Title,
+        description: l10n.hangulS4L4Step2Desc,
         data: {
           'characters': ['라', '로', '루'],
           'maxAttempts': 3,
@@ -280,8 +280,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㄹ 소리 고르기',
-        description: '라/나를 구분해요',
+        title: l10n.hangulS4L4Step3Title,
+        description: l10n.hangulS4L4Step3Desc,
         data: {
           'questions': [
             {
@@ -301,8 +301,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㄹ로 글자 만들기',
-        description: 'ㄹ + 모음을 조합해보세요',
+        title: l10n.hangulS4L4Step4Title,
+        description: l10n.hangulS4L4Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㄹ', 'vowel': 'ㅏ', 'result': '라'},
@@ -315,32 +315,32 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS4L4SummaryTitle,
         data: {
           'lessonId': '4-4',
-          'message': '좋아요!\nㄹ 소리와 모양을 익혔어요.',
+          'message': l10n.hangulS4L4SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-5',
-    title: 'ㅁ 모양과 소리',
-    subtitle: '다섯 번째 기본 자음: ㅁ',
+    title: l10n.hangulS4L5Title,
+    subtitle: l10n.hangulS4L5Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅁ을 배워요',
-        description: 'ㅁ은 "마" 소리 계열을 만들어요.',
+        title: l10n.hangulS4L5Step0Title,
+        description: l10n.hangulS4L5Step0Desc,
         data: {
           'animation': {'consonant': 'ㅁ', 'vowel': 'ㅏ', 'result': '마'},
-          'highlights': ['ㅁ', '마'],
+          'highlights': l10n.hangulS4L5Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅁ 소리 듣기',
-        description: '마/모/무 소리를 들어보세요',
+        title: l10n.hangulS4L5Step1Title,
+        description: l10n.hangulS4L5Step1Desc,
         data: {
           'characters': ['마', '모', '무'],
           'type': 'syllable',
@@ -349,8 +349,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L5Step2Title,
+        description: l10n.hangulS4L5Step2Desc,
         data: {
           'characters': ['마', '모', '무'],
           'maxAttempts': 3,
@@ -360,8 +360,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㅁ 소리 고르기',
-        description: '마/바를 구분해요',
+        title: l10n.hangulS4L5Step3Title,
+        description: l10n.hangulS4L5Step3Desc,
         data: {
           'questions': [
             {
@@ -381,8 +381,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㅁ으로 글자 만들기',
-        description: 'ㅁ + 모음을 조합해보세요',
+        title: l10n.hangulS4L5Step4Title,
+        description: l10n.hangulS4L5Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㅁ', 'vowel': 'ㅏ', 'result': '마'},
@@ -395,32 +395,32 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS4L5SummaryTitle,
         data: {
           'lessonId': '4-5',
-          'message': '좋아요!\nㅁ 소리와 모양을 익혔어요.',
+          'message': l10n.hangulS4L5SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-6',
-    title: 'ㅂ 모양과 소리',
-    subtitle: '여섯 번째 기본 자음: ㅂ',
+    title: l10n.hangulS4L6Title,
+    subtitle: l10n.hangulS4L6Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅂ을 배워요',
-        description: 'ㅂ은 "바" 소리 계열을 만들어요.',
+        title: l10n.hangulS4L6Step0Title,
+        description: l10n.hangulS4L6Step0Desc,
         data: {
           'animation': {'consonant': 'ㅂ', 'vowel': 'ㅏ', 'result': '바'},
-          'highlights': ['ㅂ', '바'],
+          'highlights': l10n.hangulS4L6Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅂ 소리 듣기',
-        description: '바/보/부 소리를 들어보세요',
+        title: l10n.hangulS4L6Step1Title,
+        description: l10n.hangulS4L6Step1Desc,
         data: {
           'characters': ['바', '보', '부'],
           'type': 'syllable',
@@ -429,8 +429,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L6Step2Title,
+        description: l10n.hangulS4L6Step2Desc,
         data: {
           'characters': ['바', '보', '부'],
           'maxAttempts': 3,
@@ -440,8 +440,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㅂ 소리 고르기',
-        description: '바/마를 구분해요',
+        title: l10n.hangulS4L6Step3Title,
+        description: l10n.hangulS4L6Step3Desc,
         data: {
           'questions': [
             {
@@ -461,8 +461,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㅂ으로 글자 만들기',
-        description: 'ㅂ + 모음을 조합해보세요',
+        title: l10n.hangulS4L6Step4Title,
+        description: l10n.hangulS4L6Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㅂ', 'vowel': 'ㅏ', 'result': '바'},
@@ -475,32 +475,32 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '레슨 완료!',
+        title: l10n.hangulS4L6SummaryTitle,
         data: {
           'lessonId': '4-6',
-          'message': '좋아요!\nㅂ 소리와 모양을 익혔어요.',
+          'message': l10n.hangulS4L6SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-7',
-    title: 'ㅅ 모양과 소리',
-    subtitle: '일곱 번째 기본 자음: ㅅ',
+    title: l10n.hangulS4L7Title,
+    subtitle: l10n.hangulS4L7Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: 'ㅅ을 배워요',
-        description: 'ㅅ은 "사" 소리 계열을 만들어요.',
+        title: l10n.hangulS4L7Step0Title,
+        description: l10n.hangulS4L7Step0Desc,
         data: {
           'animation': {'consonant': 'ㅅ', 'vowel': 'ㅏ', 'result': '사'},
-          'highlights': ['ㅅ', '사'],
+          'highlights': l10n.hangulS4L7Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: 'ㅅ 소리 듣기',
-        description: '사/소/수 소리를 들어보세요',
+        title: l10n.hangulS4L7Step1Title,
+        description: l10n.hangulS4L7Step1Desc,
         data: {
           'characters': ['사', '소', '수'],
           'type': 'syllable',
@@ -509,8 +509,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L7Step2Title,
+        description: l10n.hangulS4L7Step2Desc,
         data: {
           'characters': ['사', '소', '수'],
           'maxAttempts': 3,
@@ -520,8 +520,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: 'ㅅ 소리 고르기',
-        description: '사/자를 구분해요',
+        title: l10n.hangulS4L7Step3Title,
+        description: l10n.hangulS4L7Step3Desc,
         data: {
           'questions': [
             {
@@ -541,8 +541,8 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.syllableBuild,
-        title: 'ㅅ으로 글자 만들기',
-        description: 'ㅅ + 모음을 조합해보세요',
+        title: l10n.hangulS4L7Step4Title,
+        description: l10n.hangulS4L7Step4Desc,
         data: {
           'targets': [
             {'consonant': 'ㅅ', 'vowel': 'ㅏ', 'result': '사'},
@@ -555,10 +555,10 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.summary,
-        title: '4단계 완료!',
+        title: l10n.hangulS4L7SummaryTitle,
         data: {
           'lessonId': '4-7',
-          'message': '축하해요!\n4단계 기본 자음 1(ㄱ~ㅅ)을 완료했어요.',
+          'message': l10n.hangulS4L7SummaryMsg,
         },
       ),
     ],
@@ -567,30 +567,30 @@ const stage4Lessons = <LessonData>[
   // ── Lesson 4-8: 보너스 - 단어 읽기 도전! ──
   LessonData(
     id: '4-8',
-    title: '단어 읽기 도전!',
-    subtitle: '자음과 모음으로 단어를 읽어봐요',
+    title: l10n.hangulS4L8Title,
+    subtitle: l10n.hangulS4L8Subtitle,
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: '이제 더 많은 단어를 읽을 수 있어요!',
-        description: '기본 자음 7개와 모음을 모두 배웠어요.\n이 글자들로 만든 진짜 단어를 읽어볼까요?',
+        title: l10n.hangulS4L8Step0Title,
+        description: l10n.hangulS4L8Step0Desc,
         data: {
           'emoji': '🌟',
-          'highlights': ['자음 7개', '모음', '진짜 단어'],
+          'highlights': l10n.hangulS4L8Step0Highlights.split(','),
         },
       ),
       LessonStep(
         type: StepType.soundExplore,
-        title: '단어 읽기',
+        title: l10n.hangulS4L8Step1Title,
         data: {
           'characters': ['나무', '바다', '나비', '모자', '가구', '두부'],
-          'descriptions': ['tree', 'sea', 'butterfly', 'hat', 'furniture', 'tofu'],
+          'descriptions': l10n.hangulS4L8Step1Descs.split(','),
         },
       ),
       LessonStep(
         type: StepType.speechPractice,
-        title: '발음 연습',
-        description: '글자를 직접 소리내어 보세요',
+        title: l10n.hangulS4L8Step2Title,
+        description: l10n.hangulS4L8Step2Desc,
         data: {
           'characters': ['나무', '바다', '나비'],
           'maxAttempts': 3,
@@ -600,7 +600,7 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.soundMatch,
-        title: '듣고 골라요',
+        title: l10n.hangulS4L8Step3Title,
         data: {
           'questions': [
             {'audio': '나무', 'choices': ['나무', '나비', '바다'], 'answer': '나무'},
@@ -612,38 +612,38 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.quizMcq,
-        title: '무슨 뜻일까요?',
+        title: l10n.hangulS4L8Step4Title,
         data: {
           'questions': [
-            {'question': '"나비"는 영어로?', 'answer': 'butterfly', 'choices': ['tree', 'butterfly', 'sea']},
-            {'question': '"바다"는 영어로?', 'answer': 'sea', 'choices': ['hat', 'sea', 'tofu']},
+            {'question': l10n.hangulS4L8Step4Q0, 'answer': 'butterfly', 'choices': ['tree', 'butterfly', 'sea']},
+            {'question': l10n.hangulS4L8Step4Q1, 'answer': 'sea', 'choices': ['hat', 'sea', 'tofu']},
           ],
         },
       ),
       LessonStep(
         type: StepType.summary,
-        title: '훌륭해요!',
+        title: l10n.hangulS4L8SummaryTitle,
         data: {
-          'message': '한국어 단어 6개를 읽었어요!\n자음을 더 배우면 훨씬 더 많은 단어를 읽을 수 있어요.',
+          'message': l10n.hangulS4L8SummaryMsg,
         },
       ),
     ],
   ),
   LessonData(
     id: '4-M',
-    title: '미션: 기본 자음 조합!',
-    subtitle: '시간 안에 음절을 만들어요',
+    title: l10n.hangulS4LMTitle,
+    subtitle: l10n.hangulS4LMSubtitle,
     isMission: true,
     steps: [
       LessonStep(
         type: StepType.missionIntro,
-        title: '미션 시작!',
-        description: '기본 자음 ㄱ~ㅅ과 모음을 조합해요.\n제한 시간 안에 목표를 달성하세요!',
+        title: l10n.hangulS4LMStep0Title,
+        description: l10n.hangulS4LMStep0Desc,
         data: {'timeLimit': 120, 'targetCount': 8},
       ),
       LessonStep(
         type: StepType.timedMission,
-        title: '음절을 조합하세요!',
+        title: l10n.hangulS4LMStep1Title,
         data: {
           'timeLimitSeconds': 120,
           'targetCount': 8,
@@ -653,19 +653,19 @@ const stage4Lessons = <LessonData>[
       ),
       LessonStep(
         type: StepType.missionResults,
-        title: '미션 결과',
+        title: l10n.hangulS4LMStep2Title,
         data: {},
       ),
       LessonStep(
         type: StepType.summary,
-        title: '미션 완료!',
-        data: {'message': '기본 자음 7개를 자유롭게 조합할 수 있어요!'},
+        title: l10n.hangulS4LMSummaryTitle,
+        data: {'message': l10n.hangulS4LMSummaryMsg},
       ),
       LessonStep(
         type: StepType.stageComplete,
-        title: 'Stage 4 완료!',
+        title: l10n.hangulS4CompleteTitle,
         data: {
-          'message': '기본 자음 7개를 익혔어요!',
+          'message': l10n.hangulS4CompleteMsg,
           'stageNumber': 4,
         },
       ),

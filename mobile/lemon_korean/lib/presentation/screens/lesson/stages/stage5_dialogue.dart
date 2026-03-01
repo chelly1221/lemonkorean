@@ -182,90 +182,89 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
     final dialogue = _dialogues[_currentDialogueIndex];
     final lines = dialogue['lines'] as List;
 
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingLarge),
-      child: Column(
-        children: [
-          // Stage Title
-          Text(
-            l10n.dialogueTitle,
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeXLarge,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        // Header: Title + Counter + Dialogue Title
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, AppConstants.paddingSmall,
+            AppConstants.paddingMedium, 0,
           ),
-
-          const SizedBox(height: 20),
-
-          // Dialogue Counter
-          Text(
-            '${_currentDialogueIndex + 1} / ${_dialogues.length}',
-            style: const TextStyle(
-              fontSize: AppConstants.fontSizeMedium,
-              color: AppConstants.textSecondary,
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          // Dialogue Title
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
-            decoration: BoxDecoration(
-              color: AppConstants.primaryColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  dialogue['title'],
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          dialogue['title'],
+                          style: const TextStyle(
+                            fontSize: AppConstants.fontSizeLarge,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          dialogue['titleZh'],
+                          style: const TextStyle(
+                            fontSize: AppConstants.fontSizeSmall,
+                            color: AppConstants.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  dialogue['titleZh'],
-                  style: const TextStyle(
-                    fontSize: AppConstants.fontSizeMedium,
-                    color: AppConstants.textSecondary,
+                  Row(
+                    children: [
+                      // Play All Button (compact)
+                      SizedBox(
+                        height: 36,
+                        child: OutlinedButton.icon(
+                          onPressed: _playingLineIndex == null ? _playAll : null,
+                          icon: Icon(
+                            _playingLineIndex != null ? Icons.pause : Icons.play_arrow,
+                            size: 18,
+                          ),
+                          label: Builder(
+                            builder: (context) {
+                              final l10n = AppLocalizations.of(context)!;
+                              return Text(
+                                _playingLineIndex != null ? l10n.playingAudio : l10n.playAll,
+                                style: const TextStyle(fontSize: AppConstants.fontSizeSmall),
+                              );
+                            },
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        '${_currentDialogueIndex + 1}/${_dialogues.length}',
+                        style: const TextStyle(
+                          fontSize: AppConstants.fontSizeSmall,
+                          color: AppConstants.textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
+        ),
 
-          const SizedBox(height: 20),
+        const SizedBox(height: 8),
 
-          // Play All Button
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton.icon(
-              onPressed: _playingLineIndex == null ? _playAll : null,
-              icon: Icon(
-                _playingLineIndex != null ? Icons.pause : Icons.play_arrow,
-              ),
-              label: Builder(
-                builder: (context) {
-                  final l10n = AppLocalizations.of(context)!;
-                  return Text(_playingLineIndex != null ? l10n.playingAudio : l10n.playAll);
-                },
-              ),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppConstants.paddingMedium,
-                ),
-              ),
+        // Dialogue Lines
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
             ),
-          ),
-
-          const SizedBox(height: 20),
-
-          // Dialogue Lines
-          Expanded(
-            child: ListView.builder(
               itemCount: lines.length,
               itemBuilder: (context, index) {
                 final line = lines[index];
@@ -397,28 +396,29 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
             ),
           ),
 
-          const SizedBox(height: 20),
-
-          // Navigation Buttons
-          Row(
+        // Navigation Buttons (fixed at bottom)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingMedium, 8,
+            AppConstants.paddingMedium, AppConstants.paddingMedium,
+          ),
+          child: Row(
             children: [
-              // Previous Button
               if (_currentDialogueIndex > 0)
                 Expanded(
                   child: OutlinedButton(
                     onPressed: _previousDialogue,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                        vertical: AppConstants.paddingMedium,
+                        vertical: AppConstants.paddingSmall + 4,
                       ),
                     ),
                     child: Text(l10n.previousItem),
                   ),
                 ),
 
-              if (_currentDialogueIndex > 0) const SizedBox(width: 16),
+              if (_currentDialogueIndex > 0) const SizedBox(width: 12),
 
-              // Next Button
               Expanded(
                 flex: 2,
                 child: ElevatedButton(
@@ -427,7 +427,7 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
                     backgroundColor: AppConstants.primaryColor,
                     foregroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(
-                      vertical: AppConstants.paddingMedium,
+                      vertical: AppConstants.paddingSmall + 4,
                     ),
                   ),
                   child: Text(
@@ -439,8 +439,8 @@ class _Stage5DialogueState extends State<Stage5Dialogue> {
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

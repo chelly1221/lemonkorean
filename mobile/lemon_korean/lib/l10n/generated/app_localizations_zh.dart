@@ -2371,7 +2371,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToLoadProfile => '加载资料失败';
 
   @override
-  String get userNotFound => '用户不存在';
+  String get userNotFound => '找不到用户';
 
   @override
   String get message => '私信';
@@ -3060,6 +3060,4259 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get overallScore => '综合分数';
+
+  @override
+  String get appTagline => '像柠檬一样清新，实力稳稳的！';
+
+  @override
+  String get passwordHint => '请输入包含字母和数字的8位以上密码';
+
+  @override
+  String get findAccount => '找回账号';
+
+  @override
+  String get resetPassword => '重置密码';
+
+  @override
+  String get registerTitle => '清新的韩语之旅，现在出发！';
+
+  @override
+  String get registerSubtitle => '轻松起步也没关系！我会牢牢带着你';
+
+  @override
+  String get nickname => '昵称';
+
+  @override
+  String get nicknameHint => '15个字符以内：字母、数字、下划线';
+
+  @override
+  String get confirmPasswordHint => '请再次输入密码';
+
+  @override
+  String get accountChoiceTitle => '欢迎！和莫尼一起\n建立学习习惯吧！';
+
+  @override
+  String get accountChoiceSubtitle => '清新出发，实力我来帮你守住！';
+
+  @override
+  String get startWithEmail => '使用邮箱开始';
+
+  @override
+  String get deleteMessageTitle => '删除消息？';
+
+  @override
+  String get deleteMessageContent => '此消息将对所有人删除。';
+
+  @override
+  String get messageDeleted => '消息已删除';
+
+  @override
+  String get beFirstToPost => '来发第一条帖子吧！';
+
+  @override
+  String get typeTagHint => '输入标签...';
+
+  @override
+  String get userInfoLoadFailed => '加载用户信息失败';
+
+  @override
+  String get loginErrorOccurred => '登录过程中发生错误';
+
+  @override
+  String get registerErrorOccurred => '注册过程中发生错误';
+
+  @override
+  String get logoutErrorOccurred => '退出登录过程中发生错误';
+
+  @override
+  String get hangulStage0Title => '第0阶段：理解韩文结构';
+
+  @override
+  String get hangulStage1Title => '第1阶段：基本元音';
+
+  @override
+  String get hangulStage2Title => '第2阶段：Y元音';
+
+  @override
+  String get hangulStage3Title => '第3阶段：ㅐ/ㅔ元音';
+
+  @override
+  String get hangulStage4Title => '第4阶段：基本辅音1';
+
+  @override
+  String get hangulStage5Title => '第5阶段：基本辅音2';
+
+  @override
+  String get hangulStage6Title => '第6阶段：音节组合训练';
+
+  @override
+  String get hangulStage7Title => '第7阶段：紧音/送气音';
+
+  @override
+  String get hangulStage8Title => '第8阶段：收音（终声）1';
+
+  @override
+  String get hangulStage9Title => '第9阶段：收音扩展';
+
+  @override
+  String get hangulStage10Title => '第10阶段：复合收音';
+
+  @override
+  String get hangulStage11Title => '第11阶段：扩展词汇阅读';
+
+  @override
+  String get sortAlphabetical => '字母顺序';
+
+  @override
+  String get sortByLevel => '按级别';
+
+  @override
+  String get sortBySimilarity => '按相似度';
+
+  @override
+  String get searchWordsKoreanMeaning => '搜索单词（韩语/含义）';
+
+  @override
+  String get groupedView => '分组视图';
+
+  @override
+  String get matrixView => '辅音×元音';
+
+  @override
+  String get reviewLessons => '复习课程';
+
+  @override
+  String get stageDetailComingSoon => '详细内容正在准备中。';
+
+  @override
+  String get bossQuizComingSoon => 'Boss测验正在准备中。';
+
+  @override
+  String get exitLessonDialogTitle => '退出课程';
+
+  @override
+  String get exitLessonDialogContent => '要退出课程吗？\n当前步骤的进度将自动保存。';
+
+  @override
+  String get continueButton => '继续';
+
+  @override
+  String get exitLessonButton => '退出';
+
+  @override
+  String get noQuestions => '没有可用的问题';
+
+  @override
+  String get noCharactersDefined => '未定义字符';
+
+  @override
+  String get recordingStartFailed => '录音启动失败';
+
+  @override
+  String get consonant => '辅音';
+
+  @override
+  String get vowel => '元音';
+
+  @override
+  String get validationEmailRequired => '请输入电子邮箱';
+
+  @override
+  String get validationEmailTooLong => '电子邮箱地址过长';
+
+  @override
+  String get validationEmailInvalid => '请输入有效的电子邮箱地址';
+
+  @override
+  String get validationPasswordRequired => '请输入密码';
+
+  @override
+  String validationPasswordMinLength(int minLength) {
+    return '密码至少需要$minLength个字符';
+  }
+
+  @override
+  String get validationPasswordNeedLetter => '密码必须包含字母';
+
+  @override
+  String get validationPasswordNeedNumber => '密码必须包含数字';
+
+  @override
+  String get validationPasswordNeedSpecial => '密码必须包含特殊字符';
+
+  @override
+  String get validationPasswordTooLong => '密码过长';
+
+  @override
+  String get validationConfirmPasswordRequired => '请再次输入密码';
+
+  @override
+  String get validationPasswordMismatch => '两次输入的密码不一致';
+
+  @override
+  String get validationUsernameRequired => '请输入用户名';
+
+  @override
+  String validationUsernameTooShort(int minLength) {
+    return '用户名至少需要$minLength个字符';
+  }
+
+  @override
+  String validationUsernameTooLong(int maxLength) {
+    return '用户名不能超过$maxLength个字符';
+  }
+
+  @override
+  String get validationUsernameInvalidChars => '用户名只能包含字母、数字和下划线';
+
+  @override
+  String validationFieldRequired(String fieldName) {
+    return '请输入$fieldName';
+  }
+
+  @override
+  String validationFieldMinLength(String fieldName, int minLength) {
+    return '$fieldName至少需要$minLength个字符';
+  }
+
+  @override
+  String validationFieldMaxLength(String fieldName, int maxLength) {
+    return '$fieldName不能超过$maxLength个字符';
+  }
+
+  @override
+  String validationFieldNumeric(String fieldName) {
+    return '$fieldName必须是数字';
+  }
+
+  @override
+  String get errorNetworkConnection => '网络连接失败，请检查网络设置';
+
+  @override
+  String get errorServer => '服务器错误，请稍后重试';
+
+  @override
+  String get errorAuthFailed => '认证失败，请重新登录';
+
+  @override
+  String get errorUnknown => '未知错误，请稍后重试';
+
+  @override
+  String get errorTimeout => '连接超时，请检查网络';
+
+  @override
+  String get errorRequestCancelled => '请求已取消';
+
+  @override
+  String get errorForbidden => '没有访问权限';
+
+  @override
+  String get errorNotFound => '请求的资源不存在';
+
+  @override
+  String get errorRequestParam => '请求参数错误';
+
+  @override
+  String get errorParseData => '数据解析错误';
+
+  @override
+  String get errorParseFormat => '数据格式错误';
+
+  @override
+  String get errorRateLimited => '请求过多，请稍后重试';
+
+  @override
+  String get successLogin => '登录成功';
+
+  @override
+  String get successRegister => '注册成功';
+
+  @override
+  String get successSync => '同步成功';
+
+  @override
+  String get successDownload => '下载成功';
+
+  @override
+  String get failedToCreateComment => '创建评论失败';
+
+  @override
+  String get failedToDeleteComment => '删除评论失败';
+
+  @override
+  String get failedToSubmitReport => '提交举报失败';
+
+  @override
+  String get failedToBlockUser => '屏蔽用户失败';
+
+  @override
+  String get failedToUnblockUser => '取消屏蔽用户失败';
+
+  @override
+  String get failedToCreatePost => '创建帖子失败';
+
+  @override
+  String get failedToDeletePost => '删除帖子失败';
+
+  @override
+  String noVocabularyForLevel(int level) {
+    return '未找到$level级词汇';
+  }
+
+  @override
+  String get uploadingImage => '[图片上传中...]';
+
+  @override
+  String get uploadingVoice => '[语音上传中...]';
+
+  @override
+  String get imagePreview => '[图片]';
+
+  @override
+  String get voicePreview => '[语音]';
+
+  @override
+  String get voiceServerConnectFailed => '无法连接语音服务器，请检查您的连接。';
+
+  @override
+  String get connectionLostRetry => '连接断开，点击重试。';
+
+  @override
+  String get noInternetConnection => '无网络连接，请检查您的网络。';
+
+  @override
+  String get couldNotLoadRooms => '无法加载房间列表，请重试。';
+
+  @override
+  String get couldNotCreateRoom => '无法创建房间，请重试。';
+
+  @override
+  String get couldNotJoinRoom => '无法加入房间，请检查您的连接。';
+
+  @override
+  String get roomClosedByHost => '主持人已关闭房间。';
+
+  @override
+  String get removedFromRoomByHost => '您已被主持人移出房间。';
+
+  @override
+  String get connectionTimedOut => '连接超时，请重试。';
+
+  @override
+  String get missingLiveKitCredentials => '缺少语音连接凭据。';
+
+  @override
+  String get microphoneEnableFailed => '无法启用麦克风。请检查权限并尝试取消静音。';
+
+  @override
+  String get voiceRoomNewMessages => '新消息';
+
+  @override
+  String get voiceRoomChatRateLimited => '消息发送过快，请稍候再试。';
+
+  @override
+  String get voiceRoomMessageSendFailed => '消息发送失败，请重试。';
+
+  @override
+  String get voiceRoomChatError => '聊天出错。';
+
+  @override
+  String retryAttempt(int current, int max) {
+    return '重试 ($current/$max)';
+  }
+
+  @override
+  String get nextButton => '下一步';
+
+  @override
+  String get completeButton => '完成';
+
+  @override
+  String get startButton => '开始';
+
+  @override
+  String get doneButton => '完成';
+
+  @override
+  String get goBackButton => '返回';
+
+  @override
+  String get tapToListen => '点击听发音';
+
+  @override
+  String get listenAllSoundsFirst => '请先听完所有发音';
+
+  @override
+  String get nextCharButton => '下一个字';
+
+  @override
+  String get listenAndChooseCorrect => '听发音，选出正确的字';
+
+  @override
+  String get lessonCompletedMsg => '你完成了课程！';
+
+  @override
+  String stageMasterLabel(int stage) {
+    return '第$stage阶段大师';
+  }
+
+  @override
+  String get hangulS0L0Title => '韩文是怎么来的？';
+
+  @override
+  String get hangulS0L0Subtitle => '简单了解韩文的诞生过程';
+
+  @override
+  String get hangulS0L0Step0Title => '很久以前，学习文字非常困难';
+
+  @override
+  String get hangulS0L0Step0Desc => '古代朝鲜半岛主要借用汉字书写，\n许多百姓难以学习。';
+
+  @override
+  String get hangulS0L0Step0Highlights => '汉字,困难,阅读,书写';
+
+  @override
+  String get hangulS0L0Step1Title => '世宗大王创造了新的文字';
+
+  @override
+  String get hangulS0L0Step1Desc =>
+      '为了让百姓轻松学习，\n世宗大王亲自创制了训民正音。\n（1443年创制，1446年颁布）';
+
+  @override
+  String get hangulS0L0Step1Highlights => '世宗大王,训民正音,1443,1446';
+
+  @override
+  String get hangulS0L0Step2Title => '于是有了今天的韩文';
+
+  @override
+  String get hangulS0L0Step2Desc => '韩文是为了方便记录声音而创造的文字。\n在下一课中，我们将学习辅音和元音的结构。';
+
+  @override
+  String get hangulS0L0Step2Highlights => '声音,简易文字,韩文';
+
+  @override
+  String get hangulS0L0SummaryTitle => '介绍课完成！';
+
+  @override
+  String get hangulS0L0SummaryMsg => '太棒了！\n现在你知道韩文为什么被创造了。\n接下来学习辅音和元音的结构吧。';
+
+  @override
+  String get hangulS0L1Title => '组装가字块';
+
+  @override
+  String get hangulS0L1Subtitle => '通过拖拽体验拼字过程';
+
+  @override
+  String get hangulS0L1IntroTitle => '韩文就像积木！';
+
+  @override
+  String get hangulS0L1IntroDesc =>
+      '韩文通过组合辅音和元音来构成文字。\n辅音（ㄱ）+ 元音（ㅏ）= 가\n\n更复杂的文字下面还会有收音（받침）。\n（以后再学！）';
+
+  @override
+  String get hangulS0L1IntroHighlights => '辅音,元音,文字';
+
+  @override
+  String get hangulS0L1DragGaTitle => '组装가';
+
+  @override
+  String get hangulS0L1DragGaDesc => '将ㄱ和ㅏ拖到空格中';
+
+  @override
+  String get hangulS0L1DragNaTitle => '组装나';
+
+  @override
+  String get hangulS0L1DragNaDesc => '试试使用新的辅音ㄴ';
+
+  @override
+  String get hangulS0L1DragDaTitle => '组装다';
+
+  @override
+  String get hangulS0L1DragDaDesc => '试试使用新的辅音ㄷ';
+
+  @override
+  String get hangulS0L1SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS0L1SummaryMsg => '辅音 + 元音 = 文字块！\nㄱ+ㅏ=가, ㄴ+ㅏ=나, ㄷ+ㅏ=다';
+
+  @override
+  String get hangulS0L2Title => '声音探索';
+
+  @override
+  String get hangulS0L2Subtitle => '通过声音感受辅音和元音';
+
+  @override
+  String get hangulS0L2IntroTitle => '感受声音';
+
+  @override
+  String get hangulS0L2IntroDesc => '韩文的每个辅音和元音都有独特的声音。\n听一听，感受一下。';
+
+  @override
+  String get hangulS0L2Sound1Title => '辅音ㄱ、ㄴ、ㄷ的基本发音';
+
+  @override
+  String get hangulS0L2Sound1Desc => '听一听辅音加上ㅏ后的发音（가、나、다）';
+
+  @override
+  String get hangulS0L2Sound2Title => 'ㅏ、ㅗ元音发音';
+
+  @override
+  String get hangulS0L2Sound2Desc => '听一听这两个元音的发音';
+
+  @override
+  String get hangulS0L2Sound3Title => '听가、나、다的发音';
+
+  @override
+  String get hangulS0L2Sound3Desc => '听一听辅音和元音组合而成的文字发音';
+
+  @override
+  String get hangulS0L2SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS0L2SummaryMsg => '每个辅音都有配上ㅏ的标准读音，比如가、나、다。\n现在你对元音的发音也有感觉了！';
+
+  @override
+  String get hangulS0L3Title => '听音选字';
+
+  @override
+  String get hangulS0L3Subtitle => '通过声音区分文字';
+
+  @override
+  String get hangulS0L3IntroTitle => '这次用耳朵来分辨';
+
+  @override
+  String get hangulS0L3IntroDesc => '比起看屏幕，更要专注于声音。\n听音辨字，找出正确答案！';
+
+  @override
+  String get hangulS0L3Sound1Title => '确认가/나/다/고/노的发音';
+
+  @override
+  String get hangulS0L3Sound1Desc => '先充分听一下这5个发音';
+
+  @override
+  String get hangulS0L3Match1Title => '听音选择相同的文字';
+
+  @override
+  String get hangulS0L3Match1Desc => '选择与播放的声音相匹配的文字';
+
+  @override
+  String get hangulS0L3Match2Title => '区分ㅏ / ㅗ的发音';
+
+  @override
+  String get hangulS0L3Match2Desc => '辅音相同时，靠元音来区分发音';
+
+  @override
+  String get hangulS0L3SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS0L3SummaryMsg => '太棒了！\n现在你可以同时用眼睛（组装）和耳朵（声音）\n来理解韩文的结构了。';
+
+  @override
+  String get hangulS0CompleteTitle => '第0阶段完成！';
+
+  @override
+  String get hangulS0CompleteMsg => '你已经理解了韩文的结构！';
+
+  @override
+  String get hangulS1L1Title => 'ㅏ的形状与读音';
+
+  @override
+  String get hangulS1L1Subtitle => '竖线右侧短横: ㅏ';
+
+  @override
+  String get hangulS1L1Step0Title => '学习第一个元音ㅏ';
+
+  @override
+  String get hangulS1L1Step0Desc => 'ㅏ发出明亮的\"아\"音。\n让我们一起学习形状和读音。';
+
+  @override
+  String get hangulS1L1Step0Highlights => 'ㅏ,아,基本元音';
+
+  @override
+  String get hangulS1L1Step1Title => '听ㅏ的读音';
+
+  @override
+  String get hangulS1L1Step1Desc => '听听含有ㅏ的读音';
+
+  @override
+  String get hangulS1L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L1Step2Desc => '请大声朗读这些文字';
+
+  @override
+  String get hangulS1L1Step3Title => '选出ㅏ的读音';
+
+  @override
+  String get hangulS1L1Step3Desc => '听音后选择正确的文字';
+
+  @override
+  String get hangulS1L1Step4Title => '形状测验';
+
+  @override
+  String get hangulS1L1Step4Desc => '准确找出ㅏ';
+
+  @override
+  String get hangulS1L1Step4Q0 => '以下哪个是ㅏ？';
+
+  @override
+  String get hangulS1L1Step4Q1 => '以下哪个含有ㅏ？';
+
+  @override
+  String get hangulS1L1Step4Q2 => 'ㅇ + ㅏ = ?';
+
+  @override
+  String get hangulS1L1Step5Title => '用ㅏ组字';
+
+  @override
+  String get hangulS1L1Step5Desc => '将辅音与ㅏ组合完成文字';
+
+  @override
+  String get hangulS1L1Step6Title => '综合测验';
+
+  @override
+  String get hangulS1L1Step6Desc => '整理本节课所学内容';
+
+  @override
+  String get hangulS1L1Step6Q0 => '\"아\"的元音是什么？';
+
+  @override
+  String get hangulS1L1Step6Q1 => 'ㅇ + ㅏ = ?';
+
+  @override
+  String get hangulS1L1Step6Q2 => '以下哪个字含有ㅏ？';
+
+  @override
+  String get hangulS1L1Step6Q3 => '哪个音与ㅏ最不同？';
+
+  @override
+  String get hangulS1L1Step7Title => '课程完成！';
+
+  @override
+  String get hangulS1L1Step7Msg => '很好！\n你学会了ㅏ的形状和读音。';
+
+  @override
+  String get hangulS1L2Title => 'ㅓ的形状与读音';
+
+  @override
+  String get hangulS1L2Subtitle => '竖线左侧短横: ㅓ';
+
+  @override
+  String get hangulS1L2Step0Title => '第二个元音ㅓ';
+
+  @override
+  String get hangulS1L2Step0Desc => 'ㅓ发出\"어\"的音。\n注意笔画方向与ㅏ相反。';
+
+  @override
+  String get hangulS1L2Step0Highlights => 'ㅓ,어,与ㅏ方向相反';
+
+  @override
+  String get hangulS1L2Step1Title => '听ㅓ的读音';
+
+  @override
+  String get hangulS1L2Step1Desc => '听听含有ㅓ的读音';
+
+  @override
+  String get hangulS1L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L2Step2Desc => '请大声朗读这些文字';
+
+  @override
+  String get hangulS1L2Step3Title => '选出ㅓ的读音';
+
+  @override
+  String get hangulS1L2Step3Desc => '用耳朵区分ㅏ/ㅓ';
+
+  @override
+  String get hangulS1L2Step4Title => '形状测验';
+
+  @override
+  String get hangulS1L2Step4Desc => '找出ㅓ';
+
+  @override
+  String get hangulS1L2Step4Q0 => '以下哪个是ㅓ？';
+
+  @override
+  String get hangulS1L2Step4Q1 => 'ㅇ + ㅓ = ?';
+
+  @override
+  String get hangulS1L2Step4Q2 => '以下哪个字含有ㅓ？';
+
+  @override
+  String get hangulS1L2Step5Title => '用ㅓ组字';
+
+  @override
+  String get hangulS1L2Step5Desc => '将辅音与ㅓ组合';
+
+  @override
+  String get hangulS1L2Step6Title => '课程完成！';
+
+  @override
+  String get hangulS1L2Step6Msg => '太棒了！\n你学会了ㅓ(어)的读音。';
+
+  @override
+  String get hangulS1L3Title => 'ㅗ的形状与读音';
+
+  @override
+  String get hangulS1L3Subtitle => '横线上方竖画: ㅗ';
+
+  @override
+  String get hangulS1L3Step0Title => '第三个元音ㅗ';
+
+  @override
+  String get hangulS1L3Step0Desc => 'ㅗ发出\"오\"的音。\n竖画向横线上方延伸。';
+
+  @override
+  String get hangulS1L3Step0Highlights => 'ㅗ,오,横型元音';
+
+  @override
+  String get hangulS1L3Step1Title => '听ㅗ的读音';
+
+  @override
+  String get hangulS1L3Step1Desc => '听听含有ㅗ的读音（오/고/노）';
+
+  @override
+  String get hangulS1L3Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L3Step2Desc => '请大声朗读这些文字';
+
+  @override
+  String get hangulS1L3Step3Title => '选出ㅗ的读音';
+
+  @override
+  String get hangulS1L3Step3Desc => '区分오/우的读音';
+
+  @override
+  String get hangulS1L3Step4Title => '用ㅗ组字';
+
+  @override
+  String get hangulS1L3Step4Desc => '将辅音与ㅗ组合';
+
+  @override
+  String get hangulS1L3Step5Title => '形状与读音测验';
+
+  @override
+  String get hangulS1L3Step5Desc => '准确选出ㅗ';
+
+  @override
+  String get hangulS1L3Step5Q0 => '以下哪个是ㅗ？';
+
+  @override
+  String get hangulS1L3Step5Q1 => 'ㅇ + ㅗ = ?';
+
+  @override
+  String get hangulS1L3Step5Q2 => '以下哪个含有ㅗ？';
+
+  @override
+  String get hangulS1L3Step6Title => '课程完成！';
+
+  @override
+  String get hangulS1L3Step6Msg => '很好！\n你学会了ㅗ(오)的读音。';
+
+  @override
+  String get hangulS1L4Title => 'ㅜ的形状与读音';
+
+  @override
+  String get hangulS1L4Subtitle => '横线下方竖画: ㅜ';
+
+  @override
+  String get hangulS1L4Step0Title => '第四个元音ㅜ';
+
+  @override
+  String get hangulS1L4Step0Desc => 'ㅜ发出\"우\"的音。\n竖画位置与ㅗ相反。';
+
+  @override
+  String get hangulS1L4Step0Highlights => 'ㅜ,우,与ㅗ位置对比';
+
+  @override
+  String get hangulS1L4Step1Title => '听ㅜ的读音';
+
+  @override
+  String get hangulS1L4Step1Desc => '听听우/구/누';
+
+  @override
+  String get hangulS1L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L4Step2Desc => '请大声朗读这些文字';
+
+  @override
+  String get hangulS1L4Step3Title => '选出ㅜ的读音';
+
+  @override
+  String get hangulS1L4Step3Desc => '区分ㅗ/ㅜ';
+
+  @override
+  String get hangulS1L4Step4Title => '用ㅜ组字';
+
+  @override
+  String get hangulS1L4Step4Desc => '将辅音与ㅜ组合';
+
+  @override
+  String get hangulS1L4Step5Title => '形状与读音测验';
+
+  @override
+  String get hangulS1L4Step5Desc => '准确选出ㅜ';
+
+  @override
+  String get hangulS1L4Step5Q0 => '以下哪个是ㅜ？';
+
+  @override
+  String get hangulS1L4Step5Q1 => 'ㅇ + ㅜ = ?';
+
+  @override
+  String get hangulS1L4Step5Q2 => '以下哪个含有ㅜ？';
+
+  @override
+  String get hangulS1L4Step6Title => '课程完成！';
+
+  @override
+  String get hangulS1L4Step6Msg => '很好！\n你学会了ㅜ(우)的读音。';
+
+  @override
+  String get hangulS1L5Title => 'ㅡ的形状与读音';
+
+  @override
+  String get hangulS1L5Subtitle => '单横线元音: ㅡ';
+
+  @override
+  String get hangulS1L5Step0Title => '第五个元音ㅡ';
+
+  @override
+  String get hangulS1L5Step0Desc => 'ㅡ是嘴巴横向拉伸发出的音。\n形状是一条横线。';
+
+  @override
+  String get hangulS1L5Step0Highlights => 'ㅡ,으,单横线';
+
+  @override
+  String get hangulS1L5Step1Title => '听ㅡ的读音';
+
+  @override
+  String get hangulS1L5Step1Desc => '听听으/그/느的读音';
+
+  @override
+  String get hangulS1L5Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L5Step2Desc => '请大声朗读这些文字';
+
+  @override
+  String get hangulS1L5Step3Title => '选出ㅡ的读音';
+
+  @override
+  String get hangulS1L5Step3Desc => '区分ㅡ和ㅜ的读音';
+
+  @override
+  String get hangulS1L5Step4Title => '用ㅡ组字';
+
+  @override
+  String get hangulS1L5Step4Desc => '将辅音与ㅡ组合';
+
+  @override
+  String get hangulS1L5Step5Title => '形状与读音测验';
+
+  @override
+  String get hangulS1L5Step5Desc => '准确选出ㅡ';
+
+  @override
+  String get hangulS1L5Step5Q0 => '以下哪个是ㅡ？';
+
+  @override
+  String get hangulS1L5Step5Q1 => 'ㅇ + ㅡ = ?';
+
+  @override
+  String get hangulS1L5Step5Q2 => '以下哪个含有ㅡ？';
+
+  @override
+  String get hangulS1L5Step6Title => '课程完成！';
+
+  @override
+  String get hangulS1L5Step6Msg => '很好！\n你学会了ㅡ(으)的读音。';
+
+  @override
+  String get hangulS1L6Title => 'ㅣ的形状与读音';
+
+  @override
+  String get hangulS1L6Subtitle => '单竖线元音: ㅣ';
+
+  @override
+  String get hangulS1L6Step0Title => '第六个元音ㅣ';
+
+  @override
+  String get hangulS1L6Step0Desc => 'ㅣ发出\"이\"的音。\n形状是一条竖线。';
+
+  @override
+  String get hangulS1L6Step0Highlights => 'ㅣ,이,单竖线';
+
+  @override
+  String get hangulS1L6Step1Title => '听ㅣ的读音';
+
+  @override
+  String get hangulS1L6Step1Desc => '听听이/기/니的读音';
+
+  @override
+  String get hangulS1L6Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L6Step2Desc => '请大声朗读这些文字';
+
+  @override
+  String get hangulS1L6Step3Title => '选出ㅣ的读音';
+
+  @override
+  String get hangulS1L6Step3Desc => '区分ㅣ和ㅡ的读音';
+
+  @override
+  String get hangulS1L6Step4Title => '用ㅣ组字';
+
+  @override
+  String get hangulS1L6Step4Desc => '将辅音与ㅣ组合';
+
+  @override
+  String get hangulS1L6Step5Title => '形状与读音测验';
+
+  @override
+  String get hangulS1L6Step5Desc => '准确选出ㅣ';
+
+  @override
+  String get hangulS1L6Step5Q0 => '以下哪个是ㅣ？';
+
+  @override
+  String get hangulS1L6Step5Q1 => 'ㅇ + ㅣ = ?';
+
+  @override
+  String get hangulS1L6Step5Q2 => '以下哪个含有ㅣ？';
+
+  @override
+  String get hangulS1L6Step6Title => '课程完成！';
+
+  @override
+  String get hangulS1L6Step6Msg => '很好！\n你学会了ㅣ(이)的读音。';
+
+  @override
+  String get hangulS1L7Title => '竖向元音区分';
+
+  @override
+  String get hangulS1L7Subtitle => '快速区分 ㅏ · ㅓ · ㅣ';
+
+  @override
+  String get hangulS1L7Step0Title => '竖向元音组复习';
+
+  @override
+  String get hangulS1L7Step0Desc => 'ㅏ、ㅓ、ㅣ 是竖轴元音。\n一起区分笔画位置和发音。';
+
+  @override
+  String get hangulS1L7Step0Highlights => 'ㅏ,ㅓ,ㅣ,竖向元音';
+
+  @override
+  String get hangulS1L7Step1Title => '再听一遍';
+
+  @override
+  String get hangulS1L7Step1Desc => '确认 아/어/이 的发音';
+
+  @override
+  String get hangulS1L7Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L7Step2Desc => '请大声朗读每个文字';
+
+  @override
+  String get hangulS1L7Step3Title => '竖向元音听力测验';
+
+  @override
+  String get hangulS1L7Step3Desc => '将声音与正确文字对应';
+
+  @override
+  String get hangulS1L7Step4Title => '竖向元音形状测验';
+
+  @override
+  String get hangulS1L7Step4Desc => '精确区分各自的形状';
+
+  @override
+  String get hangulS1L7Step4Q0 => '右侧有短笔画的是？';
+
+  @override
+  String get hangulS1L7Step4Q1 => '左侧有短笔画的是？';
+
+  @override
+  String get hangulS1L7Step4Q2 => '单竖线是？';
+
+  @override
+  String get hangulS1L7Step4Q3 => 'ㄴ + ㅓ = ?';
+
+  @override
+  String get hangulS1L7Step4Q4 => 'ㄱ + ㅣ = ?';
+
+  @override
+  String get hangulS1L7Step5Title => '课程完成！';
+
+  @override
+  String get hangulS1L7Step5Msg => '很好！\n竖向元音（ㅏ/ㅓ/ㅣ）的区分已经稳固了。';
+
+  @override
+  String get hangulS1L8Title => '横向元音区分';
+
+  @override
+  String get hangulS1L8Subtitle => '快速区分 ㅗ · ㅜ · ㅡ';
+
+  @override
+  String get hangulS1L8Step0Title => '横向元音组复习';
+
+  @override
+  String get hangulS1L8Step0Desc => 'ㅗ、ㅜ、ㅡ 是以横轴为中心的元音。\n一起记住竖画位置和嘴型。';
+
+  @override
+  String get hangulS1L8Step0Highlights => 'ㅗ,ㅜ,ㅡ,横向元音';
+
+  @override
+  String get hangulS1L8Step1Title => '再听一遍';
+
+  @override
+  String get hangulS1L8Step1Desc => '确认 오/우/으 的发音';
+
+  @override
+  String get hangulS1L8Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L8Step2Desc => '请大声朗读每个文字';
+
+  @override
+  String get hangulS1L8Step3Title => '横向元音听力测验';
+
+  @override
+  String get hangulS1L8Step3Desc => '将声音与正确文字对应';
+
+  @override
+  String get hangulS1L8Step4Title => '横向元音形状测验';
+
+  @override
+  String get hangulS1L8Step4Desc => '一起检查形状和发音';
+
+  @override
+  String get hangulS1L8Step4Q0 => '竖画在横线上方的是？';
+
+  @override
+  String get hangulS1L8Step4Q1 => '竖画在横线下方的是？';
+
+  @override
+  String get hangulS1L8Step4Q2 => '单横线是？';
+
+  @override
+  String get hangulS1L8Step4Q3 => 'ㄱ + ㅗ = ?';
+
+  @override
+  String get hangulS1L8Step4Q4 => 'ㄴ + ㅜ = ?';
+
+  @override
+  String get hangulS1L8Step5Title => '课程完成！';
+
+  @override
+  String get hangulS1L8Step5Msg => '很好！\n横向元音（ㅗ/ㅜ/ㅡ）的区分已经稳固了。';
+
+  @override
+  String get hangulS1L9Title => '基本元音任务';
+
+  @override
+  String get hangulS1L9Subtitle => '在时间限制内完成元音组合';
+
+  @override
+  String get hangulS1L9Step0Title => '第1阶段最终任务';
+
+  @override
+  String get hangulS1L9Step0Desc => '在限定时间内完成文字组合。\n以准确率和速度获得柠檬奖励！';
+
+  @override
+  String get hangulS1L9Step1Title => '限时任务';
+
+  @override
+  String get hangulS1L9Step2Title => '任务结果';
+
+  @override
+  String get hangulS1L9Step3Title => '第1阶段完成！';
+
+  @override
+  String get hangulS1L9Step3Msg => '恭喜！\n第1阶段的基本元音全部完成了。';
+
+  @override
+  String get hangulS1L10Title => '第一批韩语单词！';
+
+  @override
+  String get hangulS1L10Subtitle => '用学过的文字阅读真实单词';
+
+  @override
+  String get hangulS1L10Step0Title => '现在可以读单词了！';
+
+  @override
+  String get hangulS1L10Step0Desc => '学会了元音和基本辅音，\n来读一读真实的韩语单词吧？';
+
+  @override
+  String get hangulS1L10Step0Highlights => '真实单词,阅读挑战';
+
+  @override
+  String get hangulS1L10Step1Title => '阅读第一批单词';
+
+  @override
+  String get hangulS1L10Step1Descs => '孩子,牛奶,黄瓜,这/牙齿,弟弟';
+
+  @override
+  String get hangulS1L10Step2Title => '发音练习';
+
+  @override
+  String get hangulS1L10Step2Desc => '请大声朗读每个文字';
+
+  @override
+  String get hangulS1L10Step3Title => '听一听，选一选';
+
+  @override
+  String get hangulS1L10Step4Title => '太棒了！';
+
+  @override
+  String get hangulS1L10Step4Msg => '你读出了韩语单词！\n再学更多辅音，\n就能读更多单词了。';
+
+  @override
+  String get hangulS1CompleteTitle => '第1阶段完成！';
+
+  @override
+  String get hangulS1CompleteMsg => '你已掌握全部6个基本元音！';
+
+  @override
+  String get hangulS2L1Title => 'ㅑ的形状与发音';
+
+  @override
+  String get hangulS2L1Subtitle => 'ㅏ加一笔: ㅑ';
+
+  @override
+  String get hangulS2L1Step0Title => 'ㅏ变成ㅑ';
+
+  @override
+  String get hangulS2L1Step0Desc => '在ㅏ上加一笔就得到ㅑ。\n发音从\"啊\"变成更有弹性的\"呀\"。';
+
+  @override
+  String get hangulS2L1Step0Highlights => 'ㅏ → ㅑ,야,Y元音';
+
+  @override
+  String get hangulS2L1Step1Title => '听ㅑ的发音';
+
+  @override
+  String get hangulS2L1Step1Desc => '听听야/갸/냐的发音';
+
+  @override
+  String get hangulS2L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS2L1Step2Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS2L1Step3Title => '听辨ㅏ vs ㅑ';
+
+  @override
+  String get hangulS2L1Step3Desc => '区分相似的发音';
+
+  @override
+  String get hangulS2L1Step4Title => '用ㅑ组成音节';
+
+  @override
+  String get hangulS2L1Step4Desc => '完成辅音 + ㅑ 的组合';
+
+  @override
+  String get hangulS2L1Step5Title => '形状与发音测验';
+
+  @override
+  String get hangulS2L1Step5Desc => '准确选出ㅑ';
+
+  @override
+  String get hangulS2L1Step5Q0 => '以下哪个是ㅑ？';
+
+  @override
+  String get hangulS2L1Step5Q1 => 'ㅇ + ㅑ = ?';
+
+  @override
+  String get hangulS2L1Step5Q2 => '以下哪个含有ㅑ？';
+
+  @override
+  String get hangulS2L1Step6Title => '课程完成！';
+
+  @override
+  String get hangulS2L1Step6Msg => '太棒了！\n你已掌握ㅑ（야）的发音。';
+
+  @override
+  String get hangulS2L2Title => 'ㅕ的形状与发音';
+
+  @override
+  String get hangulS2L2Subtitle => 'ㅓ加一笔: ㅕ';
+
+  @override
+  String get hangulS2L2Step0Title => 'ㅓ变成ㅕ';
+
+  @override
+  String get hangulS2L2Step0Desc => '在ㅓ上加一笔就得到ㅕ。\n发音从\"呃\"变成\"耶\"。';
+
+  @override
+  String get hangulS2L2Step0Highlights => 'ㅓ → ㅕ,여,Y元音';
+
+  @override
+  String get hangulS2L2Step1Title => '听ㅕ的发音';
+
+  @override
+  String get hangulS2L2Step1Desc => '听听여/겨/녀的发音';
+
+  @override
+  String get hangulS2L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS2L2Step2Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS2L2Step3Title => '听辨ㅓ vs ㅕ';
+
+  @override
+  String get hangulS2L2Step3Desc => '区分어和여';
+
+  @override
+  String get hangulS2L2Step4Title => '用ㅕ组成音节';
+
+  @override
+  String get hangulS2L2Step4Desc => '完成辅音 + ㅕ 的组合';
+
+  @override
+  String get hangulS2L2Step5Title => '课程完成！';
+
+  @override
+  String get hangulS2L2Step5Msg => '太棒了！\n你已掌握ㅕ（여）的发音。';
+
+  @override
+  String get hangulS2L3Title => 'ㅛ的形状与发音';
+
+  @override
+  String get hangulS2L3Subtitle => 'ㅗ加一笔: ㅛ';
+
+  @override
+  String get hangulS2L3Step0Title => 'ㅗ变成ㅛ';
+
+  @override
+  String get hangulS2L3Step0Desc => '在ㅗ上加一笔就得到ㅛ。\n发音从\"哦\"变成\"哟\"。';
+
+  @override
+  String get hangulS2L3Step0Highlights => 'ㅗ → ㅛ,요,Y元音';
+
+  @override
+  String get hangulS2L3Step1Title => '听ㅛ的发音';
+
+  @override
+  String get hangulS2L3Step1Desc => '听听요/교/뇨的发音';
+
+  @override
+  String get hangulS2L3Step2Title => '发音练习';
+
+  @override
+  String get hangulS2L3Step2Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS2L3Step3Title => '听辨ㅗ vs ㅛ';
+
+  @override
+  String get hangulS2L3Step3Desc => '区分오和요';
+
+  @override
+  String get hangulS2L3Step4Title => '用ㅛ组成音节';
+
+  @override
+  String get hangulS2L3Step4Desc => '完成辅音 + ㅛ 的组合';
+
+  @override
+  String get hangulS2L3Step5Title => '课程完成！';
+
+  @override
+  String get hangulS2L3Step5Msg => '太棒了！\n你已掌握ㅛ（요）的发音。';
+
+  @override
+  String get hangulS2L4Title => 'ㅠ的形状与发音';
+
+  @override
+  String get hangulS2L4Subtitle => 'ㅜ加一笔: ㅠ';
+
+  @override
+  String get hangulS2L4Step0Title => 'ㅜ变成ㅠ';
+
+  @override
+  String get hangulS2L4Step0Desc => '在ㅜ上加一笔就得到ㅠ。\n发音从\"呜\"变成\"鱼\"。';
+
+  @override
+  String get hangulS2L4Step0Highlights => 'ㅜ → ㅠ,유,Y元音';
+
+  @override
+  String get hangulS2L4Step1Title => '听ㅠ的发音';
+
+  @override
+  String get hangulS2L4Step1Desc => '听听유/규/뉴的发音';
+
+  @override
+  String get hangulS2L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS2L4Step2Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS2L4Step3Title => '听辨ㅜ vs ㅠ';
+
+  @override
+  String get hangulS2L4Step3Desc => '区分우和유';
+
+  @override
+  String get hangulS2L4Step4Title => '用ㅠ组成音节';
+
+  @override
+  String get hangulS2L4Step4Desc => '完成辅音 + ㅠ 的组合';
+
+  @override
+  String get hangulS2L4Step5Title => '课程完成！';
+
+  @override
+  String get hangulS2L4Step5Msg => '太棒了！\n你已掌握ㅠ（유）的发音。';
+
+  @override
+  String get hangulS2L5Title => 'Y元音组合训练';
+
+  @override
+  String get hangulS2L5Subtitle => 'ㅑ · ㅕ · ㅛ · ㅠ 强化训练';
+
+  @override
+  String get hangulS2L5Step0Title => '一次看清所有Y元音';
+
+  @override
+  String get hangulS2L5Step0Desc => 'ㅑ/ㅕ/ㅛ/ㅠ是基础元音加一笔的元音。\n快速区分它们的形状和发音。';
+
+  @override
+  String get hangulS2L5Step0Highlights => 'ㅑ,ㅕ,ㅛ,ㅠ';
+
+  @override
+  String get hangulS2L5Step1Title => '再听四个发音';
+
+  @override
+  String get hangulS2L5Step1Desc => '复习야/여/요/유的发音';
+
+  @override
+  String get hangulS2L5Step2Title => '发音练习';
+
+  @override
+  String get hangulS2L5Step2Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS2L5Step3Title => '发音辨别测验';
+
+  @override
+  String get hangulS2L5Step3Desc => '区分Y元音的发音';
+
+  @override
+  String get hangulS2L5Step4Title => '形状辨别测验';
+
+  @override
+  String get hangulS2L5Step4Desc => '准确区分形状';
+
+  @override
+  String get hangulS2L5Step4Q0 => '以下哪个是ㅑ？';
+
+  @override
+  String get hangulS2L5Step4Q1 => '以下哪个是ㅕ？';
+
+  @override
+  String get hangulS2L5Step4Q2 => '以下哪个是ㅛ？';
+
+  @override
+  String get hangulS2L5Step4Q3 => '以下哪个是ㅠ？';
+
+  @override
+  String get hangulS2L5Step5Title => '课程完成！';
+
+  @override
+  String get hangulS2L5Step5Msg => '太棒了！\n你对4个Y元音的区分越来越好了。';
+
+  @override
+  String get hangulS2L6Title => '基础元音 vs Y元音对比';
+
+  @override
+  String get hangulS2L6Subtitle => 'ㅏ/ㅑ · ㅓ/ㅕ · ㅗ/ㅛ · ㅜ/ㅠ';
+
+  @override
+  String get hangulS2L6Step0Title => '整理容易混淆的配对';
+
+  @override
+  String get hangulS2L6Step0Desc => '将基础元音和Y元音配对比较。';
+
+  @override
+  String get hangulS2L6Step0Highlights => 'ㅏ/ㅑ,ㅓ/ㅕ,ㅗ/ㅛ,ㅜ/ㅠ';
+
+  @override
+  String get hangulS2L6Step1Title => '配对发音辨别';
+
+  @override
+  String get hangulS2L6Step1Desc => '从相似的发音中选出正确答案';
+
+  @override
+  String get hangulS2L6Step2Title => '配对形状辨别';
+
+  @override
+  String get hangulS2L6Step2Desc => '判断是否有额外的一笔';
+
+  @override
+  String get hangulS2L6Step2Q0 => '哪个元音加了一笔？';
+
+  @override
+  String get hangulS2L6Step2Q1 => '哪个元音加了一笔？';
+
+  @override
+  String get hangulS2L6Step2Q2 => '哪个元音加了一笔？';
+
+  @override
+  String get hangulS2L6Step2Q3 => '哪个元音加了一笔？';
+
+  @override
+  String get hangulS2L6Step2Q4 => 'ㅇ + ㅠ = ?';
+
+  @override
+  String get hangulS2L6Step3Title => '课程完成！';
+
+  @override
+  String get hangulS2L6Step3Msg => '太棒了！\n基础元音/Y元音对比已经稳定了。';
+
+  @override
+  String get hangulS2L7Title => 'Y元音任务';
+
+  @override
+  String get hangulS2L7Subtitle => '在限时内完成Y元音组合';
+
+  @override
+  String get hangulS2L7Step0Title => '第2阶段最终任务';
+
+  @override
+  String get hangulS2L7Step0Desc => '快速准确地完成Y元音组合。\n完成数和时间决定你的柠檬奖励。';
+
+  @override
+  String get hangulS2L7Step1Title => '限时任务';
+
+  @override
+  String get hangulS2L7Step2Title => '任务结果';
+
+  @override
+  String get hangulS2L7Step3Title => '第2阶段完成！';
+
+  @override
+  String get hangulS2L7Step3Msg => '恭喜！\n你已完成第2阶段所有Y元音。';
+
+  @override
+  String get hangulS2CompleteTitle => '第2阶段完成！';
+
+  @override
+  String get hangulS2CompleteMsg => '你已征服Y元音！';
+
+  @override
+  String get hangulS3L1Title => 'ㅐ的形状和发音';
+
+  @override
+  String get hangulS3L1Subtitle => '感受ㅏ + ㅣ的组合感觉';
+
+  @override
+  String get hangulS3L1Step0Title => 'ㅐ是这个样子';
+
+  @override
+  String get hangulS3L1Step0Desc => 'ㅐ是从ㅏ系列派生的元音。\n以\"애\"为代表音来记忆。';
+
+  @override
+  String get hangulS3L1Step0Highlights => 'ㅐ,애,形状识别';
+
+  @override
+  String get hangulS3L1Step1Title => '听ㅐ的发音';
+
+  @override
+  String get hangulS3L1Step1Desc => '听听애/개/내的发音';
+
+  @override
+  String get hangulS3L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS3L1Step2Desc => '请直接把文字发出声来';
+
+  @override
+  String get hangulS3L1Step3Title => '听辨ㅏ vs ㅐ';
+
+  @override
+  String get hangulS3L1Step3Desc => '区分아/애';
+
+  @override
+  String get hangulS3L1Step4Title => '课程完成！';
+
+  @override
+  String get hangulS3L1Step4Msg => '很好！\n已掌握ㅐ(애)的形状和发音。';
+
+  @override
+  String get hangulS3L2Title => 'ㅔ的形状和发音';
+
+  @override
+  String get hangulS3L2Subtitle => '感受ㅓ + ㅣ的组合感觉';
+
+  @override
+  String get hangulS3L2Step0Title => 'ㅔ是这个样子';
+
+  @override
+  String get hangulS3L2Step0Desc => 'ㅔ是从ㅓ系列派生的元音。\n以\"에\"为代表音来记忆。';
+
+  @override
+  String get hangulS3L2Step0Highlights => 'ㅔ,에,形状识别';
+
+  @override
+  String get hangulS3L2Step1Title => '听ㅔ的发音';
+
+  @override
+  String get hangulS3L2Step1Desc => '听听에/게/네的发音';
+
+  @override
+  String get hangulS3L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS3L2Step2Desc => '请直接把文字发出声来';
+
+  @override
+  String get hangulS3L2Step3Title => '听辨ㅓ vs ㅔ';
+
+  @override
+  String get hangulS3L2Step3Desc => '区分어/에';
+
+  @override
+  String get hangulS3L2Step4Title => '课程完成！';
+
+  @override
+  String get hangulS3L2Step4Msg => '很好！\n已掌握ㅔ(에)的形状和发音。';
+
+  @override
+  String get hangulS3L3Title => '区分ㅐ vs ㅔ';
+
+  @override
+  String get hangulS3L3Subtitle => '以形状为中心的区分训练';
+
+  @override
+  String get hangulS3L3Step0Title => '关键在于区分形状';
+
+  @override
+  String get hangulS3L3Step0Desc => '在初级阶段，ㅐ/ㅔ听起来可能很相似。\n所以先准确区分它们的形状。';
+
+  @override
+  String get hangulS3L3Step0Highlights => 'ㅐ,ㅔ,形状区分';
+
+  @override
+  String get hangulS3L3Step1Title => '形状区分测验';
+
+  @override
+  String get hangulS3L3Step1Desc => '准确选择ㅐ和ㅔ';
+
+  @override
+  String get hangulS3L3Step1Q0 => '下列哪个是ㅐ？';
+
+  @override
+  String get hangulS3L3Step1Q1 => '下列哪个是ㅔ？';
+
+  @override
+  String get hangulS3L3Step1Q2 => 'ㅇ + ㅐ = ?';
+
+  @override
+  String get hangulS3L3Step1Q3 => 'ㅇ + ㅔ = ?';
+
+  @override
+  String get hangulS3L3Step2Title => '课程完成！';
+
+  @override
+  String get hangulS3L3Step2Msg => '很好！\nㅐ/ㅔ的区分更准确了。';
+
+  @override
+  String get hangulS3L4Title => 'ㅒ的形状和发音';
+
+  @override
+  String get hangulS3L4Subtitle => 'Y-ㅐ系列元音';
+
+  @override
+  String get hangulS3L4Step0Title => '来学ㅒ吧';
+
+  @override
+  String get hangulS3L4Step0Desc => 'ㅒ是ㅐ系列的Y元音。\n代表音是\"얘\"。';
+
+  @override
+  String get hangulS3L4Step0Highlights => 'ㅒ,얘';
+
+  @override
+  String get hangulS3L4Step1Title => '听ㅒ的发音';
+
+  @override
+  String get hangulS3L4Step1Desc => '听听얘/걔/냬的发音';
+
+  @override
+  String get hangulS3L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS3L4Step2Desc => '请直接把文字发出声来';
+
+  @override
+  String get hangulS3L4Step3Title => '课程完成！';
+
+  @override
+  String get hangulS3L4Step3Msg => '很好！\n已掌握ㅒ(얘)的形状。';
+
+  @override
+  String get hangulS3L5Title => 'ㅖ的形状和发音';
+
+  @override
+  String get hangulS3L5Subtitle => 'Y-ㅔ系列元音';
+
+  @override
+  String get hangulS3L5Step0Title => '来学ㅖ吧';
+
+  @override
+  String get hangulS3L5Step0Desc => 'ㅖ是ㅔ系列的Y元音。\n代表音是\"예\"。';
+
+  @override
+  String get hangulS3L5Step0Highlights => 'ㅖ,예';
+
+  @override
+  String get hangulS3L5Step1Title => '听ㅖ的发音';
+
+  @override
+  String get hangulS3L5Step1Desc => '听听예/계/녜的发音';
+
+  @override
+  String get hangulS3L5Step2Title => '发音练习';
+
+  @override
+  String get hangulS3L5Step2Desc => '请直接把文字发出声来';
+
+  @override
+  String get hangulS3L5Step3Title => '课程完成！';
+
+  @override
+  String get hangulS3L5Step3Msg => '很好！\n已掌握ㅖ(예)的形状。';
+
+  @override
+  String get hangulS3L6Title => 'ㅐ/ㅔ系列综合复习';
+
+  @override
+  String get hangulS3L6Subtitle => 'ㅐ ㅔ ㅒ ㅖ综合检验';
+
+  @override
+  String get hangulS3L6Step0Title => '一次性区分四种';
+
+  @override
+  String get hangulS3L6Step0Desc => '同时用形状和发音来检验ㅐ/ㅔ/ㅒ/ㅖ。';
+
+  @override
+  String get hangulS3L6Step0Highlights => 'ㅐ,ㅔ,ㅒ,ㅖ';
+
+  @override
+  String get hangulS3L6Step1Title => '声音区分';
+
+  @override
+  String get hangulS3L6Step1Desc => '从相似的声音中选出正确答案';
+
+  @override
+  String get hangulS3L6Step2Title => '形状区分';
+
+  @override
+  String get hangulS3L6Step2Desc => '看形状，快速选择';
+
+  @override
+  String get hangulS3L6Step2Q0 => '下列哪个属于Y-ㅐ系列？';
+
+  @override
+  String get hangulS3L6Step2Q1 => '下列哪个属于Y-ㅔ系列？';
+
+  @override
+  String get hangulS3L6Step2Q2 => 'ㅇ + ㅖ = ?';
+
+  @override
+  String get hangulS3L6Step3Title => '课程完成！';
+
+  @override
+  String get hangulS3L6Step3Msg => '很好！\n第3阶段核心元音的区分已经稳固了。';
+
+  @override
+  String get hangulS3L7Title => '第3阶段任务';
+
+  @override
+  String get hangulS3L7Subtitle => '快速区分任务：ㅐ/ㅔ系列';
+
+  @override
+  String get hangulS3L7Step0Title => '第3阶段最终任务';
+
+  @override
+  String get hangulS3L7Step0Desc => '快速准确地完成ㅐ/ㅔ系列的组合。';
+
+  @override
+  String get hangulS3L7Step1Title => '限时任务';
+
+  @override
+  String get hangulS3L7Step2Title => '任务结果';
+
+  @override
+  String get hangulS3L7Step3Title => '第3阶段完成！';
+
+  @override
+  String get hangulS3L7Step3Msg => '恭喜！\n已完成第3阶段全部ㅐ/ㅔ系列元音。';
+
+  @override
+  String get hangulS3L7Step4Title => '第3阶段完成！';
+
+  @override
+  String get hangulS3L7Step4Msg => '已学完所有元音！';
+
+  @override
+  String get hangulS3CompleteTitle => '第3阶段完成！';
+
+  @override
+  String get hangulS3CompleteMsg => '已学完所有元音！';
+
+  @override
+  String get hangulS4L1Title => 'ㄱ的形状与发音';
+
+  @override
+  String get hangulS4L1Subtitle => '基本辅音的开始：ㄱ';
+
+  @override
+  String get hangulS4L1Step0Title => '来学ㄱ吧';
+
+  @override
+  String get hangulS4L1Step0Desc => 'ㄱ是基本辅音的开始。\n与ㅏ组合发出「가」的音。';
+
+  @override
+  String get hangulS4L1Step0Highlights => 'ㄱ,가,基本辅音';
+
+  @override
+  String get hangulS4L1Step1Title => '听ㄱ的发音';
+
+  @override
+  String get hangulS4L1Step1Desc => '听听가/고/구的发音';
+
+  @override
+  String get hangulS4L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L1Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L1Step3Title => '选出ㄱ的发音';
+
+  @override
+  String get hangulS4L1Step3Desc => '听音选出正确的字';
+
+  @override
+  String get hangulS4L1Step4Title => '用ㄱ组合文字';
+
+  @override
+  String get hangulS4L1Step4Desc => '尝试ㄱ＋元音的组合';
+
+  @override
+  String get hangulS4L1SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS4L1SummaryMsg => '很棒！\n你已经掌握了ㄱ的发音和形状。';
+
+  @override
+  String get hangulS4L2Title => 'ㄴ的形状与发音';
+
+  @override
+  String get hangulS4L2Subtitle => '第二个基本辅音：ㄴ';
+
+  @override
+  String get hangulS4L2Step0Title => '来学ㄴ吧';
+
+  @override
+  String get hangulS4L2Step0Desc => 'ㄴ构成「나」系列发音。';
+
+  @override
+  String get hangulS4L2Step0Highlights => 'ㄴ,나';
+
+  @override
+  String get hangulS4L2Step1Title => '听ㄴ的发音';
+
+  @override
+  String get hangulS4L2Step1Desc => '听听나/노/누的发音';
+
+  @override
+  String get hangulS4L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L2Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L2Step3Title => '选出ㄴ的发音';
+
+  @override
+  String get hangulS4L2Step3Desc => '区分나/다';
+
+  @override
+  String get hangulS4L2Step4Title => '用ㄴ组合文字';
+
+  @override
+  String get hangulS4L2Step4Desc => '尝试ㄴ＋元音的组合';
+
+  @override
+  String get hangulS4L2SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS4L2SummaryMsg => '很棒！\n你已经掌握了ㄴ的发音和形状。';
+
+  @override
+  String get hangulS4L3Title => 'ㄷ的形状与发音';
+
+  @override
+  String get hangulS4L3Subtitle => '第三个基本辅音：ㄷ';
+
+  @override
+  String get hangulS4L3Step0Title => '来学ㄷ吧';
+
+  @override
+  String get hangulS4L3Step0Desc => 'ㄷ构成「다」系列发音。';
+
+  @override
+  String get hangulS4L3Step0Highlights => 'ㄷ,다';
+
+  @override
+  String get hangulS4L3Step1Title => '听ㄷ的发音';
+
+  @override
+  String get hangulS4L3Step1Desc => '听听다/도/두的发音';
+
+  @override
+  String get hangulS4L3Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L3Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L3Step3Title => '选出ㄷ的发音';
+
+  @override
+  String get hangulS4L3Step3Desc => '区分다/나';
+
+  @override
+  String get hangulS4L3Step4Title => '用ㄷ组合文字';
+
+  @override
+  String get hangulS4L3Step4Desc => '尝试ㄷ＋元音的组合';
+
+  @override
+  String get hangulS4L3SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS4L3SummaryMsg => '很棒！\n你已经掌握了ㄷ的发音和形状。';
+
+  @override
+  String get hangulS4L4Title => 'ㄹ的形状与发音';
+
+  @override
+  String get hangulS4L4Subtitle => '第四个基本辅音：ㄹ';
+
+  @override
+  String get hangulS4L4Step0Title => '来学ㄹ吧';
+
+  @override
+  String get hangulS4L4Step0Desc => 'ㄹ构成「라」系列发音。';
+
+  @override
+  String get hangulS4L4Step0Highlights => 'ㄹ,라';
+
+  @override
+  String get hangulS4L4Step1Title => '听ㄹ的发音';
+
+  @override
+  String get hangulS4L4Step1Desc => '听听라/로/루的发音';
+
+  @override
+  String get hangulS4L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L4Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L4Step3Title => '选出ㄹ的发音';
+
+  @override
+  String get hangulS4L4Step3Desc => '区分라/나';
+
+  @override
+  String get hangulS4L4Step4Title => '用ㄹ组合文字';
+
+  @override
+  String get hangulS4L4Step4Desc => '尝试ㄹ＋元音的组合';
+
+  @override
+  String get hangulS4L4SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS4L4SummaryMsg => '很棒！\n你已经掌握了ㄹ的发音和形状。';
+
+  @override
+  String get hangulS4L5Title => 'ㅁ的形状与发音';
+
+  @override
+  String get hangulS4L5Subtitle => '第五个基本辅音：ㅁ';
+
+  @override
+  String get hangulS4L5Step0Title => '来学ㅁ吧';
+
+  @override
+  String get hangulS4L5Step0Desc => 'ㅁ构成「마」系列发音。';
+
+  @override
+  String get hangulS4L5Step0Highlights => 'ㅁ,마';
+
+  @override
+  String get hangulS4L5Step1Title => '听ㅁ的发音';
+
+  @override
+  String get hangulS4L5Step1Desc => '听听마/모/무的发音';
+
+  @override
+  String get hangulS4L5Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L5Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L5Step3Title => '选出ㅁ的发音';
+
+  @override
+  String get hangulS4L5Step3Desc => '区分마/바';
+
+  @override
+  String get hangulS4L5Step4Title => '用ㅁ组合文字';
+
+  @override
+  String get hangulS4L5Step4Desc => '尝试ㅁ＋元音的组合';
+
+  @override
+  String get hangulS4L5SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS4L5SummaryMsg => '很棒！\n你已经掌握了ㅁ的发音和形状。';
+
+  @override
+  String get hangulS4L6Title => 'ㅂ的形状与发音';
+
+  @override
+  String get hangulS4L6Subtitle => '第六个基本辅音：ㅂ';
+
+  @override
+  String get hangulS4L6Step0Title => '来学ㅂ吧';
+
+  @override
+  String get hangulS4L6Step0Desc => 'ㅂ构成「바」系列发音。';
+
+  @override
+  String get hangulS4L6Step0Highlights => 'ㅂ,바';
+
+  @override
+  String get hangulS4L6Step1Title => '听ㅂ的发音';
+
+  @override
+  String get hangulS4L6Step1Desc => '听听바/보/부的发音';
+
+  @override
+  String get hangulS4L6Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L6Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L6Step3Title => '选出ㅂ的发音';
+
+  @override
+  String get hangulS4L6Step3Desc => '区分바/마';
+
+  @override
+  String get hangulS4L6Step4Title => '用ㅂ组合文字';
+
+  @override
+  String get hangulS4L6Step4Desc => '尝试ㅂ＋元音的组合';
+
+  @override
+  String get hangulS4L6SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS4L6SummaryMsg => '很棒！\n你已经掌握了ㅂ的发音和形状。';
+
+  @override
+  String get hangulS4L7Title => 'ㅅ的形状与发音';
+
+  @override
+  String get hangulS4L7Subtitle => '第七个基本辅音：ㅅ';
+
+  @override
+  String get hangulS4L7Step0Title => '来学ㅅ吧';
+
+  @override
+  String get hangulS4L7Step0Desc => 'ㅅ构成「사」系列发音。';
+
+  @override
+  String get hangulS4L7Step0Highlights => 'ㅅ,사';
+
+  @override
+  String get hangulS4L7Step1Title => '听ㅅ的发音';
+
+  @override
+  String get hangulS4L7Step1Desc => '听听사/소/수的发音';
+
+  @override
+  String get hangulS4L7Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L7Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L7Step3Title => '选出ㅅ的发音';
+
+  @override
+  String get hangulS4L7Step3Desc => '区分사/자';
+
+  @override
+  String get hangulS4L7Step4Title => '用ㅅ组合文字';
+
+  @override
+  String get hangulS4L7Step4Desc => '尝试ㅅ＋元音的组合';
+
+  @override
+  String get hangulS4L7SummaryTitle => '第4阶段完成！';
+
+  @override
+  String get hangulS4L7SummaryMsg => '恭喜！\n你完成了第4阶段基本辅音1（ㄱ~ㅅ）。';
+
+  @override
+  String get hangulS4L8Title => '单词阅读挑战！';
+
+  @override
+  String get hangulS4L8Subtitle => '用辅音和元音读单词';
+
+  @override
+  String get hangulS4L8Step0Title => '现在你能读更多单词了！';
+
+  @override
+  String get hangulS4L8Step0Desc => '你已经学完了全部7个基本辅音和元音。\n来读读由这些字组成的真实单词吧？';
+
+  @override
+  String get hangulS4L8Step0Highlights => '7个辅音,元音,真实单词';
+
+  @override
+  String get hangulS4L8Step1Title => '读单词';
+
+  @override
+  String get hangulS4L8Step1Descs => '树,海,蝴蝶,帽子,家具,豆腐';
+
+  @override
+  String get hangulS4L8Step2Title => '发音练习';
+
+  @override
+  String get hangulS4L8Step2Desc => '试着大声读出这些字';
+
+  @override
+  String get hangulS4L8Step3Title => '听后选出';
+
+  @override
+  String get hangulS4L8Step4Title => '是什么意思？';
+
+  @override
+  String get hangulS4L8Step4Q0 => '\"나비\"的中文是？';
+
+  @override
+  String get hangulS4L8Step4Q1 => '\"바다\"的中文是？';
+
+  @override
+  String get hangulS4L8SummaryTitle => '太棒了！';
+
+  @override
+  String get hangulS4L8SummaryMsg => '你读了6个韩文单词！\n继续学习更多辅音，就能读出更多单词。';
+
+  @override
+  String get hangulS4LMTitle => '任务：基本辅音组合！';
+
+  @override
+  String get hangulS4LMSubtitle => '在时间限制内组合音节';
+
+  @override
+  String get hangulS4LMStep0Title => '任务开始！';
+
+  @override
+  String get hangulS4LMStep0Desc => '将基本辅音ㄱ~ㅅ与元音组合。\n在限定时间内达成目标！';
+
+  @override
+  String get hangulS4LMStep1Title => '来组合音节吧！';
+
+  @override
+  String get hangulS4LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS4LMSummaryTitle => '任务完成！';
+
+  @override
+  String get hangulS4LMSummaryMsg => '你可以自由组合全部7个基本辅音了！';
+
+  @override
+  String get hangulS4CompleteTitle => '第4阶段完成！';
+
+  @override
+  String get hangulS4CompleteMsg => '你已掌握全部7个基本辅音！';
+
+  @override
+  String get hangulS5L1Title => '理解ㅇ的位置';
+
+  @override
+  String get hangulS5L1Subtitle => '学习初声ㅇ的读法';
+
+  @override
+  String get hangulS5L1Step0Title => 'ㅇ是特殊辅音';
+
+  @override
+  String get hangulS5L1Step0Desc => '初声ㅇ几乎没有声音，\n与元音结合后读作아/오/우。';
+
+  @override
+  String get hangulS5L1Step0Highlights => 'ㅇ,아,初声位置';
+
+  @override
+  String get hangulS5L1Step1Title => '聆听ㅇ的组合音';
+
+  @override
+  String get hangulS5L1Step1Desc => '听一听아/오/우的发音';
+
+  @override
+  String get hangulS5L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L1Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L1Step3Title => '用ㅇ组字';
+
+  @override
+  String get hangulS5L1Step3Desc => '组合ㅇ + 元音';
+
+  @override
+  String get hangulS5L1Step4Title => '课程完成！';
+
+  @override
+  String get hangulS5L1Step4Msg => '太棒了！\n你已经理解了ㅇ的用法。';
+
+  @override
+  String get hangulS5L2Title => 'ㅈ的形状与发音';
+
+  @override
+  String get hangulS5L2Subtitle => 'ㅈ的基础读法';
+
+  @override
+  String get hangulS5L2Step0Title => '学习ㅈ';
+
+  @override
+  String get hangulS5L2Step0Desc => 'ㅈ产生「자」系列的音。';
+
+  @override
+  String get hangulS5L2Step0Highlights => 'ㅈ,자';
+
+  @override
+  String get hangulS5L2Step1Title => '聆听ㅈ的发音';
+
+  @override
+  String get hangulS5L2Step1Desc => '听一听자/조/주';
+
+  @override
+  String get hangulS5L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L2Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L2Step3Title => '选出ㅈ的音';
+
+  @override
+  String get hangulS5L2Step3Desc => '区分자和사';
+
+  @override
+  String get hangulS5L2Step4Title => '用ㅈ组字';
+
+  @override
+  String get hangulS5L2Step4Desc => '组合ㅈ + 元音';
+
+  @override
+  String get hangulS5L2Step5Title => '课程完成！';
+
+  @override
+  String get hangulS5L2Step5Msg => '太棒了！\n你已经学会了ㅈ的发音和形状。';
+
+  @override
+  String get hangulS5L3Title => 'ㅊ的形状与发音';
+
+  @override
+  String get hangulS5L3Subtitle => 'ㅊ的基础读法';
+
+  @override
+  String get hangulS5L3Step0Title => '学习ㅊ';
+
+  @override
+  String get hangulS5L3Step0Desc => 'ㅊ产生「차」系列的音。';
+
+  @override
+  String get hangulS5L3Step0Highlights => 'ㅊ,차';
+
+  @override
+  String get hangulS5L3Step1Title => '聆听ㅊ的发音';
+
+  @override
+  String get hangulS5L3Step1Desc => '听一听차/초/추';
+
+  @override
+  String get hangulS5L3Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L3Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L3Step3Title => '选出ㅊ的音';
+
+  @override
+  String get hangulS5L3Step3Desc => '区分차和자';
+
+  @override
+  String get hangulS5L3Step4Title => '课程完成！';
+
+  @override
+  String get hangulS5L3Step4Msg => '太棒了！\n你已经学会了ㅊ的发音和形状。';
+
+  @override
+  String get hangulS5L4Title => 'ㅋ的形状与发音';
+
+  @override
+  String get hangulS5L4Subtitle => 'ㅋ的基础读法';
+
+  @override
+  String get hangulS5L4Step0Title => '学习ㅋ';
+
+  @override
+  String get hangulS5L4Step0Desc => 'ㅋ产生「카」系列的音。';
+
+  @override
+  String get hangulS5L4Step0Highlights => 'ㅋ,카';
+
+  @override
+  String get hangulS5L4Step1Title => '聆听ㅋ的发音';
+
+  @override
+  String get hangulS5L4Step1Desc => '听一听카/코/쿠';
+
+  @override
+  String get hangulS5L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L4Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L4Step3Title => '选出ㅋ的音';
+
+  @override
+  String get hangulS5L4Step3Desc => '区分카和가';
+
+  @override
+  String get hangulS5L4Step4Title => '课程完成！';
+
+  @override
+  String get hangulS5L4Step4Msg => '太棒了！\n你已经学会了ㅋ的发音和形状。';
+
+  @override
+  String get hangulS5L5Title => 'ㅌ的形状与发音';
+
+  @override
+  String get hangulS5L5Subtitle => 'ㅌ的基础读法';
+
+  @override
+  String get hangulS5L5Step0Title => '学习ㅌ';
+
+  @override
+  String get hangulS5L5Step0Desc => 'ㅌ产生「타」系列的音。';
+
+  @override
+  String get hangulS5L5Step0Highlights => 'ㅌ,타';
+
+  @override
+  String get hangulS5L5Step1Title => '聆听ㅌ的发音';
+
+  @override
+  String get hangulS5L5Step1Desc => '听一听타/토/투';
+
+  @override
+  String get hangulS5L5Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L5Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L5Step3Title => '选出ㅌ的音';
+
+  @override
+  String get hangulS5L5Step3Desc => '区分타和다';
+
+  @override
+  String get hangulS5L5Step4Title => '课程完成！';
+
+  @override
+  String get hangulS5L5Step4Msg => '太棒了！\n你已经学会了ㅌ的发音和形状。';
+
+  @override
+  String get hangulS5L6Title => 'ㅍ的形状与发音';
+
+  @override
+  String get hangulS5L6Subtitle => 'ㅍ的基础读法';
+
+  @override
+  String get hangulS5L6Step0Title => '学习ㅍ';
+
+  @override
+  String get hangulS5L6Step0Desc => 'ㅍ产生「파」系列的音。';
+
+  @override
+  String get hangulS5L6Step0Highlights => 'ㅍ,파';
+
+  @override
+  String get hangulS5L6Step1Title => '聆听ㅍ的发音';
+
+  @override
+  String get hangulS5L6Step1Desc => '听一听파/포/푸';
+
+  @override
+  String get hangulS5L6Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L6Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L6Step3Title => '选出ㅍ的音';
+
+  @override
+  String get hangulS5L6Step3Desc => '区分파和바';
+
+  @override
+  String get hangulS5L6Step4Title => '课程完成！';
+
+  @override
+  String get hangulS5L6Step4Msg => '太棒了！\n你已经学会了ㅍ的发音和形状。';
+
+  @override
+  String get hangulS5L7Title => 'ㅎ的形状与发音';
+
+  @override
+  String get hangulS5L7Subtitle => 'ㅎ的基础读法';
+
+  @override
+  String get hangulS5L7Step0Title => '学习ㅎ';
+
+  @override
+  String get hangulS5L7Step0Desc => 'ㅎ产生「하」系列的音。';
+
+  @override
+  String get hangulS5L7Step0Highlights => 'ㅎ,하';
+
+  @override
+  String get hangulS5L7Step1Title => '聆听ㅎ的发音';
+
+  @override
+  String get hangulS5L7Step1Desc => '听一听하/호/후';
+
+  @override
+  String get hangulS5L7Step2Title => '发音练习';
+
+  @override
+  String get hangulS5L7Step2Desc => '大声朗读每个文字';
+
+  @override
+  String get hangulS5L7Step3Title => '选出ㅎ的音';
+
+  @override
+  String get hangulS5L7Step3Desc => '区分하和아';
+
+  @override
+  String get hangulS5L7Step4Title => '课程完成！';
+
+  @override
+  String get hangulS5L7Step4Msg => '太棒了！\n你已经学会了ㅎ的发音和形状。';
+
+  @override
+  String get hangulS5L8Title => '额外辅音随机朗读';
+
+  @override
+  String get hangulS5L8Subtitle => '混合复习ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ';
+
+  @override
+  String get hangulS5L8Step0Title => '随机复习';
+
+  @override
+  String get hangulS5L8Step0Desc => '把7个额外辅音混在一起读一读吧。';
+
+  @override
+  String get hangulS5L8Step0Highlights => 'ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ';
+
+  @override
+  String get hangulS5L8Step1Title => '形状/发音测验';
+
+  @override
+  String get hangulS5L8Step1Desc => '将发音与文字对应起来';
+
+  @override
+  String get hangulS5L8Step2Title => '课程完成！';
+
+  @override
+  String get hangulS5L8Step2Msg => '太棒了！\n你随机复习了7个额外辅音。';
+
+  @override
+  String get hangulS5L9Title => '易混淆对的预习';
+
+  @override
+  String get hangulS5L9Subtitle => '为下一阶段做准备的区分练习';
+
+  @override
+  String get hangulS5L9Step0Title => '先看看容易混淆的对';
+
+  @override
+  String get hangulS5L9Step0Desc => '提前练习区分ㅈ/ㅊ、ㄱ/ㅋ、ㄷ/ㅌ、ㅂ/ㅍ。';
+
+  @override
+  String get hangulS5L9Step0Highlights => 'ㅈ/ㅊ,ㄱ/ㅋ,ㄷ/ㅌ,ㅂ/ㅍ';
+
+  @override
+  String get hangulS5L9Step1Title => '对比听音';
+
+  @override
+  String get hangulS5L9Step1Desc => '从两个选项中选出正确的音';
+
+  @override
+  String get hangulS5L9Step2Title => '课程完成！';
+
+  @override
+  String get hangulS5L9Step2Msg => '太棒了！\n你已经为下一阶段做好准备了。';
+
+  @override
+  String get hangulS5LMTitle => '第5阶段任务';
+
+  @override
+  String get hangulS5LMSubtitle => '基本辅音2 综合任务';
+
+  @override
+  String get hangulS5LMStep0Title => '任务开始！';
+
+  @override
+  String get hangulS5LMStep0Desc => '将基本辅音2（ㅇ~ㅎ）与元音组合。\n在限定时间内达成目标！';
+
+  @override
+  String get hangulS5LMStep1Title => '组合音节！';
+
+  @override
+  String get hangulS5LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS5LMStep3Title => '第5阶段完成！';
+
+  @override
+  String get hangulS5LMStep3Msg => '恭喜！\n你完成了第5阶段：基本辅音2（ㅇ~ㅎ）。';
+
+  @override
+  String get hangulS5LMStep4Title => '第5阶段完成！';
+
+  @override
+  String get hangulS5LMStep4Msg => '你已经掌握了所有基本辅音！';
+
+  @override
+  String get hangulS5CompleteTitle => '第5阶段完成！';
+
+  @override
+  String get hangulS5CompleteMsg => '你已经掌握了所有基本辅音！';
+
+  @override
+  String get hangulS6L1Title => '가~기 模式阅读';
+
+  @override
+  String get hangulS6L1Subtitle => 'ㄱ + 基本元音模式';
+
+  @override
+  String get hangulS6L1Step0Title => '开始用模式阅读';
+
+  @override
+  String get hangulS6L1Step0Desc => '试着改变与ㄱ组合的元音\n你会找到阅读的节奏。';
+
+  @override
+  String get hangulS6L1Step0Highlights => '가,거,고,구,그,기';
+
+  @override
+  String get hangulS6L1Step1Title => '聆听模式发音';
+
+  @override
+  String get hangulS6L1Step1Desc => '按顺序听一听 가/거/고/구/그/기';
+
+  @override
+  String get hangulS6L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS6L1Step2Desc => '请大声读出每个音节';
+
+  @override
+  String get hangulS6L1Step3Title => '模式测验';
+
+  @override
+  String get hangulS6L1Step3Desc => '配对相同的辅音模式';
+
+  @override
+  String get hangulS6L1Step3Q0 => 'ㄱ + ㅏ = ?';
+
+  @override
+  String get hangulS6L1Step3Q1 => 'ㄱ + ㅓ = ?';
+
+  @override
+  String get hangulS6L1Step3Q2 => 'ㄱ + ㅡ = ?';
+
+  @override
+  String get hangulS6L1Step4Title => '课程完成！';
+
+  @override
+  String get hangulS6L1Step4Msg => '很好！\n你已经开始学习 가~기 模式了。';
+
+  @override
+  String get hangulS6L2Title => '扩展 나~니';
+
+  @override
+  String get hangulS6L2Subtitle => 'ㄴ 模式阅读';
+
+  @override
+  String get hangulS6L2Step0Title => '扩展 ㄴ 模式';
+
+  @override
+  String get hangulS6L2Step0Desc => '改变与ㄴ组合的元音来读 나~니。';
+
+  @override
+  String get hangulS6L2Step0Highlights => '나,너,노,누,느,니';
+
+  @override
+  String get hangulS6L2Step1Title => '聆听 나~니';
+
+  @override
+  String get hangulS6L2Step1Desc => '请听听 ㄴ 模式的发音';
+
+  @override
+  String get hangulS6L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS6L2Step2Desc => '请大声读出每个音节';
+
+  @override
+  String get hangulS6L2Step3Title => '组合 ㄴ';
+
+  @override
+  String get hangulS6L2Step3Desc => '用 ㄴ + 元音组成音节';
+
+  @override
+  String get hangulS6L2Step4Title => '课程完成！';
+
+  @override
+  String get hangulS6L2Step4Msg => '很好！\n你已经掌握了 나~니 模式。';
+
+  @override
+  String get hangulS6L3Title => '扩展 다~디 和 라~리';
+
+  @override
+  String get hangulS6L3Subtitle => 'ㄷ/ㄹ 模式阅读';
+
+  @override
+  String get hangulS6L3Step0Title => '只换辅音来阅读';
+
+  @override
+  String get hangulS6L3Step0Desc => '用相同元音只换辅音来读，\n阅读速度会越来越快。';
+
+  @override
+  String get hangulS6L3Step0Highlights => '다/라,도/로,두/루,디/리';
+
+  @override
+  String get hangulS6L3Step1Title => '聆听：区分 ㄷ/ㄹ';
+
+  @override
+  String get hangulS6L3Step1Desc => '听音选择正确的音节';
+
+  @override
+  String get hangulS6L3Step2Title => '阅读测验';
+
+  @override
+  String get hangulS6L3Step2Desc => '检查模式';
+
+  @override
+  String get hangulS6L3Step2Q0 => 'ㄷ + ㅣ = ?';
+
+  @override
+  String get hangulS6L3Step2Q1 => 'ㄹ + ㅗ = ?';
+
+  @override
+  String get hangulS6L3Step3Title => '课程完成！';
+
+  @override
+  String get hangulS6L3Step3Msg => '很好！\n你已经掌握了 ㄷ/ㄹ 模式。';
+
+  @override
+  String get hangulS6L4Title => '随机音节阅读 1';
+
+  @override
+  String get hangulS6L4Subtitle => '混合基本模式';
+
+  @override
+  String get hangulS6L4Step0Title => '无序阅读';
+
+  @override
+  String get hangulS6L4Step0Desc => '现在像随机抽卡一样来读吧。';
+
+  @override
+  String get hangulS6L4Step1Title => '随机阅读';
+
+  @override
+  String get hangulS6L4Step1Desc => '识别随机出现的音节';
+
+  @override
+  String get hangulS6L4Step1Q0 => 'ㄱ + ㅗ = ?';
+
+  @override
+  String get hangulS6L4Step1Q1 => 'ㄴ + ㅜ = ?';
+
+  @override
+  String get hangulS6L4Step1Q2 => 'ㄹ + ㅏ = ?';
+
+  @override
+  String get hangulS6L4Step1Q3 => 'ㅁ + ㅣ = ?';
+
+  @override
+  String get hangulS6L4Step2Title => '课程完成！';
+
+  @override
+  String get hangulS6L4Step2Msg => '很好！\n你完成了随机阅读 1。';
+
+  @override
+  String get hangulS6L5Title => '听音找音节';
+
+  @override
+  String get hangulS6L5Subtitle => '强化听觉与文字的联系';
+
+  @override
+  String get hangulS6L5Step0Title => '听音寻字练习';
+
+  @override
+  String get hangulS6L5Step0Desc => '听音选出对应音节，\n强化阅读联系。';
+
+  @override
+  String get hangulS6L5Step1Title => '声音配对';
+
+  @override
+  String get hangulS6L5Step1Desc => '选出正确的音节';
+
+  @override
+  String get hangulS6L5Step2Title => '课程完成！';
+
+  @override
+  String get hangulS6L5Step2Msg => '很好！\n你完成了听音找字练习。';
+
+  @override
+  String get hangulS6L6Title => '复合元音组合 1';
+
+  @override
+  String get hangulS6L6Subtitle => '阅读 ㅘ、ㅝ';
+
+  @override
+  String get hangulS6L6Step0Title => '开始学习复合元音';
+
+  @override
+  String get hangulS6L6Step0Desc => '来读一读由 ㅘ 和 ㅝ 组成的音节。';
+
+  @override
+  String get hangulS6L6Step0Highlights => 'ㅘ,ㅝ,와,워';
+
+  @override
+  String get hangulS6L6Step1Title => '聆听 와/워';
+
+  @override
+  String get hangulS6L6Step1Desc => '请听一听代表性音节的发音';
+
+  @override
+  String get hangulS6L6Step2Title => '发音练习';
+
+  @override
+  String get hangulS6L6Step2Desc => '请大声读出每个音节';
+
+  @override
+  String get hangulS6L6Step3Title => '复合元音测验';
+
+  @override
+  String get hangulS6L6Step3Desc => '区分 ㅘ 和 ㅝ';
+
+  @override
+  String get hangulS6L6Step3Q0 => 'ㅇ + ㅘ = ?';
+
+  @override
+  String get hangulS6L6Step3Q1 => 'ㄱ + ㅝ = ?';
+
+  @override
+  String get hangulS6L6Step4Title => '课程完成！';
+
+  @override
+  String get hangulS6L6Step4Msg => '很好！\n你已经学会了 ㅘ/ㅝ 组合。';
+
+  @override
+  String get hangulS6L7Title => '复合元音组合 2';
+
+  @override
+  String get hangulS6L7Subtitle => '阅读 ㅙ、ㅞ、ㅚ、ㅟ、ㅢ';
+
+  @override
+  String get hangulS6L7Step0Title => '扩展复合元音';
+
+  @override
+  String get hangulS6L7Step0Desc => '简要学习复合元音，以阅读为中心推进。';
+
+  @override
+  String get hangulS6L7Step0Highlights => '왜,웨,외,위,의';
+
+  @override
+  String get hangulS6L7Step1Title => 'ㅢ 的特殊发音';
+
+  @override
+  String get hangulS6L7Step1Desc =>
+      'ㅢ 是一个根据位置发音不同的特殊元音。\n\n• 词首：[의] → 의사、의자\n• 辅音后：[이] → 희망→[히망]\n• 助词「의」：[에] → 나의→[나에]';
+
+  @override
+  String get hangulS6L7Step1Highlights => 'ㅢ,의,이,에';
+
+  @override
+  String get hangulS6L7Step2Title => '选择复合元音';
+
+  @override
+  String get hangulS6L7Step2Desc => '选出正确的音节';
+
+  @override
+  String get hangulS6L7Step2Q0 => 'ㅇ + ㅙ = ?';
+
+  @override
+  String get hangulS6L7Step2Q1 => 'ㅇ + ㅟ = ?';
+
+  @override
+  String get hangulS6L7Step2Q2 => 'ㅇ + ㅢ = ?';
+
+  @override
+  String get hangulS6L7Step3Title => '课程完成！';
+
+  @override
+  String get hangulS6L7Step3Msg => '很好！\n你完成了复合元音的扩展学习。';
+
+  @override
+  String get hangulS6L8Title => '随机音节阅读 2';
+
+  @override
+  String get hangulS6L8Subtitle => '基本+复合元音综合';
+
+  @override
+  String get hangulS6L8Step0Title => '综合随机阅读';
+
+  @override
+  String get hangulS6L8Step0Desc => '将基本元音和复合元音混合在一起阅读。';
+
+  @override
+  String get hangulS6L8Step1Title => '综合测验';
+
+  @override
+  String get hangulS6L8Step1Desc => '识别随机组合';
+
+  @override
+  String get hangulS6L8Step1Q0 => 'ㄱ + ㅢ = ?';
+
+  @override
+  String get hangulS6L8Step1Q1 => 'ㅎ + ㅘ = ?';
+
+  @override
+  String get hangulS6L8Step1Q2 => 'ㅂ + ㅟ = ?';
+
+  @override
+  String get hangulS6L8Step1Q3 => 'ㅈ + ㅝ = ?';
+
+  @override
+  String get hangulS6L8Step2Title => '课程完成！';
+
+  @override
+  String get hangulS6L8Step2Msg => '很好！\n你完成了第6阶段综合阅读。';
+
+  @override
+  String get hangulS6LMTitle => '第6阶段任务';
+
+  @override
+  String get hangulS6LMSubtitle => '组合阅读最终检验';
+
+  @override
+  String get hangulS6LMStep0Title => '任务开始！';
+
+  @override
+  String get hangulS6LMStep0Desc => '这是音节组合训练的最终检验。\n在时限内达成目标吧！';
+
+  @override
+  String get hangulS6LMStep1Title => '组合音节！';
+
+  @override
+  String get hangulS6LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS6LMStep3Title => '第6阶段完成！';
+
+  @override
+  String get hangulS6LMStep3Msg => '恭喜！\n你完成了第6阶段音节组合训练。';
+
+  @override
+  String get hangulS6CompleteTitle => '第6阶段完成！';
+
+  @override
+  String get hangulS6CompleteMsg => '你现在可以自由组合音节了！';
+
+  @override
+  String get hangulS7L1Title => 'ㄱ / ㅋ / ㄲ 辅音对比';
+
+  @override
+  String get hangulS7L1Subtitle => '가 · 카 · 까 的对比';
+
+  @override
+  String get hangulS7L1Step0Title => '分辨三种声音';
+
+  @override
+  String get hangulS7L1Step0Desc => '区分ㄱ（平音）、ㅋ（送气音）、ㄲ（紧音）的感觉。';
+
+  @override
+  String get hangulS7L1Step0Highlights => 'ㄱ,ㅋ,ㄲ,가,카,까';
+
+  @override
+  String get hangulS7L1Step1Title => '声音探索';
+
+  @override
+  String get hangulS7L1Step1Desc => '反复听가/카/까';
+
+  @override
+  String get hangulS7L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS7L1Step2Desc => '试着亲自发出每个字的声音';
+
+  @override
+  String get hangulS7L1Step3Title => '听音选字';
+
+  @override
+  String get hangulS7L1Step3Desc => '从三个选项中选出正确答案';
+
+  @override
+  String get hangulS7L1Step4Title => '快速确认';
+
+  @override
+  String get hangulS7L1Step4Desc => '同时确认形状和声音';
+
+  @override
+  String get hangulS7L1Step4Q0 => '哪个是送气音？';
+
+  @override
+  String get hangulS7L1Step4Q1 => '哪个是紧音？';
+
+  @override
+  String get hangulS7L1Step5Title => '课程完成！';
+
+  @override
+  String get hangulS7L1Step5Msg => '很好！\n你已掌握区分ㄱ/ㅋ/ㄲ的方法。';
+
+  @override
+  String get hangulS7L2Title => 'ㄷ / ㅌ / ㄸ 辅音对比';
+
+  @override
+  String get hangulS7L2Subtitle => '다 · 타 · 따 的对比';
+
+  @override
+  String get hangulS7L2Step0Title => '第二组对比';
+
+  @override
+  String get hangulS7L2Step0Desc => '比较ㄷ/ㅌ/ㄸ的声音。';
+
+  @override
+  String get hangulS7L2Step0Highlights => 'ㄷ,ㅌ,ㄸ,다,타,따';
+
+  @override
+  String get hangulS7L2Step1Title => '声音探索';
+
+  @override
+  String get hangulS7L2Step1Desc => '反复听다/타/따';
+
+  @override
+  String get hangulS7L2Step2Title => '发音练习';
+
+  @override
+  String get hangulS7L2Step2Desc => '试着亲自发出每个字的声音';
+
+  @override
+  String get hangulS7L2Step3Title => '听音选字';
+
+  @override
+  String get hangulS7L2Step3Desc => '从三个选项中选出正确答案';
+
+  @override
+  String get hangulS7L2Step4Title => '课程完成！';
+
+  @override
+  String get hangulS7L2Step4Msg => '很好！\n你已掌握区分ㄷ/ㅌ/ㄸ的方法。';
+
+  @override
+  String get hangulS7L3Title => 'ㅂ / ㅍ / ㅃ 辅音对比';
+
+  @override
+  String get hangulS7L3Subtitle => '바 · 파 · 빠 的对比';
+
+  @override
+  String get hangulS7L3Step0Title => '第三组对比';
+
+  @override
+  String get hangulS7L3Step0Desc => '比较ㅂ/ㅍ/ㅃ的声音。';
+
+  @override
+  String get hangulS7L3Step0Highlights => 'ㅂ,ㅍ,ㅃ,바,파,빠';
+
+  @override
+  String get hangulS7L3Step1Title => '声音探索';
+
+  @override
+  String get hangulS7L3Step1Desc => '反复听바/파/빠';
+
+  @override
+  String get hangulS7L3Step2Title => '发音练习';
+
+  @override
+  String get hangulS7L3Step2Desc => '试着亲自发出每个字的声音';
+
+  @override
+  String get hangulS7L3Step3Title => '听音选字';
+
+  @override
+  String get hangulS7L3Step3Desc => '从三个选项中选出正确答案';
+
+  @override
+  String get hangulS7L3Step4Title => '课程完成！';
+
+  @override
+  String get hangulS7L3Step4Msg => '很好！\n你已掌握区分ㅂ/ㅍ/ㅃ的方法。';
+
+  @override
+  String get hangulS7L4Title => 'ㅅ / ㅆ 辅音对比';
+
+  @override
+  String get hangulS7L4Subtitle => '사 · 싸 的对比';
+
+  @override
+  String get hangulS7L4Step0Title => '两种声音的对比';
+
+  @override
+  String get hangulS7L4Step0Desc => '区分ㅅ/ㅆ的声音。';
+
+  @override
+  String get hangulS7L4Step0Highlights => 'ㅅ,ㅆ,사,싸';
+
+  @override
+  String get hangulS7L4Step1Title => '声音探索';
+
+  @override
+  String get hangulS7L4Step1Desc => '反复听사/싸';
+
+  @override
+  String get hangulS7L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS7L4Step2Desc => '试着亲自发出每个字的声音';
+
+  @override
+  String get hangulS7L4Step3Title => '听音选字';
+
+  @override
+  String get hangulS7L4Step3Desc => '从两个选项中选出正确答案';
+
+  @override
+  String get hangulS7L4Step4Title => '课程完成！';
+
+  @override
+  String get hangulS7L4Step4Msg => '很好！\n你已掌握区分ㅅ/ㅆ的方法。';
+
+  @override
+  String get hangulS7L5Title => 'ㅈ / ㅊ / ㅉ 辅音对比';
+
+  @override
+  String get hangulS7L5Subtitle => '자 · 차 · 짜 的对比';
+
+  @override
+  String get hangulS7L5Step0Title => '最后一组对比';
+
+  @override
+  String get hangulS7L5Step0Desc => '比较ㅈ/ㅊ/ㅉ的声音。';
+
+  @override
+  String get hangulS7L5Step0Highlights => 'ㅈ,ㅊ,ㅉ,자,차,짜';
+
+  @override
+  String get hangulS7L5Step1Title => '声音探索';
+
+  @override
+  String get hangulS7L5Step1Desc => '反复听자/차/짜';
+
+  @override
+  String get hangulS7L5Step2Title => '发音练习';
+
+  @override
+  String get hangulS7L5Step2Desc => '试着亲自发出每个字的声音';
+
+  @override
+  String get hangulS7L5Step3Title => '听音选字';
+
+  @override
+  String get hangulS7L5Step3Desc => '从三个选项中选出正确答案';
+
+  @override
+  String get hangulS7L5Step4Title => '第7阶段完成！';
+
+  @override
+  String get hangulS7L5Step4Msg => '恭喜！\n你已完成第7阶段的全部5组对比练习。';
+
+  @override
+  String get hangulS7LMTitle => '任务：声音辨别挑战！';
+
+  @override
+  String get hangulS7LMSubtitle => '区分平音、送气音和紧音';
+
+  @override
+  String get hangulS7LMStep0Title => '声音辨别任务！';
+
+  @override
+  String get hangulS7LMStep0Desc => '混合平音、送气音和紧音\n快速组合音节！';
+
+  @override
+  String get hangulS7LMStep1Title => '组合音节！';
+
+  @override
+  String get hangulS7LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS7LMStep3Title => '任务完成！';
+
+  @override
+  String get hangulS7LMStep3Msg => '你已能区分平音、送气音和紧音！';
+
+  @override
+  String get hangulS7LMStep4Title => '第7阶段完成！';
+
+  @override
+  String get hangulS7LMStep4Msg => '你已能区分紧音和送气音！';
+
+  @override
+  String get hangulS7CompleteTitle => '第7阶段完成！';
+
+  @override
+  String get hangulS7CompleteMsg => '你已能区分紧音和送气音！';
+
+  @override
+  String get hangulS8L0Title => '收音（받침）基础';
+
+  @override
+  String get hangulS8L0Subtitle => '藏在音节块底部的音';
+
+  @override
+  String get hangulS8L0Step0Title => '收音在音节的下方';
+
+  @override
+  String get hangulS8L0Step0Desc => '收音位于音节块的底部。\n例：가 + ㄴ = 간';
+
+  @override
+  String get hangulS8L0Step0Highlights => '收音,간,말,집';
+
+  @override
+  String get hangulS8L0Step1Title => '收音的7个代表音';
+
+  @override
+  String get hangulS8L0Step1Desc =>
+      '收音只有7个代表音。\n\nㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\n许多收音字母都归属于这7个音之一。\n例：ㅅ, ㅈ, ㅊ, ㅎ 作为收音 → 均发[ㄷ]音';
+
+  @override
+  String get hangulS8L0Step1Highlights => '7个音,ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ,代表音';
+
+  @override
+  String get hangulS8L0Step2Title => '找出收音';
+
+  @override
+  String get hangulS8L0Step2Desc => '确认收音的位置';
+
+  @override
+  String get hangulS8L0Step2Q0 => '간的收音是？';
+
+  @override
+  String get hangulS8L0Step2Q1 => '말的收音是？';
+
+  @override
+  String get hangulS8L0SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L0SummaryMsg => '很好！\n你已理解收音的概念。';
+
+  @override
+  String get hangulS8L1Title => 'ㄴ收音';
+
+  @override
+  String get hangulS8L1Subtitle => '간 · 난 · 단';
+
+  @override
+  String get hangulS8L1Step0Title => '聆听ㄴ收音';
+
+  @override
+  String get hangulS8L1Step0Desc => '听一听간/난/단';
+
+  @override
+  String get hangulS8L1Step1Title => '发音练习';
+
+  @override
+  String get hangulS8L1Step1Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L1Step2Title => '听音选字';
+
+  @override
+  String get hangulS8L1Step2Desc => '选出带有ㄴ收音的音节';
+
+  @override
+  String get hangulS8L1SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L1SummaryMsg => '很好！\n你掌握了ㄴ收音。';
+
+  @override
+  String get hangulS8L2Title => 'ㄹ收音';
+
+  @override
+  String get hangulS8L2Subtitle => '말 · 갈 · 물';
+
+  @override
+  String get hangulS8L2Step0Title => '聆听ㄹ收音';
+
+  @override
+  String get hangulS8L2Step0Desc => '听一听말/갈/물';
+
+  @override
+  String get hangulS8L2Step1Title => '发音练习';
+
+  @override
+  String get hangulS8L2Step1Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L2Step2Title => '听音选字';
+
+  @override
+  String get hangulS8L2Step2Desc => '选出带有ㄹ收音的音节';
+
+  @override
+  String get hangulS8L2SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L2SummaryMsg => '很好！\n你掌握了ㄹ收音。';
+
+  @override
+  String get hangulS8L3Title => 'ㅁ收音';
+
+  @override
+  String get hangulS8L3Subtitle => '감 · 밤 · 숨';
+
+  @override
+  String get hangulS8L3Step0Title => '聆听ㅁ收音';
+
+  @override
+  String get hangulS8L3Step0Desc => '听一听감/밤/숨';
+
+  @override
+  String get hangulS8L3Step1Title => '发音练习';
+
+  @override
+  String get hangulS8L3Step1Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L3Step2Title => '辨别收音';
+
+  @override
+  String get hangulS8L3Step2Desc => '选出ㅁ收音的音节';
+
+  @override
+  String get hangulS8L3Step2Q0 => '哪个有ㅁ收音？';
+
+  @override
+  String get hangulS8L3Step2Q1 => '哪个有ㅁ收音？';
+
+  @override
+  String get hangulS8L3SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L3SummaryMsg => '很好！\n你掌握了ㅁ收音。';
+
+  @override
+  String get hangulS8L4Title => 'ㅇ收音';
+
+  @override
+  String get hangulS8L4Subtitle => '방 · 공 · 종';
+
+  @override
+  String get hangulS8L4Step0Title => 'ㅇ很特别！';
+
+  @override
+  String get hangulS8L4Step0Desc =>
+      'ㅇ很特别！\n作为初声（上方）时无音（아, 오），\n作为收音（下方）时发\"ng\"音（방, 공）';
+
+  @override
+  String get hangulS8L4Step0Highlights => '初声,收音,ng,방,공';
+
+  @override
+  String get hangulS8L4Step1Title => '聆听ㅇ收音';
+
+  @override
+  String get hangulS8L4Step1Desc => '听一听방/공/종';
+
+  @override
+  String get hangulS8L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS8L4Step2Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L4Step3Title => '听音选字';
+
+  @override
+  String get hangulS8L4Step3Desc => '选出带有ㅇ收音的音节';
+
+  @override
+  String get hangulS8L4SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L4SummaryMsg => '很好！\n你掌握了ㅇ收音。';
+
+  @override
+  String get hangulS8L5Title => 'ㄱ收音';
+
+  @override
+  String get hangulS8L5Subtitle => '박 · 각 · 국';
+
+  @override
+  String get hangulS8L5Step0Title => '聆听ㄱ收音';
+
+  @override
+  String get hangulS8L5Step0Desc => '听一听박/각/국';
+
+  @override
+  String get hangulS8L5Step1Title => '发音练习';
+
+  @override
+  String get hangulS8L5Step1Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L5Step2Title => '辨别收音';
+
+  @override
+  String get hangulS8L5Step2Desc => '选出ㄱ收音的音节';
+
+  @override
+  String get hangulS8L5Step2Q0 => '哪个有ㄱ收音？';
+
+  @override
+  String get hangulS8L5Step2Q1 => '哪个有ㄱ收音？';
+
+  @override
+  String get hangulS8L5SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L5SummaryMsg => '很好！\n你掌握了ㄱ收音。';
+
+  @override
+  String get hangulS8L6Title => 'ㅂ收音';
+
+  @override
+  String get hangulS8L6Subtitle => '밥 · 집 · 숲';
+
+  @override
+  String get hangulS8L6Step0Title => '聆听ㅂ收音';
+
+  @override
+  String get hangulS8L6Step0Desc => '听一听밥/집/숲';
+
+  @override
+  String get hangulS8L6Step1Title => '发音练习';
+
+  @override
+  String get hangulS8L6Step1Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L6Step2Title => '听音选字';
+
+  @override
+  String get hangulS8L6Step2Desc => '选出带有ㅂ收音的音节';
+
+  @override
+  String get hangulS8L6SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L6SummaryMsg => '很好！\n你掌握了ㅂ收音。';
+
+  @override
+  String get hangulS8L7Title => 'ㅅ收音';
+
+  @override
+  String get hangulS8L7Subtitle => '옷 · 맛 · 빛';
+
+  @override
+  String get hangulS8L7Step0Title => '聆听ㅅ收音';
+
+  @override
+  String get hangulS8L7Step0Desc => '听一听옷/맛/빛';
+
+  @override
+  String get hangulS8L7Step1Title => '发音练习';
+
+  @override
+  String get hangulS8L7Step1Desc => '大声朗读每个字';
+
+  @override
+  String get hangulS8L7Step2Title => '辨别收音';
+
+  @override
+  String get hangulS8L7Step2Desc => '选出ㅅ收音的音节';
+
+  @override
+  String get hangulS8L7Step2Q0 => '哪个有ㅅ收音？';
+
+  @override
+  String get hangulS8L7Step2Q1 => '哪个有ㅅ收音？';
+
+  @override
+  String get hangulS8L7SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L7SummaryMsg => '很好！\n你掌握了ㅅ收音。';
+
+  @override
+  String get hangulS8L8Title => '收音综合复习';
+
+  @override
+  String get hangulS8L8Subtitle => '核心收音随机检测';
+
+  @override
+  String get hangulS8L8Step0Title => '全部混合练习';
+
+  @override
+  String get hangulS8L8Step0Desc => '我们来综合复习ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅ。';
+
+  @override
+  String get hangulS8L8Step1Title => '随机测验';
+
+  @override
+  String get hangulS8L8Step1Desc => '混合收音综合测试';
+
+  @override
+  String get hangulS8L8Step1Q0 => '哪个有ㄴ收音？';
+
+  @override
+  String get hangulS8L8Step1Q1 => '哪个有ㅇ收音？';
+
+  @override
+  String get hangulS8L8Step1Q2 => '哪个有ㄹ收音？';
+
+  @override
+  String get hangulS8L8Step1Q3 => '哪个有ㅂ收音？';
+
+  @override
+  String get hangulS8L8SummaryTitle => '课程完成！';
+
+  @override
+  String get hangulS8L8SummaryMsg => '很好！\n完成了收音综合复习。';
+
+  @override
+  String get hangulS8LMTitle => '任务：收音挑战！';
+
+  @override
+  String get hangulS8LMSubtitle => '组合带收音的音节';
+
+  @override
+  String get hangulS8LMStep0Title => '收音任务！';
+
+  @override
+  String get hangulS8LMStep0Desc => '读出带有基本收音的音节，\n快速作答！';
+
+  @override
+  String get hangulS8LMStep1Title => '拼出音节！';
+
+  @override
+  String get hangulS8LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS8LMSummaryTitle => '任务完成！';
+
+  @override
+  String get hangulS8LMSummaryMsg => '你已完全掌握收音基础！';
+
+  @override
+  String get hangulS8CompleteTitle => '第8阶段完成！';
+
+  @override
+  String get hangulS8CompleteMsg => '你已打好收音的基础！';
+
+  @override
+  String get hangulS9L1Title => '收音 ㄷ 扩展';
+
+  @override
+  String get hangulS9L1Subtitle => '닫 · 곧 · 묻';
+
+  @override
+  String get hangulS9L1Step0Title => 'ㄷ 收音规律';
+
+  @override
+  String get hangulS9L1Step0Desc => '读一读带有收音 ㄷ 的音节。';
+
+  @override
+  String get hangulS9L1Step0Highlights => '닫,곧,묻';
+
+  @override
+  String get hangulS9L1Step1Title => '听一听：收音 ㄷ';
+
+  @override
+  String get hangulS9L1Step1Desc => '听 닫/곧/묻 的发音';
+
+  @override
+  String get hangulS9L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS9L1Step2Desc => '亲自大声念出每个字';
+
+  @override
+  String get hangulS9L1Step3Title => '辨别收音';
+
+  @override
+  String get hangulS9L1Step3Desc => '选出带有收音 ㄷ 的音节';
+
+  @override
+  String get hangulS9L1Step3Q0 => '哪个带有收音 ㄷ？';
+
+  @override
+  String get hangulS9L1Step3Q1 => '哪个带有收音 ㄷ？';
+
+  @override
+  String get hangulS9L1Step4Title => '课程完成！';
+
+  @override
+  String get hangulS9L1Step4Msg => '很好！\n你已掌握收音 ㄷ。';
+
+  @override
+  String get hangulS9L2Title => '收音 ㅈ 扩展';
+
+  @override
+  String get hangulS9L2Subtitle => '낮 · 잊 · 젖';
+
+  @override
+  String get hangulS9L2Step0Title => '听一听：收音 ㅈ';
+
+  @override
+  String get hangulS9L2Step0Desc => '听 낮/잊/젖 的发音';
+
+  @override
+  String get hangulS9L2Step1Title => '发音练习';
+
+  @override
+  String get hangulS9L2Step1Desc => '亲自大声念出每个字';
+
+  @override
+  String get hangulS9L2Step2Title => '听音选字';
+
+  @override
+  String get hangulS9L2Step2Desc => '选出带有收音 ㅈ 的音节';
+
+  @override
+  String get hangulS9L2Step3Title => '课程完成！';
+
+  @override
+  String get hangulS9L2Step3Msg => '很好！\n你已掌握收音 ㅈ。';
+
+  @override
+  String get hangulS9L3Title => '收音 ㅊ 扩展';
+
+  @override
+  String get hangulS9L3Subtitle => '꽃 · 닻 · 빚';
+
+  @override
+  String get hangulS9L3Step0Title => '听一听：收音 ㅊ';
+
+  @override
+  String get hangulS9L3Step0Desc => '听 꽃/닻/빚 的发音';
+
+  @override
+  String get hangulS9L3Step1Title => '发音练习';
+
+  @override
+  String get hangulS9L3Step1Desc => '亲自大声念出每个字';
+
+  @override
+  String get hangulS9L3Step2Title => '辨别收音';
+
+  @override
+  String get hangulS9L3Step2Desc => '选出带有收音 ㅊ 的音节';
+
+  @override
+  String get hangulS9L3Step2Q0 => '哪个带有收音 ㅊ？';
+
+  @override
+  String get hangulS9L3Step2Q1 => '哪个带有收音 ㅊ？';
+
+  @override
+  String get hangulS9L3Step3Title => '课程完成！';
+
+  @override
+  String get hangulS9L3Step3Msg => '很好！\n你已掌握收音 ㅊ。';
+
+  @override
+  String get hangulS9L4Title => '收音 ㅋ / ㅌ / ㅍ';
+
+  @override
+  String get hangulS9L4Subtitle => '부엌 · 밭 · 앞';
+
+  @override
+  String get hangulS9L4Step0Title => '三个收音合并学习';
+
+  @override
+  String get hangulS9L4Step0Desc => '把 ㅋ、ㅌ、ㅍ 三个收音放在一起学。';
+
+  @override
+  String get hangulS9L4Step0Highlights => '부엌,밭,앞';
+
+  @override
+  String get hangulS9L4Step1Title => '听一听';
+
+  @override
+  String get hangulS9L4Step1Desc => '听 부엌/밭/앞 的发音';
+
+  @override
+  String get hangulS9L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS9L4Step2Desc => '亲自大声念出每个字';
+
+  @override
+  String get hangulS9L4Step3Title => '辨别收音';
+
+  @override
+  String get hangulS9L4Step3Desc => '区分这三个收音';
+
+  @override
+  String get hangulS9L4Step3Q0 => '哪个带有收音 ㅌ？';
+
+  @override
+  String get hangulS9L4Step3Q1 => '哪个带有收音 ㅍ？';
+
+  @override
+  String get hangulS9L4Step4Title => '课程完成！';
+
+  @override
+  String get hangulS9L4Step4Msg => '很好！\n你已掌握收音 ㅋ/ㅌ/ㅍ。';
+
+  @override
+  String get hangulS9L5Title => '收音 ㅎ 扩展';
+
+  @override
+  String get hangulS9L5Subtitle => '좋 · 놓 · 않';
+
+  @override
+  String get hangulS9L5Step0Title => '听一听：收音 ㅎ';
+
+  @override
+  String get hangulS9L5Step0Desc => '听 좋/놓/않 的发音';
+
+  @override
+  String get hangulS9L5Step1Title => '发音练习';
+
+  @override
+  String get hangulS9L5Step1Desc => '亲自大声念出每个字';
+
+  @override
+  String get hangulS9L5Step2Title => '听音选字';
+
+  @override
+  String get hangulS9L5Step2Desc => '选出带有收音 ㅎ 的音节';
+
+  @override
+  String get hangulS9L5Step3Title => '课程完成！';
+
+  @override
+  String get hangulS9L5Step3Msg => '很好！\n你已掌握收音 ㅎ。';
+
+  @override
+  String get hangulS9L6Title => '扩展收音随机练习';
+
+  @override
+  String get hangulS9L6Subtitle => '混合 ㄷ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ';
+
+  @override
+  String get hangulS9L6Step0Title => '混合扩展收音';
+
+  @override
+  String get hangulS9L6Step0Desc => '随机复习所有扩展收音。';
+
+  @override
+  String get hangulS9L6Step1Title => '随机测验';
+
+  @override
+  String get hangulS9L6Step1Desc => '解题并区分各个收音';
+
+  @override
+  String get hangulS9L6Step1Q0 => '哪个带有收音 ㄷ？';
+
+  @override
+  String get hangulS9L6Step1Q1 => '哪个带有收音 ㅈ？';
+
+  @override
+  String get hangulS9L6Step1Q2 => '哪个带有收音 ㅊ？';
+
+  @override
+  String get hangulS9L6Step1Q3 => '哪个带有收音 ㅎ？';
+
+  @override
+  String get hangulS9L6Step2Title => '课程完成！';
+
+  @override
+  String get hangulS9L6Step2Msg => '很好！\n扩展收音随机复习完成。';
+
+  @override
+  String get hangulS9L7Title => '第9阶段综合';
+
+  @override
+  String get hangulS9L7Subtitle => '扩展收音阅读收尾';
+
+  @override
+  String get hangulS9L7Step0Title => '最终确认';
+
+  @override
+  String get hangulS9L7Step0Desc => '最终复习第9阶段的核心要点';
+
+  @override
+  String get hangulS9L7Step1Title => '第9阶段完成！';
+
+  @override
+  String get hangulS9L7Step1Msg => '恭喜！\n你已完成第9阶段的扩展收音学习。';
+
+  @override
+  String get hangulS9LMTitle => '任务：扩展收音挑战！';
+
+  @override
+  String get hangulS9LMSubtitle => '快速读出各种收音';
+
+  @override
+  String get hangulS9LMStep0Title => '扩展收音任务！';
+
+  @override
+  String get hangulS9LMStep0Desc => '以最快速度组合含扩展收音的音节！';
+
+  @override
+  String get hangulS9LMStep1Title => '组合音节！';
+
+  @override
+  String get hangulS9LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS9LMStep3Title => '任务完成！';
+
+  @override
+  String get hangulS9LMStep3Msg => '你已征服扩展收音！';
+
+  @override
+  String get hangulS9CompleteTitle => '第9阶段完成！';
+
+  @override
+  String get hangulS9CompleteMsg => '你已征服扩展收音！';
+
+  @override
+  String get hangulS10L1Title => 'ㄳ 收音';
+
+  @override
+  String get hangulS10L1Subtitle => '以 몫・넋 为中心阅读';
+
+  @override
+  String get hangulS10L1Step0Title => '双收音的发音规则';
+
+  @override
+  String get hangulS10L1Step0Desc =>
+      '双收音是由两个辅音组合而成的收音。\n\n大多数读左边的辅音：\nㄳ→[ㄱ], ㄵ→[ㄴ], ㄶ→[ㄴ], ㄻ→[ㅁ], ㅄ→[ㅂ]\n\n少数读右边的辅音：\nㄺ→[ㄹ], ㄼ→[ㄹ]';
+
+  @override
+  String get hangulS10L1Step0Highlights => '左边辅音,右边辅音,双收音';
+
+  @override
+  String get hangulS10L1Step1Title => '开始学习复合收音';
+
+  @override
+  String get hangulS10L1Step1Desc => '来读含有 ㄳ 收音的单词吧。';
+
+  @override
+  String get hangulS10L1Step1Highlights => '몫,넋';
+
+  @override
+  String get hangulS10L1Step2Title => '听发音';
+
+  @override
+  String get hangulS10L1Step2Desc => '听一听 몫/넋';
+
+  @override
+  String get hangulS10L1Step3Title => '发音练习';
+
+  @override
+  String get hangulS10L1Step3Desc => '请大声读出每个字';
+
+  @override
+  String get hangulS10L1Step4Title => '阅读检测';
+
+  @override
+  String get hangulS10L1Step4Desc => '看单词并选择正确答案';
+
+  @override
+  String get hangulS10L1Step4Q0 => '哪个单词有 ㄳ 收音？';
+
+  @override
+  String get hangulS10L1Step4Q1 => '哪个单词有 ㄳ 收音？';
+
+  @override
+  String get hangulS10L1Step5Title => '课程完成！';
+
+  @override
+  String get hangulS10L1Step5Msg => '很好！\n你已经掌握了 ㄳ 收音。';
+
+  @override
+  String get hangulS10L2Title => 'ㄵ / ㄶ 收音';
+
+  @override
+  String get hangulS10L2Subtitle => '앉다・많다';
+
+  @override
+  String get hangulS10L2Step0Title => '听发音';
+
+  @override
+  String get hangulS10L2Step0Desc => '听一听 앉다/많다';
+
+  @override
+  String get hangulS10L2Step1Title => '发音练习';
+
+  @override
+  String get hangulS10L2Step1Desc => '请大声读出每个字';
+
+  @override
+  String get hangulS10L2Step2Title => '听后选择';
+
+  @override
+  String get hangulS10L2Step2Desc => '选择正确的单词';
+
+  @override
+  String get hangulS10L2Step3Title => '课程完成！';
+
+  @override
+  String get hangulS10L2Step3Msg => '很好！\n你已经掌握了 ㄵ/ㄶ 收音。';
+
+  @override
+  String get hangulS10L3Title => 'ㄺ / ㄻ 收音';
+
+  @override
+  String get hangulS10L3Subtitle => '읽다・삶';
+
+  @override
+  String get hangulS10L3Step0Title => '听发音';
+
+  @override
+  String get hangulS10L3Step0Desc => '听一听 읽다/삶';
+
+  @override
+  String get hangulS10L3Step1Title => '发音练习';
+
+  @override
+  String get hangulS10L3Step1Desc => '请大声读出每个字';
+
+  @override
+  String get hangulS10L3Step2Title => '阅读检测';
+
+  @override
+  String get hangulS10L3Step2Desc => '选择含复合收音的单词';
+
+  @override
+  String get hangulS10L3Step2Q0 => '哪个单词有 ㄺ 收音？';
+
+  @override
+  String get hangulS10L3Step2Q1 => '哪个单词有 ㄻ 收音？';
+
+  @override
+  String get hangulS10L3Step3Title => '课程完成！';
+
+  @override
+  String get hangulS10L3Step3Msg => '很好！\n你已经掌握了 ㄺ/ㄻ 收音。';
+
+  @override
+  String get hangulS10L4Title => '高级组合 1';
+
+  @override
+  String get hangulS10L4Subtitle => 'ㄼ・ㄾ・ㄿ・ㅀ';
+
+  @override
+  String get hangulS10L4Step0Title => '高级组合介绍';
+
+  @override
+  String get hangulS10L4Step0Desc => '通过常见例子简短地学习。';
+
+  @override
+  String get hangulS10L4Step0Highlights => '넓다,핥다,읊다,싫다';
+
+  @override
+  String get hangulS10L4Step1Title => '听单词发音';
+
+  @override
+  String get hangulS10L4Step1Desc => '听一听 넓다/핥다/읊다/싫다';
+
+  @override
+  String get hangulS10L4Step2Title => '发音练习';
+
+  @override
+  String get hangulS10L4Step2Desc => '请大声读出每个字';
+
+  @override
+  String get hangulS10L4Step3Title => '课程完成！';
+
+  @override
+  String get hangulS10L4Step3Msg => '很好！\n你已经掌握了高级组合 1。';
+
+  @override
+  String get hangulS10L5Title => 'ㅄ 收音';
+
+  @override
+  String get hangulS10L5Subtitle => '以 없다 为中心阅读';
+
+  @override
+  String get hangulS10L5Step0Title => '听发音';
+
+  @override
+  String get hangulS10L5Step0Desc => '听一听 없다/없어';
+
+  @override
+  String get hangulS10L5Step1Title => '发音练习';
+
+  @override
+  String get hangulS10L5Step1Desc => '请大声读出每个字';
+
+  @override
+  String get hangulS10L5Step2Title => '听后选择';
+
+  @override
+  String get hangulS10L5Step2Desc => '选择正确的单词';
+
+  @override
+  String get hangulS10L5Step3Title => '课程完成！';
+
+  @override
+  String get hangulS10L5Step3Msg => '很好！\n你已经掌握了 ㅄ 收音。';
+
+  @override
+  String get hangulS10L6Title => '第10阶段综合';
+
+  @override
+  String get hangulS10L6Subtitle => '复合收音单词综合';
+
+  @override
+  String get hangulS10L6Step0Title => '综合检测';
+
+  @override
+  String get hangulS10L6Step0Desc => '对复合收音单词进行最终检测';
+
+  @override
+  String get hangulS10L6Step0Q0 => '以下哪个单词有 ㄶ 收音？';
+
+  @override
+  String get hangulS10L6Step0Q1 => '以下哪个单词有 ㄺ 收音？';
+
+  @override
+  String get hangulS10L6Step0Q2 => '以下哪个单词有 ㅄ 收音？';
+
+  @override
+  String get hangulS10L6Step0Q3 => '以下哪个单词有 ㄳ 收音？';
+
+  @override
+  String get hangulS10L6Step1Title => '第10阶段完成！';
+
+  @override
+  String get hangulS10L6Step1Msg => '恭喜！\n你完成了第10阶段的复合收音。';
+
+  @override
+  String get hangulS10LMTitle => '任务：双收音挑战！';
+
+  @override
+  String get hangulS10LMSubtitle => '快速阅读双收音单词';
+
+  @override
+  String get hangulS10LMStep0Title => '双收音任务！';
+
+  @override
+  String get hangulS10LMStep0Desc => '快速组合包含双收音的音节！';
+
+  @override
+  String get hangulS10LMStep1Title => '组合音节！';
+
+  @override
+  String get hangulS10LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS10LMStep3Title => '任务完成！';
+
+  @override
+  String get hangulS10LMStep3Msg => '你连双收音都掌握了！';
+
+  @override
+  String get hangulS10LMStep4Title => '第10阶段完成！';
+
+  @override
+  String get hangulS10CompleteTitle => '第10阶段完成！';
+
+  @override
+  String get hangulS10CompleteMsg => '你连双收音都掌握了！';
+
+  @override
+  String get hangulS11L1Title => '无收音的单词';
+
+  @override
+  String get hangulS11L1Subtitle => '简单的2~3音节单词';
+
+  @override
+  String get hangulS11L1Step0Title => '开始读单词';
+
+  @override
+  String get hangulS11L1Step0Desc => '先用没有收音的单词建立自信吧。';
+
+  @override
+  String get hangulS11L1Step0Highlights => '바나나,나비,하마,모자';
+
+  @override
+  String get hangulS11L1Step1Title => '听单词';
+
+  @override
+  String get hangulS11L1Step1Desc => '听听 바나나 / 나비 / 하마 / 모자';
+
+  @override
+  String get hangulS11L1Step2Title => '发音练习';
+
+  @override
+  String get hangulS11L1Step2Desc => '大声读出每个字';
+
+  @override
+  String get hangulS11L1Step3Title => '课程完成！';
+
+  @override
+  String get hangulS11L1Step3Msg => '很好！\n你开始读没有收音的单词了。';
+
+  @override
+  String get hangulS11L2Title => '基本收音单词';
+
+  @override
+  String get hangulS11L2Subtitle => '학교・친구・한국・공부';
+
+  @override
+  String get hangulS11L2Step0Title => '听单词';
+
+  @override
+  String get hangulS11L2Step0Desc => '听听 학교 / 친구 / 한국 / 공부';
+
+  @override
+  String get hangulS11L2Step1Title => '发音练习';
+
+  @override
+  String get hangulS11L2Step1Desc => '大声读出每个字';
+
+  @override
+  String get hangulS11L2Step2Title => '听后选择';
+
+  @override
+  String get hangulS11L2Step2Desc => '选择你听到的单词';
+
+  @override
+  String get hangulS11L2Step3Title => '课程完成！';
+
+  @override
+  String get hangulS11L2Step3Msg => '很好！\n你读了基本收音的单词。';
+
+  @override
+  String get hangulS11L3Title => '混合收音单词';
+
+  @override
+  String get hangulS11L3Subtitle => '읽기・없다・많다・닭';
+
+  @override
+  String get hangulS11L3Step0Title => '提升难度';
+
+  @override
+  String get hangulS11L3Step0Desc => '来读含基本和复合收音的混合单词吧。';
+
+  @override
+  String get hangulS11L3Step0Highlights => '읽기,없다,많다,닭';
+
+  @override
+  String get hangulS11L3Step1Title => '区分单词';
+
+  @override
+  String get hangulS11L3Step1Desc => '区分相似的单词';
+
+  @override
+  String get hangulS11L3Step1Q0 => '哪个是复合收音的单词？';
+
+  @override
+  String get hangulS11L3Step1Q1 => '哪个是复合收音的单词？';
+
+  @override
+  String get hangulS11L3Step2Title => '课程完成！';
+
+  @override
+  String get hangulS11L3Step2Msg => '很好！\n你读了混合收音的单词。';
+
+  @override
+  String get hangulS11L4Title => '分类单词包';
+
+  @override
+  String get hangulS11L4Subtitle => '食物・地点・人物';
+
+  @override
+  String get hangulS11L4Step0Title => '听分类单词';
+
+  @override
+  String get hangulS11L4Step0Desc => '听食物 / 地点 / 人物的单词';
+
+  @override
+  String get hangulS11L4Step1Title => '发音练习';
+
+  @override
+  String get hangulS11L4Step1Desc => '大声读出每个字';
+
+  @override
+  String get hangulS11L4Step2Title => '按类别分类';
+
+  @override
+  String get hangulS11L4Step2Desc => '看单词，选择它的类别';
+
+  @override
+  String get hangulS11L4Step2Q0 => '「김치」是什么？';
+
+  @override
+  String get hangulS11L4Step2Q1 => '「시장」是什么？';
+
+  @override
+  String get hangulS11L4Step2Q2 => '「학생」是什么？';
+
+  @override
+  String get hangulS11L4Step2CatFood => '食物';
+
+  @override
+  String get hangulS11L4Step2CatPlace => '地点';
+
+  @override
+  String get hangulS11L4Step2CatPerson => '人物';
+
+  @override
+  String get hangulS11L4Step3Title => '课程完成！';
+
+  @override
+  String get hangulS11L4Step3Msg => '很好！\n你学习了分类单词。';
+
+  @override
+  String get hangulS11L5Title => '听后选词';
+
+  @override
+  String get hangulS11L5Subtitle => '加强听觉与阅读的联系';
+
+  @override
+  String get hangulS11L5Step0Title => '声音匹配';
+
+  @override
+  String get hangulS11L5Step0Desc => '听后选出正确的单词';
+
+  @override
+  String get hangulS11L5Step1Title => '课程完成！';
+
+  @override
+  String get hangulS11L5Step1Msg => '很好！\n你完成了听后选词训练。';
+
+  @override
+  String get hangulS11L6Title => '第11阶段综合复习';
+
+  @override
+  String get hangulS11L6Subtitle => '单词阅读最终检验';
+
+  @override
+  String get hangulS11L6Step0Title => '综合测验';
+
+  @override
+  String get hangulS11L6Step0Desc => '第11阶段单词综合检验';
+
+  @override
+  String get hangulS11L6Step0Q0 => '哪个单词没有收音？';
+
+  @override
+  String get hangulS11L6Step0Q1 => '哪个是基本收音的单词？';
+
+  @override
+  String get hangulS11L6Step0Q2 => '哪个是复合收音的单词？';
+
+  @override
+  String get hangulS11L6Step0Q3 => '哪个是地点单词？';
+
+  @override
+  String get hangulS11L6Step1Title => '第11阶段完成！';
+
+  @override
+  String get hangulS11L6Step1Msg => '恭喜！\n你完成了第11阶段扩展单词阅读。';
+
+  @override
+  String get hangulS11L7Title => '在现实中读韩语';
+
+  @override
+  String get hangulS11L7Subtitle => '读咖啡菜单、地铁站名和问候语';
+
+  @override
+  String get hangulS11L7Step0Title => '在韩国读韩文！';
+
+  @override
+  String get hangulS11L7Step0Desc => '你已经学完了所有韩文！\n来读在韩国能看到的文字吧！';
+
+  @override
+  String get hangulS11L7Step0Highlights => '咖啡馆,地铁,问候语';
+
+  @override
+  String get hangulS11L7Step1Title => '读咖啡菜单';
+
+  @override
+  String get hangulS11L7Step1Descs => '美式咖啡,拿铁,绿茶,蛋糕';
+
+  @override
+  String get hangulS11L7Step2Title => '读地铁站名';
+
+  @override
+  String get hangulS11L7Step2Descs => '首尔站,江南,弘大入口,明洞';
+
+  @override
+  String get hangulS11L7Step3Title => '读基本问候语';
+
+  @override
+  String get hangulS11L7Step3Descs => '你好,谢谢,是,不是';
+
+  @override
+  String get hangulS11L7Step4Title => '发音练习';
+
+  @override
+  String get hangulS11L7Step4Desc => '大声读出每个字';
+
+  @override
+  String get hangulS11L7Step5Title => '在哪里能看到？';
+
+  @override
+  String get hangulS11L7Step5Q0 => '「아메리카노」在哪里能看到？';
+
+  @override
+  String get hangulS11L7Step5Q0Ans => '咖啡馆';
+
+  @override
+  String get hangulS11L7Step5Q0C0 => '咖啡馆';
+
+  @override
+  String get hangulS11L7Step5Q0C1 => '地铁';
+
+  @override
+  String get hangulS11L7Step5Q0C2 => '学校';
+
+  @override
+  String get hangulS11L7Step5Q1 => '「강남」是什么？';
+
+  @override
+  String get hangulS11L7Step5Q1Ans => '地铁站名';
+
+  @override
+  String get hangulS11L7Step5Q1C0 => '食物名称';
+
+  @override
+  String get hangulS11L7Step5Q1C1 => '地铁站名';
+
+  @override
+  String get hangulS11L7Step5Q1C2 => '问候语';
+
+  @override
+  String get hangulS11L7Step5Q2 => '「감사합니다」用中文是？';
+
+  @override
+  String get hangulS11L7Step5Q2Ans => '谢谢';
+
+  @override
+  String get hangulS11L7Step5Q2C0 => '你好';
+
+  @override
+  String get hangulS11L7Step5Q2C1 => '谢谢';
+
+  @override
+  String get hangulS11L7Step5Q2C2 => '再见';
+
+  @override
+  String get hangulS11L7Step6Title => '恭喜！';
+
+  @override
+  String get hangulS11L7Step6Msg => '你现在能读韩国的咖啡菜单、地铁站名和问候语了！\n离韩文大师只差一步！';
+
+  @override
+  String get hangulS11LMTitle => '任务：韩文速读！';
+
+  @override
+  String get hangulS11LMSubtitle => '快速读出韩语单词';
+
+  @override
+  String get hangulS11LMStep0Title => '韩文速读任务！';
+
+  @override
+  String get hangulS11LMStep0Desc => '尽快读出并匹配韩语单词！\n是时候证明你的实力了！';
+
+  @override
+  String get hangulS11LMStep1Title => '组合音节！';
+
+  @override
+  String get hangulS11LMStep2Title => '任务结果';
+
+  @override
+  String get hangulS11LMStep3Title => '韩文大师！';
+
+  @override
+  String get hangulS11LMStep3Msg => '你已经完全掌握韩文了！\n现在可以读韩语单词和句子了！';
+
+  @override
+  String get hangulS11LMStep4Title => '第11阶段完成！';
+
+  @override
+  String get hangulS11LMStep4Msg => '你现在能完整地读韩文了！';
+
+  @override
+  String get hangulS11CompleteTitle => '第11阶段完成！';
+
+  @override
+  String get hangulS11CompleteMsg => '你现在能完整地读韩文了！';
+
+  @override
+  String get stageRequestFailed => '发送上台请求失败，请重试。';
+
+  @override
+  String get stageRequestRejected => '主持人拒绝了你的上台请求。';
+
+  @override
+  String get inviteToStageFailed => '邀请上台失败，舞台可能已满。';
+
+  @override
+  String get demoteFailed => '从舞台移除失败，请重试。';
+
+  @override
+  String get voiceRoomCloseRoomFailed => '关闭房间失败，请重试。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -5429,7 +9682,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get failedToLoadProfile => '載入資料失敗';
 
   @override
-  String get userNotFound => '用戶不存在';
+  String get userNotFound => '找不到使用者';
 
   @override
   String get message => '私訊';
@@ -6118,4 +10371,4258 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get overallScore => '綜合分數';
+
+  @override
+  String get appTagline => '像檸檬一樣清新，實力穩穩的！';
+
+  @override
+  String get passwordHint => '請輸入包含字母和數字的8位以上密碼';
+
+  @override
+  String get findAccount => '找回帳號';
+
+  @override
+  String get resetPassword => '重設密碼';
+
+  @override
+  String get registerTitle => '清新的韓語之旅，現在出發！';
+
+  @override
+  String get registerSubtitle => '輕鬆起步也沒關係！我會牢牢帶著你';
+
+  @override
+  String get nickname => '暱稱';
+
+  @override
+  String get nicknameHint => '15個字元以內：字母、數字、底線';
+
+  @override
+  String get confirmPasswordHint => '請再次輸入密碼';
+
+  @override
+  String get accountChoiceTitle => '歡迎！和莫尼一起\n建立學習習慣吧！';
+
+  @override
+  String get accountChoiceSubtitle => '清新出發，實力我來幫你守住！';
+
+  @override
+  String get startWithEmail => '使用電子郵件開始';
+
+  @override
+  String get deleteMessageTitle => '刪除訊息？';
+
+  @override
+  String get deleteMessageContent => '此訊息將對所有人刪除。';
+
+  @override
+  String get messageDeleted => '訊息已刪除';
+
+  @override
+  String get beFirstToPost => '來發第一則貼文吧！';
+
+  @override
+  String get typeTagHint => '輸入標籤...';
+
+  @override
+  String get userInfoLoadFailed => '載入使用者資訊失敗';
+
+  @override
+  String get loginErrorOccurred => '登入過程中發生錯誤';
+
+  @override
+  String get registerErrorOccurred => '註冊過程中發生錯誤';
+
+  @override
+  String get logoutErrorOccurred => '登出過程中發生錯誤';
+
+  @override
+  String get hangulStage0Title => '第0階段：理解韓文結構';
+
+  @override
+  String get hangulStage1Title => '第1階段：基本母音';
+
+  @override
+  String get hangulStage2Title => '第2階段：Y母音';
+
+  @override
+  String get hangulStage3Title => '第3階段：ㅐ/ㅔ母音';
+
+  @override
+  String get hangulStage4Title => '第4階段：基本子音1';
+
+  @override
+  String get hangulStage5Title => '第5階段：基本子音2';
+
+  @override
+  String get hangulStage6Title => '第6階段：音節組合訓練';
+
+  @override
+  String get hangulStage7Title => '第7階段：緊音/送氣音';
+
+  @override
+  String get hangulStage8Title => '第8階段：收音（終聲）1';
+
+  @override
+  String get hangulStage9Title => '第9階段：收音擴展';
+
+  @override
+  String get hangulStage10Title => '第10階段：複合收音';
+
+  @override
+  String get hangulStage11Title => '第11階段：擴展詞彙閱讀';
+
+  @override
+  String get sortAlphabetical => '字母順序';
+
+  @override
+  String get sortByLevel => '按級別';
+
+  @override
+  String get sortBySimilarity => '按相似度';
+
+  @override
+  String get searchWordsKoreanMeaning => '搜尋單詞（韓語/含義）';
+
+  @override
+  String get groupedView => '分組檢視';
+
+  @override
+  String get matrixView => '子音×母音';
+
+  @override
+  String get reviewLessons => '複習課程';
+
+  @override
+  String get stageDetailComingSoon => '詳細內容正在準備中。';
+
+  @override
+  String get bossQuizComingSoon => 'Boss測驗正在準備中。';
+
+  @override
+  String get exitLessonDialogTitle => '離開課程';
+
+  @override
+  String get exitLessonDialogContent => '要離開課程嗎？\n目前步驟的進度將自動儲存。';
+
+  @override
+  String get continueButton => '繼續';
+
+  @override
+  String get exitLessonButton => '離開';
+
+  @override
+  String get noQuestions => '沒有可用的問題';
+
+  @override
+  String get noCharactersDefined => '未定義字元';
+
+  @override
+  String get recordingStartFailed => '錄音啟動失敗';
+
+  @override
+  String get consonant => '子音';
+
+  @override
+  String get vowel => '母音';
+
+  @override
+  String get validationEmailRequired => '請輸入電子郵箱';
+
+  @override
+  String get validationEmailTooLong => '電子郵箱地址過長';
+
+  @override
+  String get validationEmailInvalid => '請輸入有效的電子郵箱地址';
+
+  @override
+  String get validationPasswordRequired => '請輸入密碼';
+
+  @override
+  String validationPasswordMinLength(int minLength) {
+    return '密碼至少需要$minLength個字元';
+  }
+
+  @override
+  String get validationPasswordNeedLetter => '密碼必須包含字母';
+
+  @override
+  String get validationPasswordNeedNumber => '密碼必須包含數字';
+
+  @override
+  String get validationPasswordNeedSpecial => '密碼必須包含特殊字元';
+
+  @override
+  String get validationPasswordTooLong => '密碼過長';
+
+  @override
+  String get validationConfirmPasswordRequired => '請再次輸入密碼';
+
+  @override
+  String get validationPasswordMismatch => '兩次輸入的密碼不一致';
+
+  @override
+  String get validationUsernameRequired => '請輸入使用者名稱';
+
+  @override
+  String validationUsernameTooShort(int minLength) {
+    return '使用者名稱至少需要$minLength個字元';
+  }
+
+  @override
+  String validationUsernameTooLong(int maxLength) {
+    return '使用者名稱不能超過$maxLength個字元';
+  }
+
+  @override
+  String get validationUsernameInvalidChars => '使用者名稱只能包含字母、數字和底線';
+
+  @override
+  String validationFieldRequired(String fieldName) {
+    return '請輸入$fieldName';
+  }
+
+  @override
+  String validationFieldMinLength(String fieldName, int minLength) {
+    return '$fieldName至少需要$minLength個字元';
+  }
+
+  @override
+  String validationFieldMaxLength(String fieldName, int maxLength) {
+    return '$fieldName不能超過$maxLength個字元';
+  }
+
+  @override
+  String validationFieldNumeric(String fieldName) {
+    return '$fieldName必須是數字';
+  }
+
+  @override
+  String get errorNetworkConnection => '網路連線失敗，請檢查網路設定';
+
+  @override
+  String get errorServer => '伺服器錯誤，請稍後重試';
+
+  @override
+  String get errorAuthFailed => '驗證失敗，請重新登入';
+
+  @override
+  String get errorUnknown => '未知錯誤，請稍後重試';
+
+  @override
+  String get errorTimeout => '連線逾時，請檢查網路';
+
+  @override
+  String get errorRequestCancelled => '請求已取消';
+
+  @override
+  String get errorForbidden => '沒有存取權限';
+
+  @override
+  String get errorNotFound => '請求的資源不存在';
+
+  @override
+  String get errorRequestParam => '請求參數錯誤';
+
+  @override
+  String get errorParseData => '資料解析錯誤';
+
+  @override
+  String get errorParseFormat => '資料格式錯誤';
+
+  @override
+  String get errorRateLimited => '請求過多，請稍後重試';
+
+  @override
+  String get successLogin => '登入成功';
+
+  @override
+  String get successRegister => '註冊成功';
+
+  @override
+  String get successSync => '同步成功';
+
+  @override
+  String get successDownload => '下載成功';
+
+  @override
+  String get failedToCreateComment => '建立留言失敗';
+
+  @override
+  String get failedToDeleteComment => '刪除留言失敗';
+
+  @override
+  String get failedToSubmitReport => '提交檢舉失敗';
+
+  @override
+  String get failedToBlockUser => '封鎖使用者失敗';
+
+  @override
+  String get failedToUnblockUser => '解除封鎖使用者失敗';
+
+  @override
+  String get failedToCreatePost => '建立貼文失敗';
+
+  @override
+  String get failedToDeletePost => '刪除貼文失敗';
+
+  @override
+  String noVocabularyForLevel(int level) {
+    return '未找到$level級詞彙';
+  }
+
+  @override
+  String get uploadingImage => '[圖片上傳中...]';
+
+  @override
+  String get uploadingVoice => '[語音上傳中...]';
+
+  @override
+  String get imagePreview => '[圖片]';
+
+  @override
+  String get voicePreview => '[語音]';
+
+  @override
+  String get voiceServerConnectFailed => '無法連線語音伺服器，請檢查您的連線。';
+
+  @override
+  String get connectionLostRetry => '連線中斷，點擊重試。';
+
+  @override
+  String get noInternetConnection => '無網路連線，請檢查您的網路。';
+
+  @override
+  String get couldNotLoadRooms => '無法載入房間列表，請重試。';
+
+  @override
+  String get couldNotCreateRoom => '無法建立房間，請重試。';
+
+  @override
+  String get couldNotJoinRoom => '無法加入房間，請檢查您的連線。';
+
+  @override
+  String get roomClosedByHost => '主持人已關閉房間。';
+
+  @override
+  String get removedFromRoomByHost => '您已被主持人移出房間。';
+
+  @override
+  String get connectionTimedOut => '連線逾時，請重試。';
+
+  @override
+  String get missingLiveKitCredentials => '缺少語音連線憑證。';
+
+  @override
+  String get microphoneEnableFailed => '無法啟用麥克風。請檢查權限並嘗試取消靜音。';
+
+  @override
+  String get voiceRoomNewMessages => '新訊息';
+
+  @override
+  String get voiceRoomChatRateLimited => '訊息傳送過快，請稍候再試。';
+
+  @override
+  String get voiceRoomMessageSendFailed => '訊息傳送失敗，請重試。';
+
+  @override
+  String get voiceRoomChatError => '聊天發生錯誤。';
+
+  @override
+  String retryAttempt(int current, int max) {
+    return '重試 ($current/$max)';
+  }
+
+  @override
+  String get nextButton => '下一步';
+
+  @override
+  String get completeButton => '完成';
+
+  @override
+  String get startButton => '開始';
+
+  @override
+  String get doneButton => '完成';
+
+  @override
+  String get goBackButton => '返回';
+
+  @override
+  String get tapToListen => '點擊聽發音';
+
+  @override
+  String get listenAllSoundsFirst => '請先聽完所有發音';
+
+  @override
+  String get nextCharButton => '下一個字';
+
+  @override
+  String get listenAndChooseCorrect => '聽發音，選出正確的文字';
+
+  @override
+  String get lessonCompletedMsg => '你完成了課程！';
+
+  @override
+  String stageMasterLabel(int stage) {
+    return '第$stage階段大師';
+  }
+
+  @override
+  String get hangulS0L0Title => '韓文是怎麼來的？';
+
+  @override
+  String get hangulS0L0Subtitle => '簡單了解韓文的誕生過程';
+
+  @override
+  String get hangulS0L0Step0Title => '很久以前，學習文字非常困難';
+
+  @override
+  String get hangulS0L0Step0Desc => '古代朝鮮半島主要借用漢字書寫，\n但對一般百姓來說非常難以學習。';
+
+  @override
+  String get hangulS0L0Step0Highlights => '漢字,困難,閱讀,書寫';
+
+  @override
+  String get hangulS0L0Step1Title => '世宗大王創造了新的文字';
+
+  @override
+  String get hangulS0L0Step1Desc =>
+      '為了讓百姓輕鬆學習，\n世宗大王親自創制了訓民正音。\n（1443年創制，1446年頒佈）';
+
+  @override
+  String get hangulS0L0Step1Highlights => '世宗大王,訓民正音,1443,1446';
+
+  @override
+  String get hangulS0L0Step2Title => '於是有了今天的韓文';
+
+  @override
+  String get hangulS0L0Step2Desc => '韓文是為了方便記錄聲音而創造的文字。\n在下一課中，我們將學習子音和母音的結構。';
+
+  @override
+  String get hangulS0L0Step2Highlights => '聲音,簡易文字,韓文';
+
+  @override
+  String get hangulS0L0SummaryTitle => '介紹課完成！';
+
+  @override
+  String get hangulS0L0SummaryMsg => '太棒了！\n現在你了解韓文的創造背景了。\n接下來學習子音和母音的結構吧！';
+
+  @override
+  String get hangulS0L1Title => '組裝가字塊';
+
+  @override
+  String get hangulS0L1Subtitle => '動手拖拉拼出韓文字';
+
+  @override
+  String get hangulS0L1IntroTitle => '韓文就像積木！';
+
+  @override
+  String get hangulS0L1IntroDesc =>
+      '韓文透過組合子音和母音來構成文字。\n子音（ㄱ）+ 母音（ㅏ）= 가\n\n更複雜的文字下面還會有韻尾（받침）。\n（以後再學！）';
+
+  @override
+  String get hangulS0L1IntroHighlights => '子音,母音,文字';
+
+  @override
+  String get hangulS0L1DragGaTitle => '組裝가';
+
+  @override
+  String get hangulS0L1DragGaDesc => '將ㄱ和ㅏ拖到空格中';
+
+  @override
+  String get hangulS0L1DragNaTitle => '組裝나';
+
+  @override
+  String get hangulS0L1DragNaDesc => '試試使用新的子音ㄴ';
+
+  @override
+  String get hangulS0L1DragDaTitle => '組裝다';
+
+  @override
+  String get hangulS0L1DragDaDesc => '試試使用新的子音ㄷ';
+
+  @override
+  String get hangulS0L1SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS0L1SummaryMsg => '子音 + 母音 = 文字塊！\nㄱ+ㅏ=가, ㄴ+ㅏ=나, ㄷ+ㅏ=다';
+
+  @override
+  String get hangulS0L2Title => '聲音探索';
+
+  @override
+  String get hangulS0L2Subtitle => '透過聲音感受子音和母音';
+
+  @override
+  String get hangulS0L2IntroTitle => '感受聲音';
+
+  @override
+  String get hangulS0L2IntroDesc => '韓文的每個子音和母音都有獨特的聲音。\n聽一聽，感受一下。';
+
+  @override
+  String get hangulS0L2Sound1Title => 'ㄱ、ㄴ、ㄷ的基本發音';
+
+  @override
+  String get hangulS0L2Sound1Desc => '聽一聽這些子音加上母音ㅏ的發音（가、나、다）';
+
+  @override
+  String get hangulS0L2Sound2Title => 'ㅏ、ㅗ母音發音';
+
+  @override
+  String get hangulS0L2Sound2Desc => '聽一聽這兩個母音的發音';
+
+  @override
+  String get hangulS0L2Sound3Title => '聽가、나、다的發音';
+
+  @override
+  String get hangulS0L2Sound3Desc => '聽一聽子音和母音組合而成的文字發音';
+
+  @override
+  String get hangulS0L2SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS0L2SummaryMsg =>
+      '韓語子音通常配合母音ㅏ來練習發音（가、나、다），\n現在你對母音的發音也有感覺了！';
+
+  @override
+  String get hangulS0L3Title => '聽音選字';
+
+  @override
+  String get hangulS0L3Subtitle => '透過聲音區分文字';
+
+  @override
+  String get hangulS0L3IntroTitle => '這次用耳朵來分辨';
+
+  @override
+  String get hangulS0L3IntroDesc => '比起看螢幕，更要專注於聲音。\n聽音辨字，找出正確答案！';
+
+  @override
+  String get hangulS0L3Sound1Title => '確認가/나/다/고/노的發音';
+
+  @override
+  String get hangulS0L3Sound1Desc => '先好好聽一下這5個發音';
+
+  @override
+  String get hangulS0L3Match1Title => '聽音選擇相同的文字';
+
+  @override
+  String get hangulS0L3Match1Desc => '選出你聽到的是哪個字';
+
+  @override
+  String get hangulS0L3Match2Title => '區分ㅏ / ㅗ的發音';
+
+  @override
+  String get hangulS0L3Match2Desc => '子音相同時，靠母音來區分發音';
+
+  @override
+  String get hangulS0L3SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS0L3SummaryMsg => '太棒了！\n現在你可以同時用眼睛（組裝）和耳朵（聲音）\n來理解韓文的結構了。';
+
+  @override
+  String get hangulS0CompleteTitle => '第0階段完成！';
+
+  @override
+  String get hangulS0CompleteMsg => '你已經理解了韓文的結構！';
+
+  @override
+  String get hangulS1L1Title => 'ㅏ的形狀與讀音';
+
+  @override
+  String get hangulS1L1Subtitle => '豎線右側短橫: ㅏ';
+
+  @override
+  String get hangulS1L1Step0Title => '學習第一個母音ㅏ';
+
+  @override
+  String get hangulS1L1Step0Desc => 'ㅏ發出明亮的\"아\"音。\n讓我們一起學習形狀和讀音。';
+
+  @override
+  String get hangulS1L1Step0Highlights => 'ㅏ,아,基本母音';
+
+  @override
+  String get hangulS1L1Step1Title => '聽ㅏ的讀音';
+
+  @override
+  String get hangulS1L1Step1Desc => '聽聽含有ㅏ的讀音';
+
+  @override
+  String get hangulS1L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L1Step2Desc => '請大聲朗讀這些文字';
+
+  @override
+  String get hangulS1L1Step3Title => '選出ㅏ的讀音';
+
+  @override
+  String get hangulS1L1Step3Desc => '聽音後選擇正確的文字';
+
+  @override
+  String get hangulS1L1Step4Title => '形狀測驗';
+
+  @override
+  String get hangulS1L1Step4Desc => '準確找出ㅏ';
+
+  @override
+  String get hangulS1L1Step4Q0 => '以下哪個是ㅏ？';
+
+  @override
+  String get hangulS1L1Step4Q1 => '以下哪個含有ㅏ？';
+
+  @override
+  String get hangulS1L1Step4Q2 => 'ㅇ + ㅏ = ?';
+
+  @override
+  String get hangulS1L1Step5Title => '用ㅏ組字';
+
+  @override
+  String get hangulS1L1Step5Desc => '將子音與ㅏ組合完成文字';
+
+  @override
+  String get hangulS1L1Step6Title => '綜合測驗';
+
+  @override
+  String get hangulS1L1Step6Desc => '整理本節課所學內容';
+
+  @override
+  String get hangulS1L1Step6Q0 => '\"아\"的母音是什麼？';
+
+  @override
+  String get hangulS1L1Step6Q1 => 'ㅇ + ㅏ = ?';
+
+  @override
+  String get hangulS1L1Step6Q2 => '以下哪個字含有ㅏ？';
+
+  @override
+  String get hangulS1L1Step6Q3 => '哪個音與ㅏ最不同？';
+
+  @override
+  String get hangulS1L1Step7Title => '課程完成！';
+
+  @override
+  String get hangulS1L1Step7Msg => '很好！\n你學會了ㅏ的形狀和讀音。';
+
+  @override
+  String get hangulS1L2Title => 'ㅓ的形狀與讀音';
+
+  @override
+  String get hangulS1L2Subtitle => '豎線左側短橫: ㅓ';
+
+  @override
+  String get hangulS1L2Step0Title => '第二個母音ㅓ';
+
+  @override
+  String get hangulS1L2Step0Desc => 'ㅓ發出\"어\"的音。\n注意筆畫方向與ㅏ相反。';
+
+  @override
+  String get hangulS1L2Step0Highlights => 'ㅓ,어,與ㅏ方向相反';
+
+  @override
+  String get hangulS1L2Step1Title => '聽ㅓ的讀音';
+
+  @override
+  String get hangulS1L2Step1Desc => '聽聽含有ㅓ的讀音';
+
+  @override
+  String get hangulS1L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L2Step2Desc => '請大聲朗讀這些文字';
+
+  @override
+  String get hangulS1L2Step3Title => '選出ㅓ的讀音';
+
+  @override
+  String get hangulS1L2Step3Desc => '用耳朵區分ㅏ/ㅓ';
+
+  @override
+  String get hangulS1L2Step4Title => '形狀測驗';
+
+  @override
+  String get hangulS1L2Step4Desc => '找出ㅓ';
+
+  @override
+  String get hangulS1L2Step4Q0 => '以下哪個是ㅓ？';
+
+  @override
+  String get hangulS1L2Step4Q1 => 'ㅇ + ㅓ = ?';
+
+  @override
+  String get hangulS1L2Step4Q2 => '以下哪個字含有ㅓ？';
+
+  @override
+  String get hangulS1L2Step5Title => '用ㅓ組字';
+
+  @override
+  String get hangulS1L2Step5Desc => '將子音與ㅓ組合';
+
+  @override
+  String get hangulS1L2Step6Title => '課程完成！';
+
+  @override
+  String get hangulS1L2Step6Msg => '太棒了！\n你學會了ㅓ(어)的讀音。';
+
+  @override
+  String get hangulS1L3Title => 'ㅗ的形狀與讀音';
+
+  @override
+  String get hangulS1L3Subtitle => '橫線上方豎畫: ㅗ';
+
+  @override
+  String get hangulS1L3Step0Title => '第三個母音ㅗ';
+
+  @override
+  String get hangulS1L3Step0Desc => 'ㅗ發出\"오\"的音。\n豎畫向橫線上方延伸。';
+
+  @override
+  String get hangulS1L3Step0Highlights => 'ㅗ,오,橫型母音';
+
+  @override
+  String get hangulS1L3Step1Title => '聽ㅗ的讀音';
+
+  @override
+  String get hangulS1L3Step1Desc => '聽聽含有ㅗ的讀音（오/고/노）';
+
+  @override
+  String get hangulS1L3Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L3Step2Desc => '請大聲朗讀這些文字';
+
+  @override
+  String get hangulS1L3Step3Title => '選出ㅗ的讀音';
+
+  @override
+  String get hangulS1L3Step3Desc => '區分오/우的讀音';
+
+  @override
+  String get hangulS1L3Step4Title => '用ㅗ組字';
+
+  @override
+  String get hangulS1L3Step4Desc => '將子音與ㅗ組合';
+
+  @override
+  String get hangulS1L3Step5Title => '形狀與讀音測驗';
+
+  @override
+  String get hangulS1L3Step5Desc => '準確選出ㅗ';
+
+  @override
+  String get hangulS1L3Step5Q0 => '以下哪個是ㅗ？';
+
+  @override
+  String get hangulS1L3Step5Q1 => 'ㅇ + ㅗ = ?';
+
+  @override
+  String get hangulS1L3Step5Q2 => '以下哪個含有ㅗ？';
+
+  @override
+  String get hangulS1L3Step6Title => '課程完成！';
+
+  @override
+  String get hangulS1L3Step6Msg => '很好！\n你學會了ㅗ(오)的讀音。';
+
+  @override
+  String get hangulS1L4Title => 'ㅜ的形狀與讀音';
+
+  @override
+  String get hangulS1L4Subtitle => '橫線下方豎畫: ㅜ';
+
+  @override
+  String get hangulS1L4Step0Title => '第四個母音ㅜ';
+
+  @override
+  String get hangulS1L4Step0Desc => 'ㅜ發出\"우\"的音。\n豎畫位置與ㅗ相反。';
+
+  @override
+  String get hangulS1L4Step0Highlights => 'ㅜ,우,與ㅗ位置對比';
+
+  @override
+  String get hangulS1L4Step1Title => '聽ㅜ的讀音';
+
+  @override
+  String get hangulS1L4Step1Desc => '聽聽우/구/누';
+
+  @override
+  String get hangulS1L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L4Step2Desc => '請大聲朗讀這些文字';
+
+  @override
+  String get hangulS1L4Step3Title => '選出ㅜ的讀音';
+
+  @override
+  String get hangulS1L4Step3Desc => '區分ㅗ/ㅜ';
+
+  @override
+  String get hangulS1L4Step4Title => '用ㅜ組字';
+
+  @override
+  String get hangulS1L4Step4Desc => '將子音與ㅜ組合';
+
+  @override
+  String get hangulS1L4Step5Title => '形狀與讀音測驗';
+
+  @override
+  String get hangulS1L4Step5Desc => '準確選出ㅜ';
+
+  @override
+  String get hangulS1L4Step5Q0 => '以下哪個是ㅜ？';
+
+  @override
+  String get hangulS1L4Step5Q1 => 'ㅇ + ㅜ = ?';
+
+  @override
+  String get hangulS1L4Step5Q2 => '以下哪個含有ㅜ？';
+
+  @override
+  String get hangulS1L4Step6Title => '課程完成！';
+
+  @override
+  String get hangulS1L4Step6Msg => '很好！\n你學會了ㅜ(우)的讀音。';
+
+  @override
+  String get hangulS1L5Title => 'ㅡ的形狀與讀音';
+
+  @override
+  String get hangulS1L5Subtitle => '單橫線母音: ㅡ';
+
+  @override
+  String get hangulS1L5Step0Title => '第五個母音ㅡ';
+
+  @override
+  String get hangulS1L5Step0Desc => 'ㅡ是嘴巴橫向拉伸發出的音。\n形狀是一條橫線。';
+
+  @override
+  String get hangulS1L5Step0Highlights => 'ㅡ,으,單橫線';
+
+  @override
+  String get hangulS1L5Step1Title => '聽ㅡ的讀音';
+
+  @override
+  String get hangulS1L5Step1Desc => '聽聽으/그/느的讀音';
+
+  @override
+  String get hangulS1L5Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L5Step2Desc => '請大聲朗讀這些文字';
+
+  @override
+  String get hangulS1L5Step3Title => '選出ㅡ的讀音';
+
+  @override
+  String get hangulS1L5Step3Desc => '區分ㅡ和ㅜ的讀音';
+
+  @override
+  String get hangulS1L5Step4Title => '用ㅡ組字';
+
+  @override
+  String get hangulS1L5Step4Desc => '將子音與ㅡ組合';
+
+  @override
+  String get hangulS1L5Step5Title => '形狀與讀音測驗';
+
+  @override
+  String get hangulS1L5Step5Desc => '準確選出ㅡ';
+
+  @override
+  String get hangulS1L5Step5Q0 => '以下哪個是ㅡ？';
+
+  @override
+  String get hangulS1L5Step5Q1 => 'ㅇ + ㅡ = ?';
+
+  @override
+  String get hangulS1L5Step5Q2 => '以下哪個含有ㅡ？';
+
+  @override
+  String get hangulS1L5Step6Title => '課程完成！';
+
+  @override
+  String get hangulS1L5Step6Msg => '很好！\n你學會了ㅡ(으)的讀音。';
+
+  @override
+  String get hangulS1L6Title => 'ㅣ的形狀與讀音';
+
+  @override
+  String get hangulS1L6Subtitle => '單豎線母音: ㅣ';
+
+  @override
+  String get hangulS1L6Step0Title => '第六個母音ㅣ';
+
+  @override
+  String get hangulS1L6Step0Desc => 'ㅣ發出\"이\"的音。\n形狀是一條豎線。';
+
+  @override
+  String get hangulS1L6Step0Highlights => 'ㅣ,이,單豎線';
+
+  @override
+  String get hangulS1L6Step1Title => '聽ㅣ的讀音';
+
+  @override
+  String get hangulS1L6Step1Desc => '聽聽이/기/니的讀音';
+
+  @override
+  String get hangulS1L6Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L6Step2Desc => '請大聲朗讀這些文字';
+
+  @override
+  String get hangulS1L6Step3Title => '選出ㅣ的讀音';
+
+  @override
+  String get hangulS1L6Step3Desc => '區分ㅣ和ㅡ的讀音';
+
+  @override
+  String get hangulS1L6Step4Title => '用ㅣ組字';
+
+  @override
+  String get hangulS1L6Step4Desc => '將子音與ㅣ組合';
+
+  @override
+  String get hangulS1L6Step5Title => '形狀與讀音測驗';
+
+  @override
+  String get hangulS1L6Step5Desc => '準確選出ㅣ';
+
+  @override
+  String get hangulS1L6Step5Q0 => '以下哪個是ㅣ？';
+
+  @override
+  String get hangulS1L6Step5Q1 => 'ㅇ + ㅣ = ?';
+
+  @override
+  String get hangulS1L6Step5Q2 => '以下哪個含有ㅣ？';
+
+  @override
+  String get hangulS1L6Step6Title => '課程完成！';
+
+  @override
+  String get hangulS1L6Step6Msg => '很好！\n你學會了ㅣ(이)的讀音。';
+
+  @override
+  String get hangulS1L7Title => '縱向母音區分';
+
+  @override
+  String get hangulS1L7Subtitle => '快速區分 ㅏ · ㅓ · ㅣ';
+
+  @override
+  String get hangulS1L7Step0Title => '縱向母音組複習';
+
+  @override
+  String get hangulS1L7Step0Desc => 'ㅏ、ㅓ、ㅣ 是縱軸母音。\n一起區分筆畫位置和發音。';
+
+  @override
+  String get hangulS1L7Step0Highlights => 'ㅏ,ㅓ,ㅣ,縱向母音';
+
+  @override
+  String get hangulS1L7Step1Title => '再聽一遍';
+
+  @override
+  String get hangulS1L7Step1Desc => '確認 아/어/이 的發音';
+
+  @override
+  String get hangulS1L7Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L7Step2Desc => '請大聲朗讀每個文字';
+
+  @override
+  String get hangulS1L7Step3Title => '縱向母音聽力測驗';
+
+  @override
+  String get hangulS1L7Step3Desc => '將聲音與正確文字對應';
+
+  @override
+  String get hangulS1L7Step4Title => '縱向母音形狀測驗';
+
+  @override
+  String get hangulS1L7Step4Desc => '精確區分各自的形狀';
+
+  @override
+  String get hangulS1L7Step4Q0 => '右側有短筆畫的是？';
+
+  @override
+  String get hangulS1L7Step4Q1 => '左側有短筆畫的是？';
+
+  @override
+  String get hangulS1L7Step4Q2 => '單縱線是？';
+
+  @override
+  String get hangulS1L7Step4Q3 => 'ㄴ + ㅓ = ?';
+
+  @override
+  String get hangulS1L7Step4Q4 => 'ㄱ + ㅣ = ?';
+
+  @override
+  String get hangulS1L7Step5Title => '課程完成！';
+
+  @override
+  String get hangulS1L7Step5Msg => '很好！\n縱向母音（ㅏ/ㅓ/ㅣ）的區分已經穩固了。';
+
+  @override
+  String get hangulS1L8Title => '橫向母音區分';
+
+  @override
+  String get hangulS1L8Subtitle => '快速區分 ㅗ · ㅜ · ㅡ';
+
+  @override
+  String get hangulS1L8Step0Title => '橫向母音組複習';
+
+  @override
+  String get hangulS1L8Step0Desc => 'ㅗ、ㅜ、ㅡ 是以橫軸為中心的母音。\n一起記住縱畫位置和嘴型。';
+
+  @override
+  String get hangulS1L8Step0Highlights => 'ㅗ,ㅜ,ㅡ,橫向母音';
+
+  @override
+  String get hangulS1L8Step1Title => '再聽一遍';
+
+  @override
+  String get hangulS1L8Step1Desc => '確認 오/우/으 的發音';
+
+  @override
+  String get hangulS1L8Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L8Step2Desc => '請大聲朗讀每個文字';
+
+  @override
+  String get hangulS1L8Step3Title => '橫向母音聽力測驗';
+
+  @override
+  String get hangulS1L8Step3Desc => '將聲音與正確文字對應';
+
+  @override
+  String get hangulS1L8Step4Title => '橫向母音形狀測驗';
+
+  @override
+  String get hangulS1L8Step4Desc => '一起檢查形狀和發音';
+
+  @override
+  String get hangulS1L8Step4Q0 => '縱畫在橫線上方的是？';
+
+  @override
+  String get hangulS1L8Step4Q1 => '縱畫在橫線下方的是？';
+
+  @override
+  String get hangulS1L8Step4Q2 => '單橫線是？';
+
+  @override
+  String get hangulS1L8Step4Q3 => 'ㄱ + ㅗ = ?';
+
+  @override
+  String get hangulS1L8Step4Q4 => 'ㄴ + ㅜ = ?';
+
+  @override
+  String get hangulS1L8Step5Title => '課程完成！';
+
+  @override
+  String get hangulS1L8Step5Msg => '很好！\n橫向母音（ㅗ/ㅜ/ㅡ）的區分已經穩固了。';
+
+  @override
+  String get hangulS1L9Title => '基本母音任務';
+
+  @override
+  String get hangulS1L9Subtitle => '在時間限制內完成母音組合';
+
+  @override
+  String get hangulS1L9Step0Title => '第1階段最終任務';
+
+  @override
+  String get hangulS1L9Step0Desc => '在限定時間內完成文字組合。\n以準確率和速度獲得檸檬獎勵！';
+
+  @override
+  String get hangulS1L9Step1Title => '限時任務';
+
+  @override
+  String get hangulS1L9Step2Title => '任務結果';
+
+  @override
+  String get hangulS1L9Step3Title => '第1階段完成！';
+
+  @override
+  String get hangulS1L9Step3Msg => '恭喜！\n第1階段的基本母音全部完成了。';
+
+  @override
+  String get hangulS1L10Title => '第一批韓語單字！';
+
+  @override
+  String get hangulS1L10Subtitle => '用學過的文字閱讀真實單字';
+
+  @override
+  String get hangulS1L10Step0Title => '現在可以讀單字了！';
+
+  @override
+  String get hangulS1L10Step0Desc => '學會了母音和基本子音，\n來讀一讀真實的韓語單字吧？';
+
+  @override
+  String get hangulS1L10Step0Highlights => '真實單字,閱讀挑戰';
+
+  @override
+  String get hangulS1L10Step1Title => '閱讀第一批單字';
+
+  @override
+  String get hangulS1L10Step1Descs => '孩子,牛奶,小黃瓜,這/牙齒,弟弟';
+
+  @override
+  String get hangulS1L10Step2Title => '發音練習';
+
+  @override
+  String get hangulS1L10Step2Desc => '請大聲朗讀每個文字';
+
+  @override
+  String get hangulS1L10Step3Title => '聽一聽，選一選';
+
+  @override
+  String get hangulS1L10Step4Title => '太棒了！';
+
+  @override
+  String get hangulS1L10Step4Msg => '你讀出了韓語單字！\n再學更多子音，\n就能讀更多單字了。';
+
+  @override
+  String get hangulS1CompleteTitle => '第1階段完成！';
+
+  @override
+  String get hangulS1CompleteMsg => '你已掌握全部6個基本母音！';
+
+  @override
+  String get hangulS2L1Title => 'ㅑ的形狀與發音';
+
+  @override
+  String get hangulS2L1Subtitle => 'ㅏ加一筆: ㅑ';
+
+  @override
+  String get hangulS2L1Step0Title => 'ㅏ變成ㅑ';
+
+  @override
+  String get hangulS2L1Step0Desc => '在ㅏ上加一筆就得到ㅑ。\n發音從\"啊\"變成更有彈性的\"呀\"。';
+
+  @override
+  String get hangulS2L1Step0Highlights => 'ㅏ → ㅑ,야,Y母音';
+
+  @override
+  String get hangulS2L1Step1Title => '聽ㅑ的發音';
+
+  @override
+  String get hangulS2L1Step1Desc => '聽聽야/갸/냐的發音';
+
+  @override
+  String get hangulS2L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS2L1Step2Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS2L1Step3Title => '聽辨ㅏ vs ㅑ';
+
+  @override
+  String get hangulS2L1Step3Desc => '區分相似的發音';
+
+  @override
+  String get hangulS2L1Step4Title => '用ㅑ組成音節';
+
+  @override
+  String get hangulS2L1Step4Desc => '完成子音 + ㅑ 的組合';
+
+  @override
+  String get hangulS2L1Step5Title => '形狀與發音測驗';
+
+  @override
+  String get hangulS2L1Step5Desc => '準確選出ㅑ';
+
+  @override
+  String get hangulS2L1Step5Q0 => '以下哪個是ㅑ？';
+
+  @override
+  String get hangulS2L1Step5Q1 => 'ㅇ + ㅑ = ?';
+
+  @override
+  String get hangulS2L1Step5Q2 => '以下哪個含有ㅑ？';
+
+  @override
+  String get hangulS2L1Step6Title => '課程完成！';
+
+  @override
+  String get hangulS2L1Step6Msg => '太棒了！\n你已掌握ㅑ（야）的發音。';
+
+  @override
+  String get hangulS2L2Title => 'ㅕ的形狀與發音';
+
+  @override
+  String get hangulS2L2Subtitle => 'ㅓ加一筆: ㅕ';
+
+  @override
+  String get hangulS2L2Step0Title => 'ㅓ變成ㅕ';
+
+  @override
+  String get hangulS2L2Step0Desc => '在ㅓ上加一筆就得到ㅕ。\n發音從\"哦\"變成\"喲\"。';
+
+  @override
+  String get hangulS2L2Step0Highlights => 'ㅓ → ㅕ,여,Y母音';
+
+  @override
+  String get hangulS2L2Step1Title => '聽ㅕ的發音';
+
+  @override
+  String get hangulS2L2Step1Desc => '聽聽여/겨/녀的發音';
+
+  @override
+  String get hangulS2L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS2L2Step2Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS2L2Step3Title => '聽辨ㅓ vs ㅕ';
+
+  @override
+  String get hangulS2L2Step3Desc => '區分어和여';
+
+  @override
+  String get hangulS2L2Step4Title => '用ㅕ組成音節';
+
+  @override
+  String get hangulS2L2Step4Desc => '完成子音 + ㅕ 的組合';
+
+  @override
+  String get hangulS2L2Step5Title => '課程完成！';
+
+  @override
+  String get hangulS2L2Step5Msg => '太棒了！\n你已掌握ㅕ（여）的發音。';
+
+  @override
+  String get hangulS2L3Title => 'ㅛ的形狀與發音';
+
+  @override
+  String get hangulS2L3Subtitle => 'ㅗ加一筆: ㅛ';
+
+  @override
+  String get hangulS2L3Step0Title => 'ㅗ變成ㅛ';
+
+  @override
+  String get hangulS2L3Step0Desc => '在ㅗ上加一筆就得到ㅛ。\n發音從\"哦\"變成\"喲\"。';
+
+  @override
+  String get hangulS2L3Step0Highlights => 'ㅗ → ㅛ,요,Y母音';
+
+  @override
+  String get hangulS2L3Step1Title => '聽ㅛ的發音';
+
+  @override
+  String get hangulS2L3Step1Desc => '聽聽요/교/뇨的發音';
+
+  @override
+  String get hangulS2L3Step2Title => '發音練習';
+
+  @override
+  String get hangulS2L3Step2Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS2L3Step3Title => '聽辨ㅗ vs ㅛ';
+
+  @override
+  String get hangulS2L3Step3Desc => '區分오和요';
+
+  @override
+  String get hangulS2L3Step4Title => '用ㅛ組成音節';
+
+  @override
+  String get hangulS2L3Step4Desc => '完成子音 + ㅛ 的組合';
+
+  @override
+  String get hangulS2L3Step5Title => '課程完成！';
+
+  @override
+  String get hangulS2L3Step5Msg => '太棒了！\n你已掌握ㅛ（요）的發音。';
+
+  @override
+  String get hangulS2L4Title => 'ㅠ的形狀與發音';
+
+  @override
+  String get hangulS2L4Subtitle => 'ㅜ加一筆: ㅠ';
+
+  @override
+  String get hangulS2L4Step0Title => 'ㅜ變成ㅠ';
+
+  @override
+  String get hangulS2L4Step0Desc => '在ㅜ上加一筆就得到ㅠ。\n發音從\"嗚\"變成\"魚\"。';
+
+  @override
+  String get hangulS2L4Step0Highlights => 'ㅜ → ㅠ,유,Y母音';
+
+  @override
+  String get hangulS2L4Step1Title => '聽ㅠ的發音';
+
+  @override
+  String get hangulS2L4Step1Desc => '聽聽유/규/뉴的發音';
+
+  @override
+  String get hangulS2L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS2L4Step2Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS2L4Step3Title => '聽辨ㅜ vs ㅠ';
+
+  @override
+  String get hangulS2L4Step3Desc => '區分우和유';
+
+  @override
+  String get hangulS2L4Step4Title => '用ㅠ組成音節';
+
+  @override
+  String get hangulS2L4Step4Desc => '完成子音 + ㅠ 的組合';
+
+  @override
+  String get hangulS2L4Step5Title => '課程完成！';
+
+  @override
+  String get hangulS2L4Step5Msg => '太棒了！\n你已掌握ㅠ（유）的發音。';
+
+  @override
+  String get hangulS2L5Title => 'Y母音組合訓練';
+
+  @override
+  String get hangulS2L5Subtitle => 'ㅑ · ㅕ · ㅛ · ㅠ 強化訓練';
+
+  @override
+  String get hangulS2L5Step0Title => '一次看清所有Y母音';
+
+  @override
+  String get hangulS2L5Step0Desc => 'ㅑ/ㅕ/ㅛ/ㅠ是基礎母音加一筆的母音。\n快速區分它們的形狀和發音。';
+
+  @override
+  String get hangulS2L5Step0Highlights => 'ㅑ,ㅕ,ㅛ,ㅠ';
+
+  @override
+  String get hangulS2L5Step1Title => '再聽四個發音';
+
+  @override
+  String get hangulS2L5Step1Desc => '複習야/여/요/유的發音';
+
+  @override
+  String get hangulS2L5Step2Title => '發音練習';
+
+  @override
+  String get hangulS2L5Step2Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS2L5Step3Title => '發音辨別測驗';
+
+  @override
+  String get hangulS2L5Step3Desc => '區分Y母音的發音';
+
+  @override
+  String get hangulS2L5Step4Title => '形狀辨別測驗';
+
+  @override
+  String get hangulS2L5Step4Desc => '準確區分形狀';
+
+  @override
+  String get hangulS2L5Step4Q0 => '以下哪個是ㅑ？';
+
+  @override
+  String get hangulS2L5Step4Q1 => '以下哪個是ㅕ？';
+
+  @override
+  String get hangulS2L5Step4Q2 => '以下哪個是ㅛ？';
+
+  @override
+  String get hangulS2L5Step4Q3 => '以下哪個是ㅠ？';
+
+  @override
+  String get hangulS2L5Step5Title => '課程完成！';
+
+  @override
+  String get hangulS2L5Step5Msg => '太棒了！\n你對4個Y母音的區分越來越好了。';
+
+  @override
+  String get hangulS2L6Title => '基礎母音 vs Y母音對比';
+
+  @override
+  String get hangulS2L6Subtitle => 'ㅏ/ㅑ · ㅓ/ㅕ · ㅗ/ㅛ · ㅜ/ㅠ';
+
+  @override
+  String get hangulS2L6Step0Title => '整理容易混淆的配對';
+
+  @override
+  String get hangulS2L6Step0Desc => '將基礎母音和Y母音配對比較。';
+
+  @override
+  String get hangulS2L6Step0Highlights => 'ㅏ/ㅑ,ㅓ/ㅕ,ㅗ/ㅛ,ㅜ/ㅠ';
+
+  @override
+  String get hangulS2L6Step1Title => '配對發音辨別';
+
+  @override
+  String get hangulS2L6Step1Desc => '從相似的發音中選出正確答案';
+
+  @override
+  String get hangulS2L6Step2Title => '配對形狀辨別';
+
+  @override
+  String get hangulS2L6Step2Desc => '判斷是否有額外的一筆';
+
+  @override
+  String get hangulS2L6Step2Q0 => '哪個母音加了一筆？';
+
+  @override
+  String get hangulS2L6Step2Q1 => '哪個母音加了一筆？';
+
+  @override
+  String get hangulS2L6Step2Q2 => '哪個母音加了一筆？';
+
+  @override
+  String get hangulS2L6Step2Q3 => '哪個母音加了一筆？';
+
+  @override
+  String get hangulS2L6Step2Q4 => 'ㅇ + ㅠ = ?';
+
+  @override
+  String get hangulS2L6Step3Title => '課程完成！';
+
+  @override
+  String get hangulS2L6Step3Msg => '太棒了！\n基礎母音/Y母音對比已經穩定了。';
+
+  @override
+  String get hangulS2L7Title => 'Y母音任務';
+
+  @override
+  String get hangulS2L7Subtitle => '在限時內完成Y母音組合';
+
+  @override
+  String get hangulS2L7Step0Title => '第2階段最終任務';
+
+  @override
+  String get hangulS2L7Step0Desc => '快速準確地完成Y母音組合。\n完成數和時間決定你的檸檬獎勵。';
+
+  @override
+  String get hangulS2L7Step1Title => '限時任務';
+
+  @override
+  String get hangulS2L7Step2Title => '任務結果';
+
+  @override
+  String get hangulS2L7Step3Title => '第2階段完成！';
+
+  @override
+  String get hangulS2L7Step3Msg => '恭喜！\n你已完成第2階段所有Y母音。';
+
+  @override
+  String get hangulS2CompleteTitle => '第2階段完成！';
+
+  @override
+  String get hangulS2CompleteMsg => '你已征服Y母音！';
+
+  @override
+  String get hangulS3L1Title => 'ㅐ的形狀和發音';
+
+  @override
+  String get hangulS3L1Subtitle => '感受ㅏ + ㅣ的組合感覺';
+
+  @override
+  String get hangulS3L1Step0Title => 'ㅐ是這個樣子';
+
+  @override
+  String get hangulS3L1Step0Desc => 'ㅐ是從ㅏ系列派生的母音。\n以\"애\"為代表音來記憶。';
+
+  @override
+  String get hangulS3L1Step0Highlights => 'ㅐ,애,形狀識別';
+
+  @override
+  String get hangulS3L1Step1Title => '聽ㅐ的發音';
+
+  @override
+  String get hangulS3L1Step1Desc => '聽聽애/개/내的發音';
+
+  @override
+  String get hangulS3L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS3L1Step2Desc => '請直接把文字發出聲來';
+
+  @override
+  String get hangulS3L1Step3Title => '聽辨ㅏ vs ㅐ';
+
+  @override
+  String get hangulS3L1Step3Desc => '區分아/애';
+
+  @override
+  String get hangulS3L1Step4Title => '課程完成！';
+
+  @override
+  String get hangulS3L1Step4Msg => '很好！\n已掌握ㅐ(애)的形狀和發音。';
+
+  @override
+  String get hangulS3L2Title => 'ㅔ的形狀和發音';
+
+  @override
+  String get hangulS3L2Subtitle => '感受ㅓ + ㅣ的組合感覺';
+
+  @override
+  String get hangulS3L2Step0Title => 'ㅔ是這個樣子';
+
+  @override
+  String get hangulS3L2Step0Desc => 'ㅔ是從ㅓ系列派生的母音。\n以\"에\"為代表音來記憶。';
+
+  @override
+  String get hangulS3L2Step0Highlights => 'ㅔ,에,形狀識別';
+
+  @override
+  String get hangulS3L2Step1Title => '聽ㅔ的發音';
+
+  @override
+  String get hangulS3L2Step1Desc => '聽聽에/게/네的發音';
+
+  @override
+  String get hangulS3L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS3L2Step2Desc => '請直接把文字發出聲來';
+
+  @override
+  String get hangulS3L2Step3Title => '聽辨ㅓ vs ㅔ';
+
+  @override
+  String get hangulS3L2Step3Desc => '區分어/에';
+
+  @override
+  String get hangulS3L2Step4Title => '課程完成！';
+
+  @override
+  String get hangulS3L2Step4Msg => '很好！\n已掌握ㅔ(에)的形狀和發音。';
+
+  @override
+  String get hangulS3L3Title => '區分ㅐ vs ㅔ';
+
+  @override
+  String get hangulS3L3Subtitle => '以形狀為中心的區分訓練';
+
+  @override
+  String get hangulS3L3Step0Title => '關鍵在於區分形狀';
+
+  @override
+  String get hangulS3L3Step0Desc => '在初級階段，ㅐ/ㅔ聽起來可能很相似。\n所以先準確區分它們的形狀。';
+
+  @override
+  String get hangulS3L3Step0Highlights => 'ㅐ,ㅔ,形狀區分';
+
+  @override
+  String get hangulS3L3Step1Title => '形狀區分測驗';
+
+  @override
+  String get hangulS3L3Step1Desc => '準確選擇ㅐ和ㅔ';
+
+  @override
+  String get hangulS3L3Step1Q0 => '下列哪個是ㅐ？';
+
+  @override
+  String get hangulS3L3Step1Q1 => '下列哪個是ㅔ？';
+
+  @override
+  String get hangulS3L3Step1Q2 => 'ㅇ + ㅐ = ?';
+
+  @override
+  String get hangulS3L3Step1Q3 => 'ㅇ + ㅔ = ?';
+
+  @override
+  String get hangulS3L3Step2Title => '課程完成！';
+
+  @override
+  String get hangulS3L3Step2Msg => '很好！\nㅐ/ㅔ的區分更準確了。';
+
+  @override
+  String get hangulS3L4Title => 'ㅒ的形狀和發音';
+
+  @override
+  String get hangulS3L4Subtitle => 'Y-ㅐ系列母音';
+
+  @override
+  String get hangulS3L4Step0Title => '來學ㅒ吧';
+
+  @override
+  String get hangulS3L4Step0Desc => 'ㅒ是ㅐ系列的Y母音。\n代表音是\"얘\"。';
+
+  @override
+  String get hangulS3L4Step0Highlights => 'ㅒ,얘';
+
+  @override
+  String get hangulS3L4Step1Title => '聽ㅒ的發音';
+
+  @override
+  String get hangulS3L4Step1Desc => '聽聽얘/걔/냬的發音';
+
+  @override
+  String get hangulS3L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS3L4Step2Desc => '請直接把文字發出聲來';
+
+  @override
+  String get hangulS3L4Step3Title => '課程完成！';
+
+  @override
+  String get hangulS3L4Step3Msg => '很好！\n已掌握ㅒ(얘)的形狀。';
+
+  @override
+  String get hangulS3L5Title => 'ㅖ的形狀和發音';
+
+  @override
+  String get hangulS3L5Subtitle => 'Y-ㅔ系列母音';
+
+  @override
+  String get hangulS3L5Step0Title => '來學ㅖ吧';
+
+  @override
+  String get hangulS3L5Step0Desc => 'ㅖ是ㅔ系列的Y母音。\n代表音是\"예\"。';
+
+  @override
+  String get hangulS3L5Step0Highlights => 'ㅖ,예';
+
+  @override
+  String get hangulS3L5Step1Title => '聽ㅖ的發音';
+
+  @override
+  String get hangulS3L5Step1Desc => '聽聽예/계/녜的發音';
+
+  @override
+  String get hangulS3L5Step2Title => '發音練習';
+
+  @override
+  String get hangulS3L5Step2Desc => '請直接把文字發出聲來';
+
+  @override
+  String get hangulS3L5Step3Title => '課程完成！';
+
+  @override
+  String get hangulS3L5Step3Msg => '很好！\n已掌握ㅖ(예)的形狀。';
+
+  @override
+  String get hangulS3L6Title => 'ㅐ/ㅔ系列綜合複習';
+
+  @override
+  String get hangulS3L6Subtitle => 'ㅐ ㅔ ㅒ ㅖ綜合檢驗';
+
+  @override
+  String get hangulS3L6Step0Title => '一次性區分四種';
+
+  @override
+  String get hangulS3L6Step0Desc => '同時用形狀和發音來檢驗ㅐ/ㅔ/ㅒ/ㅖ。';
+
+  @override
+  String get hangulS3L6Step0Highlights => 'ㅐ,ㅔ,ㅒ,ㅖ';
+
+  @override
+  String get hangulS3L6Step1Title => '聲音區分';
+
+  @override
+  String get hangulS3L6Step1Desc => '從相似的聲音中選出正確答案';
+
+  @override
+  String get hangulS3L6Step2Title => '形狀區分';
+
+  @override
+  String get hangulS3L6Step2Desc => '看形狀，快速選擇';
+
+  @override
+  String get hangulS3L6Step2Q0 => '下列哪個屬於Y-ㅐ系列？';
+
+  @override
+  String get hangulS3L6Step2Q1 => '下列哪個屬於Y-ㅔ系列？';
+
+  @override
+  String get hangulS3L6Step2Q2 => 'ㅇ + ㅖ = ?';
+
+  @override
+  String get hangulS3L6Step3Title => '課程完成！';
+
+  @override
+  String get hangulS3L6Step3Msg => '很好！\n第3階段核心母音的區分已經穩固了。';
+
+  @override
+  String get hangulS3L7Title => '第3階段任務';
+
+  @override
+  String get hangulS3L7Subtitle => '快速區分任務：ㅐ/ㅔ系列';
+
+  @override
+  String get hangulS3L7Step0Title => '第3階段最終任務';
+
+  @override
+  String get hangulS3L7Step0Desc => '快速準確地完成ㅐ/ㅔ系列的組合。';
+
+  @override
+  String get hangulS3L7Step1Title => '限時任務';
+
+  @override
+  String get hangulS3L7Step2Title => '任務結果';
+
+  @override
+  String get hangulS3L7Step3Title => '第3階段完成！';
+
+  @override
+  String get hangulS3L7Step3Msg => '恭喜！\n已完成第3階段全部ㅐ/ㅔ系列母音。';
+
+  @override
+  String get hangulS3L7Step4Title => '第3階段完成！';
+
+  @override
+  String get hangulS3L7Step4Msg => '已學完所有母音！';
+
+  @override
+  String get hangulS3CompleteTitle => '第3階段完成！';
+
+  @override
+  String get hangulS3CompleteMsg => '已學完所有母音！';
+
+  @override
+  String get hangulS4L1Title => 'ㄱ的形狀與發音';
+
+  @override
+  String get hangulS4L1Subtitle => '基本子音的開始：ㄱ';
+
+  @override
+  String get hangulS4L1Step0Title => '來學ㄱ吧';
+
+  @override
+  String get hangulS4L1Step0Desc => 'ㄱ是基本子音的開始。\n與ㅏ組合發出「가」的音。';
+
+  @override
+  String get hangulS4L1Step0Highlights => 'ㄱ,가,基本子音';
+
+  @override
+  String get hangulS4L1Step1Title => '聽ㄱ的發音';
+
+  @override
+  String get hangulS4L1Step1Desc => '聽聽가/고/구的發音';
+
+  @override
+  String get hangulS4L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L1Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L1Step3Title => '選出ㄱ的發音';
+
+  @override
+  String get hangulS4L1Step3Desc => '聽音選出正確的字';
+
+  @override
+  String get hangulS4L1Step4Title => '用ㄱ組合文字';
+
+  @override
+  String get hangulS4L1Step4Desc => '試試ㄱ＋母音的組合';
+
+  @override
+  String get hangulS4L1SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS4L1SummaryMsg => '很棒！\n你已經掌握了ㄱ的發音和形狀。';
+
+  @override
+  String get hangulS4L2Title => 'ㄴ的形狀與發音';
+
+  @override
+  String get hangulS4L2Subtitle => '第二個基本子音：ㄴ';
+
+  @override
+  String get hangulS4L2Step0Title => '來學ㄴ吧';
+
+  @override
+  String get hangulS4L2Step0Desc => 'ㄴ構成「나」系列發音。';
+
+  @override
+  String get hangulS4L2Step0Highlights => 'ㄴ,나';
+
+  @override
+  String get hangulS4L2Step1Title => '聽ㄴ的發音';
+
+  @override
+  String get hangulS4L2Step1Desc => '聽聽나/노/누的發音';
+
+  @override
+  String get hangulS4L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L2Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L2Step3Title => '選出ㄴ的發音';
+
+  @override
+  String get hangulS4L2Step3Desc => '區分나/다';
+
+  @override
+  String get hangulS4L2Step4Title => '用ㄴ組合文字';
+
+  @override
+  String get hangulS4L2Step4Desc => '試試ㄴ＋母音的組合';
+
+  @override
+  String get hangulS4L2SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS4L2SummaryMsg => '很棒！\n你已經掌握了ㄴ的發音和形狀。';
+
+  @override
+  String get hangulS4L3Title => 'ㄷ的形狀與發音';
+
+  @override
+  String get hangulS4L3Subtitle => '第三個基本子音：ㄷ';
+
+  @override
+  String get hangulS4L3Step0Title => '來學ㄷ吧';
+
+  @override
+  String get hangulS4L3Step0Desc => 'ㄷ構成「다」系列發音。';
+
+  @override
+  String get hangulS4L3Step0Highlights => 'ㄷ,다';
+
+  @override
+  String get hangulS4L3Step1Title => '聽ㄷ的發音';
+
+  @override
+  String get hangulS4L3Step1Desc => '聽聽다/도/두的發音';
+
+  @override
+  String get hangulS4L3Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L3Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L3Step3Title => '選出ㄷ的發音';
+
+  @override
+  String get hangulS4L3Step3Desc => '區分다/나';
+
+  @override
+  String get hangulS4L3Step4Title => '用ㄷ組合文字';
+
+  @override
+  String get hangulS4L3Step4Desc => '試試ㄷ＋母音的組合';
+
+  @override
+  String get hangulS4L3SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS4L3SummaryMsg => '很棒！\n你已經掌握了ㄷ的發音和形狀。';
+
+  @override
+  String get hangulS4L4Title => 'ㄹ的形狀與發音';
+
+  @override
+  String get hangulS4L4Subtitle => '第四個基本子音：ㄹ';
+
+  @override
+  String get hangulS4L4Step0Title => '來學ㄹ吧';
+
+  @override
+  String get hangulS4L4Step0Desc => 'ㄹ構成「라」系列發音。';
+
+  @override
+  String get hangulS4L4Step0Highlights => 'ㄹ,라';
+
+  @override
+  String get hangulS4L4Step1Title => '聽ㄹ的發音';
+
+  @override
+  String get hangulS4L4Step1Desc => '聽聽라/로/루的發音';
+
+  @override
+  String get hangulS4L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L4Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L4Step3Title => '選出ㄹ的發音';
+
+  @override
+  String get hangulS4L4Step3Desc => '區分라/나';
+
+  @override
+  String get hangulS4L4Step4Title => '用ㄹ組合文字';
+
+  @override
+  String get hangulS4L4Step4Desc => '試試ㄹ＋母音的組合';
+
+  @override
+  String get hangulS4L4SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS4L4SummaryMsg => '很棒！\n你已經掌握了ㄹ的發音和形狀。';
+
+  @override
+  String get hangulS4L5Title => 'ㅁ的形狀與發音';
+
+  @override
+  String get hangulS4L5Subtitle => '第五個基本子音：ㅁ';
+
+  @override
+  String get hangulS4L5Step0Title => '來學ㅁ吧';
+
+  @override
+  String get hangulS4L5Step0Desc => 'ㅁ構成「마」系列發音。';
+
+  @override
+  String get hangulS4L5Step0Highlights => 'ㅁ,마';
+
+  @override
+  String get hangulS4L5Step1Title => '聽ㅁ的發音';
+
+  @override
+  String get hangulS4L5Step1Desc => '聽聽마/모/무的發音';
+
+  @override
+  String get hangulS4L5Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L5Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L5Step3Title => '選出ㅁ的發音';
+
+  @override
+  String get hangulS4L5Step3Desc => '區分마/바';
+
+  @override
+  String get hangulS4L5Step4Title => '用ㅁ組合文字';
+
+  @override
+  String get hangulS4L5Step4Desc => '試試ㅁ＋母音的組合';
+
+  @override
+  String get hangulS4L5SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS4L5SummaryMsg => '很棒！\n你已經掌握了ㅁ的發音和形狀。';
+
+  @override
+  String get hangulS4L6Title => 'ㅂ的形狀與發音';
+
+  @override
+  String get hangulS4L6Subtitle => '第六個基本子音：ㅂ';
+
+  @override
+  String get hangulS4L6Step0Title => '來學ㅂ吧';
+
+  @override
+  String get hangulS4L6Step0Desc => 'ㅂ構成「바」系列發音。';
+
+  @override
+  String get hangulS4L6Step0Highlights => 'ㅂ,바';
+
+  @override
+  String get hangulS4L6Step1Title => '聽ㅂ的發音';
+
+  @override
+  String get hangulS4L6Step1Desc => '聽聽바/보/부的發音';
+
+  @override
+  String get hangulS4L6Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L6Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L6Step3Title => '選出ㅂ的發音';
+
+  @override
+  String get hangulS4L6Step3Desc => '區分바/마';
+
+  @override
+  String get hangulS4L6Step4Title => '用ㅂ組合文字';
+
+  @override
+  String get hangulS4L6Step4Desc => '試試ㅂ＋母音的組合';
+
+  @override
+  String get hangulS4L6SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS4L6SummaryMsg => '很棒！\n你已經掌握了ㅂ的發音和形狀。';
+
+  @override
+  String get hangulS4L7Title => 'ㅅ的形狀與發音';
+
+  @override
+  String get hangulS4L7Subtitle => '第七個基本子音：ㅅ';
+
+  @override
+  String get hangulS4L7Step0Title => '來學ㅅ吧';
+
+  @override
+  String get hangulS4L7Step0Desc => 'ㅅ構成「사」系列發音。';
+
+  @override
+  String get hangulS4L7Step0Highlights => 'ㅅ,사';
+
+  @override
+  String get hangulS4L7Step1Title => '聽ㅅ的發音';
+
+  @override
+  String get hangulS4L7Step1Desc => '聽聽사/소/수的發音';
+
+  @override
+  String get hangulS4L7Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L7Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L7Step3Title => '選出ㅅ的發音';
+
+  @override
+  String get hangulS4L7Step3Desc => '區分사/자';
+
+  @override
+  String get hangulS4L7Step4Title => '用ㅅ組合文字';
+
+  @override
+  String get hangulS4L7Step4Desc => '試試ㅅ＋母音的組合';
+
+  @override
+  String get hangulS4L7SummaryTitle => '第4階段完成！';
+
+  @override
+  String get hangulS4L7SummaryMsg => '恭喜！\n你完成了第4階段基本子音1（ㄱ~ㅅ）。';
+
+  @override
+  String get hangulS4L8Title => '單字閱讀挑戰！';
+
+  @override
+  String get hangulS4L8Subtitle => '用子音和母音讀單字';
+
+  @override
+  String get hangulS4L8Step0Title => '現在你能讀更多單字了！';
+
+  @override
+  String get hangulS4L8Step0Desc => '你已經學完了全部7個基本子音和母音。\n來讀讀由這些字組成的真實單字吧？';
+
+  @override
+  String get hangulS4L8Step0Highlights => '7個子音,母音,真實單字';
+
+  @override
+  String get hangulS4L8Step1Title => '讀單字';
+
+  @override
+  String get hangulS4L8Step1Descs => '樹,海,蝴蝶,帽子,家具,豆腐';
+
+  @override
+  String get hangulS4L8Step2Title => '發音練習';
+
+  @override
+  String get hangulS4L8Step2Desc => '試著大聲讀出這些字';
+
+  @override
+  String get hangulS4L8Step3Title => '聽後選出';
+
+  @override
+  String get hangulS4L8Step4Title => '是什麼意思？';
+
+  @override
+  String get hangulS4L8Step4Q0 => '\"나비\"的中文是？';
+
+  @override
+  String get hangulS4L8Step4Q1 => '\"바다\"的中文是？';
+
+  @override
+  String get hangulS4L8SummaryTitle => '太棒了！';
+
+  @override
+  String get hangulS4L8SummaryMsg => '你讀了6個韓文單字！\n繼續學習更多子音，就能讀出更多單字。';
+
+  @override
+  String get hangulS4LMTitle => '任務：基本子音組合！';
+
+  @override
+  String get hangulS4LMSubtitle => '在時間限制內組合音節';
+
+  @override
+  String get hangulS4LMStep0Title => '任務開始！';
+
+  @override
+  String get hangulS4LMStep0Desc => '將基本子音ㄱ~ㅅ與母音組合。\n在限定時間內達成目標！';
+
+  @override
+  String get hangulS4LMStep1Title => '來組合音節吧！';
+
+  @override
+  String get hangulS4LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS4LMSummaryTitle => '任務完成！';
+
+  @override
+  String get hangulS4LMSummaryMsg => '你可以自由組合全部7個基本子音了！';
+
+  @override
+  String get hangulS4CompleteTitle => '第4階段完成！';
+
+  @override
+  String get hangulS4CompleteMsg => '你已掌握全部7個基本子音！';
+
+  @override
+  String get hangulS5L1Title => '理解ㅇ的位置';
+
+  @override
+  String get hangulS5L1Subtitle => '學習初聲ㅇ的讀法';
+
+  @override
+  String get hangulS5L1Step0Title => 'ㅇ是特殊子音';
+
+  @override
+  String get hangulS5L1Step0Desc => '初聲ㅇ幾乎沒有聲音，\n與母音結合後讀作아/오/우。';
+
+  @override
+  String get hangulS5L1Step0Highlights => 'ㅇ,아,初聲位置';
+
+  @override
+  String get hangulS5L1Step1Title => '聆聽ㅇ的組合音';
+
+  @override
+  String get hangulS5L1Step1Desc => '聽一聽아/오/우的發音';
+
+  @override
+  String get hangulS5L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L1Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L1Step3Title => '用ㅇ組字';
+
+  @override
+  String get hangulS5L1Step3Desc => '組合ㅇ + 母音';
+
+  @override
+  String get hangulS5L1Step4Title => '課程完成！';
+
+  @override
+  String get hangulS5L1Step4Msg => '太棒了！\n你已經理解了ㅇ的用法。';
+
+  @override
+  String get hangulS5L2Title => 'ㅈ的形狀與發音';
+
+  @override
+  String get hangulS5L2Subtitle => 'ㅈ的基礎讀法';
+
+  @override
+  String get hangulS5L2Step0Title => '學習ㅈ';
+
+  @override
+  String get hangulS5L2Step0Desc => 'ㅈ產生「자」系列的音。';
+
+  @override
+  String get hangulS5L2Step0Highlights => 'ㅈ,자';
+
+  @override
+  String get hangulS5L2Step1Title => '聆聽ㅈ的發音';
+
+  @override
+  String get hangulS5L2Step1Desc => '聽一聽자/조/주';
+
+  @override
+  String get hangulS5L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L2Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L2Step3Title => '選出ㅈ的音';
+
+  @override
+  String get hangulS5L2Step3Desc => '區分자和사';
+
+  @override
+  String get hangulS5L2Step4Title => '用ㅈ組字';
+
+  @override
+  String get hangulS5L2Step4Desc => '組合ㅈ + 母音';
+
+  @override
+  String get hangulS5L2Step5Title => '課程完成！';
+
+  @override
+  String get hangulS5L2Step5Msg => '太棒了！\n你已經學會了ㅈ的發音和形狀。';
+
+  @override
+  String get hangulS5L3Title => 'ㅊ的形狀與發音';
+
+  @override
+  String get hangulS5L3Subtitle => 'ㅊ的基礎讀法';
+
+  @override
+  String get hangulS5L3Step0Title => '學習ㅊ';
+
+  @override
+  String get hangulS5L3Step0Desc => 'ㅊ產生「차」系列的音。';
+
+  @override
+  String get hangulS5L3Step0Highlights => 'ㅊ,차';
+
+  @override
+  String get hangulS5L3Step1Title => '聆聽ㅊ的發音';
+
+  @override
+  String get hangulS5L3Step1Desc => '聽一聽차/초/추';
+
+  @override
+  String get hangulS5L3Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L3Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L3Step3Title => '選出ㅊ的音';
+
+  @override
+  String get hangulS5L3Step3Desc => '區分차和자';
+
+  @override
+  String get hangulS5L3Step4Title => '課程完成！';
+
+  @override
+  String get hangulS5L3Step4Msg => '太棒了！\n你已經學會了ㅊ的發音和形狀。';
+
+  @override
+  String get hangulS5L4Title => 'ㅋ的形狀與發音';
+
+  @override
+  String get hangulS5L4Subtitle => 'ㅋ的基礎讀法';
+
+  @override
+  String get hangulS5L4Step0Title => '學習ㅋ';
+
+  @override
+  String get hangulS5L4Step0Desc => 'ㅋ產生「카」系列的音。';
+
+  @override
+  String get hangulS5L4Step0Highlights => 'ㅋ,카';
+
+  @override
+  String get hangulS5L4Step1Title => '聆聽ㅋ的發音';
+
+  @override
+  String get hangulS5L4Step1Desc => '聽一聽카/코/쿠';
+
+  @override
+  String get hangulS5L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L4Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L4Step3Title => '選出ㅋ的音';
+
+  @override
+  String get hangulS5L4Step3Desc => '區分카和가';
+
+  @override
+  String get hangulS5L4Step4Title => '課程完成！';
+
+  @override
+  String get hangulS5L4Step4Msg => '太棒了！\n你已經學會了ㅋ的發音和形狀。';
+
+  @override
+  String get hangulS5L5Title => 'ㅌ的形狀與發音';
+
+  @override
+  String get hangulS5L5Subtitle => 'ㅌ的基礎讀法';
+
+  @override
+  String get hangulS5L5Step0Title => '學習ㅌ';
+
+  @override
+  String get hangulS5L5Step0Desc => 'ㅌ產生「타」系列的音。';
+
+  @override
+  String get hangulS5L5Step0Highlights => 'ㅌ,타';
+
+  @override
+  String get hangulS5L5Step1Title => '聆聽ㅌ的發音';
+
+  @override
+  String get hangulS5L5Step1Desc => '聽一聽타/토/투';
+
+  @override
+  String get hangulS5L5Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L5Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L5Step3Title => '選出ㅌ的音';
+
+  @override
+  String get hangulS5L5Step3Desc => '區分타和다';
+
+  @override
+  String get hangulS5L5Step4Title => '課程完成！';
+
+  @override
+  String get hangulS5L5Step4Msg => '太棒了！\n你已經學會了ㅌ的發音和形狀。';
+
+  @override
+  String get hangulS5L6Title => 'ㅍ的形狀與發音';
+
+  @override
+  String get hangulS5L6Subtitle => 'ㅍ的基礎讀法';
+
+  @override
+  String get hangulS5L6Step0Title => '學習ㅍ';
+
+  @override
+  String get hangulS5L6Step0Desc => 'ㅍ產生「파」系列的音。';
+
+  @override
+  String get hangulS5L6Step0Highlights => 'ㅍ,파';
+
+  @override
+  String get hangulS5L6Step1Title => '聆聽ㅍ的發音';
+
+  @override
+  String get hangulS5L6Step1Desc => '聽一聽파/포/푸';
+
+  @override
+  String get hangulS5L6Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L6Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L6Step3Title => '選出ㅍ的音';
+
+  @override
+  String get hangulS5L6Step3Desc => '區分파和바';
+
+  @override
+  String get hangulS5L6Step4Title => '課程完成！';
+
+  @override
+  String get hangulS5L6Step4Msg => '太棒了！\n你已經學會了ㅍ的發音和形狀。';
+
+  @override
+  String get hangulS5L7Title => 'ㅎ的形狀與發音';
+
+  @override
+  String get hangulS5L7Subtitle => 'ㅎ的基礎讀法';
+
+  @override
+  String get hangulS5L7Step0Title => '學習ㅎ';
+
+  @override
+  String get hangulS5L7Step0Desc => 'ㅎ產生「하」系列的音。';
+
+  @override
+  String get hangulS5L7Step0Highlights => 'ㅎ,하';
+
+  @override
+  String get hangulS5L7Step1Title => '聆聽ㅎ的發音';
+
+  @override
+  String get hangulS5L7Step1Desc => '聽一聽하/호/후';
+
+  @override
+  String get hangulS5L7Step2Title => '發音練習';
+
+  @override
+  String get hangulS5L7Step2Desc => '大聲朗讀每個文字';
+
+  @override
+  String get hangulS5L7Step3Title => '選出ㅎ的音';
+
+  @override
+  String get hangulS5L7Step3Desc => '區分하和아';
+
+  @override
+  String get hangulS5L7Step4Title => '課程完成！';
+
+  @override
+  String get hangulS5L7Step4Msg => '太棒了！\n你已經學會了ㅎ的發音和形狀。';
+
+  @override
+  String get hangulS5L8Title => '額外子音隨機朗讀';
+
+  @override
+  String get hangulS5L8Subtitle => '混合複習ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ';
+
+  @override
+  String get hangulS5L8Step0Title => '隨機複習';
+
+  @override
+  String get hangulS5L8Step0Desc => '把7個額外子音混在一起讀一讀吧。';
+
+  @override
+  String get hangulS5L8Step0Highlights => 'ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ';
+
+  @override
+  String get hangulS5L8Step1Title => '形狀/發音測驗';
+
+  @override
+  String get hangulS5L8Step1Desc => '將發音與文字對應起來';
+
+  @override
+  String get hangulS5L8Step2Title => '課程完成！';
+
+  @override
+  String get hangulS5L8Step2Msg => '太棒了！\n你隨機複習了7個額外子音。';
+
+  @override
+  String get hangulS5L9Title => '易混淆對的預習';
+
+  @override
+  String get hangulS5L9Subtitle => '為下一階段做準備的區分練習';
+
+  @override
+  String get hangulS5L9Step0Title => '先看看容易混淆的對';
+
+  @override
+  String get hangulS5L9Step0Desc => '提前練習區分ㅈ/ㅊ、ㄱ/ㅋ、ㄷ/ㅌ、ㅂ/ㅍ。';
+
+  @override
+  String get hangulS5L9Step0Highlights => 'ㅈ/ㅊ,ㄱ/ㅋ,ㄷ/ㅌ,ㅂ/ㅍ';
+
+  @override
+  String get hangulS5L9Step1Title => '對比聽音';
+
+  @override
+  String get hangulS5L9Step1Desc => '從兩個選項中選出正確的音';
+
+  @override
+  String get hangulS5L9Step2Title => '課程完成！';
+
+  @override
+  String get hangulS5L9Step2Msg => '太棒了！\n你已經為下一階段做好準備了。';
+
+  @override
+  String get hangulS5LMTitle => '第5階段任務';
+
+  @override
+  String get hangulS5LMSubtitle => '基本子音2 綜合任務';
+
+  @override
+  String get hangulS5LMStep0Title => '任務開始！';
+
+  @override
+  String get hangulS5LMStep0Desc => '將基本子音2（ㅇ~ㅎ）與母音組合。\n在限定時間內達成目標！';
+
+  @override
+  String get hangulS5LMStep1Title => '組合音節！';
+
+  @override
+  String get hangulS5LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS5LMStep3Title => '第5階段完成！';
+
+  @override
+  String get hangulS5LMStep3Msg => '恭喜！\n你完成了第5階段：基本子音2（ㅇ~ㅎ）。';
+
+  @override
+  String get hangulS5LMStep4Title => '第5階段完成！';
+
+  @override
+  String get hangulS5LMStep4Msg => '你已經掌握了所有基本子音！';
+
+  @override
+  String get hangulS5CompleteTitle => '第5階段完成！';
+
+  @override
+  String get hangulS5CompleteMsg => '你已經掌握了所有基本子音！';
+
+  @override
+  String get hangulS6L1Title => '가~기 模式閱讀';
+
+  @override
+  String get hangulS6L1Subtitle => 'ㄱ + 基本母音模式';
+
+  @override
+  String get hangulS6L1Step0Title => '開始用模式閱讀';
+
+  @override
+  String get hangulS6L1Step0Desc => '試著改變與ㄱ組合的母音\n你會找到閱讀的節奏。';
+
+  @override
+  String get hangulS6L1Step0Highlights => '가,거,고,구,그,기';
+
+  @override
+  String get hangulS6L1Step1Title => '聆聽模式發音';
+
+  @override
+  String get hangulS6L1Step1Desc => '按順序聽一聽 가/거/고/구/그/기';
+
+  @override
+  String get hangulS6L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS6L1Step2Desc => '請大聲讀出每個音節';
+
+  @override
+  String get hangulS6L1Step3Title => '模式測驗';
+
+  @override
+  String get hangulS6L1Step3Desc => '配對相同的子音模式';
+
+  @override
+  String get hangulS6L1Step3Q0 => 'ㄱ + ㅏ = ?';
+
+  @override
+  String get hangulS6L1Step3Q1 => 'ㄱ + ㅓ = ?';
+
+  @override
+  String get hangulS6L1Step3Q2 => 'ㄱ + ㅡ = ?';
+
+  @override
+  String get hangulS6L1Step4Title => '課程完成！';
+
+  @override
+  String get hangulS6L1Step4Msg => '很好！\n你已經開始學習 가~기 模式了。';
+
+  @override
+  String get hangulS6L2Title => '擴展 나~니';
+
+  @override
+  String get hangulS6L2Subtitle => 'ㄴ 模式閱讀';
+
+  @override
+  String get hangulS6L2Step0Title => '擴展 ㄴ 模式';
+
+  @override
+  String get hangulS6L2Step0Desc => '改變與ㄴ組合的母音來讀 나~니。';
+
+  @override
+  String get hangulS6L2Step0Highlights => '나,너,노,누,느,니';
+
+  @override
+  String get hangulS6L2Step1Title => '聆聽 나~니';
+
+  @override
+  String get hangulS6L2Step1Desc => '請聽聽 ㄴ 模式的發音';
+
+  @override
+  String get hangulS6L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS6L2Step2Desc => '請大聲讀出每個音節';
+
+  @override
+  String get hangulS6L2Step3Title => '組合 ㄴ';
+
+  @override
+  String get hangulS6L2Step3Desc => '用 ㄴ + 母音組成音節';
+
+  @override
+  String get hangulS6L2Step4Title => '課程完成！';
+
+  @override
+  String get hangulS6L2Step4Msg => '很好！\n你已經掌握了 나~니 模式。';
+
+  @override
+  String get hangulS6L3Title => '擴展 다~디 和 라~리';
+
+  @override
+  String get hangulS6L3Subtitle => 'ㄷ/ㄹ 模式閱讀';
+
+  @override
+  String get hangulS6L3Step0Title => '只換子音來閱讀';
+
+  @override
+  String get hangulS6L3Step0Desc => '用相同母音只換子音來讀，\n閱讀速度會越來越快。';
+
+  @override
+  String get hangulS6L3Step0Highlights => '다/라,도/로,두/루,디/리';
+
+  @override
+  String get hangulS6L3Step1Title => '聆聽：區分 ㄷ/ㄹ';
+
+  @override
+  String get hangulS6L3Step1Desc => '聽音選擇正確的音節';
+
+  @override
+  String get hangulS6L3Step2Title => '閱讀測驗';
+
+  @override
+  String get hangulS6L3Step2Desc => '檢查模式';
+
+  @override
+  String get hangulS6L3Step2Q0 => 'ㄷ + ㅣ = ?';
+
+  @override
+  String get hangulS6L3Step2Q1 => 'ㄹ + ㅗ = ?';
+
+  @override
+  String get hangulS6L3Step3Title => '課程完成！';
+
+  @override
+  String get hangulS6L3Step3Msg => '很好！\n你已經掌握了 ㄷ/ㄹ 模式。';
+
+  @override
+  String get hangulS6L4Title => '隨機音節閱讀 1';
+
+  @override
+  String get hangulS6L4Subtitle => '混合基本模式';
+
+  @override
+  String get hangulS6L4Step0Title => '無序閱讀';
+
+  @override
+  String get hangulS6L4Step0Desc => '現在像隨機抽卡一樣來讀吧。';
+
+  @override
+  String get hangulS6L4Step1Title => '隨機閱讀';
+
+  @override
+  String get hangulS6L4Step1Desc => '識別隨機出現的音節';
+
+  @override
+  String get hangulS6L4Step1Q0 => 'ㄱ + ㅗ = ?';
+
+  @override
+  String get hangulS6L4Step1Q1 => 'ㄴ + ㅜ = ?';
+
+  @override
+  String get hangulS6L4Step1Q2 => 'ㄹ + ㅏ = ?';
+
+  @override
+  String get hangulS6L4Step1Q3 => 'ㅁ + ㅣ = ?';
+
+  @override
+  String get hangulS6L4Step2Title => '課程完成！';
+
+  @override
+  String get hangulS6L4Step2Msg => '很好！\n你完成了隨機閱讀 1。';
+
+  @override
+  String get hangulS6L5Title => '聽音找音節';
+
+  @override
+  String get hangulS6L5Subtitle => '強化聽覺與文字的聯繫';
+
+  @override
+  String get hangulS6L5Step0Title => '聽音尋字練習';
+
+  @override
+  String get hangulS6L5Step0Desc => '聽音選出對應音節，\n強化閱讀聯繫。';
+
+  @override
+  String get hangulS6L5Step1Title => '聲音配對';
+
+  @override
+  String get hangulS6L5Step1Desc => '選出正確的音節';
+
+  @override
+  String get hangulS6L5Step2Title => '課程完成！';
+
+  @override
+  String get hangulS6L5Step2Msg => '很好！\n你完成了聽音找字練習。';
+
+  @override
+  String get hangulS6L6Title => '複合母音組合 1';
+
+  @override
+  String get hangulS6L6Subtitle => '閱讀 ㅘ、ㅝ';
+
+  @override
+  String get hangulS6L6Step0Title => '開始學習複合母音';
+
+  @override
+  String get hangulS6L6Step0Desc => '來讀一讀由 ㅘ 和 ㅝ 組成的音節。';
+
+  @override
+  String get hangulS6L6Step0Highlights => 'ㅘ,ㅝ,와,워';
+
+  @override
+  String get hangulS6L6Step1Title => '聆聽 와/워';
+
+  @override
+  String get hangulS6L6Step1Desc => '請聽一聽代表性音節的發音';
+
+  @override
+  String get hangulS6L6Step2Title => '發音練習';
+
+  @override
+  String get hangulS6L6Step2Desc => '請大聲讀出每個音節';
+
+  @override
+  String get hangulS6L6Step3Title => '複合母音測驗';
+
+  @override
+  String get hangulS6L6Step3Desc => '區分 ㅘ 和 ㅝ';
+
+  @override
+  String get hangulS6L6Step3Q0 => 'ㅇ + ㅘ = ?';
+
+  @override
+  String get hangulS6L6Step3Q1 => 'ㄱ + ㅝ = ?';
+
+  @override
+  String get hangulS6L6Step4Title => '課程完成！';
+
+  @override
+  String get hangulS6L6Step4Msg => '很好！\n你已經學會了 ㅘ/ㅝ 組合。';
+
+  @override
+  String get hangulS6L7Title => '複合母音組合 2';
+
+  @override
+  String get hangulS6L7Subtitle => '閱讀 ㅙ、ㅞ、ㅚ、ㅟ、ㅢ';
+
+  @override
+  String get hangulS6L7Step0Title => '擴展複合母音';
+
+  @override
+  String get hangulS6L7Step0Desc => '簡要學習複合母音，以閱讀為中心推進。';
+
+  @override
+  String get hangulS6L7Step0Highlights => '왜,웨,외,위,의';
+
+  @override
+  String get hangulS6L7Step1Title => 'ㅢ 的特殊發音';
+
+  @override
+  String get hangulS6L7Step1Desc =>
+      'ㅢ 是一個根據位置發音不同的特殊母音。\n\n• 詞首：[의] → 의사、의자\n• 子音後：[이] → 희망→[히망]\n• 助詞「의」：[에] → 나의→[나에]';
+
+  @override
+  String get hangulS6L7Step1Highlights => 'ㅢ,의,이,에';
+
+  @override
+  String get hangulS6L7Step2Title => '選擇複合母音';
+
+  @override
+  String get hangulS6L7Step2Desc => '選出正確的音節';
+
+  @override
+  String get hangulS6L7Step2Q0 => 'ㅇ + ㅙ = ?';
+
+  @override
+  String get hangulS6L7Step2Q1 => 'ㅇ + ㅟ = ?';
+
+  @override
+  String get hangulS6L7Step2Q2 => 'ㅇ + ㅢ = ?';
+
+  @override
+  String get hangulS6L7Step3Title => '課程完成！';
+
+  @override
+  String get hangulS6L7Step3Msg => '很好！\n你完成了複合母音的擴展學習。';
+
+  @override
+  String get hangulS6L8Title => '隨機音節閱讀 2';
+
+  @override
+  String get hangulS6L8Subtitle => '基本+複合母音綜合';
+
+  @override
+  String get hangulS6L8Step0Title => '綜合隨機閱讀';
+
+  @override
+  String get hangulS6L8Step0Desc => '將基本母音和複合母音混合在一起閱讀。';
+
+  @override
+  String get hangulS6L8Step1Title => '綜合測驗';
+
+  @override
+  String get hangulS6L8Step1Desc => '識別隨機組合';
+
+  @override
+  String get hangulS6L8Step1Q0 => 'ㄱ + ㅢ = ?';
+
+  @override
+  String get hangulS6L8Step1Q1 => 'ㅎ + ㅘ = ?';
+
+  @override
+  String get hangulS6L8Step1Q2 => 'ㅂ + ㅟ = ?';
+
+  @override
+  String get hangulS6L8Step1Q3 => 'ㅈ + ㅝ = ?';
+
+  @override
+  String get hangulS6L8Step2Title => '課程完成！';
+
+  @override
+  String get hangulS6L8Step2Msg => '很好！\n你完成了第6階段綜合閱讀。';
+
+  @override
+  String get hangulS6LMTitle => '第6階段任務';
+
+  @override
+  String get hangulS6LMSubtitle => '組合閱讀最終檢驗';
+
+  @override
+  String get hangulS6LMStep0Title => '任務開始！';
+
+  @override
+  String get hangulS6LMStep0Desc => '這是音節組合訓練的最終檢驗。\n在時限內達成目標吧！';
+
+  @override
+  String get hangulS6LMStep1Title => '組合音節！';
+
+  @override
+  String get hangulS6LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS6LMStep3Title => '第6階段完成！';
+
+  @override
+  String get hangulS6LMStep3Msg => '恭喜！\n你完成了第6階段音節組合訓練。';
+
+  @override
+  String get hangulS6CompleteTitle => '第6階段完成！';
+
+  @override
+  String get hangulS6CompleteMsg => '你現在可以自由組合音節了！';
+
+  @override
+  String get hangulS7L1Title => 'ㄱ / ㅋ / ㄲ 子音對比';
+
+  @override
+  String get hangulS7L1Subtitle => '가 · 카 · 까 的對比';
+
+  @override
+  String get hangulS7L1Step0Title => '分辨三種聲音';
+
+  @override
+  String get hangulS7L1Step0Desc => '區分ㄱ（平音）、ㅋ（送氣音）、ㄲ（緊音）的感覺。';
+
+  @override
+  String get hangulS7L1Step0Highlights => 'ㄱ,ㅋ,ㄲ,가,카,까';
+
+  @override
+  String get hangulS7L1Step1Title => '聲音探索';
+
+  @override
+  String get hangulS7L1Step1Desc => '反覆聽가/카/까';
+
+  @override
+  String get hangulS7L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS7L1Step2Desc => '試著親自發出每個字的聲音';
+
+  @override
+  String get hangulS7L1Step3Title => '聽音選字';
+
+  @override
+  String get hangulS7L1Step3Desc => '從三個選項中選出正確答案';
+
+  @override
+  String get hangulS7L1Step4Title => '快速確認';
+
+  @override
+  String get hangulS7L1Step4Desc => '同時確認形狀和聲音';
+
+  @override
+  String get hangulS7L1Step4Q0 => '哪個是送氣音？';
+
+  @override
+  String get hangulS7L1Step4Q1 => '哪個是緊音？';
+
+  @override
+  String get hangulS7L1Step5Title => '課程完成！';
+
+  @override
+  String get hangulS7L1Step5Msg => '很好！\n你已掌握區分ㄱ/ㅋ/ㄲ的方法。';
+
+  @override
+  String get hangulS7L2Title => 'ㄷ / ㅌ / ㄸ 子音對比';
+
+  @override
+  String get hangulS7L2Subtitle => '다 · 타 · 따 的對比';
+
+  @override
+  String get hangulS7L2Step0Title => '第二組對比';
+
+  @override
+  String get hangulS7L2Step0Desc => '比較ㄷ/ㅌ/ㄸ的聲音。';
+
+  @override
+  String get hangulS7L2Step0Highlights => 'ㄷ,ㅌ,ㄸ,다,타,따';
+
+  @override
+  String get hangulS7L2Step1Title => '聲音探索';
+
+  @override
+  String get hangulS7L2Step1Desc => '反覆聽다/타/따';
+
+  @override
+  String get hangulS7L2Step2Title => '發音練習';
+
+  @override
+  String get hangulS7L2Step2Desc => '試著親自發出每個字的聲音';
+
+  @override
+  String get hangulS7L2Step3Title => '聽音選字';
+
+  @override
+  String get hangulS7L2Step3Desc => '從三個選項中選出正確答案';
+
+  @override
+  String get hangulS7L2Step4Title => '課程完成！';
+
+  @override
+  String get hangulS7L2Step4Msg => '很好！\n你已掌握區分ㄷ/ㅌ/ㄸ的方法。';
+
+  @override
+  String get hangulS7L3Title => 'ㅂ / ㅍ / ㅃ 子音對比';
+
+  @override
+  String get hangulS7L3Subtitle => '바 · 파 · 빠 的對比';
+
+  @override
+  String get hangulS7L3Step0Title => '第三組對比';
+
+  @override
+  String get hangulS7L3Step0Desc => '比較ㅂ/ㅍ/ㅃ的聲音。';
+
+  @override
+  String get hangulS7L3Step0Highlights => 'ㅂ,ㅍ,ㅃ,바,파,빠';
+
+  @override
+  String get hangulS7L3Step1Title => '聲音探索';
+
+  @override
+  String get hangulS7L3Step1Desc => '反覆聽바/파/빠';
+
+  @override
+  String get hangulS7L3Step2Title => '發音練習';
+
+  @override
+  String get hangulS7L3Step2Desc => '試著親自發出每個字的聲音';
+
+  @override
+  String get hangulS7L3Step3Title => '聽音選字';
+
+  @override
+  String get hangulS7L3Step3Desc => '從三個選項中選出正確答案';
+
+  @override
+  String get hangulS7L3Step4Title => '課程完成！';
+
+  @override
+  String get hangulS7L3Step4Msg => '很好！\n你已掌握區分ㅂ/ㅍ/ㅃ的方法。';
+
+  @override
+  String get hangulS7L4Title => 'ㅅ / ㅆ 子音對比';
+
+  @override
+  String get hangulS7L4Subtitle => '사 · 싸 的對比';
+
+  @override
+  String get hangulS7L4Step0Title => '兩種聲音的對比';
+
+  @override
+  String get hangulS7L4Step0Desc => '區分ㅅ/ㅆ的聲音。';
+
+  @override
+  String get hangulS7L4Step0Highlights => 'ㅅ,ㅆ,사,싸';
+
+  @override
+  String get hangulS7L4Step1Title => '聲音探索';
+
+  @override
+  String get hangulS7L4Step1Desc => '反覆聽사/싸';
+
+  @override
+  String get hangulS7L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS7L4Step2Desc => '試著親自發出每個字的聲音';
+
+  @override
+  String get hangulS7L4Step3Title => '聽音選字';
+
+  @override
+  String get hangulS7L4Step3Desc => '從兩個選項中選出正確答案';
+
+  @override
+  String get hangulS7L4Step4Title => '課程完成！';
+
+  @override
+  String get hangulS7L4Step4Msg => '很好！\n你已掌握區分ㅅ/ㅆ的方法。';
+
+  @override
+  String get hangulS7L5Title => 'ㅈ / ㅊ / ㅉ 子音對比';
+
+  @override
+  String get hangulS7L5Subtitle => '자 · 차 · 짜 的對比';
+
+  @override
+  String get hangulS7L5Step0Title => '最後一組對比';
+
+  @override
+  String get hangulS7L5Step0Desc => '比較ㅈ/ㅊ/ㅉ的聲音。';
+
+  @override
+  String get hangulS7L5Step0Highlights => 'ㅈ,ㅊ,ㅉ,자,차,짜';
+
+  @override
+  String get hangulS7L5Step1Title => '聲音探索';
+
+  @override
+  String get hangulS7L5Step1Desc => '反覆聽자/차/짜';
+
+  @override
+  String get hangulS7L5Step2Title => '發音練習';
+
+  @override
+  String get hangulS7L5Step2Desc => '試著親自發出每個字的聲音';
+
+  @override
+  String get hangulS7L5Step3Title => '聽音選字';
+
+  @override
+  String get hangulS7L5Step3Desc => '從三個選項中選出正確答案';
+
+  @override
+  String get hangulS7L5Step4Title => '第7階段完成！';
+
+  @override
+  String get hangulS7L5Step4Msg => '恭喜！\n你已完成第7階段的全部5組對比練習。';
+
+  @override
+  String get hangulS7LMTitle => '任務：聲音辨別挑戰！';
+
+  @override
+  String get hangulS7LMSubtitle => '區分平音、送氣音和緊音';
+
+  @override
+  String get hangulS7LMStep0Title => '聲音辨別任務！';
+
+  @override
+  String get hangulS7LMStep0Desc => '混合平音、送氣音和緊音\n快速組合音節！';
+
+  @override
+  String get hangulS7LMStep1Title => '組合音節！';
+
+  @override
+  String get hangulS7LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS7LMStep3Title => '任務完成！';
+
+  @override
+  String get hangulS7LMStep3Msg => '你已能區分平音、送氣音和緊音！';
+
+  @override
+  String get hangulS7LMStep4Title => '第7階段完成！';
+
+  @override
+  String get hangulS7LMStep4Msg => '你已能區分緊音和送氣音！';
+
+  @override
+  String get hangulS7CompleteTitle => '第7階段完成！';
+
+  @override
+  String get hangulS7CompleteMsg => '你已能區分緊音和送氣音！';
+
+  @override
+  String get hangulS8L0Title => '韻尾（받침）基礎';
+
+  @override
+  String get hangulS8L0Subtitle => '藏在音節塊底部的音';
+
+  @override
+  String get hangulS8L0Step0Title => '韻尾在音節的下方';
+
+  @override
+  String get hangulS8L0Step0Desc => '韻尾（받침）位於音節塊的底部。\n例：가 + ㄴ = 간';
+
+  @override
+  String get hangulS8L0Step0Highlights => '韻尾,간,말,집';
+
+  @override
+  String get hangulS8L0Step1Title => '韻尾的7個代表音';
+
+  @override
+  String get hangulS8L0Step1Desc =>
+      '韻尾只有7個代表音。\n\nㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\n許多韻尾字母都歸屬於這7個音之一。\n例：ㅅ, ㅈ, ㅊ, ㅎ 作為韻尾 → 均發[ㄷ]音';
+
+  @override
+  String get hangulS8L0Step1Highlights => '7個音,ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ,代表音';
+
+  @override
+  String get hangulS8L0Step2Title => '找出韻尾';
+
+  @override
+  String get hangulS8L0Step2Desc => '確認韻尾的位置';
+
+  @override
+  String get hangulS8L0Step2Q0 => '간的韻尾是？';
+
+  @override
+  String get hangulS8L0Step2Q1 => '말的韻尾是？';
+
+  @override
+  String get hangulS8L0SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L0SummaryMsg => '很好！\n你已理解韻尾的概念。';
+
+  @override
+  String get hangulS8L1Title => 'ㄴ韻尾';
+
+  @override
+  String get hangulS8L1Subtitle => '간 · 난 · 단';
+
+  @override
+  String get hangulS8L1Step0Title => '聆聽ㄴ韻尾';
+
+  @override
+  String get hangulS8L1Step0Desc => '聽一聽간/난/단';
+
+  @override
+  String get hangulS8L1Step1Title => '發音練習';
+
+  @override
+  String get hangulS8L1Step1Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L1Step2Title => '聽音選字';
+
+  @override
+  String get hangulS8L1Step2Desc => '選出帶有ㄴ韻尾的音節';
+
+  @override
+  String get hangulS8L1SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L1SummaryMsg => '很好！\n你掌握了ㄴ韻尾。';
+
+  @override
+  String get hangulS8L2Title => 'ㄹ韻尾';
+
+  @override
+  String get hangulS8L2Subtitle => '말 · 갈 · 물';
+
+  @override
+  String get hangulS8L2Step0Title => '聆聽ㄹ韻尾';
+
+  @override
+  String get hangulS8L2Step0Desc => '聽一聽말/갈/물';
+
+  @override
+  String get hangulS8L2Step1Title => '發音練習';
+
+  @override
+  String get hangulS8L2Step1Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L2Step2Title => '聽音選字';
+
+  @override
+  String get hangulS8L2Step2Desc => '選出帶有ㄹ韻尾的音節';
+
+  @override
+  String get hangulS8L2SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L2SummaryMsg => '很好！\n你掌握了ㄹ韻尾。';
+
+  @override
+  String get hangulS8L3Title => 'ㅁ韻尾';
+
+  @override
+  String get hangulS8L3Subtitle => '감 · 밤 · 숨';
+
+  @override
+  String get hangulS8L3Step0Title => '聆聽ㅁ韻尾';
+
+  @override
+  String get hangulS8L3Step0Desc => '聽一聽감/밤/숨';
+
+  @override
+  String get hangulS8L3Step1Title => '發音練習';
+
+  @override
+  String get hangulS8L3Step1Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L3Step2Title => '辨別韻尾';
+
+  @override
+  String get hangulS8L3Step2Desc => '選出ㅁ韻尾的音節';
+
+  @override
+  String get hangulS8L3Step2Q0 => '哪個有ㅁ韻尾？';
+
+  @override
+  String get hangulS8L3Step2Q1 => '哪個有ㅁ韻尾？';
+
+  @override
+  String get hangulS8L3SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L3SummaryMsg => '很好！\n你掌握了ㅁ韻尾。';
+
+  @override
+  String get hangulS8L4Title => 'ㅇ韻尾';
+
+  @override
+  String get hangulS8L4Subtitle => '방 · 공 · 종';
+
+  @override
+  String get hangulS8L4Step0Title => 'ㅇ很特別！';
+
+  @override
+  String get hangulS8L4Step0Desc =>
+      'ㅇ很特別！\n作為初聲（上方）時無音（아, 오），\n作為韻尾（받침，下方）時發\"ng\"音（방, 공）';
+
+  @override
+  String get hangulS8L4Step0Highlights => '初聲,韻尾,ng,방,공';
+
+  @override
+  String get hangulS8L4Step1Title => '聆聽ㅇ韻尾';
+
+  @override
+  String get hangulS8L4Step1Desc => '聽一聽방/공/종';
+
+  @override
+  String get hangulS8L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS8L4Step2Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L4Step3Title => '聽音選字';
+
+  @override
+  String get hangulS8L4Step3Desc => '選出帶有ㅇ韻尾的音節';
+
+  @override
+  String get hangulS8L4SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L4SummaryMsg => '很好！\n你掌握了ㅇ韻尾。';
+
+  @override
+  String get hangulS8L5Title => 'ㄱ韻尾';
+
+  @override
+  String get hangulS8L5Subtitle => '박 · 각 · 국';
+
+  @override
+  String get hangulS8L5Step0Title => '聆聽ㄱ韻尾';
+
+  @override
+  String get hangulS8L5Step0Desc => '聽一聽박/각/국';
+
+  @override
+  String get hangulS8L5Step1Title => '發音練習';
+
+  @override
+  String get hangulS8L5Step1Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L5Step2Title => '辨別韻尾';
+
+  @override
+  String get hangulS8L5Step2Desc => '選出ㄱ韻尾的音節';
+
+  @override
+  String get hangulS8L5Step2Q0 => '哪個有ㄱ韻尾？';
+
+  @override
+  String get hangulS8L5Step2Q1 => '哪個有ㄱ韻尾？';
+
+  @override
+  String get hangulS8L5SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L5SummaryMsg => '很好！\n你掌握了ㄱ韻尾。';
+
+  @override
+  String get hangulS8L6Title => 'ㅂ韻尾';
+
+  @override
+  String get hangulS8L6Subtitle => '밥 · 집 · 숲';
+
+  @override
+  String get hangulS8L6Step0Title => '聆聽ㅂ韻尾';
+
+  @override
+  String get hangulS8L6Step0Desc => '聽一聽밥/집/숲';
+
+  @override
+  String get hangulS8L6Step1Title => '發音練習';
+
+  @override
+  String get hangulS8L6Step1Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L6Step2Title => '聽音選字';
+
+  @override
+  String get hangulS8L6Step2Desc => '選出帶有ㅂ韻尾的音節';
+
+  @override
+  String get hangulS8L6SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L6SummaryMsg => '很好！\n你掌握了ㅂ韻尾。';
+
+  @override
+  String get hangulS8L7Title => 'ㅅ韻尾';
+
+  @override
+  String get hangulS8L7Subtitle => '옷 · 맛 · 빛';
+
+  @override
+  String get hangulS8L7Step0Title => '聆聽ㅅ韻尾';
+
+  @override
+  String get hangulS8L7Step0Desc => '聽一聽옷/맛/빛';
+
+  @override
+  String get hangulS8L7Step1Title => '發音練習';
+
+  @override
+  String get hangulS8L7Step1Desc => '大聲朗讀每個字';
+
+  @override
+  String get hangulS8L7Step2Title => '辨別韻尾';
+
+  @override
+  String get hangulS8L7Step2Desc => '選出ㅅ韻尾的音節';
+
+  @override
+  String get hangulS8L7Step2Q0 => '哪個有ㅅ韻尾？';
+
+  @override
+  String get hangulS8L7Step2Q1 => '哪個有ㅅ韻尾？';
+
+  @override
+  String get hangulS8L7SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L7SummaryMsg => '很好！\n你掌握了ㅅ韻尾。';
+
+  @override
+  String get hangulS8L8Title => '韻尾綜合複習';
+
+  @override
+  String get hangulS8L8Subtitle => '核心韻尾隨機檢測';
+
+  @override
+  String get hangulS8L8Step0Title => '全部混合練習';
+
+  @override
+  String get hangulS8L8Step0Desc => '我們來綜合複習ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅ。';
+
+  @override
+  String get hangulS8L8Step1Title => '隨機測驗';
+
+  @override
+  String get hangulS8L8Step1Desc => '混合韻尾綜合測試';
+
+  @override
+  String get hangulS8L8Step1Q0 => '哪個有ㄴ韻尾？';
+
+  @override
+  String get hangulS8L8Step1Q1 => '哪個有ㅇ韻尾？';
+
+  @override
+  String get hangulS8L8Step1Q2 => '哪個有ㄹ韻尾？';
+
+  @override
+  String get hangulS8L8Step1Q3 => '哪個有ㅂ韻尾？';
+
+  @override
+  String get hangulS8L8SummaryTitle => '課程完成！';
+
+  @override
+  String get hangulS8L8SummaryMsg => '很好！\n完成了韻尾綜合複習。';
+
+  @override
+  String get hangulS8LMTitle => '任務：韻尾挑戰！';
+
+  @override
+  String get hangulS8LMSubtitle => '組合帶韻尾的音節';
+
+  @override
+  String get hangulS8LMStep0Title => '韻尾任務！';
+
+  @override
+  String get hangulS8LMStep0Desc => '讀出帶有基本韻尾的音節，\n快速作答！';
+
+  @override
+  String get hangulS8LMStep1Title => '拼出音節！';
+
+  @override
+  String get hangulS8LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS8LMSummaryTitle => '任務完成！';
+
+  @override
+  String get hangulS8LMSummaryMsg => '你已完全掌握韻尾基礎！';
+
+  @override
+  String get hangulS8CompleteTitle => '第8階段完成！';
+
+  @override
+  String get hangulS8CompleteMsg => '你已打好韻尾的基礎！';
+
+  @override
+  String get hangulS9L1Title => '韻尾（받침） ㄷ 進階';
+
+  @override
+  String get hangulS9L1Subtitle => '닫 · 곧 · 묻';
+
+  @override
+  String get hangulS9L1Step0Title => 'ㄷ 韻尾規律';
+
+  @override
+  String get hangulS9L1Step0Desc => '讀讀看含有韻尾 ㄷ 的音節。';
+
+  @override
+  String get hangulS9L1Step0Highlights => '닫,곧,묻';
+
+  @override
+  String get hangulS9L1Step1Title => '聽聽看：韻尾 ㄷ';
+
+  @override
+  String get hangulS9L1Step1Desc => '聽 닫/곧/묻 的發音';
+
+  @override
+  String get hangulS9L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS9L1Step2Desc => '親自大聲念出每個字';
+
+  @override
+  String get hangulS9L1Step3Title => '辨別韻尾';
+
+  @override
+  String get hangulS9L1Step3Desc => '選出帶有韻尾 ㄷ 的音節';
+
+  @override
+  String get hangulS9L1Step3Q0 => '哪個帶有韻尾 ㄷ？';
+
+  @override
+  String get hangulS9L1Step3Q1 => '哪個帶有韻尾 ㄷ？';
+
+  @override
+  String get hangulS9L1Step4Title => '課程完成！';
+
+  @override
+  String get hangulS9L1Step4Msg => '很好！\n你已掌握韻尾 ㄷ。';
+
+  @override
+  String get hangulS9L2Title => '韻尾（받침） ㅈ 進階';
+
+  @override
+  String get hangulS9L2Subtitle => '낮 · 잊 · 젖';
+
+  @override
+  String get hangulS9L2Step0Title => '聽聽看：韻尾 ㅈ';
+
+  @override
+  String get hangulS9L2Step0Desc => '聽 낮/잊/젖 的發音';
+
+  @override
+  String get hangulS9L2Step1Title => '發音練習';
+
+  @override
+  String get hangulS9L2Step1Desc => '親自大聲念出每個字';
+
+  @override
+  String get hangulS9L2Step2Title => '聽音選字';
+
+  @override
+  String get hangulS9L2Step2Desc => '選出帶有韻尾 ㅈ 的音節';
+
+  @override
+  String get hangulS9L2Step3Title => '課程完成！';
+
+  @override
+  String get hangulS9L2Step3Msg => '很好！\n你已掌握韻尾 ㅈ。';
+
+  @override
+  String get hangulS9L3Title => '韻尾（받침） ㅊ 進階';
+
+  @override
+  String get hangulS9L3Subtitle => '꽃 · 닻 · 빚';
+
+  @override
+  String get hangulS9L3Step0Title => '聽聽看：韻尾 ㅊ';
+
+  @override
+  String get hangulS9L3Step0Desc => '聽 꽃/닻/빚 的發音';
+
+  @override
+  String get hangulS9L3Step1Title => '發音練習';
+
+  @override
+  String get hangulS9L3Step1Desc => '親自大聲念出每個字';
+
+  @override
+  String get hangulS9L3Step2Title => '辨別韻尾';
+
+  @override
+  String get hangulS9L3Step2Desc => '選出帶有韻尾 ㅊ 的音節';
+
+  @override
+  String get hangulS9L3Step2Q0 => '哪個帶有韻尾 ㅊ？';
+
+  @override
+  String get hangulS9L3Step2Q1 => '哪個帶有韻尾 ㅊ？';
+
+  @override
+  String get hangulS9L3Step3Title => '課程完成！';
+
+  @override
+  String get hangulS9L3Step3Msg => '很好！\n你已掌握韻尾 ㅊ。';
+
+  @override
+  String get hangulS9L4Title => '韻尾（받침） ㅋ / ㅌ / ㅍ';
+
+  @override
+  String get hangulS9L4Subtitle => '부엌 · 밭 · 앞';
+
+  @override
+  String get hangulS9L4Step0Title => '三個韻尾一起學';
+
+  @override
+  String get hangulS9L4Step0Desc => '把 ㅋ、ㅌ、ㅍ 三個韻尾放在一起學。';
+
+  @override
+  String get hangulS9L4Step0Highlights => '부엌,밭,앞';
+
+  @override
+  String get hangulS9L4Step1Title => '聽聽看';
+
+  @override
+  String get hangulS9L4Step1Desc => '聽 부엌/밭/앞 的發音';
+
+  @override
+  String get hangulS9L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS9L4Step2Desc => '親自大聲念出每個字';
+
+  @override
+  String get hangulS9L4Step3Title => '辨別韻尾';
+
+  @override
+  String get hangulS9L4Step3Desc => '區分這三個韻尾';
+
+  @override
+  String get hangulS9L4Step3Q0 => '哪個帶有韻尾 ㅌ？';
+
+  @override
+  String get hangulS9L4Step3Q1 => '哪個帶有韻尾 ㅍ？';
+
+  @override
+  String get hangulS9L4Step4Title => '課程完成！';
+
+  @override
+  String get hangulS9L4Step4Msg => '很好！\n你已掌握韻尾 ㅋ/ㅌ/ㅍ。';
+
+  @override
+  String get hangulS9L5Title => '韻尾（받침） ㅎ 進階';
+
+  @override
+  String get hangulS9L5Subtitle => '좋 · 놓 · 않';
+
+  @override
+  String get hangulS9L5Step0Title => '聽聽看：韻尾 ㅎ';
+
+  @override
+  String get hangulS9L5Step0Desc => '聽 좋/놓/않 的發音';
+
+  @override
+  String get hangulS9L5Step1Title => '發音練習';
+
+  @override
+  String get hangulS9L5Step1Desc => '親自大聲念出每個字';
+
+  @override
+  String get hangulS9L5Step2Title => '聽音選字';
+
+  @override
+  String get hangulS9L5Step2Desc => '選出帶有韻尾 ㅎ 的音節';
+
+  @override
+  String get hangulS9L5Step3Title => '課程完成！';
+
+  @override
+  String get hangulS9L5Step3Msg => '很好！\n你已掌握韻尾 ㅎ。';
+
+  @override
+  String get hangulS9L6Title => '進階韻尾隨機練習';
+
+  @override
+  String get hangulS9L6Subtitle => '混合 ㄷ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ';
+
+  @override
+  String get hangulS9L6Step0Title => '混合進階韻尾';
+
+  @override
+  String get hangulS9L6Step0Desc => '隨機複習所有進階韻尾。';
+
+  @override
+  String get hangulS9L6Step1Title => '隨機測驗';
+
+  @override
+  String get hangulS9L6Step1Desc => '解題並區分各個韻尾';
+
+  @override
+  String get hangulS9L6Step1Q0 => '哪個帶有韻尾 ㄷ？';
+
+  @override
+  String get hangulS9L6Step1Q1 => '哪個帶有韻尾 ㅈ？';
+
+  @override
+  String get hangulS9L6Step1Q2 => '哪個帶有韻尾 ㅊ？';
+
+  @override
+  String get hangulS9L6Step1Q3 => '哪個帶有韻尾 ㅎ？';
+
+  @override
+  String get hangulS9L6Step2Title => '課程完成！';
+
+  @override
+  String get hangulS9L6Step2Msg => '很好！\n進階韻尾隨機複習完成。';
+
+  @override
+  String get hangulS9L7Title => '第9階段綜合';
+
+  @override
+  String get hangulS9L7Subtitle => '進階韻尾閱讀收尾';
+
+  @override
+  String get hangulS9L7Step0Title => '最終確認';
+
+  @override
+  String get hangulS9L7Step0Desc => '最終複習第9階段的核心要點';
+
+  @override
+  String get hangulS9L7Step1Title => '第9階段完成！';
+
+  @override
+  String get hangulS9L7Step1Msg => '恭喜！\n你已完成第9階段的進階韻尾學習。';
+
+  @override
+  String get hangulS9LMTitle => '任務：進階韻尾挑戰！';
+
+  @override
+  String get hangulS9LMSubtitle => '快速讀出各種韻尾';
+
+  @override
+  String get hangulS9LMStep0Title => '進階韻尾任務！';
+
+  @override
+  String get hangulS9LMStep0Desc => '以最快速度組合含進階韻尾的音節！';
+
+  @override
+  String get hangulS9LMStep1Title => '組合音節！';
+
+  @override
+  String get hangulS9LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS9LMStep3Title => '任務完成！';
+
+  @override
+  String get hangulS9LMStep3Msg => '你已征服進階韻尾！';
+
+  @override
+  String get hangulS9CompleteTitle => '第9階段完成！';
+
+  @override
+  String get hangulS9CompleteMsg => '你已征服進階韻尾！';
+
+  @override
+  String get hangulS10L1Title => 'ㄳ 韻尾';
+
+  @override
+  String get hangulS10L1Subtitle => '以 몫・넋 為中心閱讀';
+
+  @override
+  String get hangulS10L1Step0Title => '複合韻尾的發音規則';
+
+  @override
+  String get hangulS10L1Step0Desc =>
+      '複合韻尾是由兩個子音組合而成的韻尾。\n\n大多數讀左邊的子音：\nㄳ→[ㄱ], ㄵ→[ㄴ], ㄶ→[ㄴ], ㄻ→[ㅁ], ㅄ→[ㅂ]\n\n少數讀右邊的子音：\nㄺ→[ㄹ], ㄼ→[ㄹ]';
+
+  @override
+  String get hangulS10L1Step0Highlights => '左邊子音,右邊子音,複合韻尾';
+
+  @override
+  String get hangulS10L1Step1Title => '開始學習複合韻尾';
+
+  @override
+  String get hangulS10L1Step1Desc => '來讀含有 ㄳ 韻尾的單字吧。';
+
+  @override
+  String get hangulS10L1Step1Highlights => '몫,넋';
+
+  @override
+  String get hangulS10L1Step2Title => '聽發音';
+
+  @override
+  String get hangulS10L1Step2Desc => '聽一聽 몫/넋';
+
+  @override
+  String get hangulS10L1Step3Title => '發音練習';
+
+  @override
+  String get hangulS10L1Step3Desc => '請大聲讀出每個字';
+
+  @override
+  String get hangulS10L1Step4Title => '閱讀確認';
+
+  @override
+  String get hangulS10L1Step4Desc => '看單字並選擇正確答案';
+
+  @override
+  String get hangulS10L1Step4Q0 => '哪個單字有 ㄳ 韻尾？';
+
+  @override
+  String get hangulS10L1Step4Q1 => '哪個單字有 ㄳ 韻尾？';
+
+  @override
+  String get hangulS10L1Step5Title => '課程完成！';
+
+  @override
+  String get hangulS10L1Step5Msg => '很好！\n你已經掌握了 ㄳ 韻尾。';
+
+  @override
+  String get hangulS10L2Title => 'ㄵ / ㄶ 韻尾';
+
+  @override
+  String get hangulS10L2Subtitle => '앉다・많다';
+
+  @override
+  String get hangulS10L2Step0Title => '聽發音';
+
+  @override
+  String get hangulS10L2Step0Desc => '聽一聽 앉다/많다';
+
+  @override
+  String get hangulS10L2Step1Title => '發音練習';
+
+  @override
+  String get hangulS10L2Step1Desc => '請大聲讀出每個字';
+
+  @override
+  String get hangulS10L2Step2Title => '聽後選擇';
+
+  @override
+  String get hangulS10L2Step2Desc => '選擇正確的單字';
+
+  @override
+  String get hangulS10L2Step3Title => '課程完成！';
+
+  @override
+  String get hangulS10L2Step3Msg => '很好！\n你已經掌握了 ㄵ/ㄶ 韻尾。';
+
+  @override
+  String get hangulS10L3Title => 'ㄺ / ㄻ 韻尾';
+
+  @override
+  String get hangulS10L3Subtitle => '읽다・삶';
+
+  @override
+  String get hangulS10L3Step0Title => '聽發音';
+
+  @override
+  String get hangulS10L3Step0Desc => '聽一聽 읽다/삶';
+
+  @override
+  String get hangulS10L3Step1Title => '發音練習';
+
+  @override
+  String get hangulS10L3Step1Desc => '請大聲讀出每個字';
+
+  @override
+  String get hangulS10L3Step2Title => '閱讀確認';
+
+  @override
+  String get hangulS10L3Step2Desc => '選擇含複合韻尾的單字';
+
+  @override
+  String get hangulS10L3Step2Q0 => '哪個單字有 ㄺ 韻尾？';
+
+  @override
+  String get hangulS10L3Step2Q1 => '哪個單字有 ㄻ 韻尾？';
+
+  @override
+  String get hangulS10L3Step3Title => '課程完成！';
+
+  @override
+  String get hangulS10L3Step3Msg => '很好！\n你已經掌握了 ㄺ/ㄻ 韻尾。';
+
+  @override
+  String get hangulS10L4Title => '進階組合 1';
+
+  @override
+  String get hangulS10L4Subtitle => 'ㄼ・ㄾ・ㄿ・ㅀ';
+
+  @override
+  String get hangulS10L4Step0Title => '進階組合介紹';
+
+  @override
+  String get hangulS10L4Step0Desc => '透過常見例子簡短地學習。';
+
+  @override
+  String get hangulS10L4Step0Highlights => '넓다,핥다,읊다,싫다';
+
+  @override
+  String get hangulS10L4Step1Title => '聽單字發音';
+
+  @override
+  String get hangulS10L4Step1Desc => '聽一聽 넓다/핥다/읊다/싫다';
+
+  @override
+  String get hangulS10L4Step2Title => '發音練習';
+
+  @override
+  String get hangulS10L4Step2Desc => '請大聲讀出每個字';
+
+  @override
+  String get hangulS10L4Step3Title => '課程完成！';
+
+  @override
+  String get hangulS10L4Step3Msg => '很好！\n你已經掌握了進階組合 1。';
+
+  @override
+  String get hangulS10L5Title => 'ㅄ 韻尾';
+
+  @override
+  String get hangulS10L5Subtitle => '以 없다 為中心閱讀';
+
+  @override
+  String get hangulS10L5Step0Title => '聽發音';
+
+  @override
+  String get hangulS10L5Step0Desc => '聽一聽 없다/없어';
+
+  @override
+  String get hangulS10L5Step1Title => '發音練習';
+
+  @override
+  String get hangulS10L5Step1Desc => '請大聲讀出每個字';
+
+  @override
+  String get hangulS10L5Step2Title => '聽後選擇';
+
+  @override
+  String get hangulS10L5Step2Desc => '選擇正確的單字';
+
+  @override
+  String get hangulS10L5Step3Title => '課程完成！';
+
+  @override
+  String get hangulS10L5Step3Msg => '很好！\n你已經掌握了 ㅄ 韻尾。';
+
+  @override
+  String get hangulS10L6Title => '第10階段綜合';
+
+  @override
+  String get hangulS10L6Subtitle => '複合韻尾單字綜合';
+
+  @override
+  String get hangulS10L6Step0Title => '綜合確認';
+
+  @override
+  String get hangulS10L6Step0Desc => '對複合韻尾單字進行最終確認';
+
+  @override
+  String get hangulS10L6Step0Q0 => '以下哪個單字有 ㄶ 韻尾？';
+
+  @override
+  String get hangulS10L6Step0Q1 => '以下哪個單字有 ㄺ 韻尾？';
+
+  @override
+  String get hangulS10L6Step0Q2 => '以下哪個單字有 ㅄ 韻尾？';
+
+  @override
+  String get hangulS10L6Step0Q3 => '以下哪個單字有 ㄳ 韻尾？';
+
+  @override
+  String get hangulS10L6Step1Title => '第10階段完成！';
+
+  @override
+  String get hangulS10L6Step1Msg => '恭喜！\n你完成了第10階段的複合韻尾。';
+
+  @override
+  String get hangulS10LMTitle => '任務：複合韻尾挑戰！';
+
+  @override
+  String get hangulS10LMSubtitle => '快速閱讀複合韻尾單字';
+
+  @override
+  String get hangulS10LMStep0Title => '複合韻尾任務！';
+
+  @override
+  String get hangulS10LMStep0Desc => '快速組合包含複合韻尾的音節！';
+
+  @override
+  String get hangulS10LMStep1Title => '組合音節！';
+
+  @override
+  String get hangulS10LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS10LMStep3Title => '任務完成！';
+
+  @override
+  String get hangulS10LMStep3Msg => '你連複合韻尾都掌握了！';
+
+  @override
+  String get hangulS10LMStep4Title => '第10階段完成！';
+
+  @override
+  String get hangulS10CompleteTitle => '第10階段完成！';
+
+  @override
+  String get hangulS10CompleteMsg => '你連複合韻尾都掌握了！';
+
+  @override
+  String get hangulS11L1Title => '沒有收音的單字';
+
+  @override
+  String get hangulS11L1Subtitle => '簡單的2~3音節單字';
+
+  @override
+  String get hangulS11L1Step0Title => '開始讀單字';
+
+  @override
+  String get hangulS11L1Step0Desc => '先用沒有收音的單字建立自信吧。';
+
+  @override
+  String get hangulS11L1Step0Highlights => '바나나,나비,하마,모자';
+
+  @override
+  String get hangulS11L1Step1Title => '聽單字';
+
+  @override
+  String get hangulS11L1Step1Desc => '聽聽 바나나 / 나비 / 하마 / 모자';
+
+  @override
+  String get hangulS11L1Step2Title => '發音練習';
+
+  @override
+  String get hangulS11L1Step2Desc => '大聲讀出每個字';
+
+  @override
+  String get hangulS11L1Step3Title => '課程完成！';
+
+  @override
+  String get hangulS11L1Step3Msg => '很好！\n你開始讀沒有收音的單字了。';
+
+  @override
+  String get hangulS11L2Title => '基本收音單字';
+
+  @override
+  String get hangulS11L2Subtitle => '학교・친구・한국・공부';
+
+  @override
+  String get hangulS11L2Step0Title => '聽單字';
+
+  @override
+  String get hangulS11L2Step0Desc => '聽聽 학교 / 친구 / 한국 / 공부';
+
+  @override
+  String get hangulS11L2Step1Title => '發音練習';
+
+  @override
+  String get hangulS11L2Step1Desc => '大聲讀出每個字';
+
+  @override
+  String get hangulS11L2Step2Title => '聽後選擇';
+
+  @override
+  String get hangulS11L2Step2Desc => '選擇你聽到的單字';
+
+  @override
+  String get hangulS11L2Step3Title => '課程完成！';
+
+  @override
+  String get hangulS11L2Step3Msg => '很好！\n你讀了基本收音的單字。';
+
+  @override
+  String get hangulS11L3Title => '混合收音單字';
+
+  @override
+  String get hangulS11L3Subtitle => '읽기・없다・많다・닭';
+
+  @override
+  String get hangulS11L3Step0Title => '提升難度';
+
+  @override
+  String get hangulS11L3Step0Desc => '來讀含基本和複合收音的混合單字吧。';
+
+  @override
+  String get hangulS11L3Step0Highlights => '읽기,없다,많다,닭';
+
+  @override
+  String get hangulS11L3Step1Title => '區分單字';
+
+  @override
+  String get hangulS11L3Step1Desc => '區分相似的單字';
+
+  @override
+  String get hangulS11L3Step1Q0 => '哪個是複合收音的單字？';
+
+  @override
+  String get hangulS11L3Step1Q1 => '哪個是複合收音的單字？';
+
+  @override
+  String get hangulS11L3Step2Title => '課程完成！';
+
+  @override
+  String get hangulS11L3Step2Msg => '很好！\n你讀了混合收音的單字。';
+
+  @override
+  String get hangulS11L4Title => '分類單字包';
+
+  @override
+  String get hangulS11L4Subtitle => '食物・地點・人物';
+
+  @override
+  String get hangulS11L4Step0Title => '聽分類單字';
+
+  @override
+  String get hangulS11L4Step0Desc => '聽食物 / 地點 / 人物的單字';
+
+  @override
+  String get hangulS11L4Step1Title => '發音練習';
+
+  @override
+  String get hangulS11L4Step1Desc => '大聲讀出每個字';
+
+  @override
+  String get hangulS11L4Step2Title => '按類別分類';
+
+  @override
+  String get hangulS11L4Step2Desc => '看單字，選擇它的類別';
+
+  @override
+  String get hangulS11L4Step2Q0 => '「김치」是什麼？';
+
+  @override
+  String get hangulS11L4Step2Q1 => '「시장」是什麼？';
+
+  @override
+  String get hangulS11L4Step2Q2 => '「학생」是什麼？';
+
+  @override
+  String get hangulS11L4Step2CatFood => '食物';
+
+  @override
+  String get hangulS11L4Step2CatPlace => '地點';
+
+  @override
+  String get hangulS11L4Step2CatPerson => '人物';
+
+  @override
+  String get hangulS11L4Step3Title => '課程完成！';
+
+  @override
+  String get hangulS11L4Step3Msg => '很好！\n你學習了分類單字。';
+
+  @override
+  String get hangulS11L5Title => '聽後選詞';
+
+  @override
+  String get hangulS11L5Subtitle => '加強聽覺與閱讀的聯繫';
+
+  @override
+  String get hangulS11L5Step0Title => '聲音配對';
+
+  @override
+  String get hangulS11L5Step0Desc => '聽後選出正確的單字';
+
+  @override
+  String get hangulS11L5Step1Title => '課程完成！';
+
+  @override
+  String get hangulS11L5Step1Msg => '很好！\n你完成了聽後選詞訓練。';
+
+  @override
+  String get hangulS11L6Title => '第11階段綜合複習';
+
+  @override
+  String get hangulS11L6Subtitle => '單字閱讀最終檢驗';
+
+  @override
+  String get hangulS11L6Step0Title => '綜合測驗';
+
+  @override
+  String get hangulS11L6Step0Desc => '第11階段單字綜合檢驗';
+
+  @override
+  String get hangulS11L6Step0Q0 => '哪個單字沒有收音？';
+
+  @override
+  String get hangulS11L6Step0Q1 => '哪個是基本收音的單字？';
+
+  @override
+  String get hangulS11L6Step0Q2 => '哪個是複合收音的單字？';
+
+  @override
+  String get hangulS11L6Step0Q3 => '哪個是地點單字？';
+
+  @override
+  String get hangulS11L6Step1Title => '第11階段完成！';
+
+  @override
+  String get hangulS11L6Step1Msg => '恭喜！\n你完成了第11階段擴展單字閱讀。';
+
+  @override
+  String get hangulS11L7Title => '在現實中讀韓語';
+
+  @override
+  String get hangulS11L7Subtitle => '讀咖啡菜單、捷運站名和問候語';
+
+  @override
+  String get hangulS11L7Step0Title => '在韓國讀韓文！';
+
+  @override
+  String get hangulS11L7Step0Desc => '你已經學完了所有韓文！\n來讀在韓國能看到的文字吧！';
+
+  @override
+  String get hangulS11L7Step0Highlights => '咖啡廳,捷運,問候語';
+
+  @override
+  String get hangulS11L7Step1Title => '讀咖啡菜單';
+
+  @override
+  String get hangulS11L7Step1Descs => '美式咖啡,拿鐵,綠茶,蛋糕';
+
+  @override
+  String get hangulS11L7Step2Title => '讀捷運站名';
+
+  @override
+  String get hangulS11L7Step2Descs => '首爾站,江南,弘大入口,明洞';
+
+  @override
+  String get hangulS11L7Step3Title => '讀基本問候語';
+
+  @override
+  String get hangulS11L7Step3Descs => '你好,謝謝,是,不是';
+
+  @override
+  String get hangulS11L7Step4Title => '發音練習';
+
+  @override
+  String get hangulS11L7Step4Desc => '大聲讀出每個字';
+
+  @override
+  String get hangulS11L7Step5Title => '在哪裡能看到？';
+
+  @override
+  String get hangulS11L7Step5Q0 => '「아메리카노」在哪裡能看到？';
+
+  @override
+  String get hangulS11L7Step5Q0Ans => '咖啡廳';
+
+  @override
+  String get hangulS11L7Step5Q0C0 => '咖啡廳';
+
+  @override
+  String get hangulS11L7Step5Q0C1 => '捷運';
+
+  @override
+  String get hangulS11L7Step5Q0C2 => '學校';
+
+  @override
+  String get hangulS11L7Step5Q1 => '「강남」是什麼？';
+
+  @override
+  String get hangulS11L7Step5Q1Ans => '捷運站名';
+
+  @override
+  String get hangulS11L7Step5Q1C0 => '食物名稱';
+
+  @override
+  String get hangulS11L7Step5Q1C1 => '捷運站名';
+
+  @override
+  String get hangulS11L7Step5Q1C2 => '問候語';
+
+  @override
+  String get hangulS11L7Step5Q2 => '「감사합니다」用中文是？';
+
+  @override
+  String get hangulS11L7Step5Q2Ans => '謝謝';
+
+  @override
+  String get hangulS11L7Step5Q2C0 => '你好';
+
+  @override
+  String get hangulS11L7Step5Q2C1 => '謝謝';
+
+  @override
+  String get hangulS11L7Step5Q2C2 => '再見';
+
+  @override
+  String get hangulS11L7Step6Title => '恭喜！';
+
+  @override
+  String get hangulS11L7Step6Msg => '你現在能讀韓國的咖啡菜單、捷運站名和問候語了！\n離韓文大師只差一步！';
+
+  @override
+  String get hangulS11LMTitle => '任務：韓文速讀！';
+
+  @override
+  String get hangulS11LMSubtitle => '快速讀出韓語單字';
+
+  @override
+  String get hangulS11LMStep0Title => '韓文速讀任務！';
+
+  @override
+  String get hangulS11LMStep0Desc => '盡快讀出並配對韓語單字！\n是時候證明你的實力了！';
+
+  @override
+  String get hangulS11LMStep1Title => '組合音節！';
+
+  @override
+  String get hangulS11LMStep2Title => '任務結果';
+
+  @override
+  String get hangulS11LMStep3Title => '韓文大師！';
+
+  @override
+  String get hangulS11LMStep3Msg => '你已經完全掌握韓文了！\n現在可以讀韓語單字和句子了！';
+
+  @override
+  String get hangulS11LMStep4Title => '第11階段完成！';
+
+  @override
+  String get hangulS11LMStep4Msg => '你現在能完整地讀韓文了！';
+
+  @override
+  String get hangulS11CompleteTitle => '第11階段完成！';
+
+  @override
+  String get hangulS11CompleteMsg => '你現在能完整地讀韓文了！';
+
+  @override
+  String get stageRequestFailed => '傳送上台請求失敗，請重試。';
+
+  @override
+  String get stageRequestRejected => '主持人拒絕了你的上台請求。';
+
+  @override
+  String get inviteToStageFailed => '邀請上台失敗，舞台可能已滿。';
+
+  @override
+  String get demoteFailed => '從舞台移除失敗，請重試。';
+
+  @override
+  String get voiceRoomCloseRoomFailed => '關閉房間失敗，請重試。';
 }

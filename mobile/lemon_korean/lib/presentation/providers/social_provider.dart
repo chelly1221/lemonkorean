@@ -189,7 +189,7 @@ class SocialProvider with ChangeNotifier {
       _viewingProfile = await _repository.getProfile(userId);
 
       if (_viewingProfile == null) {
-        _errorMessage = 'User not found';
+        _errorMessage = 'userNotFound';
       }
 
       AppLogger.d('Loaded profile: userId=$userId', tag: 'SocialProvider');
@@ -405,7 +405,7 @@ class SocialProvider with ChangeNotifier {
         return comment;
       }
 
-      _errorMessage = 'Failed to create comment';
+      _errorMessage = 'failedToCreateComment';
       notifyListeners();
       return null;
     } catch (e) {
@@ -430,7 +430,7 @@ class SocialProvider with ChangeNotifier {
         return true;
       }
 
-      _errorMessage = 'Failed to delete comment';
+      _errorMessage = 'failedToDeleteComment';
       notifyListeners();
       return false;
     } catch (e) {
@@ -467,7 +467,7 @@ class SocialProvider with ChangeNotifier {
       );
 
       if (!success) {
-        _errorMessage = 'Failed to submit report';
+        _errorMessage = 'failedToSubmitReport';
         notifyListeners();
       }
 
@@ -503,7 +503,7 @@ class SocialProvider with ChangeNotifier {
         return true;
       }
 
-      _errorMessage = 'Failed to block user';
+      _errorMessage = 'failedToBlockUser';
       notifyListeners();
       return false;
     } catch (e) {
@@ -522,7 +522,7 @@ class SocialProvider with ChangeNotifier {
       final success = await _repository.unblockUser(userId);
 
       if (!success) {
-        _errorMessage = 'Failed to unblock user';
+        _errorMessage = 'failedToUnblockUser';
         notifyListeners();
       }
 

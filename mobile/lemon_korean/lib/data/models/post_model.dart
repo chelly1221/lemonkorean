@@ -60,13 +60,13 @@ class PostModel {
     required this.author,
     required this.content,
     required this.category,
+    required this.createdAt,
     this.tags = const [],
     this.visibility = 'public',
     this.imageUrls = const [],
     this.likeCount = 0,
     this.commentCount = 0,
     this.isLiked = false,
-    required this.createdAt,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {

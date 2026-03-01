@@ -15,13 +15,13 @@ class ConversationModel {
     required this.id,
     required this.otherUserId,
     required this.otherUserName,
+    required this.createdAt,
     this.otherUserAvatar,
     this.lastMessagePreview,
     this.lastMessageType = 'text',
     this.lastMessageSenderId = 0,
     this.lastMessageAt,
     this.unreadCount = 0,
-    required this.createdAt,
   });
 
   factory ConversationModel.fromJson(Map<String, dynamic> json) {

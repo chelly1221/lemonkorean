@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../data/models/lesson_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../lesson/lesson_screen.dart';
 
 /// Simple review lesson list screen.
@@ -25,7 +26,7 @@ class ReviewLessonsListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('복습 레슨'),
+        title: Text(AppLocalizations.of(context)?.reviewLessons ?? '복습 레슨'),
       ),
       body: reviewLessons.isEmpty
           ? Center(

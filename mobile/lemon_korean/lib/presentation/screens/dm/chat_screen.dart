@@ -19,11 +19,11 @@ class ChatScreen extends StatefulWidget {
   final int otherUserId;
 
   const ChatScreen({
-    super.key,
     required this.conversationId,
     required this.otherUserName,
-    this.otherUserAvatar,
     required this.otherUserId,
+    super.key,
+    this.otherUserAvatar,
   });
 
   @override
@@ -188,7 +188,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       if (dm.isUserTyping(widget.otherUserId)) {
                         return Text(
                           l10n?.typing ?? 'typing...',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             color: AppConstants.primaryColor,
                           ),

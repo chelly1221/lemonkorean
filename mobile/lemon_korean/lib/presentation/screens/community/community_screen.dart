@@ -1257,7 +1257,7 @@ class _DiscoverEmptyState extends StatelessWidget {
             FilledButton.icon(
               onPressed: onCreatePost,
               icon: const Icon(Icons.edit_outlined, size: 18),
-              label: const Text('Be the first to post!'),
+              label: Text(l10n?.beFirstToPost ?? 'Be the first to post!'),
               style: FilledButton.styleFrom(
                 backgroundColor: AppConstants.primaryColor,
                 foregroundColor: Colors.black87,

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/utils/korean_tts_helper.dart';
 import '../../../../../data/models/speech_result_model.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../../../../providers/speech_provider.dart';
 import '../stage0_lesson_content.dart';
 
@@ -141,7 +142,7 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
   @override
   Widget build(BuildContext context) {
     if (_characters.isEmpty) {
-      return const Center(child: Text('No characters defined'));
+      return Center(child: Text(AppLocalizations.of(context)?.noCharactersDefined ?? 'No characters defined'));
     }
 
     return Consumer<SpeechProvider>(
@@ -376,7 +377,7 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
                         ),
                       ),
                       child:
-                          Text('다시 시도 ($_currentAttempt/$_maxAttempts)'),
+                          Text(AppLocalizations.of(context)?.retryAttempt(_currentAttempt, _maxAttempts) ?? '다시 시도 ($_currentAttempt/$_maxAttempts)'),
                     ),
                   ),
                 if (canRetry) const SizedBox(width: 12),
@@ -393,8 +394,8 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
                     ),
                     child: Text(
                       _currentCharIndex < _characters.length - 1
-                          ? '다음'
-                          : '완료',
+                          ? AppLocalizations.of(context)?.nextButton ?? '다음'
+                          : AppLocalizations.of(context)?.completeButton ?? '완료',
                     ),
                   ),
                 ),
@@ -539,42 +540,18 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
         color: Colors.grey.shade50,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Row(
-            children: [
-              Icon(Icons.text_fields, size: 16, color: Colors.blue.shade400),
-              const SizedBox(width: 6),
-              Text(
-                '인식: "${result.transcription}"',
-                style:
-                    TextStyle(fontSize: 12, color: Colors.grey.shade700),
-              ),
-              const Spacer(),
-              Text(
-                result.transcription == result.expectedText ? '정확' : '',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: result.transcription == result.expectedText
-                      ? Colors.green
-                      : Colors.orange,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+          Icon(Icons.bar_chart, size: 16, color: Colors.purple.shade400),
+          const SizedBox(width: 6),
+          Text(
+            '발음 품질: ${result.gopScore}점',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
           ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              Icon(Icons.bar_chart, size: 16, color: Colors.purple.shade400),
-              const SizedBox(width: 6),
-              Text(
-                '발음 품질: ${result.gopScore}점',
-                style:
-                    TextStyle(fontSize: 12, color: Colors.grey.shade700),
-              ),
-            ],
+          const Spacer(),
+          Text(
+            '세부: ${result.detailScore}점',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
           ),
         ],
       ),

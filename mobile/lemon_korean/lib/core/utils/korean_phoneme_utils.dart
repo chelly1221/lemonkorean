@@ -332,9 +332,46 @@ class KoreanPhonemeUtils {
     'ㅣ': {'ㅡ': 20, 'ㅔ': 50},
   };
 
+  /// Map complex final consonants (겹받침) to their primary component
+  /// for GOP label matching. GOP models only have single consonant labels.
+  ///
+  /// Mapping follows standard Korean pronunciation rules (대표음):
+  /// - ㄳ → ㄱ, ㄵ → ㄴ, ㄶ → ㄴ, ㄺ → ㄹ, ㄻ → ㅁ, ㄼ → ㄹ
+  /// - ㄽ → ㄹ, ㄾ → ㄹ, ㄿ → ㄹ, ㅀ → ㄹ, ㅄ → ㅂ, ㄲ → ㄱ, ㅆ → ㅅ
+  static const Map<String, String> complexFinalToSimple = {
+    'ㄳ': 'ㄱ',
+    'ㄵ': 'ㄴ',
+    'ㄶ': 'ㄴ',
+    'ㄺ': 'ㄹ',
+    'ㄻ': 'ㅁ',
+    'ㄼ': 'ㄹ',
+    'ㄽ': 'ㄹ',
+    'ㄾ': 'ㄹ',
+    'ㄿ': 'ㄹ',
+    'ㅀ': 'ㄹ',
+    'ㅄ': 'ㅂ',
+  };
+
+  /// Simplify a phoneme for GOP label lookup.
+  /// Complex 종성 are mapped to their representative single consonant.
+  /// All other phonemes are returned as-is.
+  static String simplifyForGop(String phoneme) {
+    return complexFinalToSimple[phoneme] ?? phoneme;
+  }
+
+  /// Classify a phoneme as consonant or vowel.
+  /// Used for GOP frame allocation weighting.
+  static PhonemeType classifyPhoneme(String phoneme) {
+    if (medials.contains(phoneme)) return PhonemeType.vowel;
+    return PhonemeType.consonant;
+  }
+
   // Private constructor to prevent instantiation
   KoreanPhonemeUtils._();
 }
+
+/// Classification of phoneme for frame allocation.
+enum PhonemeType { consonant, vowel }
 
 /// Result of decomposing a Hangul syllable into its constituent jamo.
 class HangulDecomposition {

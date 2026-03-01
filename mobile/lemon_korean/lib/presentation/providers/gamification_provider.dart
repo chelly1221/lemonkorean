@@ -23,13 +23,13 @@ class GamificationProvider with ChangeNotifier {
   final Map<String, bool> _bossQuizCompleted = {};
 
   // Server settings (with defaults matching migration 009)
-  int _lemon3Threshold = 95;
-  int _lemon2Threshold = 80;
-  int _bossQuizBonus = 5;
-  int _bossQuizPassPercent = 70;
-  int _maxTreeLemons = 10;
-  bool _adsEnabled = true;
-  String _admobRewardedAdId = '';
+  final int _lemon3Threshold = 95;
+  final int _lemon2Threshold = 80;
+  final int _bossQuizBonus = 5;
+  final int _bossQuizPassPercent = 70;
+  final int _maxTreeLemons = 10;
+  final bool _adsEnabled = true;
+  final String _admobRewardedAdId = '';
 
   // Getters
   int get totalLemons => _totalLemons;

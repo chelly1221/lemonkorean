@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../../l10n/generated/app_localizations.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/platform/platform_factory.dart';
 import '../../core/platform/secure_storage_interface.dart';
@@ -85,7 +86,7 @@ class AuthProvider extends ChangeNotifier {
       await _fetchAndCacheUserProfile();
     } catch (e) {
       AppLogger.e('Error loading user: $e', tag: _tag);
-      _setError('사용자 정보 로드 실패');
+      _setError('userInfoLoadFailed');
       // Don't force logout on general errors if we have cached user
       if (_currentUser == null) {
         await _forceLogout();
@@ -258,12 +259,12 @@ class AuthProvider extends ChangeNotifier {
         _setLoading(false);
         return true;
       } else {
-        _setError(result.message ?? '로그인 실패');
+        _setError(result.message ?? 'loginFailed');
         _setLoading(false);
         return false;
       }
     } catch (e) {
-      _setError('로그인 중 오류 발생: $e');
+      _setError('loginErrorOccurred');
       _setLoading(false);
       return false;
     }
@@ -319,12 +320,12 @@ class AuthProvider extends ChangeNotifier {
         _setLoading(false);
         return true;
       } else {
-        _setError(result.message ?? '회원가입 실패');
+        _setError(result.message ?? 'registerFailed');
         _setLoading(false);
         return false;
       }
     } catch (e) {
-      _setError('회원가입 중 오류 발생: $e');
+      _setError('registerErrorOccurred');
       _setLoading(false);
       return false;
     }
@@ -354,7 +355,7 @@ class AuthProvider extends ChangeNotifier {
       AppLogger.i('Logout successful', tag: _tag);
       _setLoading(false);
     } catch (e) {
-      _setError('로그아웃 중 오류 발생: $e');
+      _setError('logoutErrorOccurred');
       _setLoading(false);
     }
   }
@@ -392,5 +393,27 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> hasToken() async {
     final token = await getToken();
     return token != null && token.isNotEmpty;
+  }
+
+  /// Resolve auth error code to localized string.
+  /// Use in UI screens where [error] is displayed to the user.
+  static String localizeError(String? error, AppLocalizations? l10n) {
+    if (error == null || l10n == null) return error ?? '';
+    switch (error) {
+      case 'loginFailed':
+        return l10n.loginFailed;
+      case 'registerFailed':
+        return l10n.registerFailed;
+      case 'loginErrorOccurred':
+        return l10n.loginErrorOccurred;
+      case 'registerErrorOccurred':
+        return l10n.registerErrorOccurred;
+      case 'logoutErrorOccurred':
+        return l10n.logoutErrorOccurred;
+      case 'userInfoLoadFailed':
+        return l10n.userInfoLoadFailed;
+      default:
+        return error;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/vocabulary_browser_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../widgets/vocabulary_card.dart';
@@ -50,7 +51,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('단어 브라우저'),
+        title: Text(AppLocalizations.of(context)?.vocabularyBrowser ?? '단어 브라우저'),
         bottom: TabBar(
           controller: _tabController,
           isScrollable: false,
@@ -89,7 +90,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
       child: TextField(
         controller: _searchController,
         decoration: InputDecoration(
-          hintText: '단어 검색 (한국어/뜻)',
+          hintText: AppLocalizations.of(context)?.searchWordsKoreanMeaning ?? '단어 검색 (한국어/뜻)',
           prefixIcon: const Icon(Icons.search),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
@@ -155,7 +156,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => provider.refreshCurrentLevel(),
-                  child: const Text('다시 시도'),
+                  child: Text(AppLocalizations.of(context)?.retry ?? '다시 시도'),
                 ),
               ],
             ),
@@ -201,13 +202,14 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
   }
 
   String _getSortLabel(VocabSortType type) {
+    final l10n = AppLocalizations.of(context);
     switch (type) {
       case VocabSortType.level:
-        return '레벨순';
+        return l10n?.sortByLevel ?? '레벨순';
       case VocabSortType.alphabetical:
-        return '알파벳순';
+        return l10n?.sortAlphabetical ?? '알파벳순';
       case VocabSortType.similarity:
-        return '유사도순';
+        return l10n?.sortBySimilarity ?? '유사도순';
     }
   }
 
@@ -223,7 +225,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
             children: [
               ListTile(
                 leading: const Icon(Icons.sort_by_alpha),
-                title: const Text('알파벳순'),
+                title: Text(AppLocalizations.of(context)?.sortAlphabetical ?? '알파벳순'),
                 trailing: provider.sortType == VocabSortType.alphabetical
                     ? const Icon(Icons.check, color: Colors.blue)
                     : null,
@@ -234,7 +236,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
               ),
               ListTile(
                 leading: const Icon(Icons.filter_list),
-                title: const Text('레벨순'),
+                title: Text(AppLocalizations.of(context)?.sortByLevel ?? '레벨순'),
                 trailing: provider.sortType == VocabSortType.level
                     ? const Icon(Icons.check, color: Colors.blue)
                     : null,
@@ -245,7 +247,7 @@ class _VocabularyBrowserScreenState extends State<VocabularyBrowserScreen>
               ),
               ListTile(
                 leading: const Icon(Icons.star),
-                title: const Text('유사도순'),
+                title: Text(AppLocalizations.of(context)?.sortBySimilarity ?? '유사도순'),
                 trailing: provider.sortType == VocabSortType.similarity
                     ? const Icon(Icons.check, color: Colors.blue)
                     : null,

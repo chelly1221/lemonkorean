@@ -1,910 +1,1190 @@
 {
   "@@locale": "ja",
   "@@context": "LemonKorean App - Japanese",
-
   "appName": "レモン韓国語",
-  "@appName": {"description": "App name"},
-
+  "@appName": {
+    "description": "App name"
+  },
   "login": "ログイン",
-  "@login": {"description": "Login button"},
-
+  "@login": {
+    "description": "Login button"
+  },
   "register": "新規登録",
-  "@register": {"description": "Register button"},
-
+  "@register": {
+    "description": "Register button"
+  },
   "email": "メールアドレス",
-  "@email": {"description": "Email field label"},
-
+  "@email": {
+    "description": "Email field label"
+  },
   "password": "パスワード",
-  "@password": {"description": "Password field label"},
-
+  "@password": {
+    "description": "Password field label"
+  },
   "confirmPassword": "パスワード確認",
-  "@confirmPassword": {"description": "Confirm password field label"},
-
+  "@confirmPassword": {
+    "description": "Confirm password field label"
+  },
   "username": "ユーザー名",
-  "@username": {"description": "Username field label"},
-
+  "@username": {
+    "description": "Username field label"
+  },
   "enterEmail": "メールアドレスを入力してください",
-  "@enterEmail": {"description": "Email placeholder"},
-
+  "@enterEmail": {
+    "description": "Email placeholder"
+  },
   "enterPassword": "パスワードを入力してください",
-  "@enterPassword": {"description": "Password placeholder"},
-
+  "@enterPassword": {
+    "description": "Password placeholder"
+  },
   "enterConfirmPassword": "パスワードを再入力してください",
-  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
-
+  "@enterConfirmPassword": {
+    "description": "Confirm password placeholder"
+  },
   "enterUsername": "ユーザー名を入力してください",
-  "@enterUsername": {"description": "Username placeholder"},
-
+  "@enterUsername": {
+    "description": "Username placeholder"
+  },
   "createAccount": "アカウント作成",
-  "@createAccount": {"description": "Create account title"},
-
+  "@createAccount": {
+    "description": "Create account title"
+  },
   "startJourney": "韓国語学習を始めましょう",
-  "@startJourney": {"description": "Subtitle for registration"},
-
+  "@startJourney": {
+    "description": "Subtitle for registration"
+  },
   "interfaceLanguage": "表示言語",
-  "@interfaceLanguage": {"description": "Interface language label"},
-
+  "@interfaceLanguage": {
+    "description": "Interface language label"
+  },
   "simplifiedChinese": "中国語（簡体字）",
-  "@simplifiedChinese": {"description": "Simplified Chinese option"},
-
+  "@simplifiedChinese": {
+    "description": "Simplified Chinese option"
+  },
   "traditionalChinese": "中国語（繁体字）",
-  "@traditionalChinese": {"description": "Traditional Chinese option"},
-
+  "@traditionalChinese": {
+    "description": "Traditional Chinese option"
+  },
   "passwordRequirements": "パスワード要件",
-  "@passwordRequirements": {"description": "Password requirements title"},
-
+  "@passwordRequirements": {
+    "description": "Password requirements title"
+  },
   "minCharacters": "{count}文字以上",
   "@minCharacters": {
     "description": "Minimum characters requirement",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "containLettersNumbers": "英字と数字を含む",
-  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
-
+  "@containLettersNumbers": {
+    "description": "Letters and numbers requirement"
+  },
   "haveAccount": "すでにアカウントをお持ちですか？",
-  "@haveAccount": {"description": "Already have account text"},
-
+  "@haveAccount": {
+    "description": "Already have account text"
+  },
   "noAccount": "アカウントをお持ちでないですか？",
-  "@noAccount": {"description": "No account text"},
-
+  "@noAccount": {
+    "description": "No account text"
+  },
   "loginNow": "ログインする",
-  "@loginNow": {"description": "Login now button"},
-
+  "@loginNow": {
+    "description": "Login now button"
+  },
   "registerNow": "新規登録する",
-  "@registerNow": {"description": "Register now button"},
-
+  "@registerNow": {
+    "description": "Register now button"
+  },
   "registerSuccess": "登録完了",
-  "@registerSuccess": {"description": "Registration success message"},
-
+  "@registerSuccess": {
+    "description": "Registration success message"
+  },
   "registerFailed": "登録に失敗しました",
-  "@registerFailed": {"description": "Registration failed message"},
-
+  "@registerFailed": {
+    "description": "Registration failed message"
+  },
   "loginSuccess": "ログイン成功",
-  "@loginSuccess": {"description": "Login success message"},
-
+  "@loginSuccess": {
+    "description": "Login success message"
+  },
   "loginFailed": "ログインに失敗しました",
-  "@loginFailed": {"description": "Login failed message"},
-
+  "@loginFailed": {
+    "description": "Login failed message"
+  },
   "networkError": "ネットワーク接続に失敗しました。ネットワーク設定をご確認ください。",
-  "@networkError": {"description": "Network error message"},
-
+  "@networkError": {
+    "description": "Network error message"
+  },
   "invalidCredentials": "メールアドレスまたはパスワードが正しくありません",
-  "@invalidCredentials": {"description": "Invalid credentials message"},
-
+  "@invalidCredentials": {
+    "description": "Invalid credentials message"
+  },
   "emailAlreadyExists": "このメールアドレスは既に登録されています",
-  "@emailAlreadyExists": {"description": "Email exists message"},
-
+  "@emailAlreadyExists": {
+    "description": "Email exists message"
+  },
   "requestTimeout": "リクエストがタイムアウトしました。もう一度お試しください。",
-  "@requestTimeout": {"description": "Request timeout message"},
-
+  "@requestTimeout": {
+    "description": "Request timeout message"
+  },
   "operationFailed": "エラーが発生しました。しばらくしてからもう一度お試しください。",
-  "@operationFailed": {"description": "Generic operation failed message"},
-
+  "@operationFailed": {
+    "description": "Generic operation failed message"
+  },
   "settings": "設定",
-  "@settings": {"description": "Settings title"},
-
+  "@settings": {
+    "description": "Settings title"
+  },
   "languageSettings": "言語設定",
-  "@languageSettings": {"description": "Language settings title"},
-
+  "@languageSettings": {
+    "description": "Language settings title"
+  },
   "chineseDisplay": "中国語表示",
-  "@chineseDisplay": {"description": "Chinese display section title"},
-
+  "@chineseDisplay": {
+    "description": "Chinese display section title"
+  },
   "chineseDisplayDesc": "中国語の表示方法を選択してください。変更後すぐにすべての画面に適用されます。",
-  "@chineseDisplayDesc": {"description": "Chinese display description"},
-
+  "@chineseDisplayDesc": {
+    "description": "Chinese display description"
+  },
   "switchedToSimplified": "簡体字に切り替えました",
-  "@switchedToSimplified": {"description": "Switched to simplified message"},
-
+  "@switchedToSimplified": {
+    "description": "Switched to simplified message"
+  },
   "switchedToTraditional": "繁体字に切り替えました",
-  "@switchedToTraditional": {"description": "Switched to traditional message"},
-
+  "@switchedToTraditional": {
+    "description": "Switched to traditional message"
+  },
   "displayTip": "ヒント：レッスンの内容は選択した中国語フォントで表示されます。",
-  "@displayTip": {"description": "Display tip text"},
-
+  "@displayTip": {
+    "description": "Display tip text"
+  },
   "notificationSettings": "通知設定",
-  "@notificationSettings": {"description": "Notification settings title"},
-
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
   "enableNotifications": "通知を有効にする",
-  "@enableNotifications": {"description": "Enable notifications toggle"},
-
+  "@enableNotifications": {
+    "description": "Enable notifications toggle"
+  },
   "enableNotificationsDesc": "オンにすると学習リマインダーを受け取れます",
-  "@enableNotificationsDesc": {"description": "Enable notifications description"},
-
+  "@enableNotificationsDesc": {
+    "description": "Enable notifications description"
+  },
   "permissionRequired": "システム設定で通知の許可を有効にしてください",
-  "@permissionRequired": {"description": "Permission required message"},
-
+  "@permissionRequired": {
+    "description": "Permission required message"
+  },
   "dailyLearningReminder": "毎日の学習リマインダー",
-  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
-
+  "@dailyLearningReminder": {
+    "description": "Daily learning reminder section"
+  },
   "dailyReminder": "毎日のリマインダー",
-  "@dailyReminder": {"description": "Daily reminder toggle"},
-
+  "@dailyReminder": {
+    "description": "Daily reminder toggle"
+  },
   "dailyReminderDesc": "毎日決まった時間に学習リマインダーを送信します",
-  "@dailyReminderDesc": {"description": "Daily reminder description"},
-
+  "@dailyReminderDesc": {
+    "description": "Daily reminder description"
+  },
   "reminderTime": "リマインダー時刻",
-  "@reminderTime": {"description": "Reminder time label"},
-
+  "@reminderTime": {
+    "description": "Reminder time label"
+  },
   "reminderTimeSet": "リマインダー時刻を{time}に設定しました",
   "@reminderTimeSet": {
     "description": "Reminder time set message",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "reviewReminder": "復習リマインダー",
-  "@reviewReminder": {"description": "Review reminder toggle"},
-
+  "@reviewReminder": {
+    "description": "Review reminder toggle"
+  },
   "reviewReminderDesc": "記憶曲線に基づいて復習リマインダーを送信します",
-  "@reviewReminderDesc": {"description": "Review reminder description"},
-
+  "@reviewReminderDesc": {
+    "description": "Review reminder description"
+  },
   "notificationTip": "ヒント：",
-  "@notificationTip": {"description": "Tip prefix"},
-
+  "@notificationTip": {
+    "description": "Tip prefix"
+  },
   "helpCenter": "ヘルプセンター",
-  "@helpCenter": {"description": "Help center title"},
-
+  "@helpCenter": {
+    "description": "Help center title"
+  },
   "offlineLearning": "オフライン学習",
-  "@offlineLearning": {"description": "Offline learning section"},
-
+  "@offlineLearning": {
+    "description": "Offline learning section"
+  },
   "howToDownload": "レッスンをダウンロードするには？",
-  "@howToDownload": {"description": "How to download FAQ"},
-
+  "@howToDownload": {
+    "description": "How to download FAQ"
+  },
   "howToDownloadAnswer": "レッスン一覧で右側のダウンロードアイコンをタップするとレッスンをダウンロードできます。ダウンロード後はオフラインで学習できます。",
-  "@howToDownloadAnswer": {"description": "How to download answer"},
-
+  "@howToDownloadAnswer": {
+    "description": "How to download answer"
+  },
   "howToUseDownloaded": "ダウンロードしたレッスンを使うには？",
-  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
-
+  "@howToUseDownloaded": {
+    "description": "How to use downloaded FAQ"
+  },
   "howToUseDownloadedAnswer": "ネットワーク接続がなくても、ダウンロードしたレッスンは通常通り学習できます。進捗はローカルに保存され、ネットワーク接続時に自動的に同期されます。",
-  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
-
+  "@howToUseDownloadedAnswer": {
+    "description": "How to use downloaded answer"
+  },
   "storageManagement": "ストレージ管理",
-  "@storageManagement": {"description": "Storage management section"},
-
+  "@storageManagement": {
+    "description": "Storage management section"
+  },
   "howToCheckStorage": "ストレージ容量を確認するには？",
-  "@howToCheckStorage": {"description": "How to check storage FAQ"},
-
+  "@howToCheckStorage": {
+    "description": "How to check storage FAQ"
+  },
   "howToCheckStorageAnswer": "【設定 → ストレージ管理】で使用中と利用可能なストレージ容量を確認できます。",
-  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
-
+  "@howToCheckStorageAnswer": {
+    "description": "How to check storage answer"
+  },
   "howToDeleteDownloaded": "ダウンロードしたレッスンを削除するには？",
-  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
-
+  "@howToDeleteDownloaded": {
+    "description": "How to delete downloaded FAQ"
+  },
   "howToDeleteDownloadedAnswer": "【ストレージ管理】でレッスンの横にある削除ボタンをタップすると削除できます。",
-  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
-
+  "@howToDeleteDownloadedAnswer": {
+    "description": "How to delete downloaded answer"
+  },
   "notificationSection": "通知設定",
-  "@notificationSection": {"description": "Notification section in help"},
-
+  "@notificationSection": {
+    "description": "Notification section in help"
+  },
   "howToEnableReminder": "学習リマインダーを有効にするには？",
-  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
-
+  "@howToEnableReminder": {
+    "description": "How to enable reminder FAQ"
+  },
   "howToEnableReminderAnswer": "【設定 → 通知設定】で【通知を有効にする】スイッチをオンにしてください。初回使用時は通知の許可が必要です。",
-  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
-
+  "@howToEnableReminderAnswer": {
+    "description": "How to enable reminder answer"
+  },
   "whatIsReviewReminder": "復習リマインダーとは？",
-  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
-
+  "@whatIsReviewReminder": {
+    "description": "What is review reminder FAQ"
+  },
   "whatIsReviewReminderAnswer": "間隔反復アルゴリズム（SRS）に基づき、学習したレッスンを最適なタイミングで復習するようリマインドします。復習間隔：1日 → 3日 → 7日 → 14日 → 30日。",
-  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
-
+  "@whatIsReviewReminderAnswer": {
+    "description": "What is review reminder answer"
+  },
   "languageSection": "言語設定",
-  "@languageSection": {"description": "Language section in help"},
-
+  "@languageSection": {
+    "description": "Language section in help"
+  },
   "howToSwitchChinese": "簡体字と繁体字を切り替えるには？",
-  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
-
+  "@howToSwitchChinese": {
+    "description": "How to switch Chinese FAQ"
+  },
   "howToSwitchChineseAnswer": "【設定 → 言語設定】で【簡体字】または【繁体字】を選択してください。変更後すぐに反映されます。",
-  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
-
+  "@howToSwitchChineseAnswer": {
+    "description": "How to switch Chinese answer"
+  },
   "faq": "よくある質問",
-  "@faq": {"description": "FAQ section title"},
-
+  "@faq": {
+    "description": "FAQ section title"
+  },
   "howToStart": "学習を始めるには？",
-  "@howToStart": {"description": "How to start learning FAQ"},
-
+  "@howToStart": {
+    "description": "How to start learning FAQ"
+  },
   "howToStartAnswer": "メイン画面で自分のレベルに合ったレッスンを選び、レッスン1から始めてください。各レッスンは7つのステージで構成されています。",
-  "@howToStartAnswer": {"description": "How to start learning answer"},
-
+  "@howToStartAnswer": {
+    "description": "How to start learning answer"
+  },
   "progressNotSaved": "進捗が保存されない場合は？",
-  "@progressNotSaved": {"description": "Progress not saved FAQ"},
-
+  "@progressNotSaved": {
+    "description": "Progress not saved FAQ"
+  },
   "progressNotSavedAnswer": "進捗は自動的にローカルに保存されます。オンライン時にサーバーに自動同期されます。ネットワーク接続をご確認ください。",
-  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
-
+  "@progressNotSavedAnswer": {
+    "description": "Progress not saved answer"
+  },
   "aboutApp": "アプリについて",
-  "@aboutApp": {"description": "About app title"},
-
+  "@aboutApp": {
+    "description": "About app title"
+  },
   "moreInfo": "詳細情報",
-  "@moreInfo": {"description": "More info section"},
-
+  "@moreInfo": {
+    "description": "More info section"
+  },
   "versionInfo": "バージョン情報",
-  "@versionInfo": {"description": "Version info label"},
-
+  "@versionInfo": {
+    "description": "Version info label"
+  },
   "developer": "開発者",
-  "@developer": {"description": "Developer label"},
-
+  "@developer": {
+    "description": "Developer label"
+  },
   "appIntro": "アプリ紹介",
-  "@appIntro": {"description": "App introduction label"},
-
+  "@appIntro": {
+    "description": "App introduction label"
+  },
   "appIntroContent": "多言語対応の韓国語学習アプリです。オフライン学習、スマート復習リマインダーなどの機能をサポートしています。",
-  "@appIntroContent": {"description": "App introduction content"},
-
+  "@appIntroContent": {
+    "description": "App introduction content"
+  },
   "termsOfService": "利用規約",
-  "@termsOfService": {"description": "Terms of service"},
-
+  "@termsOfService": {
+    "description": "Terms of service"
+  },
   "termsComingSoon": "利用規約ページは準備中です...",
-  "@termsComingSoon": {"description": "Terms coming soon message"},
-
+  "@termsComingSoon": {
+    "description": "Terms coming soon message"
+  },
   "privacyPolicy": "プライバシーポリシー",
-  "@privacyPolicy": {"description": "Privacy policy"},
-
+  "@privacyPolicy": {
+    "description": "Privacy policy"
+  },
   "privacyComingSoon": "プライバシーポリシーページは準備中です...",
-  "@privacyComingSoon": {"description": "Privacy coming soon message"},
-
+  "@privacyComingSoon": {
+    "description": "Privacy coming soon message"
+  },
   "openSourceLicenses": "オープンソースライセンス",
-  "@openSourceLicenses": {"description": "Open source licenses"},
-
+  "@openSourceLicenses": {
+    "description": "Open source licenses"
+  },
   "notStarted": "未開始",
-  "@notStarted": {"description": "Status: not started"},
-
+  "@notStarted": {
+    "description": "Status: not started"
+  },
   "inProgress": "学習中",
-  "@inProgress": {"description": "Status: in progress"},
-
+  "@inProgress": {
+    "description": "Status: in progress"
+  },
   "completed": "完了",
-  "@completed": {"description": "Status: completed"},
-
+  "@completed": {
+    "description": "Status: completed"
+  },
   "notPassed": "不合格",
-  "@notPassed": {"description": "Status: not passed"},
-
+  "@notPassed": {
+    "description": "Status: not passed"
+  },
   "timeToReview": "復習の時間です",
-  "@timeToReview": {"description": "Time to review message"},
-
+  "@timeToReview": {
+    "description": "Time to review message"
+  },
   "today": "今日",
-  "@today": {"description": "Today"},
-
+  "@today": {
+    "description": "Today"
+  },
   "tomorrow": "明日",
-  "@tomorrow": {"description": "Tomorrow"},
-
+  "@tomorrow": {
+    "description": "Tomorrow"
+  },
   "daysLater": "{count}日後",
   "@daysLater": {
     "description": "Days later",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "noun": "名詞",
-  "@noun": {"description": "Part of speech: noun"},
-
+  "@noun": {
+    "description": "Part of speech: noun"
+  },
   "verb": "動詞",
-  "@verb": {"description": "Part of speech: verb"},
-
+  "@verb": {
+    "description": "Part of speech: verb"
+  },
   "adjective": "形容詞",
-  "@adjective": {"description": "Part of speech: adjective"},
-
+  "@adjective": {
+    "description": "Part of speech: adjective"
+  },
   "adverb": "副詞",
-  "@adverb": {"description": "Part of speech: adverb"},
-
+  "@adverb": {
+    "description": "Part of speech: adverb"
+  },
   "particle": "助詞",
-  "@particle": {"description": "Part of speech: particle"},
-
+  "@particle": {
+    "description": "Part of speech: particle"
+  },
   "pronoun": "代名詞",
-  "@pronoun": {"description": "Part of speech: pronoun"},
-
+  "@pronoun": {
+    "description": "Part of speech: pronoun"
+  },
   "highSimilarity": "高い類似度",
-  "@highSimilarity": {"description": "High similarity level"},
-
+  "@highSimilarity": {
+    "description": "High similarity level"
+  },
   "mediumSimilarity": "中程度の類似度",
-  "@mediumSimilarity": {"description": "Medium similarity level"},
-
+  "@mediumSimilarity": {
+    "description": "Medium similarity level"
+  },
   "lowSimilarity": "低い類似度",
-  "@lowSimilarity": {"description": "Low similarity level"},
-
+  "@lowSimilarity": {
+    "description": "Low similarity level"
+  },
   "learningComplete": "学習完了",
-  "@learningComplete": {"description": "Learning complete title"},
-
+  "@learningComplete": {
+    "description": "Learning complete title"
+  },
   "experiencePoints": "経験値 +{points}",
   "@experiencePoints": {
     "description": "Experience points gained",
     "placeholders": {
-      "points": {"type": "int"}
+      "points": {
+        "type": "int"
+      }
     }
   },
-
   "keepLearning": "この調子で学習を続けましょう！",
-  "@keepLearning": {"description": "Keep learning message"},
-
+  "@keepLearning": {
+    "description": "Keep learning message"
+  },
   "streakDays": "連続学習 +1日",
-  "@streakDays": {"description": "Streak days increased"},
-
+  "@streakDays": {
+    "description": "Streak days increased"
+  },
   "streakDaysCount": "連続{days}日学習中",
   "@streakDaysCount": {
     "description": "Streak days count",
     "placeholders": {
-      "days": {"type": "int"}
+      "days": {
+        "type": "int"
+      }
     }
   },
-
   "lessonContent": "このレッスンの学習内容",
-  "@lessonContent": {"description": "Lesson content title"},
-
+  "@lessonContent": {
+    "description": "Lesson content title"
+  },
   "words": "単語",
-  "@words": {"description": "Words label"},
-
+  "@words": {
+    "description": "Words label"
+  },
   "grammarPoints": "文法ポイント",
-  "@grammarPoints": {"description": "Grammar points label"},
-
+  "@grammarPoints": {
+    "description": "Grammar points label"
+  },
   "dialogues": "会話",
-  "@dialogues": {"description": "Dialogues label"},
-
+  "@dialogues": {
+    "description": "Dialogues label"
+  },
   "previous": "前へ",
-  "@previous": {"description": "Previous button"},
-
+  "@previous": {
+    "description": "Previous button"
+  },
   "next": "次へ",
-  "@next": {"description": "Next button"},
-
+  "@next": {
+    "description": "Next button"
+  },
   "topicParticle": "主題助詞",
-  "@topicParticle": {"description": "Topic particle grammar"},
-
+  "@topicParticle": {
+    "description": "Topic particle grammar"
+  },
   "honorificEnding": "敬語語尾",
-  "@honorificEnding": {"description": "Honorific ending grammar"},
-
+  "@honorificEnding": {
+    "description": "Honorific ending grammar"
+  },
   "questionWord": "何",
-  "@questionWord": {"description": "Question word what"},
-
+  "@questionWord": {
+    "description": "Question word what"
+  },
   "hello": "こんにちは",
-  "@hello": {"description": "Hello"},
-
+  "@hello": {
+    "description": "Hello"
+  },
   "thankYou": "ありがとうございます",
-  "@thankYou": {"description": "Thank you"},
-
+  "@thankYou": {
+    "description": "Thank you"
+  },
   "goodbye": "さようなら",
-  "@goodbye": {"description": "Goodbye"},
-
+  "@goodbye": {
+    "description": "Goodbye"
+  },
   "sorry": "すみません",
-  "@sorry": {"description": "Sorry"},
-
+  "@sorry": {
+    "description": "Sorry"
+  },
   "imStudent": "私は学生です",
-  "@imStudent": {"description": "I am a student"},
-
+  "@imStudent": {
+    "description": "I am a student"
+  },
   "bookInteresting": "本が面白いです",
-  "@bookInteresting": {"description": "Book is interesting"},
-
+  "@bookInteresting": {
+    "description": "Book is interesting"
+  },
   "isStudent": "学生です",
-  "@isStudent": {"description": "Is student"},
-
+  "@isStudent": {
+    "description": "Is student"
+  },
   "isTeacher": "先生です",
-  "@isTeacher": {"description": "Is teacher"},
-
+  "@isTeacher": {
+    "description": "Is teacher"
+  },
   "whatIsThis": "これは何ですか？",
-  "@whatIsThis": {"description": "What is this?"},
-
+  "@whatIsThis": {
+    "description": "What is this?"
+  },
   "whatDoingPolite": "何をしていますか？",
-  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
-
+  "@whatDoingPolite": {
+    "description": "What are you doing? (polite)"
+  },
   "listenAndChoose": "聞いて正しい訳を選んでください",
-  "@listenAndChoose": {"description": "Listen and choose instruction"},
-
+  "@listenAndChoose": {
+    "description": "Listen and choose instruction"
+  },
   "fillInBlank": "正しい助詞を入れてください",
-  "@fillInBlank": {"description": "Fill in blank instruction"},
-
+  "@fillInBlank": {
+    "description": "Fill in blank instruction"
+  },
   "chooseTranslation": "正しい訳を選んでください",
-  "@chooseTranslation": {"description": "Choose translation instruction"},
-
+  "@chooseTranslation": {
+    "description": "Choose translation instruction"
+  },
   "arrangeWords": "正しい順序に単語を並べてください",
-  "@arrangeWords": {"description": "Arrange words instruction"},
-
+  "@arrangeWords": {
+    "description": "Arrange words instruction"
+  },
   "choosePronunciation": "正しい発音を選んでください",
-  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
-
+  "@choosePronunciation": {
+    "description": "Choose pronunciation instruction"
+  },
   "consonantEnding": "名詞が子音で終わる場合、どの主題助詞を使いますか？",
-  "@consonantEnding": {"description": "Consonant ending quiz question"},
-
+  "@consonantEnding": {
+    "description": "Consonant ending quiz question"
+  },
   "correctSentence": "正しい文を選んでください",
-  "@correctSentence": {"description": "Choose correct sentence instruction"},
-
+  "@correctSentence": {
+    "description": "Choose correct sentence instruction"
+  },
   "allCorrect": "すべて正解",
-  "@allCorrect": {"description": "All of the above option"},
-
+  "@allCorrect": {
+    "description": "All of the above option"
+  },
   "howAreYou": "お元気ですか？",
-  "@howAreYou": {"description": "How are you?"},
-
+  "@howAreYou": {
+    "description": "How are you?"
+  },
   "whatIsYourName": "お名前は何ですか？",
-  "@whatIsYourName": {"description": "What is your name?"},
-
+  "@whatIsYourName": {
+    "description": "What is your name?"
+  },
   "whoAreYou": "どなたですか？",
-  "@whoAreYou": {"description": "Who are you?"},
-
+  "@whoAreYou": {
+    "description": "Who are you?"
+  },
   "whereAreYou": "どこにいますか？",
-  "@whereAreYou": {"description": "Where are you?"},
-
+  "@whereAreYou": {
+    "description": "Where are you?"
+  },
   "niceToMeetYou": "はじめまして",
-  "@niceToMeetYou": {"description": "Nice to meet you"},
-
+  "@niceToMeetYou": {
+    "description": "Nice to meet you"
+  },
   "areYouStudent": "あなたは学生です",
-  "@areYouStudent": {"description": "You are a student"},
-
+  "@areYouStudent": {
+    "description": "You are a student"
+  },
   "areYouStudentQuestion": "学生ですか？",
-  "@areYouStudentQuestion": {"description": "Are you a student?"},
-
+  "@areYouStudentQuestion": {
+    "description": "Are you a student?"
+  },
   "amIStudent": "私は学生ですか？",
-  "@amIStudent": {"description": "Am I a student?"},
-
+  "@amIStudent": {
+    "description": "Am I a student?"
+  },
   "listening": "リスニング",
-  "@listening": {"description": "Listening question type"},
-
+  "@listening": {
+    "description": "Listening question type"
+  },
   "translation": "翻訳",
-  "@translation": {"description": "Translation question type"},
-
+  "@translation": {
+    "description": "Translation question type"
+  },
   "wordOrder": "語順",
-  "@wordOrder": {"description": "Word order question type"},
-
+  "@wordOrder": {
+    "description": "Word order question type"
+  },
   "excellent": "素晴らしい！",
-  "@excellent": {"description": "Excellent feedback"},
-
+  "@excellent": {
+    "description": "Excellent feedback"
+  },
   "correctOrderIs": "正しい順序：",
-  "@correctOrderIs": {"description": "Correct order is prefix"},
-
+  "@correctOrderIs": {
+    "description": "Correct order is prefix"
+  },
   "nextQuestion": "次の問題",
-  "@nextQuestion": {"description": "Next question button"},
-
+  "@nextQuestion": {
+    "description": "Next question button"
+  },
   "finish": "完了",
-  "@finish": {"description": "Finish button"},
-
+  "@finish": {
+    "description": "Finish button"
+  },
   "quizComplete": "クイズ完了！",
-  "@quizComplete": {"description": "Quiz complete title"},
-
+  "@quizComplete": {
+    "description": "Quiz complete title"
+  },
   "greatJob": "よくできました！",
-  "@greatJob": {"description": "Great job message"},
-
+  "@greatJob": {
+    "description": "Great job message"
+  },
   "keepPracticing": "頑張って！",
-  "@keepPracticing": {"description": "Keep practicing message"},
-
+  "@keepPracticing": {
+    "description": "Keep practicing message"
+  },
   "score": "スコア：{correct} / {total}",
   "@score": {
     "description": "Score display",
     "placeholders": {
-      "correct": {"type": "int"},
-      "total": {"type": "int"}
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "masteredContent": "このレッスンの内容をマスターしました！",
-  "@masteredContent": {"description": "Mastered content message"},
-
+  "@masteredContent": {
+    "description": "Mastered content message"
+  },
   "reviewSuggestion": "レッスン内容を復習してから再挑戦してみましょう！",
-  "@reviewSuggestion": {"description": "Review suggestion message"},
-
+  "@reviewSuggestion": {
+    "description": "Review suggestion message"
+  },
   "timeUsed": "所要時間：{time}",
   "@timeUsed": {
     "description": "Time used display",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "playAudio": "音声を再生",
-  "@playAudio": {"description": "Play audio button"},
-
+  "@playAudio": {
+    "description": "Play audio button"
+  },
   "replayAudio": "もう一度再生",
-  "@replayAudio": {"description": "Replay audio button"},
-
+  "@replayAudio": {
+    "description": "Replay audio button"
+  },
   "vowelEnding": "母音で終わる場合は：",
-  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
-
+  "@vowelEnding": {
+    "description": "Vowel ending explanation prefix"
+  },
   "lessonNumber": "レッスン{number}",
   "@lessonNumber": {
     "description": "Lesson number",
     "placeholders": {
-      "number": {"type": "int"}
+      "number": {
+        "type": "int"
+      }
     }
   },
-
   "stageIntro": "レッスン紹介",
-  "@stageIntro": {"description": "Stage 1: Introduction"},
-
+  "@stageIntro": {
+    "description": "Stage 1: Introduction"
+  },
   "stageVocabulary": "語彙学習",
-  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
-
+  "@stageVocabulary": {
+    "description": "Stage 2: Vocabulary"
+  },
   "stageGrammar": "文法説明",
-  "@stageGrammar": {"description": "Stage 3: Grammar"},
-
+  "@stageGrammar": {
+    "description": "Stage 3: Grammar"
+  },
   "stagePractice": "練習",
-  "@stagePractice": {"description": "Stage 4: Practice"},
-
+  "@stagePractice": {
+    "description": "Stage 4: Practice"
+  },
   "stageDialogue": "会話練習",
-  "@stageDialogue": {"description": "Stage 5: Dialogue"},
-
+  "@stageDialogue": {
+    "description": "Stage 5: Dialogue"
+  },
   "stageQuiz": "クイズ",
-  "@stageQuiz": {"description": "Stage 6: Quiz"},
-
+  "@stageQuiz": {
+    "description": "Stage 6: Quiz"
+  },
   "stageSummary": "まとめ",
-  "@stageSummary": {"description": "Stage 7: Summary"},
-
+  "@stageSummary": {
+    "description": "Stage 7: Summary"
+  },
   "downloadLesson": "レッスンをダウンロード",
-  "@downloadLesson": {"description": "Download lesson button"},
-
+  "@downloadLesson": {
+    "description": "Download lesson button"
+  },
   "downloading": "ダウンロード中...",
-  "@downloading": {"description": "Downloading status"},
-
+  "@downloading": {
+    "description": "Downloading status"
+  },
   "downloaded": "ダウンロード済み",
-  "@downloaded": {"description": "Downloaded status"},
-
+  "@downloaded": {
+    "description": "Downloaded status"
+  },
   "downloadFailed": "ダウンロード失敗",
-  "@downloadFailed": {"description": "Download failed status"},
-
+  "@downloadFailed": {
+    "description": "Download failed status"
+  },
   "home": "ホーム",
-  "@home": {"description": "Home tab"},
-
+  "@home": {
+    "description": "Home tab"
+  },
   "lessons": "レッスン",
-  "@lessons": {"description": "Lessons tab"},
-
+  "@lessons": {
+    "description": "Lessons tab"
+  },
   "review": "復習",
-  "@review": {"description": "Review tab"},
-
+  "@review": {
+    "description": "Review tab"
+  },
   "profile": "マイページ",
-  "@profile": {"description": "Profile tab"},
-
+  "@profile": {
+    "description": "Profile tab"
+  },
   "continueLearning": "学習を続ける",
-  "@continueLearning": {"description": "Continue learning button"},
-
+  "@continueLearning": {
+    "description": "Continue learning button"
+  },
   "dailyGoal": "毎日の目標",
-  "@dailyGoal": {"description": "Daily goal title"},
-
+  "@dailyGoal": {
+    "description": "Daily goal title"
+  },
   "lessonsCompleted": "{count}レッスン完了",
   "@lessonsCompleted": {
     "description": "Lessons completed count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "minutesLearned": "{minutes}分学習",
   "@minutesLearned": {
     "description": "Minutes learned count",
     "placeholders": {
-      "minutes": {"type": "int"}
+      "minutes": {
+        "type": "int"
+      }
     }
   },
-
   "welcome": "おかえりなさい",
-  "@welcome": {"description": "Welcome message"},
-
+  "@welcome": {
+    "description": "Welcome message"
+  },
   "goodMorning": "おはようございます",
-  "@goodMorning": {"description": "Good morning greeting"},
-
+  "@goodMorning": {
+    "description": "Good morning greeting"
+  },
   "goodAfternoon": "こんにちは",
-  "@goodAfternoon": {"description": "Good afternoon greeting"},
-
+  "@goodAfternoon": {
+    "description": "Good afternoon greeting"
+  },
   "goodEvening": "こんばんは",
-  "@goodEvening": {"description": "Good evening greeting"},
-
+  "@goodEvening": {
+    "description": "Good evening greeting"
+  },
   "logout": "ログアウト",
-  "@logout": {"description": "Logout button"},
-
+  "@logout": {
+    "description": "Logout button"
+  },
   "confirmLogout": "ログアウトしてもよろしいですか？",
-  "@confirmLogout": {"description": "Logout confirmation"},
-
+  "@confirmLogout": {
+    "description": "Logout confirmation"
+  },
   "cancel": "キャンセル",
-  "@cancel": {"description": "Cancel button"},
-
+  "@cancel": {
+    "description": "Cancel button"
+  },
   "confirm": "確認",
-  "@confirm": {"description": "Confirm button"},
-
+  "@confirm": {
+    "description": "Confirm button"
+  },
   "delete": "削除",
-  "@delete": {"description": "Delete button"},
-
+  "@delete": {
+    "description": "Delete button"
+  },
   "save": "保存",
-  "@save": {"description": "Save button"},
-
+  "@save": {
+    "description": "Save button"
+  },
   "edit": "編集",
-  "@edit": {"description": "Edit button"},
-
+  "@edit": {
+    "description": "Edit button"
+  },
   "close": "閉じる",
-  "@close": {"description": "Close button"},
-
+  "@close": {
+    "description": "Close button"
+  },
   "retry": "再試行",
-  "@retry": {"description": "Retry button"},
-
+  "@retry": {
+    "description": "Retry button"
+  },
   "loading": "読み込み中...",
-  "@loading": {"description": "Loading status"},
-
+  "@loading": {
+    "description": "Loading status"
+  },
   "noData": "データがありません",
-  "@noData": {"description": "No data message"},
-
+  "@noData": {
+    "description": "No data message"
+  },
   "error": "エラーが発生しました",
-  "@error": {"description": "Error title"},
-
+  "@error": {
+    "description": "Error title"
+  },
   "errorOccurred": "エラーが発生しました",
-  "@errorOccurred": {"description": "Generic error message"},
-
+  "@errorOccurred": {
+    "description": "Generic error message"
+  },
   "reload": "再読み込み",
-  "@reload": {"description": "Reload button"},
-
+  "@reload": {
+    "description": "Reload button"
+  },
   "noCharactersAvailable": "文字がありません",
-  "@noCharactersAvailable": {"description": "No characters message"},
-
+  "@noCharactersAvailable": {
+    "description": "No characters message"
+  },
   "success": "成功",
-  "@success": {"description": "Success title"},
-
+  "@success": {
+    "description": "Success title"
+  },
   "filter": "フィルター",
-  "@filter": {"description": "Filter button"},
-
+  "@filter": {
+    "description": "Filter button"
+  },
   "reviewSchedule": "復習スケジュール",
-  "@reviewSchedule": {"description": "Review schedule title"},
-
+  "@reviewSchedule": {
+    "description": "Review schedule title"
+  },
   "todayReview": "今日の復習",
-  "@todayReview": {"description": "Today's review title"},
-
+  "@todayReview": {
+    "description": "Today's review title"
+  },
   "startReview": "復習を始める",
-  "@startReview": {"description": "Start review button"},
-
+  "@startReview": {
+    "description": "Start review button"
+  },
   "learningStats": "学習統計",
-  "@learningStats": {"description": "Learning statistics section"},
-
+  "@learningStats": {
+    "description": "Learning statistics section"
+  },
   "completedLessonsCount": "完了したレッスン",
-  "@completedLessonsCount": {"description": "Completed lessons label"},
-
+  "@completedLessonsCount": {
+    "description": "Completed lessons label"
+  },
   "studyDays": "学習日数",
-  "@studyDays": {"description": "Study days label"},
-
+  "@studyDays": {
+    "description": "Study days label"
+  },
   "masteredWordsCount": "習得した単語",
-  "@masteredWordsCount": {"description": "Mastered words label"},
-
+  "@masteredWordsCount": {
+    "description": "Mastered words label"
+  },
   "myVocabularyBook": "マイ単語帳",
-  "@myVocabularyBook": {"description": "My vocabulary book"},
-
+  "@myVocabularyBook": {
+    "description": "My vocabulary book"
+  },
   "vocabularyBrowser": "単語一覧",
-  "@vocabularyBrowser": {"description": "Vocabulary browser"},
-
+  "@vocabularyBrowser": {
+    "description": "Vocabulary browser"
+  },
   "about": "情報",
-  "@about": {"description": "About section"},
-
+  "@about": {
+    "description": "About section"
+  },
   "premiumMember": "プレミアム会員",
-  "@premiumMember": {"description": "Premium member label"},
-
+  "@premiumMember": {
+    "description": "Premium member label"
+  },
   "freeUser": "無料ユーザー",
-  "@freeUser": {"description": "Free user label"},
-
+  "@freeUser": {
+    "description": "Free user label"
+  },
   "wordsWaitingReview": "{count}個の単語が復習待ち",
   "@wordsWaitingReview": {
     "description": "Words waiting for review",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "user": "ユーザー",
-  "@user": {"description": "Default user name"},
-
+  "@user": {
+    "description": "Default user name"
+  },
   "onboardingSkip": "スキップ",
-  "@onboardingSkip": {"description": "Onboarding skip button"},
-
+  "@onboardingSkip": {
+    "description": "Onboarding skip button"
+  },
   "onboardingLanguageTitle": "はじめまして！モニです",
-  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
-
+  "@onboardingLanguageTitle": {
+    "description": "Onboarding language selection title"
+  },
   "onboardingLanguagePrompt": "どの言語から一緒に学びますか？",
-  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
-
+  "@onboardingLanguagePrompt": {
+    "description": "Onboarding language selection prompt"
+  },
   "onboardingNext": "次へ",
-  "@onboardingNext": {"description": "Onboarding next button"},
-
+  "@onboardingNext": {
+    "description": "Onboarding next button"
+  },
   "onboardingWelcome": "こんにちは！レモン韓国語のレモンです 🍋\n一緒に韓国語を勉強しませんか？",
-  "@onboardingWelcome": {"description": "Onboarding welcome message"},
-
+  "@onboardingWelcome": {
+    "description": "Onboarding welcome message"
+  },
   "onboardingLevelQuestion": "現在の韓国語レベルは？",
-  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
-
+  "@onboardingLevelQuestion": {
+    "description": "Onboarding level question"
+  },
   "onboardingStart": "始める",
-  "@onboardingStart": {"description": "Onboarding start button"},
-
+  "@onboardingStart": {
+    "description": "Onboarding start button"
+  },
   "onboardingStartWithoutLevel": "スキップして始める",
-  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
-
+  "@onboardingStartWithoutLevel": {
+    "description": "Onboarding start without level selection"
+  },
   "levelBeginner": "入門",
-  "@levelBeginner": {"description": "Beginner level"},
-
+  "@levelBeginner": {
+    "description": "Beginner level"
+  },
   "levelBeginnerDesc": "大丈夫です！ハングルから始めましょう",
-  "@levelBeginnerDesc": {"description": "Beginner level description"},
-
+  "@levelBeginnerDesc": {
+    "description": "Beginner level description"
+  },
   "levelElementary": "初級",
-  "@levelElementary": {"description": "Elementary level"},
-
+  "@levelElementary": {
+    "description": "Elementary level"
+  },
   "levelElementaryDesc": "基礎会話から練習しましょう！",
-  "@levelElementaryDesc": {"description": "Elementary level description"},
-
+  "@levelElementaryDesc": {
+    "description": "Elementary level description"
+  },
   "levelIntermediate": "中級",
-  "@levelIntermediate": {"description": "Intermediate level"},
-
+  "@levelIntermediate": {
+    "description": "Intermediate level"
+  },
   "levelIntermediateDesc": "より自然に話しましょう！",
-  "@levelIntermediateDesc": {"description": "Intermediate level description"},
-
+  "@levelIntermediateDesc": {
+    "description": "Intermediate level description"
+  },
   "levelAdvanced": "上級",
-  "@levelAdvanced": {"description": "Advanced level"},
-
+  "@levelAdvanced": {
+    "description": "Advanced level"
+  },
   "levelAdvancedDesc": "細かい表現まで極めましょう！",
-  "@levelAdvancedDesc": {"description": "Advanced level description"},
-
+  "@levelAdvancedDesc": {
+    "description": "Advanced level description"
+  },
   "onboardingWelcomeTitle": "レモン韓国語へようこそ！",
-  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
-
+  "@onboardingWelcomeTitle": {
+    "description": "Welcome screen title"
+  },
   "onboardingWelcomeSubtitle": "流暢さへの旅がここから始まります",
-  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
-
+  "@onboardingWelcomeSubtitle": {
+    "description": "Welcome screen subtitle"
+  },
   "onboardingFeature1Title": "いつでもオフライン学習",
-  "@onboardingFeature1Title": {"description": "Feature 1 title"},
-
+  "@onboardingFeature1Title": {
+    "description": "Feature 1 title"
+  },
   "onboardingFeature1Desc": "レッスンをダウンロードしてインターネットなしで学習",
-  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
-
+  "@onboardingFeature1Desc": {
+    "description": "Feature 1 description"
+  },
   "onboardingFeature2Title": "スマート復習システム",
-  "@onboardingFeature2Title": {"description": "Feature 2 title"},
-
+  "@onboardingFeature2Title": {
+    "description": "Feature 2 title"
+  },
   "onboardingFeature2Desc": "AIを活用した間隔反復学習で記憶力アップ",
-  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
-
+  "@onboardingFeature2Desc": {
+    "description": "Feature 2 description"
+  },
   "onboardingFeature3Title": "7ステージ学習パス",
-  "@onboardingFeature3Title": {"description": "Feature 3 title"},
-
+  "@onboardingFeature3Title": {
+    "description": "Feature 3 title"
+  },
   "onboardingFeature3Desc": "初心者から上級者まで体系的なカリキュラム",
-  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
-
+  "@onboardingFeature3Desc": {
+    "description": "Feature 3 description"
+  },
   "onboardingLevelTitle": "あなたの韓国語レベルは？",
-  "@onboardingLevelTitle": {"description": "Level selection title"},
-
+  "@onboardingLevelTitle": {
+    "description": "Level selection title"
+  },
   "onboardingLevelSubtitle": "あなたに合わせた体験を提供します",
-  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
-
+  "@onboardingLevelSubtitle": {
+    "description": "Level selection subtitle"
+  },
   "onboardingGoalTitle": "週間目標を設定",
-  "@onboardingGoalTitle": {"description": "Goal selection title"},
-
+  "@onboardingGoalTitle": {
+    "description": "Goal selection title"
+  },
   "onboardingGoalSubtitle": "どのくらいの時間を確保できますか？",
-  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
-
+  "@onboardingGoalSubtitle": {
+    "description": "Goal selection subtitle"
+  },
   "goalCasual": "カジュアル",
-  "@goalCasual": {"description": "Casual goal option"},
-
+  "@goalCasual": {
+    "description": "Casual goal option"
+  },
   "goalCasualDesc": "週1-2レッスン",
-  "@goalCasualDesc": {"description": "Casual goal description"},
-
+  "@goalCasualDesc": {
+    "description": "Casual goal description"
+  },
   "goalCasualTime": "~週10-20分",
-  "@goalCasualTime": {"description": "Casual goal time"},
-
+  "@goalCasualTime": {
+    "description": "Casual goal time"
+  },
   "goalCasualHelper": "忙しいスケジュールに最適",
-  "@goalCasualHelper": {"description": "Casual goal helper text"},
-
+  "@goalCasualHelper": {
+    "description": "Casual goal helper text"
+  },
   "goalRegular": "コツコツ",
-  "@goalRegular": {"description": "Regular goal option"},
-
+  "@goalRegular": {
+    "description": "Regular goal option"
+  },
   "goalRegularDesc": "週3-4レッスン",
-  "@goalRegularDesc": {"description": "Regular goal description"},
-
+  "@goalRegularDesc": {
+    "description": "Regular goal description"
+  },
   "goalRegularTime": "~週30-40分",
-  "@goalRegularTime": {"description": "Regular goal time"},
-
+  "@goalRegularTime": {
+    "description": "Regular goal time"
+  },
   "goalRegularHelper": "プレッシャーなく着実に進歩",
-  "@goalRegularHelper": {"description": "Regular goal helper text"},
-
+  "@goalRegularHelper": {
+    "description": "Regular goal helper text"
+  },
   "goalSerious": "本格派",
-  "@goalSerious": {"description": "Serious goal option"},
-
+  "@goalSerious": {
+    "description": "Serious goal option"
+  },
   "goalSeriousDesc": "週5-6レッスン",
-  "@goalSeriousDesc": {"description": "Serious goal description"},
-
+  "@goalSeriousDesc": {
+    "description": "Serious goal description"
+  },
   "goalSeriousTime": "~週50-60分",
-  "@goalSeriousTime": {"description": "Serious goal time"},
-
+  "@goalSeriousTime": {
+    "description": "Serious goal time"
+  },
   "goalSeriousHelper": "速い上達を目指す",
-  "@goalSeriousHelper": {"description": "Serious goal helper text"},
-
+  "@goalSeriousHelper": {
+    "description": "Serious goal helper text"
+  },
   "goalIntensive": "集中",
-  "@goalIntensive": {"description": "Intensive goal option"},
-
+  "@goalIntensive": {
+    "description": "Intensive goal option"
+  },
   "goalIntensiveDesc": "毎日練習",
-  "@goalIntensiveDesc": {"description": "Intensive goal description"},
-
+  "@goalIntensiveDesc": {
+    "description": "Intensive goal description"
+  },
   "goalIntensiveTime": "週60分以上",
-  "@goalIntensiveTime": {"description": "Intensive goal time"},
-
+  "@goalIntensiveTime": {
+    "description": "Intensive goal time"
+  },
   "goalIntensiveHelper": "最速の学習スピード",
-  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
-
+  "@goalIntensiveHelper": {
+    "description": "Intensive goal helper text"
+  },
   "onboardingCompleteTitle": "準備完了！",
-  "@onboardingCompleteTitle": {"description": "Completion screen title"},
-
+  "@onboardingCompleteTitle": {
+    "description": "Completion screen title"
+  },
   "onboardingCompleteSubtitle": "学習の旅を始めましょう",
-  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
-
+  "@onboardingCompleteSubtitle": {
+    "description": "Completion screen subtitle"
+  },
   "onboardingSummaryLanguage": "表示言語",
-  "@onboardingSummaryLanguage": {"description": "Summary language label"},
-
+  "@onboardingSummaryLanguage": {
+    "description": "Summary language label"
+  },
   "onboardingSummaryLevel": "韓国語レベル",
-  "@onboardingSummaryLevel": {"description": "Summary level label"},
-
+  "@onboardingSummaryLevel": {
+    "description": "Summary level label"
+  },
   "onboardingSummaryGoal": "週間目標",
-  "@onboardingSummaryGoal": {"description": "Summary goal label"},
-
+  "@onboardingSummaryGoal": {
+    "description": "Summary goal label"
+  },
   "onboardingStartLearning": "学習を始める",
-  "@onboardingStartLearning": {"description": "Start learning button"},
-
+  "@onboardingStartLearning": {
+    "description": "Start learning button"
+  },
   "onboardingBack": "戻る",
-  "@onboardingBack": {"description": "Back button"},
-
+  "@onboardingBack": {
+    "description": "Back button"
+  },
   "onboardingAccountTitle": "準備はできましたか？",
-  "@onboardingAccountTitle": {"description": "Account choice screen title"},
-
+  "@onboardingAccountTitle": {
+    "description": "Account choice screen title"
+  },
   "onboardingAccountSubtitle": "ログインまたはアカウントを作成して学習進捗を保存しましょう",
-  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
-
+  "@onboardingAccountSubtitle": {
+    "description": "Account choice screen subtitle"
+  },
   "levelTopik": "TOPIK {level}",
   "@levelTopik": {
     "description": "TOPIK level indicator",
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
-
   "appLanguage": "アプリ言語",
-  "@appLanguage": {"description": "App language section title"},
-
+  "@appLanguage": {
+    "description": "App language section title"
+  },
   "appLanguageDesc": "アプリインターフェースで使用する言語を選択してください。",
-  "@appLanguageDesc": {"description": "App language description"},
-
+  "@appLanguageDesc": {
+    "description": "App language description"
+  },
   "languageSelected": "{language} を選択しました",
   "@languageSelected": {
     "description": "Language selected message",
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
-
   "sort": "並べ替え",
-  "@sort": {"description": "Sort button tooltip"},
-
+  "@sort": {
+    "description": "Sort button tooltip"
+  },
   "notificationTipContent": "• 復習リマインダーはレッスン完了後に自動的に予約されます\n• 一部のデバイスでは、通知を正常に受信するためにシステム設定でバッテリーセーバーを無効にする必要があります",
   "yesterday": "昨日",
-  "@yesterday": {"description": "Yesterday"},
-
+  "@yesterday": {
+    "description": "Yesterday"
+  },
   "daysAgo": "{count}日前",
   "@daysAgo": {
     "description": "Days ago",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "dateFormat": "{month}月{day}日",
   "@dateFormat": {
     "description": "Date format",
     "placeholders": {
-      "month": {"type": "int"},
-      "day": {"type": "int"}
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "downloadManager": "ダウンロード管理",
@@ -927,45 +1207,53 @@
   "@confirmDeleteDownload": {
     "description": "Confirm delete download",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "confirmClearAllDownloads": "{count}件のダウンロードをすべて削除してもよろしいですか？",
   "@confirmClearAllDownloads": {
     "description": "Confirm clear all downloads",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "downloadingCount": "ダウンロード中 ({count})",
   "@downloadingCount": {
     "description": "Downloading count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "preparing": "準備中...",
-  "@preparing": {"description": "Preparing status"},
-
+  "@preparing": {
+    "description": "Preparing status"
+  },
   "lessonId": "レッスン {id}",
   "@lessonId": {
     "description": "Lesson ID",
     "placeholders": {
-      "id": {"type": "int"}
+      "id": {
+        "type": "int"
+      }
     }
   },
-
   "searchWords": "単語を検索...",
-  "@searchWords": {"description": "Search words placeholder"},
-
+  "@searchWords": {
+    "description": "Search words placeholder"
+  },
   "wordCount": "{count}個の単語",
   "@wordCount": {
     "description": "Word count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "sortByLesson": "レッスン順",
@@ -981,401 +1269,508 @@
   "startFirstLesson": "最初のレッスンを始めましょう！",
   "masteredWords": "習得した単語",
   "download": "ダウンロード",
-
   "hangulLearning": "ハングル学習",
-  "@hangulLearning": {"description": "Hangul learning section title"},
-
+  "@hangulLearning": {
+    "description": "Hangul learning section title"
+  },
   "hangulLearningSubtitle": "ハングル40文字を学ぶ",
-  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
-
+  "@hangulLearningSubtitle": {
+    "description": "Hangul learning subtitle"
+  },
   "editNotes": "メモを編集",
-  "@editNotes": {"description": "Edit notes dialog title"},
-
+  "@editNotes": {
+    "description": "Edit notes dialog title"
+  },
   "notes": "メモ",
-  "@notes": {"description": "Notes field label"},
-
+  "@notes": {
+    "description": "Notes field label"
+  },
   "notesHint": "なぜこの単語を保存するのですか？",
-  "@notesHint": {"description": "Notes hint text"},
-
+  "@notesHint": {
+    "description": "Notes hint text"
+  },
   "sortBy": "並び替え",
-  "@sortBy": {"description": "Sort by title"},
-
+  "@sortBy": {
+    "description": "Sort by title"
+  },
   "sortNewest": "最新順",
-  "@sortNewest": {"description": "Sort by newest"},
-
+  "@sortNewest": {
+    "description": "Sort by newest"
+  },
   "sortOldest": "古い順",
-  "@sortOldest": {"description": "Sort by oldest"},
-
+  "@sortOldest": {
+    "description": "Sort by oldest"
+  },
   "sortKorean": "韓国語順",
-  "@sortKorean": {"description": "Sort by Korean"},
-
+  "@sortKorean": {
+    "description": "Sort by Korean"
+  },
   "sortChinese": "日本語",
-  "@sortChinese": {"description": "Sort by Chinese"},
-
+  "@sortChinese": {
+    "description": "Sort by Chinese"
+  },
   "sortMastery": "習熟度順",
-  "@sortMastery": {"description": "Sort by mastery"},
-
+  "@sortMastery": {
+    "description": "Sort by mastery"
+  },
   "filterAll": "すべて",
-  "@filterAll": {"description": "Filter all"},
-
+  "@filterAll": {
+    "description": "Filter all"
+  },
   "filterNew": "新しい単語 (レベル0)",
-  "@filterNew": {"description": "Filter new words"},
-
+  "@filterNew": {
+    "description": "Filter new words"
+  },
   "filterBeginner": "初級 (レベル1)",
-  "@filterBeginner": {"description": "Filter beginner"},
-
+  "@filterBeginner": {
+    "description": "Filter beginner"
+  },
   "filterIntermediate": "中級 (レベル2-3)",
-  "@filterIntermediate": {"description": "Filter intermediate"},
-
+  "@filterIntermediate": {
+    "description": "Filter intermediate"
+  },
   "filterAdvanced": "上級 (レベル4-5)",
-  "@filterAdvanced": {"description": "Filter advanced"},
-
+  "@filterAdvanced": {
+    "description": "Filter advanced"
+  },
   "searchWordsNotesChinese": "単語、日本語訳、メモを検索...",
-  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
-
+  "@searchWordsNotesChinese": {
+    "description": "Search placeholder for vocabulary book"
+  },
   "startReviewCount": "復習を始める ({count})",
   "@startReviewCount": {
     "description": "Start review button with count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "remove": "削除",
-  "@remove": {"description": "Remove button"},
-
+  "@remove": {
+    "description": "Remove button"
+  },
   "confirmRemove": "削除の確認",
-  "@confirmRemove": {"description": "Confirm remove dialog title"},
-
+  "@confirmRemove": {
+    "description": "Confirm remove dialog title"
+  },
   "confirmRemoveWord": "単語帳から「{word}」を削除しますか？",
   "@confirmRemoveWord": {
     "description": "Confirm remove word message",
     "placeholders": {
-      "word": {"type": "String"}
+      "word": {
+        "type": "String"
+      }
     }
   },
-
   "noBookmarkedWords": "保存した単語がありません",
-  "@noBookmarkedWords": {"description": "No bookmarked words message"},
-
+  "@noBookmarkedWords": {
+    "description": "No bookmarked words message"
+  },
   "bookmarkHint": "学習中に単語カードのブックマークアイコンをタップしてください",
-  "@bookmarkHint": {"description": "Bookmark hint"},
-
+  "@bookmarkHint": {
+    "description": "Bookmark hint"
+  },
   "noMatchingWords": "一致する単語がありません",
-  "@noMatchingWords": {"description": "No matching words message"},
-
+  "@noMatchingWords": {
+    "description": "No matching words message"
+  },
   "weeksAgo": "{count}週間前",
   "@weeksAgo": {
     "description": "Weeks ago",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "reviewComplete": "復習完了！",
-  "@reviewComplete": {"description": "Review complete title"},
-
+  "@reviewComplete": {
+    "description": "Review complete title"
+  },
   "reviewCompleteCount": "{count}個の単語を復習しました",
   "@reviewCompleteCount": {
     "description": "Review complete message",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "correct": "正解",
-  "@correct": {"description": "Correct label"},
-
+  "@correct": {
+    "description": "Correct label"
+  },
   "wrong": "不正解",
-  "@wrong": {"description": "Wrong label"},
-
+  "@wrong": {
+    "description": "Wrong label"
+  },
   "accuracy": "正確率",
-  "@accuracy": {"description": "Accuracy label"},
-
+  "@accuracy": {
+    "description": "Accuracy label"
+  },
   "vocabularyBookReview": "単語帳復習",
-  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
-
+  "@vocabularyBookReview": {
+    "description": "Vocabulary book review title"
+  },
   "noWordsToReview": "復習する単語がありません",
-  "@noWordsToReview": {"description": "No words to review message"},
-
+  "@noWordsToReview": {
+    "description": "No words to review message"
+  },
   "bookmarkWordsToReview": "単語を保存して復習を開始してください",
-  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
-
+  "@bookmarkWordsToReview": {
+    "description": "Bookmark words hint"
+  },
   "returnToVocabularyBook": "単語帳に戻る",
-  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
-
+  "@returnToVocabularyBook": {
+    "description": "Return to vocabulary book button"
+  },
   "exit": "終了",
-  "@exit": {"description": "Exit button"},
-
+  "@exit": {
+    "description": "Exit button"
+  },
   "showAnswer": "答えを見る",
-  "@showAnswer": {"description": "Show answer button"},
-
+  "@showAnswer": {
+    "description": "Show answer button"
+  },
   "didYouRemember": "覚えていましたか？",
-  "@didYouRemember": {"description": "Did you remember question"},
-
+  "@didYouRemember": {
+    "description": "Did you remember question"
+  },
   "forgot": "忘れた",
-  "@forgot": {"description": "Forgot rating"},
-
+  "@forgot": {
+    "description": "Forgot rating"
+  },
   "hard": "難しい",
-  "@hard": {"description": "Hard rating"},
-
+  "@hard": {
+    "description": "Hard rating"
+  },
   "remembered": "覚えていた",
-  "@remembered": {"description": "Remembered rating"},
-
+  "@remembered": {
+    "description": "Remembered rating"
+  },
   "easy": "簡単",
-  "@easy": {"description": "Easy rating"},
-
+  "@easy": {
+    "description": "Easy rating"
+  },
   "addedToVocabularyBook": "単語帳に追加しました",
-  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
-
+  "@addedToVocabularyBook": {
+    "description": "Added to vocabulary book message"
+  },
   "addFailed": "追加に失敗しました",
-  "@addFailed": {"description": "Add failed message"},
-
+  "@addFailed": {
+    "description": "Add failed message"
+  },
   "removedFromVocabularyBook": "単語帳から削除しました",
-  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
-
+  "@removedFromVocabularyBook": {
+    "description": "Removed from vocabulary book message"
+  },
   "removeFailed": "削除に失敗しました",
-  "@removeFailed": {"description": "Remove failed message"},
-
+  "@removeFailed": {
+    "description": "Remove failed message"
+  },
   "addToVocabularyBook": "単語帳に追加",
-  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
-
+  "@addToVocabularyBook": {
+    "description": "Add to vocabulary book title"
+  },
   "notesOptional": "メモ（任意）",
-  "@notesOptional": {"description": "Notes optional label"},
-
+  "@notesOptional": {
+    "description": "Notes optional label"
+  },
   "add": "追加",
-  "@add": {"description": "Add button"},
-
+  "@add": {
+    "description": "Add button"
+  },
   "bookmarked": "保存済み",
-  "@bookmarked": {"description": "Bookmarked label"},
-
+  "@bookmarked": {
+    "description": "Bookmarked label"
+  },
   "bookmark": "保存",
-  "@bookmark": {"description": "Bookmark label"},
-
+  "@bookmark": {
+    "description": "Bookmark label"
+  },
   "removeFromVocabularyBook": "単語帳から削除",
-  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
-
+  "@removeFromVocabularyBook": {
+    "description": "Remove from vocabulary book tooltip"
+  },
   "similarityPercent": "類似度: {percent}%",
   "@similarityPercent": {
     "description": "Similarity percentage",
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
-
   "addedOrRemoved": "{added, select, true{単語帳に追加しました} other{ブックマークを解除しました}}",
   "@addedOrRemoved": {
     "description": "Added or removed message",
     "placeholders": {
-      "added": {"type": "String"}
+      "added": {
+        "type": "String"
+      }
     }
   },
-
   "days": "日",
-  "@days": {"description": "Days unit"},
-
+  "@days": {
+    "description": "Days unit"
+  },
   "lessonsCompletedCount": "{count}個完了",
   "@lessonsCompletedCount": {
     "description": "Lessons completed count short",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "dailyGoalComplete": "今日の目標達成！",
-  "@dailyGoalComplete": {"description": "Daily goal complete message"},
-
+  "@dailyGoalComplete": {
+    "description": "Daily goal complete message"
+  },
   "hangulAlphabet": "ハングル",
-  "@hangulAlphabet": {"description": "Hangul alphabet"},
-
+  "@hangulAlphabet": {
+    "description": "Hangul alphabet"
+  },
   "alphabetTable": "一覧表",
-  "@alphabetTable": {"description": "Alphabet table tab"},
-
+  "@alphabetTable": {
+    "description": "Alphabet table tab"
+  },
   "learn": "学習",
-  "@learn": {"description": "Learn tab"},
-
+  "@learn": {
+    "description": "Learn tab"
+  },
   "practice": "練習",
-  "@practice": {"description": "Practice tab"},
-
+  "@practice": {
+    "description": "Practice tab"
+  },
   "learningProgress": "学習進度",
-  "@learningProgress": {"description": "Learning progress title"},
-
+  "@learningProgress": {
+    "description": "Learning progress title"
+  },
   "dueForReviewCount": "{count}個復習待ち",
   "@dueForReviewCount": {
     "description": "Due for review count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "completion": "完成度",
-  "@completion": {"description": "Completion label"},
-
+  "@completion": {
+    "description": "Completion label"
+  },
   "totalCharacters": "全文字",
-  "@totalCharacters": {"description": "Total characters label"},
-
+  "@totalCharacters": {
+    "description": "Total characters label"
+  },
   "learned": "学習済み",
-  "@learned": {"description": "Learned label"},
-
+  "@learned": {
+    "description": "Learned label"
+  },
   "dueForReview": "復習待ち",
-  "@dueForReview": {"description": "Due for review label"},
-
+  "@dueForReview": {
+    "description": "Due for review label"
+  },
   "overallAccuracy": "全体正確率: {percent}%",
   "@overallAccuracy": {
     "description": "Overall accuracy",
     "placeholders": {
-      "percent": {"type": "String"}
+      "percent": {
+        "type": "String"
+      }
     }
   },
-
   "charactersCount": "{count}文字",
   "@charactersCount": {
     "description": "Characters count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "lesson1Title": "第1課：基本子音（上）",
-  "@lesson1Title": {"description": "Lesson 1 title"},
-
+  "@lesson1Title": {
+    "description": "Lesson 1 title"
+  },
   "lesson1Desc": "よく使われる子音7つを学ぶ",
-  "@lesson1Desc": {"description": "Lesson 1 description"},
-
+  "@lesson1Desc": {
+    "description": "Lesson 1 description"
+  },
   "lesson2Title": "第2課：基本子音（下）",
-  "@lesson2Title": {"description": "Lesson 2 title"},
-
+  "@lesson2Title": {
+    "description": "Lesson 2 title"
+  },
   "lesson2Desc": "残りの基本子音7つを学ぶ",
-  "@lesson2Desc": {"description": "Lesson 2 description"},
-
+  "@lesson2Desc": {
+    "description": "Lesson 2 description"
+  },
   "lesson3Title": "第3課：基本母音（上）",
-  "@lesson3Title": {"description": "Lesson 3 title"},
-
+  "@lesson3Title": {
+    "description": "Lesson 3 title"
+  },
   "lesson3Desc": "基本母音5つを学ぶ",
-  "@lesson3Desc": {"description": "Lesson 3 description"},
-
+  "@lesson3Desc": {
+    "description": "Lesson 3 description"
+  },
   "lesson4Title": "第4課：基本母音（下）",
-  "@lesson4Title": {"description": "Lesson 4 title"},
-
+  "@lesson4Title": {
+    "description": "Lesson 4 title"
+  },
   "lesson4Desc": "残りの基本母音5つを学ぶ",
-  "@lesson4Desc": {"description": "Lesson 4 description"},
-
+  "@lesson4Desc": {
+    "description": "Lesson 4 description"
+  },
   "lesson5Title": "第5課：濃音",
-  "@lesson5Title": {"description": "Lesson 5 title"},
-
+  "@lesson5Title": {
+    "description": "Lesson 5 title"
+  },
   "lesson5Desc": "濃音5つを学ぶ - 強い音",
-  "@lesson5Desc": {"description": "Lesson 5 description"},
-
+  "@lesson5Desc": {
+    "description": "Lesson 5 description"
+  },
   "lesson6Title": "第6課：合成母音（上）",
-  "@lesson6Title": {"description": "Lesson 6 title"},
-
+  "@lesson6Title": {
+    "description": "Lesson 6 title"
+  },
   "lesson6Desc": "合成母音6つを学ぶ",
-  "@lesson6Desc": {"description": "Lesson 6 description"},
-
+  "@lesson6Desc": {
+    "description": "Lesson 6 description"
+  },
   "lesson7Title": "第7課：合成母音（下）",
-  "@lesson7Title": {"description": "Lesson 7 title"},
-
+  "@lesson7Title": {
+    "description": "Lesson 7 title"
+  },
   "lesson7Desc": "残りの合成母音を学ぶ",
-  "@lesson7Desc": {"description": "Lesson 7 description"},
-
+  "@lesson7Desc": {
+    "description": "Lesson 7 description"
+  },
   "loadAlphabetFirst": "まずハングル一覧データを読み込んでください",
-  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
-
+  "@loadAlphabetFirst": {
+    "description": "Load alphabet first message"
+  },
   "noContentForLesson": "この課には内容がありません",
-  "@noContentForLesson": {"description": "No content for lesson"},
-
+  "@noContentForLesson": {
+    "description": "No content for lesson"
+  },
   "exampleWords": "例単語",
-  "@exampleWords": {"description": "Example words label"},
-
+  "@exampleWords": {
+    "description": "Example words label"
+  },
   "thisLessonCharacters": "この課の文字",
-  "@thisLessonCharacters": {"description": "This lesson characters label"},
-
+  "@thisLessonCharacters": {
+    "description": "This lesson characters label"
+  },
   "congratsLessonComplete": "{title}を完了しました！",
   "@congratsLessonComplete": {
     "description": "Congratulations lesson complete",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "continuePractice": "練習を続ける",
-  "@continuePractice": {"description": "Continue practice button"},
-
+  "@continuePractice": {
+    "description": "Continue practice button"
+  },
   "nextLesson": "次の課",
-  "@nextLesson": {"description": "Next lesson button"},
-
+  "@nextLesson": {
+    "description": "Next lesson button"
+  },
   "basicConsonants": "基本子音",
-  "@basicConsonants": {"description": "Basic consonants"},
-
+  "@basicConsonants": {
+    "description": "Basic consonants"
+  },
   "doubleConsonants": "濃音",
-  "@doubleConsonants": {"description": "Double consonants"},
-
+  "@doubleConsonants": {
+    "description": "Double consonants"
+  },
   "basicVowels": "基本母音",
-  "@basicVowels": {"description": "Basic vowels"},
-
+  "@basicVowels": {
+    "description": "Basic vowels"
+  },
   "compoundVowels": "合成母音",
-  "@compoundVowels": {"description": "Compound vowels"},
-
+  "@compoundVowels": {
+    "description": "Compound vowels"
+  },
   "dailyLearningReminderTitle": "毎日の学習リマインダー",
-  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
-
+  "@dailyLearningReminderTitle": {
+    "description": "Daily learning reminder notification title"
+  },
   "dailyLearningReminderBody": "今日の韓国語学習を完了しましょう！",
-  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
-
+  "@dailyLearningReminderBody": {
+    "description": "Daily learning reminder notification body"
+  },
   "reviewReminderTitle": "復習の時間です！",
-  "@reviewReminderTitle": {"description": "Review reminder notification title"},
-
+  "@reviewReminderTitle": {
+    "description": "Review reminder notification title"
+  },
   "reviewReminderBody": "「{title}」を復習する時間です！",
   "@reviewReminderBody": {
     "description": "Review reminder notification body",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "korean": "한국어",
-  "@korean": {"description": "Korean language"},
-
+  "@korean": {
+    "description": "Korean language"
+  },
   "english": "English",
-  "@english": {"description": "English language"},
-
+  "@english": {
+    "description": "English language"
+  },
   "japanese": "日本語",
-  "@japanese": {"description": "Japanese language"},
-
+  "@japanese": {
+    "description": "Japanese language"
+  },
   "spanish": "Español",
-  "@spanish": {"description": "Spanish language"},
-
+  "@spanish": {
+    "description": "Spanish language"
+  },
   "strokeOrder": "書き順",
-  "@strokeOrder": {"description": "Stroke order"},
-
+  "@strokeOrder": {
+    "description": "Stroke order"
+  },
   "reset": "リセット",
-  "@reset": {"description": "Reset button"},
-
+  "@reset": {
+    "description": "Reset button"
+  },
   "pronunciationGuide": "発音ガイド",
-  "@pronunciationGuide": {"description": "Pronunciation guide"},
-
+  "@pronunciationGuide": {
+    "description": "Pronunciation guide"
+  },
   "play": "再生",
-  "@play": {"description": "Play button"},
-
+  "@play": {
+    "description": "Play button"
+  },
   "pause": "一時停止",
-  "@pause": {"description": "Pause button"},
-
+  "@pause": {
+    "description": "Pause button"
+  },
   "loadingFailed": "読み込み失敗: {error}",
   "@loadingFailed": {
     "description": "Loading failed message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "learnedCount": "学習済み: {count}",
   "@learnedCount": {
     "description": "Learned count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "hangulPractice": "ハングル練習",
   "charactersNeedReview": "{count}文字復習が必要",
   "charactersAvailable": "{count}文字練習可能",
@@ -1419,10 +1814,8 @@
   "lesson5TitleKo": "5과: 쌍자음",
   "lesson6TitleKo": "6과: 복합 모음 (상)",
   "lesson7TitleKo": "7과: 복합 모음 (하)",
-
   "exitLesson": "学習終了",
   "exitLessonConfirm": "本当に終了しますか？進捗は保存されます。",
-  "continueLearning": "学習を続ける",
   "exitBtn": "終了",
   "lessonComplete": "レッスン完了！進捗が保存されました",
   "loadingLesson": "{title} を読み込み中...",
@@ -1481,12 +1874,10 @@
   "noPractice": "練習問題がありません",
   "noDialogue": "会話コンテンツがありません",
   "noQuiz": "クイズ問題がありません",
-
   "tapToFlip": "タップで裏返す",
   "listeningQuestion": "リスニング",
   "submit": "提出",
   "timeStudied": "学習時間 {time}",
-
   "statusNotStarted": "未開始",
   "statusInProgress": "進行中",
   "statusCompleted": "完了",
@@ -1507,7 +1898,6 @@
   "typeBasicVowel": "基本母音",
   "typeCompoundVowel": "複合母音",
   "typeFinalConsonant": "パッチム",
-
   "dailyReminderChannel": "毎日の学習リマインダー",
   "dailyReminderChannelDesc": "毎日決まった時間に韓国語学習をお知らせします",
   "reviewReminderChannel": "復習リマインダー",
@@ -1517,7 +1907,6 @@
   "notificationReviewTime": "復習の時間です！",
   "notificationReviewReminder": "以前学んだ内容を復習しましょう！",
   "notificationReviewLesson": "「{lessonTitle}」を復習しましょう！",
-
   "keepGoing": "頑張って！",
   "scoreDisplay": "スコア：{correct} / {total}",
   "loadDataError": "データの読み込みに失敗しました: {error}",
@@ -1526,10 +1915,8 @@
   "clearAllError": "全削除に失敗しました: {error}",
   "cleanupError": "クリーンアップに失敗しました: {error}",
   "downloadLessonFailed": "ダウンロード失敗: {title}",
-
   "comprehensive": "総合",
   "answeredCount": "回答 {answered}/{total}",
-
   "hanjaWord": "漢字語",
   "tapToFlipBack": "タップして裏返す",
   "similarityWithChinese": "日本語との類似度",
@@ -1546,18 +1933,15 @@
   "incorrectFeedback": "惜しいです！もう一度挑戦してみましょう",
   "allStagesPassed": "7段階すべてクリア",
   "continueToLearnMore": "もっと学習を続けましょう",
-
   "timeFormatHMS": "{hours}時間{minutes}分{seconds}秒",
   "timeFormatMS": "{minutes}分{seconds}秒",
   "timeFormatS": "{seconds}秒",
-
   "repeatEnabled": "リピート有効",
   "repeatDisabled": "リピート無効",
   "stop": "停止",
   "playbackSpeed": "再生速度",
   "slowSpeed": "ゆっくり",
   "normalSpeed": "通常",
-
   "mouthShape": "口の形",
   "tonguePosition": "舌の位置",
   "airFlow": "気流",
@@ -1569,7 +1953,6 @@
   "plainSound": "平音",
   "aspiratedSound": "激音",
   "tenseSound": "濃音",
-
   "writingPractice": "書き取り練習",
   "watchAnimation": "アニメーションを見る",
   "traceWithGuide": "ガイドに沿って書く",
@@ -1581,7 +1964,6 @@
   "tryAgainWriting": "もう一度",
   "nextStep": "次のステップ",
   "strokeOrderStep": "ステップ {current}/{total}",
-
   "syllableCombination": "音節の組み合わせ",
   "selectConsonant": "子音を選択",
   "selectVowel": "母音を選択",
@@ -1592,7 +1974,6 @@
   "decomposeSyllable": "音節を分解",
   "batchimPractice": "パッチム練習",
   "batchimExplanation": "パッチムの説明",
-
   "recordPronunciation": "録音練習",
   "startRecording": "録音開始",
   "stopRecording": "録音停止",
@@ -1605,14 +1986,11 @@
   "almostCorrect": "ほぼ正確",
   "needsPractice": "練習が必要",
   "recordingNotSupported": "このプラットフォームでは録音がサポートされていません",
-
   "showMeaning": "意味を表示",
   "hideMeaning": "意味を隠す",
   "exampleWord": "例単語",
   "meaningToggle": "意味表示設定",
-
   "microphonePermissionRequired": "録音にはマイクの許可が必要です",
-
   "activities": "アクティビティ",
   "listeningAndSpeaking": "リスニング＆スピーキング",
   "readingAndWriting": "リーディング＆ライティング",
@@ -1622,7 +2000,6 @@
   "batchimPracticeDesc": "パッチム（終声）の練習",
   "writingPracticeDesc": "ハングル文字の書き練習",
   "webNotSupported": "ウェブでは利用不可",
-
   "chapter": "チャプター",
   "bossQuiz": "ボスクイズ",
   "bossQuizCleared": "ボスクイズクリア！",
@@ -1636,7 +2013,6 @@
   "lemonsAvailable": "個のレモンが収穫可能",
   "completeMoreLessons": "レッスンを完了してレモンを育てましょう",
   "totalLemons": "レモン合計",
-
   "community": "コミュニティ",
   "following": "フォロー中",
   "discover": "発見",
@@ -1691,7 +2067,6 @@
   "visibility": "公開範囲",
   "visibilityPublic": "公開",
   "visibilityFollowers": "フォロワーのみ",
-
   "noFollowingPosts": "フォロー中のユーザーの投稿はまだありません",
   "all": "すべて",
   "learning": "学習",
@@ -1712,7 +2087,6 @@
   "deleteCommentConfirm": "このコメントを削除しますか？",
   "failedToLoadProfile": "プロフィールの読み込みに失敗しました",
   "userNotFound": "ユーザーが見つかりません",
-
   "message": "メッセージ",
   "messages": "メッセージ",
   "noMessages": "メッセージはまだありません",
@@ -1752,72 +2126,119 @@
   "createVoiceRoomHint": "ルームを作成して会話を始めましょう！",
   "createRoom": "ルーム作成",
   "voiceRoomMicPermission": "ボイスルームにはマイクの許可が必要です",
-  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "@voiceRoomMicPermission": {
+    "description": "Microphone permission required message"
+  },
   "voiceRoomEnterTitle": "ルーム名を入力してください",
-  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "@voiceRoomEnterTitle": {
+    "description": "Validation message when room title is empty"
+  },
   "voiceRoomCreateFailed": "ルームの作成に失敗しました",
-  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "@voiceRoomCreateFailed": {
+    "description": "Error when room creation fails"
+  },
   "voiceRoomNotAvailable": "ルームは利用できません",
-  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "@voiceRoomNotAvailable": {
+    "description": "Message when room is no longer available"
+  },
   "voiceRoomGoBack": "戻る",
-  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "@voiceRoomGoBack": {
+    "description": "Button to go back from unavailable room"
+  },
   "voiceRoomConnecting": "接続中...",
-  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "@voiceRoomConnecting": {
+    "description": "Connection status banner"
+  },
   "voiceRoomReconnecting": "再接続中 ({attempts}/{max})...",
   "@voiceRoomReconnecting": {
     "description": "Reconnection status with attempt count",
     "placeholders": {
-      "attempts": {"type": "int"},
-      "max": {"type": "int"}
+      "attempts": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "voiceRoomDisconnected": "切断されました",
-  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "@voiceRoomDisconnected": {
+    "description": "Disconnected status"
+  },
   "voiceRoomRetry": "再試行",
-  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "@voiceRoomRetry": {
+    "description": "Retry connection button"
+  },
   "voiceRoomHostLabel": "(ホスト)",
-  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "@voiceRoomHostLabel": {
+    "description": "Label for room host"
+  },
   "voiceRoomDemoteToListener": "リスナーに降格",
-  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "@voiceRoomDemoteToListener": {
+    "description": "Tooltip for demoting speaker to listener"
+  },
   "voiceRoomKickFromRoom": "ルームから退出させる",
-  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "@voiceRoomKickFromRoom": {
+    "description": "Tooltip for kicking participant"
+  },
   "voiceRoomListeners": "リスナー",
-  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "@voiceRoomListeners": {
+    "description": "Section header for listeners list"
+  },
   "voiceRoomInviteToStage": "ステージに招待",
-  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "@voiceRoomInviteToStage": {
+    "description": "Dialog title and tooltip for inviting to stage"
+  },
   "voiceRoomInviteConfirm": "{name}さんをステージに招待しますか？",
   "@voiceRoomInviteConfirm": {
     "description": "Confirmation message for stage invitation",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomInvite": "招待",
-  "@voiceRoomInvite": {"description": "Invite button label"},
+  "@voiceRoomInvite": {
+    "description": "Invite button label"
+  },
   "voiceRoomCloseConfirmTitle": "ルームを閉じますか？",
-  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "@voiceRoomCloseConfirmTitle": {
+    "description": "Close room confirmation dialog title"
+  },
   "voiceRoomCloseConfirmBody": "全員の通話が終了します。",
-  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "@voiceRoomCloseConfirmBody": {
+    "description": "Close room confirmation dialog body"
+  },
   "voiceRoomNoMessagesYet": "まだメッセージがありません",
-  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "@voiceRoomNoMessagesYet": {
+    "description": "Empty chat placeholder"
+  },
   "voiceRoomTypeMessage": "メッセージを入力...",
-  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "@voiceRoomTypeMessage": {
+    "description": "Chat input placeholder"
+  },
   "voiceRoomStageFull": "ステージ満席",
-  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "@voiceRoomStageFull": {
+    "description": "Indicator when stage is full"
+  },
   "voiceRoomListenerCount": "リスナー {count}人",
   "@voiceRoomListenerCount": {
     "description": "Listener count for accessibility",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "voiceRoomRemoveFromStage": "ステージから降ろしますか？",
   "voiceRoomRemoveFromStageConfirm": "{name}さんをステージから降ろしますか？リスナーになります。",
   "@voiceRoomRemoveFromStageConfirm": {
     "description": "Confirm dialog body",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomDemote": "降格",
@@ -1826,14 +2247,15 @@
   "@voiceRoomRemoveFromRoomConfirm": {
     "description": "Confirm dialog body",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomRemove": "退出させる",
   "voiceRoomPressBackToLeave": "もう一度押すと退出します",
   "voiceRoomLeaveTitle": "ルームを退出しますか？",
   "voiceRoomLeaveBody": "現在ステージ上にいます。本当に退出しますか？",
-
   "voiceRoomReturningToList": "ルーム一覧に戻ります...",
   "voiceRoomConnected": "接続しました！",
   "voiceRoomStageFailedToLoad": "ステージの読み込みに失敗しました",
@@ -1893,7 +2315,6 @@
   "voiceRoomMicPermissionTitle": "マイクの許可",
   "voiceRoomOpenSettings": "設定を開く",
   "voiceRoomMicNeededForStage": "ステージで話すにはマイクの許可が必要です",
-
   "batchimDescriptionText": "韓国語のパッチム（받침）は7つの音で発音されます。\n複数のパッチムが同じ音で発音されることを「パッチム代表音」と言います。",
   "syllableInputLabel": "音節入力",
   "syllableInputHint": "例：한",
@@ -1901,7 +2322,6 @@
   "audioLoadError": "音声を読み込めませんでした",
   "writingPracticeCompleteMessage": "書き取り練習完了！",
   "sevenRepresentativeSounds": "7つの代表音",
-
   "myRoom": "マイルーム",
   "characterEditor": "キャラクター編集",
   "roomEditor": "ルーム編集",
@@ -1929,7 +2349,9 @@
   "@purchasedItem": {
     "description": "Purchase success message",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notEnoughLemons": "レモンが足りません！",
@@ -1940,7 +2362,9 @@
   "@balanceLemons": {
     "description": "Lemon balance display",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "furnitureItem": "家具",
@@ -1951,13 +2375,17 @@
   "hangulLearnedCount": "{count}/40文字を学びました！",
   "@hangulLearnedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hangulReviewNeeded": "今日復習する文字が{count}個あります！",
   "@hangulReviewNeeded": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hangulReviewNow": "今すぐ復習",
@@ -1977,7 +2405,9 @@
   "remainingLessons": "あと{count}つで今日の目標達成！",
   "@remainingLessons": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "streakMotivation0": "今日から始めましょう！",
@@ -1988,82 +2418,1660 @@
   "minutesShort": "{count}分",
   "@minutesShort": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hoursShort": "{count}時間",
   "@hoursShort": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "speechPractice": "発音練習",
-  "@speechPractice": {"description": "Speech practice step title"},
-
+  "@speechPractice": {
+    "description": "Speech practice step title"
+  },
   "tapToRecord": "タップして録音",
-  "@tapToRecord": {"description": "Tap to record instruction"},
-
+  "@tapToRecord": {
+    "description": "Tap to record instruction"
+  },
   "recording": "録音中...",
-  "@recording": {"description": "Recording status"},
-
+  "@recording": {
+    "description": "Recording status"
+  },
   "analyzing": "分析中...",
-  "@analyzing": {"description": "Analyzing status"},
-
+  "@analyzing": {
+    "description": "Analyzing status"
+  },
   "pronunciationScore": "発音スコア",
-  "@pronunciationScore": {"description": "Pronunciation score label"},
-
+  "@pronunciationScore": {
+    "description": "Pronunciation score label"
+  },
   "phonemeBreakdown": "音素別分析",
-  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
-
+  "@phonemeBreakdown": {
+    "description": "Phoneme breakdown label"
+  },
   "tryAgainCount": "もう一度 ({current}/{max})",
   "@tryAgainCount": {
     "description": "Try again with attempt count",
     "placeholders": {
-      "current": {"type": "String"},
-      "max": {"type": "String"}
+      "current": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
     }
   },
-
   "nextCharacter": "次の文字",
-  "@nextCharacter": {"description": "Next character button"},
-
+  "@nextCharacter": {
+    "description": "Next character button"
+  },
   "excellentPronunciation": "素晴らしい！",
-  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
-
+  "@excellentPronunciation": {
+    "description": "Excellent pronunciation feedback"
+  },
   "goodPronunciation": "よくできました！",
-  "@goodPronunciation": {"description": "Good pronunciation feedback"},
-
+  "@goodPronunciation": {
+    "description": "Good pronunciation feedback"
+  },
   "fairPronunciation": "もう少し！",
-  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
-
+  "@fairPronunciation": {
+    "description": "Fair pronunciation feedback"
+  },
   "needsMorePractice": "練習を続けよう！",
-  "@needsMorePractice": {"description": "Needs more practice feedback"},
-
+  "@needsMorePractice": {
+    "description": "Needs more practice feedback"
+  },
   "downloadModels": "ダウンロード",
-  "@downloadModels": {"description": "Download models button"},
-
+  "@downloadModels": {
+    "description": "Download models button"
+  },
   "modelDownloading": "モデルダウンロード中",
-  "@modelDownloading": {"description": "Model downloading status"},
-
+  "@modelDownloading": {
+    "description": "Model downloading status"
+  },
   "modelReady": "準備完了",
-  "@modelReady": {"description": "Model ready status"},
-
+  "@modelReady": {
+    "description": "Model ready status"
+  },
   "modelNotReady": "未インストール",
-  "@modelNotReady": {"description": "Model not installed status"},
-
+  "@modelNotReady": {
+    "description": "Model not installed status"
+  },
   "modelSize": "モデルサイズ",
-  "@modelSize": {"description": "Model size label"},
-
+  "@modelSize": {
+    "description": "Model size label"
+  },
   "speechModelTitle": "音声認識AIモデル",
-  "@speechModelTitle": {"description": "Speech recognition AI model title"},
-
+  "@speechModelTitle": {
+    "description": "Speech recognition AI model title"
+  },
   "skipSpeechPractice": "スキップ",
-  "@skipSpeechPractice": {"description": "Skip speech practice button"},
-
+  "@skipSpeechPractice": {
+    "description": "Skip speech practice button"
+  },
   "deleteModel": "モデルを削除",
-  "@deleteModel": {"description": "Delete model button"},
-
+  "@deleteModel": {
+    "description": "Delete model button"
+  },
   "overallScore": "総合スコア",
-  "@overallScore": {"description": "Overall score label"}
+  "@overallScore": {
+    "description": "Overall score label"
+  },
+  "appTagline": "レモンのように爽やかに、実力はしっかりと！",
+  "@appTagline": {
+    "description": "App tagline on login screen"
+  },
+  "passwordHint": "英数字を含む8文字以上を入力してください",
+  "@passwordHint": {
+    "description": "Password field hint text"
+  },
+  "findAccount": "アカウント検索",
+  "@findAccount": {
+    "description": "Find account link"
+  },
+  "resetPassword": "パスワード再設定",
+  "@resetPassword": {
+    "description": "Reset password link"
+  },
+  "registerTitle": "爽やかな韓国語の旅、今すぐ出発！",
+  "@registerTitle": {
+    "description": "Register screen title"
+  },
+  "registerSubtitle": "気軽に始めてOK！しっかりサポートするよ",
+  "@registerSubtitle": {
+    "description": "Register screen subtitle"
+  },
+  "nickname": "ニックネーム",
+  "@nickname": {
+    "description": "Nickname field label"
+  },
+  "nicknameHint": "15文字以内：英数字、アンダースコア",
+  "@nicknameHint": {
+    "description": "Nickname field hint text"
+  },
+  "confirmPasswordHint": "パスワードをもう一度入力してください",
+  "@confirmPasswordHint": {
+    "description": "Confirm password hint text"
+  },
+  "accountChoiceTitle": "ようこそ！モニと一緒に\n勉強の習慣を作りましょう！",
+  "@accountChoiceTitle": {
+    "description": "Account choice screen title"
+  },
+  "accountChoiceSubtitle": "爽やかにスタート、実力は私がしっかり守るよ！",
+  "@accountChoiceSubtitle": {
+    "description": "Account choice screen subtitle"
+  },
+  "startWithEmail": "メールで始める",
+  "@startWithEmail": {
+    "description": "Start with email button"
+  },
+  "deleteMessageTitle": "メッセージを削除しますか？",
+  "@deleteMessageTitle": {
+    "description": "Delete message dialog title"
+  },
+  "deleteMessageContent": "このメッセージは全員から削除されます。",
+  "@deleteMessageContent": {
+    "description": "Delete message dialog content"
+  },
+  "messageDeleted": "メッセージが削除されました",
+  "@messageDeleted": {
+    "description": "Deleted message placeholder"
+  },
+  "beFirstToPost": "最初の投稿をしてみましょう！",
+  "@beFirstToPost": {
+    "description": "Empty state first post prompt"
+  },
+  "typeTagHint": "タグを入力...",
+  "@typeTagHint": {
+    "description": "Tag input hint"
+  },
+  "userInfoLoadFailed": "ユーザー情報の読み込みに失敗しました",
+  "@userInfoLoadFailed": {
+    "description": "User info load failed error"
+  },
+  "loginErrorOccurred": "ログイン中にエラーが発生しました",
+  "@loginErrorOccurred": {
+    "description": "Login error occurred"
+  },
+  "registerErrorOccurred": "登録中にエラーが発生しました",
+  "@registerErrorOccurred": {
+    "description": "Register error occurred"
+  },
+  "logoutErrorOccurred": "ログアウト中にエラーが発生しました",
+  "@logoutErrorOccurred": {
+    "description": "Logout error occurred"
+  },
+  "hangulStage0Title": "ステージ0：ハングルの構造理解",
+  "hangulStage1Title": "ステージ1：基本母音",
+  "hangulStage2Title": "ステージ2：Y母音",
+  "hangulStage3Title": "ステージ3：ㅐ/ㅔ母音",
+  "hangulStage4Title": "ステージ4：基本子音1",
+  "hangulStage5Title": "ステージ5：基本子音2",
+  "hangulStage6Title": "ステージ6：音節組み合わせ訓練",
+  "hangulStage7Title": "ステージ7：濃音/激音",
+  "hangulStage8Title": "ステージ8：パッチム（終声）1",
+  "hangulStage9Title": "ステージ9：パッチム拡張",
+  "hangulStage10Title": "ステージ10：複合パッチム",
+  "hangulStage11Title": "ステージ11：単語読み拡張",
+  "sortAlphabetical": "アルファベット順",
+  "sortByLevel": "レベル順",
+  "sortBySimilarity": "類似度順",
+  "searchWordsKoreanMeaning": "単語検索（韓国語/意味）",
+  "groupedView": "グループ表示",
+  "matrixView": "子音×母音",
+  "reviewLessons": "復習レッスン",
+  "stageDetailComingSoon": "詳細は準備中です。",
+  "bossQuizComingSoon": "ボスクイズは準備中です。",
+  "exitLessonDialogTitle": "レッスンを終了",
+  "exitLessonDialogContent": "レッスンを終了しますか？\n現在のステップまで自動保存されます。",
+  "continueButton": "続ける",
+  "exitLessonButton": "終了する",
+  "noQuestions": "問題がありません",
+  "noCharactersDefined": "文字が定義されていません",
+  "recordingStartFailed": "録音の開始に失敗しました",
+  "consonant": "子音",
+  "vowel": "母音",
+  "validationEmailRequired": "メールアドレスを入力してください",
+  "validationEmailTooLong": "メールアドレスが長すぎます",
+  "validationEmailInvalid": "有効なメールアドレスを入力してください",
+  "validationPasswordRequired": "パスワードを入力してください",
+  "validationPasswordMinLength": "パスワードは{minLength}文字以上必要です",
+  "@validationPasswordMinLength": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationPasswordNeedLetter": "パスワードに文字を含める必要があります",
+  "validationPasswordNeedNumber": "パスワードに数字を含める必要があります",
+  "validationPasswordNeedSpecial": "パスワードに特殊文字を含める必要があります",
+  "validationPasswordTooLong": "パスワードが長すぎます",
+  "validationConfirmPasswordRequired": "パスワードをもう一度入力してください",
+  "validationPasswordMismatch": "パスワードが一致しません",
+  "validationUsernameRequired": "ユーザー名を入力してください",
+  "validationUsernameTooShort": "ユーザー名は{minLength}文字以上必要です",
+  "@validationUsernameTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationUsernameTooLong": "ユーザー名は{maxLength}文字以内にしてください",
+  "@validationUsernameTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationUsernameInvalidChars": "ユーザー名には文字、数字、アンダースコアのみ使用できます",
+  "validationFieldRequired": "{fieldName}を入力してください",
+  "@validationFieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "validationFieldMinLength": "{fieldName}は{minLength}文字以上必要です",
+  "@validationFieldMinLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationFieldMaxLength": "{fieldName}は{maxLength}文字以内にしてください",
+  "@validationFieldMaxLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationFieldNumeric": "{fieldName}は数字である必要があります",
+  "@validationFieldNumeric": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "errorNetworkConnection": "ネットワーク接続に失敗しました。ネットワーク設定を確認してください",
+  "errorServer": "サーバーエラーです。後でもう一度お試しください",
+  "errorAuthFailed": "認証に失敗しました。もう一度ログインしてください",
+  "errorUnknown": "不明なエラーです。後でもう一度お試しください",
+  "errorTimeout": "接続がタイムアウトしました。ネットワークを確認してください",
+  "errorRequestCancelled": "リクエストがキャンセルされました",
+  "errorForbidden": "アクセスが拒否されました",
+  "errorNotFound": "リクエストされたリソースが見つかりません",
+  "errorRequestParam": "リクエストパラメータエラー",
+  "errorParseData": "データ解析エラー",
+  "errorParseFormat": "データ形式エラー",
+  "errorRateLimited": "リクエストが多すぎます。後でもう一度お試しください",
+  "successLogin": "ログイン成功",
+  "successRegister": "登録成功",
+  "successSync": "同期成功",
+  "successDownload": "ダウンロード成功",
+  "failedToCreateComment": "コメントの作成に失敗しました",
+  "failedToDeleteComment": "コメントの削除に失敗しました",
+  "failedToSubmitReport": "報告の送信に失敗しました",
+  "failedToBlockUser": "ユーザーのブロックに失敗しました",
+  "failedToUnblockUser": "ユーザーのブロック解除に失敗しました",
+  "failedToCreatePost": "投稿の作成に失敗しました",
+  "failedToDeletePost": "投稿の削除に失敗しました",
+  "noVocabularyForLevel": "レベル{level}の単語が見つかりません",
+  "@noVocabularyForLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "uploadingImage": "[画像アップロード中...]",
+  "uploadingVoice": "[音声アップロード中...]",
+  "imagePreview": "[画像]",
+  "voicePreview": "[音声]",
+  "voiceServerConnectFailed": "音声サーバーに接続できません。接続を確認してください。",
+  "connectionLostRetry": "接続が切れました。タップして再試行してください。",
+  "noInternetConnection": "インターネットに接続されていません。ネットワークを確認してください。",
+  "couldNotLoadRooms": "ルームを読み込めませんでした。もう一度お試しください。",
+  "couldNotCreateRoom": "ルームを作成できませんでした。もう一度お試しください。",
+  "couldNotJoinRoom": "ルームに参加できませんでした。接続を確認してください。",
+  "roomClosedByHost": "ホストがルームを閉じました。",
+  "removedFromRoomByHost": "ホストによりルームから退出させられました。",
+  "connectionTimedOut": "接続がタイムアウトしました。もう一度お試しください。",
+  "missingLiveKitCredentials": "音声接続の認証情報がありません。",
+  "microphoneEnableFailed": "マイクを有効にできませんでした。権限を確認してミュート解除をお試しください。",
+  "voiceRoomNewMessages": "新しいメッセージ",
+  "voiceRoomChatRateLimited": "メッセージの送信が速すぎます。しばらくお待ちください。",
+  "voiceRoomMessageSendFailed": "メッセージの送信に失敗しました。もう一度お試しください。",
+  "voiceRoomChatError": "チャットエラーが発生しました。",
+  "retryAttempt": "再試行 ({current}/{max})",
+  "@retryAttempt": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "nextButton": "次へ",
+  "completeButton": "完了",
+  "startButton": "はじめる",
+  "doneButton": "完了",
+  "goBackButton": "戻る",
+  "tapToListen": "タップして音を聞く",
+  "listenAllSoundsFirst": "まずすべての音を聞いてみてください",
+  "nextCharButton": "次の文字",
+  "listenAndChooseCorrect": "音を聞いて正しい文字を選んでください",
+  "lessonCompletedMsg": "レッスンを完了しました！",
+  "stageMasterLabel": "ステージ{stage}マスター",
+  "@stageMasterLabel": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      }
+    }
+  },
+  "hangulS0L0Title": "ハングルってどんな文字？",
+  "hangulS0L0Subtitle": "ハングルが作られた経緯を簡単に学びましょう",
+  "hangulS0L0Step0Title": "昔は文字を学ぶのが大変でした",
+  "hangulS0L0Step0Desc": "昔は漢字を中心に文章を書いていたため、\n多くの人が読み書きに苦労していました。",
+  "hangulS0L0Step0Highlights": "漢字,困難,読み,書き",
+  "hangulS0L0Step1Title": "世宗大王が新しい文字を作りました",
+  "hangulS0L0Step1Desc": "民が簡単に学べるように、\n世宗大王が直接、訓民正音を作りました。\n（1443年創製、1446年公布）",
+  "hangulS0L0Step1Highlights": "世宗大王,訓民正音,1443,1446",
+  "hangulS0L0Step2Title": "そして今日のハングルになりました",
+  "hangulS0L0Step2Desc": "ハングルは音を簡単に表記できるように作られた文字です。\n次のレッスンでは子音と母音の構造を学びましょう。",
+  "hangulS0L0Step2Highlights": "音,簡単な文字,ハングル",
+  "hangulS0L0SummaryTitle": "紹介レッスン完了！",
+  "hangulS0L0SummaryMsg": "よくできました！\nハングルがなぜ作られたか分かりましたね。\n次は子音と母音の構造を学びましょう。",
+  "hangulS0L1Title": "가ブロックを組み立てよう",
+  "hangulS0L1Subtitle": "見ながら組み立てる（視覚中心）",
+  "hangulS0L1IntroTitle": "ハングルはブロックです！",
+  "hangulS0L1IntroDesc": "ハングルは子音と母音を組み合わせて文字を作ります。\n子音（ㄱ）+ 母音（ㅏ）= 가\n\nもっと複雑な文字には下にパッチム（末音）が入ることもあります。\n（後で学びます！）",
+  "hangulS0L1IntroHighlights": "子音,母音,文字",
+  "hangulS0L1DragGaTitle": "가を組み立てる",
+  "hangulS0L1DragGaDesc": "ㄱとㅏを空欄にドラッグしてください",
+  "hangulS0L1DragNaTitle": "나を組み立てる",
+  "hangulS0L1DragNaDesc": "新しい子音ㄴを使ってみましょう",
+  "hangulS0L1DragDaTitle": "다を組み立てる",
+  "hangulS0L1DragDaDesc": "新しい子音ㄷを使ってみましょう",
+  "hangulS0L1SummaryTitle": "レッスン完了！",
+  "hangulS0L1SummaryMsg": "子音 + 母音 = 文字ブロック！\nㄱ+ㅏ=가, ㄴ+ㅏ=나, ㄷ+ㅏ=다",
+  "hangulS0L2Title": "音の探索",
+  "hangulS0L2Subtitle": "音で子音と母音を感じよう",
+  "hangulS0L2IntroTitle": "音を感じてみましょう",
+  "hangulS0L2IntroDesc": "ハングルの子音と母音にはそれぞれ固有の音があります。\n音を聞いて感じてみましょう。",
+  "hangulS0L2Sound1Title": "ㄱ、ㄴ、ㄷの基本的な読み方",
+  "hangulS0L2Sound1Desc": "子音にㅏを付けた発音（가、나、다）を聞いてみましょう",
+  "hangulS0L2Sound2Title": "ㅏ、ㅗの母音の音",
+  "hangulS0L2Sound2Desc": "2つの母音の音を聞いてみましょう",
+  "hangulS0L2Sound3Title": "가、나、다の音を聞く",
+  "hangulS0L2Sound3Desc": "子音と母音が組み合わさった文字の音を聞いてみましょう",
+  "hangulS0L2SummaryTitle": "レッスン完了！",
+  "hangulS0L2SummaryMsg": "子音はㅏを付けた発音（가、나、다）として覚え、\n母音はそのままの音を感じられるようになりました！",
+  "hangulS0L3Title": "聞いて選ぼう",
+  "hangulS0L3Subtitle": "音で文字を区別しよう",
+  "hangulS0L3IntroTitle": "今回は耳で区別しよう",
+  "hangulS0L3IntroDesc": "画面よりも音に集中して、\n聞こえた音がどの文字か当ててみましょう。",
+  "hangulS0L3Sound1Title": "가/나/다/고/노の音を確認",
+  "hangulS0L3Sound1Desc": "まず5つの音をしっかり聞いてみましょう",
+  "hangulS0L3Match1Title": "聞いて同じ文字を選ぼう",
+  "hangulS0L3Match1Desc": "再生された音と同じ文字を選んでください",
+  "hangulS0L3Match2Title": "ㅏ / ㅗの音を区別",
+  "hangulS0L3Match2Desc": "同じ子音で、母音の違いを聞き分けてみましょう",
+  "hangulS0L3SummaryTitle": "レッスン完了！",
+  "hangulS0L3SummaryMsg": "よくできました！\n目（組み立て）と耳（音）を使って、\nハングルの構造を理解できるようになりました。",
+  "hangulS0CompleteTitle": "ステージ0完了！",
+  "hangulS0CompleteMsg": "ハングルの構造を理解しました！",
+  "hangulS1L1Title": "ㅏの形と音",
+  "hangulS1L1Subtitle": "縦線の右側に短い画: ㅏ",
+  "hangulS1L1Step0Title": "最初の母音ㅏを学ぼう",
+  "hangulS1L1Step0Desc": "ㅏは明るい音「아」を作ります。\n形と音を一緒に覚えましょう。",
+  "hangulS1L1Step0Highlights": "ㅏ,아,基本母音",
+  "hangulS1L1Step1Title": "ㅏの音を聴こう",
+  "hangulS1L1Step1Desc": "ㅏが含まれる音を聴いてください",
+  "hangulS1L1Step2Title": "発音練習",
+  "hangulS1L1Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS1L1Step3Title": "ㅏの音を選ぼう",
+  "hangulS1L1Step3Desc": "音を聴いて正しい文字を選んでください",
+  "hangulS1L1Step4Title": "形クイズ",
+  "hangulS1L1Step4Desc": "ㅏを正確に見つけましょう",
+  "hangulS1L1Step4Q0": "次のうちㅏは？",
+  "hangulS1L1Step4Q1": "次のうちㅏが含まれるものは？",
+  "hangulS1L1Step4Q2": "ㅇ + ㅏ = ?",
+  "hangulS1L1Step5Title": "ㅏで文字を作ろう",
+  "hangulS1L1Step5Desc": "子音とㅏを組み合わせて文字を完成させましょう",
+  "hangulS1L1Step6Title": "総合クイズ",
+  "hangulS1L1Step6Desc": "このレッスンの内容をまとめましょう",
+  "hangulS1L1Step6Q0": "「아」の母音は？",
+  "hangulS1L1Step6Q1": "ㅇ + ㅏ = ?",
+  "hangulS1L1Step6Q2": "次のうちㅏが含まれる文字は？",
+  "hangulS1L1Step6Q3": "ㅏと最も異なる音は？",
+  "hangulS1L1Step7Title": "レッスン完了！",
+  "hangulS1L1Step7Msg": "よくできました！\nㅏの形と音を覚えました。",
+  "hangulS1L2Title": "ㅓの形と音",
+  "hangulS1L2Subtitle": "縦線の左側に短い画: ㅓ",
+  "hangulS1L2Step0Title": "2番目の母音ㅓ",
+  "hangulS1L2Step0Desc": "ㅓは「어」の音を作ります。\nㅏと画の向きが反対なのが重要です。",
+  "hangulS1L2Step0Highlights": "ㅓ,어,ㅏと反対方向",
+  "hangulS1L2Step1Title": "ㅓの音を聴こう",
+  "hangulS1L2Step1Desc": "ㅓが含まれる音を聴いてください",
+  "hangulS1L2Step2Title": "発音練習",
+  "hangulS1L2Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS1L2Step3Title": "ㅓの音を選ぼう",
+  "hangulS1L2Step3Desc": "ㅏ/ㅓを耳で聞き分けましょう",
+  "hangulS1L2Step4Title": "形クイズ",
+  "hangulS1L2Step4Desc": "ㅓを見つけましょう",
+  "hangulS1L2Step4Q0": "次のうちㅓは？",
+  "hangulS1L2Step4Q1": "ㅇ + ㅓ = ?",
+  "hangulS1L2Step4Q2": "次のうちㅓが含まれる文字は？",
+  "hangulS1L2Step5Title": "ㅓで文字を作ろう",
+  "hangulS1L2Step5Desc": "子音とㅓを組み合わせてみましょう",
+  "hangulS1L2Step6Title": "レッスン完了！",
+  "hangulS1L2Step6Msg": "素晴らしい！\nㅓ(어)の音を覚えました。",
+  "hangulS1L3Title": "ㅗの形と音",
+  "hangulS1L3Subtitle": "横線の上に縦画: ㅗ",
+  "hangulS1L3Step0Title": "3番目の母音ㅗ",
+  "hangulS1L3Step0Desc": "ㅗは「오」の音を作ります。\n横線の上に縦画が上がります。",
+  "hangulS1L3Step0Highlights": "ㅗ,오,横型母音",
+  "hangulS1L3Step1Title": "ㅗの音を聴こう",
+  "hangulS1L3Step1Desc": "ㅗが含まれる音(오/고/노)を聴いてください",
+  "hangulS1L3Step2Title": "発音練習",
+  "hangulS1L3Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS1L3Step3Title": "ㅗの音を選ぼう",
+  "hangulS1L3Step3Desc": "오/우の音を聞き分けましょう",
+  "hangulS1L3Step4Title": "ㅗで文字を作ろう",
+  "hangulS1L3Step4Desc": "子音とㅗを組み合わせてみましょう",
+  "hangulS1L3Step5Title": "形・音クイズ",
+  "hangulS1L3Step5Desc": "ㅗを正確に選びましょう",
+  "hangulS1L3Step5Q0": "次のうちㅗは？",
+  "hangulS1L3Step5Q1": "ㅇ + ㅗ = ?",
+  "hangulS1L3Step5Q2": "次のうちㅗが含まれるものは？",
+  "hangulS1L3Step6Title": "レッスン完了！",
+  "hangulS1L3Step6Msg": "よくできました！\nㅗ(오)の音を覚えました。",
+  "hangulS1L4Title": "ㅜの形と音",
+  "hangulS1L4Subtitle": "横線の下に縦画: ㅜ",
+  "hangulS1L4Step0Title": "4番目の母音ㅜ",
+  "hangulS1L4Step0Desc": "ㅜは「우」の音を作ります。\nㅗとは縦画の位置が反対です。",
+  "hangulS1L4Step0Highlights": "ㅜ,우,ㅗと位置を比較",
+  "hangulS1L4Step1Title": "ㅜの音を聴こう",
+  "hangulS1L4Step1Desc": "우/구/누を聴いてください",
+  "hangulS1L4Step2Title": "発音練習",
+  "hangulS1L4Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS1L4Step3Title": "ㅜの音を選ぼう",
+  "hangulS1L4Step3Desc": "ㅗ/ㅜを聞き分けましょう",
+  "hangulS1L4Step4Title": "ㅜで文字を作ろう",
+  "hangulS1L4Step4Desc": "子音とㅜを組み合わせてみましょう",
+  "hangulS1L4Step5Title": "形・音クイズ",
+  "hangulS1L4Step5Desc": "ㅜを正確に選びましょう",
+  "hangulS1L4Step5Q0": "次のうちㅜは？",
+  "hangulS1L4Step5Q1": "ㅇ + ㅜ = ?",
+  "hangulS1L4Step5Q2": "次のうちㅜが含まれるものは？",
+  "hangulS1L4Step6Title": "レッスン完了！",
+  "hangulS1L4Step6Msg": "よくできました！\nㅜ(우)の音を覚えました。",
+  "hangulS1L5Title": "ㅡの形と音",
+  "hangulS1L5Subtitle": "一本の横線母音: ㅡ",
+  "hangulS1L5Step0Title": "5番目の母音ㅡ",
+  "hangulS1L5Step0Desc": "ㅡは口を横に引いて出す音です。\n形は一本の横線です。",
+  "hangulS1L5Step0Highlights": "ㅡ,으,一本の横線",
+  "hangulS1L5Step1Title": "ㅡの音を聴こう",
+  "hangulS1L5Step1Desc": "으/그/느の音を聴いてください",
+  "hangulS1L5Step2Title": "発音練習",
+  "hangulS1L5Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS1L5Step3Title": "ㅡの音を選ぼう",
+  "hangulS1L5Step3Desc": "ㅡとㅜの音を聞き分けましょう",
+  "hangulS1L5Step4Title": "ㅡで文字を作ろう",
+  "hangulS1L5Step4Desc": "子音とㅡを組み合わせてみましょう",
+  "hangulS1L5Step5Title": "形・音クイズ",
+  "hangulS1L5Step5Desc": "ㅡを正確に選びましょう",
+  "hangulS1L5Step5Q0": "次のうちㅡは？",
+  "hangulS1L5Step5Q1": "ㅇ + ㅡ = ?",
+  "hangulS1L5Step5Q2": "次のうちㅡが含まれるものは？",
+  "hangulS1L5Step6Title": "レッスン完了！",
+  "hangulS1L5Step6Msg": "よくできました！\nㅡ(으)の音を覚えました。",
+  "hangulS1L6Title": "ㅣの形と音",
+  "hangulS1L6Subtitle": "一本の縦線母音: ㅣ",
+  "hangulS1L6Step0Title": "6番目の母音ㅣ",
+  "hangulS1L6Step0Desc": "ㅣは「이」の音を作ります。\n形は一本の縦線です。",
+  "hangulS1L6Step0Highlights": "ㅣ,이,一本の縦線",
+  "hangulS1L6Step1Title": "ㅣの音を聴こう",
+  "hangulS1L6Step1Desc": "이/기/니の音を聴いてください",
+  "hangulS1L6Step2Title": "発音練習",
+  "hangulS1L6Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS1L6Step3Title": "ㅣの音を選ぼう",
+  "hangulS1L6Step3Desc": "ㅣとㅡの音を聞き分けましょう",
+  "hangulS1L6Step4Title": "ㅣで文字を作ろう",
+  "hangulS1L6Step4Desc": "子音とㅣを組み合わせてみましょう",
+  "hangulS1L6Step5Title": "形・音クイズ",
+  "hangulS1L6Step5Desc": "ㅣを正確に選びましょう",
+  "hangulS1L6Step5Q0": "次のうちㅣは？",
+  "hangulS1L6Step5Q1": "ㅇ + ㅣ = ?",
+  "hangulS1L6Step5Q2": "次のうちㅣが含まれるものは？",
+  "hangulS1L6Step6Title": "レッスン完了！",
+  "hangulS1L6Step6Msg": "よくできました！\nㅣ(이)の音を覚えました。",
+  "hangulS1L7Title": "縦母音の区別",
+  "hangulS1L7Subtitle": "ㅏ · ㅓ · ㅣ をすばやく区別する",
+  "hangulS1L7Step0Title": "縦母音グループの復習",
+  "hangulS1L7Step0Desc": "ㅏ、ㅓ、ㅣは縦軸の母音です。\n画の位置と音を一緒に区別しましょう。",
+  "hangulS1L7Step0Highlights": "ㅏ,ㅓ,ㅣ,縦母音",
+  "hangulS1L7Step1Title": "もう一度聴いてみよう",
+  "hangulS1L7Step1Desc": "아/어/이の音を確認しましょう",
+  "hangulS1L7Step2Title": "発音練習",
+  "hangulS1L7Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS1L7Step3Title": "縦母音のリスニングクイズ",
+  "hangulS1L7Step3Desc": "音と文字を結び付けましょう",
+  "hangulS1L7Step4Title": "縦母音の形クイズ",
+  "hangulS1L7Step4Desc": "形を正確に区別しましょう",
+  "hangulS1L7Step4Q0": "右に短い画があるのは？",
+  "hangulS1L7Step4Q1": "左に短い画があるのは？",
+  "hangulS1L7Step4Q2": "縦一本線は？",
+  "hangulS1L7Step4Q3": "ㄴ + ㅓ = ?",
+  "hangulS1L7Step4Q4": "ㄱ + ㅣ = ?",
+  "hangulS1L7Step5Title": "レッスン完了！",
+  "hangulS1L7Step5Msg": "よくできました！\n縦母音（ㅏ/ㅓ/ㅣ）の区別が身につきました。",
+  "hangulS1L8Title": "横母音の区別",
+  "hangulS1L8Subtitle": "ㅗ · ㅜ · ㅡ をすばやく区別する",
+  "hangulS1L8Step0Title": "横母音グループの復習",
+  "hangulS1L8Step0Desc": "ㅗ、ㅜ、ㅡは横軸中心の母音です。\n縦画の位置と口の形を一緒に覚えましょう。",
+  "hangulS1L8Step0Highlights": "ㅗ,ㅜ,ㅡ,横母音",
+  "hangulS1L8Step1Title": "もう一度聴いてみよう",
+  "hangulS1L8Step1Desc": "오/우/으の音を確認しましょう",
+  "hangulS1L8Step2Title": "発音練習",
+  "hangulS1L8Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS1L8Step3Title": "横母音のリスニングクイズ",
+  "hangulS1L8Step3Desc": "音と文字を結び付けましょう",
+  "hangulS1L8Step4Title": "横母音の形クイズ",
+  "hangulS1L8Step4Desc": "形と音を一緒に確認しましょう",
+  "hangulS1L8Step4Q0": "横線の上に縦画があるのは？",
+  "hangulS1L8Step4Q1": "横線の下に縦画があるのは？",
+  "hangulS1L8Step4Q2": "横一本線は？",
+  "hangulS1L8Step4Q3": "ㄱ + ㅗ = ?",
+  "hangulS1L8Step4Q4": "ㄴ + ㅜ = ?",
+  "hangulS1L8Step5Title": "レッスン完了！",
+  "hangulS1L8Step5Msg": "よくできました！\n横母音（ㅗ/ㅜ/ㅡ）の区別が身につきました。",
+  "hangulS1L9Title": "基本母音ミッション",
+  "hangulS1L9Subtitle": "制限時間内に母音の組み合わせを完成させよう",
+  "hangulS1L9Step0Title": "ステージ1最終ミッション",
+  "hangulS1L9Step0Desc": "制限時間内に文字の組み合わせを完成させましょう。\n正確さとスピードでレモン報酬をゲット！",
+  "hangulS1L9Step1Title": "タイムミッション",
+  "hangulS1L9Step2Title": "ミッション結果",
+  "hangulS1L9Step3Title": "ステージ1クリア！",
+  "hangulS1L9Step3Msg": "おめでとう！\nステージ1の基本母音をすべて終えました。",
+  "hangulS1L10Title": "初めての韓国語の単語！",
+  "hangulS1L10Subtitle": "覚えた文字で本物の単語を読んでみよう",
+  "hangulS1L10Step0Title": "これで単語が読めます！",
+  "hangulS1L10Step0Desc": "母音と基本子音を学んだので\n本物の韓国語の単語を読んでみましょう。",
+  "hangulS1L10Step0Highlights": "本物の単語,読み挑戦",
+  "hangulS1L10Step1Title": "最初の単語を読む",
+  "hangulS1L10Step1Descs": "子ども,牛乳,キュウリ,これ/歯,弟",
+  "hangulS1L10Step2Title": "発音練習",
+  "hangulS1L10Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS1L10Step3Title": "聴いて選ぼう",
+  "hangulS1L10Step4Title": "すごいです！",
+  "hangulS1L10Step4Msg": "韓国語の単語が読めました！\n子音をさらに学べば\nもっとたくさんの単語が読めます。",
+  "hangulS1CompleteTitle": "ステージ1クリア！",
+  "hangulS1CompleteMsg": "基本母音6文字をマスターしました！",
+  "hangulS2L1Title": "ㅑの形と発音",
+  "hangulS2L1Subtitle": "ㅏに一画追加: ㅑ",
+  "hangulS2L1Step0Title": "ㅏがㅑに変わります",
+  "hangulS2L1Step0Desc": "ㅏに一画加えるとㅑになります。\n「ア」より弾む「ヤ」の音になります。",
+  "hangulS2L1Step0Highlights": "ㅏ → ㅑ,야,Y母音",
+  "hangulS2L1Step1Title": "ㅑの音を聴く",
+  "hangulS2L1Step1Desc": "야/갸/냐の音を聴いてみましょう",
+  "hangulS2L1Step2Title": "発音練習",
+  "hangulS2L1Step2Desc": "文字を声に出して読みましょう",
+  "hangulS2L1Step3Title": "ㅏ vs ㅑ リスニング",
+  "hangulS2L1Step3Desc": "似た音を聴き分けましょう",
+  "hangulS2L1Step4Title": "ㅑで音節を作る",
+  "hangulS2L1Step4Desc": "子音 + ㅑ の組み合わせを完成させましょう",
+  "hangulS2L1Step5Title": "形・音クイズ",
+  "hangulS2L1Step5Desc": "ㅑを正確に選びましょう",
+  "hangulS2L1Step5Q0": "次のうちㅑは？",
+  "hangulS2L1Step5Q1": "ㅇ + ㅑ = ?",
+  "hangulS2L1Step5Q2": "次のうちㅑが入るものは？",
+  "hangulS2L1Step6Title": "レッスン完了！",
+  "hangulS2L1Step6Msg": "よくできました！\nㅑ（야）の音を覚えました。",
+  "hangulS2L2Title": "ㅕの形と発音",
+  "hangulS2L2Subtitle": "ㅓに一画追加: ㅕ",
+  "hangulS2L2Step0Title": "ㅓがㅕに変わります",
+  "hangulS2L2Step0Desc": "ㅓに一画加えるとㅕになります。\n「オ」が「ヨ」の音に変わります。",
+  "hangulS2L2Step0Highlights": "ㅓ → ㅕ,여,Y母音",
+  "hangulS2L2Step1Title": "ㅕの音を聴く",
+  "hangulS2L2Step1Desc": "여/겨/녀の音を聴いてみましょう",
+  "hangulS2L2Step2Title": "発音練習",
+  "hangulS2L2Step2Desc": "文字を声に出して読みましょう",
+  "hangulS2L2Step3Title": "ㅓ vs ㅕ リスニング",
+  "hangulS2L2Step3Desc": "어と여を聴き分けましょう",
+  "hangulS2L2Step4Title": "ㅕで音節を作る",
+  "hangulS2L2Step4Desc": "子音 + ㅕ の組み合わせを完成させましょう",
+  "hangulS2L2Step5Title": "レッスン完了！",
+  "hangulS2L2Step5Msg": "よくできました！\nㅕ（여）の音を覚えました。",
+  "hangulS2L3Title": "ㅛの形と発音",
+  "hangulS2L3Subtitle": "ㅗに一画追加: ㅛ",
+  "hangulS2L3Step0Title": "ㅗがㅛに変わります",
+  "hangulS2L3Step0Desc": "ㅗに一画加えるとㅛになります。\n「オ」が「ヨ」の音に変わります。",
+  "hangulS2L3Step0Highlights": "ㅗ → ㅛ,요,Y母音",
+  "hangulS2L3Step1Title": "ㅛの音を聴く",
+  "hangulS2L3Step1Desc": "요/교/뇨の音を聴いてみましょう",
+  "hangulS2L3Step2Title": "発音練習",
+  "hangulS2L3Step2Desc": "文字を声に出して読みましょう",
+  "hangulS2L3Step3Title": "ㅗ vs ㅛ リスニング",
+  "hangulS2L3Step3Desc": "오と요を聴き分けましょう",
+  "hangulS2L3Step4Title": "ㅛで音節を作る",
+  "hangulS2L3Step4Desc": "子音 + ㅛ の組み合わせを完成させましょう",
+  "hangulS2L3Step5Title": "レッスン完了！",
+  "hangulS2L3Step5Msg": "よくできました！\nㅛ（요）の音を覚えました。",
+  "hangulS2L4Title": "ㅠの形と発音",
+  "hangulS2L4Subtitle": "ㅜに一画追加: ㅠ",
+  "hangulS2L4Step0Title": "ㅜがㅠに変わります",
+  "hangulS2L4Step0Desc": "ㅜに一画加えるとㅠになります。\n「ウ」が「ユ」の音に変わります。",
+  "hangulS2L4Step0Highlights": "ㅜ → ㅠ,유,Y母音",
+  "hangulS2L4Step1Title": "ㅠの音を聴く",
+  "hangulS2L4Step1Desc": "유/규/뉴の音を聴いてみましょう",
+  "hangulS2L4Step2Title": "発音練習",
+  "hangulS2L4Step2Desc": "文字を声に出して読みましょう",
+  "hangulS2L4Step3Title": "ㅜ vs ㅠ リスニング",
+  "hangulS2L4Step3Desc": "우と유を聴き分けましょう",
+  "hangulS2L4Step4Title": "ㅠで音節を作る",
+  "hangulS2L4Step4Desc": "子音 + ㅠ の組み合わせを完成させましょう",
+  "hangulS2L4Step5Title": "レッスン完了！",
+  "hangulS2L4Step5Msg": "よくできました！\nㅠ（유）の音を覚えました。",
+  "hangulS2L5Title": "Y母音グループ特訓",
+  "hangulS2L5Subtitle": "ㅑ · ㅕ · ㅛ · ㅠ 集中トレーニング",
+  "hangulS2L5Step0Title": "Y母音を一度に見る",
+  "hangulS2L5Step0Desc": "ㅑ/ㅕ/ㅛ/ㅠは基本母音に一画加えた母音です。\n音と形を素早く区別しましょう。",
+  "hangulS2L5Step0Highlights": "ㅑ,ㅕ,ㅛ,ㅠ",
+  "hangulS2L5Step1Title": "4つの音を再確認",
+  "hangulS2L5Step1Desc": "야/여/요/유を確認しましょう",
+  "hangulS2L5Step2Title": "発音練習",
+  "hangulS2L5Step2Desc": "文字を声に出して読みましょう",
+  "hangulS2L5Step3Title": "音の識別クイズ",
+  "hangulS2L5Step3Desc": "Y母音の音を聴き分けましょう",
+  "hangulS2L5Step4Title": "形の識別クイズ",
+  "hangulS2L5Step4Desc": "形を正確に区別しましょう",
+  "hangulS2L5Step4Q0": "次のうちㅑは？",
+  "hangulS2L5Step4Q1": "次のうちㅕは？",
+  "hangulS2L5Step4Q2": "次のうちㅛは？",
+  "hangulS2L5Step4Q3": "次のうちㅠは？",
+  "hangulS2L5Step5Title": "レッスン完了！",
+  "hangulS2L5Step5Msg": "よくできました！\n4つのY母音の区別が上手になりました。",
+  "hangulS2L6Title": "基本母音 vs Y母音 比較",
+  "hangulS2L6Subtitle": "ㅏ/ㅑ · ㅓ/ㅕ · ㅗ/ㅛ · ㅜ/ㅠ",
+  "hangulS2L6Step0Title": "紛らわしいペアを整理する",
+  "hangulS2L6Step0Desc": "基本母音とY母音をペアで比較しましょう。",
+  "hangulS2L6Step0Highlights": "ㅏ/ㅑ,ㅓ/ㅕ,ㅗ/ㅛ,ㅜ/ㅠ",
+  "hangulS2L6Step1Title": "ペアの音の区別",
+  "hangulS2L6Step1Desc": "似た音の中から正解を選びましょう",
+  "hangulS2L6Step2Title": "ペアの形の区別",
+  "hangulS2L6Step2Desc": "画の有無を確認しましょう",
+  "hangulS2L6Step2Q0": "画が追加された母音は？",
+  "hangulS2L6Step2Q1": "画が追加された母音は？",
+  "hangulS2L6Step2Q2": "画が追加された母音は？",
+  "hangulS2L6Step2Q3": "画が追加された母音は？",
+  "hangulS2L6Step2Q4": "ㅇ + ㅠ = ?",
+  "hangulS2L6Step3Title": "レッスン完了！",
+  "hangulS2L6Step3Msg": "よくできました！\n基本／Y母音の比較が安定しました。",
+  "hangulS2L7Title": "Y母音ミッション",
+  "hangulS2L7Subtitle": "時間内にY母音の組み合わせを完成させよう",
+  "hangulS2L7Step0Title": "ステージ2 最終ミッション",
+  "hangulS2L7Step0Desc": "Y母音の組み合わせを速く正確に当てましょう。\n完成数と時間でレモン報酬が決まります。",
+  "hangulS2L7Step1Title": "タイムミッション",
+  "hangulS2L7Step2Title": "ミッション結果",
+  "hangulS2L7Step3Title": "ステージ2 完了！",
+  "hangulS2L7Step3Msg": "おめでとうございます！\nステージ2のY母音をすべて終えました。",
+  "hangulS2CompleteTitle": "ステージ2 完了！",
+  "hangulS2CompleteMsg": "Y母音をマスターしました！",
+  "hangulS3L1Title": "ㅐの形と音",
+  "hangulS3L1Subtitle": "ㅏ + ㅣの組み合わせを感じよう",
+  "hangulS3L1Step0Title": "ㅐはこんな形です",
+  "hangulS3L1Step0Desc": "ㅐはㅏ系列から派生した母音です。\n代表音は「애」として覚えましょう。",
+  "hangulS3L1Step0Highlights": "ㅐ,애,形の認識",
+  "hangulS3L1Step1Title": "ㅐの音を聞こう",
+  "hangulS3L1Step1Desc": "애/개/내の音を聞いてみましょう",
+  "hangulS3L1Step2Title": "発音練習",
+  "hangulS3L1Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS3L1Step3Title": "ㅏ vs ㅐを聞き分けよう",
+  "hangulS3L1Step3Desc": "아/애を聞き分けましょう",
+  "hangulS3L1Step4Title": "レッスン完了！",
+  "hangulS3L1Step4Msg": "いいですね！\nㅐ（애）の形と音を覚えました。",
+  "hangulS3L2Title": "ㅔの形と音",
+  "hangulS3L2Subtitle": "ㅓ + ㅣの組み合わせを感じよう",
+  "hangulS3L2Step0Title": "ㅔはこんな形です",
+  "hangulS3L2Step0Desc": "ㅔはㅓ系列から派生した母音です。\n代表音は「에」として覚えましょう。",
+  "hangulS3L2Step0Highlights": "ㅔ,에,形の認識",
+  "hangulS3L2Step1Title": "ㅔの音を聞こう",
+  "hangulS3L2Step1Desc": "에/게/네の音を聞いてみましょう",
+  "hangulS3L2Step2Title": "発音練習",
+  "hangulS3L2Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS3L2Step3Title": "ㅓ vs ㅔを聞き分けよう",
+  "hangulS3L2Step3Desc": "어/에を聞き分けましょう",
+  "hangulS3L2Step4Title": "レッスン完了！",
+  "hangulS3L2Step4Msg": "いいですね！\nㅔ（에）の形と音を覚えました。",
+  "hangulS3L3Title": "ㅐ vs ㅔの区別",
+  "hangulS3L3Subtitle": "形を中心にした区別トレーニング",
+  "hangulS3L3Step0Title": "ポイントは形の区別です",
+  "hangulS3L3Step0Desc": "初級では、ㅐ/ㅔの音は似て聞こえることがあります。\nまず形の区別を正確にしましょう。",
+  "hangulS3L3Step0Highlights": "ㅐ,ㅔ,形の区別",
+  "hangulS3L3Step1Title": "形の区別クイズ",
+  "hangulS3L3Step1Desc": "ㅐとㅔを正確に選びましょう",
+  "hangulS3L3Step1Q0": "次のうちㅐはどれ？",
+  "hangulS3L3Step1Q1": "次のうちㅔはどれ？",
+  "hangulS3L3Step1Q2": "ㅇ + ㅐ = ?",
+  "hangulS3L3Step1Q3": "ㅇ + ㅔ = ?",
+  "hangulS3L3Step2Title": "レッスン完了！",
+  "hangulS3L3Step2Msg": "いいですね！\nㅐ/ㅔの区別がより正確になりました。",
+  "hangulS3L4Title": "ㅒの形と音",
+  "hangulS3L4Subtitle": "Y-ㅐ系列の母音",
+  "hangulS3L4Step0Title": "ㅒを覚えよう",
+  "hangulS3L4Step0Desc": "ㅒはㅐ系列のY母音です。\n代表音は「얘」です。",
+  "hangulS3L4Step0Highlights": "ㅒ,얘",
+  "hangulS3L4Step1Title": "ㅒの音を聞こう",
+  "hangulS3L4Step1Desc": "얘/걔/냬の音を聞いてみましょう",
+  "hangulS3L4Step2Title": "発音練習",
+  "hangulS3L4Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS3L4Step3Title": "レッスン完了！",
+  "hangulS3L4Step3Msg": "いいですね！\nㅒ（얘）の形を覚えました。",
+  "hangulS3L5Title": "ㅖの形と音",
+  "hangulS3L5Subtitle": "Y-ㅔ系列の母音",
+  "hangulS3L5Step0Title": "ㅖを覚えよう",
+  "hangulS3L5Step0Desc": "ㅖはㅔ系列のY母音です。\n代表音は「예」です。",
+  "hangulS3L5Step0Highlights": "ㅖ,예",
+  "hangulS3L5Step1Title": "ㅖの音を聞こう",
+  "hangulS3L5Step1Desc": "예/계/녜の音を聞いてみましょう",
+  "hangulS3L5Step2Title": "発音練習",
+  "hangulS3L5Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS3L5Step3Title": "レッスン完了！",
+  "hangulS3L5Step3Msg": "いいですね！\nㅖ（예）の形を覚えました。",
+  "hangulS3L6Title": "ㅐ/ㅔ系列の総まとめ",
+  "hangulS3L6Subtitle": "ㅐ ㅔ ㅒ ㅖ統合チェック",
+  "hangulS3L6Step0Title": "四つを一気に区別しましょう",
+  "hangulS3L6Step0Desc": "ㅐ/ㅔ/ㅒ/ㅖを形と音で一緒に確認しましょう。",
+  "hangulS3L6Step0Highlights": "ㅐ,ㅔ,ㅒ,ㅖ",
+  "hangulS3L6Step1Title": "音の区別",
+  "hangulS3L6Step1Desc": "似た音の中から正解を選びましょう",
+  "hangulS3L6Step2Title": "形の区別",
+  "hangulS3L6Step2Desc": "形を見てすばやく選びましょう",
+  "hangulS3L6Step2Q0": "次のうちY-ㅐ系列はどれ？",
+  "hangulS3L6Step2Q1": "次のうちY-ㅔ系列はどれ？",
+  "hangulS3L6Step2Q2": "ㅇ + ㅖ = ?",
+  "hangulS3L6Step3Title": "レッスン完了！",
+  "hangulS3L6Step3Msg": "いいですね！\nステージ3の重要母音の区別が安定しました。",
+  "hangulS3L7Title": "ステージ3ミッション",
+  "hangulS3L7Subtitle": "ㅐ/ㅔ系列の素早い区別ミッション",
+  "hangulS3L7Step0Title": "ステージ3最終ミッション",
+  "hangulS3L7Step0Desc": "ㅐ/ㅔ系列の組み合わせを素早く正確に合わせましょう。",
+  "hangulS3L7Step1Title": "タイムミッション",
+  "hangulS3L7Step2Title": "ミッション結果",
+  "hangulS3L7Step3Title": "ステージ3完了！",
+  "hangulS3L7Step3Msg": "おめでとうございます！\nステージ3のㅐ/ㅔ系列母音をすべて終えました。",
+  "hangulS3L7Step4Title": "ステージ3完了！",
+  "hangulS3L7Step4Msg": "すべての母音を学びました！",
+  "hangulS3CompleteTitle": "ステージ3完了！",
+  "hangulS3CompleteMsg": "すべての母音を学びました！",
+  "hangulS4L1Title": "ㄱの形と音",
+  "hangulS4L1Subtitle": "基本子音の始まり：ㄱ",
+  "hangulS4L1Step0Title": "ㄱを学ぼう",
+  "hangulS4L1Step0Desc": "ㄱは基本子音の始まりです。\nㅏと合わせると「가」の音になります。",
+  "hangulS4L1Step0Highlights": "ㄱ,가,基本子音",
+  "hangulS4L1Step1Title": "ㄱの音を聞く",
+  "hangulS4L1Step1Desc": "가/고/구の音を聞いてみましょう",
+  "hangulS4L1Step2Title": "発音練習",
+  "hangulS4L1Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L1Step3Title": "ㄱの音を選ぼう",
+  "hangulS4L1Step3Desc": "音を聞いて正しい文字を選んでください",
+  "hangulS4L1Step4Title": "ㄱで文字を作ろう",
+  "hangulS4L1Step4Desc": "ㄱ＋母音を組み合わせてみましょう",
+  "hangulS4L1SummaryTitle": "レッスン完了！",
+  "hangulS4L1SummaryMsg": "いいですね！\nㄱの音と形を覚えました。",
+  "hangulS4L2Title": "ㄴの形と音",
+  "hangulS4L2Subtitle": "第2の基本子音：ㄴ",
+  "hangulS4L2Step0Title": "ㄴを学ぼう",
+  "hangulS4L2Step0Desc": "ㄴは「나」の音系列を作ります。",
+  "hangulS4L2Step0Highlights": "ㄴ,나",
+  "hangulS4L2Step1Title": "ㄴの音を聞く",
+  "hangulS4L2Step1Desc": "나/노/누の音を聞いてみましょう",
+  "hangulS4L2Step2Title": "発音練習",
+  "hangulS4L2Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L2Step3Title": "ㄴの音を選ぼう",
+  "hangulS4L2Step3Desc": "나/다を区別しましょう",
+  "hangulS4L2Step4Title": "ㄴで文字を作ろう",
+  "hangulS4L2Step4Desc": "ㄴ＋母音を組み合わせてみましょう",
+  "hangulS4L2SummaryTitle": "レッスン完了！",
+  "hangulS4L2SummaryMsg": "いいですね！\nㄴの音と形を覚えました。",
+  "hangulS4L3Title": "ㄷの形と音",
+  "hangulS4L3Subtitle": "第3の基本子音：ㄷ",
+  "hangulS4L3Step0Title": "ㄷを学ぼう",
+  "hangulS4L3Step0Desc": "ㄷは「다」の音系列を作ります。",
+  "hangulS4L3Step0Highlights": "ㄷ,다",
+  "hangulS4L3Step1Title": "ㄷの音を聞く",
+  "hangulS4L3Step1Desc": "다/도/두の音を聞いてみましょう",
+  "hangulS4L3Step2Title": "発音練習",
+  "hangulS4L3Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L3Step3Title": "ㄷの音を選ぼう",
+  "hangulS4L3Step3Desc": "다/나を区別しましょう",
+  "hangulS4L3Step4Title": "ㄷで文字を作ろう",
+  "hangulS4L3Step4Desc": "ㄷ＋母音を組み合わせてみましょう",
+  "hangulS4L3SummaryTitle": "レッスン完了！",
+  "hangulS4L3SummaryMsg": "いいですね！\nㄷの音と形を覚えました。",
+  "hangulS4L4Title": "ㄹの形と音",
+  "hangulS4L4Subtitle": "第4の基本子音：ㄹ",
+  "hangulS4L4Step0Title": "ㄹを学ぼう",
+  "hangulS4L4Step0Desc": "ㄹは「라」の音系列を作ります。",
+  "hangulS4L4Step0Highlights": "ㄹ,라",
+  "hangulS4L4Step1Title": "ㄹの音を聞く",
+  "hangulS4L4Step1Desc": "라/로/루の音を聞いてみましょう",
+  "hangulS4L4Step2Title": "発音練習",
+  "hangulS4L4Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L4Step3Title": "ㄹの音を選ぼう",
+  "hangulS4L4Step3Desc": "라/나を区別しましょう",
+  "hangulS4L4Step4Title": "ㄹで文字を作ろう",
+  "hangulS4L4Step4Desc": "ㄹ＋母音を組み合わせてみましょう",
+  "hangulS4L4SummaryTitle": "レッスン完了！",
+  "hangulS4L4SummaryMsg": "いいですね！\nㄹの音と形を覚えました。",
+  "hangulS4L5Title": "ㅁの形と音",
+  "hangulS4L5Subtitle": "第5の基本子音：ㅁ",
+  "hangulS4L5Step0Title": "ㅁを学ぼう",
+  "hangulS4L5Step0Desc": "ㅁは「마」の音系列を作ります。",
+  "hangulS4L5Step0Highlights": "ㅁ,마",
+  "hangulS4L5Step1Title": "ㅁの音を聞く",
+  "hangulS4L5Step1Desc": "마/모/무の音を聞いてみましょう",
+  "hangulS4L5Step2Title": "発音練習",
+  "hangulS4L5Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L5Step3Title": "ㅁの音を選ぼう",
+  "hangulS4L5Step3Desc": "마/바を区別しましょう",
+  "hangulS4L5Step4Title": "ㅁで文字を作ろう",
+  "hangulS4L5Step4Desc": "ㅁ＋母音を組み合わせてみましょう",
+  "hangulS4L5SummaryTitle": "レッスン完了！",
+  "hangulS4L5SummaryMsg": "いいですね！\nㅁの音と形を覚えました。",
+  "hangulS4L6Title": "ㅂの形と音",
+  "hangulS4L6Subtitle": "第6の基本子音：ㅂ",
+  "hangulS4L6Step0Title": "ㅂを学ぼう",
+  "hangulS4L6Step0Desc": "ㅂは「바」の音系列を作ります。",
+  "hangulS4L6Step0Highlights": "ㅂ,바",
+  "hangulS4L6Step1Title": "ㅂの音を聞く",
+  "hangulS4L6Step1Desc": "바/보/부の音を聞いてみましょう",
+  "hangulS4L6Step2Title": "発音練習",
+  "hangulS4L6Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L6Step3Title": "ㅂの音を選ぼう",
+  "hangulS4L6Step3Desc": "바/마を区別しましょう",
+  "hangulS4L6Step4Title": "ㅂで文字を作ろう",
+  "hangulS4L6Step4Desc": "ㅂ＋母音を組み合わせてみましょう",
+  "hangulS4L6SummaryTitle": "レッスン完了！",
+  "hangulS4L6SummaryMsg": "いいですね！\nㅂの音と形を覚えました。",
+  "hangulS4L7Title": "ㅅの形と音",
+  "hangulS4L7Subtitle": "第7の基本子音：ㅅ",
+  "hangulS4L7Step0Title": "ㅅを学ぼう",
+  "hangulS4L7Step0Desc": "ㅅは「사」の音系列を作ります。",
+  "hangulS4L7Step0Highlights": "ㅅ,사",
+  "hangulS4L7Step1Title": "ㅅの音を聞く",
+  "hangulS4L7Step1Desc": "사/소/수の音を聞いてみましょう",
+  "hangulS4L7Step2Title": "発音練習",
+  "hangulS4L7Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L7Step3Title": "ㅅの音を選ぼう",
+  "hangulS4L7Step3Desc": "사/자を区別しましょう",
+  "hangulS4L7Step4Title": "ㅅで文字を作ろう",
+  "hangulS4L7Step4Desc": "ㅅ＋母音を組み合わせてみましょう",
+  "hangulS4L7SummaryTitle": "ステージ4完了！",
+  "hangulS4L7SummaryMsg": "おめでとうございます！\nステージ4の基本子音1（ㄱ〜ㅅ）を完了しました。",
+  "hangulS4L8Title": "単語読みチャレンジ！",
+  "hangulS4L8Subtitle": "子音と母音を使って単語を読んでみよう",
+  "hangulS4L8Step0Title": "もっとたくさんの単語が読めるようになりました！",
+  "hangulS4L8Step0Desc": "基本子音7つと母音をすべて学びました。\nこれらの文字で作られた本物の単語を読んでみましょう！",
+  "hangulS4L8Step0Highlights": "子音7つ,母音,本物の単語",
+  "hangulS4L8Step1Title": "単語を読む",
+  "hangulS4L8Step1Descs": "木,海,蝶,帽子,家具,豆腐",
+  "hangulS4L8Step2Title": "発音練習",
+  "hangulS4L8Step2Desc": "文字を声に出してみましょう",
+  "hangulS4L8Step3Title": "聞いて選ぼう",
+  "hangulS4L8Step4Title": "どういう意味でしょう？",
+  "hangulS4L8Step4Q0": "「나비」を日本語で言うと？",
+  "hangulS4L8Step4Q1": "「바다」を日本語で言うと？",
+  "hangulS4L8SummaryTitle": "素晴らしい！",
+  "hangulS4L8SummaryMsg": "韓国語の単語を6つ読みました！\nもっと子音を学べば、さらに多くの単語が読めるようになります。",
+  "hangulS4LMTitle": "ミッション：基本子音の組み合わせ！",
+  "hangulS4LMSubtitle": "制限時間内に音節を作ろう",
+  "hangulS4LMStep0Title": "ミッション開始！",
+  "hangulS4LMStep0Desc": "基本子音ㄱ〜ㅅと母音を組み合わせましょう。\n制限時間内に目標を達成してください！",
+  "hangulS4LMStep1Title": "音節を組み合わせよう！",
+  "hangulS4LMStep2Title": "ミッション結果",
+  "hangulS4LMSummaryTitle": "ミッション完了！",
+  "hangulS4LMSummaryMsg": "基本子音7つを自由に組み合わせられます！",
+  "hangulS4CompleteTitle": "ステージ4完了！",
+  "hangulS4CompleteMsg": "基本子音7つをマスターしました！",
+  "hangulS5L1Title": "ㅇの位置を理解しよう",
+  "hangulS5L1Subtitle": "初声ㅇの読み方",
+  "hangulS5L1Step0Title": "ㅇは特別な子音です",
+  "hangulS5L1Step0Desc": "初声のㅇはほぼ無音で、\n母音と組み合わさると아/오/우のように読みます。",
+  "hangulS5L1Step0Highlights": "ㅇ,아,初声の位置",
+  "hangulS5L1Step1Title": "ㅇの組み合わせを聴こう",
+  "hangulS5L1Step1Desc": "아/오/우の音を聴いてみましょう",
+  "hangulS5L1Step2Title": "発音練習",
+  "hangulS5L1Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L1Step3Title": "ㅇで文字を作ろう",
+  "hangulS5L1Step3Desc": "ㅇ + 母音を組み合わせてみましょう",
+  "hangulS5L1Step4Title": "レッスン完了！",
+  "hangulS5L1Step4Msg": "よくできました！\nㅇの位置が理解できましたね。",
+  "hangulS5L2Title": "ㅈの形と音",
+  "hangulS5L2Subtitle": "ㅈの基本的な読み方",
+  "hangulS5L2Step0Title": "ㅈを学ぼう",
+  "hangulS5L2Step0Desc": "ㅈは「자」系の音を作ります。",
+  "hangulS5L2Step0Highlights": "ㅈ,자",
+  "hangulS5L2Step1Title": "ㅈの音を聴こう",
+  "hangulS5L2Step1Desc": "자/조/주を聴いてみましょう",
+  "hangulS5L2Step2Title": "発音練習",
+  "hangulS5L2Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L2Step3Title": "ㅈの音を選ぼう",
+  "hangulS5L2Step3Desc": "자と사を聞き分けましょう",
+  "hangulS5L2Step4Title": "ㅈで文字を作ろう",
+  "hangulS5L2Step4Desc": "ㅈ + 母音を組み合わせてみましょう",
+  "hangulS5L2Step5Title": "レッスン完了！",
+  "hangulS5L2Step5Msg": "よくできました！\nㅈの音と形を覚えましたね。",
+  "hangulS5L3Title": "ㅊの形と音",
+  "hangulS5L3Subtitle": "ㅊの基本的な読み方",
+  "hangulS5L3Step0Title": "ㅊを学ぼう",
+  "hangulS5L3Step0Desc": "ㅊは「차」系の音を作ります。",
+  "hangulS5L3Step0Highlights": "ㅊ,차",
+  "hangulS5L3Step1Title": "ㅊの音を聴こう",
+  "hangulS5L3Step1Desc": "차/초/추を聴いてみましょう",
+  "hangulS5L3Step2Title": "発音練習",
+  "hangulS5L3Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L3Step3Title": "ㅊの音を選ぼう",
+  "hangulS5L3Step3Desc": "차と자を聞き分けましょう",
+  "hangulS5L3Step4Title": "レッスン完了！",
+  "hangulS5L3Step4Msg": "よくできました！\nㅊの音と形を覚えましたね。",
+  "hangulS5L4Title": "ㅋの形と音",
+  "hangulS5L4Subtitle": "ㅋの基本的な読み方",
+  "hangulS5L4Step0Title": "ㅋを学ぼう",
+  "hangulS5L4Step0Desc": "ㅋは「카」系の音を作ります。",
+  "hangulS5L4Step0Highlights": "ㅋ,카",
+  "hangulS5L4Step1Title": "ㅋの音を聴こう",
+  "hangulS5L4Step1Desc": "카/코/쿠を聴いてみましょう",
+  "hangulS5L4Step2Title": "発音練習",
+  "hangulS5L4Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L4Step3Title": "ㅋの音を選ぼう",
+  "hangulS5L4Step3Desc": "카と가を聞き分けましょう",
+  "hangulS5L4Step4Title": "レッスン完了！",
+  "hangulS5L4Step4Msg": "よくできました！\nㅋの音と形を覚えましたね。",
+  "hangulS5L5Title": "ㅌの形と音",
+  "hangulS5L5Subtitle": "ㅌの基本的な読み方",
+  "hangulS5L5Step0Title": "ㅌを学ぼう",
+  "hangulS5L5Step0Desc": "ㅌは「타」系の音を作ります。",
+  "hangulS5L5Step0Highlights": "ㅌ,타",
+  "hangulS5L5Step1Title": "ㅌの音を聴こう",
+  "hangulS5L5Step1Desc": "타/토/투を聴いてみましょう",
+  "hangulS5L5Step2Title": "発音練習",
+  "hangulS5L5Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L5Step3Title": "ㅌの音を選ぼう",
+  "hangulS5L5Step3Desc": "타と다を聞き分けましょう",
+  "hangulS5L5Step4Title": "レッスン完了！",
+  "hangulS5L5Step4Msg": "よくできました！\nㅌの音と形を覚えましたね。",
+  "hangulS5L6Title": "ㅍの形と音",
+  "hangulS5L6Subtitle": "ㅍの基本的な読み方",
+  "hangulS5L6Step0Title": "ㅍを学ぼう",
+  "hangulS5L6Step0Desc": "ㅍは「파」系の音を作ります。",
+  "hangulS5L6Step0Highlights": "ㅍ,파",
+  "hangulS5L6Step1Title": "ㅍの音を聴こう",
+  "hangulS5L6Step1Desc": "파/포/푸を聴いてみましょう",
+  "hangulS5L6Step2Title": "発音練習",
+  "hangulS5L6Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L6Step3Title": "ㅍの音を選ぼう",
+  "hangulS5L6Step3Desc": "파と바を聞き分けましょう",
+  "hangulS5L6Step4Title": "レッスン完了！",
+  "hangulS5L6Step4Msg": "よくできました！\nㅍの音と形を覚えましたね。",
+  "hangulS5L7Title": "ㅎの形と音",
+  "hangulS5L7Subtitle": "ㅎの基本的な読み方",
+  "hangulS5L7Step0Title": "ㅎを学ぼう",
+  "hangulS5L7Step0Desc": "ㅎは「하」系の音を作ります。",
+  "hangulS5L7Step0Highlights": "ㅎ,하",
+  "hangulS5L7Step1Title": "ㅎの音を聴こう",
+  "hangulS5L7Step1Desc": "하/호/후を聴いてみましょう",
+  "hangulS5L7Step2Title": "発音練習",
+  "hangulS5L7Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS5L7Step3Title": "ㅎの音を選ぼう",
+  "hangulS5L7Step3Desc": "하と아を聞き分けましょう",
+  "hangulS5L7Step4Title": "レッスン完了！",
+  "hangulS5L7Step4Msg": "よくできました！\nㅎの音と形を覚えましたね。",
+  "hangulS5L8Title": "追加子音のランダム読み",
+  "hangulS5L8Subtitle": "ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ を混ぜて確認",
+  "hangulS5L8Step0Title": "ランダムで確認しよう",
+  "hangulS5L8Step0Desc": "追加子音7つを混ぜて読んでみましょう。",
+  "hangulS5L8Step0Highlights": "ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ",
+  "hangulS5L8Step1Title": "形・音クイズ",
+  "hangulS5L8Step1Desc": "音と文字を結びつけましょう",
+  "hangulS5L8Step2Title": "レッスン完了！",
+  "hangulS5L8Step2Msg": "よくできました！\n追加子音7つをランダムで確認しました。",
+  "hangulS5L9Title": "混同しやすいペアのプレビュー",
+  "hangulS5L9Subtitle": "次のステージに備えた区別練習",
+  "hangulS5L9Step0Title": "紛らわしいペアを先に見ておこう",
+  "hangulS5L9Step0Desc": "ㅈ/ㅊ、ㄱ/ㅋ、ㄷ/ㅌ、ㅂ/ㅍを先に練習しましょう。",
+  "hangulS5L9Step0Highlights": "ㅈ/ㅊ,ㄱ/ㅋ,ㄷ/ㅌ,ㅂ/ㅍ",
+  "hangulS5L9Step1Title": "対比リスニング",
+  "hangulS5L9Step1Desc": "2つの音のうち正しいものを選んでください",
+  "hangulS5L9Step2Title": "レッスン完了！",
+  "hangulS5L9Step2Msg": "よくできました！\n次のステージの準備ができました。",
+  "hangulS5LMTitle": "ステージ5ミッション",
+  "hangulS5LMSubtitle": "基本子音2 総合ミッション",
+  "hangulS5LMStep0Title": "ミッション開始！",
+  "hangulS5LMStep0Desc": "基本子音2（ㅇ~ㅎ）と母音を組み合わせましょう。\n制限時間内に目標を達成してください！",
+  "hangulS5LMStep1Title": "音節を組み合わせよう！",
+  "hangulS5LMStep2Title": "ミッション結果",
+  "hangulS5LMStep3Title": "ステージ5完了！",
+  "hangulS5LMStep3Msg": "おめでとうございます！\nステージ5：基本子音2（ㅇ~ㅎ）を完了しました。",
+  "hangulS5LMStep4Title": "ステージ5 完了！",
+  "hangulS5LMStep4Msg": "すべての基本子音をマスターしました！",
+  "hangulS5CompleteTitle": "ステージ5完了！",
+  "hangulS5CompleteMsg": "すべての基本子音をマスターしました！",
+  "hangulS6L1Title": "가~기 パターン読み",
+  "hangulS6L1Subtitle": "ㄱ + 基本母音パターン",
+  "hangulS6L1Step0Title": "パターンで読み始めよう",
+  "hangulS6L1Step0Desc": "ㄱに母音を変えてつけながら読むと\n読みのリズムができます。",
+  "hangulS6L1Step0Highlights": "가,거,고,구,그,기",
+  "hangulS6L1Step1Title": "パターンの音を聴く",
+  "hangulS6L1Step1Desc": "가/거/고/구/그/기 を順番に聴いてみましょう",
+  "hangulS6L1Step2Title": "発音練習",
+  "hangulS6L1Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS6L1Step3Title": "パターンクイズ",
+  "hangulS6L1Step3Desc": "同じ子音パターンを選びましょう",
+  "hangulS6L1Step3Q0": "ㄱ + ㅏ = ?",
+  "hangulS6L1Step3Q1": "ㄱ + ㅓ = ?",
+  "hangulS6L1Step3Q2": "ㄱ + ㅡ = ?",
+  "hangulS6L1Step4Title": "レッスン完了！",
+  "hangulS6L1Step4Msg": "いいですね！\n가~기 パターン読みを始めましたよ。",
+  "hangulS6L2Title": "나~니 への拡張",
+  "hangulS6L2Subtitle": "ㄴ パターン読み",
+  "hangulS6L2Step0Title": "ㄴ パターンの拡張",
+  "hangulS6L2Step0Desc": "ㄴ に母音を変えてつけて 나~니 を読みましょう。",
+  "hangulS6L2Step0Highlights": "나,너,노,누,느,니",
+  "hangulS6L2Step1Title": "나~니 を聴く",
+  "hangulS6L2Step1Desc": "ㄴ パターンの音を聴いてみましょう",
+  "hangulS6L2Step2Title": "発音練習",
+  "hangulS6L2Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS6L2Step3Title": "ㄴ の組み合わせを作る",
+  "hangulS6L2Step3Desc": "ㄴ + 母音で文字を作りましょう",
+  "hangulS6L2Step4Title": "レッスン完了！",
+  "hangulS6L2Step4Msg": "いいですね！\n나~니 パターンを身につけましたよ。",
+  "hangulS6L3Title": "다~디・라~리 への拡張",
+  "hangulS6L3Subtitle": "ㄷ/ㄹ パターン読み",
+  "hangulS6L3Step0Title": "子音だけ変えて読む",
+  "hangulS6L3Step0Desc": "同じ母音で子音だけ変えて読むと\n読みのスピードが上がります。",
+  "hangulS6L3Step0Highlights": "다/라,도/로,두/루,디/리",
+  "hangulS6L3Step1Title": "ㄷ/ㄹ の聴き分け",
+  "hangulS6L3Step1Desc": "音を聴いて正しい文字を選んでください",
+  "hangulS6L3Step2Title": "読みクイズ",
+  "hangulS6L3Step2Desc": "パターンを確認しましょう",
+  "hangulS6L3Step2Q0": "ㄷ + ㅣ = ?",
+  "hangulS6L3Step2Q1": "ㄹ + ㅗ = ?",
+  "hangulS6L3Step3Title": "レッスン完了！",
+  "hangulS6L3Step3Msg": "いいですね！\nㄷ/ㄹ パターンを身につけましたよ。",
+  "hangulS6L4Title": "ランダム音節読み 1",
+  "hangulS6L4Subtitle": "基本パターンのミックス",
+  "hangulS6L4Step0Title": "順序なしで読む",
+  "hangulS6L4Step0Desc": "ランダムなカードのように読んでみましょう。",
+  "hangulS6L4Step1Title": "ランダム読み",
+  "hangulS6L4Step1Desc": "ランダムに出された音節を答えましょう",
+  "hangulS6L4Step1Q0": "ㄱ + ㅗ = ?",
+  "hangulS6L4Step1Q1": "ㄴ + ㅜ = ?",
+  "hangulS6L4Step1Q2": "ㄹ + ㅏ = ?",
+  "hangulS6L4Step1Q3": "ㅁ + ㅣ = ?",
+  "hangulS6L4Step2Title": "レッスン完了！",
+  "hangulS6L4Step2Msg": "いいですね！\nランダム読み1を完了しましたよ。",
+  "hangulS6L5Title": "音を聴いて音節を探す",
+  "hangulS6L5Subtitle": "聴覚と文字のつながりを強化",
+  "hangulS6L5Step0Title": "聴いて探す練習",
+  "hangulS6L5Step0Desc": "音を聴いて対応する音節を選び\n読みとのつながりを強化しましょう。",
+  "hangulS6L5Step1Title": "音マッチング",
+  "hangulS6L5Step1Desc": "正しい音節を選んでください",
+  "hangulS6L5Step2Title": "レッスン完了！",
+  "hangulS6L5Step2Msg": "いいですね！\n聴いて探す練習を完了しましたよ。",
+  "hangulS6L6Title": "複合母音の組み合わせ 1",
+  "hangulS6L6Subtitle": "ㅘ, ㅝ の読み",
+  "hangulS6L6Step0Title": "複合母音を始めよう",
+  "hangulS6L6Step0Desc": "ㅘ、ㅝ を組み合わせて読んでみましょう。",
+  "hangulS6L6Step0Highlights": "ㅘ,ㅝ,와,워",
+  "hangulS6L6Step1Title": "와/워 を聴く",
+  "hangulS6L6Step1Desc": "代表的な音節の音を聴いてみましょう",
+  "hangulS6L6Step2Title": "発音練習",
+  "hangulS6L6Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS6L6Step3Title": "複合母音クイズ",
+  "hangulS6L6Step3Desc": "ㅘ/ㅝ を区別しましょう",
+  "hangulS6L6Step3Q0": "ㅇ + ㅘ = ?",
+  "hangulS6L6Step3Q1": "ㄱ + ㅝ = ?",
+  "hangulS6L6Step4Title": "レッスン完了！",
+  "hangulS6L6Step4Msg": "いいですね！\nㅘ/ㅝ の組み合わせを身につけましたよ。",
+  "hangulS6L7Title": "複合母音の組み合わせ 2",
+  "hangulS6L7Subtitle": "ㅙ, ㅞ, ㅚ, ㅟ, ㅢ の読み",
+  "hangulS6L7Step0Title": "複合母音の拡張",
+  "hangulS6L7Step0Desc": "複合母音を短く学び、読み中心に進めます。",
+  "hangulS6L7Step0Highlights": "왜,웨,외,위,의",
+  "hangulS6L7Step1Title": "ㅢ の特別な発音",
+  "hangulS6L7Step1Desc": "ㅢ は位置によって音が変わる特別な母音です。\n\n• 語頭: [의] → 의사, 의자\n• 子音の後: [이] → 희망→[히망]\n• 助詞「의」: [에] → 나의→[나에]",
+  "hangulS6L7Step1Highlights": "ㅢ,의,이,에",
+  "hangulS6L7Step2Title": "複合母音を選ぶ",
+  "hangulS6L7Step2Desc": "正しい音節を選んでください",
+  "hangulS6L7Step2Q0": "ㅇ + ㅙ = ?",
+  "hangulS6L7Step2Q1": "ㅇ + ㅟ = ?",
+  "hangulS6L7Step2Q2": "ㅇ + ㅢ = ?",
+  "hangulS6L7Step3Title": "レッスン完了！",
+  "hangulS6L7Step3Msg": "いいですね！\n複合母音の拡張を完了しましたよ。",
+  "hangulS6L8Title": "ランダム音節読み 2",
+  "hangulS6L8Subtitle": "基本・複合母音の総まとめ",
+  "hangulS6L8Step0Title": "総合ランダム読み",
+  "hangulS6L8Step0Desc": "基本・複合母音を混ぜて一緒に読みましょう。",
+  "hangulS6L8Step1Title": "総合クイズ",
+  "hangulS6L8Step1Desc": "ランダムな組み合わせを答えましょう",
+  "hangulS6L8Step1Q0": "ㄱ + ㅢ = ?",
+  "hangulS6L8Step1Q1": "ㅎ + ㅘ = ?",
+  "hangulS6L8Step1Q2": "ㅂ + ㅟ = ?",
+  "hangulS6L8Step1Q3": "ㅈ + ㅝ = ?",
+  "hangulS6L8Step2Title": "レッスン完了！",
+  "hangulS6L8Step2Msg": "いいですね！\nステージ6の総合読みを完了しましたよ。",
+  "hangulS6LMTitle": "ステージ6ミッション",
+  "hangulS6LMSubtitle": "組み合わせ読みの最終チェック",
+  "hangulS6LMStep0Title": "ミッションスタート！",
+  "hangulS6LMStep0Desc": "本格的な組み合わせ訓練の最終チェックです。\n制限時間内に目標を達成しましょう！",
+  "hangulS6LMStep1Title": "音節を組み合わせよう！",
+  "hangulS6LMStep2Title": "ミッション結果",
+  "hangulS6LMStep3Title": "ステージ6完了！",
+  "hangulS6LMStep3Msg": "おめでとうございます！\nステージ6の本格的な組み合わせ訓練を完了しましたよ。",
+  "hangulS6CompleteTitle": "ステージ6 完了！",
+  "hangulS6CompleteMsg": "自由に音節を組み合わせられるようになりましたよ！",
+  "hangulS7L1Title": "ㄱ / ㅋ / ㄲ の区別",
+  "hangulS7L1Subtitle": "가 · 카 · 까 の比較",
+  "hangulS7L1Step0Title": "3つの音を聴き分けよう",
+  "hangulS7L1Step0Desc": "ㄱ（平音）、ㅋ（激音）、ㄲ（濃音）の違いを区別しましょう。",
+  "hangulS7L1Step0Highlights": "ㄱ,ㅋ,ㄲ,가,카,까",
+  "hangulS7L1Step1Title": "音の探索",
+  "hangulS7L1Step1Desc": "가/카/까 を繰り返し聴いてみましょう",
+  "hangulS7L1Step2Title": "発音練習",
+  "hangulS7L1Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS7L1Step3Title": "聴いて選ぼう",
+  "hangulS7L1Step3Desc": "3つの選択肢から正解を選びましょう",
+  "hangulS7L1Step4Title": "クイック確認",
+  "hangulS7L1Step4Desc": "形と音を一緒に確認しましょう",
+  "hangulS7L1Step4Q0": "激音はどれ？",
+  "hangulS7L1Step4Q1": "濃音はどれ？",
+  "hangulS7L1Step5Title": "レッスン完了！",
+  "hangulS7L1Step5Msg": "よくできました！\nㄱ/ㅋ/ㄲ の区別を習得しました。",
+  "hangulS7L2Title": "ㄷ / ㅌ / ㄸ の区別",
+  "hangulS7L2Subtitle": "다 · 타 · 따 の比較",
+  "hangulS7L2Step0Title": "2番目の対比グループ",
+  "hangulS7L2Step0Desc": "ㄷ/ㅌ/ㄸ の音を比べましょう。",
+  "hangulS7L2Step0Highlights": "ㄷ,ㅌ,ㄸ,다,타,따",
+  "hangulS7L2Step1Title": "音の探索",
+  "hangulS7L2Step1Desc": "다/타/따 を繰り返し聴いてみましょう",
+  "hangulS7L2Step2Title": "発音練習",
+  "hangulS7L2Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS7L2Step3Title": "聴いて選ぼう",
+  "hangulS7L2Step3Desc": "3つの選択肢から正解を選びましょう",
+  "hangulS7L2Step4Title": "レッスン完了！",
+  "hangulS7L2Step4Msg": "よくできました！\nㄷ/ㅌ/ㄸ の区別を習得しました。",
+  "hangulS7L3Title": "ㅂ / ㅍ / ㅃ の区別",
+  "hangulS7L3Subtitle": "바 · 파 · 빠 の比較",
+  "hangulS7L3Step0Title": "3番目の対比グループ",
+  "hangulS7L3Step0Desc": "ㅂ/ㅍ/ㅃ の音を比べましょう。",
+  "hangulS7L3Step0Highlights": "ㅂ,ㅍ,ㅃ,바,파,빠",
+  "hangulS7L3Step1Title": "音の探索",
+  "hangulS7L3Step1Desc": "바/파/빠 を繰り返し聴いてみましょう",
+  "hangulS7L3Step2Title": "発音練習",
+  "hangulS7L3Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS7L3Step3Title": "聴いて選ぼう",
+  "hangulS7L3Step3Desc": "3つの選択肢から正解を選びましょう",
+  "hangulS7L3Step4Title": "レッスン完了！",
+  "hangulS7L3Step4Msg": "よくできました！\nㅂ/ㅍ/ㅃ の区別を習得しました。",
+  "hangulS7L4Title": "ㅅ / ㅆ の区別",
+  "hangulS7L4Subtitle": "사 · 싸 の比較",
+  "hangulS7L4Step0Title": "2つの音の対比",
+  "hangulS7L4Step0Desc": "ㅅ/ㅆ の音を区別しましょう。",
+  "hangulS7L4Step0Highlights": "ㅅ,ㅆ,사,싸",
+  "hangulS7L4Step1Title": "音の探索",
+  "hangulS7L4Step1Desc": "사/싸 を繰り返し聴いてみましょう",
+  "hangulS7L4Step2Title": "発音練習",
+  "hangulS7L4Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS7L4Step3Title": "聴いて選ぼう",
+  "hangulS7L4Step3Desc": "2つの選択肢から正解を選びましょう",
+  "hangulS7L4Step4Title": "レッスン完了！",
+  "hangulS7L4Step4Msg": "よくできました！\nㅅ/ㅆ の区別を習得しました。",
+  "hangulS7L5Title": "ㅈ / ㅊ / ㅉ の区別",
+  "hangulS7L5Subtitle": "자 · 차 · 짜 の比較",
+  "hangulS7L5Step0Title": "最後の対比グループ",
+  "hangulS7L5Step0Desc": "ㅈ/ㅊ/ㅉ の音を比べましょう。",
+  "hangulS7L5Step0Highlights": "ㅈ,ㅊ,ㅉ,자,차,짜",
+  "hangulS7L5Step1Title": "音の探索",
+  "hangulS7L5Step1Desc": "자/차/짜 を繰り返し聴いてみましょう",
+  "hangulS7L5Step2Title": "発音練習",
+  "hangulS7L5Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS7L5Step3Title": "聴いて選ぼう",
+  "hangulS7L5Step3Desc": "3つの選択肢から正解を選びましょう",
+  "hangulS7L5Step4Title": "ステージ7完了！",
+  "hangulS7L5Step4Msg": "おめでとうございます！\nステージ7の5つの対比グループをすべて完了しました。",
+  "hangulS7LMTitle": "ミッション：音の区別チャレンジ！",
+  "hangulS7LMSubtitle": "平音、激音、濃音を区別しよう",
+  "hangulS7LMStep0Title": "音の区別ミッション！",
+  "hangulS7LMStep0Desc": "平音、激音、濃音を混ぜて\n素早く音節を組み合わせましょう！",
+  "hangulS7LMStep1Title": "音節を組み合わせよう！",
+  "hangulS7LMStep2Title": "ミッション結果",
+  "hangulS7LMStep3Title": "ミッション完了！",
+  "hangulS7LMStep3Msg": "平音、激音、濃音を区別できるようになりました！",
+  "hangulS7LMStep4Title": "ステージ7完了！",
+  "hangulS7LMStep4Msg": "濃音と激音を区別できるようになりました！",
+  "hangulS7CompleteTitle": "ステージ7完了！",
+  "hangulS7CompleteMsg": "濃音と激音を区別できるようになりました！",
+  "hangulS8L0Title": "パッチムの基本",
+  "hangulS8L0Subtitle": "音節ブロックの下に入る音",
+  "hangulS8L0Step0Title": "パッチムは下にある",
+  "hangulS8L0Step0Desc": "パッチム（終声子音）は音節ブロックの下に入ります。\n例：가 + ㄴ = 간",
+  "hangulS8L0Step0Highlights": "パッチム,간,말,집",
+  "hangulS8L0Step1Title": "パッチムの7つの代表音",
+  "hangulS8L0Step1Desc": "パッチムには7つの代表音しかありません。\n\nㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\n多くのパッチム文字はこの7音のいずれかで発音されます。\n例：ㅅ, ㅈ, ㅊ, ㅎのパッチム → すべて[ㄷ]音",
+  "hangulS8L0Step1Highlights": "7音,ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ,代表音",
+  "hangulS8L0Step2Title": "パッチムを見つけよう",
+  "hangulS8L0Step2Desc": "パッチムの位置を確認しましょう",
+  "hangulS8L0Step2Q0": "간のパッチムは？",
+  "hangulS8L0Step2Q1": "말のパッチムは？",
+  "hangulS8L0SummaryTitle": "レッスン完了！",
+  "hangulS8L0SummaryMsg": "すごい！\nパッチムの概念を理解しました。",
+  "hangulS8L1Title": "ㄴパッチム",
+  "hangulS8L1Subtitle": "간 · 난 · 단",
+  "hangulS8L1Step0Title": "ㄴパッチムを聴こう",
+  "hangulS8L1Step0Desc": "간/난/단を聴いてみましょう",
+  "hangulS8L1Step1Title": "発音練習",
+  "hangulS8L1Step1Desc": "各文字を声に出してみましょう",
+  "hangulS8L1Step2Title": "聴いて選ぼう",
+  "hangulS8L1Step2Desc": "ㄴパッチムの音節を選んでください",
+  "hangulS8L1SummaryTitle": "レッスン完了！",
+  "hangulS8L1SummaryMsg": "すごい！\nㄴパッチムを習得しました。",
+  "hangulS8L2Title": "ㄹパッチム",
+  "hangulS8L2Subtitle": "말 · 갈 · 물",
+  "hangulS8L2Step0Title": "ㄹパッチムを聴こう",
+  "hangulS8L2Step0Desc": "말/갈/물を聴いてみましょう",
+  "hangulS8L2Step1Title": "発音練習",
+  "hangulS8L2Step1Desc": "各文字を声に出してみましょう",
+  "hangulS8L2Step2Title": "聴いて選ぼう",
+  "hangulS8L2Step2Desc": "ㄹパッチムの音節を選んでください",
+  "hangulS8L2SummaryTitle": "レッスン完了！",
+  "hangulS8L2SummaryMsg": "すごい！\nㄹパッチムを習得しました。",
+  "hangulS8L3Title": "ㅁパッチム",
+  "hangulS8L3Subtitle": "감 · 밤 · 숨",
+  "hangulS8L3Step0Title": "ㅁパッチムを聴こう",
+  "hangulS8L3Step0Desc": "감/밤/숨を聴いてみましょう",
+  "hangulS8L3Step1Title": "発音練習",
+  "hangulS8L3Step1Desc": "各文字を声に出してみましょう",
+  "hangulS8L3Step2Title": "パッチムを見分けよう",
+  "hangulS8L3Step2Desc": "ㅁパッチムの音節を選びましょう",
+  "hangulS8L3Step2Q0": "ㅁパッチムはどれ？",
+  "hangulS8L3Step2Q1": "ㅁパッチムはどれ？",
+  "hangulS8L3SummaryTitle": "レッスン完了！",
+  "hangulS8L3SummaryMsg": "すごい！\nㅁパッチムを習得しました。",
+  "hangulS8L4Title": "ㅇパッチム",
+  "hangulS8L4Subtitle": "방 · 공 · 종",
+  "hangulS8L4Step0Title": "ㅇは特別です！",
+  "hangulS8L4Step0Desc": "ㅇは特別です！\n初声（上）では無音ですが（아, 오）、\nパッチム（下）では「ng」の音になります（방, 공）",
+  "hangulS8L4Step0Highlights": "初声,パッチム,ng,방,공",
+  "hangulS8L4Step1Title": "ㅇパッチムを聴こう",
+  "hangulS8L4Step1Desc": "방/공/종を聴いてみましょう",
+  "hangulS8L4Step2Title": "発音練習",
+  "hangulS8L4Step2Desc": "各文字を声に出してみましょう",
+  "hangulS8L4Step3Title": "聴いて選ぼう",
+  "hangulS8L4Step3Desc": "ㅇパッチムの音節を選んでください",
+  "hangulS8L4SummaryTitle": "レッスン完了！",
+  "hangulS8L4SummaryMsg": "すごい！\nㅇパッチムを習得しました。",
+  "hangulS8L5Title": "ㄱパッチム",
+  "hangulS8L5Subtitle": "박 · 각 · 국",
+  "hangulS8L5Step0Title": "ㄱパッチムを聴こう",
+  "hangulS8L5Step0Desc": "박/각/국を聴いてみましょう",
+  "hangulS8L5Step1Title": "発音練習",
+  "hangulS8L5Step1Desc": "各文字を声に出してみましょう",
+  "hangulS8L5Step2Title": "パッチムを見分けよう",
+  "hangulS8L5Step2Desc": "ㄱパッチムの音節を選びましょう",
+  "hangulS8L5Step2Q0": "ㄱパッチムはどれ？",
+  "hangulS8L5Step2Q1": "ㄱパッチムはどれ？",
+  "hangulS8L5SummaryTitle": "レッスン完了！",
+  "hangulS8L5SummaryMsg": "すごい！\nㄱパッチムを習得しました。",
+  "hangulS8L6Title": "ㅂパッチム",
+  "hangulS8L6Subtitle": "밥 · 집 · 숲",
+  "hangulS8L6Step0Title": "ㅂパッチムを聴こう",
+  "hangulS8L6Step0Desc": "밥/집/숲を聴いてみましょう",
+  "hangulS8L6Step1Title": "発音練習",
+  "hangulS8L6Step1Desc": "各文字を声に出してみましょう",
+  "hangulS8L6Step2Title": "聴いて選ぼう",
+  "hangulS8L6Step2Desc": "ㅂパッチムの音節を選んでください",
+  "hangulS8L6SummaryTitle": "レッスン完了！",
+  "hangulS8L6SummaryMsg": "すごい！\nㅂパッチムを習得しました。",
+  "hangulS8L7Title": "ㅅパッチム",
+  "hangulS8L7Subtitle": "옷 · 맛 · 빛",
+  "hangulS8L7Step0Title": "ㅅパッチムを聴こう",
+  "hangulS8L7Step0Desc": "옷/맛/빛を聴いてみましょう",
+  "hangulS8L7Step1Title": "発音練習",
+  "hangulS8L7Step1Desc": "各文字を声に出してみましょう",
+  "hangulS8L7Step2Title": "パッチムを見分けよう",
+  "hangulS8L7Step2Desc": "ㅅパッチムの音節を選びましょう",
+  "hangulS8L7Step2Q0": "ㅅパッチムはどれ？",
+  "hangulS8L7Step2Q1": "ㅅパッチムはどれ？",
+  "hangulS8L7SummaryTitle": "レッスン完了！",
+  "hangulS8L7SummaryMsg": "すごい！\nㅅパッチムを習得しました。",
+  "hangulS8L8Title": "パッチム総合復習",
+  "hangulS8L8Subtitle": "重要パッチムのランダム確認",
+  "hangulS8L8Step0Title": "全部まとめて確認",
+  "hangulS8L8Step0Desc": "ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅをまとめて確認しましょう。",
+  "hangulS8L8Step1Title": "ランダムクイズ",
+  "hangulS8L8Step1Desc": "混合パッチムでテストしましょう",
+  "hangulS8L8Step1Q0": "ㄴパッチムはどれ？",
+  "hangulS8L8Step1Q1": "ㅇパッチムはどれ？",
+  "hangulS8L8Step1Q2": "ㄹパッチムはどれ？",
+  "hangulS8L8Step1Q3": "ㅂパッチムはどれ？",
+  "hangulS8L8SummaryTitle": "レッスン完了！",
+  "hangulS8L8SummaryMsg": "すごい！\nパッチム総合復習を完了しました。",
+  "hangulS8LMTitle": "ミッション：パッチムチャレンジ！",
+  "hangulS8LMSubtitle": "パッチム付きの音節を組み合わせよう",
+  "hangulS8LMStep0Title": "パッチムミッション！",
+  "hangulS8LMStep0Desc": "基本的なパッチムのある音節を読んで\n素早く答えましょう！",
+  "hangulS8LMStep1Title": "音節を組み合わせよう！",
+  "hangulS8LMStep2Title": "ミッション結果",
+  "hangulS8LMSummaryTitle": "ミッション完了！",
+  "hangulS8LMSummaryMsg": "パッチムの基礎を完全にマスターしました！",
+  "hangulS8CompleteTitle": "ステージ8完了！",
+  "hangulS8CompleteMsg": "パッチムの基礎をしっかり固めました！",
+  "hangulS9L1Title": "パッチム ㄷ 拡張",
+  "hangulS9L1Subtitle": "닫 · 곧 · 묻",
+  "hangulS9L1Step0Title": "ㄷ パッチムのパターン",
+  "hangulS9L1Step0Desc": "パッチム ㄷ が入る音節を読みましょう。",
+  "hangulS9L1Step0Highlights": "닫,곧,묻",
+  "hangulS9L1Step1Title": "聴いてみよう：パッチム ㄷ",
+  "hangulS9L1Step1Desc": "닫/곧/묻を聴いてみましょう",
+  "hangulS9L1Step2Title": "発音練習",
+  "hangulS9L1Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS9L1Step3Title": "パッチムを見分けよう",
+  "hangulS9L1Step3Desc": "ㄷ パッチムを選んでください",
+  "hangulS9L1Step3Q0": "ㄷ パッチムはどれ？",
+  "hangulS9L1Step3Q1": "ㄷ パッチムはどれ？",
+  "hangulS9L1Step4Title": "レッスン完了！",
+  "hangulS9L1Step4Msg": "よくできました！\nㄷ パッチムを覚えました。",
+  "hangulS9L2Title": "パッチム ㅈ 拡張",
+  "hangulS9L2Subtitle": "낮 · 잊 · 젖",
+  "hangulS9L2Step0Title": "聴いてみよう：パッチム ㅈ",
+  "hangulS9L2Step0Desc": "낮/잊/젖を聴いてみましょう",
+  "hangulS9L2Step1Title": "発音練習",
+  "hangulS9L2Step1Desc": "文字を実際に声に出してみましょう",
+  "hangulS9L2Step2Title": "聴いて選ぼう",
+  "hangulS9L2Step2Desc": "ㅈ パッチムの音節を選んでください",
+  "hangulS9L2Step3Title": "レッスン完了！",
+  "hangulS9L2Step3Msg": "よくできました！\nㅈ パッチムを覚えました。",
+  "hangulS9L3Title": "パッチム ㅊ 拡張",
+  "hangulS9L3Subtitle": "꽃 · 닻 · 빚",
+  "hangulS9L3Step0Title": "聴いてみよう：パッチム ㅊ",
+  "hangulS9L3Step0Desc": "꽃/닻/빚を聴いてみましょう",
+  "hangulS9L3Step1Title": "発音練習",
+  "hangulS9L3Step1Desc": "文字を実際に声に出してみましょう",
+  "hangulS9L3Step2Title": "パッチムを見分けよう",
+  "hangulS9L3Step2Desc": "ㅊ パッチムを選んでください",
+  "hangulS9L3Step2Q0": "ㅊ パッチムはどれ？",
+  "hangulS9L3Step2Q1": "ㅊ パッチムはどれ？",
+  "hangulS9L3Step3Title": "レッスン完了！",
+  "hangulS9L3Step3Msg": "よくできました！\nㅊ パッチムを覚えました。",
+  "hangulS9L4Title": "パッチム ㅋ / ㅌ / ㅍ",
+  "hangulS9L4Subtitle": "부엌 · 밭 · 앞",
+  "hangulS9L4Step0Title": "3つのパッチムをまとめて",
+  "hangulS9L4Step0Desc": "ㅋ・ㅌ・ㅍ のパッチムをまとめて覚えましょう。",
+  "hangulS9L4Step0Highlights": "부엌,밭,앞",
+  "hangulS9L4Step1Title": "音を聴いてみよう",
+  "hangulS9L4Step1Desc": "부엌/밭/앞を聴いてみましょう",
+  "hangulS9L4Step2Title": "発音練習",
+  "hangulS9L4Step2Desc": "文字を実際に声に出してみましょう",
+  "hangulS9L4Step3Title": "パッチムを見分けよう",
+  "hangulS9L4Step3Desc": "3つのパッチムを区別してみましょう",
+  "hangulS9L4Step3Q0": "ㅌ パッチムはどれ？",
+  "hangulS9L4Step3Q1": "ㅍ パッチムはどれ？",
+  "hangulS9L4Step4Title": "レッスン完了！",
+  "hangulS9L4Step4Msg": "よくできました！\nㅋ/ㅌ/ㅍ パッチムを覚えました。",
+  "hangulS9L5Title": "パッチム ㅎ 拡張",
+  "hangulS9L5Subtitle": "좋 · 놓 · 않",
+  "hangulS9L5Step0Title": "聴いてみよう：パッチム ㅎ",
+  "hangulS9L5Step0Desc": "좋/놓/않を聴いてみましょう",
+  "hangulS9L5Step1Title": "発音練習",
+  "hangulS9L5Step1Desc": "文字を実際に声に出してみましょう",
+  "hangulS9L5Step2Title": "聴いて選ぼう",
+  "hangulS9L5Step2Desc": "ㅎ パッチムの音節を選んでください",
+  "hangulS9L5Step3Title": "レッスン完了！",
+  "hangulS9L5Step3Msg": "よくできました！\nㅎ パッチムを覚えました。",
+  "hangulS9L6Title": "拡張パッチム ランダム",
+  "hangulS9L6Subtitle": "ㄷ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ を混ぜよう",
+  "hangulS9L6Step0Title": "拡張パッチムをシャッフル",
+  "hangulS9L6Step0Desc": "拡張パッチムをランダムに総復習しましょう。",
+  "hangulS9L6Step1Title": "ランダムクイズ",
+  "hangulS9L6Step1Desc": "問題を解いて区別しましょう",
+  "hangulS9L6Step1Q0": "ㄷ パッチムはどれ？",
+  "hangulS9L6Step1Q1": "ㅈ パッチムはどれ？",
+  "hangulS9L6Step1Q2": "ㅊ パッチムはどれ？",
+  "hangulS9L6Step1Q3": "ㅎ パッチムはどれ？",
+  "hangulS9L6Step2Title": "レッスン完了！",
+  "hangulS9L6Step2Msg": "よくできました！\n拡張パッチムのランダム復習が完了しました。",
+  "hangulS9L7Title": "ステージ9 総まとめ",
+  "hangulS9L7Subtitle": "拡張パッチム読みの仕上げ",
+  "hangulS9L7Step0Title": "最終確認",
+  "hangulS9L7Step0Desc": "ステージ9の重要ポイントを最終チェックします",
+  "hangulS9L7Step1Title": "ステージ9 完了！",
+  "hangulS9L7Step1Msg": "おめでとうございます！\nステージ9の拡張パッチムを完了しました。",
+  "hangulS9LMTitle": "ミッション：拡張パッチムチャレンジ！",
+  "hangulS9LMSubtitle": "さまざまなパッチムを素早く読もう",
+  "hangulS9LMStep0Title": "拡張パッチム ミッション！",
+  "hangulS9LMStep0Desc": "拡張パッチムを含む音節を\n素早く組み合わせましょう！",
+  "hangulS9LMStep1Title": "音節を組み合わせよう！",
+  "hangulS9LMStep2Title": "ミッション結果",
+  "hangulS9LMStep3Title": "ミッション完了！",
+  "hangulS9LMStep3Msg": "拡張パッチムまで制覇しました！",
+  "hangulS9CompleteTitle": "ステージ9 完了！",
+  "hangulS9CompleteMsg": "拡張パッチムまで制覇しました！",
+  "hangulS10L1Title": "ㄳ パッチム",
+  "hangulS10L1Subtitle": "몫・넋 中心の読み方",
+  "hangulS10L1Step0Title": "二重パッチムの発音ルール",
+  "hangulS10L1Step0Desc": "二重パッチムとは、2つの子音が組み合わさった終声です。\n\nほとんどは左側の子音で発音されます：\nㄳ→[ㄱ], ㄵ→[ㄴ], ㄶ→[ㄴ], ㄻ→[ㅁ], ㅄ→[ㅂ]\n\n一部は右側の子音で発音されます：\nㄺ→[ㄹ], ㄼ→[ㄹ]",
+  "hangulS10L1Step0Highlights": "左の子音,右の子音,二重パッチム",
+  "hangulS10L1Step1Title": "複合パッチムのスタート",
+  "hangulS10L1Step1Desc": "ㄳ パッチムが入った単語を読んでみましょう。",
+  "hangulS10L1Step1Highlights": "몫,넋",
+  "hangulS10L1Step2Title": "音を聞く",
+  "hangulS10L1Step2Desc": "몫/넋 を聞いてみましょう",
+  "hangulS10L1Step3Title": "発音練習",
+  "hangulS10L1Step3Desc": "文字を声に出して読んでみましょう",
+  "hangulS10L1Step4Title": "読み確認",
+  "hangulS10L1Step4Desc": "単語を見て選んでください",
+  "hangulS10L1Step4Q0": "ㄳ パッチムの単語は？",
+  "hangulS10L1Step4Q1": "ㄳ パッチムの単語は？",
+  "hangulS10L1Step5Title": "レッスン完了！",
+  "hangulS10L1Step5Msg": "よくできました！\nㄳ パッチムをマスターしました。",
+  "hangulS10L2Title": "ㄵ / ㄶ パッチム",
+  "hangulS10L2Subtitle": "앉다・많다",
+  "hangulS10L2Step0Title": "音を聞く",
+  "hangulS10L2Step0Desc": "앉다/많다 を聞いてみましょう",
+  "hangulS10L2Step1Title": "発音練習",
+  "hangulS10L2Step1Desc": "文字を声に出して読んでみましょう",
+  "hangulS10L2Step2Title": "聞いて選ぶ",
+  "hangulS10L2Step2Desc": "正しい単語を選んでください",
+  "hangulS10L2Step3Title": "レッスン完了！",
+  "hangulS10L2Step3Msg": "よくできました！\nㄵ/ㄶ パッチムをマスターしました。",
+  "hangulS10L3Title": "ㄺ / ㄻ パッチム",
+  "hangulS10L3Subtitle": "읽다・삶",
+  "hangulS10L3Step0Title": "音を聞く",
+  "hangulS10L3Step0Desc": "읽다/삶 を聞いてみましょう",
+  "hangulS10L3Step1Title": "発音練習",
+  "hangulS10L3Step1Desc": "文字を声に出して読んでみましょう",
+  "hangulS10L3Step2Title": "読み確認",
+  "hangulS10L3Step2Desc": "複合パッチムの単語を選んでください",
+  "hangulS10L3Step2Q0": "ㄺ パッチムの単語は？",
+  "hangulS10L3Step2Q1": "ㄻ パッチムの単語は？",
+  "hangulS10L3Step3Title": "レッスン完了！",
+  "hangulS10L3Step3Msg": "よくできました！\nㄺ/ㄻ パッチムをマスターしました。",
+  "hangulS10L4Title": "上級グループ 1",
+  "hangulS10L4Subtitle": "ㄼ・ㄾ・ㄿ・ㅀ",
+  "hangulS10L4Step0Title": "上級グループの紹介",
+  "hangulS10L4Step0Desc": "よく見る例を中心に短く学びましょう。",
+  "hangulS10L4Step0Highlights": "넓다,핥다,읊다,싫다",
+  "hangulS10L4Step1Title": "単語の音を聞く",
+  "hangulS10L4Step1Desc": "넓다/핥다/읊다/싫다 を聞いてみましょう",
+  "hangulS10L4Step2Title": "発音練習",
+  "hangulS10L4Step2Desc": "文字を声に出して読んでみましょう",
+  "hangulS10L4Step3Title": "レッスン完了！",
+  "hangulS10L4Step3Msg": "よくできました！\n上級グループ 1 をマスターしました。",
+  "hangulS10L5Title": "ㅄ パッチム",
+  "hangulS10L5Subtitle": "없다 中心の読み方",
+  "hangulS10L5Step0Title": "音を聞く",
+  "hangulS10L5Step0Desc": "없다/없어 を聞いてみましょう",
+  "hangulS10L5Step1Title": "発音練習",
+  "hangulS10L5Step1Desc": "文字を声に出して読んでみましょう",
+  "hangulS10L5Step2Title": "聞いて選ぶ",
+  "hangulS10L5Step2Desc": "正しい単語を選んでください",
+  "hangulS10L5Step3Title": "レッスン完了！",
+  "hangulS10L5Step3Msg": "よくできました！\nㅄ パッチムをマスターしました。",
+  "hangulS10L6Title": "ステージ10 総合",
+  "hangulS10L6Subtitle": "複合パッチム単語の統合",
+  "hangulS10L6Step0Title": "総合チェック",
+  "hangulS10L6Step0Desc": "複合パッチム単語の最終チェックをしましょう",
+  "hangulS10L6Step0Q0": "次のうち ㄶ パッチムの単語は？",
+  "hangulS10L6Step0Q1": "次のうち ㄺ パッチムの単語は？",
+  "hangulS10L6Step0Q2": "次のうち ㅄ パッチムの単語は？",
+  "hangulS10L6Step0Q3": "次のうち ㄳ パッチムの単語は？",
+  "hangulS10L6Step1Title": "ステージ10 完了！",
+  "hangulS10L6Step1Msg": "おめでとうございます！\nステージ10の複合パッチムを完了しました。",
+  "hangulS10LMTitle": "ミッション：二重パッチムチャレンジ！",
+  "hangulS10LMSubtitle": "二重パッチムの単語を素早く読む",
+  "hangulS10LMStep0Title": "二重パッチムミッション！",
+  "hangulS10LMStep0Desc": "二重パッチムが含まれた音節を\n素早く組み合わせましょう！",
+  "hangulS10LMStep1Title": "音節を組み合わせよう！",
+  "hangulS10LMStep2Title": "ミッション結果",
+  "hangulS10LMStep3Title": "ミッション完了！",
+  "hangulS10LMStep3Msg": "二重パッチムまでマスターしました！",
+  "hangulS10LMStep4Title": "ステージ10 完了！",
+  "hangulS10CompleteTitle": "ステージ10 完了！",
+  "hangulS10CompleteMsg": "二重パッチムまでマスターしました！",
+  "hangulS11L1Title": "パッチムなしの単語",
+  "hangulS11L1Subtitle": "簡単な2〜3音節の単語",
+  "hangulS11L1Step0Title": "単語読みのスタート",
+  "hangulS11L1Step0Desc": "まずはパッチムなしの単語で自信をつけましょう。",
+  "hangulS11L1Step0Highlights": "바나나,나비,하마,모자",
+  "hangulS11L1Step1Title": "単語を聴いてみよう",
+  "hangulS11L1Step1Desc": "바나나 / 나비 / 하마 / 모자を聴いてみましょう",
+  "hangulS11L1Step2Title": "発音練習",
+  "hangulS11L1Step2Desc": "文字を声に出して読みましょう",
+  "hangulS11L1Step3Title": "レッスン完了！",
+  "hangulS11L1Step3Msg": "よくできました！\nパッチムなしの単語読みを始めました。",
+  "hangulS11L2Title": "基本パッチムの単語",
+  "hangulS11L2Subtitle": "학교・친구・한국・공부",
+  "hangulS11L2Step0Title": "単語を聴いてみよう",
+  "hangulS11L2Step0Desc": "학교 / 친구 / 한국 / 공부を聴いてみましょう",
+  "hangulS11L2Step1Title": "発音練習",
+  "hangulS11L2Step1Desc": "文字を声に出して読みましょう",
+  "hangulS11L2Step2Title": "聴いて選ぼう",
+  "hangulS11L2Step2Desc": "聴こえた単語を選んでください",
+  "hangulS11L2Step3Title": "レッスン完了！",
+  "hangulS11L2Step3Msg": "よくできました！\n基本パッチムの単語を読みました。",
+  "hangulS11L3Title": "混合パッチムの単語",
+  "hangulS11L3Subtitle": "읽기・없다・많다・닭",
+  "hangulS11L3Step0Title": "難易度アップ",
+  "hangulS11L3Step0Desc": "基本と複合パッチムが混ざった単語を読みましょう。",
+  "hangulS11L3Step0Highlights": "읽기,없다,많다,닭",
+  "hangulS11L3Step1Title": "単語の区別",
+  "hangulS11L3Step1Desc": "似た単語を区別しましょう",
+  "hangulS11L3Step1Q0": "複合パッチムの単語はどれですか？",
+  "hangulS11L3Step1Q1": "複合パッチムの単語はどれですか？",
+  "hangulS11L3Step2Title": "レッスン完了！",
+  "hangulS11L3Step2Msg": "よくできました！\n混合パッチムの単語を読みました。",
+  "hangulS11L4Title": "カテゴリー単語パック",
+  "hangulS11L4Subtitle": "食べ物・場所・人",
+  "hangulS11L4Step0Title": "カテゴリー単語を聴こう",
+  "hangulS11L4Step0Desc": "食べ物・場所・人の単語を聴きましょう",
+  "hangulS11L4Step1Title": "発音練習",
+  "hangulS11L4Step1Desc": "文字を声に出して読みましょう",
+  "hangulS11L4Step2Title": "カテゴリー分類",
+  "hangulS11L4Step2Desc": "単語を見てカテゴリーを選んでください",
+  "hangulS11L4Step2Q0": "「김치」は何ですか？",
+  "hangulS11L4Step2Q1": "「시장」は何ですか？",
+  "hangulS11L4Step2Q2": "「학생」は何ですか？",
+  "hangulS11L4Step2CatFood": "食べ物",
+  "hangulS11L4Step2CatPlace": "場所",
+  "hangulS11L4Step2CatPerson": "人",
+  "hangulS11L4Step3Title": "レッスン完了！",
+  "hangulS11L4Step3Msg": "よくできました！\nカテゴリー単語を学びました。",
+  "hangulS11L5Title": "聴いて選ぶ単語",
+  "hangulS11L5Subtitle": "聴覚と読みの連結を強化",
+  "hangulS11L5Step0Title": "音のマッチング",
+  "hangulS11L5Step0Desc": "音を聴いて正しい単語を選んでください",
+  "hangulS11L5Step1Title": "レッスン完了！",
+  "hangulS11L5Step1Msg": "よくできました！\n聴いて選ぶ単語トレーニングを終えました。",
+  "hangulS11L6Title": "ステージ11 総まとめ",
+  "hangulS11L6Subtitle": "単語読みの最終確認",
+  "hangulS11L6Step0Title": "総合クイズ",
+  "hangulS11L6Step0Desc": "ステージ11の単語を総合確認します",
+  "hangulS11L6Step0Q0": "パッチムなしの単語はどれですか？",
+  "hangulS11L6Step0Q1": "基本パッチムの単語はどれですか？",
+  "hangulS11L6Step0Q2": "複合パッチムの単語はどれですか？",
+  "hangulS11L6Step0Q3": "場所の単語はどれですか？",
+  "hangulS11L6Step1Title": "ステージ11 完了！",
+  "hangulS11L6Step1Msg": "おめでとうございます！\nステージ11の単語読み拡張を完了しました。",
+  "hangulS11L7Title": "日常でのハングル読み",
+  "hangulS11L7Subtitle": "カフェメニュー・地下鉄・挨拶を読もう",
+  "hangulS11L7Step0Title": "韓国でハングルを読もう！",
+  "hangulS11L7Step0Desc": "ハングルをすべて学びました！\n実際の韓国で見かける文字を読んでみましょう！",
+  "hangulS11L7Step0Highlights": "カフェ,地下鉄,挨拶",
+  "hangulS11L7Step1Title": "カフェメニューを読もう",
+  "hangulS11L7Step1Descs": "アメリカーノ,カフェラテ,緑茶,ケーキ",
+  "hangulS11L7Step2Title": "地下鉄駅名を読もう",
+  "hangulS11L7Step2Descs": "ソウル駅,江南,弘大入口,明洞",
+  "hangulS11L7Step3Title": "基本的な挨拶を読もう",
+  "hangulS11L7Step3Descs": "こんにちは,ありがとうございます,はい,いいえ",
+  "hangulS11L7Step4Title": "発音練習",
+  "hangulS11L7Step4Desc": "文字を声に出して読みましょう",
+  "hangulS11L7Step5Title": "どこで見られる？",
+  "hangulS11L7Step5Q0": "「아메리카노」はどこで見られますか？",
+  "hangulS11L7Step5Q0Ans": "カフェ",
+  "hangulS11L7Step5Q0C0": "カフェ",
+  "hangulS11L7Step5Q0C1": "地下鉄",
+  "hangulS11L7Step5Q0C2": "学校",
+  "hangulS11L7Step5Q1": "「강남」は何ですか？",
+  "hangulS11L7Step5Q1Ans": "地下鉄駅の名前",
+  "hangulS11L7Step5Q1C0": "食べ物の名前",
+  "hangulS11L7Step5Q1C1": "地下鉄駅の名前",
+  "hangulS11L7Step5Q1C2": "挨拶",
+  "hangulS11L7Step5Q2": "「감사합니다」は日本語で？",
+  "hangulS11L7Step5Q2Ans": "ありがとうございます",
+  "hangulS11L7Step5Q2C0": "こんにちは",
+  "hangulS11L7Step5Q2C1": "ありがとうございます",
+  "hangulS11L7Step5Q2C2": "さようなら",
+  "hangulS11L7Step6Title": "おめでとうございます！",
+  "hangulS11L7Step6Msg": "韓国でカフェメニュー、地下鉄の駅名、挨拶が読めるようになりました！\nハングルマスターまであと少し！",
+  "hangulS11LMTitle": "ミッション：ハングル速読！",
+  "hangulS11LMSubtitle": "韓国語の単語を素早く読もう",
+  "hangulS11LMStep0Title": "ハングル速読ミッション！",
+  "hangulS11LMStep0Desc": "韓国語の単語をできるだけ素早く読んで答えましょう！\n実力を証明する時です！",
+  "hangulS11LMStep1Title": "音節を組み合わせよう！",
+  "hangulS11LMStep2Title": "ミッション結果",
+  "hangulS11LMStep3Title": "ハングルマスター！",
+  "hangulS11LMStep3Msg": "ハングルを完全にマスターしました！\nこれで韓国語の単語と文が読めます！",
+  "hangulS11LMStep4Title": "ステージ11 完了！",
+  "hangulS11LMStep4Msg": "ハングルを完全に読めるようになりました！",
+  "hangulS11CompleteTitle": "ステージ11 完了！",
+  "hangulS11CompleteMsg": "ハングルを完全に読めるようになりました！",
+  "stageRequestFailed": "ステージリクエストの送信に失敗しました。もう一度お試しください。",
+  "stageRequestRejected": "ホストにステージリクエストが拒否されました。",
+  "inviteToStageFailed": "ステージへの招待に失敗しました。ステージがいっぱいの可能性があります。",
+  "demoteFailed": "ステージからの降格に失敗しました。もう一度お試しください。",
+  "voiceRoomCloseRoomFailed": "ルームを閉じることができませんでした。もう一度お試しください。"
 }

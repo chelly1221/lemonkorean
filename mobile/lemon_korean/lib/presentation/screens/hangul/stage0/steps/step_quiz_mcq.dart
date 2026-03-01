@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 
 /// Multiple-choice quiz step.
@@ -71,7 +72,7 @@ class _StepQuizMcqState extends State<StepQuizMcq> {
   @override
   Widget build(BuildContext context) {
     if (_questions.isEmpty) {
-      return const Center(child: Text('No questions'));
+      return Center(child: Text(AppLocalizations.of(context)?.noQuestions ?? 'No questions'));
     }
 
     final question = _current['question'] as String;

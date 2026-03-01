@@ -14,10 +14,10 @@ class ChatInputBar extends StatefulWidget {
   final VoidCallback onPickImage;
 
   const ChatInputBar({
-    super.key,
     required this.conversationId,
     required this.onSendText,
     required this.onPickImage,
+    super.key,
   });
 
   @override

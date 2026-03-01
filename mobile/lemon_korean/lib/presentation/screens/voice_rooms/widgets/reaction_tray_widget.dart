@@ -44,6 +44,7 @@ class _ReactionTrayWidgetState extends State<ReactionTrayWidget>
   late final Animation<Offset> _slideAnimation;
   late final Animation<double> _fadeAnimation;
   Timer? _inactivityTimer;
+  bool _isClosing = false;
 
   static const _autoCloseDuration = Duration(seconds: 3);
 
@@ -86,12 +87,16 @@ class _ReactionTrayWidgetState extends State<ReactionTrayWidget>
   }
 
   void _animateClose() {
+    if (_isClosing) return;
+    _isClosing = true;
+    _inactivityTimer?.cancel();
     _animController.reverse().then((_) {
       if (mounted) widget.onClose();
     });
   }
 
   void _onReactionTap(String emoji) {
+    if (!mounted) return;
     context.read<VoiceRoomProvider>().sendReaction(emoji);
     _resetInactivityTimer();
   }
@@ -116,33 +121,41 @@ class _ReactionTrayWidgetState extends State<ReactionTrayWidget>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ...List.generate(
-                      ReactionTrayWidget.reactions.length, (index) {
-                    final emoji = ReactionTrayWidget.reactions[index];
-                    final name = ReactionTrayWidget._reactionNames[index];
-                    return Semantics(
-                      button: true,
-                      label: l10n?.voiceRoomSendReactionNamed(name) ?? 'Send $name reaction',
-                      child: InkWell(
-                        onTap: () => _onReactionTap(emoji),
-                        borderRadius: BorderRadius.circular(24),
-                        splashColor: Colors.white24,
-                        highlightColor: Colors.white10,
-                        child: SizedBox(
-                          width: 48,
-                          height: 48,
-                          child: Center(
-                            child: ExcludeSemantics(
-                              child: Text(
-                                emoji,
-                                style: const TextStyle(fontSize: 28),
+                  Flexible(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(
+                            ReactionTrayWidget.reactions.length, (index) {
+                          final emoji = ReactionTrayWidget.reactions[index];
+                          final name = ReactionTrayWidget._reactionNames[index];
+                          return Semantics(
+                            button: true,
+                            label: l10n?.voiceRoomSendReactionNamed(name) ?? 'Send $name reaction',
+                            child: InkWell(
+                              onTap: () => _onReactionTap(emoji),
+                              borderRadius: BorderRadius.circular(24),
+                              splashColor: Colors.white24,
+                              highlightColor: Colors.white10,
+                              child: SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Center(
+                                  child: ExcludeSemantics(
+                                    child: Text(
+                                      emoji,
+                                      style: const TextStyle(fontSize: 28),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                   const SizedBox(width: 4),
                   Semantics(
                     button: true,

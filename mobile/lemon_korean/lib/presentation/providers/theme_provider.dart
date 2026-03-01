@@ -170,7 +170,7 @@ class ThemeProvider extends ChangeNotifier {
         surface: theme.cardBackgroundCol,
         surfaceContainerHighest: theme.backgroundLightCol,
         // Force NavigationBar indicator to use primary (yellow) instead of secondary (green)
-        secondaryContainer: theme.primary.withOpacity(0.3),
+        secondaryContainer: theme.primary.withValues(alpha: 0.3),
       ),
 
       // Scaffold Background
@@ -251,40 +251,42 @@ class ThemeProvider extends ChangeNotifier {
         foregroundColor: const Color(0xFF43240D),
       ),
 
-      // Navigation Bar Theme
+      // Navigation Bar Theme (compact)
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: theme.cardBackgroundCol,
-        indicatorColor: theme.primary.withOpacity(0.3), // 노란색 원 (30% 투명도)
+        indicatorColor: theme.primary.withValues(alpha: 0.3),
         indicatorShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100), // 큰 원형 (반지름 100)
+          borderRadius: BorderRadius.circular(16),
         ),
-        elevation: 8.0,
-        height: 80.0,
+        elevation: 4.0,
+        height: 56.0,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((states) {
-          if (states.contains(MaterialState.selected)) {
+        iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
+          if (states.contains(WidgetState.selected)) {
             return IconThemeData(
-              color: theme.textPrimaryCol, // 선택된 아이콘은 어두운 색
-              size: 28.0,
+              color: theme.textPrimaryCol,
+              size: 22.0,
             );
           }
           return IconThemeData(
-            color: theme.textSecondaryCol, // 선택 안 된 아이콘은 회색
-            size: 24.0,
+            color: theme.textSecondaryCol,
+            size: 20.0,
           );
         }),
-        labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>((states) {
-          if (states.contains(MaterialState.selected)) {
+        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
+          if (states.contains(WidgetState.selected)) {
             return TextStyle(
               color: theme.textPrimaryCol,
-              fontSize: 12.0,
+              fontSize: 10.0,
               fontWeight: FontWeight.w600,
+              height: 1.0,
             );
           }
           return TextStyle(
             color: theme.textSecondaryCol,
-            fontSize: 11.0,
+            fontSize: 10.0,
             fontWeight: FontWeight.normal,
+            height: 1.0,
           );
         }),
       ),

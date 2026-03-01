@@ -21,8 +21,8 @@ class CharacterAvatarWidget extends StatelessWidget {
   static const _faceCategories = {'eyes', 'eyebrows', 'nose', 'mouth'};
 
   const CharacterAvatarWidget({
-    super.key,
     required this.equippedItems,
+    super.key,
     this.size = 200,
     this.skinColor = '#FFDBB4',
     this.direction = CharacterDirection.front,
@@ -39,7 +39,7 @@ class CharacterAvatarWidget extends StatelessWidget {
       sorted = sorted.where((i) => !_faceCategories.contains(i.category)).toList();
     }
 
-    final aspectRatio = 300.0 / 400.0;
+    const aspectRatio = 300.0 / 400.0;
     final width = size * aspectRatio;
     final height = size.toDouble();
 

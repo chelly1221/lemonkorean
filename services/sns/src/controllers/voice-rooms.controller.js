@@ -26,18 +26,29 @@ const getRooms = async (req, res) => {
 const createRoom = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { title, topic, language_level, max_speakers } = req.body;
+    const { title, topic, language_level, max_speakers, room_type } = req.body;
 
     if (!title || title.trim().length === 0) {
       return res.status(400).json({ error: 'Title is required' });
     }
+
+    if (title.trim().length > 100) {
+      return res.status(400).json({ error: 'Title too long (max 100 characters)' });
+    }
+
+    const validRoomTypes = ['free_talk', 'pronunciation', 'roleplay', 'qna', 'listening', 'debate'];
+    const validatedRoomType = validRoomTypes.includes(room_type) ? room_type : 'free_talk';
+    const { duration } = req.body;
+    const validatedDuration = duration != null ? Math.max(1, parseInt(duration) || 0) || null : null;
 
     const room = await VoiceRoom.create({
       creatorId: userId,
       title: title.trim(),
       topic: topic?.trim() || null,
       languageLevel: language_level || 'all',
-      maxSpeakers: Math.min(Math.max(parseInt(max_speakers) || 4, 2), 4)
+      maxSpeakers: Math.min(Math.max(parseInt(max_speakers) || 4, 2), 4),
+      roomType: validatedRoomType,
+      duration: validatedDuration,
     });
 
     // Auto-join creator as speaker
@@ -208,11 +219,10 @@ const closeRoom = async (req, res) => {
       console.warn(`[LiveKit] Failed to delete room ${room.livekit_room_name}: ${err.message}`);
     }
 
-    // Broadcast close event
+    // Broadcast close event (global broadcast covers room members too)
     const io = req.app.get('io');
     if (io) {
-      io.to(`voice:${roomId}`).emit('voice:room_closed', { room_id: roomId });
-      io.emit('voice:room_closed', { room_id: roomId });
+      io.emit('voice:room_closed', { room_id: roomId, creator_id: userId });
     }
 
     res.json({ success: true });
@@ -229,8 +239,9 @@ const toggleMute = async (req, res) => {
   try {
     const userId = req.user.id;
     const roomId = parseInt(req.params.id);
+    const desiredState = typeof req.body?.is_muted === 'boolean' ? req.body.is_muted : null;
 
-    const result = await VoiceRoom.toggleMute(roomId, userId);
+    const result = await VoiceRoom.toggleMute(roomId, userId, desiredState);
     if (!result) {
       return res.status(404).json({ error: 'Not in this room' });
     }
@@ -309,7 +320,7 @@ const sendMessage = async (req, res) => {
       });
     }
 
-    res.status(201).json({ message });
+    res.status(201).json({ message: { ...message, name: req.user.name, avatar: req.user.profileImageUrl } });
   } catch (error) {
     console.error('[SNS] sendMessage error:', error);
     res.status(500).json({ error: 'Failed to send message' });
@@ -417,7 +428,8 @@ const grantStage = async (req, res) => {
         skin_color: result.skin_color
       });
 
-      io.to(`voice:${roomId}`).emit('voice:stage_granted', {
+      // Send token only to target user (not entire room) to prevent token leakage
+      io.to(`user:${targetUserId}`).emit('voice:stage_granted', {
         room_id: roomId,
         user_id: targetUserId,
         livekit_token: token
@@ -470,7 +482,8 @@ const removeFromStage = async (req, res) => {
         role: 'listener'
       });
 
-      io.to(`voice:${roomId}`).emit('voice:stage_removed', {
+      // Send token only to target user to prevent token leakage
+      io.to(`user:${targetUserId}`).emit('voice:stage_removed', {
         room_id: roomId,
         user_id: targetUserId,
         livekit_token: token
@@ -495,9 +508,13 @@ const leaveStage = async (req, res) => {
     const userId = req.user.id;
     const roomId = parseInt(req.params.id);
 
-    // Creator cannot leave stage (they must close the room)
     const room = await VoiceRoom.getById(roomId);
-    if (room && room.creator_id === userId) {
+    if (!room || room.status !== 'active') {
+      return res.status(404).json({ error: 'Room not found or closed' });
+    }
+
+    // Creator cannot leave stage (they must close the room)
+    if (room.creator_id === userId) {
       return res.status(400).json({ error: 'Creator cannot leave stage. Close the room instead.' });
     }
 
@@ -535,8 +552,9 @@ const kickParticipant = async (req, res) => {
     const roomId = parseInt(req.params.id);
     const { user_id: targetUserId } = req.body;
 
-    if (!targetUserId) {
-      return res.status(400).json({ error: 'user_id is required' });
+    const parsedTargetUserId = parseInt(targetUserId);
+    if (!parsedTargetUserId || isNaN(parsedTargetUserId)) {
+      return res.status(400).json({ error: 'Valid user_id is required' });
     }
 
     // Verify requester is creator
@@ -545,20 +563,20 @@ const kickParticipant = async (req, res) => {
       return res.status(403).json({ error: 'Only the room creator can kick participants' });
     }
 
-    // Cannot kick self
-    if (targetUserId === creatorId) {
+    // Cannot kick self (use parseInt for safe comparison)
+    if (parsedTargetUserId === creatorId) {
       return res.status(400).json({ error: 'Cannot kick yourself' });
     }
 
     // Remove from DB
-    await VoiceRoom.leave(roomId, targetUserId);
+    await VoiceRoom.leave(roomId, parsedTargetUserId);
 
     // Remove from LiveKit (best-effort)
     try {
-      await roomService.removeParticipant(room.livekit_room_name, `user_${targetUserId}`);
-      console.log(`[LiveKit] Removed participant user_${targetUserId} from ${room.livekit_room_name}`);
+      await roomService.removeParticipant(room.livekit_room_name, `user_${parsedTargetUserId}`);
+      console.log(`[LiveKit] Removed participant user_${parsedTargetUserId} from ${room.livekit_room_name}`);
     } catch (err) {
-      console.warn(`[LiveKit] Failed to remove participant user_${targetUserId}: ${err.message}`);
+      console.warn(`[LiveKit] Failed to remove participant user_${parsedTargetUserId}: ${err.message}`);
     }
 
     // Broadcast kick + leave events
@@ -566,12 +584,25 @@ const kickParticipant = async (req, res) => {
     if (io) {
       io.to(`voice:${roomId}`).emit('voice:participant_kicked', {
         room_id: roomId,
-        user_id: targetUserId,
+        user_id: parsedTargetUserId,
       });
       io.to(`voice:${roomId}`).emit('voice:participant_left', {
         room_id: roomId,
-        user_id: targetUserId,
+        user_id: parsedTargetUserId,
       });
+
+      // Force-leave kicked user's socket from the room
+      try {
+        const sockets = await io.in(`voice:${roomId}`).fetchSockets();
+        for (const s of sockets) {
+          if (s.userId === parsedTargetUserId) {
+            s.leave(`voice:${roomId}`);
+            if (s._voiceRooms) s._voiceRooms.delete(roomId);
+          }
+        }
+      } catch (err) {
+        console.warn(`[Socket] Failed to force-leave kicked user socket: ${err.message}`);
+      }
     }
 
     res.json({ success: true });
@@ -620,7 +651,8 @@ const inviteToStage = async (req, res) => {
         skin_color: result.skin_color,
       });
 
-      io.to(`voice:${roomId}`).emit('voice:stage_granted', {
+      // Send token only to target user to prevent token leakage
+      io.to(`user:${targetUserId}`).emit('voice:stage_granted', {
         room_id: roomId,
         user_id: targetUserId,
         livekit_token: token,

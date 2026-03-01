@@ -10,9 +10,9 @@ class CategoryFilterChips extends StatelessWidget {
   final ValueChanged<String> onCategoryChanged;
 
   const CategoryFilterChips({
-    super.key,
     required this.selectedCategory,
     required this.onCategoryChanged,
+    super.key,
   });
 
   @override

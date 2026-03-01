@@ -1,910 +1,1190 @@
 {
   "@@locale": "es",
   "@@context": "LemonKorean App - Spanish",
-
   "appName": "Lemon Coreano",
-  "@appName": {"description": "App name"},
-
+  "@appName": {
+    "description": "App name"
+  },
   "login": "Iniciar sesión",
-  "@login": {"description": "Login button"},
-
+  "@login": {
+    "description": "Login button"
+  },
   "register": "Registrarse",
-  "@register": {"description": "Register button"},
-
+  "@register": {
+    "description": "Register button"
+  },
   "email": "Correo electrónico",
-  "@email": {"description": "Email field label"},
-
+  "@email": {
+    "description": "Email field label"
+  },
   "password": "Contraseña",
-  "@password": {"description": "Password field label"},
-
+  "@password": {
+    "description": "Password field label"
+  },
   "confirmPassword": "Confirmar contraseña",
-  "@confirmPassword": {"description": "Confirm password field label"},
-
+  "@confirmPassword": {
+    "description": "Confirm password field label"
+  },
   "username": "Nombre de usuario",
-  "@username": {"description": "Username field label"},
-
+  "@username": {
+    "description": "Username field label"
+  },
   "enterEmail": "Ingresa tu correo electrónico",
-  "@enterEmail": {"description": "Email placeholder"},
-
+  "@enterEmail": {
+    "description": "Email placeholder"
+  },
   "enterPassword": "Ingresa tu contraseña",
-  "@enterPassword": {"description": "Password placeholder"},
-
+  "@enterPassword": {
+    "description": "Password placeholder"
+  },
   "enterConfirmPassword": "Ingresa tu contraseña nuevamente",
-  "@enterConfirmPassword": {"description": "Confirm password placeholder"},
-
+  "@enterConfirmPassword": {
+    "description": "Confirm password placeholder"
+  },
   "enterUsername": "Ingresa tu nombre de usuario",
-  "@enterUsername": {"description": "Username placeholder"},
-
+  "@enterUsername": {
+    "description": "Username placeholder"
+  },
   "createAccount": "Crear cuenta",
-  "@createAccount": {"description": "Create account title"},
-
+  "@createAccount": {
+    "description": "Create account title"
+  },
   "startJourney": "Comienza tu viaje de aprendizaje del coreano",
-  "@startJourney": {"description": "Subtitle for registration"},
-
+  "@startJourney": {
+    "description": "Subtitle for registration"
+  },
   "interfaceLanguage": "Idioma de la interfaz",
-  "@interfaceLanguage": {"description": "Interface language label"},
-
+  "@interfaceLanguage": {
+    "description": "Interface language label"
+  },
   "simplifiedChinese": "Chino simplificado",
-  "@simplifiedChinese": {"description": "Simplified Chinese option"},
-
+  "@simplifiedChinese": {
+    "description": "Simplified Chinese option"
+  },
   "traditionalChinese": "Chino tradicional",
-  "@traditionalChinese": {"description": "Traditional Chinese option"},
-
+  "@traditionalChinese": {
+    "description": "Traditional Chinese option"
+  },
   "passwordRequirements": "Requisitos de contraseña",
-  "@passwordRequirements": {"description": "Password requirements title"},
-
+  "@passwordRequirements": {
+    "description": "Password requirements title"
+  },
   "minCharacters": "{count, plural, one{Al menos {count} carácter} other{Al menos {count} caracteres}}",
   "@minCharacters": {
     "description": "Minimum characters requirement",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "containLettersNumbers": "Contiene letras y números",
-  "@containLettersNumbers": {"description": "Letters and numbers requirement"},
-
+  "@containLettersNumbers": {
+    "description": "Letters and numbers requirement"
+  },
   "haveAccount": "¿Ya tienes una cuenta?",
-  "@haveAccount": {"description": "Already have account text"},
-
+  "@haveAccount": {
+    "description": "Already have account text"
+  },
   "noAccount": "¿No tienes una cuenta?",
-  "@noAccount": {"description": "No account text"},
-
+  "@noAccount": {
+    "description": "No account text"
+  },
   "loginNow": "Inicia sesión ahora",
-  "@loginNow": {"description": "Login now button"},
-
+  "@loginNow": {
+    "description": "Login now button"
+  },
   "registerNow": "Regístrate ahora",
-  "@registerNow": {"description": "Register now button"},
-
+  "@registerNow": {
+    "description": "Register now button"
+  },
   "registerSuccess": "Registro exitoso",
-  "@registerSuccess": {"description": "Registration success message"},
-
+  "@registerSuccess": {
+    "description": "Registration success message"
+  },
   "registerFailed": "Registro fallido",
-  "@registerFailed": {"description": "Registration failed message"},
-
+  "@registerFailed": {
+    "description": "Registration failed message"
+  },
   "loginSuccess": "Inicio de sesión exitoso",
-  "@loginSuccess": {"description": "Login success message"},
-
+  "@loginSuccess": {
+    "description": "Login success message"
+  },
   "loginFailed": "Inicio de sesión fallido",
-  "@loginFailed": {"description": "Login failed message"},
-
+  "@loginFailed": {
+    "description": "Login failed message"
+  },
   "networkError": "Error de conexión. Por favor verifica tu configuración de red.",
-  "@networkError": {"description": "Network error message"},
-
+  "@networkError": {
+    "description": "Network error message"
+  },
   "invalidCredentials": "Correo electrónico o contraseña inválidos",
-  "@invalidCredentials": {"description": "Invalid credentials message"},
-
+  "@invalidCredentials": {
+    "description": "Invalid credentials message"
+  },
   "emailAlreadyExists": "El correo electrónico ya está registrado",
-  "@emailAlreadyExists": {"description": "Email exists message"},
-
+  "@emailAlreadyExists": {
+    "description": "Email exists message"
+  },
   "requestTimeout": "Tiempo de solicitud agotado. Por favor intenta de nuevo.",
-  "@requestTimeout": {"description": "Request timeout message"},
-
+  "@requestTimeout": {
+    "description": "Request timeout message"
+  },
   "operationFailed": "Algo salió mal. Por favor intenta más tarde.",
-  "@operationFailed": {"description": "Generic operation failed message"},
-
+  "@operationFailed": {
+    "description": "Generic operation failed message"
+  },
   "settings": "Configuración",
-  "@settings": {"description": "Settings title"},
-
+  "@settings": {
+    "description": "Settings title"
+  },
   "languageSettings": "Configuración de idioma",
-  "@languageSettings": {"description": "Language settings title"},
-
+  "@languageSettings": {
+    "description": "Language settings title"
+  },
   "chineseDisplay": "Visualización del chino",
-  "@chineseDisplay": {"description": "Chinese display section title"},
-
+  "@chineseDisplay": {
+    "description": "Chinese display section title"
+  },
   "chineseDisplayDesc": "Elige cómo se muestran los caracteres chinos. Los cambios se aplicarán a todas las pantallas inmediatamente.",
-  "@chineseDisplayDesc": {"description": "Chinese display description"},
-
+  "@chineseDisplayDesc": {
+    "description": "Chinese display description"
+  },
   "switchedToSimplified": "Cambiado a chino simplificado",
-  "@switchedToSimplified": {"description": "Switched to simplified message"},
-
+  "@switchedToSimplified": {
+    "description": "Switched to simplified message"
+  },
   "switchedToTraditional": "Cambiado a chino tradicional",
-  "@switchedToTraditional": {"description": "Switched to traditional message"},
-
+  "@switchedToTraditional": {
+    "description": "Switched to traditional message"
+  },
   "displayTip": "Consejo: El contenido de las lecciones se mostrará usando la fuente china seleccionada.",
-  "@displayTip": {"description": "Display tip text"},
-
+  "@displayTip": {
+    "description": "Display tip text"
+  },
   "notificationSettings": "Configuración de notificaciones",
-  "@notificationSettings": {"description": "Notification settings title"},
-
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
   "enableNotifications": "Habilitar notificaciones",
-  "@enableNotifications": {"description": "Enable notifications toggle"},
-
+  "@enableNotifications": {
+    "description": "Enable notifications toggle"
+  },
   "enableNotificationsDesc": "Activa para recibir recordatorios de aprendizaje",
-  "@enableNotificationsDesc": {"description": "Enable notifications description"},
-
+  "@enableNotificationsDesc": {
+    "description": "Enable notifications description"
+  },
   "permissionRequired": "Por favor permite los permisos de notificación en la configuración del sistema",
-  "@permissionRequired": {"description": "Permission required message"},
-
+  "@permissionRequired": {
+    "description": "Permission required message"
+  },
   "dailyLearningReminder": "Recordatorio diario de aprendizaje",
-  "@dailyLearningReminder": {"description": "Daily learning reminder section"},
-
+  "@dailyLearningReminder": {
+    "description": "Daily learning reminder section"
+  },
   "dailyReminder": "Recordatorio diario",
-  "@dailyReminder": {"description": "Daily reminder toggle"},
-
+  "@dailyReminder": {
+    "description": "Daily reminder toggle"
+  },
   "dailyReminderDesc": "Recibe un recordatorio a una hora fija cada día",
-  "@dailyReminderDesc": {"description": "Daily reminder description"},
-
+  "@dailyReminderDesc": {
+    "description": "Daily reminder description"
+  },
   "reminderTime": "Hora del recordatorio",
-  "@reminderTime": {"description": "Reminder time label"},
-
+  "@reminderTime": {
+    "description": "Reminder time label"
+  },
   "reminderTimeSet": "Hora del recordatorio establecida a las {time}",
   "@reminderTimeSet": {
     "description": "Reminder time set message",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "reviewReminder": "Recordatorio de repaso",
-  "@reviewReminder": {"description": "Review reminder toggle"},
-
+  "@reviewReminder": {
+    "description": "Review reminder toggle"
+  },
   "reviewReminderDesc": "Recibe recordatorios basados en la curva de memoria",
-  "@reviewReminderDesc": {"description": "Review reminder description"},
-
+  "@reviewReminderDesc": {
+    "description": "Review reminder description"
+  },
   "notificationTip": "Consejo:",
-  "@notificationTip": {"description": "Tip prefix"},
-
+  "@notificationTip": {
+    "description": "Tip prefix"
+  },
   "helpCenter": "Centro de ayuda",
-  "@helpCenter": {"description": "Help center title"},
-
+  "@helpCenter": {
+    "description": "Help center title"
+  },
   "offlineLearning": "Aprendizaje sin conexión",
-  "@offlineLearning": {"description": "Offline learning section"},
-
+  "@offlineLearning": {
+    "description": "Offline learning section"
+  },
   "howToDownload": "¿Cómo descargo las lecciones?",
-  "@howToDownload": {"description": "How to download FAQ"},
-
+  "@howToDownload": {
+    "description": "How to download FAQ"
+  },
   "howToDownloadAnswer": "En la lista de lecciones, toca el ícono de descarga a la derecha para descargar una lección. Puedes estudiar sin conexión después de descargar.",
-  "@howToDownloadAnswer": {"description": "How to download answer"},
-
+  "@howToDownloadAnswer": {
+    "description": "How to download answer"
+  },
   "howToUseDownloaded": "¿Cómo uso las lecciones descargadas?",
-  "@howToUseDownloaded": {"description": "How to use downloaded FAQ"},
-
+  "@howToUseDownloaded": {
+    "description": "How to use downloaded FAQ"
+  },
   "howToUseDownloadedAnswer": "Puedes estudiar las lecciones descargadas normalmente incluso sin conexión a la red. El progreso se guarda localmente y se sincroniza automáticamente cuando te reconectes.",
-  "@howToUseDownloadedAnswer": {"description": "How to use downloaded answer"},
-
+  "@howToUseDownloadedAnswer": {
+    "description": "How to use downloaded answer"
+  },
   "storageManagement": "Gestión de almacenamiento",
-  "@storageManagement": {"description": "Storage management section"},
-
+  "@storageManagement": {
+    "description": "Storage management section"
+  },
   "howToCheckStorage": "¿Cómo verifico el espacio de almacenamiento?",
-  "@howToCheckStorage": {"description": "How to check storage FAQ"},
-
+  "@howToCheckStorage": {
+    "description": "How to check storage FAQ"
+  },
   "howToCheckStorageAnswer": "Ve a [Configuración → Gestión de almacenamiento] para ver el espacio utilizado y disponible.",
-  "@howToCheckStorageAnswer": {"description": "How to check storage answer"},
-
+  "@howToCheckStorageAnswer": {
+    "description": "How to check storage answer"
+  },
   "howToDeleteDownloaded": "¿Cómo elimino las lecciones descargadas?",
-  "@howToDeleteDownloaded": {"description": "How to delete downloaded FAQ"},
-
+  "@howToDeleteDownloaded": {
+    "description": "How to delete downloaded FAQ"
+  },
   "howToDeleteDownloadedAnswer": "En [Gestión de almacenamiento], toca el botón de eliminar junto a la lección para borrarla.",
-  "@howToDeleteDownloadedAnswer": {"description": "How to delete downloaded answer"},
-
+  "@howToDeleteDownloadedAnswer": {
+    "description": "How to delete downloaded answer"
+  },
   "notificationSection": "Configuración de notificaciones",
-  "@notificationSection": {"description": "Notification section in help"},
-
+  "@notificationSection": {
+    "description": "Notification section in help"
+  },
   "howToEnableReminder": "¿Cómo activo los recordatorios de aprendizaje?",
-  "@howToEnableReminder": {"description": "How to enable reminder FAQ"},
-
+  "@howToEnableReminder": {
+    "description": "How to enable reminder FAQ"
+  },
   "howToEnableReminderAnswer": "Ve a [Configuración → Configuración de notificaciones] y activa [Habilitar notificaciones]. Necesitas otorgar permisos de notificación en el primer uso.",
-  "@howToEnableReminderAnswer": {"description": "How to enable reminder answer"},
-
+  "@howToEnableReminderAnswer": {
+    "description": "How to enable reminder answer"
+  },
   "whatIsReviewReminder": "¿Qué es un recordatorio de repaso?",
-  "@whatIsReviewReminder": {"description": "What is review reminder FAQ"},
-
+  "@whatIsReviewReminder": {
+    "description": "What is review reminder FAQ"
+  },
   "whatIsReviewReminderAnswer": "Basado en el algoritmo de repetición espaciada (SRS), la aplicación te recordará repasar las lecciones completadas en momentos óptimos. Intervalos de repaso: 1 día → 3 días → 7 días → 14 días → 30 días.",
-  "@whatIsReviewReminderAnswer": {"description": "What is review reminder answer"},
-
+  "@whatIsReviewReminderAnswer": {
+    "description": "What is review reminder answer"
+  },
   "languageSection": "Configuración de idioma",
-  "@languageSection": {"description": "Language section in help"},
-
+  "@languageSection": {
+    "description": "Language section in help"
+  },
   "howToSwitchChinese": "¿Cómo cambio entre chino simplificado y tradicional?",
-  "@howToSwitchChinese": {"description": "How to switch Chinese FAQ"},
-
+  "@howToSwitchChinese": {
+    "description": "How to switch Chinese FAQ"
+  },
   "howToSwitchChineseAnswer": "Ve a [Configuración → Configuración de idioma] y selecciona [Chino simplificado] o [Chino tradicional]. Los cambios se aplican inmediatamente.",
-  "@howToSwitchChineseAnswer": {"description": "How to switch Chinese answer"},
-
+  "@howToSwitchChineseAnswer": {
+    "description": "How to switch Chinese answer"
+  },
   "faq": "Preguntas frecuentes",
-  "@faq": {"description": "FAQ section title"},
-
+  "@faq": {
+    "description": "FAQ section title"
+  },
   "howToStart": "¿Cómo empiezo a aprender?",
-  "@howToStart": {"description": "How to start learning FAQ"},
-
+  "@howToStart": {
+    "description": "How to start learning FAQ"
+  },
   "howToStartAnswer": "En la pantalla principal, selecciona una lección apropiada para tu nivel y comienza desde la Lección 1. Cada lección consta de 7 etapas.",
-  "@howToStartAnswer": {"description": "How to start learning answer"},
-
+  "@howToStartAnswer": {
+    "description": "How to start learning answer"
+  },
   "progressNotSaved": "¿Qué pasa si mi progreso no se guarda?",
-  "@progressNotSaved": {"description": "Progress not saved FAQ"},
-
+  "@progressNotSaved": {
+    "description": "Progress not saved FAQ"
+  },
   "progressNotSavedAnswer": "El progreso se guarda automáticamente de forma local. Si estás en línea, se sincronizará automáticamente con el servidor. Por favor verifica tu conexión de red.",
-  "@progressNotSavedAnswer": {"description": "Progress not saved answer"},
-
+  "@progressNotSavedAnswer": {
+    "description": "Progress not saved answer"
+  },
   "aboutApp": "Acerca de la aplicación",
-  "@aboutApp": {"description": "About app title"},
-
+  "@aboutApp": {
+    "description": "About app title"
+  },
   "moreInfo": "Más información",
-  "@moreInfo": {"description": "More info section"},
-
+  "@moreInfo": {
+    "description": "More info section"
+  },
   "versionInfo": "Información de versión",
-  "@versionInfo": {"description": "Version info label"},
-
+  "@versionInfo": {
+    "description": "Version info label"
+  },
   "developer": "Desarrollador",
-  "@developer": {"description": "Developer label"},
-
+  "@developer": {
+    "description": "Developer label"
+  },
   "appIntro": "Introducción de la aplicación",
-  "@appIntro": {"description": "App introduction label"},
-
+  "@appIntro": {
+    "description": "App introduction label"
+  },
   "appIntroContent": "Una aplicación de aprendizaje de coreano con aprendizaje sin conexión, recordatorios inteligentes de repaso y mucho más.",
-  "@appIntroContent": {"description": "App introduction content"},
-
+  "@appIntroContent": {
+    "description": "App introduction content"
+  },
   "termsOfService": "Términos de servicio",
-  "@termsOfService": {"description": "Terms of service"},
-
+  "@termsOfService": {
+    "description": "Terms of service"
+  },
   "termsComingSoon": "Página de términos de servicio en desarrollo...",
-  "@termsComingSoon": {"description": "Terms coming soon message"},
-
+  "@termsComingSoon": {
+    "description": "Terms coming soon message"
+  },
   "privacyPolicy": "Política de privacidad",
-  "@privacyPolicy": {"description": "Privacy policy"},
-
+  "@privacyPolicy": {
+    "description": "Privacy policy"
+  },
   "privacyComingSoon": "Página de política de privacidad en desarrollo...",
-  "@privacyComingSoon": {"description": "Privacy coming soon message"},
-
+  "@privacyComingSoon": {
+    "description": "Privacy coming soon message"
+  },
   "openSourceLicenses": "Licencias de código abierto",
-  "@openSourceLicenses": {"description": "Open source licenses"},
-
+  "@openSourceLicenses": {
+    "description": "Open source licenses"
+  },
   "notStarted": "No iniciado",
-  "@notStarted": {"description": "Status: not started"},
-
+  "@notStarted": {
+    "description": "Status: not started"
+  },
   "inProgress": "En progreso",
-  "@inProgress": {"description": "Status: in progress"},
-
+  "@inProgress": {
+    "description": "Status: in progress"
+  },
   "completed": "Completado",
-  "@completed": {"description": "Status: completed"},
-
+  "@completed": {
+    "description": "Status: completed"
+  },
   "notPassed": "No aprobado",
-  "@notPassed": {"description": "Status: not passed"},
-
+  "@notPassed": {
+    "description": "Status: not passed"
+  },
   "timeToReview": "Hora de repasar",
-  "@timeToReview": {"description": "Time to review message"},
-
+  "@timeToReview": {
+    "description": "Time to review message"
+  },
   "today": "Hoy",
-  "@today": {"description": "Today"},
-
+  "@today": {
+    "description": "Today"
+  },
   "tomorrow": "Mañana",
-  "@tomorrow": {"description": "Tomorrow"},
-
+  "@tomorrow": {
+    "description": "Tomorrow"
+  },
   "daysLater": "{count, plural, one{En {count} día} other{En {count} días}}",
   "@daysLater": {
     "description": "Days later",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "noun": "Sustantivo",
-  "@noun": {"description": "Part of speech: noun"},
-
+  "@noun": {
+    "description": "Part of speech: noun"
+  },
   "verb": "Verbo",
-  "@verb": {"description": "Part of speech: verb"},
-
+  "@verb": {
+    "description": "Part of speech: verb"
+  },
   "adjective": "Adjetivo",
-  "@adjective": {"description": "Part of speech: adjective"},
-
+  "@adjective": {
+    "description": "Part of speech: adjective"
+  },
   "adverb": "Adverbio",
-  "@adverb": {"description": "Part of speech: adverb"},
-
+  "@adverb": {
+    "description": "Part of speech: adverb"
+  },
   "particle": "Partícula",
-  "@particle": {"description": "Part of speech: particle"},
-
+  "@particle": {
+    "description": "Part of speech: particle"
+  },
   "pronoun": "Pronombre",
-  "@pronoun": {"description": "Part of speech: pronoun"},
-
+  "@pronoun": {
+    "description": "Part of speech: pronoun"
+  },
   "highSimilarity": "Alta similitud",
-  "@highSimilarity": {"description": "High similarity level"},
-
+  "@highSimilarity": {
+    "description": "High similarity level"
+  },
   "mediumSimilarity": "Similitud media",
-  "@mediumSimilarity": {"description": "Medium similarity level"},
-
+  "@mediumSimilarity": {
+    "description": "Medium similarity level"
+  },
   "lowSimilarity": "Baja similitud",
-  "@lowSimilarity": {"description": "Low similarity level"},
-
+  "@lowSimilarity": {
+    "description": "Low similarity level"
+  },
   "learningComplete": "Aprendizaje completado",
-  "@learningComplete": {"description": "Learning complete title"},
-
+  "@learningComplete": {
+    "description": "Learning complete title"
+  },
   "experiencePoints": "+{points} XP",
   "@experiencePoints": {
     "description": "Experience points gained",
     "placeholders": {
-      "points": {"type": "int"}
+      "points": {
+        "type": "int"
+      }
     }
   },
-
   "keepLearning": "Mantén tu motivación de aprendizaje",
-  "@keepLearning": {"description": "Keep learning message"},
-
+  "@keepLearning": {
+    "description": "Keep learning message"
+  },
   "streakDays": "Racha +1 día",
-  "@streakDays": {"description": "Streak days increased"},
-
+  "@streakDays": {
+    "description": "Streak days increased"
+  },
   "streakDaysCount": "{days, plural, one{Racha de {days} día} other{Racha de {days} días}}",
   "@streakDaysCount": {
     "description": "Streak days count",
     "placeholders": {
-      "days": {"type": "int"}
+      "days": {
+        "type": "int"
+      }
     }
   },
-
   "lessonContent": "Contenido de la lección",
-  "@lessonContent": {"description": "Lesson content title"},
-
+  "@lessonContent": {
+    "description": "Lesson content title"
+  },
   "words": "Palabras",
-  "@words": {"description": "Words label"},
-
+  "@words": {
+    "description": "Words label"
+  },
   "grammarPoints": "Puntos de gramática",
-  "@grammarPoints": {"description": "Grammar points label"},
-
+  "@grammarPoints": {
+    "description": "Grammar points label"
+  },
   "dialogues": "Diálogos",
-  "@dialogues": {"description": "Dialogues label"},
-
+  "@dialogues": {
+    "description": "Dialogues label"
+  },
   "previous": "Anterior",
-  "@previous": {"description": "Previous button"},
-
+  "@previous": {
+    "description": "Previous button"
+  },
   "next": "Siguiente",
-  "@next": {"description": "Next button"},
-
+  "@next": {
+    "description": "Next button"
+  },
   "topicParticle": "Partícula de tema",
-  "@topicParticle": {"description": "Topic particle grammar"},
-
+  "@topicParticle": {
+    "description": "Topic particle grammar"
+  },
   "honorificEnding": "Terminación honorífica",
-  "@honorificEnding": {"description": "Honorific ending grammar"},
-
+  "@honorificEnding": {
+    "description": "Honorific ending grammar"
+  },
   "questionWord": "Qué",
-  "@questionWord": {"description": "Question word what"},
-
+  "@questionWord": {
+    "description": "Question word what"
+  },
   "hello": "Hola",
-  "@hello": {"description": "Hello"},
-
+  "@hello": {
+    "description": "Hello"
+  },
   "thankYou": "Gracias",
-  "@thankYou": {"description": "Thank you"},
-
+  "@thankYou": {
+    "description": "Thank you"
+  },
   "goodbye": "Adiós",
-  "@goodbye": {"description": "Goodbye"},
-
+  "@goodbye": {
+    "description": "Goodbye"
+  },
   "sorry": "Lo siento",
-  "@sorry": {"description": "Sorry"},
-
+  "@sorry": {
+    "description": "Sorry"
+  },
   "imStudent": "Soy estudiante",
-  "@imStudent": {"description": "I am a student"},
-
+  "@imStudent": {
+    "description": "I am a student"
+  },
   "bookInteresting": "El libro es interesante",
-  "@bookInteresting": {"description": "Book is interesting"},
-
+  "@bookInteresting": {
+    "description": "Book is interesting"
+  },
   "isStudent": "es estudiante",
-  "@isStudent": {"description": "Is student"},
-
+  "@isStudent": {
+    "description": "Is student"
+  },
   "isTeacher": "es profesor",
-  "@isTeacher": {"description": "Is teacher"},
-
+  "@isTeacher": {
+    "description": "Is teacher"
+  },
   "whatIsThis": "¿Qué es esto?",
-  "@whatIsThis": {"description": "What is this?"},
-
+  "@whatIsThis": {
+    "description": "What is this?"
+  },
   "whatDoingPolite": "¿Qué estás haciendo?",
-  "@whatDoingPolite": {"description": "What are you doing? (polite)"},
-
+  "@whatDoingPolite": {
+    "description": "What are you doing? (polite)"
+  },
   "listenAndChoose": "Escucha y elige la traducción correcta",
-  "@listenAndChoose": {"description": "Listen and choose instruction"},
-
+  "@listenAndChoose": {
+    "description": "Listen and choose instruction"
+  },
   "fillInBlank": "Completa con la partícula correcta",
-  "@fillInBlank": {"description": "Fill in blank instruction"},
-
+  "@fillInBlank": {
+    "description": "Fill in blank instruction"
+  },
   "chooseTranslation": "Elige la traducción correcta",
-  "@chooseTranslation": {"description": "Choose translation instruction"},
-
+  "@chooseTranslation": {
+    "description": "Choose translation instruction"
+  },
   "arrangeWords": "Ordena las palabras correctamente",
-  "@arrangeWords": {"description": "Arrange words instruction"},
-
+  "@arrangeWords": {
+    "description": "Arrange words instruction"
+  },
   "choosePronunciation": "Elige la pronunciación correcta",
-  "@choosePronunciation": {"description": "Choose pronunciation instruction"},
-
+  "@choosePronunciation": {
+    "description": "Choose pronunciation instruction"
+  },
   "consonantEnding": "¿Qué partícula de tema se debe usar cuando un sustantivo termina en consonante?",
-  "@consonantEnding": {"description": "Consonant ending quiz question"},
-
+  "@consonantEnding": {
+    "description": "Consonant ending quiz question"
+  },
   "correctSentence": "Elige la oración correcta",
-  "@correctSentence": {"description": "Choose correct sentence instruction"},
-
+  "@correctSentence": {
+    "description": "Choose correct sentence instruction"
+  },
   "allCorrect": "Todas las anteriores",
-  "@allCorrect": {"description": "All of the above option"},
-
+  "@allCorrect": {
+    "description": "All of the above option"
+  },
   "howAreYou": "¿Cómo estás?",
-  "@howAreYou": {"description": "How are you?"},
-
+  "@howAreYou": {
+    "description": "How are you?"
+  },
   "whatIsYourName": "¿Cuál es tu nombre?",
-  "@whatIsYourName": {"description": "What is your name?"},
-
+  "@whatIsYourName": {
+    "description": "What is your name?"
+  },
   "whoAreYou": "¿Quién eres?",
-  "@whoAreYou": {"description": "Who are you?"},
-
+  "@whoAreYou": {
+    "description": "Who are you?"
+  },
   "whereAreYou": "¿Dónde estás?",
-  "@whereAreYou": {"description": "Where are you?"},
-
+  "@whereAreYou": {
+    "description": "Where are you?"
+  },
   "niceToMeetYou": "Mucho gusto",
-  "@niceToMeetYou": {"description": "Nice to meet you"},
-
+  "@niceToMeetYou": {
+    "description": "Nice to meet you"
+  },
   "areYouStudent": "Eres estudiante",
-  "@areYouStudent": {"description": "You are a student"},
-
+  "@areYouStudent": {
+    "description": "You are a student"
+  },
   "areYouStudentQuestion": "¿Eres estudiante?",
-  "@areYouStudentQuestion": {"description": "Are you a student?"},
-
+  "@areYouStudentQuestion": {
+    "description": "Are you a student?"
+  },
   "amIStudent": "¿Soy estudiante?",
-  "@amIStudent": {"description": "Am I a student?"},
-
+  "@amIStudent": {
+    "description": "Am I a student?"
+  },
   "listening": "Escucha",
-  "@listening": {"description": "Listening question type"},
-
+  "@listening": {
+    "description": "Listening question type"
+  },
   "translation": "Traducción",
-  "@translation": {"description": "Translation question type"},
-
+  "@translation": {
+    "description": "Translation question type"
+  },
   "wordOrder": "Orden de palabras",
-  "@wordOrder": {"description": "Word order question type"},
-
+  "@wordOrder": {
+    "description": "Word order question type"
+  },
   "excellent": "¡Excelente!",
-  "@excellent": {"description": "Excellent feedback"},
-
+  "@excellent": {
+    "description": "Excellent feedback"
+  },
   "correctOrderIs": "Orden correcto:",
-  "@correctOrderIs": {"description": "Correct order is prefix"},
-
+  "@correctOrderIs": {
+    "description": "Correct order is prefix"
+  },
   "nextQuestion": "Siguiente pregunta",
-  "@nextQuestion": {"description": "Next question button"},
-
+  "@nextQuestion": {
+    "description": "Next question button"
+  },
   "finish": "Finalizar",
-  "@finish": {"description": "Finish button"},
-
+  "@finish": {
+    "description": "Finish button"
+  },
   "quizComplete": "¡Cuestionario completado!",
-  "@quizComplete": {"description": "Quiz complete title"},
-
+  "@quizComplete": {
+    "description": "Quiz complete title"
+  },
   "greatJob": "¡Buen trabajo!",
-  "@greatJob": {"description": "Great job message"},
-
+  "@greatJob": {
+    "description": "Great job message"
+  },
   "keepPracticing": "¡Sigue así!",
-  "@keepPracticing": {"description": "Keep practicing message"},
-
+  "@keepPracticing": {
+    "description": "Keep practicing message"
+  },
   "score": "Puntuación: {correct} / {total}",
   "@score": {
     "description": "Score display",
     "placeholders": {
-      "correct": {"type": "int"},
-      "total": {"type": "int"}
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "masteredContent": "¡Has dominado el contenido de esta lección!",
-  "@masteredContent": {"description": "Mastered content message"},
-
+  "@masteredContent": {
+    "description": "Mastered content message"
+  },
   "reviewSuggestion": "Repasa el contenido de la lección antes de volver a intentarlo.",
-  "@reviewSuggestion": {"description": "Review suggestion message"},
-
+  "@reviewSuggestion": {
+    "description": "Review suggestion message"
+  },
   "timeUsed": "Tiempo: {time}",
   "@timeUsed": {
     "description": "Time used display",
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
-
   "playAudio": "Reproducir audio",
-  "@playAudio": {"description": "Play audio button"},
-
+  "@playAudio": {
+    "description": "Play audio button"
+  },
   "replayAudio": "Reproducir de nuevo",
-  "@replayAudio": {"description": "Replay audio button"},
-
+  "@replayAudio": {
+    "description": "Replay audio button"
+  },
   "vowelEnding": "Cuando termina en vocal, usa:",
-  "@vowelEnding": {"description": "Vowel ending explanation prefix"},
-
+  "@vowelEnding": {
+    "description": "Vowel ending explanation prefix"
+  },
   "lessonNumber": "Lección {number}",
   "@lessonNumber": {
     "description": "Lesson number",
     "placeholders": {
-      "number": {"type": "int"}
+      "number": {
+        "type": "int"
+      }
     }
   },
-
   "stageIntro": "Introducción",
-  "@stageIntro": {"description": "Stage 1: Introduction"},
-
+  "@stageIntro": {
+    "description": "Stage 1: Introduction"
+  },
   "stageVocabulary": "Vocabulario",
-  "@stageVocabulary": {"description": "Stage 2: Vocabulary"},
-
+  "@stageVocabulary": {
+    "description": "Stage 2: Vocabulary"
+  },
   "stageGrammar": "Gramática",
-  "@stageGrammar": {"description": "Stage 3: Grammar"},
-
+  "@stageGrammar": {
+    "description": "Stage 3: Grammar"
+  },
   "stagePractice": "Práctica",
-  "@stagePractice": {"description": "Stage 4: Practice"},
-
+  "@stagePractice": {
+    "description": "Stage 4: Practice"
+  },
   "stageDialogue": "Diálogo",
-  "@stageDialogue": {"description": "Stage 5: Dialogue"},
-
+  "@stageDialogue": {
+    "description": "Stage 5: Dialogue"
+  },
   "stageQuiz": "Cuestionario",
-  "@stageQuiz": {"description": "Stage 6: Quiz"},
-
+  "@stageQuiz": {
+    "description": "Stage 6: Quiz"
+  },
   "stageSummary": "Resumen",
-  "@stageSummary": {"description": "Stage 7: Summary"},
-
+  "@stageSummary": {
+    "description": "Stage 7: Summary"
+  },
   "downloadLesson": "Descargar lección",
-  "@downloadLesson": {"description": "Download lesson button"},
-
+  "@downloadLesson": {
+    "description": "Download lesson button"
+  },
   "downloading": "Descargando...",
-  "@downloading": {"description": "Downloading status"},
-
+  "@downloading": {
+    "description": "Downloading status"
+  },
   "downloaded": "Descargado",
-  "@downloaded": {"description": "Downloaded status"},
-
+  "@downloaded": {
+    "description": "Downloaded status"
+  },
   "downloadFailed": "Descarga fallida",
-  "@downloadFailed": {"description": "Download failed status"},
-
+  "@downloadFailed": {
+    "description": "Download failed status"
+  },
   "home": "Inicio",
-  "@home": {"description": "Home tab"},
-
+  "@home": {
+    "description": "Home tab"
+  },
   "lessons": "Lecciones",
-  "@lessons": {"description": "Lessons tab"},
-
+  "@lessons": {
+    "description": "Lessons tab"
+  },
   "review": "Repaso",
-  "@review": {"description": "Review tab"},
-
+  "@review": {
+    "description": "Review tab"
+  },
   "profile": "Perfil",
-  "@profile": {"description": "Profile tab"},
-
+  "@profile": {
+    "description": "Profile tab"
+  },
   "continueLearning": "Continuar aprendiendo",
-  "@continueLearning": {"description": "Continue learning button"},
-
+  "@continueLearning": {
+    "description": "Continue learning button"
+  },
   "dailyGoal": "Meta diaria",
-  "@dailyGoal": {"description": "Daily goal title"},
-
+  "@dailyGoal": {
+    "description": "Daily goal title"
+  },
   "lessonsCompleted": "{count, plural, one{{count} lección completada} other{{count} lecciones completadas}}",
   "@lessonsCompleted": {
     "description": "Lessons completed count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "minutesLearned": "{minutes, plural, one{{minutes} minuto de estudio} other{{minutes} minutos de estudio}}",
   "@minutesLearned": {
     "description": "Minutes learned count",
     "placeholders": {
-      "minutes": {"type": "int"}
+      "minutes": {
+        "type": "int"
+      }
     }
   },
-
   "welcome": "Bienvenido de nuevo",
-  "@welcome": {"description": "Welcome message"},
-
+  "@welcome": {
+    "description": "Welcome message"
+  },
   "goodMorning": "Buenos días",
-  "@goodMorning": {"description": "Good morning greeting"},
-
+  "@goodMorning": {
+    "description": "Good morning greeting"
+  },
   "goodAfternoon": "Buenas tardes",
-  "@goodAfternoon": {"description": "Good afternoon greeting"},
-
+  "@goodAfternoon": {
+    "description": "Good afternoon greeting"
+  },
   "goodEvening": "Buenas noches",
-  "@goodEvening": {"description": "Good evening greeting"},
-
+  "@goodEvening": {
+    "description": "Good evening greeting"
+  },
   "logout": "Cerrar sesión",
-  "@logout": {"description": "Logout button"},
-
+  "@logout": {
+    "description": "Logout button"
+  },
   "confirmLogout": "¿Estás seguro de que quieres cerrar sesión?",
-  "@confirmLogout": {"description": "Logout confirmation"},
-
+  "@confirmLogout": {
+    "description": "Logout confirmation"
+  },
   "cancel": "Cancelar",
-  "@cancel": {"description": "Cancel button"},
-
+  "@cancel": {
+    "description": "Cancel button"
+  },
   "confirm": "Confirmar",
-  "@confirm": {"description": "Confirm button"},
-
+  "@confirm": {
+    "description": "Confirm button"
+  },
   "delete": "Eliminar",
-  "@delete": {"description": "Delete button"},
-
+  "@delete": {
+    "description": "Delete button"
+  },
   "save": "Guardar",
-  "@save": {"description": "Save button"},
-
+  "@save": {
+    "description": "Save button"
+  },
   "edit": "Editar",
-  "@edit": {"description": "Edit button"},
-
+  "@edit": {
+    "description": "Edit button"
+  },
   "close": "Cerrar",
-  "@close": {"description": "Close button"},
-
+  "@close": {
+    "description": "Close button"
+  },
   "retry": "Reintentar",
-  "@retry": {"description": "Retry button"},
-
+  "@retry": {
+    "description": "Retry button"
+  },
   "loading": "Cargando...",
-  "@loading": {"description": "Loading status"},
-
+  "@loading": {
+    "description": "Loading status"
+  },
   "noData": "Sin datos disponibles",
-  "@noData": {"description": "No data message"},
-
+  "@noData": {
+    "description": "No data message"
+  },
   "error": "Ocurrió un error",
-  "@error": {"description": "Error title"},
-
+  "@error": {
+    "description": "Error title"
+  },
   "errorOccurred": "Ocurrió un error",
-  "@errorOccurred": {"description": "Generic error message"},
-
+  "@errorOccurred": {
+    "description": "Generic error message"
+  },
   "reload": "Recargar",
-  "@reload": {"description": "Reload button"},
-
+  "@reload": {
+    "description": "Reload button"
+  },
   "noCharactersAvailable": "No hay caracteres disponibles",
-  "@noCharactersAvailable": {"description": "No characters message"},
-
+  "@noCharactersAvailable": {
+    "description": "No characters message"
+  },
   "success": "Éxito",
-  "@success": {"description": "Success title"},
-
+  "@success": {
+    "description": "Success title"
+  },
   "filter": "Filtrar",
-  "@filter": {"description": "Filter button"},
-
+  "@filter": {
+    "description": "Filter button"
+  },
   "reviewSchedule": "Calendario de repaso",
-  "@reviewSchedule": {"description": "Review schedule title"},
-
+  "@reviewSchedule": {
+    "description": "Review schedule title"
+  },
   "todayReview": "Repaso de hoy",
-  "@todayReview": {"description": "Today's review title"},
-
+  "@todayReview": {
+    "description": "Today's review title"
+  },
   "startReview": "Comenzar repaso",
-  "@startReview": {"description": "Start review button"},
-
+  "@startReview": {
+    "description": "Start review button"
+  },
   "learningStats": "Estadísticas de aprendizaje",
-  "@learningStats": {"description": "Learning statistics section"},
-
+  "@learningStats": {
+    "description": "Learning statistics section"
+  },
   "completedLessonsCount": "Lecciones completadas",
-  "@completedLessonsCount": {"description": "Completed lessons label"},
-
+  "@completedLessonsCount": {
+    "description": "Completed lessons label"
+  },
   "studyDays": "Días de estudio",
-  "@studyDays": {"description": "Study days label"},
-
+  "@studyDays": {
+    "description": "Study days label"
+  },
   "masteredWordsCount": "Palabras dominadas",
-  "@masteredWordsCount": {"description": "Mastered words label"},
-
+  "@masteredWordsCount": {
+    "description": "Mastered words label"
+  },
   "myVocabularyBook": "Mi libro de vocabulario",
-  "@myVocabularyBook": {"description": "My vocabulary book"},
-
+  "@myVocabularyBook": {
+    "description": "My vocabulary book"
+  },
   "vocabularyBrowser": "Explorador de vocabulario",
-  "@vocabularyBrowser": {"description": "Vocabulary browser"},
-
+  "@vocabularyBrowser": {
+    "description": "Vocabulary browser"
+  },
   "about": "Acerca de",
-  "@about": {"description": "About section"},
-
+  "@about": {
+    "description": "About section"
+  },
   "premiumMember": "Miembro premium",
-  "@premiumMember": {"description": "Premium member label"},
-
+  "@premiumMember": {
+    "description": "Premium member label"
+  },
   "freeUser": "Usuario gratuito",
-  "@freeUser": {"description": "Free user label"},
-
+  "@freeUser": {
+    "description": "Free user label"
+  },
   "wordsWaitingReview": "{count, plural, one{{count} palabra esperando repaso} other{{count} palabras esperando repaso}}",
   "@wordsWaitingReview": {
     "description": "Words waiting for review",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "user": "Usuario",
-  "@user": {"description": "Default user name"},
-
+  "@user": {
+    "description": "Default user name"
+  },
   "onboardingSkip": "Saltar",
-  "@onboardingSkip": {"description": "Onboarding skip button"},
-
+  "@onboardingSkip": {
+    "description": "Onboarding skip button"
+  },
   "onboardingLanguageTitle": "¡Mucho gusto! Soy Moni",
-  "@onboardingLanguageTitle": {"description": "Onboarding language selection title"},
-
+  "@onboardingLanguageTitle": {
+    "description": "Onboarding language selection title"
+  },
   "onboardingLanguagePrompt": "¿Qué idioma empezamos a aprender juntos?",
-  "@onboardingLanguagePrompt": {"description": "Onboarding language selection prompt"},
-
+  "@onboardingLanguagePrompt": {
+    "description": "Onboarding language selection prompt"
+  },
   "onboardingNext": "Siguiente",
-  "@onboardingNext": {"description": "Onboarding next button"},
-
+  "@onboardingNext": {
+    "description": "Onboarding next button"
+  },
   "onboardingWelcome": "¡Hola! Soy Limón de Lemon Korean 🍋\n¿Quieres aprender coreano juntos?",
-  "@onboardingWelcome": {"description": "Onboarding welcome message"},
-
+  "@onboardingWelcome": {
+    "description": "Onboarding welcome message"
+  },
   "onboardingLevelQuestion": "¿Cuál es tu nivel actual de coreano?",
-  "@onboardingLevelQuestion": {"description": "Onboarding level question"},
-
+  "@onboardingLevelQuestion": {
+    "description": "Onboarding level question"
+  },
   "onboardingStart": "Comenzar",
-  "@onboardingStart": {"description": "Onboarding start button"},
-
+  "@onboardingStart": {
+    "description": "Onboarding start button"
+  },
   "onboardingStartWithoutLevel": "Saltar y Comenzar",
-  "@onboardingStartWithoutLevel": {"description": "Onboarding start without level selection"},
-
+  "@onboardingStartWithoutLevel": {
+    "description": "Onboarding start without level selection"
+  },
   "levelBeginner": "Principiante",
-  "@levelBeginner": {"description": "Beginner level"},
-
+  "@levelBeginner": {
+    "description": "Beginner level"
+  },
   "levelBeginnerDesc": "¡No te preocupes! Empecemos desde Hangul",
-  "@levelBeginnerDesc": {"description": "Beginner level description"},
-
+  "@levelBeginnerDesc": {
+    "description": "Beginner level description"
+  },
   "levelElementary": "Elemental",
-  "@levelElementary": {"description": "Elementary level"},
-
+  "@levelElementary": {
+    "description": "Elementary level"
+  },
   "levelElementaryDesc": "¡Practiquemos conversaciones básicas!",
-  "@levelElementaryDesc": {"description": "Elementary level description"},
-
+  "@levelElementaryDesc": {
+    "description": "Elementary level description"
+  },
   "levelIntermediate": "Intermedio",
-  "@levelIntermediate": {"description": "Intermediate level"},
-
+  "@levelIntermediate": {
+    "description": "Intermediate level"
+  },
   "levelIntermediateDesc": "¡Hablemos más naturalmente!",
-  "@levelIntermediateDesc": {"description": "Intermediate level description"},
-
+  "@levelIntermediateDesc": {
+    "description": "Intermediate level description"
+  },
   "levelAdvanced": "Avanzado",
-  "@levelAdvanced": {"description": "Advanced level"},
-
+  "@levelAdvanced": {
+    "description": "Advanced level"
+  },
   "levelAdvancedDesc": "¡Dominemos expresiones detalladas!",
-  "@levelAdvancedDesc": {"description": "Advanced level description"},
-
+  "@levelAdvancedDesc": {
+    "description": "Advanced level description"
+  },
   "onboardingWelcomeTitle": "¡Bienvenido a Lemon Coreano!",
-  "@onboardingWelcomeTitle": {"description": "Welcome screen title"},
-
+  "@onboardingWelcomeTitle": {
+    "description": "Welcome screen title"
+  },
   "onboardingWelcomeSubtitle": "Tu camino hacia la fluidez comienza aquí",
-  "@onboardingWelcomeSubtitle": {"description": "Welcome screen subtitle"},
-
+  "@onboardingWelcomeSubtitle": {
+    "description": "Welcome screen subtitle"
+  },
   "onboardingFeature1Title": "Aprende sin conexión en cualquier momento",
-  "@onboardingFeature1Title": {"description": "Feature 1 title"},
-
+  "@onboardingFeature1Title": {
+    "description": "Feature 1 title"
+  },
   "onboardingFeature1Desc": "Descarga lecciones y estudia sin internet",
-  "@onboardingFeature1Desc": {"description": "Feature 1 description"},
-
+  "@onboardingFeature1Desc": {
+    "description": "Feature 1 description"
+  },
   "onboardingFeature2Title": "Sistema de repaso inteligente",
-  "@onboardingFeature2Title": {"description": "Feature 2 title"},
-
+  "@onboardingFeature2Title": {
+    "description": "Feature 2 title"
+  },
   "onboardingFeature2Desc": "Repetición espaciada con IA para mejor retención",
-  "@onboardingFeature2Desc": {"description": "Feature 2 description"},
-
+  "@onboardingFeature2Desc": {
+    "description": "Feature 2 description"
+  },
   "onboardingFeature3Title": "Camino de aprendizaje de 7 etapas",
-  "@onboardingFeature3Title": {"description": "Feature 3 title"},
-
+  "@onboardingFeature3Title": {
+    "description": "Feature 3 title"
+  },
   "onboardingFeature3Desc": "Currículum estructurado de principiante a avanzado",
-  "@onboardingFeature3Desc": {"description": "Feature 3 description"},
-
+  "@onboardingFeature3Desc": {
+    "description": "Feature 3 description"
+  },
   "onboardingLevelTitle": "¿Cuál es tu nivel de coreano?",
-  "@onboardingLevelTitle": {"description": "Level selection title"},
-
+  "@onboardingLevelTitle": {
+    "description": "Level selection title"
+  },
   "onboardingLevelSubtitle": "Personalizaremos tu experiencia",
-  "@onboardingLevelSubtitle": {"description": "Level selection subtitle"},
-
+  "@onboardingLevelSubtitle": {
+    "description": "Level selection subtitle"
+  },
   "onboardingGoalTitle": "Establece tu meta semanal",
-  "@onboardingGoalTitle": {"description": "Goal selection title"},
-
+  "@onboardingGoalTitle": {
+    "description": "Goal selection title"
+  },
   "onboardingGoalSubtitle": "¿Cuánto tiempo puedes dedicar?",
-  "@onboardingGoalSubtitle": {"description": "Goal selection subtitle"},
-
+  "@onboardingGoalSubtitle": {
+    "description": "Goal selection subtitle"
+  },
   "goalCasual": "Casual",
-  "@goalCasual": {"description": "Casual goal option"},
-
+  "@goalCasual": {
+    "description": "Casual goal option"
+  },
   "goalCasualDesc": "1-2 lecciones por semana",
-  "@goalCasualDesc": {"description": "Casual goal description"},
-
+  "@goalCasualDesc": {
+    "description": "Casual goal description"
+  },
   "goalCasualTime": "~10-20 min/semana",
-  "@goalCasualTime": {"description": "Casual goal time"},
-
+  "@goalCasualTime": {
+    "description": "Casual goal time"
+  },
   "goalCasualHelper": "Perfecto para horarios ocupados",
-  "@goalCasualHelper": {"description": "Casual goal helper text"},
-
+  "@goalCasualHelper": {
+    "description": "Casual goal helper text"
+  },
   "goalRegular": "Regular",
-  "@goalRegular": {"description": "Regular goal option"},
-
+  "@goalRegular": {
+    "description": "Regular goal option"
+  },
   "goalRegularDesc": "3-4 lecciones por semana",
-  "@goalRegularDesc": {"description": "Regular goal description"},
-
+  "@goalRegularDesc": {
+    "description": "Regular goal description"
+  },
   "goalRegularTime": "~30-40 min/semana",
-  "@goalRegularTime": {"description": "Regular goal time"},
-
+  "@goalRegularTime": {
+    "description": "Regular goal time"
+  },
   "goalRegularHelper": "Progreso constante sin presión",
-  "@goalRegularHelper": {"description": "Regular goal helper text"},
-
+  "@goalRegularHelper": {
+    "description": "Regular goal helper text"
+  },
   "goalSerious": "Serio",
-  "@goalSerious": {"description": "Serious goal option"},
-
+  "@goalSerious": {
+    "description": "Serious goal option"
+  },
   "goalSeriousDesc": "5-6 lecciones por semana",
-  "@goalSeriousDesc": {"description": "Serious goal description"},
-
+  "@goalSeriousDesc": {
+    "description": "Serious goal description"
+  },
   "goalSeriousTime": "~50-60 min/semana",
-  "@goalSeriousTime": {"description": "Serious goal time"},
-
+  "@goalSeriousTime": {
+    "description": "Serious goal time"
+  },
   "goalSeriousHelper": "Para quienes buscan mejorar rápido",
-  "@goalSeriousHelper": {"description": "Serious goal helper text"},
-
+  "@goalSeriousHelper": {
+    "description": "Serious goal helper text"
+  },
   "goalIntensive": "Intensivo",
-  "@goalIntensive": {"description": "Intensive goal option"},
-
+  "@goalIntensive": {
+    "description": "Intensive goal option"
+  },
   "goalIntensiveDesc": "Práctica diaria",
-  "@goalIntensiveDesc": {"description": "Intensive goal description"},
-
+  "@goalIntensiveDesc": {
+    "description": "Intensive goal description"
+  },
   "goalIntensiveTime": "60+ min/semana",
-  "@goalIntensiveTime": {"description": "Intensive goal time"},
-
+  "@goalIntensiveTime": {
+    "description": "Intensive goal time"
+  },
   "goalIntensiveHelper": "Velocidad máxima de aprendizaje",
-  "@goalIntensiveHelper": {"description": "Intensive goal helper text"},
-
+  "@goalIntensiveHelper": {
+    "description": "Intensive goal helper text"
+  },
   "onboardingCompleteTitle": "¡Todo listo!",
-  "@onboardingCompleteTitle": {"description": "Completion screen title"},
-
+  "@onboardingCompleteTitle": {
+    "description": "Completion screen title"
+  },
   "onboardingCompleteSubtitle": "Comencemos tu viaje de aprendizaje",
-  "@onboardingCompleteSubtitle": {"description": "Completion screen subtitle"},
-
+  "@onboardingCompleteSubtitle": {
+    "description": "Completion screen subtitle"
+  },
   "onboardingSummaryLanguage": "Idioma de interfaz",
-  "@onboardingSummaryLanguage": {"description": "Summary language label"},
-
+  "@onboardingSummaryLanguage": {
+    "description": "Summary language label"
+  },
   "onboardingSummaryLevel": "Nivel de coreano",
-  "@onboardingSummaryLevel": {"description": "Summary level label"},
-
+  "@onboardingSummaryLevel": {
+    "description": "Summary level label"
+  },
   "onboardingSummaryGoal": "Meta semanal",
-  "@onboardingSummaryGoal": {"description": "Summary goal label"},
-
+  "@onboardingSummaryGoal": {
+    "description": "Summary goal label"
+  },
   "onboardingStartLearning": "Comenzar a aprender",
-  "@onboardingStartLearning": {"description": "Start learning button"},
-
+  "@onboardingStartLearning": {
+    "description": "Start learning button"
+  },
   "onboardingBack": "Atrás",
-  "@onboardingBack": {"description": "Back button"},
-
+  "@onboardingBack": {
+    "description": "Back button"
+  },
   "onboardingAccountTitle": "¿Listo para empezar?",
-  "@onboardingAccountTitle": {"description": "Account choice screen title"},
-
+  "@onboardingAccountTitle": {
+    "description": "Account choice screen title"
+  },
   "onboardingAccountSubtitle": "Inicia sesión o crea una cuenta para guardar tu progreso",
-  "@onboardingAccountSubtitle": {"description": "Account choice screen subtitle"},
-
+  "@onboardingAccountSubtitle": {
+    "description": "Account choice screen subtitle"
+  },
   "levelTopik": "TOPIK {level}",
   "@levelTopik": {
     "description": "TOPIK level indicator",
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
-
   "appLanguage": "Idioma de la aplicación",
-  "@appLanguage": {"description": "App language section title"},
-
+  "@appLanguage": {
+    "description": "App language section title"
+  },
   "appLanguageDesc": "Selecciona el idioma para la interfaz de la aplicación.",
-  "@appLanguageDesc": {"description": "App language description"},
-
+  "@appLanguageDesc": {
+    "description": "App language description"
+  },
   "languageSelected": "{language} seleccionado",
   "@languageSelected": {
     "description": "Language selected message",
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
-
   "sort": "Ordenar",
-  "@sort": {"description": "Sort button tooltip"},
-
+  "@sort": {
+    "description": "Sort button tooltip"
+  },
   "notificationTipContent": "• Los recordatorios de repaso se programan automáticamente después de completar una lección\n• Algunos dispositivos pueden necesitar desactivar el ahorro de batería en la configuración del sistema para recibir notificaciones correctamente",
   "yesterday": "Ayer",
-  "@yesterday": {"description": "Yesterday"},
-
+  "@yesterday": {
+    "description": "Yesterday"
+  },
   "daysAgo": "{count, plural, one{Hace {count} día} other{Hace {count} días}}",
   "@daysAgo": {
     "description": "Days ago",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "dateFormat": "{day}/{month}",
   "@dateFormat": {
     "description": "Date format",
     "placeholders": {
-      "month": {"type": "int"},
-      "day": {"type": "int"}
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "downloadManager": "Gestor de descargas",
@@ -927,45 +1207,53 @@
   "@confirmDeleteDownload": {
     "description": "Confirm delete download",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "confirmClearAllDownloads": "{count, plural, one{¿Seguro que quieres eliminar la {count} descarga?} other{¿Seguro que quieres eliminar las {count} descargas?}}",
   "@confirmClearAllDownloads": {
     "description": "Confirm clear all downloads",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "downloadingCount": "Descargando ({count})",
   "@downloadingCount": {
     "description": "Downloading count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "preparing": "Preparando...",
-  "@preparing": {"description": "Preparing status"},
-
+  "@preparing": {
+    "description": "Preparing status"
+  },
   "lessonId": "Lección {id}",
   "@lessonId": {
     "description": "Lesson ID",
     "placeholders": {
-      "id": {"type": "int"}
+      "id": {
+        "type": "int"
+      }
     }
   },
-
   "searchWords": "Buscar palabras...",
-  "@searchWords": {"description": "Search words placeholder"},
-
+  "@searchWords": {
+    "description": "Search words placeholder"
+  },
   "wordCount": "{count, plural, one{{count} palabra} other{{count} palabras}}",
   "@wordCount": {
     "description": "Word count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "sortByLesson": "Por lección",
@@ -981,401 +1269,508 @@
   "startFirstLesson": "¡Comienza tu primera lección!",
   "masteredWords": "Palabras dominadas",
   "download": "Descargar",
-
   "hangulLearning": "Alfabeto Coreano",
-  "@hangulLearning": {"description": "Hangul learning section title"},
-
+  "@hangulLearning": {
+    "description": "Hangul learning section title"
+  },
   "hangulLearningSubtitle": "Aprende 40 letras del alfabeto coreano",
-  "@hangulLearningSubtitle": {"description": "Hangul learning subtitle"},
-
+  "@hangulLearningSubtitle": {
+    "description": "Hangul learning subtitle"
+  },
   "editNotes": "Editar notas",
-  "@editNotes": {"description": "Edit notes dialog title"},
-
+  "@editNotes": {
+    "description": "Edit notes dialog title"
+  },
   "notes": "Notas",
-  "@notes": {"description": "Notes field label"},
-
+  "@notes": {
+    "description": "Notes field label"
+  },
   "notesHint": "¿Por qué guardas esta palabra?",
-  "@notesHint": {"description": "Notes hint text"},
-
+  "@notesHint": {
+    "description": "Notes hint text"
+  },
   "sortBy": "Ordenar por",
-  "@sortBy": {"description": "Sort by title"},
-
+  "@sortBy": {
+    "description": "Sort by title"
+  },
   "sortNewest": "Más reciente",
-  "@sortNewest": {"description": "Sort by newest"},
-
+  "@sortNewest": {
+    "description": "Sort by newest"
+  },
   "sortOldest": "Más antiguo",
-  "@sortOldest": {"description": "Sort by oldest"},
-
+  "@sortOldest": {
+    "description": "Sort by oldest"
+  },
   "sortKorean": "Por coreano",
-  "@sortKorean": {"description": "Sort by Korean"},
-
+  "@sortKorean": {
+    "description": "Sort by Korean"
+  },
   "sortChinese": "Por chino",
-  "@sortChinese": {"description": "Sort by Chinese"},
-
+  "@sortChinese": {
+    "description": "Sort by Chinese"
+  },
   "sortMastery": "Por dominio",
-  "@sortMastery": {"description": "Sort by mastery"},
-
+  "@sortMastery": {
+    "description": "Sort by mastery"
+  },
   "filterAll": "Todos",
-  "@filterAll": {"description": "Filter all"},
-
+  "@filterAll": {
+    "description": "Filter all"
+  },
   "filterNew": "Nuevas (nivel 0)",
-  "@filterNew": {"description": "Filter new words"},
-
+  "@filterNew": {
+    "description": "Filter new words"
+  },
   "filterBeginner": "Principiante (nivel 1)",
-  "@filterBeginner": {"description": "Filter beginner"},
-
+  "@filterBeginner": {
+    "description": "Filter beginner"
+  },
   "filterIntermediate": "Intermedio (nivel 2-3)",
-  "@filterIntermediate": {"description": "Filter intermediate"},
-
+  "@filterIntermediate": {
+    "description": "Filter intermediate"
+  },
   "filterAdvanced": "Avanzado (nivel 4-5)",
-  "@filterAdvanced": {"description": "Filter advanced"},
-
+  "@filterAdvanced": {
+    "description": "Filter advanced"
+  },
   "searchWordsNotesChinese": "Buscar palabras, significado o notas...",
-  "@searchWordsNotesChinese": {"description": "Search placeholder for vocabulary book"},
-
+  "@searchWordsNotesChinese": {
+    "description": "Search placeholder for vocabulary book"
+  },
   "startReviewCount": "Comenzar repaso ({count})",
   "@startReviewCount": {
     "description": "Start review button with count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "remove": "Eliminar",
-  "@remove": {"description": "Remove button"},
-
+  "@remove": {
+    "description": "Remove button"
+  },
   "confirmRemove": "Confirmar eliminación",
-  "@confirmRemove": {"description": "Confirm remove dialog title"},
-
+  "@confirmRemove": {
+    "description": "Confirm remove dialog title"
+  },
   "confirmRemoveWord": "¿Eliminar \"{word}\" del libro de vocabulario?",
   "@confirmRemoveWord": {
     "description": "Confirm remove word message",
     "placeholders": {
-      "word": {"type": "String"}
+      "word": {
+        "type": "String"
+      }
     }
   },
-
   "noBookmarkedWords": "No hay palabras guardadas",
-  "@noBookmarkedWords": {"description": "No bookmarked words message"},
-
+  "@noBookmarkedWords": {
+    "description": "No bookmarked words message"
+  },
   "bookmarkHint": "Toca el ícono de marcador en las tarjetas de palabras durante el estudio",
-  "@bookmarkHint": {"description": "Bookmark hint"},
-
+  "@bookmarkHint": {
+    "description": "Bookmark hint"
+  },
   "noMatchingWords": "No hay palabras coincidentes",
-  "@noMatchingWords": {"description": "No matching words message"},
-
+  "@noMatchingWords": {
+    "description": "No matching words message"
+  },
   "weeksAgo": "{count, plural, one{Hace {count} semana} other{Hace {count} semanas}}",
   "@weeksAgo": {
     "description": "Weeks ago",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "reviewComplete": "¡Repaso completado!",
-  "@reviewComplete": {"description": "Review complete title"},
-
+  "@reviewComplete": {
+    "description": "Review complete title"
+  },
   "reviewCompleteCount": "{count, plural, one{{count} palabra repasada} other{{count} palabras repasadas}}",
   "@reviewCompleteCount": {
     "description": "Review complete message",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "correct": "Correcto",
-  "@correct": {"description": "Correct label"},
-
+  "@correct": {
+    "description": "Correct label"
+  },
   "wrong": "Incorrecto",
-  "@wrong": {"description": "Wrong label"},
-
+  "@wrong": {
+    "description": "Wrong label"
+  },
   "accuracy": "Precisión",
-  "@accuracy": {"description": "Accuracy label"},
-
+  "@accuracy": {
+    "description": "Accuracy label"
+  },
   "vocabularyBookReview": "Repaso del vocabulario",
-  "@vocabularyBookReview": {"description": "Vocabulary book review title"},
-
+  "@vocabularyBookReview": {
+    "description": "Vocabulary book review title"
+  },
   "noWordsToReview": "No hay palabras para repasar",
-  "@noWordsToReview": {"description": "No words to review message"},
-
+  "@noWordsToReview": {
+    "description": "No words to review message"
+  },
   "bookmarkWordsToReview": "Guarda palabras para comenzar a repasar",
-  "@bookmarkWordsToReview": {"description": "Bookmark words hint"},
-
+  "@bookmarkWordsToReview": {
+    "description": "Bookmark words hint"
+  },
   "returnToVocabularyBook": "Volver al vocabulario",
-  "@returnToVocabularyBook": {"description": "Return to vocabulary book button"},
-
+  "@returnToVocabularyBook": {
+    "description": "Return to vocabulary book button"
+  },
   "exit": "Salir",
-  "@exit": {"description": "Exit button"},
-
+  "@exit": {
+    "description": "Exit button"
+  },
   "showAnswer": "Mostrar respuesta",
-  "@showAnswer": {"description": "Show answer button"},
-
+  "@showAnswer": {
+    "description": "Show answer button"
+  },
   "didYouRemember": "¿La recordaste?",
-  "@didYouRemember": {"description": "Did you remember question"},
-
+  "@didYouRemember": {
+    "description": "Did you remember question"
+  },
   "forgot": "Olvidé",
-  "@forgot": {"description": "Forgot rating"},
-
+  "@forgot": {
+    "description": "Forgot rating"
+  },
   "hard": "Difícil",
-  "@hard": {"description": "Hard rating"},
-
+  "@hard": {
+    "description": "Hard rating"
+  },
   "remembered": "Recordé",
-  "@remembered": {"description": "Remembered rating"},
-
+  "@remembered": {
+    "description": "Remembered rating"
+  },
   "easy": "Fácil",
-  "@easy": {"description": "Easy rating"},
-
+  "@easy": {
+    "description": "Easy rating"
+  },
   "addedToVocabularyBook": "Agregado al vocabulario",
-  "@addedToVocabularyBook": {"description": "Added to vocabulary book message"},
-
+  "@addedToVocabularyBook": {
+    "description": "Added to vocabulary book message"
+  },
   "addFailed": "Error al agregar",
-  "@addFailed": {"description": "Add failed message"},
-
+  "@addFailed": {
+    "description": "Add failed message"
+  },
   "removedFromVocabularyBook": "Eliminado del vocabulario",
-  "@removedFromVocabularyBook": {"description": "Removed from vocabulary book message"},
-
+  "@removedFromVocabularyBook": {
+    "description": "Removed from vocabulary book message"
+  },
   "removeFailed": "Error al eliminar",
-  "@removeFailed": {"description": "Remove failed message"},
-
+  "@removeFailed": {
+    "description": "Remove failed message"
+  },
   "addToVocabularyBook": "Agregar al vocabulario",
-  "@addToVocabularyBook": {"description": "Add to vocabulary book title"},
-
+  "@addToVocabularyBook": {
+    "description": "Add to vocabulary book title"
+  },
   "notesOptional": "Notas (opcional)",
-  "@notesOptional": {"description": "Notes optional label"},
-
+  "@notesOptional": {
+    "description": "Notes optional label"
+  },
   "add": "Agregar",
-  "@add": {"description": "Add button"},
-
+  "@add": {
+    "description": "Add button"
+  },
   "bookmarked": "Guardado",
-  "@bookmarked": {"description": "Bookmarked label"},
-
+  "@bookmarked": {
+    "description": "Bookmarked label"
+  },
   "bookmark": "Guardar",
-  "@bookmark": {"description": "Bookmark label"},
-
+  "@bookmark": {
+    "description": "Bookmark label"
+  },
   "removeFromVocabularyBook": "Eliminar del vocabulario",
-  "@removeFromVocabularyBook": {"description": "Remove from vocabulary book tooltip"},
-
+  "@removeFromVocabularyBook": {
+    "description": "Remove from vocabulary book tooltip"
+  },
   "similarityPercent": "Similitud: {percent}%",
   "@similarityPercent": {
     "description": "Similarity percentage",
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
-
   "addedOrRemoved": "{added, select, true{Agregado al vocabulario} other{Marcador eliminado}}",
   "@addedOrRemoved": {
     "description": "Added or removed message",
     "placeholders": {
-      "added": {"type": "String"}
+      "added": {
+        "type": "String"
+      }
     }
   },
-
   "days": "días",
-  "@days": {"description": "Days unit"},
-
+  "@days": {
+    "description": "Days unit"
+  },
   "lessonsCompletedCount": "{count, plural, one{{count} completada} other{{count} completadas}}",
   "@lessonsCompletedCount": {
     "description": "Lessons completed count short",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "dailyGoalComplete": "¡Meta diaria cumplida!",
-  "@dailyGoalComplete": {"description": "Daily goal complete message"},
-
+  "@dailyGoalComplete": {
+    "description": "Daily goal complete message"
+  },
   "hangulAlphabet": "Hangul",
-  "@hangulAlphabet": {"description": "Hangul alphabet"},
-
+  "@hangulAlphabet": {
+    "description": "Hangul alphabet"
+  },
   "alphabetTable": "Tabla de alfabeto",
-  "@alphabetTable": {"description": "Alphabet table tab"},
-
+  "@alphabetTable": {
+    "description": "Alphabet table tab"
+  },
   "learn": "Aprender",
-  "@learn": {"description": "Learn tab"},
-
+  "@learn": {
+    "description": "Learn tab"
+  },
   "practice": "Practicar",
-  "@practice": {"description": "Practice tab"},
-
+  "@practice": {
+    "description": "Practice tab"
+  },
   "learningProgress": "Progreso de aprendizaje",
-  "@learningProgress": {"description": "Learning progress title"},
-
+  "@learningProgress": {
+    "description": "Learning progress title"
+  },
   "dueForReviewCount": "{count} para repasar",
   "@dueForReviewCount": {
     "description": "Due for review count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "completion": "Completado",
-  "@completion": {"description": "Completion label"},
-
+  "@completion": {
+    "description": "Completion label"
+  },
   "totalCharacters": "Total de caracteres",
-  "@totalCharacters": {"description": "Total characters label"},
-
+  "@totalCharacters": {
+    "description": "Total characters label"
+  },
   "learned": "Aprendido",
-  "@learned": {"description": "Learned label"},
-
+  "@learned": {
+    "description": "Learned label"
+  },
   "dueForReview": "Para repasar",
-  "@dueForReview": {"description": "Due for review label"},
-
+  "@dueForReview": {
+    "description": "Due for review label"
+  },
   "overallAccuracy": "Precisión general: {percent}%",
   "@overallAccuracy": {
     "description": "Overall accuracy",
     "placeholders": {
-      "percent": {"type": "String"}
+      "percent": {
+        "type": "String"
+      }
     }
   },
-
   "charactersCount": "{count, plural, one{{count} carácter} other{{count} caracteres}}",
   "@charactersCount": {
     "description": "Characters count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "lesson1Title": "Lección 1: Consonantes básicas (1)",
-  "@lesson1Title": {"description": "Lesson 1 title"},
-
+  "@lesson1Title": {
+    "description": "Lesson 1 title"
+  },
   "lesson1Desc": "Aprende las 7 consonantes más usadas",
-  "@lesson1Desc": {"description": "Lesson 1 description"},
-
+  "@lesson1Desc": {
+    "description": "Lesson 1 description"
+  },
   "lesson2Title": "Lección 2: Consonantes básicas (2)",
-  "@lesson2Title": {"description": "Lesson 2 title"},
-
+  "@lesson2Title": {
+    "description": "Lesson 2 title"
+  },
   "lesson2Desc": "Aprende las 7 consonantes restantes",
-  "@lesson2Desc": {"description": "Lesson 2 description"},
-
+  "@lesson2Desc": {
+    "description": "Lesson 2 description"
+  },
   "lesson3Title": "Lección 3: Vocales básicas (1)",
-  "@lesson3Title": {"description": "Lesson 3 title"},
-
+  "@lesson3Title": {
+    "description": "Lesson 3 title"
+  },
   "lesson3Desc": "Aprende 5 vocales básicas",
-  "@lesson3Desc": {"description": "Lesson 3 description"},
-
+  "@lesson3Desc": {
+    "description": "Lesson 3 description"
+  },
   "lesson4Title": "Lección 4: Vocales básicas (2)",
-  "@lesson4Title": {"description": "Lesson 4 title"},
-
+  "@lesson4Title": {
+    "description": "Lesson 4 title"
+  },
   "lesson4Desc": "Aprende las 5 vocales restantes",
-  "@lesson4Desc": {"description": "Lesson 4 description"},
-
+  "@lesson4Desc": {
+    "description": "Lesson 4 description"
+  },
   "lesson5Title": "Lección 5: Consonantes dobles",
-  "@lesson5Title": {"description": "Lesson 5 title"},
-
+  "@lesson5Title": {
+    "description": "Lesson 5 title"
+  },
   "lesson5Desc": "Aprende 5 consonantes dobles - sonidos tensos",
-  "@lesson5Desc": {"description": "Lesson 5 description"},
-
+  "@lesson5Desc": {
+    "description": "Lesson 5 description"
+  },
   "lesson6Title": "Lección 6: Vocales compuestas (1)",
-  "@lesson6Title": {"description": "Lesson 6 title"},
-
+  "@lesson6Title": {
+    "description": "Lesson 6 title"
+  },
   "lesson6Desc": "Aprende 6 vocales compuestas",
-  "@lesson6Desc": {"description": "Lesson 6 description"},
-
+  "@lesson6Desc": {
+    "description": "Lesson 6 description"
+  },
   "lesson7Title": "Lección 7: Vocales compuestas (2)",
-  "@lesson7Title": {"description": "Lesson 7 title"},
-
+  "@lesson7Title": {
+    "description": "Lesson 7 title"
+  },
   "lesson7Desc": "Aprende las vocales compuestas restantes",
-  "@lesson7Desc": {"description": "Lesson 7 description"},
-
+  "@lesson7Desc": {
+    "description": "Lesson 7 description"
+  },
   "loadAlphabetFirst": "Primero carga los datos del alfabeto",
-  "@loadAlphabetFirst": {"description": "Load alphabet first message"},
-
+  "@loadAlphabetFirst": {
+    "description": "Load alphabet first message"
+  },
   "noContentForLesson": "No hay contenido para esta lección",
-  "@noContentForLesson": {"description": "No content for lesson"},
-
+  "@noContentForLesson": {
+    "description": "No content for lesson"
+  },
   "exampleWords": "Palabras de ejemplo",
-  "@exampleWords": {"description": "Example words label"},
-
+  "@exampleWords": {
+    "description": "Example words label"
+  },
   "thisLessonCharacters": "Caracteres de esta lección",
-  "@thisLessonCharacters": {"description": "This lesson characters label"},
-
+  "@thisLessonCharacters": {
+    "description": "This lesson characters label"
+  },
   "congratsLessonComplete": "¡Completaste {title}!",
   "@congratsLessonComplete": {
     "description": "Congratulations lesson complete",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "continuePractice": "Continuar practicando",
-  "@continuePractice": {"description": "Continue practice button"},
-
+  "@continuePractice": {
+    "description": "Continue practice button"
+  },
   "nextLesson": "Siguiente lección",
-  "@nextLesson": {"description": "Next lesson button"},
-
+  "@nextLesson": {
+    "description": "Next lesson button"
+  },
   "basicConsonants": "Consonantes básicas",
-  "@basicConsonants": {"description": "Basic consonants"},
-
+  "@basicConsonants": {
+    "description": "Basic consonants"
+  },
   "doubleConsonants": "Consonantes dobles",
-  "@doubleConsonants": {"description": "Double consonants"},
-
+  "@doubleConsonants": {
+    "description": "Double consonants"
+  },
   "basicVowels": "Vocales básicas",
-  "@basicVowels": {"description": "Basic vowels"},
-
+  "@basicVowels": {
+    "description": "Basic vowels"
+  },
   "compoundVowels": "Vocales compuestas",
-  "@compoundVowels": {"description": "Compound vowels"},
-
+  "@compoundVowels": {
+    "description": "Compound vowels"
+  },
   "dailyLearningReminderTitle": "Recordatorio diario",
-  "@dailyLearningReminderTitle": {"description": "Daily learning reminder notification title"},
-
+  "@dailyLearningReminderTitle": {
+    "description": "Daily learning reminder notification title"
+  },
   "dailyLearningReminderBody": "¡Completa tu estudio de coreano de hoy!",
-  "@dailyLearningReminderBody": {"description": "Daily learning reminder notification body"},
-
+  "@dailyLearningReminderBody": {
+    "description": "Daily learning reminder notification body"
+  },
   "reviewReminderTitle": "¡Hora de repasar!",
-  "@reviewReminderTitle": {"description": "Review reminder notification title"},
-
+  "@reviewReminderTitle": {
+    "description": "Review reminder notification title"
+  },
   "reviewReminderBody": "Es hora de repasar \"{title}\"",
   "@reviewReminderBody": {
     "description": "Review reminder notification body",
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
-
   "korean": "한국어",
-  "@korean": {"description": "Korean language"},
-
+  "@korean": {
+    "description": "Korean language"
+  },
   "english": "English",
-  "@english": {"description": "English language"},
-
+  "@english": {
+    "description": "English language"
+  },
   "japanese": "日本語",
-  "@japanese": {"description": "Japanese language"},
-
+  "@japanese": {
+    "description": "Japanese language"
+  },
   "spanish": "Español",
-  "@spanish": {"description": "Spanish language"},
-
+  "@spanish": {
+    "description": "Spanish language"
+  },
   "strokeOrder": "Orden de trazos",
-  "@strokeOrder": {"description": "Stroke order"},
-
+  "@strokeOrder": {
+    "description": "Stroke order"
+  },
   "reset": "Reiniciar",
-  "@reset": {"description": "Reset button"},
-
+  "@reset": {
+    "description": "Reset button"
+  },
   "pronunciationGuide": "Guía de pronunciación",
-  "@pronunciationGuide": {"description": "Pronunciation guide"},
-
+  "@pronunciationGuide": {
+    "description": "Pronunciation guide"
+  },
   "play": "Reproducir",
-  "@play": {"description": "Play button"},
-
+  "@play": {
+    "description": "Play button"
+  },
   "pause": "Pausar",
-  "@pause": {"description": "Pause button"},
-
+  "@pause": {
+    "description": "Pause button"
+  },
   "loadingFailed": "Error al cargar: {error}",
   "@loadingFailed": {
     "description": "Loading failed message",
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "learnedCount": "Aprendidos: {count}",
   "@learnedCount": {
     "description": "Learned count",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "hangulPractice": "Práctica de Hangul",
   "charactersNeedReview": "{count, plural, one{{count} carácter necesita repaso} other{{count} caracteres necesitan repaso}}",
   "charactersAvailable": "{count, plural, one{{count} carácter disponible} other{{count} caracteres disponibles}}",
@@ -1419,10 +1814,8 @@
   "lesson5TitleKo": "Lección 5: Consonantes dobles",
   "lesson6TitleKo": "Lección 6: Vocales compuestas (1)",
   "lesson7TitleKo": "Lección 7: Vocales compuestas (2)",
-
   "exitLesson": "Salir de la lección",
   "exitLessonConfirm": "¿Seguro que quieres salir? Tu progreso se guardará.",
-  "continueLearning": "Continuar aprendiendo",
   "exitBtn": "Salir",
   "lessonComplete": "¡Lección completada! Progreso guardado",
   "loadingLesson": "Cargando {title}...",
@@ -1481,12 +1874,10 @@
   "noPractice": "Sin ejercicios de práctica",
   "noDialogue": "Sin contenido de diálogo",
   "noQuiz": "Sin preguntas de examen",
-
   "tapToFlip": "Toca para voltear",
   "listeningQuestion": "Escucha",
   "submit": "Enviar",
   "timeStudied": "Tiempo estudiado {time}",
-
   "statusNotStarted": "No iniciado",
   "statusInProgress": "En progreso",
   "statusCompleted": "Completado",
@@ -1507,7 +1898,6 @@
   "typeBasicVowel": "Vocal básica",
   "typeCompoundVowel": "Vocal compuesta",
   "typeFinalConsonant": "Consonante final",
-
   "dailyReminderChannel": "Recordatorio diario de estudio",
   "dailyReminderChannelDesc": "Te recuerda estudiar coreano a una hora fija cada día",
   "reviewReminderChannel": "Recordatorio de repaso",
@@ -1517,7 +1907,6 @@
   "notificationReviewTime": "¡Hora de repasar!",
   "notificationReviewReminder": "Repasemos lo que has aprendido antes",
   "notificationReviewLesson": "¡Es hora de repasar \"{lessonTitle}\"!",
-
   "keepGoing": "¡Sigue adelante!",
   "scoreDisplay": "Puntuación: {correct} / {total}",
   "loadDataError": "Error al cargar datos: {error}",
@@ -1526,10 +1915,8 @@
   "clearAllError": "Error al borrar todo: {error}",
   "cleanupError": "Error de limpieza: {error}",
   "downloadLessonFailed": "Descarga fallida: {title}",
-
   "comprehensive": "Integral",
   "answeredCount": "Respondidas {answered}/{total}",
-
   "hanjaWord": "Palabra Hanja",
   "tapToFlipBack": "Toca para volver",
   "similarityWithChinese": "Similitud con chino",
@@ -1546,18 +1933,15 @@
   "incorrectFeedback": "No del todo, intenta de nuevo",
   "allStagesPassed": "Las 7 etapas completadas",
   "continueToLearnMore": "Continúa aprendiendo más",
-
   "timeFormatHMS": "{hours}h {minutes}m {seconds}s",
   "timeFormatMS": "{minutes}m {seconds}s",
   "timeFormatS": "{seconds}s",
-
   "repeatEnabled": "Repetición activada",
   "repeatDisabled": "Repetición desactivada",
   "stop": "Detener",
   "playbackSpeed": "Velocidad de reproducción",
   "slowSpeed": "Lenta",
   "normalSpeed": "Normal",
-
   "mouthShape": "Forma de la boca",
   "tonguePosition": "Posición de la lengua",
   "airFlow": "Flujo de aire",
@@ -1569,7 +1953,6 @@
   "plainSound": "Sonido simple",
   "aspiratedSound": "Sonido aspirado",
   "tenseSound": "Sonido tenso",
-
   "writingPractice": "Práctica de escritura",
   "watchAnimation": "Ver animación",
   "traceWithGuide": "Trazar con guía",
@@ -1581,7 +1964,6 @@
   "tryAgainWriting": "Intentar de nuevo",
   "nextStep": "Siguiente paso",
   "strokeOrderStep": "Paso {current}/{total}",
-
   "syllableCombination": "Combinación de sílabas",
   "selectConsonant": "Seleccionar consonante",
   "selectVowel": "Seleccionar vocal",
@@ -1592,7 +1974,6 @@
   "decomposeSyllable": "Descomponer sílaba",
   "batchimPractice": "Práctica de Batchim",
   "batchimExplanation": "Explicación de Batchim",
-
   "recordPronunciation": "Grabar pronunciación",
   "startRecording": "Iniciar grabación",
   "stopRecording": "Detener grabación",
@@ -1605,14 +1986,11 @@
   "almostCorrect": "Casi correcto",
   "needsPractice": "Necesita práctica",
   "recordingNotSupported": "La grabación no es compatible con esta plataforma",
-
   "showMeaning": "Mostrar significado",
   "hideMeaning": "Ocultar significado",
   "exampleWord": "Palabra de ejemplo",
   "meaningToggle": "Configuración de visualización de significado",
-
   "microphonePermissionRequired": "Se requiere permiso de micrófono para grabar",
-
   "activities": "Actividades",
   "listeningAndSpeaking": "Escucha y habla",
   "readingAndWriting": "Lectura y escritura",
@@ -1622,7 +2000,6 @@
   "batchimPracticeDesc": "Practica los sonidos de consonantes finales",
   "writingPracticeDesc": "Practica escribir caracteres coreanos",
   "webNotSupported": "No disponible en web",
-
   "chapter": "Capítulo",
   "bossQuiz": "Examen Final",
   "bossQuizCleared": "¡Examen Final Superado!",
@@ -1636,7 +2013,6 @@
   "lemonsAvailable": "limones disponibles",
   "completeMoreLessons": "Completa más lecciones para cultivar limones",
   "totalLemons": "Total de Limones",
-
   "community": "Comunidad",
   "following": "Siguiendo",
   "discover": "Descubrir",
@@ -1691,7 +2067,6 @@
   "visibility": "Visibilidad",
   "visibilityPublic": "Público",
   "visibilityFollowers": "Solo seguidores",
-
   "noFollowingPosts": "Aún no hay publicaciones de las personas que sigues",
   "all": "Todo",
   "learning": "Aprendizaje",
@@ -1712,7 +2087,6 @@
   "deleteCommentConfirm": "¿Seguro que quieres eliminar este comentario?",
   "failedToLoadProfile": "Error al cargar el perfil",
   "userNotFound": "Usuario no encontrado",
-
   "message": "Mensaje",
   "messages": "Mensajes",
   "noMessages": "No hay mensajes aún",
@@ -1752,72 +2126,119 @@
   "createVoiceRoomHint": "¡Crea una para empezar a hablar!",
   "createRoom": "Crear Sala",
   "voiceRoomMicPermission": "Se requiere permiso de micrófono para las salas de voz",
-  "@voiceRoomMicPermission": {"description": "Microphone permission required message"},
+  "@voiceRoomMicPermission": {
+    "description": "Microphone permission required message"
+  },
   "voiceRoomEnterTitle": "Por favor, ingresa un título para la sala",
-  "@voiceRoomEnterTitle": {"description": "Validation message when room title is empty"},
+  "@voiceRoomEnterTitle": {
+    "description": "Validation message when room title is empty"
+  },
   "voiceRoomCreateFailed": "No se pudo crear la sala",
-  "@voiceRoomCreateFailed": {"description": "Error when room creation fails"},
+  "@voiceRoomCreateFailed": {
+    "description": "Error when room creation fails"
+  },
   "voiceRoomNotAvailable": "Sala no disponible",
-  "@voiceRoomNotAvailable": {"description": "Message when room is no longer available"},
+  "@voiceRoomNotAvailable": {
+    "description": "Message when room is no longer available"
+  },
   "voiceRoomGoBack": "Volver",
-  "@voiceRoomGoBack": {"description": "Button to go back from unavailable room"},
+  "@voiceRoomGoBack": {
+    "description": "Button to go back from unavailable room"
+  },
   "voiceRoomConnecting": "Conectando...",
-  "@voiceRoomConnecting": {"description": "Connection status banner"},
+  "@voiceRoomConnecting": {
+    "description": "Connection status banner"
+  },
   "voiceRoomReconnecting": "Reconectando ({attempts}/{max})...",
   "@voiceRoomReconnecting": {
     "description": "Reconnection status with attempt count",
     "placeholders": {
-      "attempts": {"type": "int"},
-      "max": {"type": "int"}
+      "attempts": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "voiceRoomDisconnected": "Desconectado",
-  "@voiceRoomDisconnected": {"description": "Disconnected status"},
+  "@voiceRoomDisconnected": {
+    "description": "Disconnected status"
+  },
   "voiceRoomRetry": "Reintentar",
-  "@voiceRoomRetry": {"description": "Retry connection button"},
+  "@voiceRoomRetry": {
+    "description": "Retry connection button"
+  },
   "voiceRoomHostLabel": "(Anfitrión)",
-  "@voiceRoomHostLabel": {"description": "Label for room host"},
+  "@voiceRoomHostLabel": {
+    "description": "Label for room host"
+  },
   "voiceRoomDemoteToListener": "Pasar a oyente",
-  "@voiceRoomDemoteToListener": {"description": "Tooltip for demoting speaker to listener"},
+  "@voiceRoomDemoteToListener": {
+    "description": "Tooltip for demoting speaker to listener"
+  },
   "voiceRoomKickFromRoom": "Expulsar de la sala",
-  "@voiceRoomKickFromRoom": {"description": "Tooltip for kicking participant"},
+  "@voiceRoomKickFromRoom": {
+    "description": "Tooltip for kicking participant"
+  },
   "voiceRoomListeners": "Oyentes",
-  "@voiceRoomListeners": {"description": "Section header for listeners list"},
+  "@voiceRoomListeners": {
+    "description": "Section header for listeners list"
+  },
   "voiceRoomInviteToStage": "Invitar al Escenario",
-  "@voiceRoomInviteToStage": {"description": "Dialog title and tooltip for inviting to stage"},
+  "@voiceRoomInviteToStage": {
+    "description": "Dialog title and tooltip for inviting to stage"
+  },
   "voiceRoomInviteConfirm": "¿Invitar a {name} a hablar en el escenario?",
   "@voiceRoomInviteConfirm": {
     "description": "Confirmation message for stage invitation",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomInvite": "Invitar",
-  "@voiceRoomInvite": {"description": "Invite button label"},
+  "@voiceRoomInvite": {
+    "description": "Invite button label"
+  },
   "voiceRoomCloseConfirmTitle": "¿Cerrar Sala?",
-  "@voiceRoomCloseConfirmTitle": {"description": "Close room confirmation dialog title"},
+  "@voiceRoomCloseConfirmTitle": {
+    "description": "Close room confirmation dialog title"
+  },
   "voiceRoomCloseConfirmBody": "Esto terminará la llamada para todos.",
-  "@voiceRoomCloseConfirmBody": {"description": "Close room confirmation dialog body"},
+  "@voiceRoomCloseConfirmBody": {
+    "description": "Close room confirmation dialog body"
+  },
   "voiceRoomNoMessagesYet": "Aún no hay mensajes",
-  "@voiceRoomNoMessagesYet": {"description": "Empty chat placeholder"},
+  "@voiceRoomNoMessagesYet": {
+    "description": "Empty chat placeholder"
+  },
   "voiceRoomTypeMessage": "Escribe un mensaje...",
-  "@voiceRoomTypeMessage": {"description": "Chat input placeholder"},
+  "@voiceRoomTypeMessage": {
+    "description": "Chat input placeholder"
+  },
   "voiceRoomStageFull": "Escenario Lleno",
-  "@voiceRoomStageFull": {"description": "Indicator when stage is full"},
+  "@voiceRoomStageFull": {
+    "description": "Indicator when stage is full"
+  },
   "voiceRoomListenerCount": "{count, plural, one{{count} oyente} other{{count} oyentes}}",
   "@voiceRoomListenerCount": {
     "description": "Listener count for accessibility",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "voiceRoomRemoveFromStage": "¿Quitar del Escenario?",
   "voiceRoomRemoveFromStageConfirm": "¿Quitar a {name} del escenario? Se convertirá en oyente.",
   "@voiceRoomRemoveFromStageConfirm": {
     "description": "Confirm dialog body",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomDemote": "Degradar",
@@ -1826,14 +2247,15 @@
   "@voiceRoomRemoveFromRoomConfirm": {
     "description": "Confirm dialog body",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomRemove": "Quitar",
   "voiceRoomPressBackToLeave": "Presiona atrás de nuevo para salir",
   "voiceRoomLeaveTitle": "¿Salir de la Sala?",
   "voiceRoomLeaveBody": "Estás actualmente en el escenario. ¿Estás seguro de que quieres salir?",
-
   "voiceRoomReturningToList": "Volviendo a la lista de salas...",
   "voiceRoomConnected": "¡Conectado!",
   "voiceRoomStageFailedToLoad": "No se pudo cargar el escenario",
@@ -1893,7 +2315,6 @@
   "voiceRoomMicPermissionTitle": "Permiso de Micrófono",
   "voiceRoomOpenSettings": "Abrir Configuración",
   "voiceRoomMicNeededForStage": "Se necesita permiso de micrófono para hablar en el escenario",
-
   "batchimDescriptionText": "Las consonantes finales coreanas (batchim) se pronuncian con 7 sonidos.\nVarios batchim que comparten la misma pronunciación se llaman \"sonidos representativos\".",
   "syllableInputLabel": "Ingresa sílaba",
   "syllableInputHint": "ej. 한",
@@ -1901,7 +2322,6 @@
   "audioLoadError": "No se pudo cargar el audio",
   "writingPracticeCompleteMessage": "¡Práctica de escritura completada!",
   "sevenRepresentativeSounds": "7 Sonidos Representativos",
-
   "myRoom": "Mi Sala",
   "characterEditor": "Editor de Personaje",
   "roomEditor": "Editor de Sala",
@@ -1929,7 +2349,9 @@
   "@purchasedItem": {
     "description": "Purchase success message",
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notEnoughLemons": "¡Limones insuficientes!",
@@ -1940,7 +2362,9 @@
   "@balanceLemons": {
     "description": "Lemon balance display",
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "furnitureItem": "Mueble",
@@ -1951,20 +2375,24 @@
   "hangulLearnedCount": "{count, plural, one{¡{count}/40 letra aprendida!} other{¡{count}/40 letras aprendidas!}}",
   "@hangulLearnedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hangulReviewNeeded": "{count, plural, one{¡{count} letra para repasar hoy!} other{¡{count} letras para repasar hoy!}}",
   "@hangulReviewNeeded": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hangulReviewNow": "Repasar ahora",
   "hangulPracticeSuggestion": "¡Casi lo logras! Refuerza tus habilidades con actividades",
   "hangulStartActivities": "Iniciar actividades",
   "hangulMastered": "¡Felicidades! ¡Has dominado el Hangul!",
-  "hangulGoToLevel1": "Ir al Nivel 1",
+  "hangulGoToLevel1": "Ir a la Etapa 1",
   "completedLessonsLabel": "Completadas",
   "wordsLearnedLabel": "Palabras",
   "totalStudyTimeLabel": "Tiempo",
@@ -1977,7 +2405,9 @@
   "remainingLessons": "¡{count} más para la meta de hoy!",
   "@remainingLessons": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "streakMotivation0": "¡Empieza a aprender hoy!",
@@ -1988,82 +2418,1660 @@
   "minutesShort": "{count}min",
   "@minutesShort": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hoursShort": "{count}h",
   "@hoursShort": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "speechPractice": "Práctica de pronunciación",
-  "@speechPractice": {"description": "Speech practice step title"},
-
+  "@speechPractice": {
+    "description": "Speech practice step title"
+  },
   "tapToRecord": "Toca para grabar",
-  "@tapToRecord": {"description": "Tap to record instruction"},
-
+  "@tapToRecord": {
+    "description": "Tap to record instruction"
+  },
   "recording": "Grabando...",
-  "@recording": {"description": "Recording status"},
-
+  "@recording": {
+    "description": "Recording status"
+  },
   "analyzing": "Analizando...",
-  "@analyzing": {"description": "Analyzing status"},
-
+  "@analyzing": {
+    "description": "Analyzing status"
+  },
   "pronunciationScore": "Puntuación de pronunciación",
-  "@pronunciationScore": {"description": "Pronunciation score label"},
-
+  "@pronunciationScore": {
+    "description": "Pronunciation score label"
+  },
   "phonemeBreakdown": "Análisis de fonemas",
-  "@phonemeBreakdown": {"description": "Phoneme breakdown label"},
-
+  "@phonemeBreakdown": {
+    "description": "Phoneme breakdown label"
+  },
   "tryAgainCount": "Reintentar ({current}/{max})",
   "@tryAgainCount": {
     "description": "Try again with attempt count",
     "placeholders": {
-      "current": {"type": "String"},
-      "max": {"type": "String"}
+      "current": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
     }
   },
-
   "nextCharacter": "Siguiente carácter",
-  "@nextCharacter": {"description": "Next character button"},
-
+  "@nextCharacter": {
+    "description": "Next character button"
+  },
   "excellentPronunciation": "¡Excelente!",
-  "@excellentPronunciation": {"description": "Excellent pronunciation feedback"},
-
+  "@excellentPronunciation": {
+    "description": "Excellent pronunciation feedback"
+  },
   "goodPronunciation": "¡Buen trabajo!",
-  "@goodPronunciation": {"description": "Good pronunciation feedback"},
-
+  "@goodPronunciation": {
+    "description": "Good pronunciation feedback"
+  },
   "fairPronunciation": "¡Mejorando!",
-  "@fairPronunciation": {"description": "Fair pronunciation feedback"},
-
+  "@fairPronunciation": {
+    "description": "Fair pronunciation feedback"
+  },
   "needsMorePractice": "¡Sigue practicando!",
-  "@needsMorePractice": {"description": "Needs more practice feedback"},
-
+  "@needsMorePractice": {
+    "description": "Needs more practice feedback"
+  },
   "downloadModels": "Descargar",
-  "@downloadModels": {"description": "Download models button"},
-
+  "@downloadModels": {
+    "description": "Download models button"
+  },
   "modelDownloading": "Descargando modelo",
-  "@modelDownloading": {"description": "Model downloading status"},
-
+  "@modelDownloading": {
+    "description": "Model downloading status"
+  },
   "modelReady": "Listo",
-  "@modelReady": {"description": "Model ready status"},
-
+  "@modelReady": {
+    "description": "Model ready status"
+  },
   "modelNotReady": "No instalado",
-  "@modelNotReady": {"description": "Model not installed status"},
-
+  "@modelNotReady": {
+    "description": "Model not installed status"
+  },
   "modelSize": "Tamaño del modelo",
-  "@modelSize": {"description": "Model size label"},
-
+  "@modelSize": {
+    "description": "Model size label"
+  },
   "speechModelTitle": "Modelo de IA de reconocimiento de voz",
-  "@speechModelTitle": {"description": "Speech recognition AI model title"},
-
+  "@speechModelTitle": {
+    "description": "Speech recognition AI model title"
+  },
   "skipSpeechPractice": "Omitir",
-  "@skipSpeechPractice": {"description": "Skip speech practice button"},
-
+  "@skipSpeechPractice": {
+    "description": "Skip speech practice button"
+  },
   "deleteModel": "Eliminar modelo",
-  "@deleteModel": {"description": "Delete model button"},
-
+  "@deleteModel": {
+    "description": "Delete model button"
+  },
   "overallScore": "Puntuación total",
-  "@overallScore": {"description": "Overall score label"}
+  "@overallScore": {
+    "description": "Overall score label"
+  },
+  "appTagline": "¡Fresco como un limón, sólido como tus habilidades!",
+  "@appTagline": {
+    "description": "App tagline on login screen"
+  },
+  "passwordHint": "Al menos 8 caracteres con letras y números",
+  "@passwordHint": {
+    "description": "Password field hint text"
+  },
+  "findAccount": "Buscar cuenta",
+  "@findAccount": {
+    "description": "Find account link"
+  },
+  "resetPassword": "Restablecer contraseña",
+  "@resetPassword": {
+    "description": "Reset password link"
+  },
+  "registerTitle": "¡Comienza tu viaje fresco al coreano!",
+  "@registerTitle": {
+    "description": "Register screen title"
+  },
+  "registerSubtitle": "¡Está bien empezar despacio! Yo te guiaré",
+  "@registerSubtitle": {
+    "description": "Register screen subtitle"
+  },
+  "nickname": "Apodo",
+  "@nickname": {
+    "description": "Nickname field label"
+  },
+  "nicknameHint": "Hasta 15 caracteres: letras, números, guiones bajos",
+  "@nicknameHint": {
+    "description": "Nickname field hint text"
+  },
+  "confirmPasswordHint": "Ingresa tu contraseña una vez más",
+  "@confirmPasswordHint": {
+    "description": "Confirm password hint text"
+  },
+  "accountChoiceTitle": "¡Bienvenido! ¿Creamos una\nrutina de estudio con Moni?",
+  "@accountChoiceTitle": {
+    "description": "Account choice screen title"
+  },
+  "accountChoiceSubtitle": "¡Empieza fresco, yo me aseguro de que aprendas bien!",
+  "@accountChoiceSubtitle": {
+    "description": "Account choice screen subtitle"
+  },
+  "startWithEmail": "Comenzar con correo electrónico",
+  "@startWithEmail": {
+    "description": "Start with email button"
+  },
+  "deleteMessageTitle": "¿Eliminar mensaje?",
+  "@deleteMessageTitle": {
+    "description": "Delete message dialog title"
+  },
+  "deleteMessageContent": "Este mensaje será eliminado para todos.",
+  "@deleteMessageContent": {
+    "description": "Delete message dialog content"
+  },
+  "messageDeleted": "Mensaje eliminado",
+  "@messageDeleted": {
+    "description": "Deleted message placeholder"
+  },
+  "beFirstToPost": "¡Sé el primero en publicar!",
+  "@beFirstToPost": {
+    "description": "Empty state first post prompt"
+  },
+  "typeTagHint": "Escribe una etiqueta...",
+  "@typeTagHint": {
+    "description": "Tag input hint"
+  },
+  "userInfoLoadFailed": "Error al cargar información del usuario",
+  "@userInfoLoadFailed": {
+    "description": "User info load failed error"
+  },
+  "loginErrorOccurred": "Ocurrió un error durante el inicio de sesión",
+  "@loginErrorOccurred": {
+    "description": "Login error occurred"
+  },
+  "registerErrorOccurred": "Ocurrió un error durante el registro",
+  "@registerErrorOccurred": {
+    "description": "Register error occurred"
+  },
+  "logoutErrorOccurred": "Ocurrió un error al cerrar sesión",
+  "@logoutErrorOccurred": {
+    "description": "Logout error occurred"
+  },
+  "hangulStage0Title": "Etapa 0: Comprender la estructura del Hangul",
+  "hangulStage1Title": "Etapa 1: Vocales básicas",
+  "hangulStage2Title": "Etapa 2: Vocales Y",
+  "hangulStage3Title": "Etapa 3: Vocales ㅐ/ㅔ",
+  "hangulStage4Title": "Etapa 4: Consonantes básicas 1",
+  "hangulStage5Title": "Etapa 5: Consonantes básicas 2",
+  "hangulStage6Title": "Etapa 6: Combinación de sílabas",
+  "hangulStage7Title": "Etapa 7: Consonantes tensas/aspiradas",
+  "hangulStage8Title": "Etapa 8: Consonantes finales 1",
+  "hangulStage9Title": "Etapa 9: Batchim extendido",
+  "hangulStage10Title": "Etapa 10: Batchim doble",
+  "hangulStage11Title": "Etapa 11: Lectura de palabras extendida",
+  "sortAlphabetical": "Alfabético",
+  "sortByLevel": "Por nivel",
+  "sortBySimilarity": "Por similitud",
+  "searchWordsKoreanMeaning": "Buscar palabras (coreano/significado)",
+  "groupedView": "Agrupado",
+  "matrixView": "Consonante×Vocal",
+  "reviewLessons": "Repasar lecciones",
+  "stageDetailComingSoon": "Los detalles estarán disponibles pronto.",
+  "bossQuizComingSoon": "El Quiz del Jefe estará disponible pronto.",
+  "exitLessonDialogTitle": "Salir de la lección",
+  "exitLessonDialogContent": "¿Quieres salir de la lección?\nTu progreso hasta este paso se guardará.",
+  "continueButton": "Continuar",
+  "exitLessonButton": "Salir",
+  "noQuestions": "No hay preguntas disponibles",
+  "noCharactersDefined": "No se han definido caracteres",
+  "recordingStartFailed": "Error al iniciar la grabación",
+  "consonant": "Consonante",
+  "vowel": "Vocal",
+  "validationEmailRequired": "Ingrese su correo electrónico",
+  "validationEmailTooLong": "La dirección de correo electrónico es demasiado larga",
+  "validationEmailInvalid": "Ingrese una dirección de correo electrónico válida",
+  "validationPasswordRequired": "Ingrese su contraseña",
+  "validationPasswordMinLength": "La contraseña debe tener al menos {minLength} caracteres",
+  "@validationPasswordMinLength": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationPasswordNeedLetter": "La contraseña debe contener letras",
+  "validationPasswordNeedNumber": "La contraseña debe contener números",
+  "validationPasswordNeedSpecial": "La contraseña debe contener caracteres especiales",
+  "validationPasswordTooLong": "La contraseña es demasiado larga",
+  "validationConfirmPasswordRequired": "Confirme su contraseña",
+  "validationPasswordMismatch": "Las contraseñas no coinciden",
+  "validationUsernameRequired": "Ingrese un nombre de usuario",
+  "validationUsernameTooShort": "El nombre de usuario debe tener al menos {minLength} caracteres",
+  "@validationUsernameTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationUsernameTooLong": "El nombre de usuario no puede exceder {maxLength} caracteres",
+  "@validationUsernameTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationUsernameInvalidChars": "El nombre de usuario solo puede contener letras, números y guiones bajos",
+  "validationFieldRequired": "Ingrese {fieldName}",
+  "@validationFieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "validationFieldMinLength": "{fieldName} debe tener al menos {minLength} caracteres",
+  "@validationFieldMinLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationFieldMaxLength": "{fieldName} no puede exceder {maxLength} caracteres",
+  "@validationFieldMaxLength": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "validationFieldNumeric": "{fieldName} debe ser un número",
+  "@validationFieldNumeric": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "errorNetworkConnection": "Error de conexión de red. Verifique su configuración de red",
+  "errorServer": "Error del servidor. Inténtelo de nuevo más tarde",
+  "errorAuthFailed": "Error de autenticación. Inicie sesión nuevamente",
+  "errorUnknown": "Error desconocido. Inténtelo de nuevo más tarde",
+  "errorTimeout": "Tiempo de conexión agotado. Verifique su red",
+  "errorRequestCancelled": "Solicitud cancelada",
+  "errorForbidden": "Acceso denegado",
+  "errorNotFound": "El recurso solicitado no fue encontrado",
+  "errorRequestParam": "Error en los parámetros de solicitud",
+  "errorParseData": "Error al analizar los datos",
+  "errorParseFormat": "Error de formato de datos",
+  "errorRateLimited": "Demasiadas solicitudes. Inténtelo de nuevo más tarde",
+  "successLogin": "Inicio de sesión exitoso",
+  "successRegister": "Registro exitoso",
+  "successSync": "Sincronización exitosa",
+  "successDownload": "Descarga exitosa",
+  "failedToCreateComment": "Error al crear el comentario",
+  "failedToDeleteComment": "Error al eliminar el comentario",
+  "failedToSubmitReport": "Error al enviar el reporte",
+  "failedToBlockUser": "Error al bloquear al usuario",
+  "failedToUnblockUser": "Error al desbloquear al usuario",
+  "failedToCreatePost": "Error al crear la publicación",
+  "failedToDeletePost": "Error al eliminar la publicación",
+  "noVocabularyForLevel": "No se encontró vocabulario para el nivel {level}",
+  "@noVocabularyForLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "uploadingImage": "[Subiendo imagen...]",
+  "uploadingVoice": "[Subiendo audio...]",
+  "imagePreview": "[Imagen]",
+  "voicePreview": "[Audio]",
+  "voiceServerConnectFailed": "No se pudo conectar al servidor de voz. Verifique su conexión.",
+  "connectionLostRetry": "Conexión perdida. Toque para reintentar.",
+  "noInternetConnection": "Sin conexión a internet. Verifique su red.",
+  "couldNotLoadRooms": "No se pudieron cargar las salas. Inténtelo de nuevo.",
+  "couldNotCreateRoom": "No se pudo crear la sala. Inténtelo de nuevo.",
+  "couldNotJoinRoom": "No se pudo unir a la sala. Verifique su conexión.",
+  "roomClosedByHost": "El anfitrión cerró la sala.",
+  "removedFromRoomByHost": "Fuiste eliminado de la sala por el anfitrión.",
+  "connectionTimedOut": "La conexión expiró. Inténtelo de nuevo.",
+  "missingLiveKitCredentials": "Faltan credenciales de conexión de voz.",
+  "microphoneEnableFailed": "No se pudo activar el micrófono. Verifique los permisos e intente activar el audio.",
+  "voiceRoomNewMessages": "Nuevos mensajes",
+  "voiceRoomChatRateLimited": "Estás enviando mensajes demasiado rápido. Espera un momento.",
+  "voiceRoomMessageSendFailed": "Error al enviar el mensaje. Inténtelo de nuevo.",
+  "voiceRoomChatError": "Ocurrió un error en el chat.",
+  "retryAttempt": "Reintentar ({current}/{max})",
+  "@retryAttempt": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "nextButton": "Siguiente",
+  "completeButton": "Completar",
+  "startButton": "Empezar",
+  "doneButton": "Listo",
+  "goBackButton": "Volver",
+  "tapToListen": "Toca para escuchar",
+  "listenAllSoundsFirst": "Escucha todos los sonidos primero",
+  "nextCharButton": "Siguiente letra",
+  "listenAndChooseCorrect": "Escucha y elige el carácter correcto",
+  "lessonCompletedMsg": "¡Has completado la lección!",
+  "stageMasterLabel": "Maestro de la Etapa {stage}",
+  "@stageMasterLabel": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      }
+    }
+  },
+  "hangulS0L0Title": "¿Cómo nació el Hangul?",
+  "hangulS0L0Subtitle": "Un breve vistazo a cómo se creó el Hangul",
+  "hangulS0L0Step0Title": "Hace mucho tiempo, escribir era muy difícil",
+  "hangulS0L0Step0Desc": "En el pasado, la escritura se basaba en caracteres chinos (Hanja),\nlo que hacía muy difícil leer y escribir para la mayoría.",
+  "hangulS0L0Step0Highlights": "Hanja,Dificultad,Lectura,Escritura",
+  "hangulS0L0Step1Title": "El Rey Sejong creó un nuevo sistema de escritura",
+  "hangulS0L0Step1Desc": "Para que el pueblo pudiera aprender fácilmente,\nel Rey Sejong creó personalmente el Hunminjeongeum.\n(Creado en 1443, proclamado en 1446)",
+  "hangulS0L0Step1Highlights": "Rey Sejong,Hunminjeongeum,1443,1446",
+  "hangulS0L0Step2Title": "Y así nació el Hangul actual",
+  "hangulS0L0Step2Desc": "El Hangul es un sistema de escritura diseñado para representar sonidos fácilmente.\nEn la siguiente lección, aprenderemos la estructura de consonantes y vocales.",
+  "hangulS0L0Step2Highlights": "Sonido,Escritura fácil,Hangul",
+  "hangulS0L0SummaryTitle": "¡Introducción completada!",
+  "hangulS0L0SummaryMsg": "¡Muy bien!\nAhora sabes por qué se creó el Hangul.\nAprendamos la estructura de consonantes y vocales.",
+  "hangulS0L1Title": "Ensamblar el bloque 가",
+  "hangulS0L1Subtitle": "Practica arrastrando las piezas",
+  "hangulS0L1IntroTitle": "¡El Hangul funciona como bloques!",
+  "hangulS0L1IntroDesc": "El Hangul combina consonantes y vocales para formar caracteres.\nConsonante (ㄱ) + Vocal (ㅏ) = 가\n\nLos caracteres más complejos pueden tener una consonante final (batchim).\n(¡Lo aprenderemos después!)",
+  "hangulS0L1IntroHighlights": "Consonante,Vocal,Carácter",
+  "hangulS0L1DragGaTitle": "Ensamblar 가",
+  "hangulS0L1DragGaDesc": "Arrastra ㄱ y ㅏ a los espacios vacíos",
+  "hangulS0L1DragNaTitle": "Ensamblar 나",
+  "hangulS0L1DragNaDesc": "Prueba con la nueva consonante ㄴ",
+  "hangulS0L1DragDaTitle": "Ensamblar 다",
+  "hangulS0L1DragDaDesc": "Prueba con la nueva consonante ㄷ",
+  "hangulS0L1SummaryTitle": "¡Lección completada!",
+  "hangulS0L1SummaryMsg": "Consonante + Vocal = ¡Bloque de carácter!\nㄱ+ㅏ=가, ㄴ+ㅏ=나, ㄷ+ㅏ=다",
+  "hangulS0L2Title": "Exploración de sonidos",
+  "hangulS0L2Subtitle": "Siente las consonantes y vocales a través del sonido",
+  "hangulS0L2IntroTitle": "Siente los sonidos",
+  "hangulS0L2IntroDesc": "Cada consonante y vocal del Hangul tiene su propio sonido único.\nEscucha y siente los sonidos.",
+  "hangulS0L2Sound1Title": "Cómo suenan ㄱ, ㄴ, ㄷ",
+  "hangulS0L2Sound1Desc": "Escucha cada consonante combinada con ㅏ: 가, 나, 다",
+  "hangulS0L2Sound2Title": "Sonidos de las vocales ㅏ, ㅗ",
+  "hangulS0L2Sound2Desc": "Escucha los sonidos de estas dos vocales",
+  "hangulS0L2Sound3Title": "Escuchando 가, 나, 다",
+  "hangulS0L2Sound3Desc": "Escucha los sonidos de caracteres formados por consonantes y vocales",
+  "hangulS0L2SummaryTitle": "¡Lección completada!",
+  "hangulS0L2SummaryMsg": "Las consonantes se combinan con ㅏ para formar sus sonidos básicos (가, 나, 다),\n¡y ahora también puedes sentir cómo suenan las vocales!",
+  "hangulS0L3Title": "Escuchar y elegir",
+  "hangulS0L3Subtitle": "Distingue caracteres por su sonido",
+  "hangulS0L3IntroTitle": "Esta vez, usa tus oídos",
+  "hangulS0L3IntroDesc": "Concéntrate en los sonidos, no en la pantalla,\ne identifica cuáles son iguales y cuáles son diferentes.",
+  "hangulS0L3Sound1Title": "Repaso de sonidos 가/나/다/고/노",
+  "hangulS0L3Sound1Desc": "Primero, escucha bien estos 5 sonidos",
+  "hangulS0L3Match1Title": "Escucha y elige el carácter correcto",
+  "hangulS0L3Match1Desc": "Elige el carácter que coincida con el sonido reproducido",
+  "hangulS0L3Match2Title": "Distinguir sonidos ㅏ / ㅗ",
+  "hangulS0L3Match2Desc": "La consonante es la misma — concéntrate en la vocal para distinguirlas",
+  "hangulS0L3SummaryTitle": "¡Lección completada!",
+  "hangulS0L3SummaryMsg": "¡Muy bien!\nAhora puedes usar los ojos (ensamblaje) y los oídos (sonido)\npara entender la estructura del Hangul.",
+  "hangulS0CompleteTitle": "¡Etapa 0 completada!",
+  "hangulS0CompleteMsg": "¡Has comprendido la estructura del Hangul!",
+  "hangulS1L1Title": "Forma y sonido de ㅏ",
+  "hangulS1L1Subtitle": "Trazo corto a la derecha de una línea vertical: ㅏ",
+  "hangulS1L1Step0Title": "Aprende la primera vocal ㅏ",
+  "hangulS1L1Step0Desc": "ㅏ produce el sonido brillante \"아\".\nAprendamos la forma y el sonido juntos.",
+  "hangulS1L1Step0Highlights": "ㅏ,아,vocal básica",
+  "hangulS1L1Step1Title": "Escuchar ㅏ",
+  "hangulS1L1Step1Desc": "Escucha los sonidos que contienen ㅏ",
+  "hangulS1L1Step2Title": "Práctica de pronunciación",
+  "hangulS1L1Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS1L1Step3Title": "Elige el sonido ㅏ",
+  "hangulS1L1Step3Desc": "Escucha y selecciona el carácter correcto",
+  "hangulS1L1Step4Title": "Quiz de forma",
+  "hangulS1L1Step4Desc": "Encuentra ㅏ con precisión",
+  "hangulS1L1Step4Q0": "¿Cuál es ㅏ?",
+  "hangulS1L1Step4Q1": "¿Cuál contiene ㅏ?",
+  "hangulS1L1Step4Q2": "ㅇ + ㅏ = ?",
+  "hangulS1L1Step5Title": "Construir caracteres con ㅏ",
+  "hangulS1L1Step5Desc": "Combina consonantes con ㅏ para completar caracteres",
+  "hangulS1L1Step6Title": "Quiz integral",
+  "hangulS1L1Step6Desc": "Repasa lo aprendido en esta lección",
+  "hangulS1L1Step6Q0": "¿Cuál es la vocal en \"아\"?",
+  "hangulS1L1Step6Q1": "ㅇ + ㅏ = ?",
+  "hangulS1L1Step6Q2": "¿Qué carácter contiene ㅏ?",
+  "hangulS1L1Step6Q3": "¿Cuál suena más diferente de ㅏ?",
+  "hangulS1L1Step7Title": "¡Lección completada!",
+  "hangulS1L1Step7Msg": "¡Muy bien!\nAprendiste la forma y el sonido de ㅏ.",
+  "hangulS1L2Title": "Forma y sonido de ㅓ",
+  "hangulS1L2Subtitle": "Trazo corto a la izquierda de una línea vertical: ㅓ",
+  "hangulS1L2Step0Title": "La segunda vocal ㅓ",
+  "hangulS1L2Step0Desc": "ㅓ produce el sonido \"어\".\nEl trazo va en dirección opuesta a ㅏ.",
+  "hangulS1L2Step0Highlights": "ㅓ,어,dirección opuesta a ㅏ",
+  "hangulS1L2Step1Title": "Escuchar ㅓ",
+  "hangulS1L2Step1Desc": "Escucha los sonidos que contienen ㅓ",
+  "hangulS1L2Step2Title": "Práctica de pronunciación",
+  "hangulS1L2Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS1L2Step3Title": "Elige el sonido ㅓ",
+  "hangulS1L2Step3Desc": "Distingue ㅏ/ㅓ al oído",
+  "hangulS1L2Step4Title": "Quiz de forma",
+  "hangulS1L2Step4Desc": "Encuentra ㅓ",
+  "hangulS1L2Step4Q0": "¿Cuál es ㅓ?",
+  "hangulS1L2Step4Q1": "ㅇ + ㅓ = ?",
+  "hangulS1L2Step4Q2": "¿Qué carácter contiene ㅓ?",
+  "hangulS1L2Step5Title": "Construir caracteres con ㅓ",
+  "hangulS1L2Step5Desc": "Combina consonantes con ㅓ",
+  "hangulS1L2Step6Title": "¡Lección completada!",
+  "hangulS1L2Step6Msg": "¡Excelente!\nAprendiste el sonido de ㅓ(어).",
+  "hangulS1L3Title": "Forma y sonido de ㅗ",
+  "hangulS1L3Subtitle": "Trazo vertical sobre la línea horizontal: ㅗ",
+  "hangulS1L3Step0Title": "La tercera vocal ㅗ",
+  "hangulS1L3Step0Desc": "ㅗ produce el sonido \"오\".\nUn trazo vertical sube sobre la línea horizontal.",
+  "hangulS1L3Step0Highlights": "ㅗ,오,vocal horizontal",
+  "hangulS1L3Step1Title": "Escuchar ㅗ",
+  "hangulS1L3Step1Desc": "Escucha los sonidos con ㅗ (오/고/노)",
+  "hangulS1L3Step2Title": "Práctica de pronunciación",
+  "hangulS1L3Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS1L3Step3Title": "Elige el sonido ㅗ",
+  "hangulS1L3Step3Desc": "Distingue los sonidos 오/우",
+  "hangulS1L3Step4Title": "Construir caracteres con ㅗ",
+  "hangulS1L3Step4Desc": "Combina consonantes con ㅗ",
+  "hangulS1L3Step5Title": "Quiz de forma y sonido",
+  "hangulS1L3Step5Desc": "Selecciona ㅗ con precisión",
+  "hangulS1L3Step5Q0": "¿Cuál es ㅗ?",
+  "hangulS1L3Step5Q1": "ㅇ + ㅗ = ?",
+  "hangulS1L3Step5Q2": "¿Cuál contiene ㅗ?",
+  "hangulS1L3Step6Title": "¡Lección completada!",
+  "hangulS1L3Step6Msg": "¡Muy bien!\nAprendiste el sonido de ㅗ(오).",
+  "hangulS1L4Title": "Forma y sonido de ㅜ",
+  "hangulS1L4Subtitle": "Trazo vertical bajo la línea horizontal: ㅜ",
+  "hangulS1L4Step0Title": "La cuarta vocal ㅜ",
+  "hangulS1L4Step0Desc": "ㅜ produce el sonido \"우\".\nLa posición del trazo vertical es opuesta a ㅗ.",
+  "hangulS1L4Step0Highlights": "ㅜ,우,comparar posición con ㅗ",
+  "hangulS1L4Step1Title": "Escuchar ㅜ",
+  "hangulS1L4Step1Desc": "Escucha 우/구/누",
+  "hangulS1L4Step2Title": "Práctica de pronunciación",
+  "hangulS1L4Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS1L4Step3Title": "Elige el sonido ㅜ",
+  "hangulS1L4Step3Desc": "Distingue ㅗ/ㅜ",
+  "hangulS1L4Step4Title": "Construir caracteres con ㅜ",
+  "hangulS1L4Step4Desc": "Combina consonantes con ㅜ",
+  "hangulS1L4Step5Title": "Quiz de forma y sonido",
+  "hangulS1L4Step5Desc": "Selecciona ㅜ con precisión",
+  "hangulS1L4Step5Q0": "¿Cuál es ㅜ?",
+  "hangulS1L4Step5Q1": "ㅇ + ㅜ = ?",
+  "hangulS1L4Step5Q2": "¿Cuál contiene ㅜ?",
+  "hangulS1L4Step6Title": "¡Lección completada!",
+  "hangulS1L4Step6Msg": "¡Muy bien!\nAprendiste el sonido de ㅜ(우).",
+  "hangulS1L5Title": "Forma y sonido de ㅡ",
+  "hangulS1L5Subtitle": "Vocal de una sola línea horizontal: ㅡ",
+  "hangulS1L5Step0Title": "La quinta vocal ㅡ",
+  "hangulS1L5Step0Desc": "ㅡ es un sonido que se produce estirando la boca hacia los lados.\nLa forma es una sola línea horizontal.",
+  "hangulS1L5Step0Highlights": "ㅡ,으,una línea horizontal",
+  "hangulS1L5Step1Title": "Escuchar ㅡ",
+  "hangulS1L5Step1Desc": "Escucha los sonidos 으/그/느",
+  "hangulS1L5Step2Title": "Práctica de pronunciación",
+  "hangulS1L5Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS1L5Step3Title": "Elige el sonido ㅡ",
+  "hangulS1L5Step3Desc": "Distingue los sonidos ㅡ y ㅜ",
+  "hangulS1L5Step4Title": "Construir caracteres con ㅡ",
+  "hangulS1L5Step4Desc": "Combina consonantes con ㅡ",
+  "hangulS1L5Step5Title": "Quiz de forma y sonido",
+  "hangulS1L5Step5Desc": "Selecciona ㅡ con precisión",
+  "hangulS1L5Step5Q0": "¿Cuál es ㅡ?",
+  "hangulS1L5Step5Q1": "ㅇ + ㅡ = ?",
+  "hangulS1L5Step5Q2": "¿Cuál contiene ㅡ?",
+  "hangulS1L5Step6Title": "¡Lección completada!",
+  "hangulS1L5Step6Msg": "¡Muy bien!\nAprendiste el sonido de ㅡ(으).",
+  "hangulS1L6Title": "Forma y sonido de ㅣ",
+  "hangulS1L6Subtitle": "Vocal de una sola línea vertical: ㅣ",
+  "hangulS1L6Step0Title": "La sexta vocal ㅣ",
+  "hangulS1L6Step0Desc": "ㅣ produce el sonido \"이\".\nLa forma es una sola línea vertical.",
+  "hangulS1L6Step0Highlights": "ㅣ,이,una línea vertical",
+  "hangulS1L6Step1Title": "Escuchar ㅣ",
+  "hangulS1L6Step1Desc": "Escucha los sonidos 이/기/니",
+  "hangulS1L6Step2Title": "Práctica de pronunciación",
+  "hangulS1L6Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS1L6Step3Title": "Elige el sonido ㅣ",
+  "hangulS1L6Step3Desc": "Distingue los sonidos ㅣ y ㅡ",
+  "hangulS1L6Step4Title": "Construir caracteres con ㅣ",
+  "hangulS1L6Step4Desc": "Combina consonantes con ㅣ",
+  "hangulS1L6Step5Title": "Quiz de forma y sonido",
+  "hangulS1L6Step5Desc": "Selecciona ㅣ con precisión",
+  "hangulS1L6Step5Q0": "¿Cuál es ㅣ?",
+  "hangulS1L6Step5Q1": "ㅇ + ㅣ = ?",
+  "hangulS1L6Step5Q2": "¿Cuál contiene ㅣ?",
+  "hangulS1L6Step6Title": "¡Lección completada!",
+  "hangulS1L6Step6Msg": "¡Muy bien!\nAprendiste el sonido de ㅣ(이).",
+  "hangulS1L7Title": "Repaso de vocales verticales",
+  "hangulS1L7Subtitle": "Distingue ㅏ · ㅓ · ㅣ rápidamente",
+  "hangulS1L7Step0Title": "Repaso del grupo de vocales verticales",
+  "hangulS1L7Step0Desc": "ㅏ, ㅓ y ㅣ son vocales de eje vertical.\nDistíngelas por la posición del trazo y el sonido.",
+  "hangulS1L7Step0Highlights": "ㅏ,ㅓ,ㅣ,vocales verticales",
+  "hangulS1L7Step1Title": "Escuchar de nuevo",
+  "hangulS1L7Step1Desc": "Comprueba los sonidos 아/어/이",
+  "hangulS1L7Step2Title": "Práctica de pronunciación",
+  "hangulS1L7Step2Desc": "Di cada carácter en voz alta",
+  "hangulS1L7Step3Title": "Quiz de escucha: vocales verticales",
+  "hangulS1L7Step3Desc": "Relaciona el sonido con el carácter correcto",
+  "hangulS1L7Step4Title": "Quiz de formas: vocales verticales",
+  "hangulS1L7Step4Desc": "Distingue las formas con precisión",
+  "hangulS1L7Step4Q0": "¿Trazo corto a la derecha?",
+  "hangulS1L7Step4Q1": "¿Trazo corto a la izquierda?",
+  "hangulS1L7Step4Q2": "¿Una línea vertical sola?",
+  "hangulS1L7Step4Q3": "ㄴ + ㅓ = ?",
+  "hangulS1L7Step4Q4": "ㄱ + ㅣ = ?",
+  "hangulS1L7Step5Title": "¡Lección completada!",
+  "hangulS1L7Step5Msg": "¡Muy bien!\nYa distingues las vocales verticales (ㅏ/ㅓ/ㅣ).",
+  "hangulS1L8Title": "Repaso de vocales horizontales",
+  "hangulS1L8Subtitle": "Distingue ㅗ · ㅜ · ㅡ rápidamente",
+  "hangulS1L8Step0Title": "Repaso del grupo de vocales horizontales",
+  "hangulS1L8Step0Desc": "ㅗ, ㅜ y ㅡ son vocales de eje horizontal.\nRecuerda la posición del trazo vertical y la forma de la boca.",
+  "hangulS1L8Step0Highlights": "ㅗ,ㅜ,ㅡ,vocales horizontales",
+  "hangulS1L8Step1Title": "Escuchar de nuevo",
+  "hangulS1L8Step1Desc": "Comprueba los sonidos 오/우/으",
+  "hangulS1L8Step2Title": "Práctica de pronunciación",
+  "hangulS1L8Step2Desc": "Di cada carácter en voz alta",
+  "hangulS1L8Step3Title": "Quiz de escucha: vocales horizontales",
+  "hangulS1L8Step3Desc": "Relaciona el sonido con el carácter correcto",
+  "hangulS1L8Step4Title": "Quiz de formas: vocales horizontales",
+  "hangulS1L8Step4Desc": "Comprueba la forma y el sonido juntos",
+  "hangulS1L8Step4Q0": "¿Trazo vertical sobre la línea horizontal?",
+  "hangulS1L8Step4Q1": "¿Trazo vertical bajo la línea horizontal?",
+  "hangulS1L8Step4Q2": "¿Una línea horizontal sola?",
+  "hangulS1L8Step4Q3": "ㄱ + ㅗ = ?",
+  "hangulS1L8Step4Q4": "ㄴ + ㅜ = ?",
+  "hangulS1L8Step5Title": "¡Lección completada!",
+  "hangulS1L8Step5Msg": "¡Muy bien!\nYa distingues las vocales horizontales (ㅗ/ㅜ/ㅡ).",
+  "hangulS1L9Title": "Misión de vocales básicas",
+  "hangulS1L9Subtitle": "Completa combinaciones de vocales en el tiempo límite",
+  "hangulS1L9Step0Title": "Misión final de la Etapa 1",
+  "hangulS1L9Step0Desc": "Completa combinaciones de sílabas en el tiempo límite.\n¡Gana recompensas de limón por precisión y velocidad!",
+  "hangulS1L9Step1Title": "Misión cronometrada",
+  "hangulS1L9Step2Title": "Resultados de la misión",
+  "hangulS1L9Step3Title": "¡Etapa 1 completada!",
+  "hangulS1L9Step3Msg": "¡Felicidades!\nHas terminado todas las vocales básicas de la Etapa 1.",
+  "hangulS1L10Title": "¡Primeras palabras en coreano!",
+  "hangulS1L10Subtitle": "Lee palabras reales con los caracteres aprendidos",
+  "hangulS1L10Step0Title": "¡Ahora puedes leer palabras!",
+  "hangulS1L10Step0Desc": "Has aprendido vocales y consonantes básicas.\n¿Leemos algunas palabras reales en coreano?",
+  "hangulS1L10Step0Highlights": "palabras reales,desafío de lectura",
+  "hangulS1L10Step1Title": "Lee las primeras palabras",
+  "hangulS1L10Step1Descs": "niño/a,leche,pepino,esto/diente,hermano menor",
+  "hangulS1L10Step2Title": "Práctica de pronunciación",
+  "hangulS1L10Step2Desc": "Di cada carácter en voz alta",
+  "hangulS1L10Step3Title": "Escucha y elige",
+  "hangulS1L10Step4Title": "¡Increíble!",
+  "hangulS1L10Step4Msg": "¡Leíste palabras en coreano!\nAprende más consonantes y\npodrás leer muchas más palabras.",
+  "hangulS1CompleteTitle": "¡Etapa 1 completada!",
+  "hangulS1CompleteMsg": "¡Has dominado las 6 vocales básicas!",
+  "hangulS2L1Title": "Forma y sonido de ㅑ",
+  "hangulS2L1Subtitle": "ㅏ con un trazo extra: ㅑ",
+  "hangulS2L1Step0Title": "ㅏ se convierte en ㅑ",
+  "hangulS2L1Step0Desc": "Si añades un trazo a ㅏ obtienes ㅑ.\nEl sonido pasa del \"a\" al más enérgico \"ya\".",
+  "hangulS2L1Step0Highlights": "ㅏ → ㅑ,야,vocal-Y",
+  "hangulS2L1Step1Title": "Escucha ㅑ",
+  "hangulS2L1Step1Desc": "Escucha los sonidos 야/갸/냐",
+  "hangulS2L1Step2Title": "Práctica de pronunciación",
+  "hangulS2L1Step2Desc": "Di cada carácter en voz alta",
+  "hangulS2L1Step3Title": "Escucha ㅏ vs ㅑ",
+  "hangulS2L1Step3Desc": "Distingue sonidos similares",
+  "hangulS2L1Step4Title": "Forma sílabas con ㅑ",
+  "hangulS2L1Step4Desc": "Completa las combinaciones consonante + ㅑ",
+  "hangulS2L1Step5Title": "Quiz de forma y sonido",
+  "hangulS2L1Step5Desc": "Elige ㅑ correctamente",
+  "hangulS2L1Step5Q0": "¿Cuál es ㅑ?",
+  "hangulS2L1Step5Q1": "ㅇ + ㅑ = ?",
+  "hangulS2L1Step5Q2": "¿Cuál contiene ㅑ?",
+  "hangulS2L1Step6Title": "¡Lección completada!",
+  "hangulS2L1Step6Msg": "¡Genial!\nHas aprendido el sonido ㅑ (야).",
+  "hangulS2L2Title": "Forma y sonido de ㅕ",
+  "hangulS2L2Subtitle": "ㅓ con un trazo extra: ㅕ",
+  "hangulS2L2Step0Title": "ㅓ se convierte en ㅕ",
+  "hangulS2L2Step0Desc": "Si añades un trazo a ㅓ obtienes ㅕ.\nEl sonido pasa de \"eo\" a \"yeo\".",
+  "hangulS2L2Step0Highlights": "ㅓ → ㅕ,여,vocal-Y",
+  "hangulS2L2Step1Title": "Escucha ㅕ",
+  "hangulS2L2Step1Desc": "Escucha los sonidos 여/겨/녀",
+  "hangulS2L2Step2Title": "Práctica de pronunciación",
+  "hangulS2L2Step2Desc": "Di cada carácter en voz alta",
+  "hangulS2L2Step3Title": "Escucha ㅓ vs ㅕ",
+  "hangulS2L2Step3Desc": "Distingue 어 y 여",
+  "hangulS2L2Step4Title": "Forma sílabas con ㅕ",
+  "hangulS2L2Step4Desc": "Completa las combinaciones consonante + ㅕ",
+  "hangulS2L2Step5Title": "¡Lección completada!",
+  "hangulS2L2Step5Msg": "¡Genial!\nHas aprendido el sonido ㅕ (여).",
+  "hangulS2L3Title": "Forma y sonido de ㅛ",
+  "hangulS2L3Subtitle": "ㅗ con un trazo extra: ㅛ",
+  "hangulS2L3Step0Title": "ㅗ se convierte en ㅛ",
+  "hangulS2L3Step0Desc": "Si añades un trazo a ㅗ obtienes ㅛ.\nEl sonido pasa de \"o\" a \"yo\".",
+  "hangulS2L3Step0Highlights": "ㅗ → ㅛ,요,vocal-Y",
+  "hangulS2L3Step1Title": "Escucha ㅛ",
+  "hangulS2L3Step1Desc": "Escucha los sonidos 요/교/뇨",
+  "hangulS2L3Step2Title": "Práctica de pronunciación",
+  "hangulS2L3Step2Desc": "Di cada carácter en voz alta",
+  "hangulS2L3Step3Title": "Escucha ㅗ vs ㅛ",
+  "hangulS2L3Step3Desc": "Distingue 오 y 요",
+  "hangulS2L3Step4Title": "Forma sílabas con ㅛ",
+  "hangulS2L3Step4Desc": "Completa las combinaciones consonante + ㅛ",
+  "hangulS2L3Step5Title": "¡Lección completada!",
+  "hangulS2L3Step5Msg": "¡Genial!\nHas aprendido el sonido ㅛ (요).",
+  "hangulS2L4Title": "Forma y sonido de ㅠ",
+  "hangulS2L4Subtitle": "ㅜ con un trazo extra: ㅠ",
+  "hangulS2L4Step0Title": "ㅜ se convierte en ㅠ",
+  "hangulS2L4Step0Desc": "Si añades un trazo a ㅜ obtienes ㅠ.\nEl sonido pasa de \"u\" a \"yu\".",
+  "hangulS2L4Step0Highlights": "ㅜ → ㅠ,유,vocal-Y",
+  "hangulS2L4Step1Title": "Escucha ㅠ",
+  "hangulS2L4Step1Desc": "Escucha los sonidos 유/규/뉴",
+  "hangulS2L4Step2Title": "Práctica de pronunciación",
+  "hangulS2L4Step2Desc": "Di cada carácter en voz alta",
+  "hangulS2L4Step3Title": "Escucha ㅜ vs ㅠ",
+  "hangulS2L4Step3Desc": "Distingue 우 y 유",
+  "hangulS2L4Step4Title": "Forma sílabas con ㅠ",
+  "hangulS2L4Step4Desc": "Completa las combinaciones consonante + ㅠ",
+  "hangulS2L4Step5Title": "¡Lección completada!",
+  "hangulS2L4Step5Msg": "¡Genial!\nHas aprendido el sonido ㅠ (유).",
+  "hangulS2L5Title": "Grupo de vocales-Y",
+  "hangulS2L5Subtitle": "Entrenamiento intensivo: ㅑ · ㅕ · ㅛ · ㅠ",
+  "hangulS2L5Step0Title": "Todas las vocales-Y de un vistazo",
+  "hangulS2L5Step0Desc": "ㅑ/ㅕ/ㅛ/ㅠ son vocales base con un trazo adicional.\nDistingue formas y sonidos rápidamente.",
+  "hangulS2L5Step0Highlights": "ㅑ,ㅕ,ㅛ,ㅠ",
+  "hangulS2L5Step1Title": "Escucha las cuatro",
+  "hangulS2L5Step1Desc": "Repasa los sonidos 야/여/요/유",
+  "hangulS2L5Step2Title": "Práctica de pronunciación",
+  "hangulS2L5Step2Desc": "Di cada carácter en voz alta",
+  "hangulS2L5Step3Title": "Quiz de distinción de sonido",
+  "hangulS2L5Step3Desc": "Distingue los sonidos de las vocales-Y",
+  "hangulS2L5Step4Title": "Quiz de distinción de forma",
+  "hangulS2L5Step4Desc": "Distingue las formas con precisión",
+  "hangulS2L5Step4Q0": "¿Cuál es ㅑ?",
+  "hangulS2L5Step4Q1": "¿Cuál es ㅕ?",
+  "hangulS2L5Step4Q2": "¿Cuál es ㅛ?",
+  "hangulS2L5Step4Q3": "¿Cuál es ㅠ?",
+  "hangulS2L5Step5Title": "¡Lección completada!",
+  "hangulS2L5Step5Msg": "¡Genial!\nCada vez distingues mejor las 4 vocales-Y.",
+  "hangulS2L6Title": "Contraste básico vs vocal-Y",
+  "hangulS2L6Subtitle": "ㅏ/ㅑ · ㅓ/ㅕ · ㅗ/ㅛ · ㅜ/ㅠ",
+  "hangulS2L6Step0Title": "Organiza los pares confusos",
+  "hangulS2L6Step0Desc": "Compara vocales básicas y vocales-Y una al lado de la otra.",
+  "hangulS2L6Step0Highlights": "ㅏ/ㅑ,ㅓ/ㅕ,ㅗ/ㅛ,ㅜ/ㅠ",
+  "hangulS2L6Step1Title": "Distinción de sonido en pares",
+  "hangulS2L6Step1Desc": "Elige la respuesta correcta entre sonidos similares",
+  "hangulS2L6Step2Title": "Distinción de forma en pares",
+  "hangulS2L6Step2Desc": "Comprueba si el trazo extra está presente",
+  "hangulS2L6Step2Q0": "¿Qué vocal tiene el trazo extra?",
+  "hangulS2L6Step2Q1": "¿Qué vocal tiene el trazo extra?",
+  "hangulS2L6Step2Q2": "¿Qué vocal tiene el trazo extra?",
+  "hangulS2L6Step2Q3": "¿Qué vocal tiene el trazo extra?",
+  "hangulS2L6Step2Q4": "ㅇ + ㅠ = ?",
+  "hangulS2L6Step3Title": "¡Lección completada!",
+  "hangulS2L6Step3Msg": "¡Genial!\nEl contraste básico / vocal-Y ya es sólido.",
+  "hangulS2L7Title": "Misión vocales-Y",
+  "hangulS2L7Subtitle": "Completa combinaciones de vocales-Y antes de que acabe el tiempo",
+  "hangulS2L7Step0Title": "Misión final de la Etapa 2",
+  "hangulS2L7Step0Desc": "Combina las vocales-Y rápida y precisamente.\nTu recompensa de limón depende del número y la velocidad.",
+  "hangulS2L7Step1Title": "Misión contrarreloj",
+  "hangulS2L7Step2Title": "Resultados de la misión",
+  "hangulS2L7Step3Title": "¡Etapa 2 completada!",
+  "hangulS2L7Step3Msg": "¡Felicidades!\nHas terminado todas las vocales-Y de la Etapa 2.",
+  "hangulS2CompleteTitle": "¡Etapa 2 completada!",
+  "hangulS2CompleteMsg": "¡Has dominado las vocales-Y!",
+  "hangulS3L1Title": "Forma y sonido de ㅐ",
+  "hangulS3L1Subtitle": "Siente la combinación ㅏ + ㅣ",
+  "hangulS3L1Step0Title": "Así se ve ㅐ",
+  "hangulS3L1Step0Desc": "ㅐ es una vocal derivada de la familia ㅏ.\nAprende su sonido representativo como \"애\".",
+  "hangulS3L1Step0Highlights": "ㅐ,애,reconocimiento de forma",
+  "hangulS3L1Step1Title": "Escucha los sonidos de ㅐ",
+  "hangulS3L1Step1Desc": "Escucha los sonidos 애/개/내",
+  "hangulS3L1Step2Title": "Práctica de pronunciación",
+  "hangulS3L1Step2Desc": "Di cada carácter en voz alta",
+  "hangulS3L1Step3Title": "Escucha: ㅏ vs ㅐ",
+  "hangulS3L1Step3Desc": "Distingue 아/애",
+  "hangulS3L1Step4Title": "¡Lección completada!",
+  "hangulS3L1Step4Msg": "¡Muy bien!\nAprendiste la forma y el sonido de ㅐ(애).",
+  "hangulS3L2Title": "Forma y sonido de ㅔ",
+  "hangulS3L2Subtitle": "Siente la combinación ㅓ + ㅣ",
+  "hangulS3L2Step0Title": "Así se ve ㅔ",
+  "hangulS3L2Step0Desc": "ㅔ es una vocal derivada de la familia ㅓ.\nAprende su sonido representativo como \"에\".",
+  "hangulS3L2Step0Highlights": "ㅔ,에,reconocimiento de forma",
+  "hangulS3L2Step1Title": "Escucha los sonidos de ㅔ",
+  "hangulS3L2Step1Desc": "Escucha los sonidos 에/게/네",
+  "hangulS3L2Step2Title": "Práctica de pronunciación",
+  "hangulS3L2Step2Desc": "Di cada carácter en voz alta",
+  "hangulS3L2Step3Title": "Escucha: ㅓ vs ㅔ",
+  "hangulS3L2Step3Desc": "Distingue 어/에",
+  "hangulS3L2Step4Title": "¡Lección completada!",
+  "hangulS3L2Step4Msg": "¡Muy bien!\nAprendiste la forma y el sonido de ㅔ(에).",
+  "hangulS3L3Title": "Distinguir ㅐ vs ㅔ",
+  "hangulS3L3Subtitle": "Entrenamiento de distinción centrado en la forma",
+  "hangulS3L3Step0Title": "La clave es distinguir las formas",
+  "hangulS3L3Step0Desc": "En el nivel principiante, ㅐ/ㅔ pueden sonar muy similares.\nAsí que primero enfoquémonos en distinguir las formas con precisión.",
+  "hangulS3L3Step0Highlights": "ㅐ,ㅔ,distinción de forma",
+  "hangulS3L3Step1Title": "Quiz de distinción de forma",
+  "hangulS3L3Step1Desc": "Elige ㅐ y ㅔ con precisión",
+  "hangulS3L3Step1Q0": "¿Cuál es ㅐ?",
+  "hangulS3L3Step1Q1": "¿Cuál es ㅔ?",
+  "hangulS3L3Step1Q2": "ㅇ + ㅐ = ?",
+  "hangulS3L3Step1Q3": "ㅇ + ㅔ = ?",
+  "hangulS3L3Step2Title": "¡Lección completada!",
+  "hangulS3L3Step2Msg": "¡Muy bien!\nAhora puedes distinguir ㅐ/ㅔ con más precisión.",
+  "hangulS3L4Title": "Forma y sonido de ㅒ",
+  "hangulS3L4Subtitle": "Vocal de la familia Y-ㅐ",
+  "hangulS3L4Step0Title": "Aprendamos ㅒ",
+  "hangulS3L4Step0Desc": "ㅒ es una Y-vocal de la familia ㅐ.\nSu sonido representativo es \"얘\".",
+  "hangulS3L4Step0Highlights": "ㅒ,얘",
+  "hangulS3L4Step1Title": "Escucha los sonidos de ㅒ",
+  "hangulS3L4Step1Desc": "Escucha los sonidos 얘/걔/냬",
+  "hangulS3L4Step2Title": "Práctica de pronunciación",
+  "hangulS3L4Step2Desc": "Di cada carácter en voz alta",
+  "hangulS3L4Step3Title": "¡Lección completada!",
+  "hangulS3L4Step3Msg": "¡Muy bien!\nAprendiste la forma de ㅒ(얘).",
+  "hangulS3L5Title": "Forma y sonido de ㅖ",
+  "hangulS3L5Subtitle": "Vocal de la familia Y-ㅔ",
+  "hangulS3L5Step0Title": "Aprendamos ㅖ",
+  "hangulS3L5Step0Desc": "ㅖ es una Y-vocal de la familia ㅔ.\nSu sonido representativo es \"예\".",
+  "hangulS3L5Step0Highlights": "ㅖ,예",
+  "hangulS3L5Step1Title": "Escucha los sonidos de ㅖ",
+  "hangulS3L5Step1Desc": "Escucha los sonidos 예/계/녜",
+  "hangulS3L5Step2Title": "Práctica de pronunciación",
+  "hangulS3L5Step2Desc": "Di cada carácter en voz alta",
+  "hangulS3L5Step3Title": "¡Lección completada!",
+  "hangulS3L5Step3Msg": "¡Muy bien!\nAprendiste la forma de ㅖ(예).",
+  "hangulS3L6Title": "Revisión completa de la familia ㅐ/ㅔ",
+  "hangulS3L6Subtitle": "Verificación integrada: ㅐ ㅔ ㅒ ㅖ",
+  "hangulS3L6Step0Title": "Distingue los cuatro a la vez",
+  "hangulS3L6Step0Desc": "Verifica ㅐ/ㅔ/ㅒ/ㅖ por forma y sonido.",
+  "hangulS3L6Step0Highlights": "ㅐ,ㅔ,ㅒ,ㅖ",
+  "hangulS3L6Step1Title": "Distinción de sonidos",
+  "hangulS3L6Step1Desc": "Elige la respuesta correcta entre sonidos similares",
+  "hangulS3L6Step2Title": "Distinción de formas",
+  "hangulS3L6Step2Desc": "Mira la forma y elige rápidamente",
+  "hangulS3L6Step2Q0": "¿Cuál pertenece a la familia Y-ㅐ?",
+  "hangulS3L6Step2Q1": "¿Cuál pertenece a la familia Y-ㅔ?",
+  "hangulS3L6Step2Q2": "ㅇ + ㅖ = ?",
+  "hangulS3L6Step3Title": "¡Lección completada!",
+  "hangulS3L6Step3Msg": "¡Muy bien!\nHas dominado la distinción de las vocales clave de la Etapa 3.",
+  "hangulS3L7Title": "Misión de la Etapa 3",
+  "hangulS3L7Subtitle": "Misión de distinción rápida: familia ㅐ/ㅔ",
+  "hangulS3L7Step0Title": "Misión final de la Etapa 3",
+  "hangulS3L7Step0Desc": "Combina las combinaciones de la familia ㅐ/ㅔ de forma rápida y precisa.",
+  "hangulS3L7Step1Title": "Misión cronometrada",
+  "hangulS3L7Step2Title": "Resultados de la misión",
+  "hangulS3L7Step3Title": "¡Etapa 3 completada!",
+  "hangulS3L7Step3Msg": "¡Felicidades!\nCompletaste todas las vocales de la familia ㅐ/ㅔ en la Etapa 3.",
+  "hangulS3L7Step4Title": "¡Etapa 3 completada!",
+  "hangulS3L7Step4Msg": "¡Aprendiste todas las vocales!",
+  "hangulS3CompleteTitle": "¡Etapa 3 completada!",
+  "hangulS3CompleteMsg": "¡Aprendiste todas las vocales!",
+  "hangulS4L1Title": "Forma y sonido de ㄱ",
+  "hangulS4L1Subtitle": "Primera consonante básica: ㄱ",
+  "hangulS4L1Step0Title": "Aprendamos ㄱ",
+  "hangulS4L1Step0Desc": "ㄱ es la primera consonante básica.\nCombinada con ㅏ, produce el sonido \"가\".",
+  "hangulS4L1Step0Highlights": "ㄱ,가,consonante básica",
+  "hangulS4L1Step1Title": "Escuchar los sonidos de ㄱ",
+  "hangulS4L1Step1Desc": "Escucha los sonidos 가/고/구",
+  "hangulS4L1Step2Title": "Práctica de pronunciación",
+  "hangulS4L1Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L1Step3Title": "Elige el sonido ㄱ",
+  "hangulS4L1Step3Desc": "Escucha y selecciona el carácter correcto",
+  "hangulS4L1Step4Title": "Formar caracteres con ㄱ",
+  "hangulS4L1Step4Desc": "Combina ㄱ con vocales",
+  "hangulS4L1SummaryTitle": "¡Lección completada!",
+  "hangulS4L1SummaryMsg": "¡Genial!\nHas aprendido la forma y el sonido de ㄱ.",
+  "hangulS4L2Title": "Forma y sonido de ㄴ",
+  "hangulS4L2Subtitle": "Segunda consonante básica: ㄴ",
+  "hangulS4L2Step0Title": "Aprendamos ㄴ",
+  "hangulS4L2Step0Desc": "ㄴ crea la familia de sonidos \"나\".",
+  "hangulS4L2Step0Highlights": "ㄴ,나",
+  "hangulS4L2Step1Title": "Escuchar los sonidos de ㄴ",
+  "hangulS4L2Step1Desc": "Escucha los sonidos 나/노/누",
+  "hangulS4L2Step2Title": "Práctica de pronunciación",
+  "hangulS4L2Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L2Step3Title": "Elige el sonido ㄴ",
+  "hangulS4L2Step3Desc": "Distingue 나/다",
+  "hangulS4L2Step4Title": "Formar caracteres con ㄴ",
+  "hangulS4L2Step4Desc": "Combina ㄴ con vocales",
+  "hangulS4L2SummaryTitle": "¡Lección completada!",
+  "hangulS4L2SummaryMsg": "¡Genial!\nHas aprendido la forma y el sonido de ㄴ.",
+  "hangulS4L3Title": "Forma y sonido de ㄷ",
+  "hangulS4L3Subtitle": "Tercera consonante básica: ㄷ",
+  "hangulS4L3Step0Title": "Aprendamos ㄷ",
+  "hangulS4L3Step0Desc": "ㄷ crea la familia de sonidos \"다\".",
+  "hangulS4L3Step0Highlights": "ㄷ,다",
+  "hangulS4L3Step1Title": "Escuchar los sonidos de ㄷ",
+  "hangulS4L3Step1Desc": "Escucha los sonidos 다/도/두",
+  "hangulS4L3Step2Title": "Práctica de pronunciación",
+  "hangulS4L3Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L3Step3Title": "Elige el sonido ㄷ",
+  "hangulS4L3Step3Desc": "Distingue 다/나",
+  "hangulS4L3Step4Title": "Formar caracteres con ㄷ",
+  "hangulS4L3Step4Desc": "Combina ㄷ con vocales",
+  "hangulS4L3SummaryTitle": "¡Lección completada!",
+  "hangulS4L3SummaryMsg": "¡Genial!\nHas aprendido la forma y el sonido de ㄷ.",
+  "hangulS4L4Title": "Forma y sonido de ㄹ",
+  "hangulS4L4Subtitle": "Cuarta consonante básica: ㄹ",
+  "hangulS4L4Step0Title": "Aprendamos ㄹ",
+  "hangulS4L4Step0Desc": "ㄹ crea la familia de sonidos \"라\".",
+  "hangulS4L4Step0Highlights": "ㄹ,라",
+  "hangulS4L4Step1Title": "Escuchar los sonidos de ㄹ",
+  "hangulS4L4Step1Desc": "Escucha los sonidos 라/로/루",
+  "hangulS4L4Step2Title": "Práctica de pronunciación",
+  "hangulS4L4Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L4Step3Title": "Elige el sonido ㄹ",
+  "hangulS4L4Step3Desc": "Distingue 라/나",
+  "hangulS4L4Step4Title": "Formar caracteres con ㄹ",
+  "hangulS4L4Step4Desc": "Combina ㄹ con vocales",
+  "hangulS4L4SummaryTitle": "¡Lección completada!",
+  "hangulS4L4SummaryMsg": "¡Genial!\nHas aprendido la forma y el sonido de ㄹ.",
+  "hangulS4L5Title": "Forma y sonido de ㅁ",
+  "hangulS4L5Subtitle": "Quinta consonante básica: ㅁ",
+  "hangulS4L5Step0Title": "Aprendamos ㅁ",
+  "hangulS4L5Step0Desc": "ㅁ crea la familia de sonidos \"마\".",
+  "hangulS4L5Step0Highlights": "ㅁ,마",
+  "hangulS4L5Step1Title": "Escuchar los sonidos de ㅁ",
+  "hangulS4L5Step1Desc": "Escucha los sonidos 마/모/무",
+  "hangulS4L5Step2Title": "Práctica de pronunciación",
+  "hangulS4L5Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L5Step3Title": "Elige el sonido ㅁ",
+  "hangulS4L5Step3Desc": "Distingue 마/바",
+  "hangulS4L5Step4Title": "Formar caracteres con ㅁ",
+  "hangulS4L5Step4Desc": "Combina ㅁ con vocales",
+  "hangulS4L5SummaryTitle": "¡Lección completada!",
+  "hangulS4L5SummaryMsg": "¡Genial!\nHas aprendido la forma y el sonido de ㅁ.",
+  "hangulS4L6Title": "Forma y sonido de ㅂ",
+  "hangulS4L6Subtitle": "Sexta consonante básica: ㅂ",
+  "hangulS4L6Step0Title": "Aprendamos ㅂ",
+  "hangulS4L6Step0Desc": "ㅂ crea la familia de sonidos \"바\".",
+  "hangulS4L6Step0Highlights": "ㅂ,바",
+  "hangulS4L6Step1Title": "Escuchar los sonidos de ㅂ",
+  "hangulS4L6Step1Desc": "Escucha los sonidos 바/보/부",
+  "hangulS4L6Step2Title": "Práctica de pronunciación",
+  "hangulS4L6Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L6Step3Title": "Elige el sonido ㅂ",
+  "hangulS4L6Step3Desc": "Distingue 바/마",
+  "hangulS4L6Step4Title": "Formar caracteres con ㅂ",
+  "hangulS4L6Step4Desc": "Combina ㅂ con vocales",
+  "hangulS4L6SummaryTitle": "¡Lección completada!",
+  "hangulS4L6SummaryMsg": "¡Genial!\nHas aprendido la forma y el sonido de ㅂ.",
+  "hangulS4L7Title": "Forma y sonido de ㅅ",
+  "hangulS4L7Subtitle": "Séptima consonante básica: ㅅ",
+  "hangulS4L7Step0Title": "Aprendamos ㅅ",
+  "hangulS4L7Step0Desc": "ㅅ crea la familia de sonidos \"사\".",
+  "hangulS4L7Step0Highlights": "ㅅ,사",
+  "hangulS4L7Step1Title": "Escuchar los sonidos de ㅅ",
+  "hangulS4L7Step1Desc": "Escucha los sonidos 사/소/수",
+  "hangulS4L7Step2Title": "Práctica de pronunciación",
+  "hangulS4L7Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L7Step3Title": "Elige el sonido ㅅ",
+  "hangulS4L7Step3Desc": "Distingue 사/자",
+  "hangulS4L7Step4Title": "Formar caracteres con ㅅ",
+  "hangulS4L7Step4Desc": "Combina ㅅ con vocales",
+  "hangulS4L7SummaryTitle": "¡Etapa 4 completada!",
+  "hangulS4L7SummaryMsg": "¡Felicidades!\nHas completado la Etapa 4: Consonantes básicas 1 (ㄱ~ㅅ).",
+  "hangulS4L8Title": "¡Desafío de lectura de palabras!",
+  "hangulS4L8Subtitle": "Lee palabras usando consonantes y vocales",
+  "hangulS4L8Step0Title": "¡Ahora puedes leer aún más palabras!",
+  "hangulS4L8Step0Desc": "Has aprendido las 7 consonantes básicas y las vocales.\n¿Leemos algunas palabras reales formadas con estos caracteres?",
+  "hangulS4L8Step0Highlights": "7 consonantes,vocales,palabras reales",
+  "hangulS4L8Step1Title": "Lee las palabras",
+  "hangulS4L8Step1Descs": "árbol,mar,mariposa,sombrero,mueble,tofu",
+  "hangulS4L8Step2Title": "Práctica de pronunciación",
+  "hangulS4L8Step2Desc": "Intenta pronunciar los caracteres en voz alta",
+  "hangulS4L8Step3Title": "Escucha y elige",
+  "hangulS4L8Step4Title": "¿Qué significa?",
+  "hangulS4L8Step4Q0": "¿Qué significa \"나비\"?",
+  "hangulS4L8Step4Q1": "¿Qué significa \"바다\"?",
+  "hangulS4L8SummaryTitle": "¡Excelente!",
+  "hangulS4L8SummaryMsg": "¡Leíste 6 palabras coreanas!\nAprende más consonantes y podrás leer aún más.",
+  "hangulS4LMTitle": "Misión: ¡Combinaciones de consonantes básicas!",
+  "hangulS4LMSubtitle": "Construye sílabas dentro del límite de tiempo",
+  "hangulS4LMStep0Title": "¡Inicio de misión!",
+  "hangulS4LMStep0Desc": "Combina las consonantes básicas ㄱ~ㅅ con vocales.\n¡Alcanza tu objetivo dentro del límite de tiempo!",
+  "hangulS4LMStep1Title": "¡Combina las sílabas!",
+  "hangulS4LMStep2Title": "Resultados de la misión",
+  "hangulS4LMSummaryTitle": "¡Misión completada!",
+  "hangulS4LMSummaryMsg": "¡Puedes combinar libremente las 7 consonantes básicas!",
+  "hangulS4CompleteTitle": "¡Etapa 4 completada!",
+  "hangulS4CompleteMsg": "¡Has dominado las 7 consonantes básicas!",
+  "hangulS5L1Title": "Entendiendo ㅇ",
+  "hangulS5L1Subtitle": "Lectura de ㅇ en posición inicial",
+  "hangulS5L1Step0Title": "ㅇ es una consonante especial",
+  "hangulS5L1Step0Desc": "ㅇ en posición inicial casi no tiene sonido,\ny suena como 아/오/우 al combinarse con vocales.",
+  "hangulS5L1Step0Highlights": "ㅇ,아,posición inicial",
+  "hangulS5L1Step1Title": "Escucha combinaciones con ㅇ",
+  "hangulS5L1Step1Desc": "Escucha los sonidos 아/오/우",
+  "hangulS5L1Step2Title": "Práctica de pronunciación",
+  "hangulS5L1Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L1Step3Title": "Forma sílabas con ㅇ",
+  "hangulS5L1Step3Desc": "Combina ㅇ + vocal",
+  "hangulS5L1Step4Title": "¡Lección completada!",
+  "hangulS5L1Step4Msg": "¡Muy bien!\nEntiendes cómo funciona ㅇ.",
+  "hangulS5L2Title": "Forma y sonido de ㅈ",
+  "hangulS5L2Subtitle": "Lectura básica de ㅈ",
+  "hangulS5L2Step0Title": "Aprendamos ㅈ",
+  "hangulS5L2Step0Desc": "ㅈ produce la familia de sonidos \"자\".",
+  "hangulS5L2Step0Highlights": "ㅈ,자",
+  "hangulS5L2Step1Title": "Escucha los sonidos de ㅈ",
+  "hangulS5L2Step1Desc": "Escucha 자/조/주",
+  "hangulS5L2Step2Title": "Práctica de pronunciación",
+  "hangulS5L2Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L2Step3Title": "Elige el sonido ㅈ",
+  "hangulS5L2Step3Desc": "Distingue 자 de 사",
+  "hangulS5L2Step4Title": "Forma sílabas con ㅈ",
+  "hangulS5L2Step4Desc": "Combina ㅈ + vocal",
+  "hangulS5L2Step5Title": "¡Lección completada!",
+  "hangulS5L2Step5Msg": "¡Muy bien!\nHas aprendido el sonido y la forma de ㅈ.",
+  "hangulS5L3Title": "Forma y sonido de ㅊ",
+  "hangulS5L3Subtitle": "Lectura básica de ㅊ",
+  "hangulS5L3Step0Title": "Aprendamos ㅊ",
+  "hangulS5L3Step0Desc": "ㅊ produce la familia de sonidos \"차\".",
+  "hangulS5L3Step0Highlights": "ㅊ,차",
+  "hangulS5L3Step1Title": "Escucha los sonidos de ㅊ",
+  "hangulS5L3Step1Desc": "Escucha 차/초/추",
+  "hangulS5L3Step2Title": "Práctica de pronunciación",
+  "hangulS5L3Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L3Step3Title": "Elige el sonido ㅊ",
+  "hangulS5L3Step3Desc": "Distingue 차 de 자",
+  "hangulS5L3Step4Title": "¡Lección completada!",
+  "hangulS5L3Step4Msg": "¡Muy bien!\nHas aprendido el sonido y la forma de ㅊ.",
+  "hangulS5L4Title": "Forma y sonido de ㅋ",
+  "hangulS5L4Subtitle": "Lectura básica de ㅋ",
+  "hangulS5L4Step0Title": "Aprendamos ㅋ",
+  "hangulS5L4Step0Desc": "ㅋ produce la familia de sonidos \"카\".",
+  "hangulS5L4Step0Highlights": "ㅋ,카",
+  "hangulS5L4Step1Title": "Escucha los sonidos de ㅋ",
+  "hangulS5L4Step1Desc": "Escucha 카/코/쿠",
+  "hangulS5L4Step2Title": "Práctica de pronunciación",
+  "hangulS5L4Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L4Step3Title": "Elige el sonido ㅋ",
+  "hangulS5L4Step3Desc": "Distingue 카 de 가",
+  "hangulS5L4Step4Title": "¡Lección completada!",
+  "hangulS5L4Step4Msg": "¡Muy bien!\nHas aprendido el sonido y la forma de ㅋ.",
+  "hangulS5L5Title": "Forma y sonido de ㅌ",
+  "hangulS5L5Subtitle": "Lectura básica de ㅌ",
+  "hangulS5L5Step0Title": "Aprendamos ㅌ",
+  "hangulS5L5Step0Desc": "ㅌ produce la familia de sonidos \"타\".",
+  "hangulS5L5Step0Highlights": "ㅌ,타",
+  "hangulS5L5Step1Title": "Escucha los sonidos de ㅌ",
+  "hangulS5L5Step1Desc": "Escucha 타/토/투",
+  "hangulS5L5Step2Title": "Práctica de pronunciación",
+  "hangulS5L5Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L5Step3Title": "Elige el sonido ㅌ",
+  "hangulS5L5Step3Desc": "Distingue 타 de 다",
+  "hangulS5L5Step4Title": "¡Lección completada!",
+  "hangulS5L5Step4Msg": "¡Muy bien!\nHas aprendido el sonido y la forma de ㅌ.",
+  "hangulS5L6Title": "Forma y sonido de ㅍ",
+  "hangulS5L6Subtitle": "Lectura básica de ㅍ",
+  "hangulS5L6Step0Title": "Aprendamos ㅍ",
+  "hangulS5L6Step0Desc": "ㅍ produce la familia de sonidos \"파\".",
+  "hangulS5L6Step0Highlights": "ㅍ,파",
+  "hangulS5L6Step1Title": "Escucha los sonidos de ㅍ",
+  "hangulS5L6Step1Desc": "Escucha 파/포/푸",
+  "hangulS5L6Step2Title": "Práctica de pronunciación",
+  "hangulS5L6Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L6Step3Title": "Elige el sonido ㅍ",
+  "hangulS5L6Step3Desc": "Distingue 파 de 바",
+  "hangulS5L6Step4Title": "¡Lección completada!",
+  "hangulS5L6Step4Msg": "¡Muy bien!\nHas aprendido el sonido y la forma de ㅍ.",
+  "hangulS5L7Title": "Forma y sonido de ㅎ",
+  "hangulS5L7Subtitle": "Lectura básica de ㅎ",
+  "hangulS5L7Step0Title": "Aprendamos ㅎ",
+  "hangulS5L7Step0Desc": "ㅎ produce la familia de sonidos \"하\".",
+  "hangulS5L7Step0Highlights": "ㅎ,하",
+  "hangulS5L7Step1Title": "Escucha los sonidos de ㅎ",
+  "hangulS5L7Step1Desc": "Escucha 하/호/후",
+  "hangulS5L7Step2Title": "Práctica de pronunciación",
+  "hangulS5L7Step2Desc": "Di cada carácter en voz alta",
+  "hangulS5L7Step3Title": "Elige el sonido ㅎ",
+  "hangulS5L7Step3Desc": "Distingue 하 de 아",
+  "hangulS5L7Step4Title": "¡Lección completada!",
+  "hangulS5L7Step4Msg": "¡Muy bien!\nHas aprendido el sonido y la forma de ㅎ.",
+  "hangulS5L8Title": "Lectura aleatoria: consonantes extra",
+  "hangulS5L8Subtitle": "Repaso mezclado de ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ",
+  "hangulS5L8Step0Title": "Repaso aleatorio",
+  "hangulS5L8Step0Desc": "Vamos a leer las 7 consonantes extra todas mezcladas.",
+  "hangulS5L8Step0Highlights": "ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ",
+  "hangulS5L8Step1Title": "Quiz de forma/sonido",
+  "hangulS5L8Step1Desc": "Conecta sonidos con caracteres",
+  "hangulS5L8Step2Title": "¡Lección completada!",
+  "hangulS5L8Step2Msg": "¡Muy bien!\nHas repasado aleatoriamente las 7 consonantes extra.",
+  "hangulS5L9Title": "Vista previa de pares confusos",
+  "hangulS5L9Subtitle": "Práctica de distinción para el siguiente nivel",
+  "hangulS5L9Step0Title": "Primero veamos los pares difíciles",
+  "hangulS5L9Step0Desc": "Practica distinguir ㅈ/ㅊ, ㄱ/ㅋ, ㄷ/ㅌ y ㅂ/ㅍ.",
+  "hangulS5L9Step0Highlights": "ㅈ/ㅊ,ㄱ/ㅋ,ㄷ/ㅌ,ㅂ/ㅍ",
+  "hangulS5L9Step1Title": "Escucha contrastiva",
+  "hangulS5L9Step1Desc": "Elige el sonido correcto entre dos opciones",
+  "hangulS5L9Step2Title": "¡Lección completada!",
+  "hangulS5L9Step2Msg": "¡Muy bien!\nEstás listo para el siguiente nivel.",
+  "hangulS5LMTitle": "Misión de la Etapa 5",
+  "hangulS5LMSubtitle": "Misión integral: consonantes básicas 2",
+  "hangulS5LMStep0Title": "¡Comienza la misión!",
+  "hangulS5LMStep0Desc": "Combina las consonantes básicas 2 (ㅇ~ㅎ) con vocales.\n¡Alcanza el objetivo dentro del tiempo límite!",
+  "hangulS5LMStep1Title": "¡Forma sílabas!",
+  "hangulS5LMStep2Title": "Resultados de la misión",
+  "hangulS5LMStep3Title": "¡Etapa 5 completada!",
+  "hangulS5LMStep3Msg": "¡Felicidades!\nCompletaste la Etapa 5: consonantes básicas 2 (ㅇ~ㅎ).",
+  "hangulS5LMStep4Title": "¡Etapa 5 completada!",
+  "hangulS5LMStep4Msg": "¡Has dominado todas las consonantes básicas!",
+  "hangulS5CompleteTitle": "¡Etapa 5 completada!",
+  "hangulS5CompleteMsg": "¡Has dominado todas las consonantes básicas!",
+  "hangulS6L1Title": "Lectura de patrones 가~기",
+  "hangulS6L1Subtitle": "ㄱ + patrones de vocales básicas",
+  "hangulS6L1Step0Title": "Empezar a leer con patrones",
+  "hangulS6L1Step0Desc": "Cambia la vocal unida a ㄱ\ny encontrarás el ritmo de lectura.",
+  "hangulS6L1Step0Highlights": "가,거,고,구,그,기",
+  "hangulS6L1Step1Title": "Escuchar los sonidos del patrón",
+  "hangulS6L1Step1Desc": "Escucha 가/거/고/구/그/기 en orden",
+  "hangulS6L1Step2Title": "Práctica de pronunciación",
+  "hangulS6L1Step2Desc": "Di cada sílaba en voz alta",
+  "hangulS6L1Step3Title": "Quiz de patrones",
+  "hangulS6L1Step3Desc": "Encuentra el mismo patrón de consonante",
+  "hangulS6L1Step3Q0": "ㄱ + ㅏ = ?",
+  "hangulS6L1Step3Q1": "ㄱ + ㅓ = ?",
+  "hangulS6L1Step3Q2": "ㄱ + ㅡ = ?",
+  "hangulS6L1Step4Title": "¡Lección completada!",
+  "hangulS6L1Step4Msg": "¡Genial!\nHas empezado a leer los patrones 가~기.",
+  "hangulS6L2Title": "Expansión de 나~니",
+  "hangulS6L2Subtitle": "Lectura de patrones ㄴ",
+  "hangulS6L2Step0Title": "Expandir los patrones de ㄴ",
+  "hangulS6L2Step0Desc": "Cambia la vocal en ㄴ para leer 나~니.",
+  "hangulS6L2Step0Highlights": "나,너,노,누,느,니",
+  "hangulS6L2Step1Title": "Escuchar 나~니",
+  "hangulS6L2Step1Desc": "Escucha los sonidos del patrón ㄴ",
+  "hangulS6L2Step2Title": "Práctica de pronunciación",
+  "hangulS6L2Step2Desc": "Di cada sílaba en voz alta",
+  "hangulS6L2Step3Title": "Construir combinaciones con ㄴ",
+  "hangulS6L2Step3Desc": "Forma sílabas con ㄴ + vocal",
+  "hangulS6L2Step4Title": "¡Lección completada!",
+  "hangulS6L2Step4Msg": "¡Genial!\nHas dominado los patrones 나~니.",
+  "hangulS6L3Title": "Expansión de 다~디 y 라~리",
+  "hangulS6L3Subtitle": "Lectura de patrones ㄷ/ㄹ",
+  "hangulS6L3Step0Title": "Leer cambiando solo la consonante",
+  "hangulS6L3Step0Desc": "Cambiar solo la consonante con la misma vocal\naumentará tu velocidad de lectura.",
+  "hangulS6L3Step0Highlights": "다/라,도/로,두/루,디/리",
+  "hangulS6L3Step1Title": "Escuchar: distinguir ㄷ/ㄹ",
+  "hangulS6L3Step1Desc": "Escucha y elige la sílaba correcta",
+  "hangulS6L3Step2Title": "Quiz de lectura",
+  "hangulS6L3Step2Desc": "Comprueba los patrones",
+  "hangulS6L3Step2Q0": "ㄷ + ㅣ = ?",
+  "hangulS6L3Step2Q1": "ㄹ + ㅗ = ?",
+  "hangulS6L3Step3Title": "¡Lección completada!",
+  "hangulS6L3Step3Msg": "¡Genial!\nHas aprendido los patrones ㄷ/ㄹ.",
+  "hangulS6L4Title": "Lectura de sílabas al azar 1",
+  "hangulS6L4Subtitle": "Mezclar patrones básicos",
+  "hangulS6L4Step0Title": "Leer sin orden",
+  "hangulS6L4Step0Desc": "Ahora vamos a leer como tarjetas al azar.",
+  "hangulS6L4Step1Title": "Lectura aleatoria",
+  "hangulS6L4Step1Desc": "Identifica las sílabas presentadas al azar",
+  "hangulS6L4Step1Q0": "ㄱ + ㅗ = ?",
+  "hangulS6L4Step1Q1": "ㄴ + ㅜ = ?",
+  "hangulS6L4Step1Q2": "ㄹ + ㅏ = ?",
+  "hangulS6L4Step1Q3": "ㅁ + ㅣ = ?",
+  "hangulS6L4Step2Title": "¡Lección completada!",
+  "hangulS6L4Step2Msg": "¡Genial!\nHas completado la lectura aleatoria 1.",
+  "hangulS6L5Title": "Encontrar la sílaba por sonido",
+  "hangulS6L5Subtitle": "Reforzar la conexión sonido-letra",
+  "hangulS6L5Step0Title": "Práctica de escuchar y encontrar",
+  "hangulS6L5Step0Desc": "Escucha el sonido y elige la sílaba correspondiente\npara reforzar tu conexión de lectura.",
+  "hangulS6L5Step1Title": "Emparejamiento de sonidos",
+  "hangulS6L5Step1Desc": "Elige la sílaba correcta",
+  "hangulS6L5Step2Title": "¡Lección completada!",
+  "hangulS6L5Step2Msg": "¡Genial!\nHas completado la práctica de escuchar y encontrar.",
+  "hangulS6L6Title": "Combinación de vocal compuesta 1",
+  "hangulS6L6Subtitle": "Lectura de ㅘ, ㅝ",
+  "hangulS6L6Step0Title": "Comenzar con vocales compuestas",
+  "hangulS6L6Step0Desc": "Vamos a leer sílabas formadas con ㅘ y ㅝ.",
+  "hangulS6L6Step0Highlights": "ㅘ,ㅝ,와,워",
+  "hangulS6L6Step1Title": "Escuchar 와/워",
+  "hangulS6L6Step1Desc": "Escucha los sonidos de las sílabas representativas",
+  "hangulS6L6Step2Title": "Práctica de pronunciación",
+  "hangulS6L6Step2Desc": "Di cada sílaba en voz alta",
+  "hangulS6L6Step3Title": "Quiz de vocales compuestas",
+  "hangulS6L6Step3Desc": "Distingue ㅘ y ㅝ",
+  "hangulS6L6Step3Q0": "ㅇ + ㅘ = ?",
+  "hangulS6L6Step3Q1": "ㄱ + ㅝ = ?",
+  "hangulS6L6Step4Title": "¡Lección completada!",
+  "hangulS6L6Step4Msg": "¡Genial!\nHas aprendido las combinaciones ㅘ/ㅝ.",
+  "hangulS6L7Title": "Combinación de vocal compuesta 2",
+  "hangulS6L7Subtitle": "Lectura de ㅙ, ㅞ, ㅚ, ㅟ, ㅢ",
+  "hangulS6L7Step0Title": "Ampliación de vocales compuestas",
+  "hangulS6L7Step0Desc": "Aprende brevemente las vocales compuestas y concéntrate en la lectura.",
+  "hangulS6L7Step0Highlights": "왜,웨,외,위,의",
+  "hangulS6L7Step1Title": "La pronunciación especial de ㅢ",
+  "hangulS6L7Step1Desc": "ㅢ es una vocal especial cuyo sonido cambia según su posición.\n\n• Posición inicial: [의] → 의사, 의자\n• Después de consonante: [이] → 희망→[히망]\n• Partícula \"의\": [에] → 나의→[나에]",
+  "hangulS6L7Step1Highlights": "ㅢ,의,이,에",
+  "hangulS6L7Step2Title": "Elegir la vocal compuesta",
+  "hangulS6L7Step2Desc": "Elige la sílaba correcta",
+  "hangulS6L7Step2Q0": "ㅇ + ㅙ = ?",
+  "hangulS6L7Step2Q1": "ㅇ + ㅟ = ?",
+  "hangulS6L7Step2Q2": "ㅇ + ㅢ = ?",
+  "hangulS6L7Step3Title": "¡Lección completada!",
+  "hangulS6L7Step3Msg": "¡Genial!\nHas completado la ampliación de vocales compuestas.",
+  "hangulS6L8Title": "Lectura de sílabas al azar 2",
+  "hangulS6L8Subtitle": "Repaso de vocales básicas y compuestas",
+  "hangulS6L8Step0Title": "Lectura aleatoria integral",
+  "hangulS6L8Step0Desc": "Lee sílabas de vocales básicas y compuestas mezcladas.",
+  "hangulS6L8Step1Title": "Quiz integral",
+  "hangulS6L8Step1Desc": "Identifica las combinaciones aleatorias",
+  "hangulS6L8Step1Q0": "ㄱ + ㅢ = ?",
+  "hangulS6L8Step1Q1": "ㅎ + ㅘ = ?",
+  "hangulS6L8Step1Q2": "ㅂ + ㅟ = ?",
+  "hangulS6L8Step1Q3": "ㅈ + ㅝ = ?",
+  "hangulS6L8Step2Title": "¡Lección completada!",
+  "hangulS6L8Step2Msg": "¡Genial!\nHas completado la lectura integral de la Etapa 6.",
+  "hangulS6LMTitle": "Misión de la Etapa 6",
+  "hangulS6LMSubtitle": "Verificación final: lectura de combinaciones",
+  "hangulS6LMStep0Title": "¡Comienza la misión!",
+  "hangulS6LMStep0Desc": "Esta es la verificación final del entrenamiento de combinaciones.\n¡Alcanza tu objetivo dentro del tiempo límite!",
+  "hangulS6LMStep1Title": "¡Combina las sílabas!",
+  "hangulS6LMStep2Title": "Resultados de la misión",
+  "hangulS6LMStep3Title": "¡Etapa 6 completada!",
+  "hangulS6LMStep3Msg": "¡Felicidades!\nHas completado el entrenamiento de combinaciones de la Etapa 6.",
+  "hangulS6CompleteTitle": "¡Etapa 6 completada!",
+  "hangulS6CompleteMsg": "¡Ahora puedes combinar sílabas libremente!",
+  "hangulS7L1Title": "Distinción ㄱ / ㅋ / ㄲ",
+  "hangulS7L1Subtitle": "Comparación de 가 · 카 · 까",
+  "hangulS7L1Step0Title": "Escucha los tres sonidos",
+  "hangulS7L1Step0Desc": "Distingue los sonidos ㄱ (simple), ㅋ (aspirado), ㄲ (tenso).",
+  "hangulS7L1Step0Highlights": "ㄱ,ㅋ,ㄲ,가,카,까",
+  "hangulS7L1Step1Title": "Exploración de sonidos",
+  "hangulS7L1Step1Desc": "Escucha 가/카/까 varias veces",
+  "hangulS7L1Step2Title": "Práctica de pronunciación",
+  "hangulS7L1Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS7L1Step3Title": "Escucha y elige",
+  "hangulS7L1Step3Desc": "Selecciona la respuesta correcta entre tres opciones",
+  "hangulS7L1Step4Title": "Verificación rápida",
+  "hangulS7L1Step4Desc": "Verifica la forma y el sonido juntos",
+  "hangulS7L1Step4Q0": "¿Cuál es la consonante aspirada?",
+  "hangulS7L1Step4Q1": "¿Cuál es la consonante tensa?",
+  "hangulS7L1Step5Title": "¡Lección completada!",
+  "hangulS7L1Step5Msg": "¡Muy bien!\nAprendiste a distinguir ㄱ/ㅋ/ㄲ.",
+  "hangulS7L2Title": "Distinción ㄷ / ㅌ / ㄸ",
+  "hangulS7L2Subtitle": "Comparación de 다 · 타 · 따",
+  "hangulS7L2Step0Title": "Segundo grupo de contraste",
+  "hangulS7L2Step0Desc": "Compara los sonidos ㄷ/ㅌ/ㄸ.",
+  "hangulS7L2Step0Highlights": "ㄷ,ㅌ,ㄸ,다,타,따",
+  "hangulS7L2Step1Title": "Exploración de sonidos",
+  "hangulS7L2Step1Desc": "Escucha 다/타/따 varias veces",
+  "hangulS7L2Step2Title": "Práctica de pronunciación",
+  "hangulS7L2Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS7L2Step3Title": "Escucha y elige",
+  "hangulS7L2Step3Desc": "Selecciona la respuesta correcta entre tres opciones",
+  "hangulS7L2Step4Title": "¡Lección completada!",
+  "hangulS7L2Step4Msg": "¡Muy bien!\nAprendiste a distinguir ㄷ/ㅌ/ㄸ.",
+  "hangulS7L3Title": "Distinción ㅂ / ㅍ / ㅃ",
+  "hangulS7L3Subtitle": "Comparación de 바 · 파 · 빠",
+  "hangulS7L3Step0Title": "Tercer grupo de contraste",
+  "hangulS7L3Step0Desc": "Compara los sonidos ㅂ/ㅍ/ㅃ.",
+  "hangulS7L3Step0Highlights": "ㅂ,ㅍ,ㅃ,바,파,빠",
+  "hangulS7L3Step1Title": "Exploración de sonidos",
+  "hangulS7L3Step1Desc": "Escucha 바/파/빠 varias veces",
+  "hangulS7L3Step2Title": "Práctica de pronunciación",
+  "hangulS7L3Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS7L3Step3Title": "Escucha y elige",
+  "hangulS7L3Step3Desc": "Selecciona la respuesta correcta entre tres opciones",
+  "hangulS7L3Step4Title": "¡Lección completada!",
+  "hangulS7L3Step4Msg": "¡Muy bien!\nAprendiste a distinguir ㅂ/ㅍ/ㅃ.",
+  "hangulS7L4Title": "Distinción ㅅ / ㅆ",
+  "hangulS7L4Subtitle": "Comparación de 사 · 싸",
+  "hangulS7L4Step0Title": "Contraste de dos sonidos",
+  "hangulS7L4Step0Desc": "Distingue los sonidos ㅅ/ㅆ.",
+  "hangulS7L4Step0Highlights": "ㅅ,ㅆ,사,싸",
+  "hangulS7L4Step1Title": "Exploración de sonidos",
+  "hangulS7L4Step1Desc": "Escucha 사/싸 varias veces",
+  "hangulS7L4Step2Title": "Práctica de pronunciación",
+  "hangulS7L4Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS7L4Step3Title": "Escucha y elige",
+  "hangulS7L4Step3Desc": "Selecciona la respuesta correcta entre dos opciones",
+  "hangulS7L4Step4Title": "¡Lección completada!",
+  "hangulS7L4Step4Msg": "¡Muy bien!\nAprendiste a distinguir ㅅ/ㅆ.",
+  "hangulS7L5Title": "Distinción ㅈ / ㅊ / ㅉ",
+  "hangulS7L5Subtitle": "Comparación de 자 · 차 · 짜",
+  "hangulS7L5Step0Title": "Último grupo de contraste",
+  "hangulS7L5Step0Desc": "Compara los sonidos ㅈ/ㅊ/ㅉ.",
+  "hangulS7L5Step0Highlights": "ㅈ,ㅊ,ㅉ,자,차,짜",
+  "hangulS7L5Step1Title": "Exploración de sonidos",
+  "hangulS7L5Step1Desc": "Escucha 자/차/짜 varias veces",
+  "hangulS7L5Step2Title": "Práctica de pronunciación",
+  "hangulS7L5Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS7L5Step3Title": "Escucha y elige",
+  "hangulS7L5Step3Desc": "Selecciona la respuesta correcta entre tres opciones",
+  "hangulS7L5Step4Title": "¡Etapa 7 completada!",
+  "hangulS7L5Step4Msg": "¡Felicidades!\nCompletaste los 5 grupos de contraste de la Etapa 7.",
+  "hangulS7LMTitle": "Misión: ¡Desafío de distinción de sonidos!",
+  "hangulS7LMSubtitle": "Distingue consonantes simples, aspiradas y tensas",
+  "hangulS7LMStep0Title": "¡Misión de distinción de sonidos!",
+  "hangulS7LMStep0Desc": "Mezcla consonantes simples, aspiradas y tensas\n¡para combinar sílabas rápidamente!",
+  "hangulS7LMStep1Title": "¡Combina las sílabas!",
+  "hangulS7LMStep2Title": "Resultados de la misión",
+  "hangulS7LMStep3Title": "¡Misión completada!",
+  "hangulS7LMStep3Msg": "¡Puedes distinguir consonantes simples, aspiradas y tensas!",
+  "hangulS7LMStep4Title": "¡Etapa 7 completada!",
+  "hangulS7LMStep4Msg": "¡Puedes distinguir consonantes tensas y aspiradas!",
+  "hangulS7CompleteTitle": "¡Etapa 7 completada!",
+  "hangulS7CompleteMsg": "¡Puedes distinguir consonantes tensas y aspiradas!",
+  "hangulS8L0Title": "Concepto de batchim",
+  "hangulS8L0Subtitle": "El sonido debajo del bloque silábico",
+  "hangulS8L0Step0Title": "El batchim va abajo",
+  "hangulS8L0Step0Desc": "El batchim (consonante final) va en la parte inferior del bloque silábico.\nEjemplo: 가 + ㄴ = 간",
+  "hangulS8L0Step0Highlights": "batchim,간,말,집",
+  "hangulS8L0Step1Title": "7 sonidos representativos del batchim",
+  "hangulS8L0Step1Desc": "Solo existen 7 sonidos representativos para el batchim.\n\nㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ\n\nMuchas letras batchim se pronuncian como uno de estos 7 sonidos.\nEjemplo: ㅅ, ㅈ, ㅊ, ㅎ como batchim → todos suenan [ㄷ]",
+  "hangulS8L0Step1Highlights": "7 sonidos,ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ,representativo",
+  "hangulS8L0Step2Title": "Encuentra el batchim",
+  "hangulS8L0Step2Desc": "Identifica la posición del batchim",
+  "hangulS8L0Step2Q0": "¿Cuál es el batchim en 간?",
+  "hangulS8L0Step2Q1": "¿Cuál es el batchim en 말?",
+  "hangulS8L0SummaryTitle": "¡Lección completada!",
+  "hangulS8L0SummaryMsg": "¡Muy bien!\nEntiendes el concepto de batchim.",
+  "hangulS8L1Title": "Batchim ㄴ",
+  "hangulS8L1Subtitle": "간 · 난 · 단",
+  "hangulS8L1Step0Title": "Escucha el batchim ㄴ",
+  "hangulS8L1Step0Desc": "Escucha 간/난/단",
+  "hangulS8L1Step1Title": "Práctica de pronunciación",
+  "hangulS8L1Step1Desc": "Di cada carácter en voz alta",
+  "hangulS8L1Step2Title": "Escucha y elige",
+  "hangulS8L1Step2Desc": "Selecciona la sílaba con batchim ㄴ",
+  "hangulS8L1SummaryTitle": "¡Lección completada!",
+  "hangulS8L1SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㄴ.",
+  "hangulS8L2Title": "Batchim ㄹ",
+  "hangulS8L2Subtitle": "말 · 갈 · 물",
+  "hangulS8L2Step0Title": "Escucha el batchim ㄹ",
+  "hangulS8L2Step0Desc": "Escucha 말/갈/물",
+  "hangulS8L2Step1Title": "Práctica de pronunciación",
+  "hangulS8L2Step1Desc": "Di cada carácter en voz alta",
+  "hangulS8L2Step2Title": "Escucha y elige",
+  "hangulS8L2Step2Desc": "Selecciona la sílaba con batchim ㄹ",
+  "hangulS8L2SummaryTitle": "¡Lección completada!",
+  "hangulS8L2SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㄹ.",
+  "hangulS8L3Title": "Batchim ㅁ",
+  "hangulS8L3Subtitle": "감 · 밤 · 숨",
+  "hangulS8L3Step0Title": "Escucha el batchim ㅁ",
+  "hangulS8L3Step0Desc": "Escucha 감/밤/숨",
+  "hangulS8L3Step1Title": "Práctica de pronunciación",
+  "hangulS8L3Step1Desc": "Di cada carácter en voz alta",
+  "hangulS8L3Step2Title": "Identifica el batchim",
+  "hangulS8L3Step2Desc": "Elige la sílaba con batchim ㅁ",
+  "hangulS8L3Step2Q0": "¿Cuál tiene batchim ㅁ?",
+  "hangulS8L3Step2Q1": "¿Cuál tiene batchim ㅁ?",
+  "hangulS8L3SummaryTitle": "¡Lección completada!",
+  "hangulS8L3SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㅁ.",
+  "hangulS8L4Title": "Batchim ㅇ",
+  "hangulS8L4Subtitle": "방 · 공 · 종",
+  "hangulS8L4Step0Title": "¡ㅇ es especial!",
+  "hangulS8L4Step0Desc": "Como consonante inicial, ㅇ es silencioso (아, 오),\npero como batchim suena \"ng\" (방, 공).",
+  "hangulS8L4Step0Highlights": "consonante inicial,batchim,ng,방,공",
+  "hangulS8L4Step1Title": "Escucha el batchim ㅇ",
+  "hangulS8L4Step1Desc": "Escucha 방/공/종",
+  "hangulS8L4Step2Title": "Práctica de pronunciación",
+  "hangulS8L4Step2Desc": "Di cada carácter en voz alta",
+  "hangulS8L4Step3Title": "Escucha y elige",
+  "hangulS8L4Step3Desc": "Selecciona la sílaba con batchim ㅇ",
+  "hangulS8L4SummaryTitle": "¡Lección completada!",
+  "hangulS8L4SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㅇ.",
+  "hangulS8L5Title": "Batchim ㄱ",
+  "hangulS8L5Subtitle": "박 · 각 · 국",
+  "hangulS8L5Step0Title": "Escucha el batchim ㄱ",
+  "hangulS8L5Step0Desc": "Escucha 박/각/국",
+  "hangulS8L5Step1Title": "Práctica de pronunciación",
+  "hangulS8L5Step1Desc": "Di cada carácter en voz alta",
+  "hangulS8L5Step2Title": "Identifica el batchim",
+  "hangulS8L5Step2Desc": "Elige la sílaba con batchim ㄱ",
+  "hangulS8L5Step2Q0": "¿Cuál tiene batchim ㄱ?",
+  "hangulS8L5Step2Q1": "¿Cuál tiene batchim ㄱ?",
+  "hangulS8L5SummaryTitle": "¡Lección completada!",
+  "hangulS8L5SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㄱ.",
+  "hangulS8L6Title": "Batchim ㅂ",
+  "hangulS8L6Subtitle": "밥 · 집 · 숲",
+  "hangulS8L6Step0Title": "Escucha el batchim ㅂ",
+  "hangulS8L6Step0Desc": "Escucha 밥/집/숲",
+  "hangulS8L6Step1Title": "Práctica de pronunciación",
+  "hangulS8L6Step1Desc": "Di cada carácter en voz alta",
+  "hangulS8L6Step2Title": "Escucha y elige",
+  "hangulS8L6Step2Desc": "Selecciona la sílaba con batchim ㅂ",
+  "hangulS8L6SummaryTitle": "¡Lección completada!",
+  "hangulS8L6SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㅂ.",
+  "hangulS8L7Title": "Batchim ㅅ",
+  "hangulS8L7Subtitle": "옷 · 맛 · 빛",
+  "hangulS8L7Step0Title": "Escucha el batchim ㅅ",
+  "hangulS8L7Step0Desc": "Escucha 옷/맛/빛",
+  "hangulS8L7Step1Title": "Práctica de pronunciación",
+  "hangulS8L7Step1Desc": "Di cada carácter en voz alta",
+  "hangulS8L7Step2Title": "Identifica el batchim",
+  "hangulS8L7Step2Desc": "Elige la sílaba con batchim ㅅ",
+  "hangulS8L7Step2Q0": "¿Cuál tiene batchim ㅅ?",
+  "hangulS8L7Step2Q1": "¿Cuál tiene batchim ㅅ?",
+  "hangulS8L7SummaryTitle": "¡Lección completada!",
+  "hangulS8L7SummaryMsg": "¡Muy bien!\nAprendiste el batchim ㅅ.",
+  "hangulS8L8Title": "Repaso mixto de batchim",
+  "hangulS8L8Subtitle": "Revisión aleatoria de batchim clave",
+  "hangulS8L8Step0Title": "Mezcla todos juntos",
+  "hangulS8L8Step0Desc": "Repasemos ㄴ ㄹ ㅁ ㅇ ㄱ ㅂ ㅅ juntos.",
+  "hangulS8L8Step1Title": "Quiz aleatorio",
+  "hangulS8L8Step1Desc": "Pon a prueba tu conocimiento de batchim mixto",
+  "hangulS8L8Step1Q0": "¿Cuál tiene batchim ㄴ?",
+  "hangulS8L8Step1Q1": "¿Cuál tiene batchim ㅇ?",
+  "hangulS8L8Step1Q2": "¿Cuál tiene batchim ㄹ?",
+  "hangulS8L8Step1Q3": "¿Cuál tiene batchim ㅂ?",
+  "hangulS8L8SummaryTitle": "¡Lección completada!",
+  "hangulS8L8SummaryMsg": "¡Muy bien!\nCompletaste el repaso mixto de batchim.",
+  "hangulS8LMTitle": "¡Misión: Desafío batchim!",
+  "hangulS8LMSubtitle": "Combina sílabas con batchim",
+  "hangulS8LMStep0Title": "¡Misión batchim!",
+  "hangulS8LMStep0Desc": "Lee sílabas con batchim básico\n¡y responde rápido!",
+  "hangulS8LMStep1Title": "¡Forma las sílabas!",
+  "hangulS8LMStep2Title": "Resultados de la misión",
+  "hangulS8LMSummaryTitle": "¡Misión completada!",
+  "hangulS8LMSummaryMsg": "¡Has dominado por completo las bases del batchim!",
+  "hangulS8CompleteTitle": "¡Etapa 8 completada!",
+  "hangulS8CompleteMsg": "¡Has construido una base sólida en batchim!",
+  "hangulS9L1Title": "Batchim ㄷ Extendido",
+  "hangulS9L1Subtitle": "닫 · 곧 · 묻",
+  "hangulS9L1Step0Title": "Patrón del batchim ㄷ",
+  "hangulS9L1Step0Desc": "Lee las sílabas que llevan ㄷ como batchim.",
+  "hangulS9L1Step0Highlights": "닫,곧,묻",
+  "hangulS9L1Step1Title": "Escuchar: batchim ㄷ",
+  "hangulS9L1Step1Desc": "Escucha 닫/곧/묻",
+  "hangulS9L1Step2Title": "Práctica de pronunciación",
+  "hangulS9L1Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS9L1Step3Title": "Identifica el batchim",
+  "hangulS9L1Step3Desc": "Elige la sílaba con batchim ㄷ",
+  "hangulS9L1Step3Q0": "¿Cuál tiene batchim ㄷ?",
+  "hangulS9L1Step3Q1": "¿Cuál tiene batchim ㄷ?",
+  "hangulS9L1Step4Title": "¡Lección completada!",
+  "hangulS9L1Step4Msg": "¡Muy bien!\nHas aprendido el batchim ㄷ.",
+  "hangulS9L2Title": "Batchim ㅈ Extendido",
+  "hangulS9L2Subtitle": "낮 · 잊 · 젖",
+  "hangulS9L2Step0Title": "Escuchar: batchim ㅈ",
+  "hangulS9L2Step0Desc": "Escucha 낮/잊/젖",
+  "hangulS9L2Step1Title": "Práctica de pronunciación",
+  "hangulS9L2Step1Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS9L2Step2Title": "Escucha y elige",
+  "hangulS9L2Step2Desc": "Selecciona la sílaba con batchim ㅈ",
+  "hangulS9L2Step3Title": "¡Lección completada!",
+  "hangulS9L2Step3Msg": "¡Muy bien!\nHas aprendido el batchim ㅈ.",
+  "hangulS9L3Title": "Batchim ㅊ Extendido",
+  "hangulS9L3Subtitle": "꽃 · 닻 · 빚",
+  "hangulS9L3Step0Title": "Escuchar: batchim ㅊ",
+  "hangulS9L3Step0Desc": "Escucha 꽃/닻/빚",
+  "hangulS9L3Step1Title": "Práctica de pronunciación",
+  "hangulS9L3Step1Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS9L3Step2Title": "Identifica el batchim",
+  "hangulS9L3Step2Desc": "Elige la sílaba con batchim ㅊ",
+  "hangulS9L3Step2Q0": "¿Cuál tiene batchim ㅊ?",
+  "hangulS9L3Step2Q1": "¿Cuál tiene batchim ㅊ?",
+  "hangulS9L3Step3Title": "¡Lección completada!",
+  "hangulS9L3Step3Msg": "¡Muy bien!\nHas aprendido el batchim ㅊ.",
+  "hangulS9L4Title": "Batchim ㅋ / ㅌ / ㅍ",
+  "hangulS9L4Subtitle": "부엌 · 밭 · 앞",
+  "hangulS9L4Step0Title": "Tres batchim juntos",
+  "hangulS9L4Step0Desc": "Aprende ㅋ, ㅌ y ㅍ como batchim de una vez.",
+  "hangulS9L4Step0Highlights": "부엌,밭,앞",
+  "hangulS9L4Step1Title": "Escuchar los sonidos",
+  "hangulS9L4Step1Desc": "Escucha 부엌/밭/앞",
+  "hangulS9L4Step2Title": "Práctica de pronunciación",
+  "hangulS9L4Step2Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS9L4Step3Title": "Identifica el batchim",
+  "hangulS9L4Step3Desc": "Distingue los tres batchim",
+  "hangulS9L4Step3Q0": "¿Cuál tiene batchim ㅌ?",
+  "hangulS9L4Step3Q1": "¿Cuál tiene batchim ㅍ?",
+  "hangulS9L4Step4Title": "¡Lección completada!",
+  "hangulS9L4Step4Msg": "¡Muy bien!\nHas aprendido los batchim ㅋ/ㅌ/ㅍ.",
+  "hangulS9L5Title": "Batchim ㅎ Extendido",
+  "hangulS9L5Subtitle": "좋 · 놓 · 않",
+  "hangulS9L5Step0Title": "Escuchar: batchim ㅎ",
+  "hangulS9L5Step0Desc": "Escucha 좋/놓/않",
+  "hangulS9L5Step1Title": "Práctica de pronunciación",
+  "hangulS9L5Step1Desc": "Pronuncia cada carácter en voz alta",
+  "hangulS9L5Step2Title": "Escucha y elige",
+  "hangulS9L5Step2Desc": "Selecciona la sílaba con batchim ㅎ",
+  "hangulS9L5Step3Title": "¡Lección completada!",
+  "hangulS9L5Step3Msg": "¡Muy bien!\nHas aprendido el batchim ㅎ.",
+  "hangulS9L6Title": "Batchim Extendido Mixto",
+  "hangulS9L6Subtitle": "Mezclando ㄷ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ",
+  "hangulS9L6Step0Title": "Todo mezclado",
+  "hangulS9L6Step0Desc": "Repasa todos los batchim extendidos al azar.",
+  "hangulS9L6Step1Title": "Quiz aleatorio",
+  "hangulS9L6Step1Desc": "Resuelve y distingue cada batchim",
+  "hangulS9L6Step1Q0": "¿Cuál tiene batchim ㄷ?",
+  "hangulS9L6Step1Q1": "¿Cuál tiene batchim ㅈ?",
+  "hangulS9L6Step1Q2": "¿Cuál tiene batchim ㅊ?",
+  "hangulS9L6Step1Q3": "¿Cuál tiene batchim ㅎ?",
+  "hangulS9L6Step2Title": "¡Lección completada!",
+  "hangulS9L6Step2Msg": "¡Muy bien!\nRepaso aleatorio de batchim extendido completado.",
+  "hangulS9L7Title": "Repaso de la Etapa 9",
+  "hangulS9L7Subtitle": "Cierre de la lectura con batchim extendido",
+  "hangulS9L7Step0Title": "Verificación final",
+  "hangulS9L7Step0Desc": "Revisión final de los puntos clave de la Etapa 9",
+  "hangulS9L7Step1Title": "¡Etapa 9 completada!",
+  "hangulS9L7Step1Msg": "¡Felicidades!\nHas completado el batchim extendido de la Etapa 9.",
+  "hangulS9LMTitle": "Misión: ¡Desafío batchim extendido!",
+  "hangulS9LMSubtitle": "Lee distintos batchim rápidamente",
+  "hangulS9LMStep0Title": "¡Misión batchim extendido!",
+  "hangulS9LMStep0Desc": "Combina sílabas con batchim extendido\n¡lo más rápido posible!",
+  "hangulS9LMStep1Title": "¡Combina las sílabas!",
+  "hangulS9LMStep2Title": "Resultado de la misión",
+  "hangulS9LMStep3Title": "¡Misión completada!",
+  "hangulS9LMStep3Msg": "¡Has dominado el batchim extendido!",
+  "hangulS9CompleteTitle": "¡Etapa 9 completada!",
+  "hangulS9CompleteMsg": "¡Has dominado el batchim extendido!",
+  "hangulS10L1Title": "Batchim ㄳ",
+  "hangulS10L1Subtitle": "Lectura centrada en 몫 · 넋",
+  "hangulS10L1Step0Title": "Reglas de pronunciación del batchim doble",
+  "hangulS10L1Step0Desc": "El batchim doble es una consonante final formada por dos consonantes combinadas.\n\nLa mayoría se pronuncian con la consonante izquierda:\nㄳ→[ㄱ], ㄵ→[ㄴ], ㄶ→[ㄴ], ㄻ→[ㅁ], ㅄ→[ㅂ]\n\nAlgunos se pronuncian con la consonante derecha:\nㄺ→[ㄹ], ㄼ→[ㄹ]",
+  "hangulS10L1Step0Highlights": "consonante izquierda,consonante derecha,batchim doble",
+  "hangulS10L1Step1Title": "Comenzando con el batchim compuesto",
+  "hangulS10L1Step1Desc": "Leamos palabras que contienen el batchim ㄳ.",
+  "hangulS10L1Step1Highlights": "몫,넋",
+  "hangulS10L1Step2Title": "Escuchar los sonidos",
+  "hangulS10L1Step2Desc": "Escucha 몫/넋",
+  "hangulS10L1Step3Title": "Práctica de pronunciación",
+  "hangulS10L1Step3Desc": "Di cada carácter en voz alta",
+  "hangulS10L1Step4Title": "Verificación de lectura",
+  "hangulS10L1Step4Desc": "Mira la palabra y elige la correcta",
+  "hangulS10L1Step4Q0": "¿Qué palabra tiene el batchim ㄳ?",
+  "hangulS10L1Step4Q1": "¿Qué palabra tiene el batchim ㄳ?",
+  "hangulS10L1Step5Title": "¡Lección completada!",
+  "hangulS10L1Step5Msg": "¡Muy bien!\nHas aprendido el batchim ㄳ.",
+  "hangulS10L2Title": "Batchim ㄵ / ㄶ",
+  "hangulS10L2Subtitle": "앉다 · 많다",
+  "hangulS10L2Step0Title": "Escuchar los sonidos",
+  "hangulS10L2Step0Desc": "Escucha 앉다/많다",
+  "hangulS10L2Step1Title": "Práctica de pronunciación",
+  "hangulS10L2Step1Desc": "Di cada carácter en voz alta",
+  "hangulS10L2Step2Title": "Escuchar y elegir",
+  "hangulS10L2Step2Desc": "Selecciona la palabra correcta",
+  "hangulS10L2Step3Title": "¡Lección completada!",
+  "hangulS10L2Step3Msg": "¡Muy bien!\nHas aprendido los batchim ㄵ/ㄶ.",
+  "hangulS10L3Title": "Batchim ㄺ / ㄻ",
+  "hangulS10L3Subtitle": "읽다 · 삶",
+  "hangulS10L3Step0Title": "Escuchar los sonidos",
+  "hangulS10L3Step0Desc": "Escucha 읽다/삶",
+  "hangulS10L3Step1Title": "Práctica de pronunciación",
+  "hangulS10L3Step1Desc": "Di cada carácter en voz alta",
+  "hangulS10L3Step2Title": "Verificación de lectura",
+  "hangulS10L3Step2Desc": "Elige la palabra con batchim compuesto",
+  "hangulS10L3Step2Q0": "¿Qué palabra tiene el batchim ㄺ?",
+  "hangulS10L3Step2Q1": "¿Qué palabra tiene el batchim ㄻ?",
+  "hangulS10L3Step3Title": "¡Lección completada!",
+  "hangulS10L3Step3Msg": "¡Muy bien!\nHas aprendido los batchim ㄺ/ㄻ.",
+  "hangulS10L4Title": "Conjunto avanzado 1",
+  "hangulS10L4Subtitle": "ㄼ · ㄾ · ㄿ · ㅀ",
+  "hangulS10L4Step0Title": "Presentación del conjunto avanzado",
+  "hangulS10L4Step0Desc": "Aprendamos brevemente a través de ejemplos comunes.",
+  "hangulS10L4Step0Highlights": "넓다,핥다,읊다,싫다",
+  "hangulS10L4Step1Title": "Escuchar las palabras",
+  "hangulS10L4Step1Desc": "Escucha 넓다/핥다/읊다/싫다",
+  "hangulS10L4Step2Title": "Práctica de pronunciación",
+  "hangulS10L4Step2Desc": "Di cada carácter en voz alta",
+  "hangulS10L4Step3Title": "¡Lección completada!",
+  "hangulS10L4Step3Msg": "¡Muy bien!\nHas aprendido el conjunto avanzado 1.",
+  "hangulS10L5Title": "Batchim ㅄ",
+  "hangulS10L5Subtitle": "Lectura centrada en 없다",
+  "hangulS10L5Step0Title": "Escuchar los sonidos",
+  "hangulS10L5Step0Desc": "Escucha 없다/없어",
+  "hangulS10L5Step1Title": "Práctica de pronunciación",
+  "hangulS10L5Step1Desc": "Di cada carácter en voz alta",
+  "hangulS10L5Step2Title": "Escuchar y elegir",
+  "hangulS10L5Step2Desc": "Elige la palabra correcta",
+  "hangulS10L5Step3Title": "¡Lección completada!",
+  "hangulS10L5Step3Msg": "¡Muy bien!\nHas aprendido el batchim ㅄ.",
+  "hangulS10L6Title": "Resumen de la Etapa 10",
+  "hangulS10L6Subtitle": "Integración de palabras con batchim compuesto",
+  "hangulS10L6Step0Title": "Revisión integral",
+  "hangulS10L6Step0Desc": "Hagamos una revisión final de palabras con batchim compuesto",
+  "hangulS10L6Step0Q0": "¿Cuál de las siguientes tiene el batchim ㄶ?",
+  "hangulS10L6Step0Q1": "¿Cuál de las siguientes tiene el batchim ㄺ?",
+  "hangulS10L6Step0Q2": "¿Cuál de las siguientes tiene el batchim ㅄ?",
+  "hangulS10L6Step0Q3": "¿Cuál de las siguientes tiene el batchim ㄳ?",
+  "hangulS10L6Step1Title": "¡Etapa 10 completada!",
+  "hangulS10L6Step1Msg": "¡Felicidades!\nHas completado el batchim compuesto de la Etapa 10.",
+  "hangulS10LMTitle": "Misión: ¡Desafío de batchim doble!",
+  "hangulS10LMSubtitle": "Lee rápidamente palabras con batchim doble",
+  "hangulS10LMStep0Title": "¡Misión de batchim doble!",
+  "hangulS10LMStep0Desc": "¡Combina rápidamente sílabas\nque incluyan batchim doble!",
+  "hangulS10LMStep1Title": "¡Combina las sílabas!",
+  "hangulS10LMStep2Title": "Resultados de la misión",
+  "hangulS10LMStep3Title": "¡Misión completada!",
+  "hangulS10LMStep3Msg": "¡También has dominado el batchim doble!",
+  "hangulS10LMStep4Title": "¡Etapa 10 completada!",
+  "hangulS10CompleteTitle": "¡Etapa 10 completada!",
+  "hangulS10CompleteMsg": "¡También has dominado el batchim doble!",
+  "hangulS11L1Title": "Palabras sin Batchim",
+  "hangulS11L1Subtitle": "Palabras fáciles de 2 a 3 sílabas",
+  "hangulS11L1Step0Title": "Empezar a leer palabras",
+  "hangulS11L1Step0Desc": "Ganemos confianza con palabras sin consonante final.",
+  "hangulS11L1Step0Highlights": "바나나,나비,하마,모자",
+  "hangulS11L1Step1Title": "Escuchar palabras",
+  "hangulS11L1Step1Desc": "Escucha 바나나 / 나비 / 하마 / 모자",
+  "hangulS11L1Step2Title": "Práctica de pronunciación",
+  "hangulS11L1Step2Desc": "Di cada palabra en voz alta",
+  "hangulS11L1Step3Title": "¡Lección completada!",
+  "hangulS11L1Step3Msg": "¡Muy bien!\nEmpezaste a leer palabras sin batchim.",
+  "hangulS11L2Title": "Palabras con Batchim básico",
+  "hangulS11L2Subtitle": "Escuela · Amigo · Corea · Estudio",
+  "hangulS11L2Step0Title": "Escuchar palabras",
+  "hangulS11L2Step0Desc": "Escucha 학교 / 친구 / 한국 / 공부",
+  "hangulS11L2Step1Title": "Práctica de pronunciación",
+  "hangulS11L2Step1Desc": "Di cada palabra en voz alta",
+  "hangulS11L2Step2Title": "Escuchar y elegir",
+  "hangulS11L2Step2Desc": "Selecciona la palabra que escuchaste",
+  "hangulS11L2Step3Title": "¡Lección completada!",
+  "hangulS11L2Step3Msg": "¡Muy bien!\nLeíste palabras con batchim básico.",
+  "hangulS11L3Title": "Palabras con Batchim mixto",
+  "hangulS11L3Subtitle": "읽기 · 없다 · 많다 · 닭",
+  "hangulS11L3Step0Title": "Subir el nivel",
+  "hangulS11L3Step0Desc": "Leamos palabras que combinan batchim básico y doble.",
+  "hangulS11L3Step0Highlights": "읽기,없다,많다,닭",
+  "hangulS11L3Step1Title": "Distinguir palabras",
+  "hangulS11L3Step1Desc": "Diferencia palabras de aspecto similar",
+  "hangulS11L3Step1Q0": "¿Cuál tiene batchim doble?",
+  "hangulS11L3Step1Q1": "¿Cuál tiene batchim doble?",
+  "hangulS11L3Step2Title": "¡Lección completada!",
+  "hangulS11L3Step2Msg": "¡Muy bien!\nLeíste palabras con batchim mixto.",
+  "hangulS11L4Title": "Paquete de palabras por categoría",
+  "hangulS11L4Subtitle": "Comida · Lugar · Persona",
+  "hangulS11L4Step0Title": "Escuchar palabras por categoría",
+  "hangulS11L4Step0Desc": "Escucha palabras de comida / lugar / persona",
+  "hangulS11L4Step1Title": "Práctica de pronunciación",
+  "hangulS11L4Step1Desc": "Di cada palabra en voz alta",
+  "hangulS11L4Step2Title": "Clasificar por categoría",
+  "hangulS11L4Step2Desc": "Mira la palabra y elige su categoría",
+  "hangulS11L4Step2Q0": "¿Qué es \"김치\"?",
+  "hangulS11L4Step2Q1": "¿Qué es \"시장\"?",
+  "hangulS11L4Step2Q2": "¿Qué es \"학생\"?",
+  "hangulS11L4Step2CatFood": "Comida",
+  "hangulS11L4Step2CatPlace": "Lugar",
+  "hangulS11L4Step2CatPerson": "Persona",
+  "hangulS11L4Step3Title": "¡Lección completada!",
+  "hangulS11L4Step3Msg": "¡Muy bien!\nAprendiste palabras por categoría.",
+  "hangulS11L5Title": "Escuchar y elegir palabras",
+  "hangulS11L5Subtitle": "Reforzar la conexión auditiva-lectora",
+  "hangulS11L5Step0Title": "Emparejamiento de sonidos",
+  "hangulS11L5Step0Desc": "Escucha y elige la palabra correcta",
+  "hangulS11L5Step1Title": "¡Lección completada!",
+  "hangulS11L5Step1Msg": "¡Muy bien!\nCompletaste el entrenamiento de escuchar y elegir palabras.",
+  "hangulS11L6Title": "Repaso de la Etapa 11",
+  "hangulS11L6Subtitle": "Revisión final de lectura de palabras",
+  "hangulS11L6Step0Title": "Quiz completo",
+  "hangulS11L6Step0Desc": "Revisión final de las palabras de la Etapa 11",
+  "hangulS11L6Step0Q0": "¿Cuál no tiene batchim?",
+  "hangulS11L6Step0Q1": "¿Cuál tiene batchim básico?",
+  "hangulS11L6Step0Q2": "¿Cuál tiene batchim doble?",
+  "hangulS11L6Step0Q3": "¿Cuál es un lugar?",
+  "hangulS11L6Step1Title": "¡Etapa 11 completada!",
+  "hangulS11L6Step1Msg": "¡Felicidades!\nCompletaste la lectura extendida de palabras de la Etapa 11.",
+  "hangulS11L7Title": "Leer coreano en la vida real",
+  "hangulS11L7Subtitle": "Lee menús de cafés, estaciones de metro y saludos",
+  "hangulS11L7Step0Title": "¡Leyendo Hangul en Corea!",
+  "hangulS11L7Step0Desc": "¡Ya aprendiste todo el Hangul!\n¿Leemos palabras que verías en Corea?",
+  "hangulS11L7Step0Highlights": "Café,Metro,Saludos",
+  "hangulS11L7Step1Title": "Leer menús de café",
+  "hangulS11L7Step1Descs": "Americano,Café con leche,Té verde,Pastel",
+  "hangulS11L7Step2Title": "Leer nombres de estaciones de metro",
+  "hangulS11L7Step2Descs": "Estación Seúl,Gangnam,Hongdae,Myeongdong",
+  "hangulS11L7Step3Title": "Leer saludos básicos",
+  "hangulS11L7Step3Descs": "Hola,Gracias,Sí,No",
+  "hangulS11L7Step4Title": "Práctica de pronunciación",
+  "hangulS11L7Step4Desc": "Di cada palabra en voz alta",
+  "hangulS11L7Step5Title": "¿Dónde puedes verlo?",
+  "hangulS11L7Step5Q0": "¿Dónde puedes ver \"아메리카노\"?",
+  "hangulS11L7Step5Q0Ans": "Café",
+  "hangulS11L7Step5Q0C0": "Café",
+  "hangulS11L7Step5Q0C1": "Metro",
+  "hangulS11L7Step5Q0C2": "Escuela",
+  "hangulS11L7Step5Q1": "¿Qué es \"강남\"?",
+  "hangulS11L7Step5Q1Ans": "Nombre de estación de metro",
+  "hangulS11L7Step5Q1C0": "Nombre de comida",
+  "hangulS11L7Step5Q1C1": "Nombre de estación de metro",
+  "hangulS11L7Step5Q1C2": "Saludo",
+  "hangulS11L7Step5Q2": "¿Qué significa \"감사합니다\" en español?",
+  "hangulS11L7Step5Q2Ans": "Gracias",
+  "hangulS11L7Step5Q2C0": "Hola",
+  "hangulS11L7Step5Q2C1": "Gracias",
+  "hangulS11L7Step5Q2C2": "Adiós",
+  "hangulS11L7Step6Title": "¡Felicidades!",
+  "hangulS11L7Step6Msg": "¡Ahora puedes leer menús de café, estaciones de metro y saludos en Corea!\n¡Casi eres un maestro del Hangul!",
+  "hangulS11LMTitle": "Misión: ¡Lectura rápida de Hangul!",
+  "hangulS11LMSubtitle": "Lee palabras coreanas rápidamente",
+  "hangulS11LMStep0Title": "¡Misión de lectura rápida de Hangul!",
+  "hangulS11LMStep0Desc": "¡Lee y empareja palabras coreanas lo más rápido posible!\n¡Es hora de demostrar tus habilidades!",
+  "hangulS11LMStep1Title": "¡Combina las sílabas!",
+  "hangulS11LMStep2Title": "Resultados de la misión",
+  "hangulS11LMStep3Title": "¡Maestro del Hangul!",
+  "hangulS11LMStep3Msg": "¡Has dominado completamente el Hangul!\n¡Ahora puedes leer palabras y frases en coreano!",
+  "hangulS11LMStep4Title": "¡Etapa 11 completada!",
+  "hangulS11LMStep4Msg": "¡Ahora puedes leer Hangul completamente!",
+  "hangulS11CompleteTitle": "¡Etapa 11 completada!",
+  "hangulS11CompleteMsg": "¡Ahora puedes leer Hangul completamente!",
+  "stageRequestFailed": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
+  "stageRequestRejected": "El anfitrión rechazó tu solicitud de escenario.",
+  "inviteToStageFailed": "No se pudo invitar al escenario. Puede estar lleno.",
+  "demoteFailed": "No se pudo quitar del escenario. Inténtalo de nuevo.",
+  "voiceRoomCloseRoomFailed": "No se pudo cerrar la sala. Inténtalo de nuevo."
 }

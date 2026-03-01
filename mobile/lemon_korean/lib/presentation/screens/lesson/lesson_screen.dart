@@ -239,6 +239,7 @@ class _LessonScreenState extends State<LessonScreen> {
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final progressProvider = Provider.of<ProgressProvider>(context, listen: false);
+    final gamificationProvider = Provider.of<GamificationProvider>(context, listen: false);
     final timeSpent = _startTime != null
         ? DateTime.now().difference(_startTime!).inSeconds
         : 0;
@@ -253,7 +254,6 @@ class _LessonScreenState extends State<LessonScreen> {
 
     // Record lemon reward
     try {
-      final gamificationProvider = Provider.of<GamificationProvider>(context, listen: false);
       await gamificationProvider.recordLessonReward(
         lessonId: widget.lesson.id,
         quizScorePercent: _quizScore,
@@ -380,7 +380,7 @@ class _LessonScreenState extends State<LessonScreen> {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) async {
+      onPopInvokedWithResult: (bool didPop, dynamic result) async {
         if (didPop) return;
         await _showExitDialog();
       },
@@ -423,49 +423,38 @@ class _LessonScreenState extends State<LessonScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppConstants.paddingMedium,
-        vertical: AppConstants.paddingSmall,
+        vertical: 4,
       ),
       child: Row(
         children: [
           // Close Button
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: _showExitDialog,
-            tooltip: l10n.exitBtn,
+          SizedBox(
+            width: 40,
+            height: 40,
+            child: IconButton(
+              icon: const Icon(Icons.close, size: 20),
+              onPressed: _showExitDialog,
+              tooltip: l10n.exitBtn,
+              padding: EdgeInsets.zero,
+            ),
           ),
 
           const SizedBox(width: 8),
 
           // Progress Bar
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Stage indicator
-                Text(
-                  l10n.stageProgress(_currentStage + 1, _totalStages),
-                  style: const TextStyle(
-                    fontSize: AppConstants.fontSizeSmall,
-                    color: AppConstants.textSecondary,
-                  ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                AppConstants.radiusSmall,
+              ),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 6,
+                backgroundColor: Colors.grey.shade200,
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppConstants.primaryColor,
                 ),
-                const SizedBox(height: 4),
-
-                // Progress bar
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    AppConstants.radiusSmall,
-                  ),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 8,
-                    backgroundColor: Colors.grey.shade200,
-                    valueColor: const AlwaysStoppedAnimation<Color>(
-                      AppConstants.primaryColor,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
 
@@ -475,7 +464,7 @@ class _LessonScreenState extends State<LessonScreen> {
           Text(
             '${(progress * 100).toInt()}%',
             style: const TextStyle(
-              fontSize: AppConstants.fontSizeMedium,
+              fontSize: AppConstants.fontSizeSmall,
               fontWeight: FontWeight.bold,
               color: AppConstants.primaryColor,
             ),

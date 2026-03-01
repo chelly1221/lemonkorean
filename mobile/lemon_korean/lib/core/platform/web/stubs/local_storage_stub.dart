@@ -49,11 +49,11 @@ class LocalStorage {
 
       final encoded = jsonEncode(lesson);
       final key = _buildKey('lk_lesson_$lessonId', language: language);
-      web.window.localStorage[key] = encoded;
+      web.window.localStorage.setItem(key, encoded);
 
       // Also save to base key for backwards compatibility
       if (language != null) {
-        web.window.localStorage['lk_lesson_$lessonId'] = encoded;
+        web.window.localStorage.setItem('lk_lesson_$lessonId', encoded);
       }
     } catch (e) {
       AppLogger.w('Error saving lesson: $e', tag: 'LocalStorage', error: e);
@@ -66,13 +66,13 @@ class LocalStorage {
       // Try language-specific key first
       if (language != null) {
         final key = _buildKey('lk_lesson_$lessonId', language: language);
-        final encoded = web.window.localStorage[key];
+        final encoded = web.window.localStorage.getItem(key);
         if (encoded != null) {
           return Map<String, dynamic>.from(jsonDecode(encoded));
         }
       }
       // Fall back to base key
-      final encoded = web.window.localStorage['lk_lesson_$lessonId'];
+      final encoded = web.window.localStorage.getItem('lk_lesson_$lessonId');
       if (encoded == null) return null;
       return Map<String, dynamic>.from(jsonDecode(encoded));
     } catch (e) {
@@ -96,7 +96,7 @@ class LocalStorage {
             shouldInclude = !keyStr.contains(RegExp(r'_(ko|en|es|ja|zh|zh_TW)$'));
           }
           if (shouldInclude) {
-            final encoded = web.window.localStorage[key];
+            final encoded = web.window.localStorage.getItem(key);
             if (encoded != null) {
               final lesson = Map<String, dynamic>.from(jsonDecode(encoded));
               lessons.add(lesson);
@@ -143,11 +143,11 @@ class LocalStorage {
       final vocabId = vocabulary['id'];
       if (vocabId == null) return;
       final key = _buildKey('lk_vocab_$vocabId', language: language);
-      web.window.localStorage[key] = jsonEncode(vocabulary);
+      web.window.localStorage.setItem(key, jsonEncode(vocabulary));
 
       // Also save to base key for backwards compatibility
       if (language != null) {
-        web.window.localStorage['lk_vocab_$vocabId'] = jsonEncode(vocabulary);
+        web.window.localStorage.setItem('lk_vocab_$vocabId', jsonEncode(vocabulary));
       }
     } catch (e) {
       AppLogger.w('Error saving vocabulary: $e', tag: 'LocalStorage', error: e);
@@ -160,13 +160,13 @@ class LocalStorage {
       // Try language-specific key first
       if (language != null) {
         final key = _buildKey('lk_vocab_$vocabId', language: language);
-        final encoded = web.window.localStorage[key];
+        final encoded = web.window.localStorage.getItem(key);
         if (encoded != null) {
           return Map<String, dynamic>.from(jsonDecode(encoded));
         }
       }
       // Fall back to base key
-      final encoded = web.window.localStorage['lk_vocab_$vocabId'];
+      final encoded = web.window.localStorage.getItem('lk_vocab_$vocabId');
       if (encoded == null) return null;
       return Map<String, dynamic>.from(jsonDecode(encoded));
     } catch (e) {
@@ -189,7 +189,7 @@ class LocalStorage {
             shouldInclude = !keyStr.contains(RegExp(r'_(ko|en|es|ja|zh|zh_TW)$'));
           }
           if (shouldInclude) {
-            final encoded = web.window.localStorage[key];
+            final encoded = web.window.localStorage.getItem(key);
             if (encoded != null) {
               vocabulary.add(Map<String, dynamic>.from(jsonDecode(encoded)));
             }
@@ -216,7 +216,7 @@ class LocalStorage {
   static Future<List<Map<String, dynamic>>?> getVocabularyByLevel(
       int level) async {
     try {
-      final encoded = web.window.localStorage['lk_vocab_cache_$level'];
+      final encoded = web.window.localStorage.getItem('lk_vocab_cache_$level');
       if (encoded == null) return null;
       final decoded = jsonDecode(encoded) as List;
       return decoded
@@ -232,9 +232,9 @@ class LocalStorage {
   static Future<void> saveVocabularyByLevel(
       int level, List<Map<String, dynamic>> words) async {
     try {
-      web.window.localStorage['lk_vocab_cache_$level'] = jsonEncode(words);
-      web.window.localStorage['lk_vocab_cache_${level}_timestamp'] =
-          DateTime.now().toIso8601String();
+      web.window.localStorage.setItem('lk_vocab_cache_$level', jsonEncode(words));
+      web.window.localStorage.setItem('lk_vocab_cache_${level}_timestamp',
+          DateTime.now().toIso8601String());
     } catch (e) {
       AppLogger.w('Error saving vocabulary cache for level $level: $e', tag: 'LocalStorage', error: e);
     }
@@ -244,7 +244,7 @@ class LocalStorage {
   static Future<Duration?> getVocabularyCacheAge(int level) async {
     try {
       final timestampStr =
-          web.window.localStorage['lk_vocab_cache_${level}_timestamp'];
+          web.window.localStorage.getItem('lk_vocab_cache_${level}_timestamp');
       if (timestampStr == null) return null;
       final timestamp = DateTime.parse(timestampStr);
       return DateTime.now().difference(timestamp);
@@ -269,8 +269,8 @@ class LocalStorage {
         progress['updated_at'] = DateTime.now().toIso8601String();
       }
 
-      web.window.localStorage['lk_progress_$lessonId'] =
-          jsonEncode(progress);
+      web.window.localStorage.setItem('lk_progress_$lessonId',
+          jsonEncode(progress));
     } catch (e) {
       AppLogger.w('Error saving progress: $e', tag: 'LocalStorage', error: e);
     }
@@ -279,7 +279,7 @@ class LocalStorage {
   /// Get progress by lesson ID
   static Map<String, dynamic>? getProgress(int lessonId) {
     try {
-      final encoded = web.window.localStorage['lk_progress_$lessonId'];
+      final encoded = web.window.localStorage.getItem('lk_progress_$lessonId');
       if (encoded == null) return null;
       return Map<String, dynamic>.from(jsonDecode(encoded));
     } catch (e) {
@@ -293,7 +293,7 @@ class LocalStorage {
       final progress = <Map<String, dynamic>>[];
       for (final key in _getAllKeys()) {
         if (key.startsWith('lk_progress_')) {
-          final encoded = web.window.localStorage[key];
+          final encoded = web.window.localStorage.getItem(key);
           if (encoded != null) {
             progress.add(Map<String, dynamic>.from(jsonDecode(encoded)));
           }
@@ -332,7 +332,7 @@ class LocalStorage {
     try {
       final reviewId =
           review['id'] ?? '${review['user_id']}_${review['vocabulary_id']}';
-      web.window.localStorage['lk_review_$reviewId'] = jsonEncode(review);
+      web.window.localStorage.setItem('lk_review_$reviewId', jsonEncode(review));
     } catch (e) {
       AppLogger.w('Error saving review: $e', tag: 'LocalStorage', error: e);
     }
@@ -344,8 +344,8 @@ class LocalStorage {
     int vocabularyId,
   ) async {
     try {
-      final reviewId = '${userId}_${vocabularyId}';
-      final encoded = web.window.localStorage['lk_review_$reviewId'];
+      final reviewId = '${userId}_$vocabularyId';
+      final encoded = web.window.localStorage.getItem('lk_review_$reviewId');
       if (encoded == null) return null;
       return Map<String, dynamic>.from(jsonDecode(encoded));
     } catch (e) {
@@ -359,7 +359,7 @@ class LocalStorage {
       final reviews = <Map<String, dynamic>>[];
       for (final key in _getAllKeys()) {
         if (key.startsWith('lk_review_')) {
-          final encoded = web.window.localStorage[key];
+          final encoded = web.window.localStorage.getItem(key);
           if (encoded != null) {
             reviews.add(Map<String, dynamic>.from(jsonDecode(encoded)));
           }
@@ -390,8 +390,8 @@ class LocalStorage {
     try {
       final bookmarkId = bookmark['id'];
       if (bookmarkId == null) return;
-      web.window.localStorage['lk_bookmark_$bookmarkId'] =
-          jsonEncode(bookmark);
+      web.window.localStorage.setItem('lk_bookmark_$bookmarkId',
+          jsonEncode(bookmark));
     } catch (e) {
       AppLogger.w('Error saving bookmark: $e', tag: 'LocalStorage', error: e);
     }
@@ -400,7 +400,7 @@ class LocalStorage {
   /// Get bookmark by ID
   static Map<String, dynamic>? getBookmark(int bookmarkId) {
     try {
-      final encoded = web.window.localStorage['lk_bookmark_$bookmarkId'];
+      final encoded = web.window.localStorage.getItem('lk_bookmark_$bookmarkId');
       if (encoded == null) return null;
       return Map<String, dynamic>.from(jsonDecode(encoded));
     } catch (e) {
@@ -414,7 +414,7 @@ class LocalStorage {
       final bookmarks = <Map<String, dynamic>>[];
       for (final key in _getAllKeys()) {
         if (key.startsWith('lk_bookmark_')) {
-          final encoded = web.window.localStorage[key];
+          final encoded = web.window.localStorage.getItem(key);
           if (encoded != null) {
             bookmarks.add(Map<String, dynamic>.from(jsonDecode(encoded)));
           }
@@ -445,7 +445,7 @@ class LocalStorage {
   static bool isBookmarked(int vocabularyId) {
     for (final key in _getAllKeys()) {
       if (key.startsWith('lk_bookmark_')) {
-        final encoded = web.window.localStorage[key];
+        final encoded = web.window.localStorage.getItem(key);
         if (encoded != null) {
           try {
             final b = Map<String, dynamic>.from(jsonDecode(encoded));
@@ -463,7 +463,7 @@ class LocalStorage {
   static Map<String, dynamic>? getBookmarkByVocabularyId(int vocabularyId) {
     for (final key in _getAllKeys()) {
       if (key.startsWith('lk_bookmark_')) {
-        final encoded = web.window.localStorage[key];
+        final encoded = web.window.localStorage.getItem(key);
         if (encoded != null) {
           try {
             final b = Map<String, dynamic>.from(jsonDecode(encoded));
@@ -530,7 +530,7 @@ class LocalStorage {
   static Future<void> saveSetting(String key, dynamic value) async {
     try {
       final encoded = jsonEncode(value);
-      web.window.localStorage['lk_setting_$key'] = encoded;
+      web.window.localStorage.setItem('lk_setting_$key', encoded);
     } catch (e) {
       AppLogger.w('Error saving setting $key: $e', tag: 'LocalStorage', error: e);
     }
@@ -539,7 +539,7 @@ class LocalStorage {
   /// Get setting
   static T? getSetting<T>(String key, {T? defaultValue}) {
     try {
-      final encoded = web.window.localStorage['lk_setting_$key'];
+      final encoded = web.window.localStorage.getItem('lk_setting_$key');
       if (encoded == null) return defaultValue;
 
       final decoded = jsonDecode(encoded);
@@ -574,7 +574,7 @@ class LocalStorage {
   /// Save user to local cache for offline access
   static Future<void> saveCachedUser(Map<String, dynamic> user) async {
     try {
-      web.window.localStorage['lk_$_cachedUserKey'] = jsonEncode(user);
+      web.window.localStorage.setItem('lk_$_cachedUserKey', jsonEncode(user));
     } catch (e) {
       AppLogger.w('Error saving cached user: $e', tag: 'LocalStorage', error: e);
     }
@@ -583,7 +583,7 @@ class LocalStorage {
   /// Get cached user for offline-first auth
   static Map<String, dynamic>? getCachedUser() {
     try {
-      final encoded = web.window.localStorage['lk_$_cachedUserKey'];
+      final encoded = web.window.localStorage.getItem('lk_$_cachedUserKey');
       if (encoded == null) return null;
       return Map<String, dynamic>.from(jsonDecode(encoded));
     } catch (e) {
@@ -622,7 +622,7 @@ class LocalStorage {
   /// Save data to a named box
   static Future<void> saveToBox(String boxName, String key, dynamic value) async {
     try {
-      web.window.localStorage['lk_${boxName}_$key'] = jsonEncode(value);
+      web.window.localStorage.setItem('lk_${boxName}_$key', jsonEncode(value));
     } catch (e) {
       AppLogger.w('Error saving to box $boxName: $e', tag: 'LocalStorage', error: e);
     }
@@ -631,7 +631,7 @@ class LocalStorage {
   /// Get data from a named box
   static T? getFromBox<T>(String boxName, String key) {
     try {
-      final encoded = web.window.localStorage['lk_${boxName}_$key'];
+      final encoded = web.window.localStorage.getItem('lk_${boxName}_$key');
       if (encoded == null) return null;
       return jsonDecode(encoded) as T?;
     } catch (e) {
@@ -647,7 +647,7 @@ class LocalStorage {
       final prefix = 'lk_${boxName}_';
       for (final key in _getAllKeys()) {
         if (key.startsWith(prefix)) {
-          final encoded = web.window.localStorage[key];
+          final encoded = web.window.localStorage.getItem(key);
           if (encoded != null) {
             items.add(jsonDecode(encoded) as T);
           }

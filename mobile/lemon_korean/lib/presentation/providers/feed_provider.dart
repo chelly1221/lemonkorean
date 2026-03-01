@@ -190,7 +190,7 @@ class FeedProvider with ChangeNotifier {
         return post;
       }
 
-      _errorMessage = 'Failed to create post';
+      _errorMessage = 'failedToCreatePost';
       notifyListeners();
       return null;
     } catch (e) {
@@ -216,7 +216,7 @@ class FeedProvider with ChangeNotifier {
         return true;
       }
 
-      _errorMessage = 'Failed to delete post';
+      _errorMessage = 'failedToDeletePost';
       notifyListeners();
       return false;
     } catch (e) {

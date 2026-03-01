@@ -17,12 +17,12 @@ class DmProvider with ChangeNotifier {
 
   // State
   List<ConversationModel> _conversations = [];
-  Map<int, List<DmMessageModel>> _messageCache = {};
+  final Map<int, List<DmMessageModel>> _messageCache = {};
   int _totalUnreadCount = 0;
   bool _isLoadingConversations = false;
   bool _isLoadingMessages = false;
   int? _activeConversationId;
-  Map<int, bool> _typingUsers = {};
+  final Map<int, bool> _typingUsers = {};
 
   // Stream subscriptions
   final List<StreamSubscription> _subscriptions = [];
@@ -240,7 +240,7 @@ class DmProvider with ChangeNotifier {
       conversationId: conversationId,
       senderId: 0,
       messageType: messageType,
-      content: messageType == 'image' ? '[Uploading image...]' : '[Uploading voice...]',
+      content: messageType == 'image' ? 'uploadingImage' : 'uploadingVoice',
       clientMessageId: clientId,
       createdAt: DateTime.now(),
       status: DmMessageStatus.sending,
@@ -465,8 +465,8 @@ class DmProvider with ChangeNotifier {
       final preview = message.isText
           ? (message.content ?? '')
           : message.isImage
-              ? '[Image]'
-              : '[Voice]';
+              ? 'imagePreview'
+              : 'voicePreview';
       _conversations[idx] = _conversations[idx].copyWith(
         lastMessagePreview: preview,
         lastMessageType: message.messageType,

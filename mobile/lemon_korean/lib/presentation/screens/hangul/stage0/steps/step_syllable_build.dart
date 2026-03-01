@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../../core/utils/korean_tts_helper.dart';
+import '../../../../../l10n/generated/app_localizations.dart';
 import '../stage0_lesson_content.dart';
 import '../widgets/syllable_block_template.dart';
 
@@ -205,7 +206,7 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
           ],
           const Spacer(),
           // Consonant choices
-          Text('자음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
+          Text(AppLocalizations.of(context)?.selectConsonant ?? '자음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
           const SizedBox(height: 8),
           Wrap(
             alignment: WrapAlignment.center,
@@ -247,7 +248,7 @@ class _StepSyllableBuildState extends State<StepSyllableBuild>
           ),
           const SizedBox(height: 16),
           // Vowel choices
-          Text('모음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
+          Text(AppLocalizations.of(context)?.selectVowel ?? '모음 선택', style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
           const SizedBox(height: 8),
           Wrap(
             alignment: WrapAlignment.center,

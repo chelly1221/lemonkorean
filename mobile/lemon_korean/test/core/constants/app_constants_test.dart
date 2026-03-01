@@ -9,7 +9,7 @@ void main() {
       });
 
       test('version should follow semver format', () {
-        final version = AppConstants.version;
+        const version = AppConstants.version;
         final semverRegex = RegExp(r'^\d+\.\d+\.\d+$');
         expect(semverRegex.hasMatch(version), true);
       });

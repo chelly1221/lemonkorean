@@ -8,7 +8,7 @@ import '../media_loader_interface.dart';
 /// Web implementation of IMediaLoader
 /// Always streams media from remote server (no local caching)
 class MediaLoaderImpl implements IMediaLoader {
-  web.AudioElement? _audioElement;
+  web.HTMLAudioElement? _audioElement;
 
   @override
   Future<String> getMediaPath(String remoteKey) async {

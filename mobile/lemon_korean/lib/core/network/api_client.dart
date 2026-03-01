@@ -646,7 +646,7 @@ class _ErrorInterceptor extends Interceptor {
         errorMessage = _handleResponseError(err.response);
         break;
       case DioExceptionType.cancel:
-        errorMessage = '요청이 취소되었습니다';
+        errorMessage = 'errorRequestCancelled';
         break;
       default:
         errorMessage = AppConstants.unknownErrorMessage;
@@ -670,15 +670,15 @@ class _ErrorInterceptor extends Interceptor {
 
     switch (response.statusCode) {
       case 400:
-        return response.data['message'] ?? '요청 파라미터 오류';
+        return response.data['message'] ?? 'errorRequestParam';
       case 401:
         return AppConstants.authErrorMessage;
       case 403:
-        return '접근 권한이 없습니다';
+        return 'errorForbidden';
       case 404:
-        return '요청한 리소스가 존재하지 않습니다';
+        return 'errorNotFound';
       case 429:
-        return '요청이 너무 많습니다. 나중에 다시 시도하세요';
+        return 'errorRateLimited';
       case 500:
       case 502:
       case 503:
