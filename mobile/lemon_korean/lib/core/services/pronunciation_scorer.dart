@@ -1,29 +1,48 @@
+import 'dart:math';
+
+import '../data/reference_embeddings.dart';
 import '../utils/app_logger.dart';
 import '../utils/korean_phoneme_utils.dart';
 import '../utils/pronunciation_feedback.dart';
 import 'gop_service.dart';
 
-/// GOP-only pronunciation scorer.
+/// Embedding-based pronunciation scorer with per-phoneme analysis.
 ///
 /// Scoring pipeline:
-/// 1. Per-phoneme GOP scores from wav2vec2 acoustic model
-/// 2. Position-weighted syllable analysis (initial 40%, medial 40%, final 20%)
-/// 3. Overall score = weighted average across all phonemes
-///
-/// No Whisper dependency — purely acoustic scoring for consistent results,
-/// especially on short utterances (1-2 syllables) where Whisper is unreliable.
+/// 1. Extract frame-level [T, 1024] hidden states from user audio via wav2vec2
+/// 2. Mean-pool into 1024-dim embedding for overall score
+/// 3. Segment frames proportionally by phoneme count
+/// 4. Compute per-segment similarity to reference for per-phoneme scores
+/// 5. Generate specific feedback for weak phonemes
 class PronunciationScorer {
   static final PronunciationScorer instance = PronunciationScorer._();
   static const String _tag = 'PronunciationScorer';
 
-  // Positional weights within each syllable
-  static const double _initialWeight = 0.40;
-  static const double _medialWeight = 0.40;
-  static const double _finalWeight = 0.20;
+  /// Cosine similarity thresholds for score mapping.
+  /// score = ((similarity - low) / (high - low) * 100).clamp(0, 100)
+  ///
+  /// wav2vec2 embeddings share general speech features (prosody, speaker),
+  /// so even unrelated pronunciations yield ~0.65-0.70 similarity.
+  /// The discriminative range is narrow (0.70-0.92):
+  /// - 0.90+ : near-native pronunciation
+  /// - 0.85  : good, clearly correct
+  /// - 0.80  : fair, recognizable
+  /// - 0.70  : wrong phoneme / very poor
+  static const double _simLow = 0.70;
+  static const double _simHigh = 0.90;
+
+  /// Per-phoneme similarity thresholds (slightly wider range since segments
+  /// are noisier than full-utterance embeddings).
+  static const double _phonemeSimLow = 0.55;
+  static const double _phonemeSimHigh = 0.88;
+
+  /// Duration weights for phoneme types (vowels are longer than consonants).
+  static const double _vowelWeight = 2.0;
+  static const double _consonantWeight = 1.0;
 
   PronunciationScorer._();
 
-  /// End-to-end scoring: audio file → GOP → combined score + feedback.
+  /// End-to-end scoring: audio file → embedding → cosine similarity → score.
   Future<SpeechResult> score({
     required String expectedText,
     required String audioPath,
@@ -32,166 +51,235 @@ class PronunciationScorer {
     final expectedPhonemes = KoreanPhonemeUtils.toPhonemeSequence(expectedText);
 
     if (expectedPhonemes.isEmpty) {
-      AppLogger.w('No phonemes extracted from expected text: "$expectedText"',
-          tag: _tag);
+      AppLogger.w('No phonemes from expected text: "$expectedText"', tag: _tag);
       return SpeechResult.empty();
     }
 
-    // Compute GOP scores
-    GopResult? gopResult;
-    if (GopService.instance.isInitialized) {
-      gopResult = await GopService.instance.computeGopScores(
-        audioPath: audioPath,
-        expectedPhonemes: expectedPhonemes,
+    // Look up reference embedding
+    final refEmbedding = ReferenceEmbeddings.get(expectedText);
+    if (refEmbedding == null) {
+      AppLogger.w(
+        'No reference embedding for "$expectedText"',
+        tag: _tag,
       );
+      return SpeechResult.empty();
     }
 
-    final coreResult = scoreFromGop(
-      expectedText: expectedText,
-      expectedPhonemes: expectedPhonemes,
-      gopResult: gopResult,
+    // Extract user embedding with frame-level data
+    if (!GopService.instance.isInitialized) {
+      AppLogger.w('GopService not initialized', tag: _tag);
+      return SpeechResult.empty();
+    }
+
+    final embResult = await GopService.instance.extractEmbeddingWithFrames(audioPath);
+    if (embResult == null) {
+      AppLogger.w('Failed to extract embedding from audio', tag: _tag);
+      return SpeechResult.empty();
+    }
+
+    // Compute overall cosine similarity
+    final similarity = _cosineSimilarity(embResult.embedding, refEmbedding);
+
+    // Map similarity to 0-100 score
+    final rawScore =
+        ((similarity - _simLow) / (_simHigh - _simLow) * 100.0).clamp(0.0, 100.0);
+    final overallScore = rawScore.round();
+
+    AppLogger.i(
+      'Scored "$expectedText": similarity=${similarity.toStringAsFixed(4)}, '
+      'score=$overallScore, frames=${embResult.frames.length}',
+      tag: _tag,
     );
 
-    // Generate multilingual feedback
+    // Compute per-phoneme scores using frame-level analysis
+    final phonemeDetails = _computePhonemeScores(
+      expectedText: expectedText,
+      expectedPhonemes: expectedPhonemes,
+      frames: embResult.frames,
+      refEmbedding: refEmbedding,
+      overallScore: overallScore,
+    );
+
+    // Compute detail score as weighted average of phoneme scores
+    final detailScore = phonemeDetails.isNotEmpty
+        ? (phonemeDetails.fold<double>(0.0, (s, p) => s + p.score) /
+                phonemeDetails.length)
+            .round()
+        : overallScore;
+
+    // Generate feedback based on actual per-phoneme scores
     final feedback = PronunciationFeedback.generateFeedback(
-      phonemeScores: coreResult.phonemeDetails,
-      overallScore: coreResult.overallScore,
+      phonemeScores: phonemeDetails,
+      overallScore: overallScore,
       language: language,
     );
 
     return SpeechResult(
-      overallScore: coreResult.overallScore,
-      gopScore: coreResult.gopScore,
-      detailScore: coreResult.detailScore,
-      expectedText: coreResult.expectedText,
-      phonemeDetails: coreResult.phonemeDetails,
-      expectedPhonemes: coreResult.expectedPhonemes,
+      overallScore: overallScore,
+      gopScore: overallScore,
+      detailScore: detailScore,
+      expectedText: expectedText,
+      phonemeDetails: phonemeDetails,
+      expectedPhonemes: expectedPhonemes,
       feedback: feedback,
     );
   }
 
-  /// Score from pre-computed GOP results (used internally and for testing).
-  static SpeechResult scoreFromGop({
-    required String expectedText,
-    required List<String> expectedPhonemes,
-    GopResult? gopResult,
-  }) {
-    try {
-      if (expectedPhonemes.isEmpty) {
-        AppLogger.w('No phonemes extracted from expected text: "$expectedText"',
-            tag: _tag);
-        return SpeechResult.empty();
-      }
-
-      final hasGop = gopResult != null && gopResult.phonemeScores.isNotEmpty;
-
-      if (!hasGop) {
-        AppLogger.w('No GOP data available for "$expectedText"', tag: _tag);
-        return SpeechResult.empty();
-      }
-
-      // Raw GOP average
-      final gopScore = gopResult.overallGop;
-
-      // Position-weighted syllable analysis
-      final detailResult = _computeDetailAnalysis(
-        expectedText: expectedText,
-        expectedPhonemes: expectedPhonemes,
-        gopScores: gopResult.phonemeScores,
-      );
-
-      // Final score: blend raw GOP average and position-weighted detail
-      // GOP average treats all phonemes equally;
-      // detail score weights by syllable position (초/중/종).
-      // 40% raw GOP + 60% position-weighted gives better accuracy
-      // for Korean where 초성/중성 matter more than 종성.
-      final finalScore = gopScore * 0.40 + detailResult.score * 0.60;
-
-      final result = SpeechResult(
-        overallScore: finalScore.round().clamp(0, 100),
-        gopScore: gopScore.round().clamp(0, 100),
-        detailScore: detailResult.score.round().clamp(0, 100),
-        expectedText: expectedText,
-        phonemeDetails: detailResult.details,
-        expectedPhonemes: expectedPhonemes,
-      );
-
-      AppLogger.d(
-        'Scored "$expectedText" -> '
-        'gop=${result.gopScore}, detail=${result.detailScore}, '
-        'overall=${result.overallScore}',
-        tag: _tag,
-      );
-
-      return result;
-    } catch (e, st) {
-      AppLogger.e('Scoring failed for "$expectedText"',
-          error: e, stackTrace: st, tag: _tag);
-      return SpeechResult.empty();
-    }
-  }
-
-  /// Compute position-weighted phoneme analysis.
+  /// Compute per-phoneme scores by segmenting frame-level embeddings.
   ///
-  /// For each syllable in the expected text, scores the initial consonant
-  /// (40%), medial vowel (40%), and final consonant (20%) separately
-  /// using GOP scores.
-  static _DetailResult _computeDetailAnalysis({
+  /// The T model output frames are divided proportionally across phonemes,
+  /// with vowels getting ~2x the frames of consonants (reflecting natural
+  /// phoneme duration). Each segment is mean-pooled and compared to the
+  /// reference embedding.
+  static List<PhonemeScoreDetail> _computePhonemeScores({
     required String expectedText,
     required List<String> expectedPhonemes,
-    required List<PhonemeGopScore> gopScores,
+    required List<List<double>> frames,
+    required List<double> refEmbedding,
+    required int overallScore,
   }) {
     final decompositions = KoreanPhonemeUtils.decomposeAll(expectedText);
-    if (decompositions.isEmpty) {
-      return const _DetailResult(score: 0.0, details: []);
-    }
-
     final details = <PhonemeScoreDetail>[];
-    double totalWeightedScore = 0.0;
-    double totalWeight = 0.0;
     int phonemeIdx = 0;
 
+    // Build flat list of (phoneme, position, weight)
+    final phonemeEntries = <_PhonemeEntry>[];
     for (final decomp in decompositions) {
       final syllablePhonemes = decomp.toList();
-
       for (int posInSyllable = 0;
           posInSyllable < syllablePhonemes.length;
           posInSyllable++) {
-        final expectedPhoneme = syllablePhonemes[posInSyllable];
+        if (phonemeIdx >= expectedPhonemes.length) break;
         final position = KoreanPhonemeUtils.getPosition(posInSyllable);
-        final positionWeight = _getPositionWeight(position);
-
-        // Get GOP score for this phoneme
-        double gopSim = 0.0;
-        if (phonemeIdx < gopScores.length) {
-          gopSim = gopScores[phonemeIdx].gopScore;
-        }
-
-        details.add(PhonemeScoreDetail(
-          expected: expectedPhoneme,
-          score: gopSim.round().clamp(0, 100),
-          position: _positionToString(position),
+        final isVowel = position == PhonemePosition.medial;
+        phonemeEntries.add(_PhonemeEntry(
+          phoneme: syllablePhonemes[posInSyllable],
+          position: position,
+          weight: isVowel ? _vowelWeight : _consonantWeight,
         ));
-
-        totalWeightedScore += gopSim * positionWeight;
-        totalWeight += positionWeight;
         phonemeIdx++;
       }
     }
 
-    final score = totalWeight > 0 ? totalWeightedScore / totalWeight : 0.0;
-    return _DetailResult(score: score.clamp(0.0, 100.0), details: details);
+    if (phonemeEntries.isEmpty || frames.isEmpty) return details;
+
+    // Not enough frames for per-phoneme analysis — fall back to uniform
+    if (frames.length < phonemeEntries.length * 2) {
+      AppLogger.d(
+        'Too few frames (${frames.length}) for ${phonemeEntries.length} phonemes, '
+        'using uniform scores',
+        tag: _tag,
+      );
+      for (final entry in phonemeEntries) {
+        details.add(PhonemeScoreDetail(
+          expected: entry.phoneme,
+          score: overallScore,
+          position: _positionToString(entry.position),
+        ));
+      }
+      return details;
+    }
+
+    // Compute frame allocation based on weights
+    final totalWeight =
+        phonemeEntries.fold<double>(0.0, (s, e) => s + e.weight);
+    final totalFrames = frames.length;
+
+    int frameOffset = 0;
+    for (int i = 0; i < phonemeEntries.length; i++) {
+      final entry = phonemeEntries[i];
+      // Proportional frame count, minimum 1
+      int segmentFrames =
+          (totalFrames * entry.weight / totalWeight).round();
+      segmentFrames = max(1, segmentFrames);
+
+      // Adjust last segment to use remaining frames
+      if (i == phonemeEntries.length - 1) {
+        segmentFrames = totalFrames - frameOffset;
+      } else if (frameOffset + segmentFrames > totalFrames) {
+        segmentFrames = totalFrames - frameOffset;
+      }
+
+      if (segmentFrames <= 0 || frameOffset >= totalFrames) {
+        details.add(PhonemeScoreDetail(
+          expected: entry.phoneme,
+          score: overallScore,
+          position: _positionToString(entry.position),
+        ));
+        continue;
+      }
+
+      // Mean-pool this segment's frames and L2-normalize
+      final segmentEmbedding =
+          _meanPoolSegment(frames, frameOffset, frameOffset + segmentFrames);
+
+      // Compare segment to reference
+      final segSimilarity = _cosineSimilarity(segmentEmbedding, refEmbedding);
+      final segScore = ((segSimilarity - _phonemeSimLow) /
+              (_phonemeSimHigh - _phonemeSimLow) *
+              100.0)
+          .clamp(0.0, 100.0)
+          .round();
+
+      details.add(PhonemeScoreDetail(
+        expected: entry.phoneme,
+        score: segScore,
+        position: _positionToString(entry.position),
+      ));
+
+      frameOffset += segmentFrames;
+    }
+
+    AppLogger.d(
+      'Per-phoneme scores: ${details.map((d) => "${d.expected}=${d.score}").join(", ")}',
+      tag: _tag,
+    );
+
+    return details;
   }
 
-  static double _getPositionWeight(PhonemePosition position) {
-    switch (position) {
-      case PhonemePosition.initial:
-        return _initialWeight;
-      case PhonemePosition.medial:
-        return _medialWeight;
-      case PhonemePosition.final_:
-        return _finalWeight;
+  /// Mean-pool a segment of frames and L2-normalize the result.
+  static List<double> _meanPoolSegment(
+    List<List<double>> frames,
+    int start,
+    int end,
+  ) {
+    final dim = frames[0].length;
+    final mean = List<double>.filled(dim, 0.0);
+    final count = end - start;
+
+    for (int t = start; t < end; t++) {
+      final frame = frames[t];
+      for (int i = 0; i < dim; i++) {
+        mean[i] += frame[i];
+      }
     }
+
+    double normSq = 0.0;
+    for (int i = 0; i < dim; i++) {
+      mean[i] /= count;
+      normSq += mean[i] * mean[i];
+    }
+
+    final norm = sqrt(normSq);
+    if (norm > 1e-8) {
+      for (int i = 0; i < dim; i++) {
+        mean[i] /= norm;
+      }
+    }
+
+    return mean;
+  }
+
+  /// Compute cosine similarity between two L2-normalized vectors.
+  /// Both vectors should already be L2-normalized, so dot product = cosine sim.
+  static double _cosineSimilarity(List<double> a, List<double> b) {
+    if (a.length != b.length) return 0.0;
+    double dot = 0.0;
+    for (int i = 0; i < a.length; i++) {
+      dot += a[i] * b[i];
+    }
+    return dot.clamp(-1.0, 1.0);
   }
 
   static String _positionToString(PhonemePosition position) {
@@ -204,6 +292,18 @@ class PronunciationScorer {
         return 'final';
     }
   }
+}
+
+/// Internal entry for phoneme frame allocation.
+class _PhonemeEntry {
+  final String phoneme;
+  final PhonemePosition position;
+  final double weight;
+  const _PhonemeEntry({
+    required this.phoneme,
+    required this.position,
+    required this.weight,
+  });
 }
 
 /// Overall result from pronunciation scoring.
@@ -347,11 +447,4 @@ enum SpeechGrade {
   good,
   fair,
   needsPractice,
-}
-
-/// Internal helper for detail analysis result.
-class _DetailResult {
-  final double score;
-  final List<PhonemeScoreDetail> details;
-  const _DetailResult({required this.score, required this.details});
 }

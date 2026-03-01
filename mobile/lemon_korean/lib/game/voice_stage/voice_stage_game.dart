@@ -34,6 +34,9 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
   final String mySkinColor;
   final String myName;
 
+  /// Initial remote speakers to add during onLoad (avoids broadcast stream race).
+  final List<RemoteCharacterAdded> initialRemoteSpeakers;
+
   // Local player
   PixelCharacter? _myCharacter;
   SpeakingAura? _myAura;
@@ -64,6 +67,7 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
     this.myUserId,
     this.isHost = false,
     this.maxSpeakers = 4,
+    this.initialRemoteSpeakers = const [],
   });
 
   /// Calculate dynamic display scale based on stage area size.
@@ -100,6 +104,18 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
 
     // Listen for bridge events
     _bridgeSub = bridge.gameEvents.listen(_handleGameEvent);
+
+    // Add initial remote speakers that were present before game loaded
+    for (final speaker in initialRemoteSpeakers) {
+      _addRemoteCharacter(
+        speaker.userId,
+        speaker.name,
+        speaker.equippedItems,
+        speaker.skinColor,
+        speaker.isMuted,
+        speaker.isHost,
+      );
+    }
   }
 
   @override
@@ -181,10 +197,28 @@ class VoiceStageGame extends FlameGame with TapCallbacks {
   @override
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
-    // Recalculate dynamic scale for characters on resize
+    final scale = calcDisplayScale();
+
+    // Recalculate dynamic scale for local character + badges
     if (_myCharacter != null) {
-      final scale = calcDisplayScale();
       _myCharacter!.displayScale = scale;
+      final charW = GameConstants.frameWidth * scale;
+      final charH = GameConstants.frameHeight * scale;
+      _myAura?.position = Vector2(
+          _myCharacter!.position.x, _myCharacter!.position.y - charH / 2);
+      _myNameLabel?.position = Vector2(
+          _myCharacter!.position.x, _myCharacter!.position.y - charH - 4);
+      _myMuteBadge?.position = Vector2(
+          _myCharacter!.position.x + charW / 2 - 5,
+          _myCharacter!.position.y - 5);
+      _myQualityBadge?.position = Vector2(
+          _myCharacter!.position.x + charW / 2 - 5,
+          _myCharacter!.position.y - charH - 12);
+    }
+
+    // Update all remote characters
+    for (final remote in _remoteCharacters.values) {
+      remote.updateDisplayScale(scale);
     }
   }
 

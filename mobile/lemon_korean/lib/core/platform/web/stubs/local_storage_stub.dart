@@ -677,8 +677,100 @@ class LocalStorage {
   }
 
   // ================================================================
+  // PRONUNCIATION
+  // ================================================================
+
+  /// Save pronunciation record
+  static Future<void> savePronunciationRecord(String character, Map<String, dynamic> record) async {
+    try {
+      web.window.localStorage.setItem('lk_pronunciation_$character', jsonEncode(record));
+    } catch (e) {
+      AppLogger.w('Error saving pronunciation record: $e', tag: 'LocalStorage', error: e);
+    }
+  }
+
+  /// Get pronunciation record
+  static Map<String, dynamic>? getPronunciationRecord(String character) {
+    try {
+      final encoded = web.window.localStorage.getItem('lk_pronunciation_$character');
+      if (encoded == null) return null;
+      return Map<String, dynamic>.from(jsonDecode(encoded));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Get all pronunciation records
+  static List<Map<String, dynamic>> getAllPronunciationRecords() {
+    try {
+      final records = <Map<String, dynamic>>[];
+      for (final key in _getAllKeys()) {
+        if (key.startsWith('lk_pronunciation_')) {
+          final encoded = web.window.localStorage.getItem(key);
+          if (encoded != null) {
+            records.add(Map<String, dynamic>.from(jsonDecode(encoded)));
+          }
+        }
+      }
+      return records;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  /// Update pronunciation stats
+  static Future<void> updatePronunciationStats({
+    required String character,
+    required int score,
+  }) async {
+    try {
+      final existing = getPronunciationRecord(character) ?? {
+        'character': character,
+        'attempts': 0,
+        'bestScore': 0,
+        'lastScore': 0,
+      };
+      existing['attempts'] = (existing['attempts'] as int? ?? 0) + 1;
+      existing['lastScore'] = score;
+      if (score > (existing['bestScore'] as int? ?? 0)) {
+        existing['bestScore'] = score;
+      }
+      existing['lastAttempt'] = DateTime.now().toIso8601String();
+      await savePronunciationRecord(character, existing);
+    } catch (e) {
+      AppLogger.w('Error updating pronunciation stats: $e', tag: 'LocalStorage', error: e);
+    }
+  }
+
+  /// Get pronunciation mastery
+  static int getPronunciationMastery(String character) {
+    final record = getPronunciationRecord(character);
+    if (record == null) return 0;
+    return record['bestScore'] as int? ?? 0;
+  }
+
+  /// Clear all pronunciation data
+  static Future<void> clearPronunciation() async {
+    final keys = _getAllKeys()
+        .where((k) => k.startsWith('lk_pronunciation_'))
+        .toList();
+    for (final key in keys) {
+      web.window.localStorage.removeItem(key);
+    }
+  }
+
+  // ================================================================
   // GENERAL
   // ================================================================
+
+  /// Clear only authentication data, preserving learning progress
+  static Future<void> clearAuthOnly() async {
+    await Future.wait([
+      clearUserId(),
+      clearCachedUser(),
+      clearSyncQueue(),
+    ]);
+  }
 
   /// Clear all data
   static Future<void> clearAll() async {

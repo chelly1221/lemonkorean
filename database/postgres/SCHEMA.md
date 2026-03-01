@@ -1116,6 +1116,9 @@ Voice chat room sessions with LiveKit integration. Supports stage/audience syste
 
 **Note:** Migration 014 renamed `max_participants` → `max_speakers` and `participant_count` → `speaker_count`, and added `listener_count`.
 
+**In-Memory State (not persisted):**
+- Kicked users are tracked in-memory per room (`Map<roomId, Set<userId>>`). Cleared when room closes. Prevents kicked users from rejoining for the room's lifetime.
+
 ---
 
 ### voice_room_participants

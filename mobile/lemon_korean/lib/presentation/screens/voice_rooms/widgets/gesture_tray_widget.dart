@@ -176,21 +176,17 @@ class _GestureTrayWidgetState extends State<GestureTrayWidget>
                     children: [
                       ...GestureTrayWidget.gestures.map((g) {
                         final canSend = provider.canSendGesture(g.id);
-                        final gProgress = _cooldownProgress[g.id] ?? 1.0;
+                        var gProgress = _cooldownProgress[g.id] ?? 1.0;
                         final gSecondsLeft = _cooldownSecondsLeft[g.id] ?? 0.0;
 
-                        // If provider says ready but our visual hasn't caught up, sync.
+                        // If provider says ready but our visual hasn't caught up, sync
+                        // directly without setState (this build pass will use updated values).
                         if (canSend && gProgress < 1.0) {
                           _cooldownTimers[g.id]?.cancel();
                           _cooldownTimers.remove(g.id);
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            if (mounted) {
-                              setState(() {
-                                _cooldownProgress[g.id] = 1.0;
-                                _cooldownSecondsLeft[g.id] = 0.0;
-                              });
-                            }
-                          });
+                          _cooldownProgress[g.id] = 1.0;
+                          _cooldownSecondsLeft[g.id] = 0.0;
+                          gProgress = 1.0;
                         }
 
                         final localizedLabel = _resolvedGestureLabel(l10n, g.id, g.label);

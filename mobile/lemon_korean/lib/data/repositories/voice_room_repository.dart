@@ -366,6 +366,21 @@ class VoiceRoomRepository {
     }
   }
 
+  /// Refresh LiveKit token before 1h TTL expiry
+  Future<String?> refreshToken(int roomId) async {
+    try {
+      final response =
+          await _dio.post('/sns/voice-rooms/$roomId/refresh-token');
+      if (response.statusCode == 200) {
+        return response.data['livekit_token'] as String?;
+      }
+      return null;
+    } catch (e) {
+      AppLogger.w('refreshToken error', tag: 'VoiceRoomRepo', error: e);
+      return null;
+    }
+  }
+
   /// Invite a listener to stage (creator only)
   Future<bool> inviteToStage(int roomId, int userId) async {
     try {

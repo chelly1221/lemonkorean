@@ -146,6 +146,18 @@ class RemoteCharacter extends PositionComponent with HasGameReference<VoiceStage
     _character.playGesture(gesture);
   }
 
+  /// Update display scale and reposition UI badges after game resize.
+  void updateDisplayScale(double scale) {
+    _character.displayScale = scale;
+    final charW = GameConstants.frameWidth * scale;
+    final charH = GameConstants.frameHeight * scale;
+
+    _aura.position = Vector2(charW / 2, charH / 2);
+    _nameLabel.position = Vector2(charW / 2, -4);
+    _muteBadge.position = Vector2(charW - 5, charH - 5);
+    _qualityBadge.position = Vector2(charW - 5, -12);
+  }
+
   List<CharacterItemModel> _buildEquippedItems() {
     if (equippedItems == null || equippedItems!.isEmpty) return [];
     final items = <CharacterItemModel>[];

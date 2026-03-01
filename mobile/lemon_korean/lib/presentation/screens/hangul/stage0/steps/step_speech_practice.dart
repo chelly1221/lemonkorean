@@ -147,100 +147,293 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
 
     return Consumer<SpeechProvider>(
       builder: (context, speech, _) {
-        return _buildPracticeView(speech);
+        final isScored = speech.recordingState == SpeechRecordingState.scored;
+        if (isScored) {
+          return _buildScoredLayout(speech);
+        }
+        return _buildInteractionLayout(speech);
       },
     );
   }
 
-  Widget _buildPracticeView(SpeechProvider speech) {
+  /// Layout for idle / recording / processing / error states.
+  /// Character is centered with spacers around it.
+  Widget _buildInteractionLayout(SpeechProvider speech) {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          // Title + progress
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  widget.step.title,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFF9C4),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  '${_currentCharIndex + 1}/${_characters.length}',
-                  style: const TextStyle(
-                      fontSize: 13, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ],
-          ),
-          if (widget.step.description != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              widget.step.description!,
-              style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-            ),
-          ],
+          _buildHeader(),
           const Spacer(),
-          // Large character display
-          GestureDetector(
-            onTap: _playSound,
-            child: Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFF9C4),
-                shape: BoxShape.circle,
-                border:
-                    Border.all(color: const Color(0xFFFFD54F), width: 3),
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Text(
-                    _currentChar,
-                    style: const TextStyle(
-                        fontSize: 56, fontWeight: FontWeight.bold),
-                  ),
-                  Positioned(
-                    bottom: 8,
-                    child: Icon(
-                      _isPlayingTts
-                          ? Icons.volume_up
-                          : Icons.volume_up_outlined,
-                      size: 16,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          // Record button or results
-          if (speech.recordingState == SpeechRecordingState.idle)
-            _buildRecordButton(speech)
+          _buildCharacterDisplay(large: true),
+          const SizedBox(height: 20),
+          if (speech.isInitializing)
+            _buildModelLoadingView()
+          else if (speech.initError != null)
+            _buildModelErrorView(speech)
+          else if (speech.recordingState == SpeechRecordingState.idle)
+            _buildRecordButton()
           else if (speech.recordingState == SpeechRecordingState.recording)
-            _buildRecordingView(speech)
+            _buildRecordingView()
           else if (speech.recordingState == SpeechRecordingState.processing)
             _buildProcessingView()
-          else if (speech.recordingState == SpeechRecordingState.scored)
-            _buildResultsView(speech),
+          else if (speech.recordingState == SpeechRecordingState.error)
+            _buildErrorView(speech),
           const Spacer(),
         ],
       ),
     );
   }
 
-  Widget _buildRecordButton(SpeechProvider speech) {
+  /// Layout for scored state — full-screen scrollable results.
+  Widget _buildScoredLayout(SpeechProvider speech) {
+    final result = speech.lastResult;
+    if (result == null) return const SizedBox.shrink();
+
+    final passed = result.overallScore >= _passScore;
+    final canRetry = !passed && _currentAttempt < _maxAttempts;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
+      child: Column(
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 16),
+          // Compact character + score side by side
+          _buildCompactCharWithScore(result),
+          const SizedBox(height: 16),
+          if (_showPhonemeDetail && result.phonemeScores.isNotEmpty) ...[
+            _buildPhonemeBreakdown(result),
+            const SizedBox(height: 16),
+          ],
+          _buildAnalysisSummary(result),
+          if (result.feedback.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            _buildFeedback(result),
+          ],
+          const SizedBox(height: 24),
+          _buildActionButtons(canRetry),
+        ],
+      ),
+    );
+  }
+
+  /// Header: title + progress badge.
+  Widget _buildHeader() {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            widget.step.title,
+            style: const TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+          padding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFF9C4),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            '${_currentCharIndex + 1}/${_characters.length}',
+            style: const TextStyle(
+                fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Large or compact character display.
+  Widget _buildCharacterDisplay({required bool large}) {
+    final size = large ? 120.0 : 80.0;
+    final fontSize = large ? 56.0 : 36.0;
+
+    return GestureDetector(
+      onTap: _playSound,
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFF9C4),
+          shape: BoxShape.circle,
+          border:
+              Border.all(color: const Color(0xFFFFD54F), width: 3),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              _currentChar,
+              style: TextStyle(
+                  fontSize: fontSize, fontWeight: FontWeight.bold),
+            ),
+            Positioned(
+              bottom: large ? 8 : 4,
+              child: Icon(
+                _isPlayingTts
+                    ? Icons.volume_up
+                    : Icons.volume_up_outlined,
+                size: large ? 16 : 12,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Compact layout: character circle + score display in a row.
+  Widget _buildCompactCharWithScore(SpeechResult result) {
+    final color = result.overallScore >= 90
+        ? Colors.green
+        : result.overallScore >= 70
+            ? const Color(0xFFFFB300)
+            : result.overallScore >= 50
+                ? Colors.orange
+                : Colors.red;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        children: [
+          // Character circle (compact)
+          _buildCharacterDisplay(large: false),
+          const SizedBox(width: 16),
+          // Score
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color.withValues(alpha: 0.15),
+              border: Border.all(color: color, width: 2),
+            ),
+            child: Center(
+              child: Text(
+                '${result.overallScore}',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          // Stars + grade
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: List.generate(
+                    5,
+                    (i) => Icon(
+                      i < result.starRating
+                          ? Icons.star
+                          : Icons.star_border,
+                      color: const Color(0xFFFFD54F),
+                      size: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  _gradeText(result.grade),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.1, end: 0);
+  }
+
+  Widget _buildModelLoadingView() {
+    return Column(
+      children: [
+        const SizedBox(
+          width: 48,
+          height: 48,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD54F)),
+            strokeWidth: 3,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          '음성 모델 로딩 중...',
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildModelErrorView(SpeechProvider speech) {
+    return Column(
+      children: [
+        Icon(Icons.error_outline, size: 48, color: Colors.red.shade300),
+        const SizedBox(height: 12),
+        Text(
+          '음성 모델을 불러올 수 없습니다',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.red.shade700,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '앱을 재설치하면 해결될 수 있습니다',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+        ),
+        if (speech.initErrorDetail != null) ...[
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              speech.initErrorDetail!,
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade600, fontFamily: 'monospace'),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+        const SizedBox(height: 16),
+        OutlinedButton.icon(
+          onPressed: () => speech.retryInitialize(),
+          icon: const Icon(Icons.refresh, size: 18),
+          label: const Text('다시 시도'),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.red.shade700,
+            side: BorderSide(color: Colors.red.shade300),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRecordButton() {
     return Column(
       children: [
         GestureDetector(
@@ -277,7 +470,7 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
     );
   }
 
-  Widget _buildRecordingView(SpeechProvider speech) {
+  Widget _buildRecordingView() {
     return Column(
       children: [
         GestureDetector(
@@ -302,8 +495,11 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
                       ),
                     ],
                   ),
-                  child:
-                      const Icon(Icons.stop, size: 32, color: Colors.white),
+                  child: const Icon(
+                    Icons.stop,
+                    size: 32,
+                    color: Colors.white,
+                  ),
                 ),
               );
             },
@@ -342,140 +538,51 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
     );
   }
 
-  Widget _buildResultsView(SpeechProvider speech) {
-    final result = speech.lastResult;
-    if (result == null) return const SizedBox.shrink();
-
-    final passed = result.overallScore >= _passScore;
-    final canRetry = !passed && _currentAttempt < _maxAttempts;
-
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildScoreDisplay(result),
-            const SizedBox(height: 12),
-            if (_showPhonemeDetail && result.phonemeScores.isNotEmpty)
-              _buildPhonemeBreakdown(result),
-            const SizedBox(height: 12),
-            _buildAnalysisSummary(result),
-            if (result.feedback.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              _buildFeedback(result),
-            ],
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                if (canRetry)
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => _retryOrNext(),
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                      child:
-                          Text(AppLocalizations.of(context)?.retryAttempt(_currentAttempt, _maxAttempts) ?? '다시 시도 ($_currentAttempt/$_maxAttempts)'),
-                    ),
-                  ),
-                if (canRetry) const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => _retryOrNext(forceNext: true),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFFD54F),
-                      foregroundColor: Colors.black87,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                    ),
-                    child: Text(
-                      _currentCharIndex < _characters.length - 1
-                          ? AppLocalizations.of(context)?.nextButton ?? '다음'
-                          : AppLocalizations.of(context)?.completeButton ?? '완료',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+  Widget _buildErrorView(SpeechProvider speech) {
+    return Column(
+      children: [
+        Icon(Icons.warning_amber_rounded, size: 48, color: Colors.orange.shade400),
+        const SizedBox(height: 12),
+        Text(
+          _getErrorMessage(speech.errorMessage),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey.shade700,
+          ),
         ),
-      ),
+        const SizedBox(height: 16),
+        ElevatedButton.icon(
+          onPressed: () {
+            speech.resetForNext();
+            _recordingDuration = Duration.zero;
+            setState(() {});
+          },
+          icon: const Icon(Icons.refresh, size: 18),
+          label: const Text('다시 시도'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFFFD54F),
+            foregroundColor: Colors.black87,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildScoreDisplay(SpeechResult result) {
-    final color = result.overallScore >= 90
-        ? Colors.green
-        : result.overallScore >= 70
-            ? const Color(0xFFFFB300)
-            : result.overallScore >= 50
-                ? Colors.orange
-                : Colors.red;
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withValues(alpha: 0.15),
-              border: Border.all(color: color, width: 2),
-            ),
-            child: Center(
-              child: Text(
-                '${result.overallScore}',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: List.generate(
-                    5,
-                    (i) => Icon(
-                      i < result.starRating
-                          ? Icons.star
-                          : Icons.star_border,
-                      color: const Color(0xFFFFD54F),
-                      size: 20,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _gradeText(result.grade),
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: color,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.1, end: 0);
+  String _getErrorMessage(String? errorCode) {
+    switch (errorCode) {
+      case 'audioTooShort':
+        return '녹음이 너무 짧습니다.\n조금 더 길게 발음해 주세요.';
+      case 'modelError':
+        return '음성 모델 오류가 발생했습니다.\n앱을 재시작해 주세요.';
+      case 'analysisError':
+      default:
+        return '발음 분석에 실패했습니다.\n다시 시도해 주세요.';
+    }
   }
 
   Widget _buildPhonemeBreakdown(SpeechResult result) {
@@ -545,7 +652,7 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
           Icon(Icons.bar_chart, size: 16, color: Colors.purple.shade400),
           const SizedBox(width: 6),
           Text(
-            '발음 품질: ${result.gopScore}점',
+            '발음 유사도: ${result.gopScore}점',
             style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
           ),
           const Spacer(),
@@ -595,6 +702,46 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
               )),
         ],
       ),
+    );
+  }
+
+  Widget _buildActionButtons(bool canRetry) {
+    return Row(
+      children: [
+        if (canRetry)
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () => _retryOrNext(),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+              child:
+                  Text(AppLocalizations.of(context)?.retryAttempt(_currentAttempt, _maxAttempts) ?? '다시 시도 ($_currentAttempt/$_maxAttempts)'),
+            ),
+          ),
+        if (canRetry) const SizedBox(width: 12),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () => _retryOrNext(forceNext: true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFFD54F),
+              foregroundColor: Colors.black87,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+            ),
+            child: Text(
+              _currentCharIndex < _characters.length - 1
+                  ? AppLocalizations.of(context)?.nextButton ?? '다음'
+                  : AppLocalizations.of(context)?.completeButton ?? '완료',
+            ),
+          ),
+        ),
+      ],
     );
   }
 

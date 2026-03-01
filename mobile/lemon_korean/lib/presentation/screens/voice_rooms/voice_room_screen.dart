@@ -55,6 +55,9 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
   // Back button double-tap for listeners
   DateTime? _lastBackPressTime;
 
+  // Periodic reaction cleanup
+  Timer? _reactionCleanupTimer;
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +78,16 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
         setState(() => _stageLoadingTimedOut = true);
       }
     });
+
+    // Periodic reaction cleanup to prevent unbounded growth in long sessions
+    _reactionCleanupTimer = Timer.periodic(
+      const Duration(seconds: 5),
+      (_) {
+        if (mounted) {
+          context.read<VoiceRoomProvider>().cleanupReactions();
+        }
+      },
+    );
   }
 
   void _initializeGame(VoiceRoomProvider provider, int userId) {
@@ -91,6 +104,24 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     final myName = myChar?.name ?? '';
 
     final room = provider.activeRoom;
+    final creatorId = room?.creatorId;
+
+    // Build initial remote speakers list to pass to game (avoids broadcast
+    // stream race condition where events sent before onLoad() are lost).
+    final initialRemoteSpeakers = <RemoteCharacterAdded>[];
+    for (final entry in provider.stageCharacters.entries) {
+      if (entry.key == userId) continue;
+      final char = entry.value;
+      initialRemoteSpeakers.add(RemoteCharacterAdded(
+        userId: char.userId,
+        name: char.name,
+        equippedItems: char.equippedItems,
+        skinColor: char.skinColor,
+        isMuted: char.isMuted,
+        isHost: char.userId == creatorId,
+      ));
+    }
+
     _game = VoiceStageGame(
       bridge: provider.gameBridge,
       isSpeaker: provider.isSpeaker,
@@ -100,27 +131,13 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
       myUserId: userId,
       isHost: provider.isCreator,
       maxSpeakers: room?.maxSpeakers ?? 4,
+      initialRemoteSpeakers: initialRemoteSpeakers,
     );
 
     // Cancel the loading timeout since game initialized successfully
     _stageLoadingTimer?.cancel();
     _stageLoadingTimer = null;
     _stageLoadingTimedOut = false;
-
-    // Send existing remote speakers to Flame
-    final creatorId = room?.creatorId;
-    for (final entry in provider.stageCharacters.entries) {
-      if (entry.key == userId) continue;
-      final char = entry.value;
-      provider.gameBridge.sendToGame(RemoteCharacterAdded(
-        userId: char.userId,
-        name: char.name,
-        equippedItems: char.equippedItems,
-        skinColor: char.skinColor,
-        isMuted: char.isMuted,
-        isHost: char.userId == creatorId,
-      ));
-    }
 
     setState(() {});
   }
@@ -142,6 +159,7 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen> {
     _connectedBannerTimer?.cancel();
     _stageLoadingTimer?.cancel();
     _roomClosedTimer?.cancel();
+    _reactionCleanupTimer?.cancel();
     _game?.onRemove();
     _game = null;
     // Bridge cleanup is handled by provider

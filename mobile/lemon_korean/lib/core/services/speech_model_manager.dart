@@ -13,24 +13,24 @@ class SpeechModelManager {
   bool _initialized = false;
 
   /// Model definitions: asset path → local file info
+  /// Only GOP model is used — Whisper was removed (GOP-only scoring).
   static const Map<String, ModelInfo> models = {
-    'whisper': ModelInfo(
-      name: 'Whisper Base',
-      fileName: 'ggml-base.bin',
-      subDir: 'whisper',
-      assetPath: 'assets/models/whisper/ggml-base.bin',
-    ),
     'gop': ModelInfo(
-      name: 'wav2vec2 Korean (GOP)',
-      fileName: 'wav2vec2_korean_q8.onnx',
+      name: 'wav2vec2 Korean (embedding)',
+      fileName: 'wav2vec2_korean_emb_q8.onnx',
       subDir: 'gop',
-      assetPath: 'assets/models/gop/wav2vec2_korean_q8.onnx',
+      assetPath: 'assets/models/gop/wav2vec2_korean_emb_q8.onnx',
     ),
   };
 
+  /// Minimum valid file size for the GOP model (~300MB).
+  /// If a file is smaller than this, it was likely corrupted from
+  /// an interrupted copy and should be re-copied.
+  static const int _minGopModelSize = 300 * 1024 * 1024; // 300MB
+
   /// Ensure all bundled models are copied to the documents directory.
-  /// Called once during app initialization. Idempotent — skips if
-  /// the file already exists locally.
+  /// Called once during app initialization. Validates file size to
+  /// detect corrupted files from interrupted copies.
   Future<void> ensureModelsReady() async {
     if (_initialized) return;
 
@@ -39,8 +39,29 @@ class SpeechModelManager {
       final localPath = await _getModelPath(info);
       final file = File(localPath);
 
+      bool needsCopy = false;
       if (!file.existsSync()) {
-        AppLogger.i('Copying bundled model: ${info.name}', tag: 'ModelManager');
+        needsCopy = true;
+        AppLogger.i('Model not found, copying: ${info.name}', tag: 'ModelManager');
+      } else {
+        final size = file.lengthSync();
+        if (size < _minGopModelSize) {
+          needsCopy = true;
+          AppLogger.w(
+            'Model file corrupted (${(size / 1024 / 1024).toStringAsFixed(1)}MB < '
+            '${(_minGopModelSize / 1024 / 1024).toStringAsFixed(0)}MB), re-copying: ${info.name}',
+            tag: 'ModelManager',
+          );
+          file.deleteSync();
+        } else {
+          AppLogger.i(
+            'Model exists: ${info.name} (${(size / 1024 / 1024).toStringAsFixed(0)}MB)',
+            tag: 'ModelManager',
+          );
+        }
+      }
+
+      if (needsCopy) {
         await _copyAssetToFile(info.assetPath, localPath);
       }
     }

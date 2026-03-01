@@ -86,13 +86,6 @@ class EquipmentLayer extends PositionComponent {
       }
     }
 
-    // Hide face categories when facing back
-    if (GameConstants.faceCategories.contains(item.category)) {
-      if (animState.direction.hideFace) {
-        // Don't render
-        return;
-      }
-    }
   }
 
   void _updateAnimation() {

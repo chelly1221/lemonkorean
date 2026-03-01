@@ -141,6 +141,10 @@ class VoiceRoomProvider with ChangeNotifier {
   String? _chatError;
   static const String _rateLimitErrorKey = 'chatRateLimited';
 
+  // LiveKit token refresh (before 1h TTL expiry)
+  Timer? _tokenRefreshTimer;
+  static const Duration _tokenRefreshInterval = Duration(minutes: 50);
+
   // Socket reconnection re-join
   StreamSubscription? _socketReconnectSub;
 
@@ -286,6 +290,10 @@ class VoiceRoomProvider with ChangeNotifier {
               _safeNotifyListeners();
             });
           }
+
+          // Start token refresh timer (refresh before 1h TTL expiry)
+          _startTokenRefreshTimer();
+
           _safeNotifyListeners();
         })
         ..on<lk.RoomDisconnectedEvent>((_) {
@@ -434,7 +442,26 @@ class VoiceRoomProvider with ChangeNotifier {
     await _connectToLiveKit();
   }
 
+  void _startTokenRefreshTimer() {
+    _tokenRefreshTimer?.cancel();
+    final roomId = _activeRoom?.id;
+    if (roomId == null) return;
+
+    _tokenRefreshTimer = Timer(_tokenRefreshInterval, () async {
+      if (_activeRoom == null || _activeRoom!.id != roomId) return;
+      final newToken = await _repository.refreshToken(roomId);
+      if (newToken != null && _activeRoom != null && _activeRoom!.id == roomId) {
+        _livekitToken = newToken;
+        AppLogger.i('LiveKit token refreshed', tag: 'VoiceRoomProvider');
+        // Restart timer for next refresh cycle
+        _startTokenRefreshTimer();
+      }
+    });
+  }
+
   void _cleanupLiveKit() {
+    _tokenRefreshTimer?.cancel();
+    _tokenRefreshTimer = null;
     _reconnectTimer?.cancel();
     _reconnectTimer = null;
     _reconnectedBannerTimer?.cancel();
@@ -505,6 +532,7 @@ class VoiceRoomProvider with ChangeNotifier {
           _speakers.removeWhere((p) => p.userId == userId);
           _listeners.removeWhere((p) => p.userId == userId);
           _stageCharacters.remove(userId);
+          _speakingStates.remove(userId);
           // Forward to Flame
           _gameBridge?.sendToGame(RemoteCharacterRemoved(userId: userId));
           _safeNotifyListeners();
@@ -610,6 +638,7 @@ class VoiceRoomProvider with ChangeNotifier {
     _socketSubscriptions.add(
       _socket.onVoiceRoleChanged.listen((data) {
         if (_activeRoom == null) return;
+        if (data['room_id'] != null && data['room_id'] != _activeRoom!.id) return;
         final userId = data['user_id'] as int?;
         final newRole = data['role']?.toString();
         if (userId == null || newRole == null) return;
@@ -673,6 +702,7 @@ class VoiceRoomProvider with ChangeNotifier {
           _myRole = newRole;
           if (newRole == 'listener') {
             _hasRaisedHand = false;
+            _micError = null; // Clear stale mic error
           }
         }
 
@@ -731,6 +761,7 @@ class VoiceRoomProvider with ChangeNotifier {
     _socketSubscriptions.add(
       _socket.onVoiceStageGranted.listen((data) async {
         if (_activeRoom == null) return;
+        if (data['room_id'] != null && data['room_id'] != _activeRoom!.id) return;
         final userId = data['user_id'] as int?;
         if (userId == _myUserId) {
           // I was promoted to speaker
@@ -770,9 +801,34 @@ class VoiceRoomProvider with ChangeNotifier {
     _socketSubscriptions.add(
       _socket.onVoiceStageRemoved.listen((data) async {
         if (_activeRoom == null) return;
+        if (data['room_id'] != null && data['room_id'] != _activeRoom!.id) return;
         final userId = data['user_id'] as int?;
+        if (userId == null) return;
+
+        // Remove stage character and notify Flame (for both self and others)
+        if (_stageCharacters.containsKey(userId)) {
+          _stageCharacters.remove(userId);
+          _gameBridge?.sendToGame(RemoteCharacterRemoved(userId: userId));
+        }
+
+        // Move from speakers to listeners if not already done by role_changed
+        final speakerIdx = _speakers.indexWhere((p) => p.userId == userId);
+        if (speakerIdx >= 0) {
+          final speaker = _speakers.removeAt(speakerIdx);
+          if (!_listeners.any((l) => l.userId == userId)) {
+            _listeners.add(VoiceParticipantModel(
+              userId: userId,
+              name: speaker.name,
+              avatar: speaker.avatar,
+              role: 'listener',
+            ));
+          }
+        }
+
         if (userId == _myUserId) {
           _myRole = 'listener';
+          _hasRaisedHand = false;
+          _micError = null; // Clear any stale mic error from speaker state
           final newToken = data['livekit_token'] as String?;
           if (newToken != null) {
             _livekitToken = newToken; // Save as fallback
@@ -784,14 +840,20 @@ class VoiceRoomProvider with ChangeNotifier {
                 ?.setMicrophoneEnabled(false);
           } catch (_) {}
           _isMuted = false;
-          _safeNotifyListeners();
         }
+
+        // Clear stale speaking state for removed user
+        _speakingStates.remove(userId);
+
+        _safeNotifyListeners();
       }),
     );
 
     // Character position updates from other users
     _socketSubscriptions.add(
       _socket.onVoiceCharacterPosition.listen((data) {
+        if (_activeRoom == null) return;
+        if (data['room_id'] != null && data['room_id'] != _activeRoom!.id) return;
         final userId = data['user_id'] as int?;
         if (userId == null || userId == _myUserId) return;
 
@@ -818,6 +880,8 @@ class VoiceRoomProvider with ChangeNotifier {
     // Emoji reactions
     _socketSubscriptions.add(
       _socket.onVoiceReaction.listen((data) {
+        if (_activeRoom == null) return;
+        if (data['room_id'] != null && data['room_id'] != _activeRoom!.id) return;
         final userId = data['user_id'] as int?;
         final emoji = data['emoji']?.toString();
         if (userId == null || emoji == null) return;
@@ -846,7 +910,7 @@ class VoiceRoomProvider with ChangeNotifier {
         Future.delayed(const Duration(seconds: 2), () {
           _reactions.removeWhere((r) =>
               r.userId == userId &&
-              DateTime.now().difference(r.createdAt).inMilliseconds > 1800);
+              DateTime.now().difference(r.createdAt).inMilliseconds > 2000);
           _safeNotifyListeners();
         });
       }),
@@ -890,6 +954,8 @@ class VoiceRoomProvider with ChangeNotifier {
     // Character gestures
     _socketSubscriptions.add(
       _socket.onVoiceGesture.listen((data) {
+        if (_activeRoom == null) return;
+        if (data['room_id'] != null && data['room_id'] != _activeRoom!.id) return;
         final userId = data['user_id'] as int?;
         final gesture = data['gesture']?.toString();
         if (userId == null || gesture == null) return;
@@ -1645,6 +1711,7 @@ class VoiceRoomProvider with ChangeNotifier {
         // Remove characters no longer on stage
         for (final id in currentCharIds.difference(newSpeakerIds)) {
           _stageCharacters.remove(id);
+          _gameBridge?.sendToGame(RemoteCharacterRemoved(userId: id));
         }
 
         // Add/update characters
@@ -1658,6 +1725,15 @@ class VoiceRoomProvider with ChangeNotifier {
               skinColor: speaker.skinColor,
               isMuted: speaker.isMuted,
             );
+            // Notify Flame about the new character
+            _gameBridge?.sendToGame(RemoteCharacterAdded(
+              userId: speaker.userId,
+              name: speaker.name,
+              equippedItems: speaker.equippedItems,
+              skinColor: speaker.skinColor,
+              isMuted: speaker.isMuted,
+              isHost: _activeRoom != null && speaker.userId == _activeRoom!.creatorId,
+            ));
           } else {
             _stageCharacters[speaker.userId]!.isMuted = speaker.isMuted;
           }

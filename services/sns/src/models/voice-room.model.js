@@ -68,7 +68,34 @@ function _buildEquippedItemsMap(entries, itemDetailsMap) {
   return Object.keys(equipped).length > 0 ? equipped : null;
 }
 
+// In-memory kicked-user tracking per room (roomId -> Set<userId>).
+// Ephemeral rooms don't need DB persistence for kick bans.
+const _kickedUsers = new Map();
+
 class VoiceRoom {
+  /**
+   * Record that a user was kicked from a room (prevents rejoin).
+   */
+  static kickUser(roomId, userId) {
+    if (!_kickedUsers.has(roomId)) {
+      _kickedUsers.set(roomId, new Set());
+    }
+    _kickedUsers.get(roomId).add(userId);
+  }
+
+  /**
+   * Check if a user was kicked from a room.
+   */
+  static isKicked(roomId, userId) {
+    return _kickedUsers.has(roomId) && _kickedUsers.get(roomId).has(userId);
+  }
+
+  /**
+   * Clear kicked-user list for a room (called when room closes).
+   */
+  static clearKicked(roomId) {
+    _kickedUsers.delete(roomId);
+  }
   /**
    * Create a new voice room
    */
@@ -106,6 +133,7 @@ class VoiceRoom {
    * Get active rooms with current participants (speakers + listeners)
    */
   static async getActiveRooms({ limit = 20, offset = 0 } = {}) {
+    const itemCols = ITEM_COLUMNS.map(c => `uc.${c}`).join(', ');
     const sql = `
       SELECT r.*,
         u.name AS creator_name,
@@ -117,7 +145,9 @@ class VoiceRoom {
               'name', pu.name,
               'avatar', pu.profile_image_url,
               'is_muted', p.is_muted,
-              'role', p.role
+              'role', p.role,
+              'skin_color', uc.skin_color,
+              ${ITEM_COLUMNS.map(c => `'${c}', uc.${c}`).join(',\n              ')}
             )
           ) FILTER (WHERE p.user_id IS NOT NULL), '[]'
         ) AS participants
@@ -125,6 +155,7 @@ class VoiceRoom {
       JOIN users u ON u.id = r.creator_id
       LEFT JOIN voice_room_participants p ON p.room_id = r.id AND p.left_at IS NULL
       LEFT JOIN users pu ON pu.id = p.user_id
+      LEFT JOIN user_characters uc ON uc.user_id = p.user_id
       WHERE r.status = 'active'
       GROUP BY r.id, u.name, u.profile_image_url
       ORDER BY r.created_at DESC
@@ -132,6 +163,41 @@ class VoiceRoom {
     `;
 
     const result = await query(sql, [limit, offset]);
+
+    // Post-process: resolve item IDs to full item details for each participant
+    for (const room of result.rows) {
+      const participants = typeof room.participants === 'string'
+        ? JSON.parse(room.participants) : room.participants;
+
+      // Collect all item IDs across all participants
+      const allEntries = [];
+      const participantEntries = [];
+      for (const p of participants) {
+        const entries = _collectItemIds(p);
+        participantEntries.push(entries);
+        allEntries.push(...entries);
+      }
+
+      // Batch fetch
+      const uniqueIds = [...new Set(allEntries.map(e => e.itemId))];
+      const itemDetailsMap = await _fetchItemDetails(uniqueIds);
+
+      // Build equipped_items for each participant and clean up raw columns
+      room.participants = participants.map((p, idx) => {
+        const equipped = _buildEquippedItemsMap(participantEntries[idx], itemDetailsMap);
+        const cleaned = {
+          user_id: p.user_id,
+          name: p.name,
+          avatar: p.avatar,
+          is_muted: p.is_muted,
+          role: p.role,
+          skin_color: p.skin_color,
+          equipped_items: equipped,
+        };
+        return cleaned;
+      });
+    }
+
     return result.rows;
   }
 
@@ -583,6 +649,10 @@ class VoiceRoom {
       }
 
       await client.query('COMMIT');
+
+      // Clear in-memory kicked-user list for this room
+      VoiceRoom.clearKicked(roomId);
+
       return result.rows[0] || null;
     } catch (error) {
       await client.query('ROLLBACK');

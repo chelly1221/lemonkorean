@@ -941,14 +941,16 @@ Voice chat rooms with LiveKit integration (max 4 speakers on stage, unlimited li
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/` | List active voice rooms |
+| GET | `/` | List active voice rooms (includes participant skin_color + equipped_items) |
 | POST | `/` | Create a new voice room |
 | GET | `/:id` | Get room details with participants |
-| POST | `/:id/join` | Join room (returns `livekit_token`, `livekit_url`) |
+| POST | `/:id/join` | Join room (returns `livekit_token`, `livekit_url`). Returns 403 if kicked |
 | POST | `/:id/leave` | Leave room |
-| DELETE | `/:id` | Close room (creator only) |
+| DELETE | `/:id` | Close room (creator only, clears kick list) |
 | POST | `/:id/mute` | Toggle mute status |
 | POST | `/:id/reject-stage` | Reject stage request (speaker only) |
+| POST | `/:id/kick` | Kick participant (prevents rejoin for room lifetime) |
+| POST | `/:id/refresh-token` | Refresh LiveKit token before 1h TTL expiry |
 
 ### POST /api/sns/voice-rooms/
 
@@ -982,9 +984,29 @@ Voice chat rooms with LiveKit integration (max 4 speakers on stage, unlimited li
 }
 ```
 
+### POST /api/sns/voice-rooms/:id/refresh-token
+
+Refresh LiveKit token before the 1-hour TTL expires. Requires room membership.
+
+**Response:**
+```json
+{
+  "livekit_token": "eyJ..."
+}
+```
+
+### POST /api/sns/voice-rooms/:id/kick
+
+Kick a participant from the room. Kicked users cannot rejoin for the lifetime of the room (tracked in-memory).
+
+**Request Body:**
+```json
+{ "target_user_id": 5 }
+```
+
 ### DELETE /api/sns/voice-rooms/:id
 
-Closes the room (creator only). Sets status to `closed` and disconnects all participants.
+Closes the room (creator only). Sets status to `closed`, disconnects all participants, and clears the kick list.
 
 ---
 

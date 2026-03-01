@@ -130,6 +130,11 @@ const joinRoom = async (req, res) => {
       }
     }
 
+    // Check if user was kicked from this room
+    if (VoiceRoom.isKicked(roomId, userId)) {
+      return res.status(403).json({ error: 'You were kicked from this room' });
+    }
+
     // Join as listener (no capacity check)
     const participant = await VoiceRoom.join(roomId, userId);
 
@@ -568,6 +573,9 @@ const kickParticipant = async (req, res) => {
       return res.status(400).json({ error: 'Cannot kick yourself' });
     }
 
+    // Track kicked user to prevent rejoin
+    VoiceRoom.kickUser(roomId, parsedTargetUserId);
+
     // Remove from DB
     await VoiceRoom.leave(roomId, parsedTargetUserId);
 
@@ -706,6 +714,32 @@ const rejectStageRequest = async (req, res) => {
   }
 };
 
+/**
+ * Refresh LiveKit token (before 1h TTL expiry)
+ */
+const refreshToken = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const roomId = parseInt(req.params.id);
+
+    const room = await VoiceRoom.getById(roomId);
+    if (!room || room.status !== 'active') {
+      return res.status(404).json({ error: 'Room not found or closed' });
+    }
+
+    const role = await VoiceRoom.getParticipantRole(roomId, userId);
+    if (!role) {
+      return res.status(403).json({ error: 'Not a participant in this room' });
+    }
+
+    const token = await generateToken(room.livekit_room_name, userId, req.user.name, role);
+    res.json({ livekit_token: token });
+  } catch (error) {
+    console.error('[SNS] refreshToken error:', error);
+    res.status(500).json({ error: 'Failed to refresh token' });
+  }
+};
+
 module.exports = {
   getRooms,
   createRoom,
@@ -723,5 +757,6 @@ module.exports = {
   removeFromStage,
   leaveStage,
   kickParticipant,
-  inviteToStage
+  inviteToStage,
+  refreshToken
 };
