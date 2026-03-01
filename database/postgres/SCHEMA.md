@@ -1087,7 +1087,7 @@ Per-user read tracking for each conversation.
 
 ---
 
-## Voice Room Tables (Migration 012)
+## Voice Room Tables (Migration 012, 014, 019)
 
 ### voice_rooms
 
