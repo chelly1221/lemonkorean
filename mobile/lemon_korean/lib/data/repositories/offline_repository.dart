@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/storage/database_helper.dart';
 import '../../core/utils/app_logger.dart';
 import '../../core/utils/download_manager.dart';
@@ -403,11 +402,12 @@ class OfflineRepository {
 
   Future<int> _getDirectorySize(Directory dir) async {
     int totalSize = 0;
+    final directory = dir;
 
-    if (!await dir.exists()) return 0;
+    if (!await directory.exists()) return 0;
 
     try {
-      await for (final entity in dir.list(recursive: true, followLinks: false)) {
+      await for (final entity in directory.list(recursive: true, followLinks: false)) {
         if (entity is File) {
           totalSize += await entity.length();
         }

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../data/repositories/content_repository.dart';
 
 class LessonProvider with ChangeNotifier {

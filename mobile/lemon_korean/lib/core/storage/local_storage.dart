@@ -469,23 +469,21 @@ class LocalStorage {
   }
 
   /// Get data from a named box
-  static T? getFromBox<T>(String boxName, String key) {
+  static Future<T?> getFromBox<T>(String boxName, String key) async {
     try {
-      final box = Hive.box(boxName);
+      final box = await Hive.openBox(boxName);
       return box.get(key) as T?;
     } catch (e) {
-      // Box might not be open
       return null;
     }
   }
 
   /// Get all data from a named box
-  static List<T> getAllFromBox<T>(String boxName) {
+  static Future<List<T>> getAllFromBox<T>(String boxName) async {
     try {
-      final box = Hive.box(boxName);
+      final box = await Hive.openBox(boxName);
       return box.values.cast<T>().toList();
     } catch (e) {
-      // Box might not be open
       return [];
     }
   }
@@ -614,6 +612,7 @@ class LocalStorage {
       _syncQueueBox.close(),
       _settingsBox.close(),
       _reviewsBox.close(),
+      _bookmarksBox.close(),
       _pronunciationBox.close(),
     ]);
   }

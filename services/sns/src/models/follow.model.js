@@ -134,13 +134,15 @@ class Follow {
              uf.created_at AS followed_at,
              u.id,
              u.name,
-             u.email,
              u.profile_image_url,
              u.follower_count,
              u.following_count
       FROM user_follows uf
       JOIN users u ON uf.follower_id = u.id
       WHERE uf.following_id = $1
+        AND u.is_active = true
+        AND uf.follower_id NOT IN (SELECT blocked_id FROM user_blocks WHERE blocker_id = $1)
+        AND uf.follower_id NOT IN (SELECT blocker_id FROM user_blocks WHERE blocked_id = $1)
         ${cursorClause}
       ORDER BY uf.id DESC
       LIMIT $2
@@ -171,13 +173,15 @@ class Follow {
              uf.created_at AS followed_at,
              u.id,
              u.name,
-             u.email,
              u.profile_image_url,
              u.follower_count,
              u.following_count
       FROM user_follows uf
       JOIN users u ON uf.following_id = u.id
       WHERE uf.follower_id = $1
+        AND u.is_active = true
+        AND uf.following_id NOT IN (SELECT blocked_id FROM user_blocks WHERE blocker_id = $1)
+        AND uf.following_id NOT IN (SELECT blocker_id FROM user_blocks WHERE blocked_id = $1)
         ${cursorClause}
       ORDER BY uf.id DESC
       LIMIT $2

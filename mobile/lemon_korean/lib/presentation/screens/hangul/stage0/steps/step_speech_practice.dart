@@ -29,7 +29,6 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
   late AnimationController _pulseController;
 
   int _currentCharIndex = 0;
-  int _currentAttempt = 0;
   int _correctCount = 0;
   int _totalCount = 0;
   bool _isPlayingTts = false;
@@ -38,10 +37,9 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
 
   List<String> get _characters =>
       (widget.step.data['characters'] as List?)?.cast<String>() ?? [];
-  int get _maxAttempts => widget.step.data['maxAttempts'] as int? ?? 3;
   int get _passScore => widget.step.data['passScore'] as int? ?? 70;
   bool get _showPhonemeDetail =>
-      widget.step.data['showPhonemeDetail'] as bool? ?? true;
+      widget.step.data['showPhonemeDetail'] as bool? ?? false;
 
   @override
   void initState() {
@@ -107,7 +105,6 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
       language: 'ko',
     );
 
-    _currentAttempt++;
     _totalCount++;
 
     final result = speech.lastResult;
@@ -116,20 +113,18 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
     }
   }
 
-  void _retryOrNext({bool forceNext = false}) {
+  /// Re-record the same character (unlimited retries).
+  void _retry() {
     final speech = context.read<SpeechProvider>();
-    final result = speech.lastResult;
-    final passed = result != null && result.overallScore >= _passScore;
-
-    if (!forceNext && !passed && _currentAttempt < _maxAttempts) {
-      speech.resetForNext();
-      _recordingDuration = Duration.zero;
-      setState(() {});
-      return;
-    }
-
     speech.resetForNext();
-    _currentAttempt = 0;
+    _recordingDuration = Duration.zero;
+    setState(() {});
+  }
+
+  /// Advance to the next character (only when user explicitly presses "다음").
+  void _goNext() {
+    final speech = context.read<SpeechProvider>();
+    speech.resetForNext();
     _recordingDuration = Duration.zero;
 
     if (_currentCharIndex < _characters.length - 1) {
@@ -190,9 +185,6 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
     final result = speech.lastResult;
     if (result == null) return const SizedBox.shrink();
 
-    final passed = result.overallScore >= _passScore;
-    final canRetry = !passed && _currentAttempt < _maxAttempts;
-
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
       child: Column(
@@ -202,17 +194,15 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
           // Compact character + score side by side
           _buildCompactCharWithScore(result),
           const SizedBox(height: 16),
-          if (_showPhonemeDetail && result.phonemeScores.isNotEmpty) ...[
-            _buildPhonemeBreakdown(result),
-            const SizedBox(height: 16),
-          ],
+          // Per-phoneme breakdown disabled — embedding-based scoring
+          // cannot reliably distinguish individual phoneme quality.
           _buildAnalysisSummary(result),
           if (result.feedback.isNotEmpty) ...[
             const SizedBox(height: 16),
             _buildFeedback(result),
           ],
           const SizedBox(height: 24),
-          _buildActionButtons(canRetry),
+          _buildActionButtons(),
         ],
       ),
     );
@@ -466,6 +456,14 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
           '탭하여 녹음',
           style: TextStyle(fontSize: 13, color: Colors.grey.shade500),
         ),
+        const SizedBox(height: 16),
+        TextButton(
+          onPressed: _goNext,
+          child: Text(
+            '건너뛰기',
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade400),
+          ),
+        ),
       ],
     );
   }
@@ -705,27 +703,27 @@ class _StepSpeechPracticeState extends State<StepSpeechPractice>
     );
   }
 
-  Widget _buildActionButtons(bool canRetry) {
+  Widget _buildActionButtons() {
     return Row(
       children: [
-        if (canRetry)
-          Expanded(
-            child: OutlinedButton(
-              onPressed: () => _retryOrNext(),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
+        // Always show retry button so user can practice as many times as they want
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: _retry,
+            icon: const Icon(Icons.mic, size: 18),
+            label: Text(AppLocalizations.of(context)?.tryAgain ?? '다시 녹음'),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
               ),
-              child:
-                  Text(AppLocalizations.of(context)?.retryAttempt(_currentAttempt, _maxAttempts) ?? '다시 시도 ($_currentAttempt/$_maxAttempts)'),
             ),
           ),
-        if (canRetry) const SizedBox(width: 12),
+        ),
+        const SizedBox(width: 12),
         Expanded(
           child: ElevatedButton(
-            onPressed: () => _retryOrNext(forceNext: true),
+            onPressed: _goNext,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFFD54F),
               foregroundColor: Colors.black87,

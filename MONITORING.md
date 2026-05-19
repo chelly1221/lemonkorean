@@ -23,6 +23,9 @@ curl http://localhost:3004/health  # Media
 curl http://localhost:3005/health  # Analytics
 curl http://localhost:3007/health  # SNS
 # Admin은 nginx를 통해 접근: https://lemon.3chan.kr/admin/
+
+# Moderation (내부 전용, 호스트 포트 미노출 - docker exec로 확인)
+docker exec lemon-moderation-service python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3008/health')"
 ```
 
 **Docker 상태**
@@ -376,11 +379,12 @@ bash scripts/monitoring/dashboard.sh
 - ✅ 활성 음성 대화방 수 (status='active')
 - ✅ 동시 참가자 수
 
-### 웹 앱 (Flutter Web)
-- ✅ 번들 크기 (< 20MB 목표)
-- ✅ 로딩 시간 (First Contentful Paint)
-- ✅ localStorage 사용량 (5-10MB 제한)
-- ✅ JavaScript 에러율 (브라우저 콘솔)
+### Moderation Service (AI 콘텐츠 모더레이션)
+- ✅ 서비스 헬스 상태 (`docker exec`로 확인)
+- ✅ 모더레이션 처리 시간 (p95 < 500ms 목표)
+- ✅ 게시물/댓글 자동 거부 수 (TEXT_REJECT_THRESHOLD 이상)
+- ✅ 플래그된 콘텐츠 수 (수동 검토 대기)
+- ✅ ONNX 모델 메모리 사용량
 
 ## 문제 해결
 
@@ -521,6 +525,7 @@ docker compose exec postgres psql -U 3chan -d lemon_korean -c \
 - [ ] Socket.IO 연결 수 모니터링 설정
 - [ ] LiveKit 서버 헬스체크 추가
 - [ ] DM 메시지 볼륨 알림 설정
+- [ ] Moderation 서비스 헬스체크 추가 (내부 전용, `docker exec`)
 
 ## 참고 자료
 

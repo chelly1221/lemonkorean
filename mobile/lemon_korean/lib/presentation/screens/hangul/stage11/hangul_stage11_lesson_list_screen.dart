@@ -8,7 +8,7 @@ import '../stage0/hangul_lesson_flow_screen.dart';
 import '../stage0/stage0_lesson_content.dart';
 import 'stage11_lesson_content.dart';
 
-/// Shows the lessons of Stage 11 (단어 읽기 확장) with completion status.
+/// Shows the lessons of Stage 11 (음운 변화 규칙) with completion status.
 class HangulStage11LessonListScreen extends StatelessWidget {
   const HangulStage11LessonListScreen({super.key});
 
@@ -19,7 +19,7 @@ class HangulStage11LessonListScreen extends StatelessWidget {
     final lessons = getStage11Lessons(l10n!);
 
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)?.hangulStage11Title ?? '11단계: 단어 읽기 확장')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)?.hangulStage11Title ?? '11단계: 음운 변화 규칙')),
       body: Consumer<HangulProvider>(
         builder: (context, hangul, _) {
           return ListView.separated(

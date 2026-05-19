@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import '../utils/app_logger.dart';
+import '../../main.dart' show navigatorKey;
+import '../../presentation/screens/home/home_screen.dart';
 
 /// Notification Service
 /// Handles all notification scheduling and management
@@ -76,7 +79,20 @@ class NotificationService {
     if (kDebugMode) {
       AppLogger.d('Notification tapped: ${response.payload}', tag: 'NotificationService');
     }
-    // TODO: Navigate to appropriate screen based on payload
+
+    final navigator = navigatorKey.currentState;
+    if (navigator == null) return;
+
+    final payload = response.payload;
+    if (payload != null && payload.startsWith('review_lesson_')) {
+      // Review reminder tapped: navigate to home screen where reviews are shown
+      navigator.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        ),
+        (route) => false,
+      );
+    }
   }
 
   // ================================================================

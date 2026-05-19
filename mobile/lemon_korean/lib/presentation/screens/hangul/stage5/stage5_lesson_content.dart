@@ -53,6 +53,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅇ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['아', '오', '우'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS5L1Step4Title,
         data: {
@@ -133,6 +142,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅈ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['자', '조', '주'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS5L2Step5Title,
         data: {
@@ -196,6 +214,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
               'choices': ['추', '주']
             },
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅊ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['차', '초', '추'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -265,6 +292,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅋ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['카', '코', '쿠'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS5L4Step4Title,
         data: {
@@ -328,6 +364,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
               'choices': ['두', '투']
             },
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅌ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['타', '토', '투'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -397,6 +442,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅍ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['파', '포', '푸'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS5L6Step4Title,
         data: {
@@ -460,6 +514,15 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
               'choices': ['우', '후']
             },
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅎ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['하', '호', '후'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -574,6 +637,56 @@ List<LessonData> getStage5Lessons(AppLocalizations l10n) => <LessonData>[
       ),
     ],
   ),
+  // ── Lesson 5-9W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '5-9W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['커피', '치즈', '피자', '타조', '하마', '주소', '후추', '자리', '초코'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['커피', '치즈', '피자', '타조', '하마', '주소', '후추', '자리', '초코'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '커피', 'choices': ['커피', '치즈', '피자']},
+            {'answer': '치즈', 'choices': ['타조', '치즈', '하마']},
+            {'answer': '피자', 'choices': ['피자', '주소', '후추']},
+            {'answer': '타조', 'choices': ['자리', '타조', '초코']},
+            {'answer': '하마', 'choices': ['하마', '커피', '주소']},
+            {'answer': '후추', 'choices': ['후추', '자리', '치즈']},
+            {'answer': '초코', 'choices': ['피자', '초코', '타조']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '5-9W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   LessonData(
     id: '5-M',
     title: l10n.hangulS5LMTitle,

@@ -29,8 +29,8 @@ const follow = async (req, res) => {
       });
     }
 
-    // Check if blocked
-    const isBlocked = await Block.isBlocked(followingId, followerId);
+    // Check if blocked (either direction)
+    const isBlocked = await Block.isBlockedEitherWay(followerId, followingId);
     if (isBlocked) {
       return res.status(403).json({
         error: 'Forbidden',

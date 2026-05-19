@@ -2629,7 +2629,7 @@
   "stageDetailComingSoon": "Los detalles estarán disponibles pronto.",
   "bossQuizComingSoon": "El Quiz del Jefe estará disponible pronto.",
   "exitLessonDialogTitle": "Salir de la lección",
-  "exitLessonDialogContent": "¿Quieres salir de la lección?\nTu progreso hasta este paso se guardará.",
+  "exitLessonDialogContent": "¿Quieres salir de la lección?\nLa próxima vez empezarás desde el principio.",
   "continueButton": "Continuar",
   "exitLessonButton": "Salir",
   "noQuestions": "No hay preguntas disponibles",

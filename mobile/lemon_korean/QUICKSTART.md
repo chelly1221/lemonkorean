@@ -32,29 +32,29 @@ flutter run -d chrome
 ## 프로젝트 구조
 
 ```
-lib/
+lib/                                    # 323개 Dart 파일
 ├── core/
-│   ├── constants/
-│   │   └── app_constants.dart        # 전역 상수 (API URL, 색상 등)
-│   ├── storage/
-│   │   ├── local_storage.dart        # Hive 로컬 저장소
-│   │   └── database_helper.dart      # SQLite 미디어 DB
-│   └── network/
-│       └── api_client.dart           # Dio HTTP 클라이언트
+│   ├── config/                        # 환경 설정
+│   ├── constants/                     # 전역 상수 (API URL, 색상 등)
+│   ├── data/                          # 참조 데이터 (발음 임베딩 등)
+│   ├── network/                       # Dio HTTP 클라이언트
+│   ├── services/                      # 핵심 서비스 (16개: 음성인식, GOP, TTS 등)
+│   ├── storage/                       # Hive + SQLite 저장소
+│   └── utils/                         # 공통 유틸리티 (20개)
 ├── data/
-│   ├── models/                       # 데이터 모델
-│   └── repositories/                 # 레포지토리 패턴
+│   ├── models/                        # 데이터 모델 (19개 + .g.dart)
+│   └── repositories/                  # 레포지토리 (9개)
+├── game/                              # Flame 게임 모듈 (26개 파일)
 ├── presentation/
 │   ├── screens/
-│   │   ├── auth/                     # 로그인/회원가입
-│   │   ├── home/                     # 홈 화면
-│   │   └── lesson/                   # 레슨 화면 (TODO)
-│   ├── providers/                    # Provider 상태 관리
-│   │   ├── auth_provider.dart
-│   │   ├── lesson_provider.dart
-│   │   ├── progress_provider.dart
-│   │   └── sync_provider.dart
-│   └── widgets/                      # 재사용 위젯
+│   │   ├── auth/                      # 로그인/회원가입
+│   │   ├── home/                      # 홈 화면
+│   │   ├── hangul/                    # 한글 커리큘럼 (Stage 0~12)
+│   │   ├── lesson/                    # 7단계 레슨
+│   │   ├── community/                 # SNS 커뮤니티
+│   │   └── ...                        # 기타 화면
+│   ├── providers/                     # Provider 상태 관리 (17개)
+│   └── widgets/                       # 재사용 위젯
 └── main.dart
 ```
 
@@ -185,7 +185,7 @@ CachedNetworkImage(
 ### Flutter 버전 확인
 ```bash
 flutter --version
-# Flutter 3.0 이상 필요
+# Flutter 3.41.0 / Dart 3.11.0 이상 필요
 ```
 
 ### 패키지 설치 에러

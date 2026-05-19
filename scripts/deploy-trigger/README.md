@@ -1,6 +1,6 @@
 # Deploy Agent System
 
-File-based trigger system for automated web and APK deployments.
+File-based trigger system for automated APK builds.
 
 ## Overview
 
@@ -15,12 +15,6 @@ Admin Dashboard → Create trigger file → Deploy Agent → Execute build scrip
 ## Trigger Files
 
 **Directory:** `/home/sanchan/lemonkorean/services/admin/src/deploy-triggers/`
-
-### Web Deployment
-- **Trigger:** `deploy.trigger` (contains deployment ID)
-- **Log:** `deploy-{ID}.log`
-- **Status:** `deploy-{ID}.status` (SUCCESS/FAILED)
-- **Script:** `/home/sanchan/lemonkorean/mobile/lemon_korean/build_web.sh`
 
 ### APK Build
 - **Trigger:** `apk-build.trigger` (contains build ID)
@@ -53,21 +47,20 @@ WantedBy=multi-user.target
 
 ## How It Works
 
-1. Admin triggers deployment via Admin Dashboard
-2. Admin service creates trigger file with deployment/build ID
+1. Admin triggers an APK build via Admin Dashboard
+2. Admin service creates trigger file with build ID
 3. Deploy agent detects trigger file (2-second polling)
 4. Agent removes trigger file and creates log file
-5. Agent executes corresponding build script
+5. Agent executes the APK build script
 6. Agent writes status file (SUCCESS/FAILED) based on exit code
 7. Admin service polls status file and updates database
 
 ## Cancellation
 
-Deployments can be cancelled by creating:
-- `deploy-{ID}.cancel` for web deployments
-- `apk-build-{ID}.cancel` for APK builds
+APK builds can be cancelled by creating:
+- `apk-build-{ID}.cancel`
 
-The build scripts check for these files and terminate gracefully.
+The build script checks for this file and terminates gracefully.
 
 ## Monitoring
 

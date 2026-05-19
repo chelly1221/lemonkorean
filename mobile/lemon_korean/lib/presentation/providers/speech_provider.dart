@@ -4,6 +4,7 @@ import '../../core/services/gop_service.dart';
 import '../../core/services/audio_recorder_service.dart';
 import '../../core/services/speech_model_manager.dart';
 import '../../core/services/pronunciation_scorer.dart';
+import '../../core/services/whisper_service.dart';
 import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 
@@ -55,8 +56,9 @@ class SpeechProvider extends ChangeNotifier {
       await SpeechModelManager.instance.ensureModelsReady();
       AppLogger.i('[SpeechProvider] Models ready, initializing GOP...', tag: 'SpeechProvider');
 
-      // Initialize GOP speech service (Whisper removed — GOP-only scoring)
+      // Initialize GOP + Whisper speech services
       await GopService.instance.initialize();
+      await WhisperService.instance.initialize();
 
       if (!GopService.instance.isInitialized) {
         _initError = 'modelLoadFailed';

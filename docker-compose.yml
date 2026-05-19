@@ -409,6 +409,31 @@ services:
       retries: 3
     restart: unless-stopped
 
+  # Moderation Service (Python) - NPU 기반 AI 콘텐츠 모더레이션
+  moderation-service:
+    build:
+      context: ./services/moderation
+      dockerfile: Dockerfile
+    container_name: lemon-moderation-service
+    environment:
+      MODERATION_PORT: 3008
+      TEXT_REJECT_THRESHOLD: ${TEXT_REJECT_THRESHOLD:-0.7}
+      TEXT_FLAG_THRESHOLD: ${TEXT_FLAG_THRESHOLD:-0.3}
+      USE_QUANTIZED: "true"
+      INTRA_OP_THREADS: 0
+    # Internal-only service (no host port exposure)
+    expose:
+      - "3008"
+    networks:
+      - lemon-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3008/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    restart: unless-stopped
+
   # SNS Service (Node.js) - 커뮤니티/피드/팔로우
   sns-service:
     build:
@@ -431,6 +456,8 @@ services:
       LIVEKIT_PUBLIC_URL: wss://lemon.3chan.kr/livekit/
       LIVEKIT_API_KEY: lemon-korean-key
       LIVEKIT_SECRET: ${LIVEKIT_SECRET:-lemon-korean-secret-change-me}
+      MODERATION_SERVICE_URL: http://moderation-service:3008
+      MODERATION_TIMEOUT_MS: 5000
     ports:
       - "3007:3007"
     volumes:
@@ -442,6 +469,8 @@ services:
         condition: service_healthy
       minio:
         condition: service_healthy
+      moderation-service:
+        condition: service_started
     networks:
       - lemon-network
     healthcheck:
@@ -488,8 +517,6 @@ services:
       - ./nginx/logrotate.conf:/etc/logrotate.d/nginx:ro
       # SSL certificates (for development)
       - ./nginx/ssl:/etc/nginx/ssl:ro
-      # Flutter web app build output (local disk)
-      - ./data/flutter-build/web:/var/www/lemon_korean_web:ro
     ports:
       - "80:80"
       - "443:443"
@@ -515,29 +542,6 @@ services:
       retries: 3
     restart: unless-stopped
 
-  # Nginx Proxy Manager
-  nginx-proxy-manager:
-    image: jc21/nginx-proxy-manager:latest
-    container_name: lemon-nginx-proxy-manager
-    ports:
-      - "81:81"      # Admin Web UI
-      - "8090:80"    # HTTP Proxy
-      - "4443:443"   # HTTPS Proxy
-    environment:
-      DB_SQLITE_FILE: /data/database.sqlite
-      DISABLE_IPV6: true
-    volumes:
-      - nginx-proxy-manager-data:/data
-      - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
-    networks:
-      - lemon-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 30s
-      timeout: 3s
-      retries: 3
-
 # ==================== Networks ====================
 networks:
   lemon-network:
@@ -557,7 +561,3 @@ volumes:
     name: lemon-rabbitmq-data
   pgadmin-data:
     name: lemon-pgadmin-data
-  nginx-proxy-manager-data:
-    name: lemon-nginx-proxy-manager-data
-  nginx-proxy-manager-letsencrypt:
-    name: lemon-nginx-proxy-manager-letsencrypt

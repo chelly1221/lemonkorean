@@ -1,6 +1,5 @@
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 import '../models/progress_model.dart';
 
@@ -20,7 +19,7 @@ class ProgressRepository {
       final response = await _apiClient.getUserProgress(userId);
 
       if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['progress'];
+        final List<dynamic> data = response.data['progress'] ?? [];
         final progressList =
             data.map((json) => ProgressModel.fromJson(json)).toList();
 
@@ -236,7 +235,7 @@ class ProgressRepository {
       final response = await _apiClient.getReviewSchedule(userId);
 
       if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['reviews'];
+        final List<dynamic> data = response.data['reviews'] ?? [];
         final reviews =
             data.map((json) => ReviewModel.fromJson(json)).toList();
 

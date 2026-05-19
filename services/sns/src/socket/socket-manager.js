@@ -32,14 +32,18 @@ const initSocketIO = (httpServer) => {
 
       const decoded = verifyToken(token);
 
-      // Verify user exists and is active
+      // Verify user exists, is active, and not SNS banned
       const result = await query(
-        'SELECT id, name, profile_image_url FROM users WHERE id = $1 AND is_active = true',
+        'SELECT id, name, profile_image_url, sns_banned FROM users WHERE id = $1 AND is_active = true',
         [decoded.userId]
       );
 
       if (!result.rows[0]) {
         return next(new Error('User not found'));
+      }
+
+      if (result.rows[0].sns_banned) {
+        return next(new Error('SNS access suspended'));
       }
 
       socket.userId = result.rows[0].id;

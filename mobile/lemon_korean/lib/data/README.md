@@ -20,17 +20,37 @@ Local Storage (Hive + SQLite)
 
 ```
 lib/data/
-├── models/                          # Hive 어댑터를 가진 데이터 모델
-│   ├── user_model.dart             # 사용자 인증 및 프로필
-│   ├── lesson_model.dart           # 레슨 콘텐츠 및 메타데이터
-│   ├── vocabulary_model.dart       # 한중 단어
-│   └── progress_model.dart         # 진도 및 SRS 복습
+├── models/                                  # Hive 어댑터를 가진 데이터 모델
+│   ├── user_model.dart                     # 사용자 인증 및 프로필
+│   ├── lesson_model.dart                   # 레슨 콘텐츠 및 메타데이터
+│   ├── vocabulary_model.dart               # 다국어 단어
+│   ├── progress_model.dart                 # 진도 및 SRS 복습
+│   ├── bookmark_model.dart                 # 북마크
+│   ├── hangul_character_model.dart         # 한글 문자 데이터 (발음 가이드 포함)
+│   ├── hangul_progress_model.dart          # 한글 학습 진도 (쓰기, 음소 식별, 발음)
+│   ├── hangul_lesson_progress_model.dart   # 한글 레슨별 진도
+│   ├── speech_result_model.dart            # 발음 채점 결과 모델
+│   ├── lemon_reward_model.dart             # 레몬 보상 모델
+│   ├── app_theme_model.dart                # 앱 테마 모델
+│   ├── character_item_model.dart           # 캐릭터 아이템 모델
+│   ├── user_character_model.dart           # 사용자 캐릭터 모델
+│   ├── sns_user_model.dart                 # SNS 사용자 모델
+│   ├── post_model.dart                     # 게시물 모델
+│   ├── comment_model.dart                  # 댓글 모델
+│   ├── conversation_model.dart             # DM 대화 모델
+│   ├── dm_message_model.dart               # DM 메시지 모델
+│   └── voice_room_model.dart               # 음성 대화방 모델
 │
-└── repositories/                    # 데이터 접근 레이어
-    ├── auth_repository.dart        # 인증
-    ├── content_repository.dart     # 레슨 및 단어
-    ├── progress_repository.dart    # 진도 추적 및 SRS
-    └── offline_repository.dart     # 오프라인 데이터 관리
+└── repositories/                            # 데이터 접근 레이어
+    ├── auth_repository.dart                # 인증
+    ├── content_repository.dart             # 레슨 및 단어
+    ├── progress_repository.dart            # 진도 추적 및 SRS
+    ├── offline_repository.dart             # 오프라인 데이터 관리
+    ├── hangul_repository.dart              # 한글 학습 데이터
+    ├── bookmark_repository.dart            # 북마크 관리
+    ├── sns_repository.dart                 # SNS 피드/게시물/팔로우
+    ├── dm_repository.dart                  # DM 메시지
+    └── voice_room_repository.dart          # 음성 대화방
 ```
 
 ---

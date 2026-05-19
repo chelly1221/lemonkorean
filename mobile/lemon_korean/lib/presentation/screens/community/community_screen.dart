@@ -11,7 +11,6 @@ import '../../providers/voice_room_provider.dart';
 import '../create_post/create_post_screen.dart';
 import '../friend_search/friend_search_screen.dart';
 import '../voice_rooms/voice_rooms_list_screen.dart';
-import 'widgets/category_filter_chips.dart';
 import 'widgets/post_card.dart';
 
 /// Main community screen with Following and Discover tabs.
@@ -1040,7 +1039,6 @@ class _DiscoverTab extends StatefulWidget {
 
 class _DiscoverTabState extends State<_DiscoverTab>
     with AutomaticKeepAliveClientMixin {
-  String _selectedCategory = 'all';
   late final ScrollController _scrollController;
   double _previousOffset = 0;
 
@@ -1073,14 +1071,6 @@ class _DiscoverTabState extends State<_DiscoverTab>
     _previousOffset = offset;
   }
 
-  void _onCategoryChanged(String category) {
-    setState(() => _selectedCategory = category);
-    context.read<FeedProvider>().loadDiscover(
-          refresh: true,
-          category: category == 'all' ? null : category,
-        );
-  }
-
   bool _onScroll(ScrollNotification notification) {
     if (notification.metrics.pixels >=
         notification.metrics.maxScrollExtent - 240) {
@@ -1099,29 +1089,13 @@ class _DiscoverTabState extends State<_DiscoverTab>
 
         return RefreshIndicator(
           color: AppConstants.primaryColor,
-          onRefresh: () => feedProvider.loadDiscover(
-            refresh: true,
-            category: _selectedCategory == 'all' ? null : _selectedCategory,
-          ),
+          onRefresh: () => feedProvider.loadDiscover(refresh: true),
           child: NotificationListener<ScrollNotification>(
             onNotification: _onScroll,
             child: CustomScrollView(
               controller: _scrollController,
               physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: _CategoryHeaderDelegate(
-                    child: Container(
-                      color: Colors.white,
-                      alignment: Alignment.centerLeft,
-                      child: CategoryFilterChips(
-                        selectedCategory: _selectedCategory,
-                        onCategoryChanged: _onCategoryChanged,
-                      ),
-                    ),
-                  ),
-                ),
                 // Skeleton loading
                 if (feedProvider.isLoadingDiscover && posts.isEmpty)
                   SliverList.list(
@@ -1137,12 +1111,7 @@ class _DiscoverTabState extends State<_DiscoverTab>
                     hasScrollBody: false,
                     child: _FeedErrorView(
                       message: feedProvider.errorMessage!,
-                      onRetry: () => feedProvider.loadDiscover(
-                        refresh: true,
-                        category: _selectedCategory == 'all'
-                            ? null
-                            : _selectedCategory,
-                      ),
+                      onRetry: () => feedProvider.loadDiscover(refresh: true),
                     ),
                   )
                 // Discover empty state
@@ -1334,41 +1303,4 @@ class _FeedErrorView extends StatelessWidget {
 // ---------------------------------------------------------------------------
 // Category Header Delegate
 // ---------------------------------------------------------------------------
-
-class _CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final Widget child;
-
-  const _CategoryHeaderDelegate({required this.child});
-
-  @override
-  double get minExtent => 48;
-
-  @override
-  double get maxExtent => 48;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color:
-                overlapsContent ? const Color(0xFFECEFF4) : Colors.transparent,
-          ),
-        ),
-      ),
-      child: child,
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant _CategoryHeaderDelegate oldDelegate) {
-    return oldDelegate.child != child;
-  }
-}
 

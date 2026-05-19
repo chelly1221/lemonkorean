@@ -7,6 +7,7 @@ import '../../../core/utils/validators.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../home/home_screen.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -140,7 +141,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       size: screenWidth * 0.051,
                       color: Colors.black87,
                     ),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      if (Navigator.of(context).canPop()) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        );
+                      }
+                    },
                   ),
                 ),
               ),
@@ -421,7 +430,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
+                              onPressed: () {
+                                if (Navigator.of(context).canPop()) {
+                                  Navigator.of(context).pop();
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                  );
+                                }
+                              },
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: screenWidth * 0.015),

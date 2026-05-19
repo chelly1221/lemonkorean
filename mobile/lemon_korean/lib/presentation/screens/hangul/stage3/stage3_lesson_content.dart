@@ -27,7 +27,7 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L1Step1Title,
         description: l10n.hangulS3L1Step1Desc,
         data: {
-          'characters': ['애', '개', '내'],
+          'characters': ['애', '개', '내', '매', '배'],
           'type': 'syllable',
           'showMouth': true,
         },
@@ -37,7 +37,7 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L1Step2Title,
         description: l10n.hangulS3L1Step2Desc,
         data: {
-          'characters': ['애', '개', '내'],
+          'characters': ['애', '개', '내', '매', '배'],
           'maxAttempts': 3,
           'passScore': 65,
           'showPhonemeDetail': true,
@@ -61,7 +61,24 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '내',
               'choices': ['나', '내']
             },
+            {
+              'answer': '매',
+              'choices': ['마', '매']
+            },
+            {
+              'answer': '배',
+              'choices': ['바', '배']
+            },
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['애', '개', '내'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -99,7 +116,7 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L2Step1Title,
         description: l10n.hangulS3L2Step1Desc,
         data: {
-          'characters': ['에', '게', '네'],
+          'characters': ['에', '게', '네', '메', '베'],
           'type': 'syllable',
           'showMouth': true,
         },
@@ -109,7 +126,7 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L2Step2Title,
         description: l10n.hangulS3L2Step2Desc,
         data: {
-          'characters': ['에', '게', '네'],
+          'characters': ['에', '게', '네', '메', '베'],
           'maxAttempts': 3,
           'passScore': 65,
           'showPhonemeDetail': true,
@@ -133,7 +150,24 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '네',
               'choices': ['너', '네']
             },
+            {
+              'answer': '메',
+              'choices': ['머', '메']
+            },
+            {
+              'answer': '베',
+              'choices': ['버', '베']
+            },
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['에', '게', '네'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -155,11 +189,18 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: l10n.hangulS3L3Step0Title,
-        description: l10n.hangulS3L3Step0Desc,
+        title: 'ㅐ와 ㅔ — 현대 한국어에서의 발음',
+        description:
+            '현대 한국어에서 ㅐ와 ㅔ의 발음 차이는 거의 사라졌습니다. '
+            '대부분의 한국인도 이 두 소리를 구분하지 않습니다. '
+            '하지만 맞춤법에서는 여전히 구분하므로, 글자의 모양 차이를 기억하는 것이 중요합니다.',
         data: {
           'emoji': '🔍',
-          'highlights': l10n.hangulS3L3Step0Highlights.split(','),
+          'highlights': [
+            '현대 한국어에서 발음 동일',
+            '맞춤법에서만 구분',
+            '모양으로 기억하기',
+          ],
         },
       ),
       LessonStep(
@@ -188,6 +229,16 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '에',
               'choices': ['애', '에']
             },
+            {
+              'question': l10n.hangulS3L3Step1Q3,
+              'answer': '매',
+              'choices': ['매', '메']
+            },
+            {
+              'question': l10n.hangulS3L3Step1Q3,
+              'answer': '베',
+              'choices': ['배', '베']
+            },
           ],
         },
       ),
@@ -210,8 +261,11 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: l10n.hangulS3L4Step0Title,
-        description: l10n.hangulS3L4Step0Desc,
+        title: 'ㅒ 배우기',
+        description:
+            'ㅒ는 ㅐ에 \'ㅣ\'를 더한 것입니다. '
+            '현대 한국어에서 ㅒ와 ㅐ의 발음 차이도 거의 없어졌지만, '
+            '\'얘기\'(이야기)처럼 일부 단어에서 사용됩니다.',
         data: {
           'animation': {
             'consonant': 'ㅇ',
@@ -226,9 +280,21 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L4Step1Title,
         description: l10n.hangulS3L4Step1Desc,
         data: {
-          'characters': ['얘', '걔', '냬'],
+          'characters': ['얘', '걔', '냬', '먜', '뱨'],
           'type': 'syllable',
           'showMouth': false,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '소리 듣고 고르기',
+        description: '소리를 듣고 맞는 글자를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '얘', 'choices': ['얘', '예']},
+            {'answer': '걔', 'choices': ['걔', '계']},
+            {'answer': '얘', 'choices': ['얘', '애']},
+          ],
         },
       ),
       LessonStep(
@@ -236,10 +302,38 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L4Step2Title,
         description: l10n.hangulS3L4Step2Desc,
         data: {
-          'characters': ['얘', '걔', '냬'],
+          'characters': ['얘', '걔', '냬', '먜', '뱨'],
           'maxAttempts': 3,
           'passScore': 65,
           'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.quizMcq,
+        title: 'ㅒ 퀴즈',
+        description: '배운 내용을 확인해 보세요',
+        data: {
+          'questions': [
+            {
+              'question': 'ㅒ가 들어간 글자는?',
+              'answer': '얘',
+              'choices': ['얘', '에', '예', '애'],
+            },
+            {
+              'question': '걔의 모음은?',
+              'answer': 'ㅒ',
+              'choices': ['ㅒ', 'ㅔ', 'ㅐ', 'ㅖ'],
+            },
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['얘', '걔', '냬'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -261,8 +355,11 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: l10n.hangulS3L5Step0Title,
-        description: l10n.hangulS3L5Step0Desc,
+        title: 'ㅖ 배우기',
+        description:
+            'ㅖ는 ㅔ에 \'ㅣ\'를 더한 것입니다. '
+            '현대 한국어에서 ㅖ는 \'예\'를 제외하면 거의 ㅔ와 같이 발음됩니다. '
+            '\'예의\', \'시계\' 등의 단어에서 사용합니다.',
         data: {
           'animation': {
             'consonant': 'ㅇ',
@@ -277,9 +374,21 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L5Step1Title,
         description: l10n.hangulS3L5Step1Desc,
         data: {
-          'characters': ['예', '계', '녜'],
+          'characters': ['예', '계', '녜', '몌', '볘'],
           'type': 'syllable',
           'showMouth': false,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '소리 듣고 고르기',
+        description: '소리를 듣고 맞는 글자를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '예', 'choices': ['예', '에']},
+            {'answer': '계', 'choices': ['계', '개']},
+            {'answer': '예', 'choices': ['예', '얘']},
+          ],
         },
       ),
       LessonStep(
@@ -287,10 +396,38 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS3L5Step2Title,
         description: l10n.hangulS3L5Step2Desc,
         data: {
-          'characters': ['예', '계', '녜'],
+          'characters': ['예', '계', '녜', '몌', '볘'],
           'maxAttempts': 3,
           'passScore': 65,
           'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.quizMcq,
+        title: 'ㅖ 퀴즈',
+        description: '배운 내용을 확인해 보세요',
+        data: {
+          'questions': [
+            {
+              'question': 'ㅖ가 들어간 글자는?',
+              'answer': '예',
+              'choices': ['예', '에', '얘', '애'],
+            },
+            {
+              'question': '계의 모음은?',
+              'answer': 'ㅖ',
+              'choices': ['ㅖ', 'ㅒ', 'ㅔ', 'ㅐ'],
+            },
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['예', '계', '녜'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -312,11 +449,18 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
     steps: [
       LessonStep(
         type: StepType.intro,
-        title: l10n.hangulS3L6Step0Title,
-        description: l10n.hangulS3L6Step0Desc,
+        title: 'ㅐ/ㅔ 계열 총정리',
+        description:
+            'ㅐ, ㅔ, ㅒ, ㅖ 네 모음은 현대 한국어에서 발음이 거의 같습니다. '
+            '[e] 하나의 소리로 발음해도 자연스럽습니다. '
+            '중요한 것은 맞춤법에서의 구분입니다.',
         data: {
           'emoji': '🧩',
-          'highlights': l10n.hangulS3L6Step0Highlights.split(','),
+          'highlights': [
+            '네 모음 발음 거의 동일',
+            '[e] 소리로 통일',
+            '맞춤법 구분이 핵심',
+          ],
         },
       ),
       LessonStep(
@@ -340,6 +484,14 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
             {
               'answer': '게',
               'choices': ['게', '계']
+            },
+            {
+              'answer': '매',
+              'choices': ['매', '메']
+            },
+            {
+              'answer': '베',
+              'choices': ['배', '베']
             },
           ],
         },
@@ -379,6 +531,54 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
     ],
   ),
 
+  // ── Lesson 3-7W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '3-7W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['메뉴', '레고', '배', '게', '매미', '베개'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['메뉴', '레고', '배', '게', '매미', '베개'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '메뉴', 'choices': ['메뉴', '레고', '배']},
+            {'answer': '레고', 'choices': ['레고', '게', '매미']},
+            {'answer': '배', 'choices': ['배', '게', '베개']},
+            {'answer': '매미', 'choices': ['메뉴', '매미', '베개']},
+            {'answer': '베개', 'choices': ['베개', '배', '게']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '3-7W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   // ── Lesson 3-7: Stage 3 Mission ──
   LessonData(
     id: '3-7',
@@ -401,7 +601,7 @@ List<LessonData> getStage3Lessons(AppLocalizations l10n) => <LessonData>[
         data: {
           'timeLimitSeconds': 120,
           'targetCount': 8,
-          'consonants': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ'],
+          'consonants': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ'],
           'vowels': ['ㅐ', 'ㅔ', 'ㅒ', 'ㅖ'],
         },
       ),

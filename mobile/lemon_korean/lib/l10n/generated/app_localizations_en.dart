@@ -3391,7 +3391,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exitLessonDialogContent =>
-      'Do you want to exit the lesson?\nYour progress up to this step will be saved.';
+      'Do you want to exit the lesson?\nYou will start from the beginning next time.';
 
   @override
   String get continueButton => 'Continue';

@@ -39,6 +39,7 @@ class DownloadProvider extends ChangeNotifier {
 
   // Timer for updating progress
   Timer? _progressTimer;
+  bool _disposed = false;
 
   // ================================================================
   // INITIALIZATION
@@ -52,7 +53,10 @@ class DownloadProvider extends ChangeNotifier {
 
   @override
   void dispose() {
+    _disposed = true;
     _progressTimer?.cancel();
+    _downloadManager.onProgress = null;
+    _downloadManager.onComplete = null;
     super.dispose();
   }
 
@@ -180,6 +184,7 @@ class DownloadProvider extends ChangeNotifier {
   }
 
   void _updateActiveDownloads() {
+    if (_disposed) return;
     final newActiveDownloads = _downloadManager.getAllProgress();
 
     if (!_mapsEqual(_activeDownloads, newActiveDownloads)) {
@@ -189,11 +194,13 @@ class DownloadProvider extends ChangeNotifier {
   }
 
   void _updateDownloadProgress(int lessonId, DownloadProgress progress) {
+    if (_disposed) return;
     _activeDownloads[lessonId] = progress;
     notifyListeners();
   }
 
   void _onDownloadComplete(int lessonId) {
+    if (_disposed) return;
     _activeDownloads.remove(lessonId);
 
     // Reload data to update lists

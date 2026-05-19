@@ -42,8 +42,8 @@ class GopService {
   /// Embedding dimension of the wav2vec2 hidden state.
   static const int embeddingDim = 1024;
 
-  /// Minimum audio samples for valid scoring (0.5s at 16kHz).
-  static const int _minAudioSamples = 8000;
+  /// Minimum audio samples for valid scoring (0.15s at 16kHz).
+  static const int _minAudioSamples = 2400;
 
   /// Initialize the ONNX model.
   Future<void> initialize() async {
@@ -131,11 +131,27 @@ class GopService {
         return null;
       }
 
+      final rawRms = _computeRms(audioData, 0, audioData.length);
+
+      // Reject if no speech detected (ambient noise only)
+      // Silent recordings: rms ~0.01-0.02, actual speech: rms ~0.05+
+      if (rawRms < 0.03) {
+        AppLogger.w(
+          'Audio too quiet (rms=${rawRms.toStringAsFixed(4)}), no speech detected',
+          tag: 'GopService',
+        );
+        return null;
+      }
+
       final processed = _preprocessAudio(audioData);
-      if (processed.isEmpty) return null;
+      if (processed.isEmpty) {
+        return null;
+      }
 
       final frames = _runOnnxInference(processed);
-      if (frames.isEmpty) return null;
+      if (frames.isEmpty) {
+        return null;
+      }
 
       final embedding = _meanPool(frames);
       AppLogger.d(
@@ -187,10 +203,9 @@ class GopService {
     return mean;
   }
 
-  /// Preprocess audio: DC removal → high-pass filter → noise gate → VAD trim
-  /// → volume normalization → pre-emphasis.
+  /// Preprocess audio: DC removal → VAD (trim silence).
+  /// Minimal processing to match reference embeddings generated from raw TTS audio.
   Float32List _preprocessAudio(Float32List raw) {
-    const sampleRate = 16000;
     const frameSize = 160; // 10ms at 16kHz
 
     // ---- Step 1: DC offset removal ----
@@ -203,134 +218,33 @@ class GopService {
     for (int i = 0; i < raw.length; i++) {
       dcRemoved[i] = raw[i] - dcOffset;
     }
-    if (dcOffset.abs() > 0.001) {
-      AppLogger.d(
-        '[GopService] DC offset removed: ${dcOffset.toStringAsFixed(5)}',
-        tag: 'GopService',
-      );
-    }
 
-    // ---- Step 2: 1st-order high-pass filter at 80Hz ----
-    // Removes low-frequency rumble, hum, and handling noise.
-    // y[n] = α * (y[n-1] + x[n] - x[n-1])
-    // α = RC / (RC + dt), RC = 1/(2π*cutoff)
-    const cutoffHz = 80.0;
-    const rc = 1.0 / (2.0 * pi * cutoffHz);
-    const dt = 1.0 / sampleRate;
-    const alpha = rc / (rc + dt);
-    final hpFiltered = Float32List(dcRemoved.length);
-    hpFiltered[0] = dcRemoved[0];
-    for (int i = 1; i < dcRemoved.length; i++) {
-      hpFiltered[i] = (alpha * (hpFiltered[i - 1] + dcRemoved[i] - dcRemoved[i - 1])).clamp(-1.0, 1.0);
-    }
+    // ---- Step 2: VAD — keep only voiced frames ----
+    final signalRms = _computeRms(dcRemoved, 0, dcRemoved.length);
+    final vadThreshold = max(signalRms * 0.05, 1e-4);
+    final voicedSamples = <double>[];
 
-    // ---- Step 3: Noise floor estimation + noise gate ----
-    // Estimate noise from first 50ms (usually silence before speech).
-    final noiseEstFrames = min((sampleRate * 0.05).round(), hpFiltered.length);
-    final noiseFloor = noiseEstFrames > 0
-        ? _computeRms(hpFiltered, 0, noiseEstFrames)
-        : 0.0;
-    // Gate threshold: 2x noise floor, minimum 0.005
-    final gateThreshold = max(noiseFloor * 2.0, 0.005);
-
-    // Apply per-frame noise gate
-    final gated = Float32List(hpFiltered.length);
-    int gatedFrameCount = 0;
-    for (int i = 0; i < hpFiltered.length; i += frameSize) {
-      final end = min(i + frameSize, hpFiltered.length);
-      final frameRms = _computeRms(hpFiltered, i, end);
-      if (frameRms > gateThreshold) {
-        for (int j = i; j < end; j++) {
-          gated[j] = hpFiltered[j];
-        }
-      } else {
-        // Attenuate noise frames (soft gate — reduce to 10%)
-        for (int j = i; j < end; j++) {
-          gated[j] = hpFiltered[j] * 0.1;
-        }
-        gatedFrameCount++;
-      }
-    }
-    AppLogger.d(
-      '[GopService] Noise gate: floor=${noiseFloor.toStringAsFixed(5)}, '
-      'threshold=${gateThreshold.toStringAsFixed(5)}, '
-      'gated $gatedFrameCount/${(hpFiltered.length / frameSize).ceil()} frames',
-      tag: 'GopService',
-    );
-
-    // ---- Step 4: VAD trim (voice activity detection) ----
-    const vadThreshold = 0.01;
-    int startSample = 0;
-    int endSample = gated.length;
-
-    for (int i = 0; i < gated.length - frameSize; i += frameSize) {
-      final end = min(i + frameSize, gated.length);
-      final frameRms = _computeRms(gated, i, end);
+    for (int i = 0; i < dcRemoved.length; i += frameSize) {
+      final end = min(i + frameSize, dcRemoved.length);
+      final frameRms = _computeRms(dcRemoved, i, end);
       if (frameRms > vadThreshold) {
-        startSample = i;
-        break;
+        for (int j = i; j < end; j++) {
+          voicedSamples.add(dcRemoved[j]);
+        }
       }
     }
 
-    for (int i = gated.length; i > frameSize; i -= frameSize) {
-      final start = max(i - frameSize, 0);
-      final frameRms = _computeRms(gated, start, i);
-      if (frameRms > vadThreshold) {
-        endSample = i;
-        break;
-      }
-    }
-
-    if (endSample <= startSample) {
-      AppLogger.w('[GopService] VAD: entire audio is silent', tag: 'GopService');
+    if (voicedSamples.isEmpty) {
       return Float32List(0);
     }
 
-    final trimmed = Float32List.sublistView(gated, startSample, endSample);
-    AppLogger.d(
-      '[GopService] VAD trim: ${raw.length} -> ${trimmed.length} samples',
-      tag: 'GopService',
-    );
+    final trimmed = Float32List.fromList(voicedSamples);
 
     if (trimmed.length < _minAudioSamples) {
-      AppLogger.w(
-        '[GopService] Audio too short after VAD: ${trimmed.length} samples',
-        tag: 'GopService',
-      );
       return Float32List(0);
     }
 
-    // ---- Step 5: Volume normalization to target RMS ----
-    final currentRms = _computeRms(trimmed, 0, trimmed.length);
-    if (currentRms < 1e-6) {
-      AppLogger.w('[GopService] Audio RMS near zero after trim', tag: 'GopService');
-      return Float32List(0);
-    }
-
-    const targetRms = 0.1;
-    final gain = (targetRms / currentRms).clamp(0.5, 10.0);
-    final normalized = Float32List(trimmed.length);
-    for (int i = 0; i < trimmed.length; i++) {
-      normalized[i] = (trimmed[i] * gain).clamp(-1.0, 1.0);
-    }
-
-    AppLogger.d(
-      '[GopService] Normalization: rms ${currentRms.toStringAsFixed(4)} -> '
-      '${targetRms.toStringAsFixed(4)}, gain=${gain.toStringAsFixed(2)}',
-      tag: 'GopService',
-    );
-
-    // ---- Step 6: Pre-emphasis filter ----
-    // Boosts high frequencies for better consonant detection.
-    // y[n] = x[n] - 0.97 * x[n-1]
-    const preEmphCoeff = 0.97;
-    final emphasized = Float32List(normalized.length);
-    emphasized[0] = normalized[0];
-    for (int i = 1; i < normalized.length; i++) {
-      emphasized[i] = (normalized[i] - preEmphCoeff * normalized[i - 1]).clamp(-1.0, 1.0);
-    }
-
-    return emphasized;
+    return trimmed;
   }
 
   /// Compute RMS of a float32 audio segment.
@@ -342,6 +256,7 @@ class GopService {
     }
     return sqrt(sumSq / (end - start));
   }
+
 
   /// Run ONNX model inference on audio data.
   /// Returns [T, 1024] hidden state frames.

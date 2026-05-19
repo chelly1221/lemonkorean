@@ -4,8 +4,7 @@ import '../../core/constants/app_constants.dart';
 import '../../core/platform/platform_factory.dart';
 import '../../core/platform/secure_storage_interface.dart';
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 import '../models/user_model.dart';
 

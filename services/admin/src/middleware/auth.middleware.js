@@ -165,17 +165,14 @@ const requireAdmin = async (req, res, next) => {
     // Method 1: Role-based (preferred for new implementation)
     const isAdminByRole = user.role && ['admin', 'content_editor', 'super_admin'].includes(user.role);
 
-    // Method 2: Email-based (temporary method)
-    const isAdminByEmail = user.email.toLowerCase().includes('admin@');
-
-    // Method 3: Admin email list (environment variable)
-    const adminEmails = (process.env.ADMIN_EMAILS || 'admin@lemon.com').split(',');
+    // Method 2: Admin email list (environment variable)
+    const adminEmails = (process.env.ADMIN_EMAILS || 'admin@lemon.com').split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
     const isAdminByList = adminEmails.includes(user.email.toLowerCase());
 
-    // Method 4: User ID-based (first user is admin)
+    // Method 3: User ID-based (first user is admin)
     const isAdminById = user.id === 1;
 
-    const isAdmin = isAdminByRole || isAdminByEmail || isAdminByList || isAdminById;
+    const isAdmin = isAdminByRole || isAdminByList || isAdminById;
 
     if (!isAdmin) {
       console.log(`[ADMIN] Access denied for user: ${user.email} (not admin)`);

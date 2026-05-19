@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/korean_tts_helper.dart';
 import '../../../data/models/hangul_character_model.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/hangul_provider.dart';
@@ -127,6 +128,14 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
   void initState() {
     super.initState();
     _loadData();
+  }
+
+  Future<void> _playAudio(String text) async {
+    try {
+      await KoreanTtsHelper.playKoreanText(text);
+    } catch (e) {
+      debugPrint('[HangulTable] Audio error for "$text": $e');
+    }
   }
 
   Future<void> _loadData() async {
@@ -302,9 +311,12 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
             _buildMatrixHeaderCell(
               v,
               rowHeight,
-              onTap: byChar[v] == null
-                  ? null
-                  : () => _navigateToDetail(context, byChar[v]!),
+              onTap: () {
+                _playAudio(v);
+                if (byChar[v] != null) {
+                  _navigateToDetail(context, byChar[v]!);
+                }
+              },
             ),
         ],
       ),
@@ -317,12 +329,19 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
             _buildMatrixHeaderCell(
               c,
               rowHeight,
-              onTap: byChar[c] == null
-                  ? null
-                  : () => _navigateToDetail(context, byChar[c]!),
+              onTap: () {
+                _playAudio(c);
+                if (byChar[c] != null) {
+                  _navigateToDetail(context, byChar[c]!);
+                }
+              },
             ),
             for (final v in _matrixVowels)
-              _buildMatrixBodyCell(_composeSyllable(c, v), rowHeight),
+              _buildMatrixBodyCell(
+                _composeSyllable(c, v),
+                rowHeight,
+                onTap: () => _playAudio(_composeSyllable(c, v)),
+              ),
           ],
         ),
       );
@@ -376,8 +395,9 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
     return InkWell(onTap: onTap, child: child);
   }
 
-  Widget _buildMatrixBodyCell(String text, double rowHeight) {
-    return Container(
+  Widget _buildMatrixBodyCell(String text, double rowHeight,
+      {VoidCallback? onTap}) {
+    final child = Container(
       height: rowHeight,
       alignment: Alignment.center,
       child: Text(
@@ -388,6 +408,8 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
         ),
       ),
     );
+    if (onTap == null || text.isEmpty) return child;
+    return InkWell(onTap: onTap, child: child);
   }
 
   String _normalizeCharacter(String value) {
@@ -459,12 +481,13 @@ class _HangulTableScreenState extends State<HangulTableScreen> {
           itemCount: characters.length,
           itemBuilder: (context, index) {
             final character = characters[index];
-            final progress = provider.getProgressForCharacter(character.id);
 
             return CompactCharacterCard(
               character: character,
-              progress: progress,
-              onTap: () => _navigateToDetail(context, character),
+              onTap: () {
+                _playAudio(_normalizeCharacter(character.character));
+                _navigateToDetail(context, character);
+              },
             );
           },
         ),

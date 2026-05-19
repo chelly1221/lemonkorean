@@ -13,8 +13,13 @@ class SpeechModelManager {
   bool _initialized = false;
 
   /// Model definitions: asset path → local file info
-  /// Only GOP model is used — Whisper was removed (GOP-only scoring).
   static const Map<String, ModelInfo> models = {
+    'whisper': ModelInfo(
+      name: 'Whisper base (Korean STT)',
+      fileName: 'ggml-base.bin',
+      subDir: 'whisper',
+      assetPath: 'assets/models/whisper/ggml-base.bin',
+    ),
     'gop': ModelInfo(
       name: 'wav2vec2 Korean (embedding)',
       fileName: 'wav2vec2_korean_emb_q8.onnx',
@@ -23,10 +28,13 @@ class SpeechModelManager {
     ),
   };
 
-  /// Minimum valid file size for the GOP model (~300MB).
+  /// Minimum valid file sizes per model key.
   /// If a file is smaller than this, it was likely corrupted from
   /// an interrupted copy and should be re-copied.
-  static const int _minGopModelSize = 300 * 1024 * 1024; // 300MB
+  static const Map<String, int> _minModelSizes = {
+    'whisper': 100 * 1024 * 1024, // ~141MB
+    'gop': 300 * 1024 * 1024, // ~300MB
+  };
 
   /// Ensure all bundled models are copied to the documents directory.
   /// Called once during app initialization. Validates file size to
@@ -38,6 +46,7 @@ class SpeechModelManager {
       final info = entry.value;
       final localPath = await _getModelPath(info);
       final file = File(localPath);
+      final minSize = _minModelSizes[entry.key] ?? 10 * 1024 * 1024;
 
       bool needsCopy = false;
       if (!file.existsSync()) {
@@ -45,11 +54,11 @@ class SpeechModelManager {
         AppLogger.i('Model not found, copying: ${info.name}', tag: 'ModelManager');
       } else {
         final size = file.lengthSync();
-        if (size < _minGopModelSize) {
+        if (size < minSize) {
           needsCopy = true;
           AppLogger.w(
             'Model file corrupted (${(size / 1024 / 1024).toStringAsFixed(1)}MB < '
-            '${(_minGopModelSize / 1024 / 1024).toStringAsFixed(0)}MB), re-copying: ${info.name}',
+            '${(minSize / 1024 / 1024).toStringAsFixed(0)}MB), re-copying: ${info.name}',
             tag: 'ModelManager',
           );
           file.deleteSync();

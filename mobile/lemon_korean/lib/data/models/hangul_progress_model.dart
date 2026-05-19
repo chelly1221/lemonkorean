@@ -70,9 +70,9 @@ class HangulProgressModel {
 
   factory HangulProgressModel.fromJson(Map<String, dynamic> json) {
     return HangulProgressModel(
-      id: json['id'] as int,
-      userId: json['user_id'] as int,
-      characterId: json['character_id'] as int,
+      id: json['id'] as int? ?? 0,
+      userId: json['user_id'] as int? ?? 0,
+      characterId: json['character_id'] as int? ?? 0,
       character: json['character'] as String?,
       characterType: json['character_type'] as String?,
       masteryLevel: json['mastery_level'] as int? ?? 0,

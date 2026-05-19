@@ -431,6 +431,55 @@ List<LessonData> getStage6Lessons(AppLocalizations l10n) => <LessonData>[
       ),
     ],
   ),
+  // ── Lesson 6-8W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '6-8W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['과자', '궈', '휴가', '귀', '의사', '회사', '쥐', '왜'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['과자', '궈', '휴가', '귀', '의사', '회사', '쥐', '왜'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '과자', 'choices': ['과자', '휴가', '의사']},
+            {'answer': '휴가', 'choices': ['귀', '휴가', '회사']},
+            {'answer': '의사', 'choices': ['의사', '쥐', '왜']},
+            {'answer': '회사', 'choices': ['과자', '회사', '궈']},
+            {'answer': '귀', 'choices': ['귀', '쥐', '왜']},
+            {'answer': '쥐', 'choices': ['쥐', '귀', '과자']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '6-8W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   LessonData(
     id: '6-M',
     title: l10n.hangulS6LMTitle,

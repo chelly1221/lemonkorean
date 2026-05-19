@@ -1,5 +1,7 @@
 const Post = require('../models/post.model');
+const Block = require('../models/block.model');
 const { query } = require('../config/database');
+const { moderateText, logModeration } = require('../utils/moderation');
 
 // ==================== Controller Functions ====================
 
@@ -104,6 +106,17 @@ const getById = async (req, res) => {
       });
     }
 
+    // Check block relationship - blocked users should not see each other's posts
+    if (userId && userId !== post.user_id) {
+      const blocked = await Block.isBlockedEitherWay(userId, post.user_id);
+      if (blocked) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: 'Post not found'
+        });
+      }
+    }
+
     // Check if the current user has liked this post
     let isLiked = false;
     if (userId) {
@@ -150,6 +163,17 @@ const getByUser = async (req, res) => {
         error: 'Bad Request',
         message: 'Invalid user ID'
       });
+    }
+
+    // Check block relationship
+    if (requesterId && requesterId !== targetUserId) {
+      const blocked = await Block.isBlockedEitherWay(requesterId, targetUserId);
+      if (blocked) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: 'User not found'
+        });
+      }
     }
 
     const parsedLimit = Math.min(parseInt(limit) || 20, 50);
@@ -213,9 +237,44 @@ const create = async (req, res) => {
       });
     }
 
-    const post = await Post.create(userId, { content, category, tags, visibility, imageUrls });
+    // Content moderation
+    let moderationResult = null;
+    let moderationStatus = 'unmoderated';
+    try {
+      moderationResult = await moderateText(content, 'post');
+      console.log(`[SNS] Post moderation: ${moderationResult.action} (score: ${moderationResult.max_score})`);
 
-    console.log(`[SNS] Post created successfully: ${post.id}`);
+      if (moderationResult.action === 'reject') {
+        return res.status(422).json({
+          error: 'Content Rejected',
+          message: 'Your content was flagged by our content moderation system',
+          moderation: {
+            action: moderationResult.action,
+            categories: moderationResult.categories,
+          }
+        });
+      }
+      moderationStatus = moderationResult.action === 'flag' ? 'flagged' : 'allowed';
+    } catch (moderationError) {
+      console.warn('[SNS] Moderation service unavailable:', moderationError.message);
+    }
+
+    const post = await Post.create(userId, {
+      content, category, tags, visibility, imageUrls,
+      moderationStatus,
+      moderationCategories: moderationResult?.categories ?? null,
+      moderationScore: moderationResult?.max_score ?? null,
+    });
+
+    // Log moderation result (non-blocking)
+    if (moderationResult) {
+      logModeration({
+        contentType: 'post', contentId: post.id, userId,
+        contentText: content, result: moderationResult,
+      });
+    }
+
+    console.log(`[SNS] Post created successfully: ${post.id} (moderation: ${moderationStatus})`);
 
     res.status(201).json({
       success: true,
@@ -302,6 +361,17 @@ const like = async (req, res) => {
         error: 'Not Found',
         message: 'Post not found'
       });
+    }
+
+    // Check block relationship - blocked users cannot like each other's posts
+    if (userId !== post.user_id) {
+      const blocked = await Block.isBlockedEitherWay(userId, post.user_id);
+      if (blocked) {
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: 'Cannot interact with this post'
+        });
+      }
     }
 
     // Insert like (ignore if already exists)

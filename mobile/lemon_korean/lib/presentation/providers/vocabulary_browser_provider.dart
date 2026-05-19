@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../../data/models/vocabulary_model.dart';
 import '../../data/repositories/content_repository.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 
 enum VocabSortType {

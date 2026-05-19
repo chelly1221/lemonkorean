@@ -10,10 +10,10 @@ The DM (Direct Messaging) API provides private one-on-one messaging between user
 - **Port**: 3007 (SNS Service)
 - **Technology**: Node.js (Express + Socket.IO)
 - **Authentication**: JWT required for all endpoints and Socket.IO connections
-- **Database**: MongoDB (messages), PostgreSQL (conversations, read receipts)
+- **Database**: PostgreSQL (conversations, messages, read receipts)
 - **Redis**: Online status tracking
 
-**Last Updated**: 2026-02-11
+**Last Updated**: 2026-03-11
 
 ---
 
@@ -24,13 +24,12 @@ The DM system uses a **hybrid REST + Socket.IO architecture**:
 - **REST API**: Used for conversation management (list, create, mark read) and retrieving message history
 - **Socket.IO**: Used for real-time message delivery, typing indicators, and online status
 - **Redis**: Tracks online/offline user status for presence indicators
-- **MongoDB**: Stores message content with efficient indexing for time-range queries
-- **PostgreSQL**: Stores conversation metadata and read receipts
+- **PostgreSQL**: Stores conversations, messages, and read receipts
 
 **Message Flow:**
 1. Client sends message via Socket.IO (`dm:send_message` event) or REST (`POST /api/sns/conversations/:id/messages`)
 2. Server validates sender participation and checks block status
-3. Message is saved to MongoDB
+3. Message is saved to PostgreSQL
 4. Server emits `dm:new_message` event to both participants via Socket.IO
 5. Recipient's device shows real-time notification/message
 6. Read receipts are tracked when recipient views the message
@@ -56,16 +55,15 @@ Retrieve all conversations for the authenticated user.
 **Authentication:** Required
 
 **Query Parameters:**
-- `page` (optional): Page number (default: 1)
+- `offset` (optional): Offset for pagination (default: 0)
 - `limit` (optional): Conversations per page (default: 20, max: 50)
 
 **Response:**
 ```json
 {
-  "success": true,
-  "data": [
+  "conversations": [
     {
-      "id": "conv_abc123",
+      "id": 123,
       "participant": {
         "id": 456,
         "username": "friend1",
@@ -74,7 +72,7 @@ Retrieve all conversations for the authenticated user.
         "is_online": true
       },
       "last_message": {
-        "id": "msg_xyz789",
+        "id": 789,
         "sender_id": 456,
         "content": "See you tomorrow!",
         "message_type": "text",
@@ -86,10 +84,9 @@ Retrieve all conversations for the authenticated user.
     }
   ],
   "pagination": {
-    "page": 1,
     "limit": 20,
-    "total": 15,
-    "totalPages": 1
+    "offset": 0,
+    "count": 1
   }
 }
 ```
@@ -110,19 +107,18 @@ Start a new conversation with another user.
 **Request Body:**
 ```json
 {
-  "participant_id": 456
+  "user_id": 456
 }
 ```
 
 **Fields:**
-- `participant_id` (required): User ID of the other participant
+- `user_id` (required): User ID of the other participant
 
-**Response:**
+**Response (201 Created):**
 ```json
 {
-  "success": true,
-  "data": {
-    "id": "conv_def456",
+  "conversation": {
+    "id": 456,
     "participant": {
       "id": 456,
       "username": "friend1",
@@ -134,12 +130,11 @@ Start a new conversation with another user.
 ```
 
 **Error Codes:**
-- `400`: Invalid participant_id (missing or self)
+- `400`: Invalid user_id (missing or self)
 - `403`: Cannot create conversation (blocked by or blocking the user)
-- `409`: Conversation already exists (returns existing conversation)
 
 **Notes:**
-- Idempotent: If a conversation already exists, the existing one is returned
+- Idempotent: If a conversation already exists, the existing one is returned (201)
 - Blocked users cannot create conversations with each other
 
 ---
@@ -153,7 +148,6 @@ Get the total number of unread messages across all conversations.
 **Response:**
 ```json
 {
-  "success": true,
   "unread_count": 5
 }
 ```
@@ -172,11 +166,20 @@ Mark all messages in a conversation as read.
 **Path Parameters:**
 - `id` (required): Conversation ID
 
+**Request Body:**
+```json
+{
+  "message_id": 789
+}
+```
+
+**Fields:**
+- `message_id` (required): ID of the latest message to mark as read
+
 **Response:**
 ```json
 {
-  "success": true,
-  "message": "Conversation marked as read"
+  "read_receipt": { ... }
 }
 ```
 
@@ -196,17 +199,16 @@ Retrieve message history for a conversation.
 - `id` (required): Conversation ID
 
 **Query Parameters:**
-- `before` (optional): Get messages before this timestamp (ISO 8601)
-- `limit` (optional): Number of messages (default: 50, max: 100)
+- `cursor` (optional): Get messages before this message ID (for pagination)
+- `limit` (optional): Number of messages (default: 30, max: 50)
 
 **Response:**
 ```json
 {
-  "success": true,
-  "data": [
+  "messages": [
     {
-      "id": "msg_abc123",
-      "conversation_id": "conv_abc123",
+      "id": 123,
+      "conversation_id": 456,
       "sender": {
         "id": 789,
         "username": "me",
@@ -217,8 +219,8 @@ Retrieve message history for a conversation.
       "created_at": "2026-02-11T14:00:00Z"
     },
     {
-      "id": "msg_abc124",
-      "conversation_id": "conv_abc123",
+      "id": 124,
+      "conversation_id": 456,
       "sender": {
         "id": 456,
         "username": "friend1",
@@ -229,8 +231,8 @@ Retrieve message history for a conversation.
       "created_at": "2026-02-11T14:05:00Z"
     },
     {
-      "id": "msg_abc125",
-      "conversation_id": "conv_abc123",
+      "id": 125,
+      "conversation_id": 456,
       "sender": {
         "id": 456,
         "username": "friend1",
@@ -246,17 +248,15 @@ Retrieve message history for a conversation.
       "created_at": "2026-02-11T14:10:00Z"
     }
   ],
-  "pagination": {
-    "has_more": true,
-    "oldest_timestamp": "2026-02-11T13:00:00Z"
-  }
+  "next_cursor": 120
 }
 ```
 
 **Notes:**
 - Messages are ordered by `created_at` (newest first)
-- Use `before` parameter for infinite scroll pagination
-- Message types: `text`, `image`, `audio` (voice messages)
+- Use `cursor` parameter (integer message ID) for infinite scroll pagination
+- `next_cursor` is `null` when no more messages
+- Message types: `text`, `image`, `voice` (voice messages)
 
 ---
 
@@ -278,18 +278,17 @@ Send a message via REST API (alternative to Socket.IO for offline scenarios).
 ```
 
 **Fields:**
-- `message_type` (required): One of `text`, `image`, `audio`
-- `content` (required for text): Message text (max 1000 characters)
+- `message_type` (required): One of `text`, `image`, `voice`
+- `content` (required for text): Message text (max 5000 characters)
 - `media_url` (required for image/audio): URL of uploaded media file
 - `media_metadata` (optional): Metadata object (dimensions, size, duration)
 
-**Response:**
+**Response (201 Created):**
 ```json
 {
-  "success": true,
-  "data": {
-    "id": "msg_def789",
-    "conversation_id": "conv_abc123",
+  "message": {
+    "id": 789,
+    "conversation_id": 456,
     "sender": { ... },
     "message_type": "text",
     "content": "Hello!",
@@ -319,13 +318,11 @@ Upload an image or audio file for use in DM messages.
 **Response:**
 ```json
 {
-  "success": true,
-  "media_url": "https://media.lemon.3chan.kr/dm/images/abc123.jpg",
+  "media_url": "/media/lemon-korean-media/dm-images/abc123.jpg",
   "media_metadata": {
-    "width": 1920,
-    "height": 1080,
-    "size": 245678,
-    "mime_type": "image/jpeg"
+    "file_size": 245678,
+    "mime_type": "image/jpeg",
+    "original_name": "photo.jpg"
   }
 }
 ```
@@ -333,6 +330,8 @@ Upload an image or audio file for use in DM messages.
 **Notes:**
 - Upload media first, then use `media_url` in message send request
 - Files are stored in MinIO with automatic cleanup for deleted messages
+- Allowed image mimes: jpeg, png, gif, webp
+- Allowed audio mimes: webm, ogg, mpeg, mp4, wav, aac
 
 ---
 
@@ -348,8 +347,7 @@ Delete a message (soft delete, only sender can delete their own messages).
 **Response:**
 ```json
 {
-  "success": true,
-  "message": "Message deleted"
+  "success": true
 }
 ```
 
@@ -379,7 +377,7 @@ The server automatically:
 2. Extracts `userId` and `userName` from the token
 3. Joins the user to their personal room (`user:{userId}`)
 4. Updates online status in Redis
-5. Broadcasts online status to friends
+5. Broadcasts `dm:user_online` to all connected clients
 
 ---
 
@@ -434,7 +432,7 @@ socket.emit('dm:send_message', {
 
 **Fields:**
 - `conversation_id` (required): Conversation ID
-- `message_type` (required): `text`, `image`, or `audio`
+- `message_type` (required): `text`, `image`, or `voice`
 - `content` (required for text): Message text
 - `media_url` (required for image/audio): Pre-uploaded media URL
 - `media_metadata` (optional): Metadata object
@@ -567,9 +565,8 @@ socket.on('dm:message_deleted', (data) => {
 **Payload:**
 ```javascript
 {
-  conversation_id: 'conv_abc123',
   message_id: 'msg_deleted_456',
-  deleted_at: '2026-02-11T16:10:00Z'
+  conversation_id: 'conv_abc123'
 }
 ```
 
@@ -622,28 +619,31 @@ socket.on('dm:read_receipt', (data) => {
 
 ---
 
-#### dm:online_status
-Receive online/offline status updates for friends.
+#### dm:user_online / dm:user_offline
+Receive online/offline status updates for other users.
 
 **Listen:**
 ```javascript
-socket.on('dm:online_status', (data) => {
-  updateUserStatus(data.user_id, data.is_online);
+socket.on('dm:user_online', (data) => {
+  updateUserStatus(data.user_id, true);
+});
+
+socket.on('dm:user_offline', (data) => {
+  updateUserStatus(data.user_id, false);
 });
 ```
 
 **Payload:**
 ```javascript
 {
-  user_id: 456,
-  is_online: true,
-  last_seen: '2026-02-11T16:15:00Z'
+  user_id: 456
 }
 ```
 
 **Notes:**
-- Emitted when a friend comes online or goes offline
-- `last_seen` is only included when `is_online` is false
+- `dm:user_online` is broadcast when a user connects via Socket.IO
+- `dm:user_offline` is broadcast when a user disconnects
+- These are two separate events (not a single event with a boolean flag)
 
 ---
 
@@ -688,13 +688,13 @@ socket.on('dm:conversation_updated', (data) => {
    ↓
 4. Server sets online status in Redis
    ↓
-5. Server broadcasts online status to friends
+5. Server broadcasts dm:user_online to all connected clients
    ↓
 6. Client joins specific conversation rooms: dm:join_conversation
    ↓
 7. Client sends/receives messages in real-time
    ↓
-8. On disconnect: Server clears online status, broadcasts offline status
+8. On disconnect: Server clears online status, broadcasts dm:user_offline
 ```
 
 ### Example Client Code (JavaScript)
@@ -731,8 +731,11 @@ socket.on('dm:typing', (data) => {
 });
 
 // Listen for online status
-socket.on('dm:online_status', (data) => {
-  updateOnlineStatus(data.user_id, data.is_online);
+socket.on('dm:user_online', (data) => {
+  updateOnlineStatus(data.user_id, true);
+});
+socket.on('dm:user_offline', (data) => {
+  updateOnlineStatus(data.user_id, false);
 });
 
 // Send a message
@@ -775,7 +778,7 @@ Standard text-based message.
 ```
 
 **Constraints:**
-- Max length: 1000 characters
+- Max length: 5000 characters
 - Supports Unicode (emoji, Korean, etc.)
 
 ---
@@ -802,13 +805,13 @@ Image attachment with metadata.
 
 ---
 
-### Audio Message (Voice Message)
+### Voice Message
 Voice recording attachment.
 
 **Example:**
 ```json
 {
-  "message_type": "audio",
+  "message_type": "voice",
   "media_url": "https://media.lemon.3chan.kr/dm/audio/def456.m4a",
   "media_metadata": {
     "duration": 15.5,
@@ -858,12 +861,11 @@ Voice recording attachment.
 
 | Status Code | Error Message | Cause |
 |-------------|---------------|-------|
-| `400` | `Invalid participant_id` | Missing or invalid user ID |
+| `400` | `user_id is required` | Missing or invalid user ID |
 | `401` | `unauthorized` | Missing or invalid JWT token |
-| `403` | `Cannot create conversation` | Blocked user or block exists |
+| `403` | `Cannot message this user` | Blocked user or block exists |
 | `404` | `Conversation not found` | Invalid conversation ID |
-| `409` | `Conversation already exists` | Duplicate conversation creation |
-| `413` | `Content too long` | Message exceeds 1000 characters |
+| `400` | `Message too long` | Message exceeds 5000 characters |
 | `500` | `Internal server error` | Database or server issue |
 
 ---

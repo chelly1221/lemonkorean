@@ -45,7 +45,7 @@ const createRoom = async (req, res) => {
       creatorId: userId,
       title: title.trim(),
       topic: topic?.trim() || null,
-      languageLevel: language_level || 'all',
+      languageLevel: ['beginner', 'intermediate', 'advanced', 'all'].includes(language_level) ? language_level : 'all',
       maxSpeakers: Math.min(Math.max(parseInt(max_speakers) || 4, 2), 4),
       roomType: validatedRoomType,
       duration: validatedDuration,
@@ -273,9 +273,16 @@ const toggleMute = async (req, res) => {
  */
 const getMessages = async (req, res) => {
   try {
+    const userId = req.user.id;
     const roomId = parseInt(req.params.id);
     const limit = Math.min(parseInt(req.query.limit) || 50, 100);
     const before = req.query.before ? parseInt(req.query.before) : undefined;
+
+    // Must be a participant to read messages
+    const isParticipant = await VoiceRoom.isParticipant(roomId, userId);
+    if (!isParticipant) {
+      return res.status(403).json({ error: 'You must be in the room to read messages' });
+    }
 
     const messages = await VoiceRoomMessage.getByRoom(roomId, { limit, before });
     res.json({ messages });

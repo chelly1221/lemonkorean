@@ -12,7 +12,7 @@ The SNS Service provides social networking features including posts, comments, f
 - **Database**: PostgreSQL (social graph, posts, comments)
 - **Rate Limiting**: 100 requests per 15 minutes per IP
 
-**Last Updated**: 2026-02-11
+**Last Updated**: 2026-03-11
 
 ---
 
@@ -37,6 +37,7 @@ Authorization: Bearer <jwt_token>
 5. [Reports](#reports)
 6. [Profiles](#profiles)
 7. [Error Handling](#error-handling)
+8. [Moderation Rejection](#moderation-rejection)
 
 ---
 
@@ -55,7 +56,7 @@ Retrieve posts from followed users (personalized feed).
 ```json
 {
   "success": true,
-  "data": [
+  "posts": [
     {
       "id": 123,
       "author": {
@@ -76,8 +77,9 @@ Retrieve posts from followed users (personalized feed).
     }
   ],
   "pagination": {
-    "has_more": true,
-    "next_cursor": "2026-02-11T09:00:00Z"
+    "hasMore": true,
+    "nextCursor": "2026-02-11T09:00:00Z",
+    "limit": 20
   }
 }
 ```
@@ -98,7 +100,7 @@ Retrieve public posts for discovery (global feed with optional personalization).
 ```json
 {
   "success": true,
-  "data": [
+  "posts": [
     {
       "id": 789,
       "author": {
@@ -115,8 +117,9 @@ Retrieve public posts for discovery (global feed with optional personalization).
     }
   ],
   "pagination": {
-    "has_more": true,
-    "next_cursor": "2026-02-11T11:00:00Z"
+    "hasMore": true,
+    "nextCursor": "2026-02-11T11:00:00Z",
+    "limit": 20
   }
 }
 ```
@@ -151,7 +154,7 @@ Retrieve a single post by ID.
 ```json
 {
   "success": true,
-  "data": {
+  "post": {
     "id": 123,
     "author": { ... },
     "content": "...",
@@ -182,32 +185,36 @@ Create a new post.
 ```
 
 **Fields:**
-- `content` (required): Post text content (max 1000 characters)
+- `content` (required): Post text content (max 2000 characters)
 - `category` (optional): One of `achievement`, `question`, `study_tip`, `general` (default: `general`)
 - `tags` (optional): Array of tag strings (max 5 tags)
-- `visibility` (optional): `public` or `followers_only` (default: `public`)
+- `visibility` (optional): `public`, `followers`, or `private` (default: `public`)
 - `image_urls` (optional): Array of media URLs (max 4 images, must be pre-uploaded via Media Service)
 
-**Response:**
+**Response (201 Created):**
 ```json
 {
   "success": true,
-  "data": {
+  "message": "Post created successfully",
+  "post": {
     "id": 124,
     "author": { ... },
     "content": "Just finished my first Korean conversation! 😊",
     "category": "achievement",
     "like_count": 0,
     "comment_count": 0,
+    "moderation_status": "allowed",
     "created_at": "2026-02-11T13:00:00Z"
   }
 }
 ```
 
+**Moderation:** Post content is automatically checked by the AI moderation service. The `moderation_status` field will be one of: `unmoderated`, `allowed`, `flagged`, or `rejected`. Rejected posts are not created and return HTTP 422 (see below).
+
 **Error Codes:**
-- `400`: Invalid request body (missing content, invalid category)
+- `400`: Invalid request body (missing content, invalid category, content too long)
 - `401`: Unauthorized (missing/invalid JWT)
-- `413`: Content too long
+- `422`: Content rejected by moderation (see [Moderation Rejection](#moderation-rejection))
 
 ---
 
@@ -223,7 +230,7 @@ Delete a post (soft delete). Only the author can delete their own posts.
 ```json
 {
   "success": true,
-  "message": "Post deleted"
+  "message": "Post deleted successfully"
 }
 ```
 
@@ -246,13 +253,13 @@ Like a post.
 ```json
 {
   "success": true,
-  "like_count": 16
+  "message": "Post liked successfully"
 }
 ```
 
 **Notes:**
-- Idempotent: Liking an already-liked post returns success
-- Increments `like_count` in real-time
+- Idempotent: Liking an already-liked post returns success (no duplicate insert)
+- Increments `like_count` only on new likes
 
 ---
 
@@ -268,7 +275,7 @@ Remove a like from a post.
 ```json
 {
   "success": true,
-  "like_count": 15
+  "message": "Post unliked successfully"
 }
 ```
 
@@ -292,7 +299,7 @@ Retrieve all comments for a specific post.
 ```json
 {
   "success": true,
-  "data": [
+  "comments": [
     {
       "id": 501,
       "post_id": 123,
@@ -315,8 +322,9 @@ Retrieve all comments for a specific post.
     }
   ],
   "pagination": {
-    "has_more": false,
-    "next_cursor": null
+    "hasMore": false,
+    "nextCursor": null,
+    "limit": 20
   }
 }
 ```
@@ -344,23 +352,27 @@ Add a comment to a post.
 ```
 
 **Fields:**
-- `content` (required): Comment text (max 500 characters)
+- `content` (required): Comment text (max 1000 characters)
 - `parent_id` (optional): ID of parent comment for nested replies
 
-**Response:**
+**Response (201 Created):**
 ```json
 {
   "success": true,
-  "data": {
+  "message": "Comment created successfully",
+  "comment": {
     "id": 503,
     "post_id": 123,
     "author": { ... },
     "content": "Great job! Keep it up!",
     "parent_id": null,
+    "moderation_status": "allowed",
     "created_at": "2026-02-11T13:05:00Z"
   }
 }
 ```
+
+**Moderation:** Comment content is automatically checked by the AI moderation service. Rejected comments are not created and return HTTP 422 (see [Moderation Rejection](#moderation-rejection)).
 
 ---
 
@@ -376,7 +388,7 @@ Delete a comment (soft delete). Only the author can delete their own comments.
 ```json
 {
   "success": true,
-  "message": "Comment deleted"
+  "message": "Comment deleted successfully"
 }
 ```
 
@@ -396,7 +408,7 @@ Follow another user.
 ```json
 {
   "success": true,
-  "message": "User followed"
+  "message": "Followed successfully"
 }
 ```
 
@@ -419,7 +431,7 @@ Unfollow a user.
 ```json
 {
   "success": true,
-  "message": "User unfollowed"
+  "message": "Unfollowed successfully"
 }
 ```
 
@@ -441,7 +453,7 @@ Retrieve a user's followers.
 ```json
 {
   "success": true,
-  "data": [
+  "followers": [
     {
       "id": 101,
       "username": "follower1",
@@ -454,8 +466,9 @@ Retrieve a user's followers.
     }
   ],
   "pagination": {
-    "has_more": true,
-    "next_cursor": "..."
+    "hasMore": true,
+    "nextCursor": 42,
+    "limit": 20
   }
 }
 ```
@@ -489,7 +502,7 @@ Block a user (prevents all interaction).
 ```json
 {
   "success": true,
-  "message": "User blocked"
+  "message": "User blocked successfully"
 }
 ```
 
@@ -513,7 +526,7 @@ Unblock a user.
 ```json
 {
   "success": true,
-  "message": "User unblocked"
+  "message": "User unblocked successfully"
 }
 ```
 
@@ -538,14 +551,21 @@ Report a post, comment, or user for moderation.
 **Fields:**
 - `target_type` (required): One of `post`, `comment`, `user`
 - `target_id` (required): ID of the target entity
-- `reason` (required): One of `spam`, `harassment`, `inappropriate_content`, `other`
+- `reason` (required): Free-form text reason (max 1000 characters)
 
-**Response:**
+**Response (201 Created):**
 ```json
 {
   "success": true,
-  "message": "Report submitted",
-  "report_id": 789
+  "message": "Report submitted successfully",
+  "report": {
+    "id": 789,
+    "reporter_id": 456,
+    "target_type": "post",
+    "target_id": 123,
+    "reason": "spam",
+    "created_at": "2026-02-11T13:00:00Z"
+  }
 }
 ```
 
@@ -570,7 +590,7 @@ Search users by username or display name.
 ```json
 {
   "success": true,
-  "data": [
+  "users": [
     {
       "id": 456,
       "username": "learner123",
@@ -580,7 +600,8 @@ Search users by username or display name.
       "follower_count": 120,
       "is_following": false
     }
-  ]
+  ],
+  "count": 1
 }
 ```
 
@@ -592,7 +613,7 @@ Get personalized user recommendations (users with similar learning patterns or p
 **Endpoint:** `GET /api/sns/profiles/suggested`
 **Authentication:** Required
 **Query Parameters:**
-- `limit` (optional): Number of suggestions (default: 10, max: 20)
+- `limit` (optional): Number of suggestions (default: 10, max: 30)
 
 **Response:** Same format as Search Users
 
@@ -610,7 +631,7 @@ Retrieve a user's public profile.
 ```json
 {
   "success": true,
-  "data": {
+  "profile": {
     "id": 456,
     "username": "learner123",
     "display_name": "Alice",
@@ -644,13 +665,14 @@ Update the authenticated user's profile.
 ```
 
 **Fields:**
-- `bio` (optional): User bio (max 200 characters)
+- `bio` (optional): User bio (max 500 characters)
 
 **Response:**
 ```json
 {
   "success": true,
-  "data": {
+  "message": "Profile updated successfully",
+  "profile": {
     "id": 456,
     "username": "learner123",
     "bio": "Learning Korean for travel and K-drama!",
@@ -658,6 +680,8 @@ Update the authenticated user's profile.
   }
 }
 ```
+
+**Moderation:** Bio content is automatically checked by the AI moderation service. Rejected bios return HTTP 422 (see [Moderation Rejection](#moderation-rejection)).
 
 **Notes:**
 - `username` and `display_name` are set during registration and cannot be changed via SNS API
@@ -671,7 +695,8 @@ Update the authenticated user's profile.
 
 ```json
 {
-  "error": "Error message describing what went wrong"
+  "error": "Error Category",
+  "message": "Detailed error description"
 }
 ```
 
@@ -684,7 +709,7 @@ Update the authenticated user's profile.
 | `403` | Forbidden | Insufficient permissions (e.g., not the author, blocked user) |
 | `404` | Not Found | Post/comment/user does not exist or was deleted |
 | `409` | Conflict | Duplicate action (e.g., already following, already liked) |
-| `413` | Payload Too Large | Content exceeds maximum length |
+| `422` | Unprocessable Entity | Content rejected by AI moderation |
 | `429` | Too Many Requests | Rate limit exceeded |
 | `500` | Internal Server Error | Database error, unexpected server issue |
 
@@ -693,23 +718,54 @@ Update the authenticated user's profile.
 **Missing JWT Token:**
 ```json
 {
-  "error": "unauthorized"
+  "error": "Unauthorized",
+  "message": "No token provided"
 }
 ```
 
 **Post Not Found:**
 ```json
 {
-  "error": "post not found"
+  "error": "Not Found",
+  "message": "Post not found"
 }
 ```
 
-**Blocked User:**
+**Blocked User Interaction:**
 ```json
 {
-  "error": "cannot interact with blocked user"
+  "error": "Forbidden",
+  "message": "Cannot interact with this post"
 }
 ```
+
+---
+
+## Moderation Rejection
+
+When content (post, comment, or bio) is rejected by the AI moderation service, the API returns HTTP 422 with the following response format:
+
+```json
+{
+  "error": "Content Rejected",
+  "message": "Your content was flagged by our content moderation system",
+  "moderation": {
+    "action": "reject",
+    "categories": {
+      "toxic": 0.85,
+      "severe_toxic": 0.12,
+      "obscene": 0.43,
+      "threat": 0.02,
+      "insult": 0.72,
+      "identity_hate": 0.08
+    }
+  }
+}
+```
+
+The `categories` object contains per-category toxicity scores (0.0 to 1.0). Content is rejected when the highest score exceeds the reject threshold (default: 0.7).
+
+If the moderation service is unavailable, content is created with `moderation_status: "unmoderated"` and proceeds normally.
 
 ---
 
@@ -740,7 +796,7 @@ X-RateLimit-Reset: 1707656400
 
 2. **Optional Auth**: For public endpoints with optional auth, always send the JWT token if available to get enhanced data (like status, follow status).
 
-3. **Content Validation**: Validate content length client-side before submission to avoid `413` errors.
+3. **Content Validation**: Validate content length client-side before submission to avoid `400` errors.
 
 4. **Image Uploads**: Upload images to the Media Service first (port 3004), then include the returned URLs in post creation requests.
 

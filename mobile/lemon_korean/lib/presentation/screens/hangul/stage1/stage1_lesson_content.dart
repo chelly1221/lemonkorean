@@ -95,6 +95,15 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['아', '가', '나'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS1L1Step7Title,
         data: {
@@ -181,6 +190,15 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
           ],
           'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ'],
           'vowelChoices': ['ㅓ', 'ㅏ', 'ㅗ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['어', '거', '너'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -273,6 +291,15 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['오', '고', '노'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS1L3Step6Title,
         data: {
@@ -362,6 +389,15 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['우', '구', '누'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS1L4Step6Title,
         data: {
@@ -447,6 +483,15 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['으', '그', '느'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS1L5Step6Title,
         data: {
@@ -529,6 +574,15 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
             {'question': l10n.hangulS1L6Step5Q1, 'answer': '이', 'choices': ['이', '아', '으']},
             {'question': l10n.hangulS1L6Step5Q2, 'answer': '기', 'choices': ['구', '기', '거']},
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['이', '기', '니'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -750,8 +804,8 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         type: StepType.soundExplore,
         title: l10n.hangulS1L10Step1Title,
         data: {
-          'characters': ['아이', '우유', '오이', '이', '아우'],
-          'descriptions': l10n.hangulS1L10Step1Descs.split(','),
+          'characters': ['아이', '우유', '오이', '이', '어이', '아우'],
+          'type': 'word',
         },
       ),
       LessonStep(
@@ -759,9 +813,9 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS1L10Step2Title,
         description: l10n.hangulS1L10Step2Desc,
         data: {
-          'characters': ['아이', '우유', '오이'],
+          'characters': ['아이', '우유', '오이', '이', '어이', '아우'],
           'maxAttempts': 3,
-          'passScore': 60,
+          'passScore': 55,
           'showPhonemeDetail': true,
         },
       ),
@@ -770,9 +824,11 @@ List<LessonData> getStage1Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS1L10Step3Title,
         data: {
           'questions': [
-            {'audio': '아이', 'choices': ['아이', '오이', '우유'], 'answer': '아이'},
-            {'audio': '우유', 'choices': ['이유', '우유', '아우'], 'answer': '우유'},
-            {'audio': '오이', 'choices': ['오이', '아이', '우이'], 'answer': '오이'},
+            {'answer': '아이', 'choices': ['아이', '오이', '우유']},
+            {'answer': '우유', 'choices': ['이유', '우유', '아우']},
+            {'answer': '오이', 'choices': ['오이', '아이', '어이']},
+            {'answer': '어이', 'choices': ['어이', '아이', '아우']},
+            {'answer': '아우', 'choices': ['아우', '우유', '이']},
           ],
         },
       ),

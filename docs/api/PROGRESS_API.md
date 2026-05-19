@@ -427,15 +427,20 @@ curl -X POST http://localhost:3003/api/progress/sync \
 
 SRS (간격 반복 시스템) 복습 일정을 조회합니다.
 
-**엔드포인트**: `GET /api/progress/review-schedule`
+**엔드포인트**: `GET /api/progress/review-schedule/:userId`
 
 **인증**: 필요 (JWT)
+
+#### 경로 파라미터
+
+| 파라미터 | 타입 | 필수 | 설명 |
+|-----------|------|----------|-------------|
+| `userId` | integer | 예 | 사용자 ID |
 
 #### 쿼리 파라미터
 
 | 파라미터 | 타입 | 필수 | 기본값 | 설명 |
 |-----------|------|----------|---------|-------------|
-| `user_id` | integer | 예 | - | 사용자 ID |
 | `date` | string | 아니오 | today | 날짜 (YYYY-MM-DD) |
 | `days` | integer | 아니오 | 7 | 조회할 일수 |
 
@@ -508,7 +513,7 @@ SRS (간격 반복 시스템) 복습 일정을 조회합니다.
 #### 예시
 
 ```bash
-curl -X GET "http://localhost:3003/api/progress/review-schedule?user_id=1&days=7" \
+curl -X GET "http://localhost:3003/api/progress/review-schedule/1?days=7" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
@@ -1033,5 +1038,5 @@ paths:
 
 ---
 
-**Last Updated**: 2024-01-26
-**Version**: 1.0.0
+**Last Updated**: 2026-03-11
+**Version**: 1.1.0

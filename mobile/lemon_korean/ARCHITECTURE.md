@@ -481,6 +481,89 @@ await analytics.logEvent(
 
 ---
 
+## 코드베이스 통계 (2026-03-11)
+
+- **총 Dart 파일**: 323개
+- **Providers**: 17개 (auth, bookmark, character, dm, download, feed, gamification, hangul, lesson, progress, settings, social, speech, sync, theme, vocabulary_browser, voice_room)
+- **Core Services**: 16개 파일 (`lib/core/services/`)
+- **한글 스테이지**: 13개 (Stage 0~12, `lib/presentation/screens/hangul/stage*/`)
+- **게임 모듈**: 26개 파일 (`lib/game/`)
+
+---
+
+## Core Services (`lib/core/services/`)
+
+앱의 핵심 비즈니스 로직을 담당하는 서비스 레이어.
+
+### 음성/발음 서비스
+- **whisper_service.dart** - Whisper 음성 인식 (조건부 export)
+- **whisper_service_native.dart** - 네이티브 Whisper 구현
+- **whisper_service_stub.dart** - 웹 스텁
+- **gop_service.dart** - GOP(Goodness of Pronunciation) 서비스 (조건부 export)
+- **gop_service_native.dart** - 네이티브 GOP 구현
+- **gop_service_stub.dart** - 웹 스텁
+- **gop_models.dart** - GOP 데이터 모델
+- **pronunciation_scorer.dart** - 임베딩 기반 발음 점수 산출
+- **speech_model_manager.dart** - 번들 음성 모델 관리
+- **audio_recorder_service.dart** - 오디오 녹음
+
+### 기타 서비스
+- **notification_service.dart** - 알림 서비스
+- **socket_service.dart** - Socket.IO 실시간 통신
+- **ad_service.dart** - 광고 서비스 (조건부 export)
+- **admob_service.dart** / **admob_service_web.dart** - AdMob
+- **adsense_service.dart** - 웹 AdSense
+
+---
+
+## 게임 모듈 (`lib/game/`)
+
+Flame 엔진 기반 2D 게임 모듈 (26개 파일).
+
+```
+game/
+├── core/                    # 게임 엔진 코어
+│   ├── game_bridge.dart     # Flutter ↔ Flame 연동
+│   ├── game_constants.dart  # 게임 상수
+│   ├── palette_swap.dart    # 팔레트 스왑
+│   └── sprite_loader.dart   # 스프라이트 로더
+├── components/              # 게임 컴포넌트
+│   ├── character/           # 캐릭터 (pixel_character, animation, shadow, equipment)
+│   ├── effects/             # 이펙트 (particle, emoji, gesture, speaking_aura)
+│   ├── pet/                 # 펫 (pixel_pet)
+│   ├── room/                # 방 (background, floor, furniture, day_night)
+│   └── ui/                  # UI (name_label, mute_badge, connection_quality)
+├── mini_games/              # 미니게임
+│   ├── mini_game_base.dart
+│   ├── word_puzzle/
+│   └── korean_quiz/
+├── my_room/                 # 마이룸
+│   └── my_room_game.dart
+└── voice_stage/             # 음성 대화방 스테이지
+    ├── voice_stage_game.dart
+    └── remote_character.dart
+```
+
+---
+
+## 한글 커리큘럼 (Stage 0~12)
+
+13단계 한글 학습 커리큘럼. 각 스테이지는 `lib/presentation/screens/hangul/stage{N}/`에 위치.
+
+| Stage | 내용 |
+|-------|------|
+| 0 | 기본 모음 (ㅏ, ㅓ, ㅗ, ㅜ, ㅡ, ㅣ) |
+| 1 | 기본 자음 |
+| 2-3 | 자음 확장 |
+| 4-5 | 복합 모음 |
+| 6-7 | 음절 조합 |
+| 8-9 | 받침 (종성) |
+| 10 | 겹받침 |
+| 11 | 음운 규칙 |
+| 12 | 종합 복습 |
+
+---
+
 ## 참고 자료
 
 - [Flutter Architecture Samples](https://github.com/brianegan/flutter_architecture_samples)

@@ -225,6 +225,51 @@ class PronunciationFeedback {
     'es': '!Sigue practicando! Intenta decirlo lentamente.',
   };
 
+  /// Generate feedback based on Whisper jamo comparison result.
+  ///
+  /// [type] is one of: 'vowelMismatch', 'consonantMismatch', 'totalMismatch'
+  /// [language] is the user's UI language code
+  static String generateWhisperFeedback({
+    required String type,
+    required String language,
+  }) {
+    final lang = _normalizeLanguage(language);
+    final messages = _whisperFeedback[type];
+    if (messages == null) return '';
+    return messages[lang] ?? messages['en']!;
+  }
+
+  // ================================================================
+  // Whisper-based mismatch feedback (6 languages)
+  // ================================================================
+
+  static const Map<String, Map<String, String>> _whisperFeedback = {
+    'vowelMismatch': {
+      'ko': '모음을 확인하세요.',
+      'en': 'Check the vowel sound.',
+      'zh': '请检查元音发音。',
+      'zh_TW': '請檢查母音發音。',
+      'ja': '母音を確認してください。',
+      'es': 'Revisa el sonido de la vocal.',
+    },
+    'consonantMismatch': {
+      'ko': '자음을 확인하세요.',
+      'en': 'Check the consonant sound.',
+      'zh': '请检查辅音发音。',
+      'zh_TW': '請檢查子音發音。',
+      'ja': '子音を確認してください。',
+      'es': 'Revisa el sonido de la consonante.',
+    },
+    'totalMismatch': {
+      'ko': '다시 발음해 보세요.',
+      'en': 'Try pronouncing it again.',
+      'zh': '请再试一次发音。',
+      'zh_TW': '請再試一次發音。',
+      'ja': 'もう一度発音してみてください。',
+      'es': 'Intenta pronunciarlo de nuevo.',
+    },
+  };
+
   // ================================================================
   // Per-category pronunciation tips (6 languages)
   // ================================================================

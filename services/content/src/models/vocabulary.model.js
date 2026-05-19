@@ -1,5 +1,11 @@
 const { query } = require('../config/database');
-const { getFallbackChain } = require('../middleware/language.middleware');
+const { getFallbackChain, SUPPORTED_LANGUAGES } = require('../middleware/language.middleware');
+
+// Validate and sanitize language parameter to prevent SQL injection
+const sanitizeLanguage = (language) => {
+  if (SUPPORTED_LANGUAGES.includes(language)) return language;
+  return 'ko';
+};
 
 class Vocabulary {
   /**
@@ -8,7 +14,8 @@ class Vocabulary {
    * @returns {Array} Vocabulary array with localized content
    */
   static async findAll(filters = {}) {
-    const { level, part_of_speech, limit = 100, offset = 0, search, language = 'zh' } = filters;
+    const { level, part_of_speech, limit = 100, offset = 0, search, language: rawLanguage = 'zh' } = filters;
+    const language = sanitizeLanguage(rawLanguage);
 
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
@@ -70,7 +77,8 @@ class Vocabulary {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Object|null} Vocabulary object with localized content
    */
-  static async findById(id, language = 'zh') {
+  static async findById(id, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
@@ -108,7 +116,8 @@ class Vocabulary {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Array} Vocabulary array with localized content
    */
-  static async search(searchTerm, limit = 20, language = 'zh') {
+  static async search(searchTerm, limit = 20, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
@@ -151,7 +160,8 @@ class Vocabulary {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Array} Vocabulary array with localized content
    */
-  static async findByLevel(level, language = 'zh') {
+  static async findByLevel(level, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
@@ -186,7 +196,8 @@ class Vocabulary {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Array} Vocabulary array with localized content
    */
-  static async findHighSimilarity(minSimilarity = 0.8, limit = 100, language = 'zh') {
+  static async findHighSimilarity(minSimilarity = 0.8, limit = 100, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');

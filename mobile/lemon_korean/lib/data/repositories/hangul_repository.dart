@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../core/constants/app_constants.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 import '../../core/utils/result.dart';
 import '../../core/utils/app_exception.dart';
@@ -290,7 +289,7 @@ class HangulRepository {
     try {
       final key = '${userId}_$characterId';
       final existing =
-          LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
+          await LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
 
       if (existing != null) {
         final updated = Map<String, dynamic>.from(existing);
@@ -424,7 +423,7 @@ class HangulRepository {
   /// Get all lesson progress from local storage.
   Future<List<HangulLessonProgressModel>> getAllLessonProgress() async {
     try {
-      final allData = LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(
+      final allData = await LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(
         _lessonProgressBoxName,
       );
       return allData.map((data) {
@@ -439,9 +438,9 @@ class HangulRepository {
   }
 
   /// Get a single lesson progress.
-  HangulLessonProgressModel? getLessonProgress(String lessonId) {
+  Future<HangulLessonProgressModel?> getLessonProgress(String lessonId) async {
     try {
-      final data = LocalStorage.getFromBox<Map<dynamic, dynamic>>(
+      final data = await LocalStorage.getFromBox<Map<dynamic, dynamic>>(
         _lessonProgressBoxName,
         lessonId,
       );
@@ -487,7 +486,7 @@ class HangulRepository {
   }) async {
     try {
       final allData =
-          LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_charactersBoxName);
+          await LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_charactersBoxName);
       var characters = allData
           .map((data) =>
               HangulCharacterModel.fromJson(Map<String, dynamic>.from(data)))
@@ -508,7 +507,7 @@ class HangulRepository {
 
   Future<HangulCharacterModel?> _getLocalCharacter(int id) async {
     try {
-      final data = LocalStorage.getFromBox<Map<dynamic, dynamic>>(
+      final data = await LocalStorage.getFromBox<Map<dynamic, dynamic>>(
           _charactersBoxName, id.toString());
       if (data != null) {
         return HangulCharacterModel.fromJson(Map<String, dynamic>.from(data));
@@ -541,7 +540,7 @@ class HangulRepository {
   Future<List<HangulProgressModel>> _getLocalProgress(int userId) async {
     try {
       final allData =
-          LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_progressBoxName);
+          await LocalStorage.getAllFromBox<Map<dynamic, dynamic>>(_progressBoxName);
       return allData
           .map((data) =>
               HangulProgressModel.fromJson(Map<String, dynamic>.from(data)))
@@ -558,7 +557,7 @@ class HangulRepository {
     try {
       final key = '${userId}_$characterId';
       final existing =
-          LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
+          await LocalStorage.getFromBox<Map<dynamic, dynamic>>(_progressBoxName, key);
 
       if (existing != null) {
         final updated = Map<String, dynamic>.from(existing);

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:record/record.dart';
@@ -21,7 +20,7 @@ class AudioRecorderService {
 
   /// Initialize the recorder and check platform support
   Future<void> initialize() async {
-    _isSupported = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+    _isSupported = Platform.isIOS || Platform.isAndroid;
     if (!_isSupported) {
       AppLogger.w('Recording not supported on this platform',
           tag: 'AudioRecorder');

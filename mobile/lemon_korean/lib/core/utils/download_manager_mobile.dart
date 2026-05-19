@@ -6,8 +6,7 @@ import 'package:path/path.dart' as path;
 import '../constants/app_constants.dart';
 import '../network/api_client.dart';
 import '../storage/database_helper.dart';
-import '../storage/local_storage.dart'
-    if (dart.library.html) '../platform/web/stubs/local_storage_stub.dart';
+import '../storage/local_storage.dart';
 import 'app_logger.dart';
 
 /// Download Manager

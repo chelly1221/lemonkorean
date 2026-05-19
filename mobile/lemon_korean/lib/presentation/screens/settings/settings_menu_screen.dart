@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,14 +67,12 @@ class SettingsMenuScreen extends StatelessWidget {
           const Divider(),
 
           // ================================================================
-          // SPEECH MODEL SECTION (mobile only)
+          // SPEECH MODEL SECTION
           // ================================================================
-          if (!kIsWeb) ...[
-            _buildSectionHeader('데이터 관리'),
-            const SpeechModelManagerWidget(),
-            const SizedBox(height: AppConstants.paddingMedium),
-            const Divider(),
-          ],
+          _buildSectionHeader('데이터 관리'),
+          const SpeechModelManagerWidget(),
+          const SizedBox(height: AppConstants.paddingMedium),
+          const Divider(),
 
           // ================================================================
           // ABOUT SECTION

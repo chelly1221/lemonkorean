@@ -1,11 +1,12 @@
+import 'dart:ui' show PlatformDispatcher;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/settings_keys.dart';
 import '../../core/network/api_client.dart';
 import '../../core/services/notification_service.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 
 /// Chinese variant enum
@@ -123,9 +124,16 @@ class SettingsProvider extends ChangeNotifier {
       // Load app language
       final langCode = LocalStorage.getSetting<String>(
         SettingsKeys.appLanguage,
-        defaultValue: SettingsKeys.defaultAppLanguage,
       );
-      _appLanguage = AppLanguage.fromCode(langCode ?? 'ko');
+      if (langCode != null) {
+        _appLanguage = AppLanguage.fromCode(langCode);
+      } else {
+        // No saved language — detect from device locale
+        _appLanguage = _detectLanguageFromDevice();
+        if (kDebugMode) {
+          AppLogger.d('No saved language, detected from device: ${_appLanguage.code} (${_appLanguage.nativeName})', tag: 'SettingsProvider');
+        }
+      }
 
       // Sync Chinese variant with language selection
       if (_appLanguage == AppLanguage.zhTW) {
@@ -543,6 +551,31 @@ class SettingsProvider extends ChangeNotifier {
   // ================================================================
   // HELPERS
   // ================================================================
+
+  /// Detect app language from device locale
+  static AppLanguage _detectLanguageFromDevice() {
+    final locale = PlatformDispatcher.instance.locale;
+    switch (locale.languageCode) {
+      case 'ko':
+        return AppLanguage.ko;
+      case 'ja':
+        return AppLanguage.ja;
+      case 'es':
+        return AppLanguage.es;
+      case 'zh':
+        // Distinguish Traditional vs Simplified Chinese
+        final country = locale.countryCode?.toUpperCase() ?? '';
+        if (country == 'TW' || country == 'HK' || country == 'MO') {
+          return AppLanguage.zhTW;
+        }
+        return AppLanguage.zhCN;
+      case 'en':
+        return AppLanguage.en;
+      default:
+        // Unsupported language — default to English (international fallback)
+        return AppLanguage.en;
+    }
+  }
 
   /// Reset all settings to defaults
   Future<void> resetToDefaults() async {

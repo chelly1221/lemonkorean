@@ -23,7 +23,6 @@ class UserProfile {
     const sql = `
       SELECT u.id,
              u.name,
-             u.email,
              u.profile_image_url,
              u.bio,
              u.language_preference,
@@ -51,7 +50,7 @@ class UserProfile {
       UPDATE users
       SET bio = $2, updated_at = NOW()
       WHERE id = $1
-      RETURNING id, name, email, profile_image_url, bio, language_preference,
+      RETURNING id, name, profile_image_url, bio, language_preference,
                 follower_count, following_count, post_count, created_at
     `;
 
@@ -65,18 +64,28 @@ class UserProfile {
    * @param {Object} options - Search options
    * @returns {Array} Users array
    */
-  static async search(searchQuery, { limit = 20 }) {
+  static async search(searchQuery, { limit = 20, userId }) {
+    const params = [`%${searchQuery}%`, limit];
+    let blockClause = '';
+
+    if (userId) {
+      blockClause = `AND id NOT IN (SELECT blocked_id FROM user_blocks WHERE blocker_id = $3)
+        AND id NOT IN (SELECT blocker_id FROM user_blocks WHERE blocked_id = $3)`;
+      params.push(userId);
+    }
+
     const sql = `
-      SELECT id, name, email, profile_image_url, bio,
+      SELECT id, name, profile_image_url, bio,
              follower_count, following_count, post_count
       FROM users
       WHERE name ILIKE $1
         AND is_active = true
+        ${blockClause}
       ORDER BY follower_count DESC
       LIMIT $2
     `;
 
-    const result = await query(sql, [`%${searchQuery}%`, limit]);
+    const result = await query(sql, params);
     return result.rows;
   }
 
@@ -89,7 +98,7 @@ class UserProfile {
    */
   static async getSuggested(userId, { limit = 10 }) {
     const sql = `
-      SELECT u.id, u.name, u.email, u.profile_image_url, u.bio,
+      SELECT u.id, u.name, u.profile_image_url, u.bio,
              u.follower_count, u.following_count, u.post_count
       FROM users u
       WHERE u.id != $1

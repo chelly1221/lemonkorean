@@ -1,8 +1,13 @@
 const { AccessToken, RoomServiceClient } = require('livekit-server-sdk');
 
 const LIVEKIT_HOST = process.env.LIVEKIT_HOST || 'http://localhost:7880';
-const LIVEKIT_API_KEY = process.env.LIVEKIT_API_KEY || 'lemon-korean-key';
-const LIVEKIT_SECRET = process.env.LIVEKIT_SECRET || 'lemon-korean-secret-change-me';
+const LIVEKIT_API_KEY = process.env.LIVEKIT_API_KEY;
+const LIVEKIT_SECRET = process.env.LIVEKIT_SECRET;
+
+if (!LIVEKIT_API_KEY || !LIVEKIT_SECRET) {
+  console.error('FATAL: LIVEKIT_API_KEY and LIVEKIT_SECRET environment variables are required');
+  process.exit(1);
+}
 
 const roomService = new RoomServiceClient(LIVEKIT_HOST, LIVEKIT_API_KEY, LIVEKIT_SECRET);
 

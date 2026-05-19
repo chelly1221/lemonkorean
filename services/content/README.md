@@ -126,18 +126,25 @@ content/
 │   ├── config/
 │   │   ├── database.js       # PostgreSQL
 │   │   ├── mongodb.js        # MongoDB
-│   │   └── redis.js          # Redis
+│   │   ├── redis.js          # Redis
+│   │   └── jwt.js            # JWT 설정
 │   ├── controllers/
 │   │   ├── lessons.controller.js
 │   │   ├── vocabulary.controller.js
-│   │   └── grammar.controller.js
+│   │   ├── grammar.controller.js
+│   │   └── hangul.controller.js
+│   ├── middleware/
+│   │   ├── auth.middleware.js
+│   │   └── language.middleware.js
 │   ├── models/
 │   │   ├── lesson.model.js
-│   │   └── vocabulary.model.js
+│   │   ├── vocabulary.model.js
+│   │   └── hangul.model.js
 │   ├── routes/
 │   │   ├── lessons.routes.js
 │   │   ├── vocabulary.routes.js
-│   │   └── grammar.routes.js
+│   │   ├── grammar.routes.js
+│   │   └── hangul.routes.js
 │   ├── services/
 │   │   └── lesson-packager.service.js
 │   └── index.js

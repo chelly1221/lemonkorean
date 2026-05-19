@@ -17,6 +17,7 @@ import '../../hangul/stage8/hangul_stage8_lesson_list_screen.dart';
 import '../../hangul/stage9/hangul_stage9_lesson_list_screen.dart';
 import '../../hangul/stage10/hangul_stage10_lesson_list_screen.dart';
 import '../../hangul/stage11/hangul_stage11_lesson_list_screen.dart';
+import '../../hangul/stage12/hangul_stage12_lesson_list_screen.dart';
 import '../../hangul/widgets/hangul_stage_path_view.dart';
 import '../../hangul/widgets/hangul_stats_bar.dart';
 
@@ -65,51 +66,18 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
     (stage: 8, title: '받침(종성) 1차', subtitle: '핵심 받침부터 읽기 강화'),
     (stage: 9, title: '받침 확장', subtitle: '확장 받침 및 소리 변동 도입'),
     (stage: 10, title: '복합 받침', subtitle: '고급 받침 조합'),
-    (stage: 11, title: '단어 읽기 확장', subtitle: '받침 유무 단어 읽기'),
+    (stage: 11, title: '음운 변화 규칙', subtitle: '자연스러운 발음을 위한 규칙'),
+    (stage: 12, title: '문장 읽기', subtitle: '간단한 문장으로 한글 완성'),
   ];
 
   // ── Progress helpers ──────────────────────────────────────────
 
   static List<double> _getStageProgress(HangulProvider provider) {
-    final overall = provider.overallProgress.clamp(0.0, 1.0);
-    final stageSpan = _stages.length.toDouble();
-    final completedStages = overall * stageSpan;
-
-    final progress = List<double>.generate(_stages.length, (index) {
-      final stageCompletion = (completedStages - index).clamp(0.0, 1.0);
-      return stageCompletion * 5.0;
+    return List<double>.generate(_stages.length, (index) {
+      final completed = provider.getCompletedLessonCount(index);
+      final total = kStageLessonCounts[index];
+      return ((completed / total) * 5.0).clamp(0.0, 5.0);
     });
-
-    // Stage 0 is lesson-driven. Reflect real lesson completion so the lemon
-    // slices and completion state match what user completed in Stage 0.
-    final stage0Completed = provider.getCompletedLessonCount(0);
-    final stage0Total = kStageLessonCounts[0];
-    if (stage0Completed > 0) {
-      final lessonBasedMastery =
-          ((stage0Completed / stage0Total) * 5.0).clamp(0.0, 5.0);
-      progress[0] =
-          progress[0] < lessonBasedMastery ? lessonBasedMastery : progress[0];
-    }
-
-    // Stage 4 and 5 - use real lesson completion counts.
-    final stage4Completed = provider.getCompletedLessonCount(4);
-    if (stage4Completed > 0 && progress.length > 4) {
-      final stage4Total = kStageLessonCounts[4];
-      final stage4Mastery =
-          ((stage4Completed / stage4Total) * 5.0).clamp(0.0, 5.0);
-      progress[4] =
-          progress[4] < stage4Mastery ? stage4Mastery : progress[4];
-    }
-    final stage5Completed = provider.getCompletedLessonCount(5);
-    if (stage5Completed > 0 && progress.length > 5) {
-      final stage5Total = kStageLessonCounts[5];
-      final stage5Mastery =
-          ((stage5Completed / stage5Total) * 5.0).clamp(0.0, 5.0);
-      progress[5] =
-          progress[5] < stage5Mastery ? stage5Mastery : progress[5];
-    }
-
-    return progress;
   }
 
   static List<StageVisualState> _getStageStates(List<double> stageProgress) {
@@ -160,6 +128,9 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
         break;
       case 11:
         screen = const HangulStage11LessonListScreen();
+        break;
+      case 12:
+        screen = const HangulStage12LessonListScreen();
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(
@@ -217,6 +188,7 @@ class _HangulDashboardViewState extends State<HangulDashboardView> {
                     9: hangul.getCompletedLessonCount(9),
                     10: hangul.getCompletedLessonCount(10),
                     11: hangul.getCompletedLessonCount(11),
+                    12: hangul.getCompletedLessonCount(12),
                   },
                   onBossTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -74,6 +74,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㄱ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['가', '고', '구'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS4L1SummaryTitle,
         data: {
@@ -151,6 +160,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
           ],
           'consonantChoices': ['ㄴ', 'ㄷ', 'ㄹ'],
           'vowelChoices': ['ㅏ', 'ㅗ', 'ㅜ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㄴ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['나', '노', '누'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -234,6 +252,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㄷ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['다', '도', '두'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS4L3SummaryTitle,
         data: {
@@ -311,6 +338,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
           ],
           'consonantChoices': ['ㄹ', 'ㄴ', 'ㄷ'],
           'vowelChoices': ['ㅏ', 'ㅗ', 'ㅜ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㄹ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['라', '로', '루'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -394,6 +430,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅁ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['마', '모', '무'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS4L5SummaryTitle,
         data: {
@@ -471,6 +516,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
           ],
           'consonantChoices': ['ㅂ', 'ㅁ', 'ㄷ'],
           'vowelChoices': ['ㅏ', 'ㅗ', 'ㅜ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅂ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['바', '보', '부'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -554,6 +608,15 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         },
       ),
       LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: 'ㅅ + 기본 모음 조합을 써 보세요',
+        data: {
+          'characters': ['사', '소', '수'],
+          'mode': 'trace',
+        },
+      ),
+      LessonStep(
         type: StepType.summary,
         title: l10n.hangulS4L7SummaryTitle,
         data: {
@@ -583,8 +646,8 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         type: StepType.soundExplore,
         title: l10n.hangulS4L8Step1Title,
         data: {
-          'characters': ['나무', '바다', '나비', '모자', '가구', '두부'],
-          'descriptions': l10n.hangulS4L8Step1Descs.split(','),
+          'characters': ['나무', '바다', '나비', '모자', '가구', '두부', '라디오', '사이다', '미소', '머리'],
+          'type': 'word',
         },
       ),
       LessonStep(
@@ -592,9 +655,9 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS4L8Step2Title,
         description: l10n.hangulS4L8Step2Desc,
         data: {
-          'characters': ['나무', '바다', '나비'],
+          'characters': ['나무', '바다', '나비', '모자', '가구', '두부', '라디오', '사이다', '미소', '머리'],
           'maxAttempts': 3,
-          'passScore': 65,
+          'passScore': 55,
           'showPhonemeDetail': true,
         },
       ),
@@ -603,20 +666,13 @@ List<LessonData> getStage4Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS4L8Step3Title,
         data: {
           'questions': [
-            {'audio': '나무', 'choices': ['나무', '나비', '바다'], 'answer': '나무'},
-            {'audio': '바다', 'choices': ['모자', '바다', '가구'], 'answer': '바다'},
-            {'audio': '두부', 'choices': ['나비', '가구', '두부'], 'answer': '두부'},
-            {'audio': '모자', 'choices': ['모자', '나무', '두부'], 'answer': '모자'},
-          ],
-        },
-      ),
-      LessonStep(
-        type: StepType.quizMcq,
-        title: l10n.hangulS4L8Step4Title,
-        data: {
-          'questions': [
-            {'question': l10n.hangulS4L8Step4Q0, 'answer': 'butterfly', 'choices': ['tree', 'butterfly', 'sea']},
-            {'question': l10n.hangulS4L8Step4Q1, 'answer': 'sea', 'choices': ['hat', 'sea', 'tofu']},
+            {'answer': '나무', 'choices': ['나무', '나비', '바다']},
+            {'answer': '바다', 'choices': ['모자', '바다', '가구']},
+            {'answer': '두부', 'choices': ['나비', '가구', '두부']},
+            {'answer': '모자', 'choices': ['모자', '나무', '두부']},
+            {'answer': '라디오', 'choices': ['라디오', '사이다', '미소']},
+            {'answer': '사이다', 'choices': ['머리', '사이다', '라디오']},
+            {'answer': '미소', 'choices': ['미소', '머리', '나무']},
           ],
         },
       ),

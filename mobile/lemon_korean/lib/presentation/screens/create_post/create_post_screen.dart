@@ -22,7 +22,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   final TextEditingController _tagController = TextEditingController();
   final FocusNode _contentFocusNode = FocusNode();
   final FocusNode _tagFocusNode = FocusNode();
-  String _selectedCategory = 'general';
   String? _selectedTemplate;
   final List<String> _imageUrls = [];
   final List<String> _tags = [];
@@ -39,11 +38,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     'Question': '\u{2753} Question:\n\n',
   };
 
-  // Suggested tags by category
-  static const Map<String, List<String>> _suggestedTags = {
-    'learning': ['hangul', 'grammar', 'vocabulary', 'pronunciation', 'practice'],
-    'general': ['culture', 'kdrama', 'kpop', 'food', 'travel'],
-  };
+  // Suggested tags
+  static const List<String> _suggestedTagsList = [
+    'hangul', 'grammar', 'vocabulary', 'pronunciation', 'practice',
+    'culture', 'kdrama', 'kpop', 'food', 'travel',
+  ];
 
   @override
   void initState() {
@@ -127,7 +126,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
     final post = await feedProvider.createPost(
       content: _contentController.text.trim(),
-      category: _selectedCategory,
+      category: 'general',
       imageUrls: _imageUrls,
       tags: _tags,
     );
@@ -213,16 +212,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Category selector
-            _buildCategorySelector(l10n),
+            // Learning templates
+            _buildTemplateSelector(),
 
             const SizedBox(height: AppConstants.paddingMedium),
-
-            // Learning templates (only when learning category selected)
-            if (_selectedCategory == 'learning') ...[
-              _buildTemplateSelector(),
-              const SizedBox(height: AppConstants.paddingMedium),
-            ],
 
             // Content text field
             _buildContentField(l10n),
@@ -263,106 +256,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ],
         ),
       ).animate().fadeIn(duration: 300.ms),
-    );
-  }
-
-  Widget _buildCategorySelector(AppLocalizations? l10n) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          l10n?.category ?? 'Category',
-          style: const TextStyle(
-            fontSize: AppConstants.fontSizeMedium,
-            fontWeight: FontWeight.w600,
-            color: AppConstants.textPrimary,
-          ),
-        ),
-        const SizedBox(height: AppConstants.paddingSmall),
-        Row(
-          children: [
-            Expanded(
-              child: _buildCategoryChip(
-                label: l10n?.general ?? 'General',
-                value: 'general',
-                icon: Icons.chat_bubble_outline,
-              ),
-            ),
-            const SizedBox(width: AppConstants.paddingSmall),
-            Expanded(
-              child: _buildCategoryChip(
-                label: l10n?.learning ?? 'Learning',
-                value: 'learning',
-                icon: Icons.school_outlined,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCategoryChip({
-    required String label,
-    required String value,
-    required IconData icon,
-  }) {
-    final isSelected = _selectedCategory == value;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          final previousCategory = _selectedCategory;
-          _selectedCategory = value;
-          // Clear template selection when switching away from learning
-          if (previousCategory == 'learning' && value != 'learning') {
-            _selectedTemplate = null;
-          }
-        });
-      },
-      child: AnimatedContainer(
-        duration: AppConstants.animationFast,
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppConstants.paddingMedium,
-          vertical: AppConstants.paddingSmall,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? AppConstants.primaryColor.withValues(alpha: 0.2)
-              : Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(AppConstants.radiusMedium),
-          border: Border.all(
-            color: isSelected
-                ? AppConstants.primaryColor
-                : Colors.grey.shade300,
-            width: isSelected ? 2 : 1,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 18,
-              color: isSelected
-                  ? Colors.black87
-                  : AppConstants.textSecondary,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: AppConstants.fontSizeMedium,
-                fontWeight:
-                    isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected
-                    ? Colors.black87
-                    : AppConstants.textSecondary,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -527,7 +420,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   // ================================================================
 
   Widget _buildTagsSection() {
-    final suggestions = _suggestedTags[_selectedCategory] ?? [];
+    final suggestions = _suggestedTagsList;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -797,28 +690,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             ],
           ),
           const SizedBox(height: 8),
-
-          // Category badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-            decoration: BoxDecoration(
-              color: _selectedCategory == 'learning'
-                  ? AppConstants.infoColor.withValues(alpha: 0.1)
-                  : AppConstants.secondaryColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppConstants.radiusSmall),
-            ),
-            child: Text(
-              _selectedCategory == 'learning' ? 'Learning' : 'General',
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: _selectedCategory == 'learning'
-                    ? AppConstants.infoColor
-                    : AppConstants.secondaryColor,
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
 
           // Content preview (first 2 lines)
           Text(

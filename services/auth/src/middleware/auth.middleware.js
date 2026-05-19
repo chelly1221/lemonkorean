@@ -159,17 +159,14 @@ const requireAdmin = async (req, res, next) => {
     }
 
     // 3. Admin 여부 확인
-    // 방법 1: 이메일 기반 (임시 방법)
-    const isAdminByEmail = user.email.toLowerCase().includes('admin@');
-
-    // 방법 2: 특정 관리자 이메일 목록 (환경 변수)
-    const adminEmails = (process.env.ADMIN_EMAILS || 'admin@lemon.com').split(',');
+    // 방법 1: 특정 관리자 이메일 목록 (환경 변수)
+    const adminEmails = (process.env.ADMIN_EMAILS || 'admin@lemon.com').split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
     const isAdminByList = adminEmails.includes(user.email.toLowerCase());
 
-    // 방법 3: 사용자 ID 기반 (첫 번째 사용자는 admin)
+    // 방법 2: 사용자 ID 기반 (첫 번째 사용자는 admin)
     const isAdminById = user.id === 1;
 
-    const isAdmin = isAdminByEmail || isAdminByList || isAdminById;
+    const isAdmin = isAdminByList || isAdminById;
 
     if (!isAdmin) {
       console.log(`[ADMIN] Access denied for user: ${user.email} (not admin)`);

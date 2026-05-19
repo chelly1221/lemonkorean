@@ -1,17 +1,12 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/ad_service.dart';
-import '../../../../core/services/adsense_service.dart';
+import '../../../../core/services/admob_service.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../../providers/gamification_provider.dart';
-
-// Conditional import for AdMob (mobile only, web gets stub with typedef)
-import '../../../../core/services/admob_service.dart'
-    if (dart.library.html) '../../../../core/services/admob_service_web.dart';
 
 /// Lemon tree widget displayed on the profile tab.
 /// Shows a tree with lemons that can be harvested by watching ads.
@@ -50,16 +45,11 @@ class _LemonTreeWidgetState extends State<LemonTreeWidget> {
   Future<void> _initAdService() async {
     try {
       final gamification = Provider.of<GamificationProvider>(context, listen: false);
-      if (kIsWeb) {
-        _adService = AdSenseService();
-      } else {
-        // AdMobService via conditional import (resolves to AdSenseService on web)
-        final service = AdMobService();
-        if (gamification.admobRewardedAdId.isNotEmpty) {
-          service.setAdUnitId(gamification.admobRewardedAdId);
-        }
-        _adService = service;
+      final service = AdMobService();
+      if (gamification.admobRewardedAdId.isNotEmpty) {
+        service.setAdUnitId(gamification.admobRewardedAdId);
       }
+      _adService = service;
       await _adService!.initialize();
     } catch (e) {
       debugPrint('[LemonTree] Ad service init failed: $e');

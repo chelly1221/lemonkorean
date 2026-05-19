@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -178,51 +177,49 @@ class StageControlsWidget extends StatelessWidget {
           provider.cancelStageRequest();
         } else {
           // Request mic permission before raising hand (mobile only)
-          if (!kIsWeb) {
-            final status = await Permission.microphone.request();
-            if (status.isPermanentlyDenied) {
-              if (!context.mounted) return;
-              final dialogL10n = AppLocalizations.of(context);
-              showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  title: Text(dialogL10n?.voiceRoomMicPermissionTitle ?? 'Microphone Permission'),
-                  content: Text(
-                    dialogL10n?.voiceRoomMicPermissionDenied ?? 'Microphone access was denied. To use voice features, please enable it in your device settings.',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(ctx),
-                      child: Text(dialogL10n?.cancel ?? 'Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        openAppSettings();
-                      },
-                      child: Text(dialogL10n?.voiceRoomOpenSettings ?? 'Open Settings'),
-                    ),
-                  ],
+          final status = await Permission.microphone.request();
+          if (status.isPermanentlyDenied) {
+            if (!context.mounted) return;
+            final dialogL10n = AppLocalizations.of(context);
+            showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                title: Text(dialogL10n?.voiceRoomMicPermissionTitle ?? 'Microphone Permission'),
+                content: Text(
+                  dialogL10n?.voiceRoomMicPermissionDenied ?? 'Microphone access was denied. To use voice features, please enable it in your device settings.',
                 ),
-              );
-              return;
-            }
-            if (!status.isGranted) {
-              if (!context.mounted) return;
-              final snackL10n = AppLocalizations.of(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    snackL10n?.voiceRoomMicNeededForStage ?? 'Microphone permission is needed to speak on stage',
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: Text(dialogL10n?.cancel ?? 'Cancel'),
                   ),
-                  action: SnackBarAction(
-                    label: snackL10n?.voiceRoomOpenSettings ?? 'Settings',
-                    onPressed: () => openAppSettings(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      openAppSettings();
+                    },
+                    child: Text(dialogL10n?.voiceRoomOpenSettings ?? 'Open Settings'),
                   ),
+                ],
+              ),
+            );
+            return;
+          }
+          if (!status.isGranted) {
+            if (!context.mounted) return;
+            final snackL10n = AppLocalizations.of(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  snackL10n?.voiceRoomMicNeededForStage ?? 'Microphone permission is needed to speak on stage',
                 ),
-              );
-              return;
-            }
+                action: SnackBarAction(
+                  label: snackL10n?.voiceRoomOpenSettings ?? 'Settings',
+                  onPressed: () => openAppSettings(),
+                ),
+              ),
+            );
+            return;
           }
           provider.requestStage();
         }

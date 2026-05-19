@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../core/constants/settings_keys.dart';
 import '../../core/network/api_client.dart';
 import '../../core/services/notification_service.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 
 class ProgressProvider with ChangeNotifier {
   final _apiClient = ApiClient.instance;
@@ -100,7 +99,8 @@ class ProgressProvider with ChangeNotifier {
         completedCount++;
       }
       if (p['time_spent_minutes'] != null) {
-        totalTime += (p['time_spent_minutes'] as int);
+        final rawTime = p['time_spent_minutes'];
+        totalTime += rawTime is int ? rawTime : (rawTime is num ? rawTime.toInt() : 0);
       }
       if (p['completed_at'] != null) {
         final date = DateTime.parse(p['completed_at']).toIso8601String().substring(0, 10);

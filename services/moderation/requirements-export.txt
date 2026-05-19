@@ -1,0 +1,4 @@
+# Dependencies for ONNX model export + quantization (Docker build stage only)
+optimum[onnxruntime]==1.17.0
+transformers==4.38.0
+onnxruntime==1.17.0

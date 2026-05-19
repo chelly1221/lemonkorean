@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../data/models/lemon_reward_model.dart';
 
 /// Manages gamification state: lemon rewards per lesson, total lemon points,
@@ -62,7 +61,7 @@ class GamificationProvider with ChangeNotifier {
   /// then fetch server settings (non-blocking on failure).
   Future<void> loadFromStorage() async {
     // Load rewards
-    final allRewards = LocalStorage.getAllFromBox<Map>(_rewardsBox);
+    final allRewards = await LocalStorage.getAllFromBox<Map>(_rewardsBox);
     _rewards.clear();
     for (final raw in allRewards) {
       try {
@@ -75,7 +74,7 @@ class GamificationProvider with ChangeNotifier {
     }
 
     // Load currency
-    final currency = LocalStorage.getFromBox<Map>(_currencyBox, 'balance');
+    final currency = await LocalStorage.getFromBox<Map>(_currencyBox, 'balance');
     if (currency != null) {
       _totalLemons = currency['total_lemons'] as int? ?? 0;
       _treeLemonsAvailable = currency['tree_lemons_available'] as int? ?? 0;
@@ -83,7 +82,7 @@ class GamificationProvider with ChangeNotifier {
     }
 
     // Load boss quiz completions
-    final bossData = LocalStorage.getAllFromBox<Map>(_bossBox);
+    final bossData = await LocalStorage.getAllFromBox<Map>(_bossBox);
     _bossQuizCompleted.clear();
     for (final raw in bossData) {
       final key = raw['key'] as String?;

@@ -7,17 +7,18 @@ enum StageVisualState { notStarted, inProgress, completed }
 /// Lesson counts for each stage, shared across hangul widgets.
 const List<int> kStageLessonCounts = [
   4, // Stage 0: 한글 구조 이해
-  10, // Stage 1: 기본 모음 (1-1~1-10)
-  7, // Stage 2: Y-모음
-  7, // Stage 3: ㅐ/ㅔ 모음
-  9, // Stage 4: 기본 자음 4-1 (4-1~4-8 +미션)
-  10, // Stage 5: 기본 자음 4-2
-  9, // Stage 6: 본격 조합 훈련 (기존 Stage 5)
-  6, // Stage 7: 된소리/거센소리 (5개 대비 묶음 +미션)
-  10, // Stage 8: 받침 1차 (+미션)
-  8, // Stage 9: 받침 확장 (+미션)
-  7, // Stage 10: 복합 받침 (+미션)
-  8, // Stage 11: 단어 읽기 (11-1~11-7 +미션)
+  10, // Stage 1: 기본 모음 (1-1~1-10, 1-10 단어 확장)
+  8, // Stage 2: Y-모음 (+2-7W 단어 읽기)
+  8, // Stage 3: ㅐ/ㅔ 모음 (+3-7W 단어 읽기)
+  9, // Stage 4: 기본 자음 4-1 (4-1~4-8 확장 +미션)
+  11, // Stage 5: 기본 자음 4-2 (+5-9W 단어 읽기)
+  10, // Stage 6: 본격 조합 훈련 (+6-8W 단어 읽기)
+  7, // Stage 7: 된소리/거센소리 (+7-5W 단어 읽기)
+  11, // Stage 8: 받침 1차 (+8-8W 단어 읽기)
+  9, // Stage 9: 받침 확장 (+9-7W 단어 읽기)
+  8, // Stage 10: 복합 받침 (+10-6W 단어 읽기)
+  8, // Stage 11: 음운 변화 규칙 (11-1~11-7 +미션)
+  7, // Stage 12: 간단한 문장 읽기 (12-1~12-6 +미션)
 ];
 
 /// Compact horizontal stats bar showing lemons, characters learned, and review nudge.

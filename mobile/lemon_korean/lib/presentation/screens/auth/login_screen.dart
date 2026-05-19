@@ -120,21 +120,23 @@ class _LoginScreenState extends State<LoginScreen> {
           key: _formKey,
           child: Column(
             children: [
-              // ── 백버튼 ─────────────────────────────────────────
+              // ── 백버튼 (스택에 돌아갈 화면이 있을 때만 표시) ────
               SizedBox(
                 height: screenHeight * 0.047,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    padding: EdgeInsets.only(left: hMargin),
-                    icon: Icon(
-                      Icons.arrow_back_ios_new,
-                      size: screenWidth * 0.051,
-                      color: Colors.black87,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ),
+                child: Navigator.of(context).canPop()
+                    ? Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          padding: EdgeInsets.only(left: hMargin),
+                          icon: Icon(
+                            Icons.arrow_back_ios_new,
+                            size: screenWidth * 0.051,
+                            color: Colors.black87,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
               ),
 
               // ── 스크롤 가능한 폼 영역 ──────────────────────────

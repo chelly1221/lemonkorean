@@ -17,6 +17,7 @@ import 'steps/step_mission_results.dart';
 import 'steps/step_summary.dart';
 import 'steps/step_speech_practice.dart';
 import 'steps/step_stage_complete.dart';
+import 'steps/step_writing_practice.dart';
 
 /// Runs a lesson as a PageView of steps with a progress bar.
 class HangulLessonFlowScreen extends StatefulWidget {
@@ -42,15 +43,8 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
   @override
   void initState() {
     super.initState();
-    final hangul = context.read<HangulProvider>();
-    final saved = hangul.getLessonProgress(widget.lesson.id);
-    final canResume =
-        saved != null && !saved.isCompleted && saved.completedSteps > 0;
-    final maxIndex = widget.lesson.steps.length - 1;
-    if (canResume) {
-      _currentStep = saved.completedSteps.clamp(0, maxIndex);
-    }
-    _pageController = PageController(initialPage: _currentStep);
+    // Always start from beginning — progress is only saved on completion.
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -62,12 +56,6 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
   void _goNext() {
     if (_currentStep < widget.lesson.steps.length - 1) {
       final nextStep = _currentStep + 1;
-      final hangul = context.read<HangulProvider>();
-      hangul.saveLessonCheckpoint(
-        lessonId: widget.lesson.id,
-        completedSteps: nextStep,
-        totalSteps: widget.lesson.totalSteps,
-      );
       setState(() => _currentStep = nextStep);
       _pageController.nextPage(
         duration: const Duration(milliseconds: 350),
@@ -218,7 +206,7 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(AppLocalizations.of(context)?.exitLessonDialogTitle ?? '레슨 나가기'),
-        content: Text(AppLocalizations.of(context)?.exitLessonDialogContent ?? '진행 중인 레슨을 종료하시겠어요?\n현재 단계까지 자동 저장됩니다.'),
+        content: Text(AppLocalizations.of(context)?.exitLessonDialogContent ?? '진행 중인 레슨을 종료하시겠어요?\n다음에 다시 처음부터 시작됩니다.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
@@ -277,6 +265,11 @@ class _HangulLessonFlowScreenState extends State<HangulLessonFlowScreen> {
           step: step,
           onCompleted: (correct, total) =>
               _onStepCompleted(correct: correct, total: total),
+        );
+      case StepType.writingPractice:
+        return StepWritingPractice(
+          step: step,
+          onNext: _goNext,
         );
       case StepType.missionIntro:
         return StepMissionIntro(

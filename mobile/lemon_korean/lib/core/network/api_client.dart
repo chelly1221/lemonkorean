@@ -100,7 +100,7 @@ class ApiClient {
     return await _dio.post(
       '/auth/refresh',
       data: {
-        'refresh_token': refreshToken,
+        'refreshToken': refreshToken,
       },
     );
   }
@@ -566,8 +566,8 @@ class _AuthInterceptor extends Interceptor {
           // Refresh token
           final response = await ApiClient.instance.refreshToken(refreshToken);
 
-          final newToken = response.data['token'];
-          final newRefreshToken = response.data['refresh_token'];
+          final newToken = response.data['accessToken'];
+          final newRefreshToken = response.data['refreshToken'];
 
           // Save new tokens
           await _storage.write(key: AppConstants.tokenKey, value: newToken);

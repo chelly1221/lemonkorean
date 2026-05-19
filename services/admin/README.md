@@ -231,25 +231,6 @@ GET /api/admin/analytics/engagement?period=7d
 GET /api/admin/analytics/content
 ```
 
-### Web Deployment (`/deploy`)
-
-```bash
-# Start web deployment
-POST /api/admin/deploy/web/start
-
-# Get deployment status
-GET /api/admin/deploy/web/status/:id
-
-# Get deployment logs
-GET /api/admin/deploy/web/logs/:id?since=0
-
-# Get deployment history
-GET /api/admin/deploy/web/history?page=1&limit=20
-
-# Cancel deployment
-DELETE /api/admin/deploy/web/:id
-```
-
 ### APK Build (`/deploy/apk`)
 
 ```bash
@@ -553,7 +534,6 @@ services/admin/
 │   │   ├── content-management.service.js
 │   │   ├── media-upload.service.js
 │   │   ├── analytics.service.js
-│   │   ├── web-deploy.service.js
 │   │   └── apk-build.service.js
 │   ├── controllers/                # HTTP handlers
 │   │   ├── users.controller.js

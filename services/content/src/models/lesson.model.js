@@ -1,6 +1,12 @@
 const { query } = require('../config/database');
 const { collections } = require('../config/mongodb');
-const { getFallbackChain } = require('../middleware/language.middleware');
+const { getFallbackChain, SUPPORTED_LANGUAGES } = require('../middleware/language.middleware');
+
+// Validate and sanitize language parameter to prevent SQL injection
+const sanitizeLanguage = (language) => {
+  if (SUPPORTED_LANGUAGES.includes(language)) return language;
+  return 'ko';
+};
 
 class Lesson {
   /**
@@ -9,7 +15,8 @@ class Lesson {
    * @returns {Array} Lessons array with localized content
    */
   static async findAll(filters = {}) {
-    const { level, status, limit = 100, offset = 0, language = 'zh' } = filters;
+    const { level, status, limit = 100, offset = 0, language: rawLanguage = 'zh' } = filters;
+    const language = sanitizeLanguage(rawLanguage);
 
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
@@ -102,7 +109,8 @@ class Lesson {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Object|null} Lesson object with localized content
    */
-  static async findById(id, language = 'zh') {
+  static async findById(id, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
@@ -154,7 +162,8 @@ class Lesson {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Array} Lessons array with localized content
    */
-  static async findByLevel(level, language = 'zh') {
+  static async findByLevel(level, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
@@ -232,7 +241,8 @@ class Lesson {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Array} Vocabulary array with localized content
    */
-  static async getVocabulary(lessonId, language = 'zh') {
+  static async getVocabulary(lessonId, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');
@@ -269,7 +279,8 @@ class Lesson {
    * @param {String} language - Language code (default: 'zh')
    * @returns {Array} Grammar rules array with localized content
    */
-  static async getGrammar(lessonId, language = 'zh') {
+  static async getGrammar(lessonId, rawLanguage = 'zh') {
+    const language = sanitizeLanguage(rawLanguage);
     // Get fallback chain for the requested language
     const fallbackChain = getFallbackChain(language);
     const fallbackList = fallbackChain.map(l => `'${l}'`).join(', ');

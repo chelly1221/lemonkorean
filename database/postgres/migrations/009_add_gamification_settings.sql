@@ -8,10 +8,7 @@ CREATE TABLE IF NOT EXISTS gamification_settings (
     -- 광고 설정
     admob_app_id VARCHAR(100) DEFAULT 'ca-app-pub-3940256099942544~3347511713',
     admob_rewarded_ad_id VARCHAR(100) DEFAULT 'ca-app-pub-3940256099942544/5224354917',
-    adsense_publisher_id VARCHAR(100) DEFAULT '',
-    adsense_ad_slot VARCHAR(100) DEFAULT '',
     ads_enabled BOOLEAN DEFAULT true,
-    web_ads_enabled BOOLEAN DEFAULT false,
 
     -- 레몬 보상 설정
     lemon_3_threshold INTEGER DEFAULT 95,       -- 3레몬 퀴즈 점수 임계값

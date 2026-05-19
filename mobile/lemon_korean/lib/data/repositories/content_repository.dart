@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 import '../../core/utils/result.dart';
 import '../local/bundled_learning_content.dart';
@@ -238,7 +237,7 @@ class ContentRepository {
 
     double cacheSizeMB = 0.0;
     try {
-      final Directory appDir = await getApplicationDocumentsDirectory();
+      final appDir = await getApplicationDocumentsDirectory();
       if (await appDir.exists()) {
         await for (final entity in appDir.list(recursive: true)) {
           if (entity is File) {

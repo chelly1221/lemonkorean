@@ -7,14 +7,14 @@ class Post {
    * @param {Object} postData - Post data
    * @returns {Object} Created post
    */
-  static async create(userId, { content, category, tags, visibility, imageUrls }) {
+  static async create(userId, { content, category, tags, visibility, imageUrls, moderationStatus, moderationCategories, moderationScore }) {
     const client = await getClient();
     try {
       await client.query('BEGIN');
 
       const sql = `
-        INSERT INTO sns_posts (user_id, content, category, tags, visibility, image_urls, created_at)
-        VALUES ($1, $2, $3, $4, $5, $6, NOW())
+        INSERT INTO sns_posts (user_id, content, category, tags, visibility, image_urls, moderation_status, moderation_categories, moderation_score, created_at)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())
         RETURNING *
       `;
 
@@ -24,7 +24,10 @@ class Post {
         category || 'general',
         tags || [],
         visibility || 'public',
-        imageUrls || []
+        imageUrls || [],
+        moderationStatus ?? 'unmoderated',
+        moderationCategories ? JSON.stringify(moderationCategories) : null,
+        moderationScore ?? null,
       ];
 
       const result = await client.query(sql, values);
@@ -91,6 +94,7 @@ class Post {
       FROM sns_posts p
       JOIN users u ON p.user_id = u.id
       WHERE p.is_deleted = false
+        AND COALESCE(p.moderation_status, 'unmoderated') NOT IN ('rejected')
         AND (
           p.user_id IN (SELECT following_id FROM user_follows WHERE follower_id = $1)
           OR p.user_id = $1
@@ -149,6 +153,7 @@ class Post {
       FROM sns_posts p
       JOIN users u ON p.user_id = u.id
       WHERE p.is_deleted = false
+        AND COALESCE(p.moderation_status, 'unmoderated') NOT IN ('rejected')
         AND p.visibility = 'public'
         ${blockClause}
         ${categoryClause}
@@ -211,6 +216,7 @@ class Post {
       JOIN users u ON p.user_id = u.id
       WHERE p.user_id = $1
         AND p.is_deleted = false
+        AND COALESCE(p.moderation_status, 'unmoderated') NOT IN ('rejected')
         ${visibilityClause}
         ${cursorClause}
       ORDER BY p.created_at DESC

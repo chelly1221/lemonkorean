@@ -1293,7 +1293,7 @@
   "stageDetailComingSoon": "詳細內容正在準備中。",
   "bossQuizComingSoon": "Boss測驗正在準備中。",
   "exitLessonDialogTitle": "離開課程",
-  "exitLessonDialogContent": "要離開課程嗎？\n目前步驟的進度將自動儲存。",
+  "exitLessonDialogContent": "要離開課程嗎？\n下次將從頭開始。",
   "continueButton": "繼續",
   "exitLessonButton": "離開",
   "noQuestions": "沒有可用的問題",

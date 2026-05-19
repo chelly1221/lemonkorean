@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -66,8 +65,7 @@ class _RecordingWidgetState extends State<RecordingWidget>
   }
 
   Future<void> _initRecording() async {
-    // Recording is only supported on mobile platforms
-    _isSupported = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+    _isSupported = Platform.isIOS || Platform.isAndroid;
 
     if (_isSupported) {
       _recorder = AudioRecorder();

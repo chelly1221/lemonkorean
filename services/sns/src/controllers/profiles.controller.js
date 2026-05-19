@@ -1,4 +1,6 @@
 const UserProfile = require('../models/user-profile.model');
+const Block = require('../models/block.model');
+const { moderateText, logModeration } = require('../utils/moderation');
 
 // ==================== Controller Functions ====================
 
@@ -18,6 +20,17 @@ const getProfile = async (req, res) => {
         error: 'Bad Request',
         message: 'Invalid user ID'
       });
+    }
+
+    // Check block relationship
+    if (requesterId && requesterId !== targetUserId) {
+      const blocked = await Block.isBlockedEitherWay(requesterId, targetUserId);
+      if (blocked) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: 'User not found'
+        });
+      }
     }
 
     const profile = await UserProfile.getProfile(targetUserId, requesterId);
@@ -66,6 +79,32 @@ const updateProfile = async (req, res) => {
       });
     }
 
+    // Content moderation for bio
+    if (bio && bio.trim().length > 0) {
+      try {
+        const moderationResult = await moderateText(bio, 'bio');
+        console.log(`[SNS] Bio moderation: ${moderationResult.action} (score: ${moderationResult.max_score})`);
+
+        if (moderationResult.action === 'reject') {
+          return res.status(422).json({
+            error: 'Content Rejected',
+            message: 'Your bio was flagged by our content moderation system',
+            moderation: {
+              action: moderationResult.action,
+              categories: moderationResult.categories,
+            }
+          });
+        }
+
+        logModeration({
+          contentType: 'bio', contentId: userId, userId,
+          contentText: bio, result: moderationResult,
+        });
+      } catch (moderationError) {
+        console.warn('[SNS] Moderation service unavailable:', moderationError.message);
+      }
+    }
+
     const profile = await UserProfile.updateProfile(userId, { bio: bio || null });
 
     if (!profile) {
@@ -101,6 +140,7 @@ const updateProfile = async (req, res) => {
 const search = async (req, res) => {
   try {
     const { q, limit } = req.query;
+    const userId = req.user ? req.user.id : null;
 
     console.log(`[SNS] Searching users with query: ${q}`);
 
@@ -119,7 +159,7 @@ const search = async (req, res) => {
     }
 
     const parsedLimit = Math.min(parseInt(limit) || 20, 50);
-    const users = await UserProfile.search(q.trim(), { limit: parsedLimit });
+    const users = await UserProfile.search(q.trim(), { limit: parsedLimit, userId });
 
     res.json({
       success: true,

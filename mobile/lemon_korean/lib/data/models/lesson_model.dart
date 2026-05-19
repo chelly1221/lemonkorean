@@ -90,7 +90,7 @@ class LessonModel {
       level: json['level'] as int,
       titleKo: json['title_ko'] as String,
       // Support both new 'title' field and legacy 'title_zh' for backwards compatibility
-      title: json['title'] as String? ?? json['title_zh'] as String,
+      title: (json['title'] ?? json['title_zh'] ?? '') as String,
       description: json['description'] as String? ?? json['description_zh'] as String?,
       thumbnailUrl: json['thumbnail_url'] as String?,
       version: json['version'] as String? ?? '1.0.0',

@@ -335,6 +335,55 @@ List<LessonData> getStage7Lessons(AppLocalizations l10n) => <LessonData>[
       ),
     ],
   ),
+  // ── Lesson 7-5W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '7-5W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['까치', '토끼', '뿌리', '따로', '쓰다', '아빠', '오빠', '까마귀'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['까치', '토끼', '뿌리', '따로', '쓰다', '아빠', '오빠', '까마귀'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '까치', 'choices': ['까치', '토끼', '뿌리']},
+            {'answer': '토끼', 'choices': ['따로', '토끼', '쓰다']},
+            {'answer': '뿌리', 'choices': ['뿌리', '아빠', '오빠']},
+            {'answer': '아빠', 'choices': ['아빠', '오빠', '까치']},
+            {'answer': '까마귀', 'choices': ['까마귀', '토끼', '따로']},
+            {'answer': '쓰다', 'choices': ['쓰다', '뿌리', '아빠']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '7-5W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   LessonData(
     id: '7-M',
     title: l10n.hangulS7LMTitle,

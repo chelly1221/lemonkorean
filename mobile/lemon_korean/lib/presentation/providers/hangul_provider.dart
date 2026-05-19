@@ -5,6 +5,7 @@ import '../../data/models/hangul_lesson_progress_model.dart';
 import '../../data/models/hangul_progress_model.dart';
 import '../../data/repositories/hangul_repository.dart';
 import '../../core/utils/app_logger.dart';
+import '../screens/hangul/widgets/hangul_stats_bar.dart';
 
 /// Hangul learning state
 enum HangulLoadingState {
@@ -71,7 +72,17 @@ class HangulProvider with ChangeNotifier {
   List<HangulCharacterModel> get allCharacters => _characters;
 
   int get dueForReviewCount => _stats?.dueForReview ?? 0;
-  double get overallProgress => _stats?.progressPercent ?? 0.0;
+  double get overallProgress {
+    if (_lessonProgress.isEmpty) return 0.0;
+    int totalLessons = 0;
+    int completedLessons = 0;
+    for (int i = 0; i < 12; i++) {
+      final stageTotal = i < kStageLessonCounts.length ? kStageLessonCounts[i] : 0;
+      totalLessons += stageTotal;
+      completedLessons += getCompletedLessonCount(i);
+    }
+    return totalLessons > 0 ? completedLessons / totalLessons : 0.0;
+  }
 
   /// Get progress for a specific character
   HangulProgressModel? getProgressForCharacter(int characterId) {
@@ -346,8 +357,9 @@ class HangulProvider with ChangeNotifier {
   Future<void> loadLessonProgress() async {
     try {
       final allData = await _repository.getAllLessonProgress();
-      // Only update if we got data, or if we have no existing progress
-      if (allData.isNotEmpty || _lessonProgress.isEmpty) {
+      // Only replace in-memory data if storage returned actual data.
+      // Empty result could mean box wasn't opened yet — don't clear.
+      if (allData.isNotEmpty) {
         _lessonProgress.clear();
         for (final p in allData) {
           _lessonProgress[p.lessonId] = p;

@@ -3198,7 +3198,8 @@ class AppLocalizationsKo extends AppLocalizations {
   String get exitLessonDialogTitle => '레슨 나가기';
 
   @override
-  String get exitLessonDialogContent => '진행 중인 레슨을 종료하시겠어요?\n현재 단계까지 자동 저장됩니다.';
+  String get exitLessonDialogContent =>
+      '진행 중인 레슨을 종료하시겠어요?\n다음에 다시 처음부터 시작됩니다.';
 
   @override
   String get continueButton => '계속하기';

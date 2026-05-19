@@ -271,6 +271,14 @@ PROGRESS_SERVICE_PORT=3003
 MEDIA_SERVICE_PORT=3004
 ANALYTICS_SERVICE_PORT=3005
 ADMIN_SERVICE_PORT=3006
+# Moderation Service (내부 전용, 호스트 포트 미노출)
+# SNS 서비스에서 Docker 네트워크를 통해 직접 접근
+MODERATION_SERVICE_URL=http://moderation-service:3008
+MODERATION_TIMEOUT_MS=5000
+TEXT_REJECT_THRESHOLD=0.7
+TEXT_FLAG_THRESHOLD=0.3
+USE_QUANTIZED=true
+INTRA_OP_THREADS=0
 
 # Application
 NODE_ENV=production
@@ -350,6 +358,9 @@ curl http://localhost:3004/health  # Media
 curl http://localhost:3005/health  # Analytics
 curl http://localhost:3007/health  # SNS
 # Admin은 nginx를 통해 접근: https://lemon.3chan.kr/admin/
+
+# Moderation은 내부 전용 (호스트 포트 미노출, Docker 네트워크에서만 접근)
+docker exec lemon-moderation-service python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3008/health')"
 ```
 
 ### 4. LiveKit 설정 (음성 대화방)
@@ -375,7 +386,37 @@ echo $LIVEKIT_API_KEY
 echo $LIVEKIT_URL
 ```
 
-### 5. Socket.IO WebSocket 설정
+### 5. Moderation Service (AI 콘텐츠 모더레이션)
+
+Moderation 서비스는 ONNX Runtime 기반의 AI 텍스트 모더레이션을 제공합니다. SNS 서비스에서 게시물/댓글 작성 시 내부적으로 호출합니다.
+
+**내부 전용 서비스**: 호스트 포트에 노출하지 않으며, Docker 네트워크(`lemon-network`)를 통해 SNS 서비스에서만 접근합니다.
+
+```bash
+# Docker Compose 설정 (docker-compose.yml)
+# moderation-service:
+#   expose: ["3008"]  # 호스트 포트 노출 없음 (ports 대신 expose 사용)
+#   환경변수:
+#     MODERATION_PORT: 3008
+#     TEXT_REJECT_THRESHOLD: 0.7  # 자동 거부 임계값
+#     TEXT_FLAG_THRESHOLD: 0.3    # 플래그(수동 검토) 임계값
+#     USE_QUANTIZED: "true"       # 양자화 모델 사용 (메모리 절약)
+#     INTRA_OP_THREADS: 0         # ONNX 스레드 (0=자동)
+
+# SNS 서비스 환경변수:
+#     MODERATION_SERVICE_URL: http://moderation-service:3008
+#     MODERATION_TIMEOUT_MS: 5000
+
+# 헬스체크 (컨테이너 내부에서만 가능)
+docker exec lemon-moderation-service python -c \
+  "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3008/health')"
+```
+
+**Nginx 설정**: Moderation 서비스는 Nginx에 라우팅하지 않습니다. 외부 접근이 불필요한 내부 전용 서비스입니다.
+
+**의존 관계**: SNS 서비스가 `moderation-service`에 `depends_on: condition: service_started`로 의존합니다. 모더레이션 서비스가 시작된 후 SNS 서비스가 시작됩니다.
+
+### 6. Socket.IO WebSocket 설정
 
 SNS 서비스의 Socket.IO는 WebSocket 연결을 사용합니다. Nginx에서 WebSocket upgrade 설정이 필요합니다.
 
@@ -726,62 +767,14 @@ docker compose exec postgres psql -U lemon_admin -d lemon_korean \
 - [ ] LiveKit 서버 상태 확인 (포트 7880/7881, UDP 50000-50200)
 - [ ] Socket.IO WebSocket 연결 테스트 (`/api/sns/socket.io`)
 - [ ] DM 메시지 전송/수신 테스트
+- [ ] Moderation 서비스 헬스체크 (내부 전용, `docker exec`로 확인)
 - [ ] 문서화
 
 ---
 
-## 웹 앱 배포 (Flutter Web)
+## 데이터베이스 마이그레이션
 
-### 방법 1: 자동 배포 (권장) (2026-02-04)
-
-Admin Dashboard를 통한 원클릭 배포:
-
-1. **Admin Dashboard 접속**: https://lemon.3chan.kr/admin/
-2. **Web Deployment 메뉴** 클릭 (`#/deploy`)
-3. **"Start Deployment" 버튼** 클릭
-4. **실시간 진행률** 및 로그 확인 (9-10분 소요)
-5. **완료 확인** - 배포 성공 알림
-
-**자동화된 프로세스**:
-- Git pull (최신 코드)
-- Flutter pub get (의존성)
-- Flutter build web (빌드)
-- 파일 복사 (nginx 디렉토리)
-- Nginx 재시작
-- 배포 검증
-
-**장점**:
-- 웹 UI에서 원클릭 배포
-- 실시간 로그 스트리밍
-- 배포 이력 추적
-- 오류 자동 감지
-- Redis 락으로 동시 배포 방지
-
-**API 엔드포인트**:
-- POST `/api/admin/deploy/web/start`
-- GET `/api/admin/deploy/web/status/:id`
-- GET `/api/admin/deploy/web/logs/:id`
-
-### 방법 2: 수동 배포
-
-로컬 환경에서 직접 빌드:
-
-```bash
-cd mobile/lemon_korean
-
-# 웹 앱 빌드 (약 9-10분 소요)
-./build_web.sh
-
-# 또는 수동 빌드
-flutter build web --release --base-href=/app/ --web-renderer=canvaskit
-
-# Nginx 재시작 (Docker 볼륨으로 자동 반영)
-docker compose restart nginx
-```
-
-### 데이터베이스 마이그레이션
-
-웹 배포 관련 마이그레이션 순서:
+마이그레이션 순서:
 
 ```bash
 # 1. 언어 기본값 변경 (zh → ko)
@@ -815,42 +808,6 @@ psql -U 3chan -d lemon_korean -f database/postgres/migrations/014_voice_room_sta
 # 10. 한글 SRS 반복 횟수 추적 (2026-02-11)
 psql -U 3chan -d lemon_korean -f database/postgres/migrations/015_add_hangul_repetition_count.sql
 ```
-
-### 배포 URL
-- **프로덕션**: https://lemon.3chan.kr/app/
-- **로컬 테스트**: http://localhost/app/
-
-### 웹 앱 제한사항
-- 오프라인 다운로드 미지원 (항상 온라인)
-- localStorage 5-10MB 제한
-- 미디어 파일은 CDN에서 직접 로드
-
-### 트러블슈팅
-
-**자동 배포 실패**:
-```bash
-# Redis 락 확인
-docker exec lemon-redis redis-cli GET deployment:web:lock
-
-# 강제 언락 (긴급 시에만)
-docker exec lemon-redis redis-cli DEL deployment:web:lock
-
-# Admin 서비스 로그 확인
-docker logs lemon-admin-service
-```
-
-**수동 빌드 실패**:
-```bash
-# Flutter 캐시 정리
-cd mobile/lemon_korean
-flutter clean
-flutter pub get
-
-# 재빌드
-./build_web.sh
-```
-
-자세한 내용: `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md`
 
 ---
 

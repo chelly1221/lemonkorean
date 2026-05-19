@@ -113,26 +113,6 @@ const GamificationSettingsPage = (() => {
 
       <div class="card mt-3">
         <div class="card-header">
-          <h5 class="card-title mb-0"><i class="fas fa-globe me-2"></i>AdSense (웹)</h5>
-        </div>
-        <div class="card-body">
-          <div class="mb-3">
-            <label class="form-label">AdSense Publisher ID</label>
-            <input type="text" class="form-control" id="adsense_publisher_id"
-                   value="${escapeHtml(currentSettings.adsense_publisher_id || '')}"
-                   placeholder="ca-pub-XXXXXXXXXXXXXXXX">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">AdSense Ad Slot</label>
-            <input type="text" class="form-control" id="adsense_ad_slot"
-                   value="${escapeHtml(currentSettings.adsense_ad_slot || '')}"
-                   placeholder="XXXXXXXXXX">
-          </div>
-        </div>
-      </div>
-
-      <div class="card mt-3">
-        <div class="card-header">
           <h5 class="card-title mb-0"><i class="fas fa-toggle-on me-2"></i>활성화</h5>
         </div>
         <div class="card-body">
@@ -140,11 +120,6 @@ const GamificationSettingsPage = (() => {
             <input class="form-check-input" type="checkbox" id="ads_enabled"
                    ${currentSettings.ads_enabled ? 'checked' : ''}>
             <label class="form-check-label" for="ads_enabled">모바일 광고 활성화</label>
-          </div>
-          <div class="form-check form-switch mb-3">
-            <input class="form-check-input" type="checkbox" id="web_ads_enabled"
-                   ${currentSettings.web_ads_enabled ? 'checked' : ''}>
-            <label class="form-check-label" for="web_ads_enabled">웹 광고 활성화</label>
           </div>
         </div>
       </div>
@@ -161,10 +136,7 @@ const GamificationSettingsPage = (() => {
     const data = {
       admob_app_id: document.getElementById('admob_app_id').value.trim(),
       admob_rewarded_ad_id: document.getElementById('admob_rewarded_ad_id').value.trim(),
-      adsense_publisher_id: document.getElementById('adsense_publisher_id').value.trim(),
-      adsense_ad_slot: document.getElementById('adsense_ad_slot').value.trim(),
       ads_enabled: document.getElementById('ads_enabled').checked,
-      web_ads_enabled: document.getElementById('web_ads_enabled').checked,
     };
 
     try {

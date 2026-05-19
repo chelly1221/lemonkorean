@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../data/models/character_item_model.dart';
 import '../../data/models/user_character_model.dart';
 
@@ -247,14 +246,14 @@ class CharacterProvider with ChangeNotifier {
   /// Load character data from local storage and sync with server
   Future<void> loadFromStorage() async {
     // Load character from local storage
-    final charData = LocalStorage.getFromBox<Map>(_characterBox, 'equipped');
+    final charData = await LocalStorage.getFromBox<Map>(_characterBox, 'equipped');
     if (charData != null) {
       _character =
           UserCharacterModel.fromJson(Map<String, dynamic>.from(charData));
     }
 
     // Load inventory from local storage
-    final invItems = LocalStorage.getAllFromBox<Map>(_inventoryBox);
+    final invItems = await LocalStorage.getAllFromBox<Map>(_inventoryBox);
     _inventory.clear();
     for (final raw in invItems) {
       try {
@@ -375,6 +374,7 @@ class CharacterProvider with ChangeNotifier {
 
     try {
       final items = List<CharacterItemModel>.from(bundledDefaults);
+      _shopItems.clear();
       for (final item in items) {
         _itemsById[item.id] = item;
         _shopItems.putIfAbsent(item.category, () => []).add(item);

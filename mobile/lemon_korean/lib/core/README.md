@@ -10,19 +10,49 @@ Core 레이어는 앱 전역에서 사용되는 핵심 기능을 제공합니다
 
 ```
 core/
-├── config/
-│   └── environment_config.dart   # 환경 변수 설정 (.env 파일)
 ├── constants/
-│   └── app_constants.dart        # 전역 상수
+│   └── app_constants.dart               # 전역 상수
+├── data/
+│   └── reference_embeddings.dart        # 발음 채점용 참조 임베딩 데이터
 ├── network/
-│   └── api_client.dart           # HTTP 클라이언트 (Dio)
+│   └── api_client.dart                  # HTTP 클라이언트 (Dio)
+├── services/                            # 핵심 서비스 레이어 (12개 파일)
+│   ├── whisper_service.dart             # Whisper 음성 인식 (export)
+│   ├── whisper_service_native.dart      # 네이티브 Whisper 구현
+│   ├── gop_service.dart                 # GOP 발음 평가 (export)
+│   ├── gop_service_native.dart          # 네이티브 GOP 구현
+│   ├── gop_models.dart                  # GOP 데이터 모델
+│   ├── pronunciation_scorer.dart        # 임베딩 기반 발음 점수 산출
+│   ├── speech_model_manager.dart        # 번들 음성 모델 관리
+│   ├── audio_recorder_service.dart      # 오디오 녹음
+│   ├── notification_service.dart        # 알림 서비스
+│   ├── socket_service.dart              # Socket.IO 실시간 통신
+│   ├── ad_service.dart                  # 광고 서비스 인터페이스
+│   └── admob_service.dart               # AdMob 광고
 ├── storage/
-│   ├── local_storage.dart        # Hive 로컬 저장소
-│   └── database_helper.dart      # SQLite 데이터베이스
-└── utils/
-    ├── download_manager.dart     # 다운로드 관리자
-    ├── sync_manager.dart         # 동기화 관리자
-    └── chinese_converter.dart    # 간체/번체 변환 유틸리티
+│   ├── local_storage.dart               # Hive 로컬 저장소
+│   └── database_helper.dart             # SQLite 데이터베이스
+└── utils/                               # 공통 유틸리티 (20개 파일)
+    ├── download_manager.dart            # 다운로드 관리자
+    ├── sync_manager.dart                # 동기화 관리자
+    ├── chinese_converter.dart           # 간체/번체 변환
+    ├── korean_tts_helper.dart           # 한국어 TTS 헬퍼
+    ├── pronunciation_feedback.dart      # 발음 피드백 생성
+    ├── korean_phoneme_utils.dart        # 한국어 음소 유틸리티
+    ├── media_loader.dart                # 미디어 로더 (export)
+    ├── media_loader_mobile.dart         # 미디어 로더 (네이티브)
+    ├── media_helper.dart                # 미디어 헬퍼 (export)
+    ├── media_helper_mobile.dart         # 미디어 헬퍼 (네이티브)
+    ├── storage_utils.dart               # 저장소 유틸 (export)
+    ├── storage_utils_mobile.dart        # 저장소 유틸 (네이티브)
+    ├── download_manager_mobile.dart     # 다운로드 관리자 (네이티브)
+    ├── app_logger.dart                  # 앱 로거
+    ├── app_exception.dart               # 앱 예외 정의
+    ├── error_localizer.dart             # 에러 메시지 지역화
+    ├── jwt_utils.dart                   # JWT 유틸리티
+    ├── l10n_extensions.dart             # 지역화 확장 함수
+    ├── result.dart                      # Result 타입 유틸리티
+    └── validators.dart                  # 입력값 검증
 ```
 
 ---
@@ -399,32 +429,6 @@ test('SyncManager syncs queue', () async {
   expect(result.success, true);
 });
 ```
-
----
-
-## EnvironmentConfig (환경 설정)
-
-`.env` 파일에서 런타임 설정을 로드합니다.
-
-**파일 위치:** `/lib/core/config/environment_config.dart`
-
-```dart
-// 환경 설정 로드
-await dotenv.load(fileName: '.env');
-
-// 설정 값 접근
-final apiUrl = EnvironmentConfig.apiBaseUrl;
-final mediaUrl = EnvironmentConfig.mediaBaseUrl;
-```
-
-**지원 환경 파일:**
-- `.env.development` - 개발 환경
-- `.env.production` - 프로덕션 환경
-
-**주요 설정:**
-- `API_BASE_URL` - API 서버 주소
-- `MEDIA_BASE_URL` - 미디어 서버 주소
-- `DEBUG_MODE` - 디버그 모드 활성화
 
 ---
 

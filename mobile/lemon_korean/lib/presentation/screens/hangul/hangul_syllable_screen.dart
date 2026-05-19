@@ -23,27 +23,6 @@ class KoreanSyllable {
     return String.fromCharCode(code);
   }
 
-  /// Decompose a syllable into its components
-  static Map<String, String?> decompose(String syllable) {
-    if (syllable.isEmpty) return {'initial': null, 'medial': null, 'final': null};
-
-    final code = syllable.codeUnitAt(0);
-    if (code < 0xAC00 || code > 0xD7A3) {
-      return {'initial': null, 'medial': null, 'final': null};
-    }
-
-    final base = code - 0xAC00;
-    final initialIndex = base ~/ 588;
-    final medialIndex = (base % 588) ~/ 28;
-    final finalIndex = base % 28;
-
-    return {
-      'initial': initialConsonants[initialIndex],
-      'medial': medialVowels[medialIndex],
-      'final': finalIndex > 0 ? finalConsonants[finalIndex] : null,
-    };
-  }
-
   static const List<String> initialConsonants = [
     'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
     'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
@@ -69,25 +48,11 @@ class HangulSyllableScreen extends StatefulWidget {
   State<HangulSyllableScreen> createState() => _HangulSyllableScreenState();
 }
 
-class _HangulSyllableScreenState extends State<HangulSyllableScreen>
-    with SingleTickerProviderStateMixin {
+class _HangulSyllableScreenState extends State<HangulSyllableScreen> {
   String? _selectedInitial;
   String? _selectedMedial;
   String? _selectedFinal;
-  late TabController _tabController;
   PlaybackSpeed _playbackSpeed = PlaybackSpeed.normal;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   String get _combinedSyllable {
     if (_selectedInitial == null || _selectedMedial == null) return '';
@@ -108,12 +73,21 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
         speed: _playbackSpeed.value,
       );
     } catch (e) {
+      debugPrint('[SyllableScreen] Audio error for "$syllable": $e');
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(l10n.audioLoadError)),
         );
       }
+    }
+  }
+
+  Future<void> _playJamo(String text) async {
+    try {
+      await KoreanTtsHelper.playKoreanText(text, speed: _playbackSpeed.value);
+    } catch (e) {
+      debugPrint('[SyllableScreen] Audio error for "$text": $e');
     }
   }
 
@@ -132,21 +106,8 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.syllableCombination),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: l10n.syllableCombination),
-            Tab(text: l10n.decomposeSyllable),
-          ],
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildCombinationTab(),
-          _buildDecompositionTab(),
-        ],
-      ),
+      body: _buildCombinationTab(),
     );
   }
 
@@ -175,7 +136,10 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
           _buildCharacterGrid(
             KoreanSyllable.initialConsonants,
             _selectedInitial,
-            (char) => setState(() => _selectedInitial = char),
+            (char) {
+              setState(() => _selectedInitial = char);
+              _playJamo(char);
+            },
             Colors.blue,
           ),
 
@@ -193,7 +157,10 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
           _buildCharacterGrid(
             KoreanSyllable.medialVowels,
             _selectedMedial,
-            (char) => setState(() => _selectedMedial = char),
+            (char) {
+              setState(() => _selectedMedial = char);
+              _playJamo(char);
+            },
             Colors.green,
           ),
 
@@ -221,7 +188,10 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
           _buildCharacterGrid(
             KoreanSyllable.finalConsonants.where((c) => c.isNotEmpty).toList(),
             _selectedFinal,
-            (char) => setState(() => _selectedFinal = char),
+            (char) {
+              setState(() => _selectedFinal = char);
+              _playJamo(char);
+            },
             Colors.orange,
           ),
         ],
@@ -443,120 +413,4 @@ class _HangulSyllableScreenState extends State<HangulSyllableScreen>
     );
   }
 
-  Widget _buildDecompositionTab() {
-    final l10n = AppLocalizations.of(context)!;
-
-    return Padding(
-      padding: const EdgeInsets.all(AppConstants.paddingMedium),
-      child: Column(
-        children: [
-          // Input field
-          TextField(
-            decoration: InputDecoration(
-              labelText: l10n.syllableInputLabel,
-              hintText: l10n.syllableInputHint,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            maxLength: 1,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 32),
-            onChanged: (value) {
-              if (value.isNotEmpty) {
-                final parts = KoreanSyllable.decompose(value);
-                setState(() {
-                  _selectedInitial = parts['initial'];
-                  _selectedMedial = parts['medial'];
-                  _selectedFinal = parts['final'];
-                });
-              }
-            },
-          ),
-
-          const SizedBox(height: 24),
-
-          // Decomposition result
-          if (_selectedInitial != null || _selectedMedial != null)
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    l10n.decomposeSyllable,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildDecomposedPart(
-                        '초성',
-                        _selectedInitial ?? '-',
-                        Colors.blue,
-                      ),
-                      _buildDecomposedPart(
-                        '중성',
-                        _selectedMedial ?? '-',
-                        Colors.green,
-                      ),
-                      _buildDecomposedPart(
-                        '종성',
-                        _selectedFinal ?? '-',
-                        Colors.orange,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDecomposedPart(String label, String value, Color color) {
-    return Column(
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade600,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: value != '-' ? color.withValues(alpha: 0.1) : Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: value != '-' ? color : Colors.grey.shade300,
-              width: 2,
-            ),
-          ),
-          child: Center(
-            child: Text(
-              value,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: value != '-' ? color : Colors.grey.shade400,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }

@@ -10,10 +10,7 @@ const pool = require('../config/database');
 const DEFAULTS = {
   admob_app_id: 'ca-app-pub-3940256099942544~3347511713',
   admob_rewarded_ad_id: 'ca-app-pub-3940256099942544/5224354917',
-  adsense_publisher_id: '',
-  adsense_ad_slot: '',
   ads_enabled: true,
-  web_ads_enabled: false,
   lemon_3_threshold: 95,
   lemon_2_threshold: 80,
   boss_quiz_bonus: 5,
@@ -54,10 +51,7 @@ const updateAdSettings = async (req, res) => {
     const {
       admob_app_id,
       admob_rewarded_ad_id,
-      adsense_publisher_id,
-      adsense_ad_slot,
       ads_enabled,
-      web_ads_enabled,
     } = req.body;
 
     const updates = [];
@@ -67,10 +61,7 @@ const updateAdSettings = async (req, res) => {
     const fields = {
       admob_app_id,
       admob_rewarded_ad_id,
-      adsense_publisher_id,
-      adsense_ad_slot,
       ads_enabled,
-      web_ads_enabled,
     };
 
     for (const [key, value] of Object.entries(fields)) {
@@ -233,27 +224,21 @@ const resetSettings = async (req, res) => {
       `UPDATE gamification_settings
        SET admob_app_id = $1,
            admob_rewarded_ad_id = $2,
-           adsense_publisher_id = $3,
-           adsense_ad_slot = $4,
-           ads_enabled = $5,
-           web_ads_enabled = $6,
-           lemon_3_threshold = $7,
-           lemon_2_threshold = $8,
-           boss_quiz_bonus = $9,
-           boss_quiz_pass_percent = $10,
-           max_tree_lemons = $11,
+           ads_enabled = $3,
+           lemon_3_threshold = $4,
+           lemon_2_threshold = $5,
+           boss_quiz_bonus = $6,
+           boss_quiz_pass_percent = $7,
+           max_tree_lemons = $8,
            version = version + 1,
            updated_at = CURRENT_TIMESTAMP,
-           updated_by = $12
+           updated_by = $9
        WHERE id = 1
        RETURNING *`,
       [
         DEFAULTS.admob_app_id,
         DEFAULTS.admob_rewarded_ad_id,
-        DEFAULTS.adsense_publisher_id,
-        DEFAULTS.adsense_ad_slot,
         DEFAULTS.ads_enabled,
-        DEFAULTS.web_ads_enabled,
         DEFAULTS.lemon_3_threshold,
         DEFAULTS.lemon_2_threshold,
         DEFAULTS.boss_quiz_bonus,

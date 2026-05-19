@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../constants/app_constants.dart';
 import '../network/api_client.dart';
-import '../storage/local_storage.dart'
-    if (dart.library.html) '../platform/web/stubs/local_storage_stub.dart';
+import '../storage/local_storage.dart';
 import 'app_logger.dart';
 
 /// Sync Manager
@@ -91,15 +89,6 @@ class SyncManager {
 
   /// Main sync function
   Future<SyncResult> sync() async {
-    // Web: No sync queue, always sync immediately (no offline queue)
-    if (kIsWeb) {
-      return SyncResult(
-        success: true,
-        syncedItems: 0,
-        failedItems: 0,
-      );
-    }
-
     if (_isSyncing) {
       return SyncResult(
         success: false,

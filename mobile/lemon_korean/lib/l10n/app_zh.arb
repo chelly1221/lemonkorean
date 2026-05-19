@@ -3761,7 +3761,7 @@
   "stageDetailComingSoon": "详细内容正在准备中。",
   "bossQuizComingSoon": "Boss测验正在准备中。",
   "exitLessonDialogTitle": "退出课程",
-  "exitLessonDialogContent": "要退出课程吗？\n当前步骤的进度将自动保存。",
+  "exitLessonDialogContent": "要退出课程吗？\n下次将从头开始。",
   "continueButton": "继续",
   "exitLessonButton": "退出",
   "noQuestions": "没有可用的问题",

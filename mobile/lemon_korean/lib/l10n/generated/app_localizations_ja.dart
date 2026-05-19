@@ -3198,7 +3198,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get exitLessonDialogTitle => 'レッスンを終了';
 
   @override
-  String get exitLessonDialogContent => 'レッスンを終了しますか？\n現在のステップまで自動保存されます。';
+  String get exitLessonDialogContent => 'レッスンを終了しますか？\n次回は最初からになります。';
 
   @override
   String get continueButton => '続ける';

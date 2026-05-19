@@ -1,24 +1,28 @@
 # ================================================================
-# Production Docker Compose Configuration
+# Lemon Korean — VM production compose (single Hetzner VM)
 # ================================================================
-# Use this file for production deployments
-# Usage: docker compose -f docker-compose.prod.yml up -d
+# Derived from the dev docker-compose.yml (the configuration that
+# actually runs in production). Differences:
+#   - dev DB UIs (pgadmin / mongo-express / redis-commander) dropped
+#   - moderation-service dropped (not deployed; sns runs without it)
+#   - no host port publishing — services talk over lemon-network
+#   - nginx joins the shared 'web' network as 'lemon-nginx'; the Caddy
+#     proxy stack terminates TLS and routes lemon.3chan.kr -> lemon-nginx:80
+#   - livekit keeps network_mode: host (RTC needs UDP 50000-50200 / TCP 7881)
+#
+#   docker compose -f docker-compose.prod.yml up -d --build
 # ================================================================
 
 services:
-  # ==================== Infrastructure Services ====================
+  # ==================== Infrastructure ====================
 
-  # PostgreSQL Database
-  # ⚠️ DO NOT modify 'command' or config settings here
-  # ⚠️ Edit config/postgres/postgresql.conf instead
-  # ⚠️ Apply changes: docker compose -f docker-compose.prod.yml restart postgres
   postgres:
     image: postgres:15-alpine
     container_name: lemon-postgres
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-lemon_korean}
-      POSTGRES_USER: ${POSTGRES_USER:-lemon_admin}
+      POSTGRES_USER: ${POSTGRES_USER:-3chan}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
@@ -27,34 +31,23 @@ services:
     networks:
       - lemon-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lemon_admin}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-3chan}"]
       interval: 10s
       timeout: 5s
       retries: 5
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 2G
-        reservations:
-          cpus: '1'
-          memory: 1G
+    restart: unless-stopped
 
-  # MongoDB Database
-  # ⚠️ DO NOT modify 'command' or config settings here
-  # ⚠️ Edit config/mongo/mongod.conf instead
-  # ⚠️ Apply changes: docker compose -f docker-compose.prod.yml restart mongo
   mongo:
     image: mongo:4.4
     container_name: lemon-mongo
+    user: "1000:1000"
     command: mongod --config /etc/mongod.conf
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${POSTGRES_USER:-lemon_admin}
+      MONGO_INITDB_ROOT_USERNAME: 3chan
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${POSTGRES_DB:-lemon_korean}
     volumes:
-      - mongo-data:/data/db
+      - ./data/mongo-data:/data/db
       - mongo-log:/var/log/mongodb
       - ./database/mongo/init:/docker-entrypoint-initdb.d
       - ./config/mongo/mongod.conf:/etc/mongod.conf:ro
@@ -65,17 +58,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 2G
+    restart: unless-stopped
 
-  # Redis Cache
-  # ⚠️ DO NOT modify 'command' or config settings here
-  # ⚠️ Edit config/redis/redis.conf instead
-  # ⚠️ Apply changes: docker compose -f docker-compose.prod.yml restart redis
   redis:
     image: redis:7-alpine
     container_name: lemon-redis
@@ -90,12 +74,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    restart: unless-stopped
 
   minio:
     image: minio/minio:latest
@@ -105,7 +84,7 @@ services:
       MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
       MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
     volumes:
-      - minio-data:/data
+      - ./data/minio-data:/data
     networks:
       - lemon-network
     healthcheck:
@@ -113,23 +92,13 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
+    restart: unless-stopped
 
-  # RabbitMQ Message Queue
-  # ⚠️ DO NOT modify config settings here
-  # ⚠️ Edit config/rabbitmq/rabbitmq.conf instead
-  # ⚠️ For queue definitions: config/rabbitmq/definitions.json
-  # ⚠️ Apply changes: docker compose -f docker-compose.prod.yml restart rabbitmq
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: lemon-rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: ${POSTGRES_USER:-lemon_admin}
+      RABBITMQ_DEFAULT_USER: 3chan
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
@@ -142,7 +111,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    restart: always
+    restart: unless-stopped
 
   # ==================== Microservices ====================
 
@@ -152,12 +121,14 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-auth-service
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3001
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
-      DATABASE_URL: postgres://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
+      DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+    volumes:
+      - ./services/auth/src:/app/src
     depends_on:
       postgres:
         condition: service_healthy
@@ -170,15 +141,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
-        reservations:
-          cpus: '0.5'
-          memory: 256M
+    restart: unless-stopped
 
   content-service:
     build:
@@ -186,11 +149,14 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-content-service
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3002
-      DATABASE_URL: postgres://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
-      MONGO_URL: mongodb://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
+      MONGO_URL: mongodb://3chan:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+    volumes:
+      - ./services/content/src:/app/src
     depends_on:
       postgres:
         condition: service_healthy
@@ -205,12 +171,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    restart: unless-stopped
 
   progress-service:
     build:
@@ -218,14 +179,14 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-progress-service
     environment:
-      NODE_ENV: production
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://lemon.3chan.kr}
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3003
-      DATABASE_URL: postgres://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}?sslmode=disable
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}?sslmode=disable
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
-      RABBITMQ_URL: amqp://${POSTGRES_USER:-lemon_admin}:${RABBITMQ_PASSWORD}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://3chan:${RABBITMQ_PASSWORD}@rabbitmq:5672/
     depends_on:
       postgres:
         condition: service_healthy
@@ -240,12 +201,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    restart: unless-stopped
 
   media-service:
     build:
@@ -253,9 +209,9 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-media-service
     environment:
-      NODE_ENV: production
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://lemon.3chan.kr}
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3004
+      JWT_SECRET: ${JWT_SECRET}
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
@@ -276,12 +232,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    restart: unless-stopped
 
   analytics-service:
     build:
@@ -293,13 +244,15 @@ services:
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: ${POSTGRES_DB:-lemon_korean}
-      DB_USER: ${POSTGRES_USER:-lemon_admin}
+      DB_USER: ${POSTGRES_USER:-3chan}
       DB_PASSWORD: ${DB_PASSWORD}
-      MONGODB_URI: mongodb://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
+      MONGODB_URI: mongodb://3chan:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       LOG_LEVEL: INFO
+    volumes:
+      - ./services/analytics:/app
     depends_on:
       postgres:
         condition: service_healthy
@@ -314,12 +267,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    restart: unless-stopped
 
   admin-service:
     build:
@@ -327,10 +275,10 @@ services:
       dockerfile: Dockerfile
     container_name: lemon-admin-service
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV:-development}
       PORT: 3006
-      DATABASE_URL: postgres://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
-      MONGO_URL: mongodb://${POSTGRES_USER:-lemon_admin}:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
+      DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
+      MONGO_URL: mongodb://3chan:${DB_PASSWORD}@mongo:27017/${POSTGRES_DB:-lemon_korean}?authSource=admin
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
@@ -339,10 +287,14 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_USE_SSL: "false"
       JWT_SECRET: ${JWT_SECRET}
-      ADMIN_EMAILS: ${ADMIN_EMAILS:-admin@lemonkorean.com}
+      ADMIN_EMAILS: admin@lemon.com
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./services/admin/src:/app/src
+      - ./services/admin/public:/app/public
+      - ./.env:/app/.env
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./:/project:ro
+      - ./data/apk-builds:/apk-builds:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -359,28 +311,79 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    restart: unless-stopped
+
+  sns-service:
+    build:
+      context: ./services/sns
+      dockerfile: Dockerfile
+    container_name: lemon-sns-service
+    extra_hosts:
+      - "livekit:host-gateway"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3007
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://${POSTGRES_USER:-3chan}:${DB_PASSWORD}@postgres:5432/${POSTGRES_DB:-lemon_korean}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-admin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_BUCKET: lemon-korean-media
+      LIVEKIT_HOST: http://livekit:7880
+      LIVEKIT_PUBLIC_URL: wss://lemon.3chan.kr/livekit/
+      LIVEKIT_API_KEY: lemon-korean-key
+      LIVEKIT_SECRET: ${LIVEKIT_SECRET:-lemon-korean-secret-change-me}
+    volumes:
+      - ./services/sns/src:/app/src
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    networks:
+      - lemon-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ==================== LiveKit (Voice Chat Rooms) ====================
+  # network_mode: host — RTC needs UDP 50000-50200 and TCP 7881 reachable
+  # from the public internet (open these on the Hetzner cloud firewall).
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: lemon-livekit
+    network_mode: host
+    command:
+      - --config
+      - /etc/livekit.yaml
+      - --keys
+      - "lemon-korean-key: ${LIVEKIT_SECRET:-lemon-korean-secret-change-me}"
+    volumes:
+      - ./config/livekit/livekit.yaml:/etc/livekit.yaml:ro
+    restart: unless-stopped
 
   # ==================== API Gateway ====================
-
+  # Joins the shared 'web' network; Caddy routes lemon.3chan.kr here.
   nginx:
-    image: nginx:alpine
+    build: ./nginx
     container_name: lemon-nginx
+    extra_hosts:
+      - "livekit:host-gateway"
+    user: "1000:1000"
+    environment:
+      NGINX_MODE: ${NGINX_MODE:-development}
     volumes:
+      - ./data/nginx-cache:/var/cache/nginx
+      - ./data/nginx-logs:/var/log/nginx
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./nginx/cache:/var/cache/nginx
-      - ./nginx/logs:/var/log/nginx
+      - ./nginx/logrotate.conf:/etc/logrotate.d/nginx:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
-      - ./mobile/lemon_korean/build/web:/var/www/lemon_korean_web:ro
-    ports:
-      - "8080:80"
-      - "8443:443"
     depends_on:
       auth-service:
         condition: service_healthy
@@ -390,41 +393,31 @@ services:
         condition: service_healthy
       media-service:
         condition: service_healthy
-      analytics-service:
-        condition: service_healthy
-      admin-service:
-        condition: service_healthy
     networks:
-      - lemon-network
+      lemon-network: {}
+      web:
+        aliases:
+          - lemon-nginx
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 512M
+    restart: unless-stopped
 
-# ==================== Networks ====================
 networks:
   lemon-network:
     driver: bridge
-    name: lemon-network-prod
+    name: lemon-network
+  web:
+    external: true
 
-# ==================== Volumes ====================
 volumes:
   postgres-data:
-    name: lemon-postgres-data-prod
-  mongo-data:
-    name: lemon-mongo-data-prod
+    name: lemon-postgres-data
   mongo-log:
-    name: lemon-mongo-log-prod
+    name: lemon-mongo-log
   redis-data:
-    name: lemon-redis-data-prod
-  minio-data:
-    name: lemon-minio-data-prod
+    name: lemon-redis-data
   rabbitmq-data:
-    name: lemon-rabbitmq-data-prod
+    name: lemon-rabbitmq-data

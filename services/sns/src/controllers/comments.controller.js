@@ -1,5 +1,7 @@
 const Comment = require('../models/comment.model');
 const Post = require('../models/post.model');
+const Block = require('../models/block.model');
+const { moderateText, logModeration } = require('../utils/moderation');
 
 // ==================== Controller Functions ====================
 
@@ -11,6 +13,7 @@ const Post = require('../models/post.model');
 const getByPost = async (req, res) => {
   try {
     const postId = parseInt(req.params.postId);
+    const userId = req.user ? req.user.id : null;
     const { cursor, limit } = req.query;
 
     console.log(`[SNS] Getting comments for post: ${postId}`);
@@ -31,8 +34,19 @@ const getByPost = async (req, res) => {
       });
     }
 
+    // Check block relationship with post author
+    if (userId && userId !== post.user_id) {
+      const blocked = await Block.isBlockedEitherWay(userId, post.user_id);
+      if (blocked) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: 'Post not found'
+        });
+      }
+    }
+
     const parsedLimit = Math.min(parseInt(limit) || 20, 50);
-    const comments = await Comment.getByPost(postId, { cursor, limit: parsedLimit });
+    const comments = await Comment.getByPost(postId, { cursor, limit: parsedLimit, userId });
 
     const nextCursor = comments.length === parsedLimit ? comments[comments.length - 1].created_at : null;
 
@@ -100,6 +114,17 @@ const create = async (req, res) => {
       });
     }
 
+    // Check block relationship - blocked users cannot comment on each other's posts
+    if (userId !== post.user_id) {
+      const blocked = await Block.isBlockedEitherWay(userId, post.user_id);
+      if (blocked) {
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: 'Cannot interact with this post'
+        });
+      }
+    }
+
     // If parentId provided, verify parent comment exists
     if (parentId) {
       const parentComment = await Comment.findById(parseInt(parentId));
@@ -111,9 +136,45 @@ const create = async (req, res) => {
       }
     }
 
-    const comment = await Comment.create(postId, userId, { content, parentId: parentId ? parseInt(parentId) : null });
+    // Content moderation
+    let moderationResult = null;
+    let moderationStatus = 'unmoderated';
+    try {
+      moderationResult = await moderateText(content, 'comment');
+      console.log(`[SNS] Comment moderation: ${moderationResult.action} (score: ${moderationResult.max_score})`);
 
-    console.log(`[SNS] Comment created successfully: ${comment.id}`);
+      if (moderationResult.action === 'reject') {
+        return res.status(422).json({
+          error: 'Content Rejected',
+          message: 'Your comment was flagged by our content moderation system',
+          moderation: {
+            action: moderationResult.action,
+            categories: moderationResult.categories,
+          }
+        });
+      }
+      moderationStatus = moderationResult.action === 'flag' ? 'flagged' : 'allowed';
+    } catch (moderationError) {
+      console.warn('[SNS] Moderation service unavailable:', moderationError.message);
+    }
+
+    const comment = await Comment.create(postId, userId, {
+      content,
+      parentId: parentId ? parseInt(parentId) : null,
+      moderationStatus,
+      moderationCategories: moderationResult?.categories ?? null,
+      moderationScore: moderationResult?.max_score ?? null,
+    });
+
+    // Log moderation result (non-blocking)
+    if (moderationResult) {
+      logModeration({
+        contentType: 'comment', contentId: comment.id, userId,
+        contentText: content, result: moderationResult,
+      });
+    }
+
+    console.log(`[SNS] Comment created successfully: ${comment.id} (moderation: ${moderationStatus})`);
 
     res.status(201).json({
       success: true,

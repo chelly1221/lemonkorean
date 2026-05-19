@@ -4,8 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../../core/storage/local_storage.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/models/progress_model.dart';
 import '../../providers/auth_provider.dart';
@@ -117,6 +116,7 @@ class _HomeTabState extends State<_HomeTab> {
   Map<int, double> _lessonProgress = {}; // lesson_id -> progress (0.0-1.0)
   Map<int, int> _lessonLemons = {}; // lesson_id -> 0-3 lemons earned
   int _selectedLevel = 1;
+  bool _initialLevelSet = false;
   Set<int> _levelsWithProgress = {};
 
   List<LessonModel> get _filteredLessons =>
@@ -193,6 +193,16 @@ class _HomeTabState extends State<_HomeTab> {
     } else {
       // No user logged in, just fetch lessons
       await lessonProvider.fetchLessons(language: language);
+
+      // Set initial level from onboarding if no progress
+      if (!_initialLevelSet) {
+        _initialLevelSet = true;
+        setState(() {
+          _selectedLevel = _mapUserLevelToDisplayLevel(
+            settingsProvider.userLevel,
+          );
+        });
+      }
     }
 
     // Load gamification data (lemons)
@@ -241,6 +251,20 @@ class _HomeTabState extends State<_HomeTab> {
     setState(() {
       _lessonProgress = lessonProgressMap;
       _levelsWithProgress = progressLevels;
+
+      // Set initial level only once
+      if (!_initialLevelSet) {
+        _initialLevelSet = true;
+        if (progressLevels.isNotEmpty) {
+          // Use highest level with progress
+          _selectedLevel = progressLevels.reduce((a, b) => a > b ? a : b);
+        } else {
+          // Fall back to onboarding level mapping
+          final settings =
+              Provider.of<SettingsProvider>(context, listen: false);
+          _selectedLevel = _mapUserLevelToDisplayLevel(settings.userLevel);
+        }
+      }
     });
   }
 
@@ -295,6 +319,22 @@ class _HomeTabState extends State<_HomeTab> {
     setState(() {
       _selectedLevel = level;
     });
+  }
+
+  /// Maps onboarding userLevel to display level
+  static int _mapUserLevelToDisplayLevel(String? userLevel) {
+    switch (userLevel) {
+      case 'beginner':
+        return 0;
+      case 'elementary':
+        return 1;
+      case 'intermediate':
+        return 3;
+      case 'advanced':
+        return 5;
+      default:
+        return 1;
+    }
   }
 
   String _levelLabel(int level) {

@@ -1,6 +1,5 @@
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 import '../../core/utils/app_logger.dart';
 import '../../core/utils/result.dart';
 import '../../core/utils/app_exception.dart';
@@ -97,7 +96,7 @@ class BookmarkRepository {
       final response = await _apiClient.getUserBookmarks(page: page, limit: limit);
 
       if (response.statusCode == 200) {
-        final List<dynamic> bookmarksData = response.data['bookmarks'];
+        final List<dynamic> bookmarksData = response.data['bookmarks'] ?? [];
         final bookmarks = bookmarksData
             .map((json) => BookmarkModel.fromJson(json))
             .toList();

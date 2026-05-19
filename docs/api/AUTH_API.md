@@ -48,9 +48,9 @@ Authorization: Bearer <jwt_token>
 ```json
 {
   "email": "string (required, email format)",
-  "password": "string (required, min: 6, max: 64)",
-  "name": "string (required, min: 2, max: 50)",
-  "language_preference": "string (optional, default: 'zh', enum: ['zh', 'en', 'ko'])"
+  "password": "string (required, min: 8, max: 128, must include uppercase+lowercase+number)",
+  "name": "string (optional, max: 100)",
+  "language_preference": "string (optional, default: 'zh', enum: ['zh', 'zh_TW', 'en', 'ko', 'es', 'ja'])"
 }
 ```
 
@@ -317,9 +317,9 @@ curl -X GET http://localhost:3001/api/auth/profile \
 
 ```json
 {
-  "name": "string (optional, min: 2, max: 50)",
-  "language_preference": "string (optional, enum: ['zh', 'en', 'ko'])",
-  "email": "string (optional, email format)"
+  "name": "string (optional, max: 100)",
+  "language_preference": "string (optional, enum: ['zh', 'zh_TW', 'en', 'ko', 'es', 'ja'])",
+  "profile_image_url": "string (optional)"
 }
 ```
 
@@ -348,8 +348,8 @@ curl -X PUT http://localhost:3001/api/auth/profile \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json" \
   -d '{
-    "username": "newusername",
-    "language": "en"
+    "name": "newusername",
+    "language_preference": "en"
   }'
 ```
 
@@ -531,8 +531,8 @@ curl -X GET http://localhost:3001/health
 {
   "id": "integer",
   "email": "string (email format)",
-  "name": "string (2-50 characters)",
-  "language_preference": "string (enum: 'zh', 'en', 'ko')",
+  "name": "string (max 100 characters)",
+  "language_preference": "string (enum: 'zh', 'zh_TW', 'en', 'ko', 'es', 'ja')",
   "subscription_type": "string (enum: 'free', 'premium', 'vip')",
   "subscription_expires_at": "string (ISO 8601 datetime, nullable)",
   "created_at": "string (ISO 8601 datetime)",
@@ -603,14 +603,13 @@ components:
           type: string
           format: email
           example: user@example.com
-        username:
+        name:
           type: string
-          minLength: 3
-          maxLength: 30
+          maxLength: 100
           example: johndoe
-        language:
+        language_preference:
           type: string
-          enum: [zh, en]
+          enum: [zh, zh_TW, en, ko, es, ja]
           default: zh
         subscription_type:
           type: string
@@ -685,7 +684,6 @@ paths:
               required:
                 - email
                 - password
-                - username
               properties:
                 email:
                   type: string
@@ -693,12 +691,11 @@ paths:
                 password:
                   type: string
                   minLength: 8
-                  maxLength: 64
-                username:
+                  maxLength: 128
+                name:
                   type: string
-                  minLength: 3
-                  maxLength: 30
-                language:
+                  maxLength: 100
+                language_preference:
                   type: string
                   enum: [zh, en]
                   default: zh
@@ -824,42 +821,17 @@ paths:
             schema:
               type: object
               properties:
-                username:
+                name:
                   type: string
-                  minLength: 3
-                  maxLength: 30
-                language:
+                  maxLength: 100
+                language_preference:
                   type: string
-                  enum: [zh, en]
-                email:
+                  enum: [zh, zh_TW, en, ko, es, ja]
+                profile_image_url:
                   type: string
-                  format: email
       responses:
         '200':
           description: Profile updated successfully
-
-  /change-password:
-    post:
-      summary: Change user password
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - current_password
-                - new_password
-              properties:
-                current_password:
-                  type: string
-                new_password:
-                  type: string
-                  minLength: 8
-                  maxLength: 64
-      responses:
-        '200':
-          description: Password changed successfully
 
   /health:
     get:
@@ -872,5 +844,5 @@ paths:
 
 ---
 
-**Last Updated**: 2024-01-26
-**Version**: 1.0.0
+**Last Updated**: 2026-03-11
+**Version**: 1.1.0

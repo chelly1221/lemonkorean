@@ -6073,7 +6073,7 @@ abstract class AppLocalizations {
   /// No description provided for @exitLessonDialogContent.
   ///
   /// In zh, this message translates to:
-  /// **'要退出课程吗？\n当前步骤的进度将自动保存。'**
+  /// **'要退出课程吗？\n下次将从头开始。'**
   String get exitLessonDialogContent;
 
   /// No description provided for @continueButton.

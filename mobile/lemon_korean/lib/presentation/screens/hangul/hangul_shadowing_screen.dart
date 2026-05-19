@@ -50,7 +50,7 @@ class _HangulShadowingScreenState extends State<HangulShadowingScreen> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    _isSupported = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+    _isSupported = Platform.isIOS || Platform.isAndroid;
 
     // Initialize characters
     if (widget.characters != null && widget.characters!.isNotEmpty) {

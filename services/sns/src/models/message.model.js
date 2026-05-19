@@ -5,11 +5,11 @@ class Message {
    * Create a new message
    */
   static async create({ conversationId, senderId, messageType = 'text', content, mediaUrl, mediaMetadata, clientMessageId }) {
-    // Check for duplicate via client_message_id
+    // Check for duplicate via client_message_id (scoped to sender and conversation)
     if (clientMessageId) {
       const existing = await query(
-        'SELECT * FROM dm_messages WHERE client_message_id = $1',
-        [clientMessageId]
+        'SELECT * FROM dm_messages WHERE client_message_id = $1 AND sender_id = $2 AND conversation_id = $3',
+        [clientMessageId, senderId, conversationId]
       );
       if (existing.rows[0]) return existing.rows[0];
     }
@@ -95,7 +95,7 @@ class Message {
   static async softDelete(messageId, userId) {
     const sql = `
       UPDATE dm_messages
-      SET is_deleted = true, content = NULL, media_url = NULL
+      SET is_deleted = true, content = NULL, media_url = NULL, media_metadata = '{}'
       WHERE id = $1 AND sender_id = $2
       RETURNING *
     `;

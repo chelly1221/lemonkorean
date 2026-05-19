@@ -3191,7 +3191,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get exitLessonDialogTitle => '退出课程';
 
   @override
-  String get exitLessonDialogContent => '要退出课程吗？\n当前步骤的进度将自动保存。';
+  String get exitLessonDialogContent => '要退出课程吗？\n下次将从头开始。';
 
   @override
   String get continueButton => '继续';
@@ -10502,7 +10502,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get exitLessonDialogTitle => '離開課程';
 
   @override
-  String get exitLessonDialogContent => '要離開課程嗎？\n目前步驟的進度將自動儲存。';
+  String get exitLessonDialogContent => '要離開課程嗎？\n下次將從頭開始。';
 
   @override
   String get continueButton => '繼續';

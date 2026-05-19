@@ -40,6 +40,24 @@ module.exports = (io, socket) => {
         client_message_id
       } = data;
 
+      // Validate message_type
+      const VALID_MESSAGE_TYPES = ['text', 'image', 'voice'];
+      if (!VALID_MESSAGE_TYPES.includes(message_type)) {
+        if (ack) ack({ error: 'Invalid message type' });
+        return;
+      }
+
+      // Validate content length
+      if (content && content.length > 5000) {
+        if (ack) ack({ error: 'Message too long (max 5000 characters)' });
+        return;
+      }
+
+      if (!content && !media_url) {
+        if (ack) ack({ error: 'Message content or media is required' });
+        return;
+      }
+
       // Verify participation
       const isParticipant = await Conversation.isParticipant(conversation_id, userId);
       if (!isParticipant) {
@@ -102,20 +120,34 @@ module.exports = (io, socket) => {
 
   // ==================== Typing Indicators ====================
 
-  socket.on('dm:typing_start', ({ conversation_id }) => {
-    socket.to(`conversation:${conversation_id}`).emit('dm:typing', {
-      conversation_id,
-      user_id: userId,
-      is_typing: true
-    });
+  socket.on('dm:typing_start', async ({ conversation_id }) => {
+    try {
+      const isParticipant = await Conversation.isParticipant(conversation_id, userId);
+      if (!isParticipant) return;
+
+      socket.to(`conversation:${conversation_id}`).emit('dm:typing', {
+        conversation_id,
+        user_id: userId,
+        is_typing: true
+      });
+    } catch (error) {
+      console.error('[Socket] typing_start error:', error.message);
+    }
   });
 
-  socket.on('dm:typing_stop', ({ conversation_id }) => {
-    socket.to(`conversation:${conversation_id}`).emit('dm:typing', {
-      conversation_id,
-      user_id: userId,
-      is_typing: false
-    });
+  socket.on('dm:typing_stop', async ({ conversation_id }) => {
+    try {
+      const isParticipant = await Conversation.isParticipant(conversation_id, userId);
+      if (!isParticipant) return;
+
+      socket.to(`conversation:${conversation_id}`).emit('dm:typing', {
+        conversation_id,
+        user_id: userId,
+        is_typing: false
+      });
+    } catch (error) {
+      console.error('[Socket] typing_stop error:', error.message);
+    }
   });
 
   // ==================== Read Receipt ====================

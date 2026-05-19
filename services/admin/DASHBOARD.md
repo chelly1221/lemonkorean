@@ -200,60 +200,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
-### 11. 웹 배포 자동화 (2026-02-04)
-
-관리자 대시보드에서 원클릭 Flutter 웹 앱 배포.
-
-**위치**: `#/deploy` (사이드바: "Web 배포")
-
-**기능**:
-- **배포 시작**: 버튼 클릭으로 전체 빌드 프로세스 시작
-- **실시간 진행률**: 0-100% 진행 바 및 단계 표시
-- **라이브 로그 스트리밍**: VS Code 스타일 터미널 로그 뷰어 (자동 스크롤)
-- **배포 이력**: 과거 배포 내역 페이지네이션
-- **상태 모니터링**: 상태, 소요 시간, git commit, 에러 확인
-- **취소 기능**: 실행 중인 배포 중단
-
-**UI 컴포넌트**:
-- VS Code 다크 테마 로그 뷰어 (문법 강조)
-- 완료/실패 시 토스트 알림
-- 실시간 폴링 (2초 간격)
-- 상태 배지가 있는 배포 카드
-
-**API 연동** (`/api/admin/deploy/*`):
-- `POST /web/start` - 배포 시작
-- `GET /web/status/:id` - 현재 진행률 조회
-- `GET /web/logs/:id` - 페이지네이션된 로그 조회
-- `GET /web/history` - 과거 배포 이력
-- `DELETE /web/:id` - 배포 취소
-
-**백엔드 구현**:
-- **Service**: `/services/admin/src/services/web-deploy.service.js` (542줄)
-- **Controller**: `/services/admin/src/controllers/deploy.controller.js` (389줄)
-- **Routes**: `/services/admin/src/routes/deploy.routes.js`
-- **Database**: `web_deployments`, `web_deployment_logs` 테이블
-
-**배포 프로세스**:
-1. Git pull로 최신 변경사항 가져오기
-2. 의존성 설치 (flutter pub get)
-3. 웹 앱 빌드 (flutter build web)
-4. nginx 디렉토리로 복사
-5. 배포 검증 (HTTP 헬스 체크)
-6. 로그와 함께 데이터베이스 기록
-
-**동시성 제어**:
-- Redis 락으로 동시 배포 방지
-- 15분 TTL로 자동 만료
-- 락 충돌 시 사용자 친화적 에러 메시지
-
-**보안**:
-- 관리자 인증 필수
-- 감사 미들웨어를 통한 모든 작업 로깅
-- 안전한 취소 및 정리
-
----
-
-### 12. APK Build Management (2026-02-05)
+### 11. APK Build Management (2026-02-05)
 
 관리자 대시보드에서 원클릭 Android APK 빌드.
 
@@ -314,7 +261,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
-### 13. Dev-Notes Browser (2026-02-05)
+### 12. Dev-Notes Browser (2026-02-05)
 
 개발 노트 브라우저로 `/dev-notes` 디렉토리의 마크다운 파일 조회.
 
@@ -339,7 +286,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
-### 14. Documentation Browser (2026-02-05)
+### 13. Documentation Browser (2026-02-05)
 
 프로젝트 문서 브라우저로 6개 카테고리의 문서 조회.
 
@@ -350,7 +297,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 2. **API** - `/docs/API.md`
 3. **Database** - `/database/postgres/SCHEMA.md`
 4. **Services** - `/services/*/README.md`, `/services/*/DASHBOARD.md`
-5. **Mobile** - `/mobile/lemon_korean/README.md`, `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md`
+5. **Mobile** - `/mobile/lemon_korean/README.md`
 6. **Infrastructure** - `/scripts/*/README.md`, `/nginx/README.md`
 
 **기능**:
@@ -371,7 +318,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
-### 15. Gamification Settings (2026-02-10)
+### 14. Gamification Settings (2026-02-10)
 
 게임화 시스템 설정 관리.
 
@@ -399,7 +346,7 @@ Flutter 앱 외관을 관리자 대시보드에서 커스터마이징.
 
 ---
 
-### 16. SNS Moderation (2026-02-10)
+### 15. SNS Moderation (2026-02-10)
 
 SNS 커뮤니티 콘텐츠 모더레이션 관리.
 
@@ -425,6 +372,12 @@ SNS 커뮤니티 콘텐츠 모더레이션 관리.
 - `src/controllers/sns-moderation.controller.js`
 - `src/routes/sns-moderation.routes.js`
 - `public/js/pages/sns-moderation.js`
+
+**AI 자동 모더레이션** (2026-03):
+- Moderation 서비스(포트 3008, 내부 전용)가 게시물/댓글을 자동 분류
+- `moderation_status` 필드: `approved` / `flagged` / `rejected`
+- 자동 거부(`TEXT_REJECT_THRESHOLD` 이상) 및 플래그(`TEXT_FLAG_THRESHOLD` 이상) 처리
+- 플래그된 콘텐츠는 Admin 대시보드에서 수동 검토
 
 **DM 모더레이션 참고** (2026-02-10):
 - DM은 1:1 비공개 대화이므로 커뮤니티 모더레이션 대상이 아님

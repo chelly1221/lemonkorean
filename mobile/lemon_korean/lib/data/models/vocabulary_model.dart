@@ -70,7 +70,7 @@ class VocabularyModel {
       korean: json['korean'] as String,
       hanja: json['hanja'] as String?,
       // Support both new 'translation' field and legacy 'chinese' for backwards compatibility
-      translation: json['translation'] as String? ?? json['chinese'] as String,
+      translation: (json['translation'] ?? json['chinese'] ?? '') as String,
       // Support both new 'pronunciation' field and legacy 'pinyin' for backwards compatibility
       pronunciation: json['pronunciation'] as String? ?? json['pinyin'] as String?,
       partOfSpeech: json['part_of_speech'] as String? ?? 'noun',

@@ -26,6 +26,7 @@ class DmProvider with ChangeNotifier {
 
   // Stream subscriptions
   final List<StreamSubscription> _subscriptions = [];
+  bool _disposed = false;
 
   // Getters
   List<ConversationModel> get conversations => _conversations;
@@ -72,7 +73,7 @@ class DmProvider with ChangeNotifier {
   Future<void> loadConversations({bool refresh = false}) async {
     if (_isLoadingConversations) return;
     _isLoadingConversations = true;
-    notifyListeners();
+    _safeNotifyListeners();
 
     try {
       _conversations = await _repository.getConversations();
@@ -81,7 +82,7 @@ class DmProvider with ChangeNotifier {
       AppLogger.e('loadConversations error', tag: 'DmProvider', error: e);
     } finally {
       _isLoadingConversations = false;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 
@@ -89,7 +90,7 @@ class DmProvider with ChangeNotifier {
   Future<void> refreshUnreadCount() async {
     try {
       _totalUnreadCount = await _repository.getUnreadCount();
-      notifyListeners();
+      _safeNotifyListeners();
     } catch (e) {
       AppLogger.w('refreshUnreadCount error', tag: 'DmProvider', error: e);
     }
@@ -103,7 +104,7 @@ class DmProvider with ChangeNotifier {
         // Add to list if not already there
         if (!_conversations.any((c) => c.id == conversation.id)) {
           _conversations.insert(0, conversation);
-          notifyListeners();
+          _safeNotifyListeners();
         }
         return conversation.id;
       }
@@ -123,7 +124,7 @@ class DmProvider with ChangeNotifier {
     if (_isLoadingMessages && !refresh) return;
     _isLoadingMessages = true;
     _activeConversationId = conversationId;
-    notifyListeners();
+    _safeNotifyListeners();
 
     try {
       // Join socket room
@@ -147,7 +148,7 @@ class DmProvider with ChangeNotifier {
       AppLogger.e('loadMessages error', tag: 'DmProvider', error: e);
     } finally {
       _isLoadingMessages = false;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 
@@ -171,7 +172,7 @@ class DmProvider with ChangeNotifier {
         ...result.messages.reversed,
         ...existing,
       ];
-      notifyListeners();
+      _safeNotifyListeners();
       return result.nextCursor != null;
     } catch (e) {
       AppLogger.e('loadMoreMessages error', tag: 'DmProvider', error: e);
@@ -198,7 +199,7 @@ class DmProvider with ChangeNotifier {
     final messages = _messageCache[conversationId] ?? [];
     messages.add(optimistic);
     _messageCache[conversationId] = messages;
-    notifyListeners();
+    _safeNotifyListeners();
 
     // Send via Socket.IO
     if (_socket.isConnected) {
@@ -249,7 +250,7 @@ class DmProvider with ChangeNotifier {
     final messages = _messageCache[conversationId] ?? [];
     messages.add(optimistic);
     _messageCache[conversationId] = messages;
-    notifyListeners();
+    _safeNotifyListeners();
 
     try {
       // Upload file first
@@ -304,7 +305,7 @@ class DmProvider with ChangeNotifier {
       final idx = messages.indexWhere((m) => m.id == messageId);
       if (idx != -1) {
         messages[idx] = messages[idx].copyWith(isDeleted: true);
-        notifyListeners();
+        _safeNotifyListeners();
       }
     }
   }
@@ -347,7 +348,7 @@ class DmProvider with ChangeNotifier {
       if (idx != -1) {
         messages[idx] = message;
         _messageCache[convId] = messages;
-        notifyListeners();
+        _safeNotifyListeners();
         return;
       }
     }
@@ -372,7 +373,7 @@ class DmProvider with ChangeNotifier {
     // Update conversation list preview
     _updateConversationPreview(convId, message);
 
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   void _handleMessageSent(Map<String, dynamic> data) {
@@ -391,13 +392,13 @@ class DmProvider with ChangeNotifier {
     final isTyping = data['is_typing'] as bool? ?? false;
     if (userId != null) {
       _typingUsers[userId] = isTyping;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 
   void _handleReadReceipt(Map<String, dynamic> data) {
     // Could be used to show read indicators on messages
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   void _handleConversationUpdated(Map<String, dynamic> data) {
@@ -414,7 +415,7 @@ class DmProvider with ChangeNotifier {
       if (idx != -1) {
         messages[idx] = messages[idx].copyWith(isDeleted: true);
         _messageCache[convId] = messages;
-        notifyListeners();
+        _safeNotifyListeners();
       }
     }
   }
@@ -436,7 +437,7 @@ class DmProvider with ChangeNotifier {
 
     // Update conversation preview
     _updateConversationPreview(convId, serverMessage);
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   void _markMessageFailed(int convId, String clientId) {
@@ -445,7 +446,7 @@ class DmProvider with ChangeNotifier {
     if (idx != -1) {
       messages[idx] = messages[idx].copyWith(status: DmMessageStatus.failed);
       _messageCache[convId] = messages;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 
@@ -479,8 +480,13 @@ class DmProvider with ChangeNotifier {
     }
   }
 
+  void _safeNotifyListeners() {
+    if (!_disposed) notifyListeners();
+  }
+
   @override
   void dispose() {
+    _disposed = true;
     for (final sub in _subscriptions) {
       sub.cancel();
     }

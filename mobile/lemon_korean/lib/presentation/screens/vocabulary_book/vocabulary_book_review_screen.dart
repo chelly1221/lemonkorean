@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../../core/storage/local_storage.dart';
 import '../../../data/models/bookmark_model.dart';
 import '../../../data/repositories/content_repository.dart';
 import '../../../l10n/generated/app_localizations.dart';

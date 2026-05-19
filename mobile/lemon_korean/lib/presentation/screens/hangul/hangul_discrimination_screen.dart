@@ -1,95 +1,191 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/korean_tts_helper.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../providers/hangul_provider.dart';
 import 'widgets/pronunciation_player.dart';
+
+/// Korean syllable builder for discrimination training
+class _SyllableBuilder {
+  static const List<String> initials = [
+    'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
+    'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+  ];
+
+  static const List<String> medials = [
+    'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ',
+    'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'
+  ];
+
+  // Basic vowels for consonant discrimination (avoids complex diphthongs)
+  static const List<int> basicMedialIndices = [0, 4, 8, 13, 18, 20, 1, 5];
+  // ㅏ ㅓ ㅗ ㅜ ㅡ ㅣ ㅐ ㅔ
+
+  /// Build a syllable from initial index + medial index (no final consonant)
+  static String combine(int initialIdx, int medialIdx) {
+    return String.fromCharCode(0xAC00 + (initialIdx * 588) + (medialIdx * 28));
+  }
+}
 
 /// Similar sound groups for discrimination training
 class SimilarSoundGroup {
   final String name;
   final String nameKo;
   final String description;
-  final List<String> characters;
   final String category; // 'consonant' or 'vowel'
+  /// For consonant groups: list of initial consonant jamo to compare
+  /// For vowel groups: list of medial vowel jamo to compare
+  final List<String> jamo;
 
   const SimilarSoundGroup({
     required this.name,
     required this.nameKo,
     required this.description,
-    required this.characters,
+    required this.jamo,
     required this.category,
   });
+
+  /// Generate syllable options for a question with a random complementary jamo
+  List<String> generateOptions(Random random) {
+    if (category == 'consonant') {
+      // Pick a random basic vowel
+      final medialIdx = _SyllableBuilder.basicMedialIndices[
+          random.nextInt(_SyllableBuilder.basicMedialIndices.length)];
+      return jamo.map((j) {
+        final initialIdx = _SyllableBuilder.initials.indexOf(j);
+        return _SyllableBuilder.combine(initialIdx, medialIdx);
+      }).toList();
+    } else {
+      // Pick a random consonant
+      final initialIdx = random.nextInt(_SyllableBuilder.initials.length);
+      return jamo.map((j) {
+        final medialIdx = _SyllableBuilder.medials.indexOf(j);
+        return _SyllableBuilder.combine(initialIdx, medialIdx);
+      }).toList();
+    }
+  }
+
+  /// Display characters (first vowel/consonant combination for card preview)
+  String get displayName {
+    if (category == 'consonant') {
+      // Show with ㅏ vowel
+      return jamo.map((j) {
+        final idx = _SyllableBuilder.initials.indexOf(j);
+        return _SyllableBuilder.combine(idx, 0);
+      }).join('/');
+    } else {
+      // Show with ㅇ consonant
+      return jamo.map((j) {
+        final idx = _SyllableBuilder.medials.indexOf(j);
+        return _SyllableBuilder.combine(11, idx);
+      }).join('/');
+    }
+  }
 
   static const List<SimilarSoundGroup> consonantGroups = [
     SimilarSoundGroup(
       name: 'ㄱ/ㅋ/ㄲ',
       nameKo: '기역 계열',
       description: '평음/격음/경음',
-      characters: ['ㄱ', 'ㅋ', 'ㄲ'],
+      jamo: ['ㄱ', 'ㅋ', 'ㄲ'],
       category: 'consonant',
     ),
     SimilarSoundGroup(
       name: 'ㄷ/ㅌ/ㄸ',
       nameKo: '디귿 계열',
       description: '평음/격음/경음',
-      characters: ['ㄷ', 'ㅌ', 'ㄸ'],
+      jamo: ['ㄷ', 'ㅌ', 'ㄸ'],
       category: 'consonant',
     ),
     SimilarSoundGroup(
       name: 'ㅂ/ㅍ/ㅃ',
       nameKo: '비읍 계열',
       description: '평음/격음/경음',
-      characters: ['ㅂ', 'ㅍ', 'ㅃ'],
+      jamo: ['ㅂ', 'ㅍ', 'ㅃ'],
       category: 'consonant',
     ),
     SimilarSoundGroup(
       name: 'ㅈ/ㅊ/ㅉ',
       nameKo: '지읒 계열',
       description: '평음/격음/경음',
-      characters: ['ㅈ', 'ㅊ', 'ㅉ'],
+      jamo: ['ㅈ', 'ㅊ', 'ㅉ'],
       category: 'consonant',
     ),
     SimilarSoundGroup(
       name: 'ㅅ/ㅆ',
       nameKo: '시옷 계열',
       description: '평음/경음',
-      characters: ['ㅅ', 'ㅆ'],
+      jamo: ['ㅅ', 'ㅆ'],
       category: 'consonant',
     ),
   ];
 
   static const List<SimilarSoundGroup> vowelGroups = [
+    // 기본 단모음 구별
+    SimilarSoundGroup(
+      name: 'ㅏ/ㅓ',
+      nameKo: '아/어',
+      description: '입 크기와 혀 위치 차이',
+      jamo: ['ㅏ', 'ㅓ'],
+      category: 'vowel',
+    ),
     SimilarSoundGroup(
       name: 'ㅓ/ㅗ',
       nameKo: '어/오',
       description: '입 모양이 비슷함',
-      characters: ['ㅓ', 'ㅗ'],
+      jamo: ['ㅓ', 'ㅗ'],
+      category: 'vowel',
+    ),
+    SimilarSoundGroup(
+      name: 'ㅗ/ㅜ',
+      nameKo: '오/우',
+      description: '입술 둥글기와 혀 높이 차이',
+      jamo: ['ㅗ', 'ㅜ'],
       category: 'vowel',
     ),
     SimilarSoundGroup(
       name: 'ㅡ/ㅜ',
       nameKo: '으/우',
       description: '입술 모양 차이',
-      characters: ['ㅡ', 'ㅜ'],
+      jamo: ['ㅡ', 'ㅜ'],
       category: 'vowel',
     ),
     SimilarSoundGroup(
-      name: 'ㅐ/ㅔ',
-      nameKo: '애/에',
-      description: '현대 한국어에서 거의 동일',
-      characters: ['ㅐ', 'ㅔ'],
+      name: 'ㅡ/ㅣ',
+      nameKo: '으/이',
+      description: '혀 위치 전후 차이',
+      jamo: ['ㅡ', 'ㅣ'],
+      category: 'vowel',
+    ),
+    // 단모음 vs 이중모음
+    SimilarSoundGroup(
+      name: 'ㅏ/ㅑ',
+      nameKo: '아/야',
+      description: '단모음 vs 이중모음 (ㅣ 추가)',
+      jamo: ['ㅏ', 'ㅑ'],
       category: 'vowel',
     ),
     SimilarSoundGroup(
-      name: 'ㅚ/ㅙ/ㅞ',
-      nameKo: '외/왜/웨',
-      description: '현대 한국어에서 거의 동일',
-      characters: ['ㅚ', 'ㅙ', 'ㅞ'],
+      name: 'ㅓ/ㅕ',
+      nameKo: '어/여',
+      description: '단모음 vs 이중모음 (ㅣ 추가)',
+      jamo: ['ㅓ', 'ㅕ'],
+      category: 'vowel',
+    ),
+    SimilarSoundGroup(
+      name: 'ㅗ/ㅛ',
+      nameKo: '오/요',
+      description: '단모음 vs 이중모음 (ㅣ 추가)',
+      jamo: ['ㅗ', 'ㅛ'],
+      category: 'vowel',
+    ),
+    SimilarSoundGroup(
+      name: 'ㅜ/ㅠ',
+      nameKo: '우/유',
+      description: '단모음 vs 이중모음 (ㅣ 추가)',
+      jamo: ['ㅜ', 'ㅠ'],
       category: 'vowel',
     ),
   ];
@@ -120,19 +216,11 @@ class _HangulDiscriminationScreenState
   String? _selectedAnswer;
   bool _showResult = false;
   PlaybackSpeed _playbackSpeed = PlaybackSpeed.normal;
-  late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
     _selectedGroup = widget.initialGroup;
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
   }
 
   void _startPractice(SimilarSoundGroup group) {
@@ -155,11 +243,49 @@ class _HangulDiscriminationScreenState
     final random = Random();
     final questions = <_DiscriminationQuestion>[];
 
+    // Track used combinations to avoid consecutive duplicates
+    int? lastVariant;
+
     for (int i = 0; i < _totalQuestions; i++) {
-      final correctChar = group.characters[random.nextInt(group.characters.length)];
+      // Generate syllable options with a random vowel/consonant each time
+      List<String> options;
+      if (group.category == 'consonant') {
+        // Pick a different basic vowel each time (avoid repeats)
+        int medialPick;
+        do {
+          medialPick = random.nextInt(
+              _SyllableBuilder.basicMedialIndices.length);
+        } while (medialPick == lastVariant &&
+            _SyllableBuilder.basicMedialIndices.length > 1);
+        lastVariant = medialPick;
+
+        final medialIdx = _SyllableBuilder.basicMedialIndices[medialPick];
+        options = group.jamo.map((j) {
+          final initialIdx = _SyllableBuilder.initials.indexOf(j);
+          return _SyllableBuilder.combine(initialIdx, medialIdx);
+        }).toList();
+      } else {
+        // Pick a different consonant each time
+        int initialPick;
+        do {
+          initialPick = random.nextInt(_SyllableBuilder.initials.length);
+        } while (initialPick == lastVariant &&
+            _SyllableBuilder.initials.length > 1);
+        lastVariant = initialPick;
+
+        options = group.jamo.map((j) {
+          final medialIdx = _SyllableBuilder.medials.indexOf(j);
+          return _SyllableBuilder.combine(initialPick, medialIdx);
+        }).toList();
+      }
+
+      // Pick random correct answer
+      final correctIdx = random.nextInt(options.length);
+      final correctAnswer = options[correctIdx];
+
       questions.add(_DiscriminationQuestion(
-        correctAnswer: correctChar,
-        options: List.from(group.characters)..shuffle(random),
+        correctAnswer: correctAnswer,
+        options: List.from(options)..shuffle(random),
       ));
     }
 
@@ -170,23 +296,18 @@ class _HangulDiscriminationScreenState
     if (_currentQuestionIndex >= _questions.length) return;
 
     final question = _questions[_currentQuestionIndex];
-    final provider = Provider.of<HangulProvider>(context, listen: false);
-    final character = provider.findCharacterByChar(question.correctAnswer);
-
-    if (character?.hasAudio == true) {
-      try {
-        final audioUrl = '${AppConstants.mediaUrl}/${character!.audioUrl}';
-        await _audioPlayer.setUrl(audioUrl);
-        await _audioPlayer.setSpeed(_playbackSpeed.value);
-        await _audioPlayer.play();
-      } catch (e) {
-        debugPrint('[DiscriminationScreen] Audio error: $e');
-        if (mounted) {
-          final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.audioLoadError)),
-          );
-        }
+    try {
+      await KoreanTtsHelper.playKoreanText(
+        question.correctAnswer,
+        speed: _playbackSpeed.value,
+      );
+    } catch (e) {
+      debugPrint('[DiscriminationScreen] Audio error: $e');
+      if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.audioLoadError)),
+        );
       }
     }
   }
@@ -420,9 +541,9 @@ class _HangulDiscriminationScreenState
                 ),
                 child: Center(
                   child: Text(
-                    group.name,
+                    group.displayName,
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: group.jamo.length > 2 ? 14 : 18,
                       fontWeight: FontWeight.bold,
                       color: group.category == 'consonant'
                           ? Colors.blue.shade700
@@ -592,7 +713,6 @@ class _HangulDiscriminationScreenState
               child: InkWell(
                 onTap: () {
                   setState(() => _playbackSpeed = speed);
-                  _audioPlayer.setSpeed(speed.value);
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Container(

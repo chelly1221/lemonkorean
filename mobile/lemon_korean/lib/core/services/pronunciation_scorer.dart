@@ -5,6 +5,7 @@ import '../utils/app_logger.dart';
 import '../utils/korean_phoneme_utils.dart';
 import '../utils/pronunciation_feedback.dart';
 import 'gop_service.dart';
+import 'whisper_service.dart';
 
 /// Embedding-based pronunciation scorer with per-phoneme analysis.
 ///
@@ -24,16 +25,19 @@ class PronunciationScorer {
   /// wav2vec2 embeddings share general speech features (prosody, speaker),
   /// so even unrelated pronunciations yield ~0.65-0.70 similarity.
   /// The discriminative range is narrow (0.70-0.92):
-  /// - 0.90+ : near-native pronunciation
-  /// - 0.85  : good, clearly correct
-  /// - 0.80  : fair, recognizable
-  /// - 0.70  : wrong phoneme / very poor
-  static const double _simLow = 0.70;
-  static const double _simHigh = 0.90;
+  /// Thresholds calibrated from real data:
+  ///   silence/noise baseline: ~0.78-0.80 similarity
+  ///   correct pronunciation:  ~0.83-0.91 similarity
+  ///
+  /// - 0.88+ : excellent → 100
+  /// - 0.85  : good → 70
+  /// - 0.83  : fair → 50
+  /// - 0.78  : noise floor → 0
+  static const double _simLow = 0.78;
+  static const double _simHigh = 0.88;
 
-  /// Per-phoneme similarity thresholds (slightly wider range since segments
-  /// are noisier than full-utterance embeddings).
-  static const double _phonemeSimLow = 0.55;
+  /// Per-phoneme similarity thresholds (aligned with overall).
+  static const double _phonemeSimLow = 0.78;
   static const double _phonemeSimHigh = 0.88;
 
   /// Duration weights for phoneme types (vowels are longer than consonants).
@@ -42,7 +46,14 @@ class PronunciationScorer {
 
   PronunciationScorer._();
 
-  /// End-to-end scoring: audio file → embedding → cosine similarity → score.
+  /// End-to-end scoring: Whisper gate → wav2vec2 embedding → score.
+  ///
+  /// Pipeline:
+  /// 1. Whisper transcribes audio → recognized text
+  /// 2. Compare recognized vs expected text at jamo level
+  /// 3. If exact match → wav2vec2 fine-grained scoring (full range 0-100)
+  /// 4. If partial match → cap score + specific feedback
+  /// 5. If Whisper fails → fall back to wav2vec2 only
   Future<SpeechResult> score({
     required String expectedText,
     required String audioPath,
@@ -51,17 +62,13 @@ class PronunciationScorer {
     final expectedPhonemes = KoreanPhonemeUtils.toPhonemeSequence(expectedText);
 
     if (expectedPhonemes.isEmpty) {
-      AppLogger.w('No phonemes from expected text: "$expectedText"', tag: _tag);
       return SpeechResult.empty();
     }
 
     // Look up reference embedding
     final refEmbedding = ReferenceEmbeddings.get(expectedText);
     if (refEmbedding == null) {
-      AppLogger.w(
-        'No reference embedding for "$expectedText"',
-        tag: _tag,
-      );
+      AppLogger.w('No reference embedding for "$expectedText"', tag: _tag);
       return SpeechResult.empty();
     }
 
@@ -73,23 +80,21 @@ class PronunciationScorer {
 
     final embResult = await GopService.instance.extractEmbeddingWithFrames(audioPath);
     if (embResult == null) {
-      AppLogger.w('Failed to extract embedding from audio', tag: _tag);
       return SpeechResult.empty();
     }
 
     // Compute overall cosine similarity
     final similarity = _cosineSimilarity(embResult.embedding, refEmbedding);
-
-    // Map similarity to 0-100 score
-    final rawScore =
-        ((similarity - _simLow) / (_simHigh - _simLow) * 100.0).clamp(0.0, 100.0);
-    final overallScore = rawScore.round();
+    final embeddingScore =
+        ((similarity - _simLow) / (_simHigh - _simLow) * 100.0).clamp(0.0, 100.0).round();
 
     AppLogger.i(
-      'Scored "$expectedText": similarity=${similarity.toStringAsFixed(4)}, '
-      'score=$overallScore, frames=${embResult.frames.length}',
+      'wav2vec2: similarity=${similarity.toStringAsFixed(4)}, embeddingScore=$embeddingScore',
       tag: _tag,
     );
+
+    // ── Whisper gate ──
+    final jamoComparison = await _whisperGate(expectedText, audioPath);
 
     // Compute per-phoneme scores using frame-level analysis
     final phonemeDetails = _computePhonemeScores(
@@ -97,22 +102,62 @@ class PronunciationScorer {
       expectedPhonemes: expectedPhonemes,
       frames: embResult.frames,
       refEmbedding: refEmbedding,
-      overallScore: overallScore,
+      fallbackScore: embeddingScore,
     );
 
-    // Compute detail score as weighted average of phoneme scores
-    final detailScore = phonemeDetails.isNotEmpty
+    // Base overall score from phoneme analysis
+    int overallScore = phonemeDetails.isNotEmpty
         ? (phonemeDetails.fold<double>(0.0, (s, p) => s + p.score) /
                 phonemeDetails.length)
             .round()
-        : overallScore;
+        : embeddingScore;
 
-    // Generate feedback based on actual per-phoneme scores
-    final feedback = PronunciationFeedback.generateFeedback(
+    // Apply Whisper gate score cap
+    final feedback = <String>[];
+    if (jamoComparison != null) {
+      switch (jamoComparison.type) {
+        case JamoMatchType.exactMatch:
+          // Whisper confirmed correct syllable → use full wav2vec2 score
+          break;
+        case JamoMatchType.vowelMismatch:
+          overallScore = min(overallScore, 40);
+          feedback.add(PronunciationFeedback.generateWhisperFeedback(
+            type: 'vowelMismatch',
+            language: language,
+          ));
+          break;
+        case JamoMatchType.consonantMismatch:
+          overallScore = min(overallScore, 40);
+          feedback.add(PronunciationFeedback.generateWhisperFeedback(
+            type: 'consonantMismatch',
+            language: language,
+          ));
+          break;
+        case JamoMatchType.totalMismatch:
+          overallScore = min(overallScore, 20);
+          feedback.add(PronunciationFeedback.generateWhisperFeedback(
+            type: 'totalMismatch',
+            language: language,
+          ));
+          break;
+      }
+
+      AppLogger.i(
+        'Whisper gate: expected="$expectedText", '
+        'recognized="${jamoComparison.recognizedText}", '
+        'type=${jamoComparison.type.name}, score=$overallScore',
+        tag: _tag,
+      );
+    }
+
+    // Add phoneme-level feedback (from wav2vec2 analysis)
+    feedback.addAll(PronunciationFeedback.generateFeedback(
       phonemeScores: phonemeDetails,
       overallScore: overallScore,
       language: language,
-    );
+    ));
+
+    final detailScore = overallScore;
 
     return SpeechResult(
       overallScore: overallScore,
@@ -125,6 +170,130 @@ class PronunciationScorer {
     );
   }
 
+  /// Run Whisper transcription and compare jamo with expected text.
+  /// Returns null if Whisper is not available or transcription fails
+  /// (in which case, fall back to wav2vec2-only scoring).
+  Future<JamoComparisonResult?> _whisperGate(
+    String expectedText,
+    String audioPath,
+  ) async {
+    if (!WhisperService.instance.isInitialized) return null;
+
+    try {
+      final result = await WhisperService.instance.transcribe(audioPath);
+      if (result == null || result.text.isEmpty) {
+        // Whisper couldn't recognize anything → fall back to wav2vec2 only
+        return null;
+      }
+
+      final recognizedText = result.text.replaceAll(RegExp(r'\s+'), '');
+      return _compareJamo(expectedText, recognizedText);
+    } catch (e) {
+      AppLogger.w('Whisper gate failed: $e', tag: _tag);
+      return null;
+    }
+  }
+
+  /// Compare two Korean texts at the jamo (초성/중성/종성) level.
+  ///
+  /// Uses phonetic similarity groups so that Whisper's common confusions
+  /// (ㄱ/ㅋ/ㄲ, ㅐ/ㅔ, etc.) don't trigger false mismatches.
+  ///
+  /// Returns the match type for score cap decisions.
+  static JamoComparisonResult _compareJamo(String expected, String recognized) {
+    final expectedDecomp = KoreanPhonemeUtils.decomposeAll(expected);
+    final recognizedDecomp = KoreanPhonemeUtils.decomposeAll(recognized);
+
+    if (expectedDecomp.isEmpty || recognizedDecomp.isEmpty) {
+      return JamoComparisonResult(
+        type: JamoMatchType.totalMismatch,
+        recognizedText: recognized,
+      );
+    }
+
+    final target = expectedDecomp.first;
+
+    // Check for exact or phonetically-similar match
+    for (final recSyl in recognizedDecomp) {
+      final initialOk = _initialsSimilar(target.initial, recSyl.initial);
+      final medialOk = _medialsSimilar(target.medial, recSyl.medial);
+      if (initialOk && medialOk) {
+        return JamoComparisonResult(
+          type: JamoMatchType.exactMatch,
+          recognizedText: recognized,
+        );
+      }
+    }
+
+    // No full match — check partial matches
+    bool initialMatch = false;
+    bool medialMatch = false;
+    for (final recSyl in recognizedDecomp) {
+      if (_initialsSimilar(target.initial, recSyl.initial)) initialMatch = true;
+      if (_medialsSimilar(target.medial, recSyl.medial)) medialMatch = true;
+    }
+
+    if (initialMatch && !medialMatch) {
+      return JamoComparisonResult(
+        type: JamoMatchType.vowelMismatch,
+        recognizedText: recognized,
+      );
+    } else if (!initialMatch && medialMatch) {
+      return JamoComparisonResult(
+        type: JamoMatchType.consonantMismatch,
+        recognizedText: recognized,
+      );
+    }
+
+    return JamoComparisonResult(
+      type: JamoMatchType.totalMismatch,
+      recognizedText: recognized,
+    );
+  }
+
+  /// Check if two initial consonants are the same or in the same
+  /// phonetic group (plain/aspirated/tense triad).
+  ///
+  /// Whisper frequently confuses consonants within the same articulation
+  /// place (e.g. ㄱ↔ㅋ↔ㄲ), so we treat them as equivalent for the gate.
+  static bool _initialsSimilar(String a, String b) {
+    if (a == b) return true;
+    for (final group in _consonantGroups) {
+      if (group.contains(a) && group.contains(b)) return true;
+    }
+    return false;
+  }
+
+  /// Check if two medial vowels are the same or in the same
+  /// phonetic group (commonly merged or confused by Whisper).
+  static bool _medialsSimilar(String a, String b) {
+    if (a == b) return true;
+    for (final group in _vowelGroups) {
+      if (group.contains(a) && group.contains(b)) return true;
+    }
+    return false;
+  }
+
+  /// Consonant groups: same articulation place, different manner.
+  /// Whisper base frequently confuses these for single syllables.
+  static const List<Set<String>> _consonantGroups = [
+    {'ㄱ', 'ㅋ', 'ㄲ'}, // velar
+    {'ㄷ', 'ㅌ', 'ㄸ'}, // alveolar
+    {'ㅂ', 'ㅍ', 'ㅃ'}, // bilabial
+    {'ㅈ', 'ㅊ', 'ㅉ'}, // palatal
+    {'ㅅ', 'ㅆ'},       // sibilant
+  ];
+
+  /// Vowel groups: commonly merged or confused in Whisper recognition.
+  static const List<Set<String>> _vowelGroups = [
+    {'ㅐ', 'ㅔ'},       // merged in modern Korean
+    {'ㅒ', 'ㅖ'},       // y-glide merged
+    {'ㅘ', 'ㅏ'},       // Whisper often drops w-glide
+    {'ㅝ', 'ㅓ'},       // Whisper often drops w-glide
+    {'ㅙ', 'ㅚ', 'ㅐ'}, // complex vowel confusion
+    {'ㅞ', 'ㅟ', 'ㅔ'}, // complex vowel confusion
+  ];
+
   /// Compute per-phoneme scores by segmenting frame-level embeddings.
   ///
   /// The T model output frames are divided proportionally across phonemes,
@@ -136,7 +305,7 @@ class PronunciationScorer {
     required List<String> expectedPhonemes,
     required List<List<double>> frames,
     required List<double> refEmbedding,
-    required int overallScore,
+    required int fallbackScore,
   }) {
     final decompositions = KoreanPhonemeUtils.decomposeAll(expectedText);
     final details = <PhonemeScoreDetail>[];
@@ -173,7 +342,7 @@ class PronunciationScorer {
       for (final entry in phonemeEntries) {
         details.add(PhonemeScoreDetail(
           expected: entry.phoneme,
-          score: overallScore,
+          score: fallbackScore,
           position: _positionToString(entry.position),
         ));
       }
@@ -203,7 +372,7 @@ class PronunciationScorer {
       if (segmentFrames <= 0 || frameOffset >= totalFrames) {
         details.add(PhonemeScoreDetail(
           expected: entry.phoneme,
-          score: overallScore,
+          score: fallbackScore,
           position: _positionToString(entry.position),
         ));
         continue;
@@ -447,4 +616,27 @@ enum SpeechGrade {
   good,
   fair,
   needsPractice,
+}
+
+/// Result of jamo-level comparison between expected and recognized text.
+class JamoComparisonResult {
+  final JamoMatchType type;
+  final String recognizedText;
+
+  const JamoComparisonResult({
+    required this.type,
+    required this.recognizedText,
+  });
+}
+
+/// Types of jamo match for Whisper gate scoring.
+enum JamoMatchType {
+  /// 초성+중성 both match → full wav2vec2 scoring
+  exactMatch,
+  /// 초성 matches but 중성 differs → score cap 40, "check vowel"
+  vowelMismatch,
+  /// 중성 matches but 초성 differs → score cap 40, "check consonant"
+  consonantMismatch,
+  /// Neither matches → score cap 20, "try again"
+  totalMismatch,
 }

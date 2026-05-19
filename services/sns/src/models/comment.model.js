@@ -8,18 +8,26 @@ class Comment {
    * @param {Object} commentData - Comment data
    * @returns {Object} Created comment
    */
-  static async create(postId, userId, { content, parentId }) {
+  static async create(postId, userId, { content, parentId, moderationStatus, moderationCategories, moderationScore }) {
     const client = await getClient();
     try {
       await client.query('BEGIN');
 
       const sql = `
-        INSERT INTO sns_comments (post_id, user_id, content, parent_id, created_at)
-        VALUES ($1, $2, $3, $4, NOW())
+        INSERT INTO sns_comments (post_id, user_id, content, parent_id, moderation_status, moderation_categories, moderation_score, created_at)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())
         RETURNING *
       `;
 
-      const values = [postId, userId, content, parentId || null];
+      const values = [
+        postId,
+        userId,
+        content,
+        parentId || null,
+        moderationStatus ?? 'unmoderated',
+        moderationCategories ? JSON.stringify(moderationCategories) : null,
+        moderationScore ?? null,
+      ];
       const result = await client.query(sql, values);
 
       // Increment post comment_count
@@ -48,13 +56,23 @@ class Comment {
    * @param {Object} options - Pagination options
    * @returns {Array} Comments array
    */
-  static async getByPost(postId, { cursor, limit = 20 }) {
+  static async getByPost(postId, { cursor, limit = 20, userId }) {
     const params = [postId, limit];
+    let paramIndex = 3;
     let cursorClause = '';
+    let blockClause = '';
+
+    if (userId) {
+      blockClause = `AND c.user_id NOT IN (SELECT blocked_id FROM user_blocks WHERE blocker_id = $${paramIndex})
+        AND c.user_id NOT IN (SELECT blocker_id FROM user_blocks WHERE blocked_id = $${paramIndex})`;
+      params.push(userId);
+      paramIndex++;
+    }
 
     if (cursor) {
-      cursorClause = 'AND c.created_at > $3';
+      cursorClause = `AND c.created_at > $${paramIndex}`;
       params.push(cursor);
+      paramIndex++;
     }
 
     const sql = `
@@ -65,6 +83,8 @@ class Comment {
       JOIN users u ON c.user_id = u.id
       WHERE c.post_id = $1
         AND c.is_deleted = false
+        AND COALESCE(c.moderation_status, 'unmoderated') NOT IN ('rejected')
+        ${blockClause}
         ${cursorClause}
       ORDER BY c.created_at ASC
       LIMIT $2

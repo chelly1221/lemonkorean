@@ -9,6 +9,7 @@ enum StepType {
   speechPractice,
   syllableBuild,
   quizMcq,
+  writingPractice,
   missionIntro,
   timedMission,
   missionResults,

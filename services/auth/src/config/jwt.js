@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 
 // JWT configuration
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is required');
+  process.exit(1);
+}
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h';
 const REFRESH_TOKEN_EXPIRES_IN = '30d';
 
 /**
@@ -71,22 +75,7 @@ const verifyToken = (token) => {
   }
 };
 
-/**
- * Decode token without verification (for debugging)
- * @param {String} token - JWT token
- * @returns {Object} Decoded payload
- */
-const decodeToken = (token) => {
-  return jwt.decode(token);
-};
-
 module.exports = {
-  JWT_SECRET,
-  JWT_EXPIRES_IN,
-  REFRESH_TOKEN_EXPIRES_IN,
-  generateAccessToken,
-  generateRefreshToken,
   generateTokenPair,
-  verifyToken,
-  decodeToken
+  verifyToken
 };

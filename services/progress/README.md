@@ -61,6 +61,7 @@ go build -o progress-service main.go
 
 - `GET /api/progress/vocabulary/:userId` - 단어 학습 진도
 - `POST /api/progress/vocabulary/practice` - 단어 연습 기록
+- `POST /api/progress/vocabulary/batch` - 단어 배치 기록
 - `GET /api/progress/review-schedule/:userId` - 복습 스케줄
 - `POST /api/progress/review/complete` - 복습 완료
 
@@ -83,6 +84,29 @@ go build -o progress-service main.go
 - `GET /api/progress/lesson-rewards/:userId` - 레슨 보상 목록
 - `POST /api/progress/lemon-harvest` - 나무 레몬 수확 (광고 시청 후)
 - `POST /api/progress/boss-quiz/complete` - 보스 퀴즈 완료 기록
+
+### 한글 (Korean Alphabet) 진도
+
+- `GET /api/progress/hangul/:userId` - 한글 학습 진도
+- `POST /api/progress/hangul/:userId/:characterId` - 한글 자모 진도 업데이트
+- `GET /api/progress/hangul/review/:userId` - 한글 복습 스케줄
+- `POST /api/progress/hangul/batch` - 한글 배치 기록
+
+### 한글 레슨 진도 (Stage 0+)
+
+- `POST /api/progress/hangul-lesson/complete` - 한글 레슨 완료
+- `GET /api/progress/hangul-lesson/:userId` - 한글 레슨 진도 조회
+
+### 캐릭터 커스터마이징
+
+- `GET /api/progress/character/:userId` - 캐릭터 정보 조회
+- `PUT /api/progress/character/equip` - 아이템 장착
+- `PUT /api/progress/character/skin-color` - 피부색 변경
+- `GET /api/progress/inventory/:userId` - 인벤토리 조회
+- `POST /api/progress/shop/purchase` - 아이템 구매
+- `GET /api/progress/shop/items` - 상점 아이템 목록
+- `GET /api/progress/room/:userId` - 방 정보 조회
+- `PUT /api/progress/room/furniture` - 방 가구 업데이트
 
 ### 통계
 
@@ -114,13 +138,17 @@ progress/
 ├── main.go                  # 진입점
 ├── config/
 │   ├── database.go         # PostgreSQL 설정
-│   └── redis.go            # Redis 설정
+│   ├── redis.go            # Redis 설정
+│   └── cors.go             # CORS 설정
 ├── models/
 │   ├── progress.go         # Progress 모델
 │   └── session.go          # Session 모델
 ├── handlers/
 │   ├── progress_handler.go      # Progress API 핸들러
 │   ├── gamification_handler.go  # 게임화 API 핸들러
+│   ├── hangul_handler.go        # 한글 자모 진도 핸들러
+│   ├── hangul_lesson_handler.go # 한글 레슨 진도 핸들러
+│   ├── character_handler.go     # 캐릭터 커스터마이징 핸들러
 │   └── sync_handler.go          # 동기화 핸들러
 ├── repository/
 │   └── progress_repository.go # 데이터 접근 계층

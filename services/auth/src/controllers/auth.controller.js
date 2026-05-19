@@ -729,10 +729,11 @@ const updateProfile = async (req, res) => {
     console.log(`[UPDATE_PROFILE] Updating profile for user: ${userId}`);
 
     // Validate language preference if provided
-    if (language_preference && !['zh', 'en', 'ko'].includes(language_preference)) {
+    const validLanguages = ['ko', 'en', 'es', 'ja', 'zh', 'zh_TW'];
+    if (language_preference && !validLanguages.includes(language_preference)) {
       return res.status(400).json({
         error: 'Validation Error',
-        message: 'Invalid language preference. Must be one of: zh, en, ko'
+        message: `Invalid language preference. Must be one of: ${validLanguages.join(', ')}`
       });
     }
 

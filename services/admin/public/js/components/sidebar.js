@@ -38,7 +38,7 @@ const Sidebar = (() => {
       items: [
         { path: '/services', icon: 'fa-cubes', label: '서비스 현황' },
         { path: '/system', icon: 'fa-file-lines', label: '로그' },
-        { path: '/deploy', icon: 'fa-rocket', label: '배포' },
+        { path: '/deploy', icon: 'fa-hammer', label: 'APK 빌드' },
         { path: '/app-theme', icon: 'fa-mobile-alt', label: '앱 테마' },
         { path: '/gamification', icon: 'fa-lemon', label: '게임화 설정' },
         { path: '/sns-moderation', icon: 'fa-comments', label: 'SNS 관리' },

@@ -10,28 +10,34 @@ const isValidEmail = (email) => {
 
 /**
  * Password validation
- * Rules: At least 6 characters
+ * Rules: 8-128 characters, must include uppercase + lowercase + number
  * @param {String} password - Password to validate
  * @returns {Object} { valid: Boolean, message: String }
  */
 const isValidPassword = (password) => {
-  if (!password || password.length < 6) {
+  if (!password || password.length < 8) {
     return {
       valid: false,
-      message: 'Password must be at least 6 characters long'
+      message: 'Password must be at least 8 characters long'
     };
   }
 
-  // Optional: Add more complexity requirements
-  // if (!/[A-Z]/.test(password)) {
-  //   return { valid: false, message: 'Password must contain at least one uppercase letter' };
-  // }
-  // if (!/[a-z]/.test(password)) {
-  //   return { valid: false, message: 'Password must contain at least one lowercase letter' };
-  // }
-  // if (!/[0-9]/.test(password)) {
-  //   return { valid: false, message: 'Password must contain at least one number' };
-  // }
+  if (password.length > 128) {
+    return {
+      valid: false,
+      message: 'Password must be less than 128 characters'
+    };
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    return { valid: false, message: 'Password must contain at least one uppercase letter' };
+  }
+  if (!/[a-z]/.test(password)) {
+    return { valid: false, message: 'Password must contain at least one lowercase letter' };
+  }
+  if (!/[0-9]/.test(password)) {
+    return { valid: false, message: 'Password must contain at least one number' };
+  }
 
   return { valid: true };
 };
@@ -42,7 +48,7 @@ const isValidPassword = (password) => {
  * @returns {Boolean} True if valid
  */
 const isValidLanguage = (lang) => {
-  const validLanguages = ['zh', 'en', 'ko'];
+  const validLanguages = ['zh', 'zh_TW', 'en', 'ko', 'es', 'ja'];
   return validLanguages.includes(lang);
 };
 
@@ -53,7 +59,7 @@ const isValidLanguage = (lang) => {
  */
 const sanitizeString = (input) => {
   if (typeof input !== 'string') return '';
-  return input.trim();
+  return input.trim().replace(/[<>]/g, '');
 };
 
 /**
@@ -88,7 +94,7 @@ const validateRegistration = (data) => {
 
   // Language validation (optional)
   if (data.language_preference && !isValidLanguage(data.language_preference)) {
-    errors.push('Invalid language preference. Must be one of: zh, en, ko');
+    errors.push('Invalid language preference. Must be one of: zh, zh_TW, en, ko, es, ja');
   }
 
   return {
@@ -138,7 +144,7 @@ const validateProfileUpdate = (data) => {
   }
 
   if (data.language_preference !== undefined && !isValidLanguage(data.language_preference)) {
-    errors.push('Invalid language preference. Must be one of: zh, en, ko');
+    errors.push('Invalid language preference. Must be one of: zh, zh_TW, en, ko, es, ja');
   }
 
   return {

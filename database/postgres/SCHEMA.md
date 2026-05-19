@@ -4,20 +4,21 @@ PostgreSQL 15+ compatible schema documentation for the Lemon Korean learning pla
 
 ## Overview
 
-The database consists of 48+ tables organized into the following functional areas:
+The database consists of 49+ tables organized into the following functional areas:
 
 - **User Management**: Users, sessions, authentication
 - **Lesson Content**: Lessons, vocabulary, grammar, dialogues
 - **Hangul Learning**: Korean alphabet characters and practice data (6 tables)
 - **Progress Tracking**: User progress, SRS (Spaced Repetition System)
 - **Media Management**: Media metadata and storage references
-- **Admin Tools**: Audit logs, web deployment tracking
+- **Admin Tools**: Audit logs, APK build tracking
 - **Internationalization**: Multi-language content support (6 languages)
 - **Gamification**: Lemon rewards, currency, boss quizzes, settings (5 tables)
 - **Character Customization**: Character items catalog, user characters, inventory, room furniture (4 tables)
 - **SNS/Community**: Posts, comments, likes, follows, reports, blocks (6 tables)
 - **Direct Messaging**: DM conversations, messages, read receipts (3 tables)
 - **Voice Rooms**: Voice chat rooms with LiveKit integration (2 tables)
+- **Content Moderation**: AI moderation logs and status tracking (1 table, + columns on sns_posts/sns_comments)
 
 ---
 
@@ -520,60 +521,6 @@ Vocabulary SRS (Spaced Repetition System) progress.
 
 ## Admin & Deployment Tables
 
-### web_deployments
-
-Web app deployment history and status tracking.
-
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| id | SERIAL | PRIMARY KEY | Deployment ID |
-| admin_id | INTEGER | FK(users.id) | Admin who triggered |
-| admin_email | VARCHAR(255) | NOT NULL | Admin email |
-| status | VARCHAR(20) | NOT NULL, DEFAULT 'pending' | Deployment status (see below) |
-| progress | INTEGER | DEFAULT 0, CHECK (0-100) | Progress percentage |
-| started_at | TIMESTAMP | DEFAULT NOW() | Start time |
-| completed_at | TIMESTAMP | | Completion time |
-| duration_seconds | INTEGER | | Total duration in seconds |
-| error_message | TEXT | | Error message if failed |
-| git_commit_hash | VARCHAR(40) | | Git commit SHA |
-| git_branch | VARCHAR(100) | | Git branch name |
-| deployment_url | TEXT | DEFAULT 'https://lemon.3chan.kr/app/' | Deployed app URL |
-| created_at | TIMESTAMP | DEFAULT NOW() | Record creation |
-
-**Status Values:**
-- `pending` - Queued, not started
-- `building` - Running flutter build web
-- `syncing` - Copying files to nginx directory
-- `restarting` - Restarting nginx
-- `validating` - Health check validation
-- `completed` - Successfully deployed
-- `failed` - Deployment failed
-- `cancelled` - Manually cancelled
-
-**Indexes:**
-- `idx_web_deployments_admin_id` on admin_id
-- `idx_web_deployments_status` on status
-- `idx_web_deployments_started_at` on started_at DESC
-
----
-
-### web_deployment_logs
-
-Real-time deployment logs with timestamps.
-
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| id | SERIAL | PRIMARY KEY | Log ID |
-| deployment_id | INTEGER | FK(web_deployments.id) | Deployment reference |
-| log_type | VARCHAR(20) | DEFAULT 'info' | Log level (info, error, warning) |
-| message | TEXT | NOT NULL | Log message |
-| created_at | TIMESTAMP | DEFAULT NOW() | Log timestamp |
-
-**Indexes:**
-- `idx_deployment_logs_deployment_id` on (deployment_id, created_at)
-
----
-
 ### audit_logs
 
 Admin action audit trail.
@@ -881,10 +828,7 @@ Global gamification settings (single-row table, id=1).
 | id | INTEGER | PRIMARY KEY, CHECK (id=1) | Settings ID (always 1) |
 | admob_app_id | VARCHAR(100) | DEFAULT test ID | AdMob app ID |
 | admob_rewarded_ad_id | VARCHAR(100) | DEFAULT test ID | AdMob rewarded ad unit ID |
-| adsense_publisher_id | VARCHAR(100) | DEFAULT '' | AdSense publisher ID |
-| adsense_ad_slot | VARCHAR(100) | DEFAULT '' | AdSense ad slot |
 | ads_enabled | BOOLEAN | DEFAULT true | Enable ads globally |
-| web_ads_enabled | BOOLEAN | DEFAULT false | Enable web ads |
 | lemon_3_threshold | INTEGER | DEFAULT 95 | Score for 3 lemons |
 | lemon_2_threshold | INTEGER | DEFAULT 80 | Score for 2 lemons |
 | boss_quiz_bonus | INTEGER | DEFAULT 5 | Boss quiz bonus lemons |
@@ -931,7 +875,7 @@ Instagram-style 1-directional follows.
 
 ### sns_posts
 
-Community posts with categories and image support.
+Community posts with categories, image support, and AI content moderation.
 
 | Column | Type | Constraints | Description |
 |--------|------|-------------|-------------|
@@ -944,9 +888,15 @@ Community posts with categories and image support.
 | image_urls | TEXT[] | DEFAULT '{}' | Image URLs |
 | like_count | INTEGER | DEFAULT 0 | Like count |
 | comment_count | INTEGER | DEFAULT 0 | Comment count |
+| moderation_status | VARCHAR(20) | DEFAULT 'unmoderated', CHECK (unmoderated/allowed/flagged/rejected) | AI moderation result |
+| moderation_categories | JSONB | | Per-category toxicity scores |
+| moderation_score | REAL | | Highest toxicity score |
 | is_deleted | BOOLEAN | DEFAULT false | Soft delete flag |
 | created_at | TIMESTAMPTZ | DEFAULT NOW() | Creation time |
 | updated_at | TIMESTAMPTZ | DEFAULT NOW() | Last update |
+
+**Indexes:**
+- `idx_sns_posts_moderation` on moderation_status WHERE moderation_status IN ('flagged', 'rejected')
 
 ---
 
@@ -966,7 +916,7 @@ Post like tracking.
 
 ### sns_comments
 
-Post comments with nested reply support.
+Post comments with nested reply support and AI content moderation.
 
 | Column | Type | Constraints | Description |
 |--------|------|-------------|-------------|
@@ -975,8 +925,14 @@ Post comments with nested reply support.
 | user_id | INTEGER | NOT NULL, FK(users.id) CASCADE | Author |
 | parent_id | INTEGER | FK(sns_comments.id) CASCADE | Parent comment (for replies) |
 | content | TEXT | NOT NULL | Comment content |
+| moderation_status | VARCHAR(20) | DEFAULT 'unmoderated', CHECK (unmoderated/allowed/flagged/rejected) | AI moderation result |
+| moderation_categories | JSONB | | Per-category toxicity scores |
+| moderation_score | REAL | | Highest toxicity score |
 | is_deleted | BOOLEAN | DEFAULT false | Soft delete flag |
 | created_at | TIMESTAMPTZ | DEFAULT NOW() | Creation time |
+
+**Indexes:**
+- `idx_sns_comments_moderation` on moderation_status WHERE moderation_status IN ('flagged', 'rejected')
 
 ---
 
@@ -1010,6 +966,33 @@ User blocking.
 | created_at | TIMESTAMPTZ | DEFAULT NOW() | Block time |
 | UNIQUE(blocker_id, blocked_id) | | | No duplicate blocks |
 | CHECK(blocker_id != blocked_id) | | | No self-block |
+
+---
+
+## Content Moderation Tables (Migration 020)
+
+### moderation_logs
+
+AI content moderation decision log. Every moderation check (post, comment, bio, DM) is recorded here.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | SERIAL | PRIMARY KEY | Log ID |
+| content_type | VARCHAR(20) | NOT NULL, CHECK (post/comment/bio/dm) | Type of content moderated |
+| content_id | INTEGER | | ID of the content (post ID, comment ID, user ID for bio) |
+| user_id | INTEGER | FK(users.id) SET NULL | Author of the content |
+| content_text | TEXT | | The text that was moderated |
+| action | VARCHAR(20) | NOT NULL, CHECK (allow/flag/reject) | Moderation decision |
+| max_score | REAL | NOT NULL | Highest toxicity score across categories |
+| categories | JSONB | NOT NULL | Per-category toxicity scores |
+| processing_time_ms | REAL | | ONNX inference time in milliseconds |
+| created_at | TIMESTAMPTZ | DEFAULT NOW() | Moderation timestamp |
+
+**Indexes:**
+- `idx_moderation_logs_user` on user_id
+- `idx_moderation_logs_action` on action
+- `idx_moderation_logs_created` on created_at DESC
+- `idx_moderation_logs_content_type` on content_type
 
 ---
 
@@ -1282,7 +1265,7 @@ Furniture placement positions in user's room.
 |---------|------|-------------|
 | 001 | 2026-01-20 | Add translation tables for i18n |
 | 002 | 2026-02-03 | Add pronunciation guides, syllables, and discrimination tables |
-| 003 | 2026-02-04 | Add web deployment tracking tables |
+| 003 | 2026-02-04 | Add web deployment tracking tables (레거시 — 웹 지원 제거됨, 미사용) |
 | 004 | 2026-02-04 | Update language defaults from Chinese to Korean |
 | 005 | 2026-02-04 | Add app_theme_settings table |
 | 006 | 2026-02-05 | Remove design_settings table (admin dashboard only) |
@@ -1299,6 +1282,7 @@ Furniture placement positions in user's room.
 | 017 | 2026-02-19 | Update app theme colors to Toss-style warm palette |
 | 018 | 2026-02-19 | Add hangul_lesson_progress table for Stage 0+ interactive lessons |
 | 019 | 2026-03-01 | Add room_type and duration columns to voice_rooms |
+| 020 | 2026-03-11 | Add moderation_logs table, moderation columns on sns_posts/sns_comments |
 
 ---
 
@@ -1336,4 +1320,4 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 
 ---
 
-**Last Updated:** 2026-03-01
+**Last Updated:** 2026-03-11

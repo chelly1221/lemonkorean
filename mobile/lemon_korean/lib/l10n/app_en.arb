@@ -2811,7 +2811,7 @@
   "stageDetailComingSoon": "Details coming soon.",
   "bossQuizComingSoon": "Boss Quiz coming soon.",
   "exitLessonDialogTitle": "Exit Lesson",
-  "exitLessonDialogContent": "Do you want to exit the lesson?\nYour progress up to this step will be saved.",
+  "exitLessonDialogContent": "Do you want to exit the lesson?\nYou will start from the beginning next time.",
   "continueButton": "Continue",
   "exitLessonButton": "Exit",
   "noQuestions": "No questions available",

@@ -1,23 +1,44 @@
-# Providers (状态管理)
+# Providers (상태 관리)
 
-使用 Provider 模式管理应用状态。
+Provider 패턴을 사용하여 앱 상태를 관리합니다. 총 **17개** Provider.
 
-## 文件列表
+## 파일 목록
 
 ```
 providers/
-├── auth_provider.dart           # 认证状态管理
-├── lesson_provider.dart         # 课程状态管理
-├── progress_provider.dart       # 学习进度管理
-├── download_provider.dart       # 下载队列管理
-├── settings_provider.dart       # 应用设置管理
-├── sync_provider.dart           # 离线同步管理
-├── gamification_provider.dart   # 게임화 상태 관리 (2026-02-10)
-├── feed_provider.dart           # SNS 피드 상태 관리 (2026-02-10)
-└── social_provider.dart         # SNS 소셜 상태 관리 (2026-02-10)
+├── auth_provider.dart               # 인증 상태 관리 (JWT, 로그인/로그아웃)
+├── bookmark_provider.dart           # 북마크 관리
+├── character_provider.dart          # 캐릭터/아바타 상태 관리
+├── dm_provider.dart                 # DM(다이렉트 메시지) 상태 관리 (Socket.IO)
+├── download_provider.dart           # 오프라인 다운로드 큐 관리
+├── feed_provider.dart               # SNS 피드 상태 관리
+├── gamification_provider.dart       # 게임화 상태 관리 (레몬 보상, 스트릭)
+├── hangul_provider.dart             # 한글 학습 진도 관리 (Stage 0~12)
+├── lesson_provider.dart             # 레슨 상태 관리
+├── progress_provider.dart           # 학습 진도 관리 (SRS 포함)
+├── settings_provider.dart           # 앱 설정 관리 (온보딩, 언어, 목표)
+├── social_provider.dart             # SNS 소셜 상태 관리 (팔로우, 프로필)
+├── speech_provider.dart             # 발음 채점 세션 관리 (GOP/Whisper/임베딩)
+├── sync_provider.dart               # 오프라인 동기화 관리
+├── theme_provider.dart              # 앱 테마 상태 관리
+├── vocabulary_browser_provider.dart # 단어장 브라우저 상태 관리
+└── voice_room_provider.dart         # 음성 대화방 상태 관리 (LiveKit)
 ```
 
-> **注意**: 本文档主要介绍 AuthProvider。其他 Provider 请参考相应的源代码注释。
+### SpeechProvider
+발음 채점 세션을 관리합니다. `AudioRecorderService`로 녹음하고 `PronunciationScorer`로 점수를 산출합니다.
+- 녹음 시작/정지
+- GOP 기반 발음 점수 산출
+- 임베딩 기반 유사도 비교
+- 발음 피드백 생성
+
+### DownloadProvider
+오프라인 학습을 위한 레슨/미디어 다운로드를 관리합니다.
+- 다운로드 큐 관리
+- 진행률 추적
+- 다운로드 취소/재개
+
+> **참고**: 이 문서는 주로 AuthProvider를 상세히 소개합니다. 다른 Provider는 소스코드 주석을 참고하세요.
 
 ---
 

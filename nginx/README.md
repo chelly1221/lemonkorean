@@ -45,7 +45,11 @@ nginx/
 | `/api/analytics/*` | analytics-service | 3005 | 로그 분석 |
 | `/api/admin/*` | admin-service | 3006 | 관리자 대시보드 |
 | `/api/sns/*` | sns-service | 3007 | SNS 커뮤니티 |
+| `/api/sns/socket.io/*` | sns-service | 3007 | Socket.IO WebSocket (DM) |
+| `/livekit/*` | livekit | 7880 | LiveKit 음성 대화방 |
 | `/app/*` | static files | - | Flutter 웹 앱 (온보딩 포함) |
+
+> **참고**: Moderation 서비스(포트 3008)는 내부 전용이므로 Nginx에 라우팅하지 않습니다. SNS 서비스가 Docker 네트워크를 통해 직접 접근합니다.
 
 ---
 
@@ -199,7 +203,8 @@ curl http://localhost/health/detailed
     "progress": "progress-service:3003",
     "media": "media-service:3004",
     "analytics": "analytics-service:3005",
-    "admin": "admin-service:3006"
+    "admin": "admin-service:3006",
+    "sns": "sns-service:3007"
   }
 }
 ```

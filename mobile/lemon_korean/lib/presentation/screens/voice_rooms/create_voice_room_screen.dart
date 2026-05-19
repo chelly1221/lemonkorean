@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -136,50 +135,48 @@ class _CreateVoiceRoomScreenState extends State<CreateVoiceRoomScreen> {
     final duration = _selectedDuration;
 
     // Request microphone permission on mobile
-    if (!kIsWeb) {
-      final status = await Permission.microphone.request();
-      if (!mounted) return;
-      if (status.isPermanentlyDenied) {
-        final dialogL10n = AppLocalizations.of(context);
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text(dialogL10n?.voiceRoomMicPermissionTitle ?? 'Microphone Permission'),
-            content: Text(
-              dialogL10n?.voiceRoomMicPermissionDenied ?? 'Microphone access was denied. To use voice features, please enable it in your device settings.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: Text(dialogL10n?.cancel ?? 'Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(ctx);
-                  openAppSettings();
-                },
-                child: Text(dialogL10n?.voiceRoomOpenSettings ?? 'Open Settings'),
-              ),
-            ],
+    final status = await Permission.microphone.request();
+    if (!mounted) return;
+    if (status.isPermanentlyDenied) {
+      final dialogL10n = AppLocalizations.of(context);
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(dialogL10n?.voiceRoomMicPermissionTitle ?? 'Microphone Permission'),
+          content: Text(
+            dialogL10n?.voiceRoomMicPermissionDenied ?? 'Microphone access was denied. To use voice features, please enable it in your device settings.',
           ),
-        );
-        return;
-      }
-      if (!status.isGranted) {
-        final snackL10n = AppLocalizations.of(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              snackL10n?.voiceRoomMicPermission ?? 'Microphone permission is required for voice rooms',
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: Text(dialogL10n?.cancel ?? 'Cancel'),
             ),
-            action: SnackBarAction(
-              label: snackL10n?.settings ?? 'Settings',
-              onPressed: () => openAppSettings(),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                openAppSettings();
+              },
+              child: Text(dialogL10n?.voiceRoomOpenSettings ?? 'Open Settings'),
             ),
+          ],
+        ),
+      );
+      return;
+    }
+    if (!status.isGranted) {
+      final snackL10n = AppLocalizations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            snackL10n?.voiceRoomMicPermission ?? 'Microphone permission is required for voice rooms',
           ),
-        );
-        return;
-      }
+          action: SnackBarAction(
+            label: snackL10n?.settings ?? 'Settings',
+            onPressed: () => openAppSettings(),
+          ),
+        ),
+      );
+      return;
     }
 
     if (!mounted) return;

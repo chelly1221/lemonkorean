@@ -93,6 +93,13 @@ const DOC_CATEGORIES = [
     ]
   },
   {
+    id: 'hangul',
+    name: '한글 커리큘럼',
+    icon: 'fa-book-open',
+    basePath: 'docs/hangul',
+    patterns: ['*.md']
+  },
+  {
     id: 'cicd',
     name: 'CI/CD',
     icon: 'fa-sync-alt',
@@ -263,25 +270,25 @@ const getDocContent = async (req, res) => {
     }
 
     // Sanitize path to prevent directory traversal attacks
-    const sanitizedPath = path.normalize(docPath).replace(/^(\.\.[\/\\])+/, '');
+    const fullPath = path.resolve(PROJECT_ROOT, docPath);
 
     // Ensure it's a markdown file
-    if (!sanitizedPath.endsWith('.md')) {
+    if (!fullPath.endsWith('.md')) {
       return res.status(400).json({
         error: 'Bad Request',
         message: 'Only markdown files are allowed'
       });
     }
 
-    const fullPath = path.join(PROJECT_ROOT, sanitizedPath);
-
-    // Ensure the file is within project root
-    if (!fullPath.startsWith(PROJECT_ROOT)) {
+    // Ensure the file is within project root (use path.sep to prevent prefix bypass)
+    if (!fullPath.startsWith(PROJECT_ROOT + path.sep) && fullPath !== PROJECT_ROOT) {
       return res.status(403).json({
         error: 'Forbidden',
         message: 'Access denied'
       });
     }
+
+    const sanitizedPath = path.relative(PROJECT_ROOT, fullPath);
 
     // Check if file exists
     if (!(await fileExists(fullPath))) {
@@ -334,20 +341,18 @@ const updateDocContent = async (req, res) => {
     }
 
     // Sanitize path (prevent directory traversal)
-    const sanitizedPath = path.normalize(docPath).replace(/^(\.\.[\/\\])+/, '');
+    const fullPath = path.resolve(PROJECT_ROOT, docPath);
 
     // Ensure it's a markdown file
-    if (!sanitizedPath.endsWith('.md')) {
+    if (!fullPath.endsWith('.md')) {
       return res.status(400).json({
         error: 'Bad Request',
         message: 'Only markdown files are allowed'
       });
     }
 
-    const fullPath = path.join(PROJECT_ROOT, sanitizedPath);
-
-    // Ensure within project root
-    if (!fullPath.startsWith(PROJECT_ROOT)) {
+    // Ensure within project root (use path.sep to prevent prefix bypass)
+    if (!fullPath.startsWith(PROJECT_ROOT + path.sep) && fullPath !== PROJECT_ROOT) {
       return res.status(403).json({
         error: 'Forbidden',
         message: 'Access denied'

@@ -17,6 +17,7 @@ Lemon Korean API 문서에 오신 것을 환영합니다. 이 디렉토리는 Le
 | **Analytics Service** | 3005 | [ANALYTICS_API.md](./ANALYTICS_API.md) | 로그 분석, 통계 API |
 | **Admin Service** | 3006 | [ADMIN_API.md](./ADMIN_API.md) | 관리자 대시보드 REST API |
 | **SNS Service** | 3007 | [SNS_API.md](./SNS_API.md) | 커뮤니티 피드, 게시물, 댓글, 팔로우 |
+| **Moderation Service** | 3008 | [MODERATION_API.md](./MODERATION_API.md) | AI 콘텐츠 모더레이션 (ONNX Runtime) |
 
 **참고**:
 - SNS Service는 DM 및 음성 대화방 기능도 포함합니다 ([DM_API.md](./DM_API.md), [VOICE_ROOMS_API.md](./VOICE_ROOMS_API.md))
@@ -46,6 +47,7 @@ Media Service:     https://lemon.3chan.kr/media
 Analytics Service: https://lemon.3chan.kr/api/analytics
 Admin Service:     https://lemon.3chan.kr/api/admin
 SNS Service:       https://lemon.3chan.kr/api/sns
+Moderation Service: http://moderation-service:3008/api/moderation (internal only)
 Socket.IO:         wss://lemon.3chan.kr/socket.io
 LiveKit:           wss://lemon.3chan.kr:7880
 Admin Dashboard:   https://lemon.3chan.kr/admin/
@@ -220,6 +222,21 @@ curl -X GET http://localhost:3002/api/content/lessons \
 **웹 대시보드**: https://lemon.3chan.kr/admin/
 
 **문서**: [ADMIN_API.md](./ADMIN_API.md)
+
+---
+
+### Moderation Service
+
+**목적**: AI 기반 콘텐츠 모더레이션 (다국어 독성 감지, ONNX Runtime 추론)
+
+**주요 엔드포인트**:
+- `POST /api/moderation/text` - 텍스트 콘텐츠 독성 검사
+- `GET /api/moderation/health` - 모델 로딩 상태 및 헬스체크
+- `GET /health` - 서비스 헬스체크
+
+**참고**: Moderation Service는 SNS Service에서 내부적으로 호출합니다 (게시물, 댓글, 바이오 작성 시). 외부 직접 접근은 불필요합니다.
+
+**문서**: [MODERATION_API.md](./MODERATION_API.md)
 
 ---
 
@@ -612,7 +629,7 @@ API 문제나 질문이 있는 경우:
 
 ---
 
-**마지막 업데이트**: 2026-02-11
+**마지막 업데이트**: 2026-03-11
 **API 버전**: 1.0.0
 
 **중국어권 한국어 학습자를 위해 만들어졌습니다**

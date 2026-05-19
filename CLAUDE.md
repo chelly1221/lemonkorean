@@ -1,13 +1,13 @@
 # 柠檬韩语 (Lemon Korean) - 프로젝트 가이드
 
 ## 프로젝트 개요
-다국어 한국어 학습 앱 (모바일 앱 + 웹 앱 동시 지원). 오프라인 학습 지원, 마이크로서비스 아키텍처, 자체 호스팅. 전 세계 학습자를 위한 6개 언어 콘텐츠 제공.
+다국어 한국어 학습 앱 (Android 모바일 앱). 오프라인 학습 지원, 마이크로서비스 아키텍처, 자체 호스팅. 전 세계 학습자를 위한 6개 언어 콘텐츠 제공.
 
-**플랫폼**: Flutter 기반 모바일(Android) + 웹 앱 호환 프로젝트 (단일 코드베이스)
+**플랫폼**: Flutter 기반 Android 모바일 앱
 
-**상태**: ✅ **프로덕션 준비 완료** (100%, 7/7 서비스)
+**상태**: ✅ **프로덕션 준비 완료** (100%, 8/8 서비스)
 
-**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 12단계 한글 커리큘럼(Stage 0~11), 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티, 실시간 DM, 음성 대화방(LiveKit, 6가지 방 유형)
+**핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 13단계 한글 커리큘럼(Stage 0~12), 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티, 실시간 DM, 음성 대화방(LiveKit, 6가지 방 유형), AI 콘텐츠 모더레이션 (AVX2/AVX-VNNI 최적화)
 
 ---
 
@@ -18,10 +18,6 @@ cp .env.example .env && docker-compose up -d
 
 # Flutter 앱
 cd mobile/lemon_korean && flutter pub get && flutter run
-
-# 웹 빌드 (build_web.sh 사용 필수)
-cd mobile/lemon_korean && ./build_web.sh
-# 접속: https://lemon.3chan.kr/app/
 ```
 
 ---
@@ -45,11 +41,13 @@ Flutter App (오프라인 우선, 콘텐츠 내장) ↔ Nginx Gateway ↔ 최소
 | 서비스 | 포트 | 기술 | 역할 |
 |--------|------|------|------|
 | Auth | 3001 | Node.js | JWT 인증 |
+| Content | 3002 | Node.js | 레슨/단어/문법 콘텐츠 (개발/운영용) |
 | Progress | 3003 | Go | 진도/SRS |
 | Media | 3004 | Go | 미디어 서빙 |
 | Analytics | 3005 | Python | 통계 |
 | Admin | 3006 | Node.js | 운영/관리 도구(배포/운영 설정) |
 | SNS | 3007 | Node.js | 커뮤니티 피드, 게시물, 댓글, 팔로우, DM, 음성대화방 |
+| Moderation | 3008 | Python (FastAPI) | AI 콘텐츠 모더레이션 (ONNX Runtime) |
 
 > Content/Admin 서비스는 개발/운영 도구로 유지 가능하지만, 모바일 런타임의 정적 학습 콘텐츠 필수 의존으로 두지 않는다.
 
@@ -58,7 +56,7 @@ Flutter App (오프라인 우선, 콘텐츠 내장) ↔ Nginx Gateway ↔ 최소
 ## 주요 디렉토리
 ```
 services/           # 백엔드 마이크로서비스
-mobile/lemon_korean/lib/  # Flutter 앱 (300+ Dart 파일)
+mobile/lemon_korean/lib/  # Flutter 앱 (323 Dart 파일)
 database/postgres/  # PostgreSQL 스키마 (41+ 테이블)
 config/             # DB/서비스 설정 파일 (livekit/ 포함)
 nginx/              # Nginx 설정
@@ -104,6 +102,7 @@ priority: high|medium|low
 ## 주요 기술 스택
 
 - **Backend**: Node.js (Express), Go (Gin), Python (FastAPI)
+- **AI/ML**: ONNX Runtime (콘텐츠 모더레이션, AVX2/AVX-VNNI 최적화), Transformers
 - **DB**: PostgreSQL 15, MongoDB 4.4, Redis 7, MinIO
 - **Realtime**: Socket.IO (DM/채팅), LiveKit (음성 대화방)
 - **Mobile**: Flutter 3.x, Hive, Provider, Dio, socket_io_client, livekit_client
@@ -151,40 +150,9 @@ return localPath ?? '${ApiConstants.baseUrl}/media/$remoteKey';
 - ❌ docker-compose.yml 직접 수정 금지
 - ✅ `config/` 디렉토리의 설정 파일 수정
 
-### 웹 앱 제한
-- 오프라인 다운로드 불가 (항상 온라인 가정)
-- localStorage 5-10MB 제한
-
-### 웹 앱 캐시 관리 (중요!)
-**문제**: Nginx는 `main.dart.js` 등 정적 자산을 7일간 캐시. 웹 앱 배포 후 변경사항이 보이지 않을 수 있음
-
-**해결**: `build_web.sh` 스크립트가 자동으로 처리
-```bash
-cd mobile/lemon_korean && ./build_web.sh
-```
-
-**스크립트 자동 수행 작업**:
-1. ✅ `version.json`에 빌드 타임스탬프 추가 (캐시 무효화)
-2. ✅ Nginx 캐시 디렉토리 정리 (`/var/cache/nginx/`)
-3. ✅ Nginx 컨테이너 재시작
-
-**사용자 측 캐시 클리어** (배포 후 안내 필수):
-- Chrome/Edge/Firefox: `Ctrl+Shift+R` (Mac: `Cmd+Shift+R`)
-- Safari: `Cmd+Option+R`
-- 또는 시크릿/비공개 모드로 확인
-
-**수동 캐시 클리어** (필요 시):
-```bash
-# Nginx 캐시만 클리어
-docker compose exec nginx sh -c "rm -rf /var/cache/nginx/*"
-docker compose restart nginx
-
-# 브라우저 서비스 워커 클리어 (F12 → Application → Service Workers → Unregister)
-```
-
 ### 배포 자동화
 - Deploy Agent는 systemd 서비스로 실행 (`deploy-agent.service`)
-- 웹/APK 빌드는 Admin Dashboard에서 트리거
+- APK 빌드는 Admin Dashboard에서 트리거
 - 트리거 파일 기반 통신 (`/services/admin/src/deploy-triggers/`)
 
 ---
@@ -208,6 +176,29 @@ tail -f /tmp/flutter_run.log
 ```
 
 > **참고**: `flutter run`이 포그라운드 터미널에서 실행 중이면 `r` (핫 리로드) / `R` (핫 리스타트) 키 사용.
+
+---
+
+## APK 설치 (데이터 보존)
+
+**중요**: `flutter install`은 기존 앱을 삭제 후 재설치하여 로그인/온보딩 데이터가 날아감.
+반드시 `adb install -r` (replace)을 사용하여 데이터를 보존할 것.
+
+```bash
+# APK 빌드
+cd mobile/lemon_korean && flutter build apk --release
+
+# 데이터 보존 설치 (adb install -r)
+ADB=/home/chell/android-sdk/platform-tools/adb
+APK=build/app/outputs/flutter-apk/app-release.apk
+$ADB -s <device-serial> install -r "$APK"
+
+# 연결된 디바이스 확인
+$ADB devices -l
+```
+
+- ❌ `flutter install` — 앱 삭제 후 재설치 (데이터 손실)
+- ✅ `adb install -r` — 기존 데이터 유지하면서 업데이트
 
 ---
 
@@ -243,7 +234,6 @@ sudo lsof -i :5432
 | 최적화 | `/scripts/optimization/README.md` |
 | Admin 대시보드 | `/services/admin/DASHBOARD.md` |
 | Flutter 앱 | `/mobile/lemon_korean/README.md` |
-| 웹 배포 | `/mobile/lemon_korean/WEB_DEPLOYMENT_GUIDE.md` |
 
 ---
 
@@ -255,7 +245,9 @@ sudo lsof -i :5432
 - `MINIO_*`: 미디어 스토리지
 - `REDIS_URL`: Redis 연결 (Socket.IO, 온라인 상태, 배포 락)
 - `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`, `LIVEKIT_URL`: LiveKit 음성 대화방
+- `MODERATION_SERVICE_URL`, `MODERATION_TIMEOUT_MS`: AI 콘텐츠 모더레이션 서비스
+- `TEXT_REJECT_THRESHOLD`, `TEXT_FLAG_THRESHOLD`: 모더레이션 독성 점수 임계값
 
 ---
 
-**마지막 업데이트**: 2026-03-01
+**마지막 업데이트**: 2026-05-18

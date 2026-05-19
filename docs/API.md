@@ -22,6 +22,7 @@ The Lemon Korean API provides endpoints for managing lessons, vocabulary, gramma
 | Analytics | 3005 | `/api/analytics` |
 | Admin | 3006 | `/api/admin` |
 | SNS | 3007 | `/api/sns` |
+| Moderation | 3008 | `/api/moderation` |
 
 ---
 
@@ -723,6 +724,7 @@ CREATE TABLE grammar_translations (
 | 400 | Bad Request - Invalid parameters |
 | 401 | Unauthorized - Invalid/missing token |
 | 404 | Not Found - Resource doesn't exist |
+| 422 | Unprocessable Entity - Content rejected by moderation |
 | 500 | Internal Server Error |
 
 ---
@@ -1007,6 +1009,103 @@ Kick a participant from the room. Kicked users cannot rejoin for the lifetime of
 ### DELETE /api/sns/voice-rooms/:id
 
 Closes the room (creator only). Sets status to `closed`, disconnects all participants, and clears the kick list.
+
+---
+
+## Moderation Service Endpoints (2026-03)
+
+AI-powered content moderation using ONNX Runtime with multilingual toxic content detection (NPU/CPU-accelerated).
+
+**Technology**: Python (FastAPI), ONNX Runtime, multilingual-toxic-xlm-roberta model
+
+### POST /api/moderation/text
+
+Moderate text content for toxicity. Used internally by the SNS service for posts, comments, and bio updates.
+
+**Request Body:**
+```json
+{
+  "text": "Text content to moderate",
+  "context": "post"
+}
+```
+
+**Fields:**
+- `text` (required): Text to moderate (1-5000 characters)
+- `context` (required): One of `post`, `comment`, `bio`, `dm`
+
+**Response:**
+```json
+{
+  "safe": true,
+  "action": "allow",
+  "max_score": 0.0312,
+  "categories": {
+    "toxic": 0.0312,
+    "severe_toxic": 0.001,
+    "obscene": 0.0089,
+    "threat": 0.0005,
+    "insult": 0.0201,
+    "identity_hate": 0.0011
+  },
+  "context": "post",
+  "processing_time_ms": 12.5
+}
+```
+
+**Action values:** `allow` (score < 0.3), `flag` (score >= 0.3), `reject` (score >= 0.7)
+
+### GET /api/moderation/health
+
+Health check with model loading status.
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "models_loaded": true,
+  "optimization": {
+    "model_file": "model_quantized.onnx",
+    "quantized": true,
+    "graph_optimization": "ORT_ENABLE_ALL",
+    "intra_threads": 0
+  }
+}
+```
+
+### GET /health
+
+Root-level health check.
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "service": "moderation"
+}
+```
+
+### SNS Moderation Integration
+
+When creating posts or comments, the SNS service calls the Moderation service internally. Moderation results are stored in the database:
+
+- `moderation_status`: `unmoderated`, `allowed`, `flagged`, or `rejected`
+- `moderation_categories`: JSONB object with per-category toxicity scores
+- `moderation_score`: Highest toxicity score (REAL)
+
+Rejected content returns HTTP 422:
+```json
+{
+  "error": "Content Rejected",
+  "message": "Your content was flagged by our content moderation system",
+  "moderation": {
+    "action": "reject",
+    "categories": { "toxic": 0.85, "insult": 0.72, ... }
+  }
+}
+```
+
+Profile bio updates (`PUT /api/sns/profiles`) are also moderated, returning HTTP 422 on rejection.
 
 ---
 

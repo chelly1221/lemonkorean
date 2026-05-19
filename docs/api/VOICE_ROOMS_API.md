@@ -13,7 +13,7 @@ The Voice Rooms API provides stage-based live voice chat experiences with charac
 - **Authentication**: JWT required for all endpoints and connections
 - **Database**: PostgreSQL (rooms, participants, messages, stage requests)
 
-**Last Updated**: 2026-02-11
+**Last Updated**: 2026-03-11
 
 ---
 
@@ -82,39 +82,27 @@ Retrieve all active voice rooms.
 **Authentication:** Required
 
 **Query Parameters:**
-- `page` (optional): Page number (default: 1)
 - `limit` (optional): Rooms per page (default: 20, max: 50)
+- `offset` (optional): Offset for pagination (default: 0)
 
 **Response:**
 ```json
 {
-  "success": true,
-  "data": [
+  "rooms": [
     {
       "id": 1,
-      "name": "Korean Study Room 🇰🇷",
-      "description": "Practice speaking Korean with fellow learners",
-      "host": {
-        "id": 123,
-        "username": "host1",
-        "display_name": "Alice",
-        "profile_image_url": "https://..."
-      },
+      "title": "Korean Study Room",
+      "topic": "Practice speaking Korean with fellow learners",
+      "creator_id": 123,
       "max_speakers": 4,
       "speaker_count": 3,
       "listener_count": 12,
-      "is_public": true,
-      "language": "ko",
-      "tags": ["korean", "practice", "beginner"],
+      "language_level": "all",
+      "room_type": "free_talk",
+      "status": "active",
       "created_at": "2026-02-11T10:00:00Z"
     }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 20,
-    "total": 5,
-    "totalPages": 1
-  }
+  ]
 }
 ```
 
@@ -133,42 +121,43 @@ Create a new voice room.
 **Request Body:**
 ```json
 {
-  "name": "Beginner Korean Speaking Practice",
-  "description": "Let's practice basic Korean conversations!",
+  "title": "Beginner Korean Speaking Practice",
+  "topic": "Let's practice basic Korean conversations!",
   "max_speakers": 4,
-  "is_public": true,
-  "language": "ko",
-  "tags": ["korean", "speaking", "beginner"]
+  "language_level": "beginner",
+  "room_type": "free_talk",
+  "duration": 30
 }
 ```
 
 **Fields:**
-- `name` (required): Room name (max 100 characters)
-- `description` (optional): Room description (max 500 characters)
-- `max_speakers` (optional): Maximum speakers on stage (default: 4, min: 2, max: 10)
-- `is_public` (optional): Public visibility (default: true)
-- `language` (optional): Primary language code (`ko`, `en`, `ja`, etc.)
-- `tags` (optional): Array of tags (max 5 tags)
+- `title` (required): Room title (max 100 characters)
+- `topic` (optional): Room topic/description
+- `max_speakers` (optional): Maximum speakers on stage (default: 4, min: 2, max: 4)
+- `language_level` (optional): Level (`beginner`, `intermediate`, `advanced`, `all`; default: `all`)
+- `room_type` (optional): Room type (`free_talk`, `pronunciation`, `roleplay`, `qna`, `listening`, `debate`; default: `free_talk`)
+- `duration` (optional): Duration in minutes (null = unlimited)
 
 **Response:**
 ```json
 {
-  "success": true,
-  "data": {
+  "room": {
     "id": 2,
-    "name": "Beginner Korean Speaking Practice",
-    "host": {
-      "id": 123,
-      "username": "host1",
-      "display_name": "Alice"
-    },
+    "title": "Beginner Korean Speaking Practice",
+    "creator_id": 123,
     "max_speakers": 4,
     "speaker_count": 1,
     "listener_count": 0,
-    "livekit_token": "eyJhbGc...",
-    "livekit_url": "wss://lemon.3chan.kr:7880",
+    "room_type": "free_talk",
+    "language_level": "beginner",
+    "status": "active",
     "created_at": "2026-02-11T15:00:00Z"
-  }
+  },
+  "speakers": [...],
+  "listeners": [],
+  "livekit_token": "eyJhbGc...",
+  "livekit_url": "wss://lemon.3chan.kr:7880",
+  "role": "speaker"
 }
 ```
 
@@ -176,6 +165,7 @@ Create a new voice room.
 - Creator automatically joins as a speaker (speaker_count starts at 1)
 - `livekit_token` is a time-limited JWT for LiveKit connection (valid for 1 hour)
 - Creator is automatically the host with special permissions
+- Valid `room_type` values: `free_talk`, `pronunciation`, `roleplay`, `qna`, `listening`, `debate`
 
 ---
 
@@ -191,54 +181,47 @@ Retrieve detailed information about a specific room.
 **Response:**
 ```json
 {
-  "success": true,
-  "data": {
+  "room": {
     "id": 1,
-    "name": "Korean Study Room 🇰🇷",
-    "description": "Practice speaking Korean with fellow learners",
-    "host": {
-      "id": 123,
-      "username": "host1",
-      "display_name": "Alice"
-    },
+    "title": "Korean Study Room",
+    "topic": "Practice speaking Korean with fellow learners",
+    "creator_id": 123,
     "max_speakers": 4,
     "speaker_count": 3,
     "listener_count": 12,
-    "is_public": true,
-    "language": "ko",
-    "tags": ["korean", "practice", "beginner"],
-    "speakers": [
-      {
-        "id": 123,
-        "username": "host1",
-        "display_name": "Alice",
-        "character": { ... },
-        "is_muted": false
-      },
-      {
-        "id": 456,
-        "username": "speaker2",
-        "display_name": "Bob",
-        "character": { ... },
-        "is_muted": false
-      }
-    ],
-    "stage_requests": [
-      {
-        "user_id": 789,
-        "username": "listener1",
-        "display_name": "Charlie",
-        "requested_at": "2026-02-11T15:10:00Z"
-      }
-    ],
+    "room_type": "free_talk",
+    "language_level": "all",
+    "status": "active",
     "created_at": "2026-02-11T10:00:00Z"
-  }
+  },
+  "speakers": [
+    {
+      "user_id": 123,
+      "name": "Alice",
+      "is_muted": false,
+      "role": "speaker"
+    }
+  ],
+  "listeners": [
+    {
+      "user_id": 789,
+      "name": "Charlie",
+      "role": "listener"
+    }
+  ],
+  "pending_requests": [
+    {
+      "user_id": 789,
+      "name": "Charlie",
+      "requested_at": "2026-02-11T15:10:00Z"
+    }
+  ]
 }
 ```
 
 **Notes:**
-- `speakers` array includes character customization data
-- `stage_requests` shows pending raise-hand requests (host only)
+- `speakers` and `listeners` are separate arrays
+- `pending_requests` shows pending raise-hand requests
 
 ---
 
@@ -251,35 +234,26 @@ Join a voice room as a listener or speaker (if slots available).
 **Path Parameters:**
 - `id` (required): Room ID
 
-**Request Body:**
-```json
-{
-  "join_as_speaker": false
-}
-```
+**Request Body:** None required (joins as listener automatically)
 
-**Fields:**
-- `join_as_speaker` (optional): Request to join as speaker (default: false)
-  - If `true` and speaker slots are available, joins as speaker
-  - If `true` and speaker slots are full, returns error
-  - If `false`, joins as listener
+**Notes:**
+- All users join as listeners by default
+- To become a speaker, use the stage request/grant flow or host invite
 
 **Response:**
 ```json
 {
-  "success": true,
-  "data": {
-    "role": "listener",
-    "livekit_token": "eyJhbGc...",
-    "livekit_url": "wss://lemon.3chan.kr:7880"
-  }
+  "participant": { ... },
+  "livekit_token": "eyJhbGc...",
+  "livekit_url": "wss://lemon.3chan.kr:7880",
+  "role": "listener"
 }
 ```
 
 **Notes:**
-- `livekit_token` is role-specific (speaker vs listener)
-- Listener tokens have subscribe-only permissions
-- Speaker tokens have publish permissions
+- Users always join as listeners
+- `livekit_token` has subscribe-only permissions for listeners
+- Block check is performed against the room creator and all current speakers
 
 ---
 
@@ -295,8 +269,7 @@ Leave a voice room.
 **Response:**
 ```json
 {
-  "success": true,
-  "message": "Left room"
+  "success": true
 }
 ```
 
@@ -318,8 +291,7 @@ Close a voice room permanently.
 **Response:**
 ```json
 {
-  "success": true,
-  "message": "Room closed"
+  "success": true
 }
 ```
 
@@ -350,7 +322,6 @@ Toggle your own mute status.
 **Response:**
 ```json
 {
-  "success": true,
   "is_muted": true
 }
 ```
@@ -376,8 +347,7 @@ Retrieve ephemeral chat messages for a room.
 **Response:**
 ```json
 {
-  "success": true,
-  "data": [
+  "messages": [
     {
       "id": 123,
       "room_id": 1,
@@ -423,21 +393,18 @@ Send a text message in the room chat.
 }
 ```
 
-**Response:**
+**Response (201 Created):**
 ```json
 {
-  "success": true,
-  "data": {
+  "message": {
     "id": 125,
     "room_id": 1,
-    "user": {
-      "id": 789,
-      "username": "user2",
-      "display_name": "Charlie"
-    },
+    "user_id": 789,
     "content": "Can someone explain the difference between 이/가 and 은/는?",
     "message_type": "text",
-    "created_at": "2026-02-11T15:35:00Z"
+    "created_at": "2026-02-11T15:35:00Z",
+    "name": "Charlie",
+    "avatar": "https://..."
   }
 }
 ```
@@ -458,8 +425,7 @@ Raise hand to request speaker access (listener only).
 **Response:**
 ```json
 {
-  "success": true,
-  "message": "Stage request sent"
+  "request": { ... }
 }
 ```
 
@@ -482,8 +448,7 @@ Cancel your own stage request.
 **Response:**
 ```json
 {
-  "success": true,
-  "message": "Stage request cancelled"
+  "success": true
 }
 ```
 
@@ -509,8 +474,7 @@ Approve a listener's request to join the stage.
 ```json
 {
   "success": true,
-  "message": "User granted stage access",
-  "new_livekit_token": "eyJhbGc..."
+  "livekit_token": "eyJhbGc..."
 }
 ```
 
@@ -542,8 +506,7 @@ Remove a speaker from the stage (demote to listener).
 ```json
 {
   "success": true,
-  "message": "User removed from stage",
-  "new_livekit_token": "eyJhbGc..."
+  "livekit_token": "eyJhbGc..."
 }
 ```
 
@@ -567,14 +530,110 @@ Voluntarily leave the stage (become a listener).
 ```json
 {
   "success": true,
-  "message": "Left stage",
-  "new_livekit_token": "eyJhbGc..."
+  "livekit_token": "eyJhbGc...",
+  "livekit_url": "wss://lemon.3chan.kr:7880"
 }
 ```
 
 **Notes:**
 - Host cannot leave stage (must close room instead)
 - Automatically disconnects from LiveKit and reconnects as listener
+
+---
+
+### Reject Stage Request (Host Only)
+Reject a listener's request to join the stage.
+
+**Endpoint:** `POST /api/sns/voice-rooms/:id/reject-stage`
+**Authentication:** Required (must be host)
+
+**Request Body:**
+```json
+{
+  "user_id": 789
+}
+```
+
+**Response:**
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### Kick Participant (Host Only)
+Kick a participant from the room. Kicked users cannot rejoin.
+
+**Endpoint:** `POST /api/sns/voice-rooms/:id/kick`
+**Authentication:** Required (must be host)
+
+**Request Body:**
+```json
+{
+  "user_id": 456
+}
+```
+
+**Response:**
+```json
+{
+  "success": true
+}
+```
+
+**Notes:**
+- Cannot kick yourself (the host)
+- Kicked users are removed from the LiveKit room
+- Kicked users cannot rejoin the room
+- Broadcasts `voice:participant_kicked` and `voice:participant_left` events
+
+---
+
+### Invite to Stage (Host Only)
+Directly invite a listener to the stage without requiring a hand raise.
+
+**Endpoint:** `POST /api/sns/voice-rooms/:id/invite-to-stage`
+**Authentication:** Required (must be host)
+
+**Request Body:**
+```json
+{
+  "user_id": 789
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "livekit_token": "eyJhbGc..."
+}
+```
+
+**Notes:**
+- Promotes listener to speaker directly (no hand raise needed)
+- Returns error if stage is full
+
+---
+
+### Refresh LiveKit Token
+Refresh the LiveKit token before its 1-hour TTL expires.
+
+**Endpoint:** `POST /api/sns/voice-rooms/:id/refresh-token`
+**Authentication:** Required
+
+**Response:**
+```json
+{
+  "livekit_token": "eyJhbGc..."
+}
+```
+
+**Notes:**
+- Must be a current participant in the room
+- Returns a token matching the user's current role (speaker or listener)
 
 ---
 

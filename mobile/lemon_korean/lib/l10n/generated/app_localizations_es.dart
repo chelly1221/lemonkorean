@@ -3424,7 +3424,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get exitLessonDialogContent =>
-      '¿Quieres salir de la lección?\nTu progreso hasta este paso se guardará.';
+      '¿Quieres salir de la lección?\nLa próxima vez empezarás desde el principio.';
 
   @override
   String get continueButton => 'Continuar';

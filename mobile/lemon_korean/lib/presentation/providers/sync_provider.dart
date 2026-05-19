@@ -4,8 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/network/api_client.dart';
-import '../../core/storage/local_storage.dart'
-    if (dart.library.html) '../../core/platform/web/stubs/local_storage_stub.dart';
+import '../../core/storage/local_storage.dart';
 
 class SyncProvider with ChangeNotifier {
   final _apiClient = ApiClient.instance;
@@ -18,6 +17,7 @@ class SyncProvider with ChangeNotifier {
   String? _errorMessage;
   Timer? _syncTimer;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
+  bool _disposed = false;
 
   // Getters
   bool get isSyncing => _isSyncing;
@@ -40,6 +40,7 @@ class SyncProvider with ChangeNotifier {
       // Listen to connectivity changes
       _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
         (List<ConnectivityResult> results) {
+          if (_disposed) return;
           final wasOffline = !_isOnline;
           _isOnline = !results.contains(ConnectivityResult.none);
 
@@ -116,7 +117,7 @@ class SyncProvider with ChangeNotifier {
 
       // Retry after delay
       Future.delayed(AppConstants.syncRetryDelay, () {
-        if (_isOnline) sync();
+        if (!_disposed && _isOnline) sync();
       });
     }
   }
@@ -171,6 +172,7 @@ class SyncProvider with ChangeNotifier {
 
   @override
   void dispose() {
+    _disposed = true;
     _syncTimer?.cancel();
     _connectivitySubscription?.cancel();
     super.dispose();

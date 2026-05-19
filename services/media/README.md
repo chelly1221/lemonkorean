@@ -69,7 +69,21 @@ curl -H "Range: bytes=0-1023" http://localhost:3004/media/audio/1234567890_lesso
 
 ---
 
-### 3. 썸네일 생성/서빙
+### 3. AI 모델 파일 서빙
+```http
+GET /media/models/*filepath
+```
+
+AI 모델 파일 (음성인식 등)을 서빙합니다.
+
+**예제:**
+```bash
+curl http://localhost:3004/media/models/whisper/model.bin
+```
+
+---
+
+### 4. 썸네일 생성/서빙
 ```http
 GET /media/thumbnails/:key?size=200
 ```
@@ -93,7 +107,7 @@ curl http://localhost:3004/media/thumbnails/1234567890_photo.jpg?size=400
 
 ---
 
-### 4. 미디어 업로드 (관리자용)
+### 5. 미디어 업로드 (관리자용, 인증 필요)
 ```http
 POST /media/upload?type=images|audio|video
 Content-Type: multipart/form-data
@@ -145,7 +159,7 @@ curl -X POST http://localhost:3004/media/upload?type=video \
 
 ---
 
-### 5. 미디어 삭제 (관리자용)
+### 6. 미디어 삭제 (관리자용, 인증 필요)
 ```http
 DELETE /media/:type/:key
 ```
@@ -296,19 +310,12 @@ config := utils.OptimizationConfig{
 
 ## 보안 고려사항
 
-### 인증 미들웨어 추가 (TODO)
-관리자 전용 엔드포인트에 인증 추가:
+### 인증 미들웨어 (구현됨)
+관리자 전용 엔드포인트(업로드/삭제)에는 JWT 인증 미들웨어가 적용되어 있습니다:
 ```go
 // main.go
-import "lemonkorean/media/middleware"
-
-// Admin endpoints with auth
-adminGroup := media.Group("/")
-adminGroup.Use(middleware.AdminAuth())
-{
-    adminGroup.POST("/upload", mediaHandler.UploadMedia)
-    adminGroup.DELETE("/:type/:key", mediaHandler.DeleteMedia)
-}
+media.POST("/upload", middleware.AuthMiddleware(), mediaHandler.UploadMedia)
+media.DELETE("/:type/:key", middleware.AuthMiddleware(), mediaHandler.DeleteMedia)
 ```
 
 ### 파일 크기 제한

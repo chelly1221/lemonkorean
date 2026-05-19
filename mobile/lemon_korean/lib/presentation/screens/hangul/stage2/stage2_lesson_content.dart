@@ -27,7 +27,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L1Step1Title,
         description: l10n.hangulS2L1Step1Desc,
         data: {
-          'characters': ['야', '갸', '냐'],
+          'characters': ['야', '갸', '냐', '댜', '랴'],
           'type': 'syllable',
           'showMouth': true,
         },
@@ -37,7 +37,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L1Step2Title,
         description: l10n.hangulS2L1Step2Desc,
         data: {
-          'characters': ['야', '갸', '냐'],
+          'characters': ['야', '갸', '냐', '댜', '랴'],
           'maxAttempts': 3,
           'passScore': 60,
           'showPhonemeDetail': true,
@@ -61,6 +61,14 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '냐',
               'choices': ['냐', '나']
             },
+            {
+              'answer': '댜',
+              'choices': ['다', '댜']
+            },
+            {
+              'answer': '랴',
+              'choices': ['라', '랴']
+            },
           ],
         },
       ),
@@ -73,8 +81,10 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
             {'consonant': 'ㅇ', 'vowel': 'ㅑ', 'result': '야'},
             {'consonant': 'ㄱ', 'vowel': 'ㅑ', 'result': '갸'},
             {'consonant': 'ㄴ', 'vowel': 'ㅑ', 'result': '냐'},
+            {'consonant': 'ㄷ', 'vowel': 'ㅑ', 'result': '댜'},
+            {'consonant': 'ㄹ', 'vowel': 'ㅑ', 'result': '랴'},
           ],
-          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ'],
+          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ'],
           'vowelChoices': ['ㅑ', 'ㅏ', 'ㅕ'],
         },
       ),
@@ -99,7 +109,21 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '냐',
               'choices': ['나', '냐', '너']
             },
+            {
+              'question': l10n.hangulS2L1Step5Q2,
+              'answer': '댜',
+              'choices': ['다', '댜', '랴']
+            },
           ],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['야', '갸', '냐'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -137,7 +161,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L2Step1Title,
         description: l10n.hangulS2L2Step1Desc,
         data: {
-          'characters': ['여', '겨', '녀'],
+          'characters': ['여', '겨', '녀', '더', '려'],
           'type': 'syllable',
           'showMouth': true,
         },
@@ -147,7 +171,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L2Step2Title,
         description: l10n.hangulS2L2Step2Desc,
         data: {
-          'characters': ['여', '겨', '녀'],
+          'characters': ['여', '겨', '녀', '더', '려'],
           'maxAttempts': 3,
           'passScore': 60,
           'showPhonemeDetail': true,
@@ -171,6 +195,14 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '녀',
               'choices': ['너', '녀']
             },
+            {
+              'answer': '더',
+              'choices': ['도', '더']
+            },
+            {
+              'answer': '려',
+              'choices': ['로', '려']
+            },
           ],
         },
       ),
@@ -183,9 +215,20 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
             {'consonant': 'ㅇ', 'vowel': 'ㅕ', 'result': '여'},
             {'consonant': 'ㄱ', 'vowel': 'ㅕ', 'result': '겨'},
             {'consonant': 'ㄴ', 'vowel': 'ㅕ', 'result': '녀'},
+            {'consonant': 'ㄷ', 'vowel': 'ㅕ', 'result': '더'},
+            {'consonant': 'ㄹ', 'vowel': 'ㅕ', 'result': '려'},
           ],
-          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ'],
+          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ'],
           'vowelChoices': ['ㅕ', 'ㅓ', 'ㅑ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['여', '겨', '녀'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -223,7 +266,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L3Step1Title,
         description: l10n.hangulS2L3Step1Desc,
         data: {
-          'characters': ['요', '교', '뇨'],
+          'characters': ['요', '교', '뇨', '됴', '료'],
           'type': 'syllable',
           'showMouth': true,
         },
@@ -233,7 +276,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L3Step2Title,
         description: l10n.hangulS2L3Step2Desc,
         data: {
-          'characters': ['요', '교', '뇨'],
+          'characters': ['요', '교', '뇨', '됴', '료'],
           'maxAttempts': 3,
           'passScore': 60,
           'showPhonemeDetail': true,
@@ -257,6 +300,14 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '뇨',
               'choices': ['노', '뇨']
             },
+            {
+              'answer': '됴',
+              'choices': ['도', '됴']
+            },
+            {
+              'answer': '료',
+              'choices': ['로', '료']
+            },
           ],
         },
       ),
@@ -269,9 +320,20 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
             {'consonant': 'ㅇ', 'vowel': 'ㅛ', 'result': '요'},
             {'consonant': 'ㄱ', 'vowel': 'ㅛ', 'result': '교'},
             {'consonant': 'ㄴ', 'vowel': 'ㅛ', 'result': '뇨'},
+            {'consonant': 'ㄷ', 'vowel': 'ㅛ', 'result': '됴'},
+            {'consonant': 'ㄹ', 'vowel': 'ㅛ', 'result': '료'},
           ],
-          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ'],
+          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ'],
           'vowelChoices': ['ㅛ', 'ㅗ', 'ㅠ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['요', '교', '뇨'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -309,7 +371,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L4Step1Title,
         description: l10n.hangulS2L4Step1Desc,
         data: {
-          'characters': ['유', '규', '뉴'],
+          'characters': ['유', '규', '뉴', '듀', '류'],
           'type': 'syllable',
           'showMouth': true,
         },
@@ -319,7 +381,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         title: l10n.hangulS2L4Step2Title,
         description: l10n.hangulS2L4Step2Desc,
         data: {
-          'characters': ['유', '규', '뉴'],
+          'characters': ['유', '규', '뉴', '듀', '류'],
           'maxAttempts': 3,
           'passScore': 60,
           'showPhonemeDetail': true,
@@ -343,6 +405,14 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
               'answer': '뉴',
               'choices': ['누', '뉴']
             },
+            {
+              'answer': '듀',
+              'choices': ['두', '듀']
+            },
+            {
+              'answer': '류',
+              'choices': ['루', '류']
+            },
           ],
         },
       ),
@@ -355,9 +425,20 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
             {'consonant': 'ㅇ', 'vowel': 'ㅠ', 'result': '유'},
             {'consonant': 'ㄱ', 'vowel': 'ㅠ', 'result': '규'},
             {'consonant': 'ㄴ', 'vowel': 'ㅠ', 'result': '뉴'},
+            {'consonant': 'ㄷ', 'vowel': 'ㅠ', 'result': '듀'},
+            {'consonant': 'ㄹ', 'vowel': 'ㅠ', 'result': '류'},
           ],
-          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ'],
+          'consonantChoices': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ'],
           'vowelChoices': ['ㅠ', 'ㅜ', 'ㅛ'],
+        },
+      ),
+      LessonStep(
+        type: StepType.writingPractice,
+        title: '쓰기 연습',
+        description: '배운 음절을 직접 써 보세요',
+        data: {
+          'characters': ['유', '규', '뉴'],
+          'mode': 'trace',
         },
       ),
       LessonStep(
@@ -557,6 +638,54 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
     ],
   ),
 
+  // ── Lesson 2-7W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '2-7W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['여우', '야구', '요리', '교유', '규요'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['여우', '야구', '요리', '교유', '규요'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '여우', 'choices': ['여우', '야구', '요리']},
+            {'answer': '야구', 'choices': ['야구', '교유', '여우']},
+            {'answer': '요리', 'choices': ['규요', '요리', '야구']},
+            {'answer': '교유', 'choices': ['교유', '여우', '규요']},
+            {'answer': '규요', 'choices': ['요리', '규요', '교유']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '2-7W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   // ── Lesson 2-7: Stage 2 Mission ──
   LessonData(
     id: '2-7',
@@ -579,7 +708,7 @@ List<LessonData> getStage2Lessons(AppLocalizations l10n) => <LessonData>[
         data: {
           'timeLimitSeconds': 120,
           'targetCount': 8,
-          'consonants': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ'],
+          'consonants': ['ㅇ', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ'],
           'vowels': ['ㅑ', 'ㅕ', 'ㅛ', 'ㅠ'],
         },
       ),

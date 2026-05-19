@@ -474,6 +474,55 @@ List<LessonData> getStage8Lessons(AppLocalizations l10n) => <LessonData>[
     ],
   ),
 
+  // ── Lesson 8-8W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '8-8W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['빵', '물', '손', '밥', '강', '달', '눈', '산', '문', '곰'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['빵', '물', '손', '밥', '강', '달', '눈', '산', '문', '곰'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '빵', 'choices': ['빵', '물', '손']},
+            {'answer': '밥', 'choices': ['밥', '강', '달']},
+            {'answer': '눈', 'choices': ['눈', '산', '문']},
+            {'answer': '곰', 'choices': ['곰', '물', '강']},
+            {'answer': '강', 'choices': ['달', '강', '손']},
+            {'answer': '산', 'choices': ['산', '문', '빵']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '8-8W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   // ── Lesson 8-M: 미션 ──
   LessonData(
     id: '8-M',

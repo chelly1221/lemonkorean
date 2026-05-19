@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -6,10 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/app_constants.dart';
-import 'core/platform/storage_reset.dart'
-    if (dart.library.html) 'core/platform/web/storage_reset_web.dart';
 import 'core/network/api_client.dart';
-import 'core/platform/platform_factory.dart';
 import 'core/utils/app_logger.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'presentation/providers/auth_provider.dart';
@@ -23,7 +20,10 @@ import 'presentation/providers/settings_provider.dart';
 import 'presentation/providers/sync_provider.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/vocabulary_browser_provider.dart';
+import 'core/services/gop_service.dart';
 import 'core/services/socket_service.dart';
+import 'core/services/speech_model_manager.dart';
+import 'core/services/whisper_service.dart';
 import 'presentation/providers/dm_provider.dart';
 import 'presentation/providers/feed_provider.dart';
 import 'presentation/providers/social_provider.dart';
@@ -33,14 +33,12 @@ import 'presentation/providers/voice_room_provider.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
 import 'presentation/screens/onboarding/language_selection_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'core/storage/local_storage.dart';
+import 'core/services/notification_service.dart';
 
-// Mobile-only imports with web stubs
-import 'package:hive_flutter/hive_flutter.dart'
-    if (dart.library.html) 'core/platform/web/stubs/hive_stub.dart';
-import 'core/storage/local_storage.dart'
-    if (dart.library.html) 'core/platform/web/stubs/local_storage_stub.dart';
-import 'core/services/notification_service.dart'
-    if (dart.library.html) 'core/platform/web/stubs/notification_stub.dart';
+/// Global navigator key for notification-based navigation
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,47 +54,29 @@ void main() async {
   // Initialize ApiClient with production URL
   await ApiClient.instance.ensureInitialized();
 
-  // Platform-specific initialization
-  if (kIsWeb) {
-    AppLogger.i('Running on WEB platform', tag: 'Main');
+  // Initialize Hive
+  await Hive.initFlutter();
+  await LocalStorage.init();
 
-    // Web: Check and handle storage reset flag BEFORE initializing storage
-    await checkAndHandleStorageReset();
+  // Initialize notification service
+  await NotificationService.instance.init();
 
-    // Web: Initialize IndexedDB storage
-    final storage = PlatformFactory.createLocalStorage();
-    await storage.init();
+  // Set preferred orientations
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-    // Web: Also initialize static stub for backward compatibility
-    await LocalStorage.init();
+  // Set system UI overlay style
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
 
-    // Web: Initialize notification service (limited functionality)
-    final notification = PlatformFactory.createNotificationService();
-    await notification.init();
-  } else {
-    AppLogger.i('Running on MOBILE platform', tag: 'Main');
-
-    // Mobile: Initialize Hive
-    await Hive.initFlutter();
-    await LocalStorage.init();
-
-    // Mobile: Initialize notification service
-    await NotificationService.instance.init();
-
-    // Mobile: Set preferred orientations
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    // Mobile: Set system UI overlay style
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
+  // Pre-load speech model in background (non-blocking)
+  _initSpeechModel();
 
   // Pre-initialize SettingsProvider BEFORE runApp to load saved language
   // This prevents language flicker on startup (showing English/Chinese before Korean)
@@ -111,6 +91,17 @@ void main() async {
     settingsProvider: settingsProvider,
     themeProvider: themeProvider,
   ));
+}
+
+/// Pre-initialize speech models at app startup (fire-and-forget).
+void _initSpeechModel() async {
+  try {
+    await SpeechModelManager.instance.ensureModelsReady();
+    await GopService.instance.initialize();
+    await WhisperService.instance.initialize();
+  } catch (_) {
+    // Non-fatal: will retry when speech screen opens
+  }
 }
 
 /// Convert AppLanguage to Locale
@@ -160,10 +151,8 @@ class LemonKoreanApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DmProvider()),
         ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider(create: (_) => VoiceRoomProvider()),
-        // Speech recognition provider (mobile only - on-device AI)
-        if (!kIsWeb) ChangeNotifierProvider(create: (_) => SpeechProvider()),
-        // Download provider only on mobile (web doesn't support file downloads)
-        if (!kIsWeb) ChangeNotifierProvider(create: (_) => DownloadProvider()),
+        ChangeNotifierProvider(create: (_) => SpeechProvider()),
+        ChangeNotifierProvider(create: (_) => DownloadProvider()),
       ],
       child: Consumer2<SettingsProvider, ThemeProvider>(
         builder: (context, settings, theme, child) {
@@ -171,6 +160,7 @@ class LemonKoreanApp extends StatelessWidget {
           final locale = _getLocaleFromLanguage(settings.appLanguage);
 
           return MaterialApp(
+            navigatorKey: navigatorKey,
             title: AppConstants.appName,
             debugShowCheckedModeBanner: false,
             // Localization configuration

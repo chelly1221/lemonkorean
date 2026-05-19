@@ -51,22 +51,18 @@ class _StepQuizMcqState extends State<StepQuizMcq> {
       _selectedAnswer = choice;
       _showFeedback = true;
     });
+  }
 
-    // B2: longer delay on wrong answer so learner can see correct highlight
-    final isCorrect = choice == correct;
-    final delay = isCorrect ? 900 : 1800;
-    Future.delayed(Duration(milliseconds: delay), () {
-      if (!mounted) return;
-      if (_currentIndex < _questions.length - 1) {
-        setState(() {
-          _currentIndex++;
-          _selectedAnswer = null;
-          _showFeedback = false;
-        });
-      } else {
-        widget.onCompleted(_correctCount, _questions.length);
-      }
-    });
+  void _goNext() {
+    if (_currentIndex < _questions.length - 1) {
+      setState(() {
+        _currentIndex++;
+        _selectedAnswer = null;
+        _showFeedback = false;
+      });
+    } else {
+      widget.onCompleted(_correctCount, _questions.length);
+    }
   }
 
   @override
@@ -183,7 +179,30 @@ class _StepQuizMcqState extends State<StepQuizMcq> {
               );
             }).toList(),
           ),
-          const Spacer(flex: 2),
+          const Spacer(),
+          // Next button (visible after answering)
+          if (_showFeedback)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _goNext,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFD54F),
+                  foregroundColor: Colors.black87,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+                child: Text(
+                  _currentIndex < _questions.length - 1
+                      ? (AppLocalizations.of(context)?.nextButton ?? '다음')
+                      : (AppLocalizations.of(context)?.completeButton ?? '완료'),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ).animate().fadeIn(duration: 200.ms),
+          const SizedBox(height: 16),
         ],
       ),
     );

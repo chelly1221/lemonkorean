@@ -361,6 +361,55 @@ List<LessonData> getStage9Lessons(AppLocalizations l10n) => <LessonData>[
       ),
     ],
   ),
+  // ── Lesson 9-7W: 보너스 - 단어 읽기 ──
+  LessonData(
+    id: '9-7W',
+    title: '보너스: 단어 읽기',
+    subtitle: '배운 글자로 단어를 읽어보세요',
+    steps: [
+      LessonStep(
+        type: StepType.soundExplore,
+        title: '단어 소리 탐색',
+        description: '단어를 들어보세요',
+        data: {
+          'characters': ['꽃', '옷', '맛', '낮', '빛', '숲', '부엌', '앞'],
+          'type': 'word',
+        },
+      ),
+      LessonStep(
+        type: StepType.speechPractice,
+        title: '단어 발음 연습',
+        description: '단어를 따라 읽어보세요',
+        data: {
+          'characters': ['꽃', '옷', '맛', '낮', '빛', '숲', '부엌', '앞'],
+          'maxAttempts': 3,
+          'passScore': 55,
+          'showPhonemeDetail': true,
+        },
+      ),
+      LessonStep(
+        type: StepType.soundMatch,
+        title: '단어 듣고 고르기',
+        description: '소리를 듣고 맞는 단어를 고르세요',
+        data: {
+          'questions': [
+            {'answer': '꽃', 'choices': ['꽃', '옷', '맛']},
+            {'answer': '낮', 'choices': ['낮', '빛', '숲']},
+            {'answer': '부엌', 'choices': ['부엌', '앞', '꽃']},
+            {'answer': '옷', 'choices': ['옷', '맛', '앞']},
+            {'answer': '빛', 'choices': ['숲', '빛', '낮']},
+            {'answer': '앞', 'choices': ['앞', '부엌', '옷']},
+          ],
+        },
+      ),
+      LessonStep(
+        type: StepType.summary,
+        title: '잘했어요!',
+        data: {'lessonId': '9-7W', 'message': '단어 읽기 연습을 완료했어요!'},
+      ),
+    ],
+  ),
+
   LessonData(
     id: '9-M',
     title: l10n.hangulS9LMTitle,

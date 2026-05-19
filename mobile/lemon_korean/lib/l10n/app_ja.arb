@@ -2629,7 +2629,7 @@
   "stageDetailComingSoon": "詳細は準備中です。",
   "bossQuizComingSoon": "ボスクイズは準備中です。",
   "exitLessonDialogTitle": "レッスンを終了",
-  "exitLessonDialogContent": "レッスンを終了しますか？\n現在のステップまで自動保存されます。",
+  "exitLessonDialogContent": "レッスンを終了しますか？\n次回は最初からになります。",
   "continueButton": "続ける",
   "exitLessonButton": "終了する",
   "noQuestions": "問題がありません",
