@@ -5,7 +5,7 @@
 
 **플랫폼**: Flutter 기반 Android 모바일 앱
 
-**상태**: ✅ **프로덕션 준비 완료** (100%, 8/8 서비스)
+**상태**: ✅ **프로덕션 운영 중** — Hetzner Cloud VM 배포 (`lemon.3chan.kr`). 서비스 7개 운영 (moderation 미배포).
 
 **핵심 특징**: 오프라인 우선, SRS 복습, 7단계 레슨, 13단계 한글 커리큘럼(Stage 0~12), 다국어 콘텐츠 (ko, en, es, ja, zh, zh_TW), 간체/번체 자동 변환, 게임화(레몬 보상), SNS 커뮤니티, 실시간 DM, 음성 대화방(LiveKit, 6가지 방 유형), AI 콘텐츠 모더레이션 (AVX2/AVX-VNNI 최적화)
 
@@ -50,6 +50,8 @@ Flutter App (오프라인 우선, 콘텐츠 내장) ↔ Nginx Gateway ↔ 최소
 | Moderation | 3008 | Python (FastAPI) | AI 콘텐츠 모더레이션 (ONNX Runtime) |
 
 > Content/Admin 서비스는 개발/운영 도구로 유지 가능하지만, 모바일 런타임의 정적 학습 콘텐츠 필수 의존으로 두지 않는다.
+>
+> **Moderation 서비스는 현재 프로덕션에 미배포** — SNS는 moderation 없이 동작한다.
 
 ---
 
@@ -150,10 +152,17 @@ return localPath ?? '${ApiConstants.baseUrl}/media/$remoteKey';
 - ❌ docker-compose.yml 직접 수정 금지
 - ✅ `config/` 디렉토리의 설정 파일 수정
 
-### 배포 자동화
-- Deploy Agent는 systemd 서비스로 실행 (`deploy-agent.service`)
-- APK 빌드는 Admin Dashboard에서 트리거
-- 트리거 파일 기반 통신 (`/services/admin/src/deploy-triggers/`)
+### 배포 (프로덕션)
+- Hetzner Cloud VM의 `/srv/lemon`(이 저장소의 git 체크아웃)에서 운영. 공유 Caddy
+  프록시가 `lemon.3chan.kr`의 TLS를 종단하고 `web` 네트워크의 `lemon-nginx`로 라우팅.
+- 배포 흐름: **로컬에서 개발·커밋·push → VM에서 `./deploy.sh`** (`git pull --ff-only`
+  + `docker compose -f docker-compose.prod.yml up -d --build`). VM에서 코드 직접 수정 금지.
+- 프로덕션 스택 `docker-compose.prod.yml` — 인프라 5개(postgres·mongo·redis·rabbitmq·
+  minio) + 서비스 7개 + livekit + nginx = 14 컨테이너. 개발툴(pgadmin·mongo-express·
+  redis-commander)과 moderation 서비스는 미배포. 호스트 포트는 노출하지 않음.
+- LiveKit은 `network_mode: host` — RTC는 공개 UDP 50000-50200 + TCP 7881 필요(방화벽 개방).
+- 오프사이트 백업: `scripts/backup-to-nas.sh`가 매일 pg+mongo 덤프와 minio·apk-builds를
+  NAS로 미러.
 
 ---
 
@@ -227,7 +236,6 @@ sudo lsof -i :5432
 | API 엔드포인트 | `/docs/API.md` |
 | DB 스키마 | `/database/postgres/SCHEMA.md` |
 | 배포 가이드 | `/DEPLOYMENT.md` |
-| 배포 트리거 시스템 | `/scripts/deploy-trigger/README.md` |
 | 테스트 | `/TESTING.md` |
 | 모니터링 | `/MONITORING.md` |
 | 백업 | `/scripts/backup/README.md` |
@@ -250,4 +258,4 @@ sudo lsof -i :5432
 
 ---
 
-**마지막 업데이트**: 2026-05-18
+**마지막 업데이트**: 2026-05-19
